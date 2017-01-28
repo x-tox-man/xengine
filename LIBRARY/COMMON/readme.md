@@ -2,7 +2,7 @@ LIB BULLET	: https://github.com/bulletphysics/bullet3
 	Release : 2.86 - a230c941f9ba7d5c170380cb21b5df92e5f52429
 
 LIB PNG		: https://github.com/glennrp/libpng
-	Release : v1.6.28 - 17ad597dba8a70874ab4f0f02d81e69e7d141441
+	Release : v1.6.28 - 5756fcab2f6cefcba285dac4f080bcc4f4fef42c
 
 LIB UV		: https://github.com/libuv/libuv
 	Release : v1.10.1 - 2e49e332bdede6db7cf17fa784a902e8386d5d86
