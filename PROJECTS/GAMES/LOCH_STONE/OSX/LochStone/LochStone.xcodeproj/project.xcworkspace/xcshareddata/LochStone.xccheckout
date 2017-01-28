@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F2F20520-3A4E-4FD5-8229-6BE8B3E8B41D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LochStone</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5ED541FFD6C43D273BE1B4ADF470AA637DCD548F</key>
+		<string>bitbucket.org:Dabulus/game-engine.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PROJECTS/GAMES/LOCH_STONE/OSX/LochStone/LochStone.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5ED541FFD6C43D273BE1B4ADF470AA637DCD548F</key>
+		<string>../../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>bitbucket.org:Dabulus/game-engine.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5ED541FFD6C43D273BE1B4ADF470AA637DCD548F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5ED541FFD6C43D273BE1B4ADF470AA637DCD548F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>game-engine</string>
+		</dict>
+	</array>
+</dict>
+</plist>

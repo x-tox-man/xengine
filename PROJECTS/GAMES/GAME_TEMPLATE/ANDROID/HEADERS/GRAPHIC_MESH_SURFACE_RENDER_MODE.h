@@ -1,0 +1,20 @@
+//
+//  Header.h
+//  GAME-ENGINE-REBORN
+//
+//  Created by Christophe Bernard on 16/05/15.
+//  Copyright (c) 2015 Christophe Bernard. All rights reserved.
+//
+
+#ifndef GAME_ENGINE_REBORN_GRAPHIC_MESH_SURFACE_RENDER_MODE_h
+#define GAME_ENGINE_REBORN_GRAPHIC_MESH_SURFACE_RENDER_MODE_h
+
+
+enum GRAPHIC_MESH_SURFACE_RENDER_MODE {
+    GRAPHIC_MESH_SURFACE_RENDER_MODE_Solid = 0,
+    GRAPHIC_MESH_SURFACE_RENDER_MODE_Wireframe,
+    GRAPHIC_MESH_SURFACE_RENDER_MODE_Count,
+    GRAPHIC_MESH_SURFACE_RENDER_MODE_None
+};
+
+#endif

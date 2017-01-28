@@ -1,0 +1,21 @@
+//
+//  GAMEPLAY_COMPONENT_TYPE.h
+//  GAME-ENGINE-REBORN
+//
+//  Created by Christophe Bernard on 28/03/15.
+//  Copyright (c) 2015 Christophe Bernard. All rights reserved.
+//
+
+#ifndef GAME_ENGINE_REBORN_GAMEPLAY_COMPONENT_TYPE_h
+#define GAME_ENGINE_REBORN_GAMEPLAY_COMPONENT_TYPE_h
+
+enum GAMEPLAY_COMPONENT_TYPE {
+    GAMEPLAY_COMPONENT_TYPE_Position = 0,
+    GAMEPLAY_COMPONENT_TYPE_Physics,
+    GAMEPLAY_COMPONENT_TYPE_Render,
+    GAMEPLAY_COMPONENT_TYPE_Animation,
+    GAMEPLAY_COMPONENT_TYPE_Count,
+    GAMEPLAY_COMPONENT_TYPE_None
+};
+
+#endif
