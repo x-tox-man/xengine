@@ -1,0 +1,21 @@
+[submodule "LIBRARY/COMMON/LUA"]
+	path = LIBRARY/COMMON/LUA
+	url = https://github.com/lua/lua.git
+[submodule "LIBRARY/COMMON/UV"]
+	path = LIBRARY/COMMON/UV
+	url = https://github.com/libuv/libuv.git
+[submodule "LIBRARY/COMMON/PNG"]
+	path = LIBRARY/COMMON/PNG
+	url = https://github.com/glennrp/libpng.git
+[submodule "LIBRARY/COMMON/OPENCOLLADA"]
+	path = LIBRARY/COMMON/OPENCOLLADA
+	url = https://github.com/KhronosGroup/OpenCOLLADA.git
+[submodule "LIBRARY/COMMON/ZLIB"]
+	path = LIBRARY/COMMON/ZLIB
+	url = https://github.com/madler/zlib.git
+[submodule "LIBRARY/COMMON/FREETYPE"]
+	path = LIBRARY/COMMON/FREETYPE
+	url = http://git.savannah.gnu.org/cgit/freetype/freetype2.git
+[submodule "LIBRARY/COMMON/BULLET"]
+	path = LIBRARY/COMMON/BULLET
+	url = https://github.com/bulletphysics/bullet3.git

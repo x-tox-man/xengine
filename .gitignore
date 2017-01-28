@@ -4,6 +4,7 @@ armv7armv7sarm64/
 *.suo
 bin/
 obj/
+BUILDIR/
 PROJECTS/VISUAL2015/GameEngineWindows/Debug/
 PROJECTS/VISUAL2015/GameEngineWindows/GameEngineWindows/Debug/
 PROJECTS/XSGameEngine.VC.opendb
