@@ -1,0 +1,13 @@
+//
+//  X_CALLBACK.cpp
+//  GAME-ENGINE-REBORN
+//
+//  Created by Christophe Bernard on 23/06/14.
+//  Copyright (c) 2014 Christophe Bernard. All rights reserved.
+//
+
+#include "CORE_HELPERS_CALLBACK.h"
+
+CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( CORE_HELPERS_CALLBACK )
+
+CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( CORE_HELPERS_CALLBACK )

@@ -1,0 +1,18 @@
+//
+//  GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp
+//  GAME-ENGINE-REBORN
+//
+//  Created by Christophe Bernard on 6/10/15.
+//  Copyright (c) 2015 Christophe Bernard. All rights reserved.
+//
+
+#include "GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.h"
+
+GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD::~GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD() {
+
+}
+
+
+void GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD::Apply() {
+
+}

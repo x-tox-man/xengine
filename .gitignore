@@ -1,0 +1,14 @@
+CODE/HEADERS/
+armv7armv7sarm64/
+*.sdf
+*.suo
+bin/
+obj/
+PROJECTS/VISUAL2015/GameEngineWindows/Debug/
+PROJECTS/VISUAL2015/GameEngineWindows/GameEngineWindows/Debug/
+PROJECTS/XSGameEngine.VC.opendb
+PROJECTS/ANDROID-NDK-BASE/HEADERS/
+*.filters
+i386/
+PROJECTS/XSGameEngine.VC.db
+PROJECTS/XSGameEngine.VC.VC.opendb

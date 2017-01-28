@@ -1,0 +1,1 @@
+C:\cygwin64\bin\run.exe -l -v -c "/cygdrive/c/Users/X/Documents/game-engine/PROJECTS/ANDROID-NDK-BASE/copy_headers.sh"

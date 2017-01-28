@@ -1,0 +1,21 @@
+//
+//  GRAPHIC_SHADER_LIGHT_TYPE.h
+//  GAME-ENGINE-REBORN
+//
+//  Created by Christophe Bernard on 23/09/15.
+//  Copyright (c) 2015 Christophe Bernard. All rights reserved.
+//
+
+#ifndef GAME_ENGINE_REBORN_GRAPHIC_SHADER_LIGHT_TYPE_h
+#define GAME_ENGINE_REBORN_GRAPHIC_SHADER_LIGHT_TYPE_h
+
+enum GRAPHIC_SHADER_LIGHT_TYPE {
+    GRAPHIC_SHADER_LIGHT_TYPE_None = -1,
+    GRAPHIC_SHADER_LIGHT_TYPE_Ambient = 0,
+    GRAPHIC_SHADER_LIGHT_TYPE_Point,
+    GRAPHIC_SHADER_LIGHT_TYPE_Directional,
+    GRAPHIC_SHADER_LIGHT_TYPE_Spot,
+    GRAPHIC_SHADER_LIGHT_TYPE_Count,
+};
+
+#endif
