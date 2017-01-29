@@ -38,6 +38,8 @@ XS_CLASS_BEGIN( SERVICE_NETWORK_SYSTEM )
 
 XS_DEFINE_UNIQUE( SERVICE_NETWORK_SYSTEM )
 
+~SERVICE_NETWORK_SYSTEM();
+
 void Initialize();
 void Update( bool it_waits );
 void Update( bool it_waits, uv_loop_t * loop );

@@ -23,18 +23,19 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_TEXT, GRAPHIC_OBJECT_SHAPE )
 
 CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GRAPHIC_TEXT );
 
-GRAPHIC_TEXT();
+    GRAPHIC_TEXT();
+    virtual ~GRAPHIC_TEXT();
 
-void Initialize( const char * text, GRAPHIC_FONT & font, float size_factor, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, bool left_to_right = true);
-virtual void Render( const GRAPHIC_RENDERER & renderer );
+    void Initialize( const char * text, GRAPHIC_FONT & font, float size_factor, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, bool left_to_right = true);
+    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
 
-inline CORE_MATH_VECTOR & GetTextSize() { return Size; }
-void UpdateText( const char * text, float size_factor = 1.0f, bool left_to_right = true );
+    inline CORE_MATH_VECTOR & GetTextSize() { return Size; }
+    void UpdateText( const char * text, float size_factor = 1.0f, bool left_to_right = true );
 
-GRAPHIC_FONT *
-    Font;
-CORE_MATH_VECTOR
-    Size;
+    GRAPHIC_FONT *
+        Font;
+    CORE_MATH_VECTOR
+        Size;
 
 XS_CLASS_END
 

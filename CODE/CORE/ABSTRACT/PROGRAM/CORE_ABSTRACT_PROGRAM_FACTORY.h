@@ -26,7 +26,7 @@ XS_CLASS_BEGIN(CORE_ABSTRACT_PROGRAM_FACTORY)
 public :
 
     CORE_ABSTRACT_PROGRAM_FACTORY();
-
+    virtual ~CORE_ABSTRACT_PROGRAM_FACTORY();
 
     virtual void Load( const char *, const CORE_ABSTRACT_BASE_PROGRAM_RUNTIME &);
     virtual void Execute();

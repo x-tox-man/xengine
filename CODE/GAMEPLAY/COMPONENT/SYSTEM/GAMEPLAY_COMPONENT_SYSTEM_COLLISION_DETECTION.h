@@ -20,26 +20,26 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAMEPLAY_COMPONENT_SYSTEM )
 
-GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION();
+    GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION();
+    virtual ~GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION();
 
-virtual void Initialize();
+    virtual void Initialize() override;
+    virtual void Update( float time_step ) override;
+    virtual void Render() override;
+    virtual void Finalize() override;
 
-virtual void Update( float time_step );
-virtual void Render();
+    void SetRenderer( GRAPHIC_RENDERER * renderer ) { Renderer = renderer; }
 
-virtual void Finalize();
+    #ifdef __BULLET_PHYSICS__
+        btDiscreteDynamicsWorld * GetDynamicsWorld() { return DynamicsWorld; }
+    #endif
 
-void SetRenderer( GRAPHIC_RENDERER * renderer ) { Renderer = renderer; }
-
-#ifdef __BULLET_PHYSICS__
-    btDiscreteDynamicsWorld * GetDynamicsWorld() { return DynamicsWorld; }
-#endif
-
-virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY * entity );
+    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) override;
 
 private :
 
-GRAPHIC_RENDERER * Renderer;
+    GRAPHIC_RENDERER
+        * Renderer;
 
 #ifdef __BULLET_PHYSICS__
     btDiscreteDynamicsWorld * DynamicsWorld;

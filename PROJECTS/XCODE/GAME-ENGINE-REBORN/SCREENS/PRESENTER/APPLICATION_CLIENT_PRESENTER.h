@@ -14,24 +14,25 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(APPLICATION_CLIENT_PRESENTER, APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER)
 
-APPLICATION_CLIENT_PRESENTER( NETWORK_CLIENT * client );
+    APPLICATION_CLIENT_PRESENTER( NETWORK_CLIENT * client );
+    virtual ~APPLICATION_CLIENT_PRESENTER();
 
-virtual void Configure() override;
+    virtual void Configure() override;
 
-virtual void StartGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) override;
-virtual void SelectGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) override;
-virtual void OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) override;
+    virtual void StartGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) override;
+    virtual void SelectGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) override;
+    virtual void OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) override;
 
-virtual void OnClientConnected(NETWORK_PLAYER * player) override;
-virtual void OnClientDisconnected(NETWORK_PLAYER * player) override;
-virtual void OnChatMessageReceived(NETWORK_PLAYER * player, const char * message) override;
-virtual void OnGameStarting() override;
-virtual void OnStoppedGameStarting() override;
+    virtual void OnClientConnected(NETWORK_PLAYER * player) override;
+    virtual void OnClientDisconnected(NETWORK_PLAYER * player) override;
+    virtual void OnChatMessageReceived(NETWORK_PLAYER * player, const char * message) override;
+    virtual void OnGameStarting() override;
+    virtual void OnStoppedGameStarting() override;
 
 private:
 
-NETWORK_CLIENT
-    * Client;
+    NETWORK_CLIENT
+        * Client;
 
 XS_CLASS_END
 

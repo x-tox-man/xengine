@@ -16,6 +16,10 @@ class GRAPHIC_PARTICLE_MODIFIER {
     
 public:
     
+    virtual ~GRAPHIC_PARTICLE_MODIFIER() {
+        
+    }
+    
     virtual void Apply( float time_step, int start, int end, std::array< PARTICLE_TYPE, PARTICLE_ARRAY_SIZE > & particle_table, std::array< PARTICLE_TYPE_ATTRIBUTE, PARTICLE_ARRAY_SIZE > & particle_attribute_table ) { }
     
 protected :

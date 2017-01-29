@@ -14,14 +14,15 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR, GRAPHIC_SHADER_EFFECT )
 
-GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR();
+    GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR();
+    virtual ~GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR();
 
-virtual void Apply();
-virtual void BindAttributes();
+    virtual void Apply() override;
+    virtual void BindAttributes() override;
 
-static CORE_HELPERS_IDENTIFIER
-    SampleOffsetsIdentifier,
-    SampleWeightsIdentifier;
+    static CORE_HELPERS_IDENTIFIER
+        SampleOffsetsIdentifier,
+        SampleWeightsIdentifier;
 
 XS_CLASS_END
 

@@ -24,6 +24,7 @@
 XS_CLASS_BEGIN( CORE_PARALLEL_THREAD )
 
 CORE_PARALLEL_THREAD();
+virtual ~CORE_PARALLEL_THREAD();
 
 void Initialize( const char * thread_name, CORE_PARALLEL_TASK & task );
 

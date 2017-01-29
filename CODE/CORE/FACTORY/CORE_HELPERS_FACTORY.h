@@ -76,7 +76,7 @@ __FACTORY_ELEMENT_CLASS__ * FACTORY_ELEMENT< __FACTORY_ELEMENT_CLASS__ >::__Inne
     \
     friend class FACTORY_ELEMENT< __CLASS_TYPE__ >;\
     \
-    virtual __FACTORY_TYPE__ * __InnerCreate() const { \
+    virtual __FACTORY_TYPE__ * __InnerCreate() const override { \
         return new __CLASS_TYPE__();\
     }\
     \

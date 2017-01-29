@@ -18,6 +18,7 @@ XS_CLASS_BEGIN( CORE_TIMELINE_EVENT )
     XS_DEFINE_SERIALIZABLE
 
     CORE_TIMELINE_EVENT();
+    ~CORE_TIMELINE_EVENT();
 
     inline float GetStart() const { return Start; }
     inline float GetEnd() const { return End; }

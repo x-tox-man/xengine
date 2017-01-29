@@ -26,6 +26,8 @@ XS_CLASS_BEGIN( AUDIO_SYSTEM )
 
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( AUDIO_SYSTEM );
 
+    ~AUDIO_SYSTEM();
+
     void Initialize();
     void Finalize();
 
@@ -43,9 +45,12 @@ XS_CLASS_BEGIN( AUDIO_SYSTEM )
 
 private:
 
-AUDIO_INTERFACE< AUDIO_OPENAL > * Interface;
-AUDIO_SOUND_BANK Bank;
-AUDIO_SOUND * PlayingMusic;
+AUDIO_INTERFACE< AUDIO_OPENAL >
+    * Interface;
+AUDIO_SOUND_BANK
+    Bank;
+AUDIO_SOUND
+    * PlayingMusic;
 
 XS_CLASS_END
 

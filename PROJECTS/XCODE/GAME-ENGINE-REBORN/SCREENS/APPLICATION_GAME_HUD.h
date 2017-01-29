@@ -15,12 +15,13 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( APPLICATION_GAME_HUD, GRAPHIC_UI_FRAME )
 
-APPLICATION_GAME_HUD();
+    APPLICATION_GAME_HUD();
+    virtual ~APPLICATION_GAME_HUD();
 
-virtual void Initialize() override;
+    virtual void Initialize() override;
 
-APPLICATION_HUD_PRESENTER
-    * Presenter;
+    APPLICATION_HUD_PRESENTER
+        * Presenter;
 
 XS_CLASS_END
 

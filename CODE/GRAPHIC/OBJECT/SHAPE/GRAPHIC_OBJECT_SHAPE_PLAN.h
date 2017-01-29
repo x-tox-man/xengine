@@ -15,16 +15,18 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_PLAN, GRAPHIC_OBJECT_SHAPE)
 
-GRAPHIC_OBJECT_SHAPE_PLAN();
+    GRAPHIC_OBJECT_SHAPE_PLAN();
+    virtual ~GRAPHIC_OBJECT_SHAPE_PLAN();
 
-virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader );
-virtual void Render( const GRAPHIC_RENDERER & renderer );
+    virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) override;
+    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
 
 private :
 
-void UpdateVertexData( float * PlanVertexData, const GRAPHIC_TEXTURE_BLOCK & block );
+    void UpdateVertexData( float * PlanVertexData, const GRAPHIC_TEXTURE_BLOCK & block );
 
-float * PlanVertexData;
+    float
+        * PlanVertexData;
 
 XS_CLASS_END
 

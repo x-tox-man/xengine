@@ -20,8 +20,8 @@
 #include "CORE_HELPERS_CALLBACK.h"
 
 #define SimpleTrickForSerialization() \
-virtual void InnerSerialize(CORE_DATA_STREAM & stream); \
-virtual void InnerDeSerialize(CORE_DATA_STREAM & stream);
+virtual void InnerSerialize(CORE_DATA_STREAM & stream) override; \
+virtual void InnerDeSerialize(CORE_DATA_STREAM & stream) override;
 
 #define ImplementTrickFroSerializeation(__CLASS_TYPE__, __ENUM_TYPE__) \
 void __CLASS_TYPE__::InnerSerialize(CORE_DATA_STREAM & stream) { \
@@ -101,7 +101,7 @@ class APPLICATION_GAMEPLAY_COMMAND_LOAD_GAME : public APPLICATION_COMMAND {
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_GAMEPLAY_COMMAND_LOAD_GAME, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_GAMEPLAY_COMMAND_LoadGame )
     
-    virtual void Apply();
+    virtual void Apply() override;
     
     SimpleTrickForSerialization()
     
@@ -122,7 +122,7 @@ class APPLICATION_GAMEPLAY_COMMAND_GAME_STARTING : public APPLICATION_COMMAND {
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_GAMEPLAY_COMMAND_GAME_STARTING, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_GAMEPLAY_COMMAND_GameStarting )
     
-    virtual void Apply();
+    virtual void Apply() override;
     
     SimpleTrickForSerialization()
 };
@@ -140,7 +140,7 @@ class APPLICATION_NETWORK_COMMAND_CLIENT_CONNECTED : public APPLICATION_COMMAND 
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_NETWORK_COMMAND_CLIENT_CONNECTED, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_NETWORK_COMMAND_ClientConnected )
     
-    virtual void Apply();
+    virtual void Apply() override;
     
     NETWORK_PLAYER * GetPlayer() { return Player; }
     
@@ -164,7 +164,7 @@ class APPLICATION_NETWORK_COMMAND_CLIENT_ACCEPTED  : public APPLICATION_COMMAND 
     XS_DEFINE_SERIALIZABLE
     SimpleTrickForSerialization()
     
-    virtual void Apply();
+    virtual void Apply() override;
 };
 
 class APPLICATION_NETWORK_COMMAND_CLIENT_REJECTED  : public APPLICATION_COMMAND {
@@ -181,7 +181,7 @@ class APPLICATION_NETWORK_COMMAND_CLIENT_REJECTED  : public APPLICATION_COMMAND 
     XS_DEFINE_SERIALIZABLE
     SimpleTrickForSerialization()
     
-    virtual void Apply();
+    virtual void Apply() override;
 };
 
 class APPLICATION_NETWORK_COMMAND_CLIENT_READY : public APPLICATION_COMMAND {
@@ -198,7 +198,7 @@ class APPLICATION_NETWORK_COMMAND_CLIENT_READY : public APPLICATION_COMMAND {
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_NETWORK_COMMAND_CLIENT_READY, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_NETWORK_COMMAND_ClientReady )
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
     
@@ -215,7 +215,7 @@ class APPLICATION_NETWORK_COMMAND_CLIENT_ACTION : public APPLICATION_COMMAND {
     XS_DEFINE_SERIALIZABLE
     SimpleTrickForSerialization()
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
 };
@@ -234,7 +234,7 @@ class APPLICATION_NETWORK_COMMAND_CLIENT_QUIT : public APPLICATION_COMMAND {
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_NETWORK_COMMAND_CLIENT_QUIT, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_NETWORK_COMMAND_ClientQuit )
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
     
@@ -259,7 +259,7 @@ class APPLICATION_GAMEPLAY_COMMAND : public APPLICATION_COMMAND {
     XS_DEFINE_SERIALIZABLE
     SimpleTrickForSerialization()
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
 };
@@ -285,7 +285,7 @@ class APPLICATION_GAMEPLAY_COMMAND_ACTION : public APPLICATION_COMMAND {
         
     }
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
 };
@@ -304,7 +304,7 @@ class APPLICATION_GAMEPLAY_COMMAND_ACTION_FIRE : public APPLICATION_COMMAND {
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_GAMEPLAY_COMMAND_ACTION_FIRE, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_GAMEPLAY_COMMAND_ActionFire )
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
 };
@@ -323,7 +323,7 @@ class APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE : public APPLICATION_COMMAND {
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_GAMEPLAY_COMMAND_ActionMove )
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
 };
@@ -342,7 +342,7 @@ class APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE_ENTITY : public APPLICATION_COMMA
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE_ENTITY, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_GAMEPLAY_COMMAND_ActionMoveEntity )
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
     
@@ -370,7 +370,7 @@ class APPLICATION_GAMEPLAY_COMMAND_ORDER : public APPLICATION_COMMAND {
         
     }
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
 };
@@ -390,7 +390,7 @@ class APPLICATION_GAMEPLAY_COMMAND_ORDER_BUILD : public APPLICATION_COMMAND {
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_GAMEPLAY_COMMAND_ORDER_BUILD, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_GAMEPLAY_COMMAND_OrderBuild )
     
-    virtual void Apply() {
+    virtual void Apply() override {
 
     }
 };
@@ -409,7 +409,7 @@ class APPLICATION_GAMEPLAY_COMMAND_ORDER_ATTACK : public APPLICATION_COMMAND {
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_GAMEPLAY_COMMAND_ORDER_ATTACK, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_GAMEPLAY_COMMAND_OrderAttack )
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
 };
@@ -428,7 +428,7 @@ class APPLICATION_GAMEPLAY_COMMAND_ORDER_MOVE : public APPLICATION_COMMAND {
     
     CORE_HELPERS_FACTORY_Element( APPLICATION_GAMEPLAY_COMMAND_ORDER_MOVE, APPLICATION_COMMAND, APPLICATION_NETWORK_COMMAND_TYPE, APPLICATION_GAMEPLAY_COMMAND_OrderMove )
     
-    virtual void Apply() {
+    virtual void Apply() override {
         
     }
 };

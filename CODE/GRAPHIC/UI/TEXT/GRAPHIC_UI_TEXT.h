@@ -16,14 +16,15 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_UI_TEXT, GRAPHIC_UI_ELEMENT)
 
-GRAPHIC_UI_TEXT();
+    GRAPHIC_UI_TEXT();
+    virtual ~GRAPHIC_UI_TEXT();
 
-void InitializeText(GRAPHIC_FONT & font, float text_size, const char * text);
+    void InitializeText(GRAPHIC_FONT & font, float text_size, const char * text);
 
 private :
 
-GRAPHIC_TEXT
-    Text;
+    GRAPHIC_TEXT
+        Text;
 
 XS_CLASS_END
 

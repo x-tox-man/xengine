@@ -24,6 +24,8 @@ XS_CLASS_BEGIN( CORE_APPLICATION )
         
     }
 
+    virtual ~CORE_APPLICATION();
+
     //:NOTE: this could come from scripts :
     
     virtual void Initialize();

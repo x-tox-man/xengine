@@ -16,47 +16,50 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_HELPERS_UNIQUE_IDENTIFIER )
 
 XS_DEFINE_SERIALIZABLE
 
-CORE_HELPERS_UNIQUE_IDENTIFIER();
-CORE_HELPERS_UNIQUE_IDENTIFIER( const char * text );
+    CORE_HELPERS_UNIQUE_IDENTIFIER();
+    CORE_HELPERS_UNIQUE_IDENTIFIER( const char * text );
+    ~CORE_HELPERS_UNIQUE_IDENTIFIER();
 
-friend bool operator < ( const CORE_HELPERS_UNIQUE_IDENTIFIER first, const CORE_HELPERS_UNIQUE_IDENTIFIER second );
-bool operator == ( const CORE_HELPERS_UNIQUE_IDENTIFIER other ) {
-    
-    return CheckSum == other.CheckSum;
-}
+    friend bool operator < ( const CORE_HELPERS_UNIQUE_IDENTIFIER first, const CORE_HELPERS_UNIQUE_IDENTIFIER second );
+    bool operator == ( const CORE_HELPERS_UNIQUE_IDENTIFIER other ) {
+        
+        return CheckSum == other.CheckSum;
+    }
 
-char * GetIdentifier() { return Identifier; }
+    char * GetIdentifier() { return Identifier; }
 
-CORE_HELPERS_UNIQUE_IDENTIFIER & operator = ( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ){
-    
-    CheckSum = other.CheckSum;
-    Identifier = (char*) CORE_MEMORY_ALLOCATOR::Allocate( 32 );
-    strncpy( Identifier, other.Identifier, 31 );
-    
-    Identifier[31] = '\0';
-    
-    return *this;
-}
+    CORE_HELPERS_UNIQUE_IDENTIFIER & operator = ( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ){
+        
+        CheckSum = other.CheckSum;
+        Identifier = (char*) CORE_MEMORY_ALLOCATOR::Allocate( 32 );
+        strncpy( Identifier, other.Identifier, 31 );
+        
+        Identifier[31] = '\0';
+        
+        return *this;
+    }
 
-bool operator == ( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ) const {
-    
-    return CheckSum == other.CheckSum;
-}
+    bool operator == ( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ) const {
+        
+        return CheckSum == other.CheckSum;
+    }
 
-bool operator != ( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ) const {
-    
-    return CheckSum != other.CheckSum;
-}
+    bool operator != ( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ) const {
+        
+        return CheckSum != other.CheckSum;
+    }
 
 
-void Generate( const char * value );
+    void Generate( const char * value );
 
-static const CORE_HELPERS_UNIQUE_IDENTIFIER Empty;
+    static const CORE_HELPERS_UNIQUE_IDENTIFIER Empty;
 
 private :
 
-char * Identifier;
-int CheckSum;
+    char
+        * Identifier;
+    int
+        CheckSum;
 
 XS_CLASS_END
 

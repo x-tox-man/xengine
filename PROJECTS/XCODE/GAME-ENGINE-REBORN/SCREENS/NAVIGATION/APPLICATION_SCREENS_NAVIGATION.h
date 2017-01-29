@@ -28,6 +28,10 @@ class NAVIGATION_ITEM {
         
     }
     
+    ~NAVIGATION_ITEM() {
+        
+    }
+    
     std::map<std::string, NAVIGATION_ITEM * > GetNavigationChilds() { return NavigationChilds; }
     
     GRAPHIC_UI_FRAME * GetFrame() {
@@ -66,10 +70,11 @@ class NAVIGATION_ITEM {
 
 XS_CLASS_BEGIN( APPLICATION_SCREENS_NAVIGATION )
 
-XS_DEFINE_UNIQUE(APPLICATION_SCREENS_NAVIGATION)
+XS_DEFINE_UNIQUE( APPLICATION_SCREENS_NAVIGATION )
 
 public :
 
+    ~APPLICATION_SCREENS_NAVIGATION();
     bool NavigateBackAsync();
 
     template<typename SCREEN_TYPE>

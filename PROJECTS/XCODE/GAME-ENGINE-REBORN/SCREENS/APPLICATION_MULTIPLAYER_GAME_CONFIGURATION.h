@@ -20,29 +20,30 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( APPLICATION_MULTIPLAYER_GAME_CONFIGURATION, GRAPHIC_UI_FRAME )
 
-APPLICATION_MULTIPLAYER_GAME_CONFIGURATION();
+    APPLICATION_MULTIPLAYER_GAME_CONFIGURATION();
+    virtual ~APPLICATION_MULTIPLAYER_GAME_CONFIGURATION();
 
-virtual void Initialize() override;
-virtual void Update( const float) override;
+    virtual void Initialize() override;
+    virtual void Update( const float) override;
 
-NETWORK_GAME_PLAYER_LIST_ADAPTER * GetPlayersListAdapter() {
-    
-    return PlayersListAdapter;
-}
+    NETWORK_GAME_PLAYER_LIST_ADAPTER * GetPlayersListAdapter() {
+        
+        return PlayersListAdapter;
+    }
 
-std::vector< NETWORK_PLAYER * > & GetPlayersList() {
-    
-    return PlayersList;
-}
+    std::vector< NETWORK_PLAYER * > & GetPlayersList() {
+        
+        return PlayersList;
+    }
 
 private :
 
-NETWORK_GAME_PLAYER_LIST_ADAPTER
-    * PlayersListAdapter;
-std::vector< NETWORK_PLAYER * >
-    PlayersList;
-APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER
-    * Presenter;
+    NETWORK_GAME_PLAYER_LIST_ADAPTER
+        * PlayersListAdapter;
+    std::vector< NETWORK_PLAYER * >
+        PlayersList;
+    APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER
+        * Presenter;
 
 XS_CLASS_END
 

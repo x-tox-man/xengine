@@ -13,11 +13,11 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(APPLICATION_SINGLEPLAYER_HUD_PRESENTER, APPLICATION_HUD_PRESENTER)
 
-APPLICATION_SINGLEPLAYER_HUD_PRESENTER();
+    APPLICATION_SINGLEPLAYER_HUD_PRESENTER();
+    virtual ~APPLICATION_SINGLEPLAYER_HUD_PRESENTER();
 
-virtual void Update( const float) override;
-
-virtual void Configure() override;
+    virtual void Update( const float) override;
+    virtual void Configure() override;
 
 private :
 

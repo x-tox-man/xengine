@@ -20,34 +20,37 @@
 
 XS_CLASS_BEGIN( RESOURCE_IMAGE_ATLAS_COMPILER )
 
-RESOURCE_IMAGE_ATLAS_COMPILER();
+    RESOURCE_IMAGE_ATLAS_COMPILER();
+    ~RESOURCE_IMAGE_ATLAS_COMPILER();
 
-class NODE {
-    
-    public :
-    
-    NODE() :
-        Rec(),
-        Image( NULL ),
-        Childs() {
-            
-        Childs[0] = NULL;
-        Childs[1] = NULL;
-    }
-    
-    NODE * Insert( RESOURCE_IMAGE * img);
-    
-    CORE_MATH_SHAPE_RECTANGLE Rec;
-    RESOURCE_IMAGE * Image;
-    NODE * Childs[2];
-};
+    class NODE {
+        
+        public :
+        
+        NODE() :
+            Rec(),
+            Image( NULL ),
+            Childs() {
+                
+            Childs[0] = NULL;
+            Childs[1] = NULL;
+        }
+        
+        NODE * Insert( RESOURCE_IMAGE * img);
+        
+        CORE_MATH_SHAPE_RECTANGLE Rec;
+        RESOURCE_IMAGE * Image;
+        NODE * Childs[2];
+    };
 
-void Compile( const char * destination_path, const std::vector< RESOURCE_IMAGE * > & resource_image_table );
+    void Compile( const char * destination_path, const std::vector< RESOURCE_IMAGE * > & resource_image_table );
 
 private:
 
-std::vector< RESOURCE_IMAGE * > SortedImageTable;
-NODE * RootNode;
+    std::vector< RESOURCE_IMAGE * >
+        SortedImageTable;
+    NODE
+        * RootNode;
 
 XS_CLASS_END
 

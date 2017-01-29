@@ -22,6 +22,7 @@
 XS_CLASS_BEGIN( AUDIO_SOUND )
 
 AUDIO_SOUND();
+~AUDIO_SOUND();
 
 void * GetData() const { return Data; }
 bool IsMono() const { return Mono; }

@@ -17,6 +17,7 @@
 XS_CLASS_BEGIN( AUDIO_SOUND_BANK )
 
 AUDIO_SOUND_BANK();
+~AUDIO_SOUND_BANK();
 
 void Load();
 void Unload();

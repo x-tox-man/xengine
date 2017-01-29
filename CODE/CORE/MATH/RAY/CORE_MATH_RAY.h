@@ -16,6 +16,7 @@
 XS_CLASS_BEGIN( CORE_MATH_RAY )
 
 CORE_MATH_RAY();
+~CORE_MATH_RAY();
 
 void SetOrigin( const CORE_MATH_VECTOR & origin ) { Origin = origin; }
 void SetDirection( const CORE_MATH_VECTOR & direction ) { Direction = direction; }

@@ -19,8 +19,9 @@
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_IOS, GRAPHIC_WINDOW )
 
     GRAPHIC_WINDOW_IOS();
+    virtual ~GRAPHIC_WINDOW_IOS();
 
-    virtual void Initialize();
+    virtual void Initialize() override;
     GLKView * GetGlView() { return glView; }
     void SetGlView( GLKView * view) { glView = view; }
 

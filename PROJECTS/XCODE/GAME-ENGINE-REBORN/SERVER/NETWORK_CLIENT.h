@@ -28,6 +28,7 @@
 XS_CLASS_BEGIN(NETWORK_CLIENT)
 
     NETWORK_CLIENT();
+    ~NETWORK_CLIENT();
 
     /**
      * UDP_RECEIVED_EVENT : Event for UDP broadcast message received

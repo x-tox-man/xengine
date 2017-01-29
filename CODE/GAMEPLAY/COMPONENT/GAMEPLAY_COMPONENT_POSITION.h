@@ -22,41 +22,46 @@ class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
 
-GAMEPLAY_COMPONENT_POSITION();
+    GAMEPLAY_COMPONENT_POSITION();
+    virtual ~GAMEPLAY_COMPONENT_POSITION();
 
-friend class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
+    friend class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
 
-void * operator new(size_t size);
+    void * operator new(size_t size);
 
-CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Position)
+    CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Position)
 
-struct INTERNAL_ARRAY{
-    int LastIndex;
-    GAMEPLAY_COMPONENT_POSITION * MemoryArray;
-};
+    struct INTERNAL_ARRAY{
+        int LastIndex;
+        GAMEPLAY_COMPONENT_POSITION * MemoryArray;
+    };
 
-inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
-inline CORE_MATH_VECTOR & GetPosition() { return Position; }
+    inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
+    inline CORE_MATH_VECTOR & GetPosition() { return Position; }
 
-inline CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
-inline const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
+    inline CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
+    inline const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
 
-inline CORE_MATH_VECTOR & GetVelocity() { return Velocity; }
-inline CORE_MATH_QUATERNION & GetSpin() { return Spin; }
+    inline CORE_MATH_VECTOR & GetVelocity() { return Velocity; }
+    inline CORE_MATH_QUATERNION & GetSpin() { return Spin; }
 
-inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
-inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation; }
+    inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
+    inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation; }
 
-bool Intersects( const CORE_MATH_RAY & ray );
+    bool Intersects( const CORE_MATH_RAY & ray );
 
-static std::vector< INTERNAL_ARRAY > InternalVector;
+    static std::vector< INTERNAL_ARRAY > InternalVector;
 
 private :
 
-CORE_MATH_VECTOR Position;
-CORE_MATH_VECTOR Velocity;
-CORE_MATH_QUATERNION Orientation;
-CORE_MATH_QUATERNION Spin;
+    CORE_MATH_VECTOR
+        Position;
+    CORE_MATH_VECTOR
+        Velocity;
+    CORE_MATH_QUATERNION
+        Orientation;
+    CORE_MATH_QUATERNION
+        Spin;
 
 XS_CLASS_END
 

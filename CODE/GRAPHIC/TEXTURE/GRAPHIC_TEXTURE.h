@@ -18,7 +18,8 @@
 
 XS_CLASS_BEGIN( GRAPHIC_TEXTURE )
 
-GRAPHIC_TEXTURE();
+    GRAPHIC_TEXTURE();
+    virtual ~GRAPHIC_TEXTURE();
 
     #if OPENGL2PLUS || OPENGLES2
         GLuint & GetTextureHandle() { return TextureHandle; }

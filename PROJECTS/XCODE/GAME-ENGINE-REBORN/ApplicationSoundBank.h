@@ -19,6 +19,7 @@ XS_CLASS_BEGIN( ApplicationSoundBank )
 CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( ApplicationSoundBank );
 
 ApplicationSoundBank();
+~ApplicationSoundBank();
 
 const CORE_HELPERS_IDENTIFIER & GetSoundIdentifier( int sound_id );
 

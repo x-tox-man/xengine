@@ -15,44 +15,46 @@
 
 XS_CLASS_BEGIN_WITH_COPY( CORE_FILESYSTEM_PATH )
 
-CORE_FILESYSTEM_PATH();
-CORE_FILESYSTEM_PATH( const char * path );
+    CORE_FILESYSTEM_PATH();
+    CORE_FILESYSTEM_PATH( const char * path );
+    ~CORE_FILESYSTEM_PATH();
 
-CORE_FILESYSTEM_PATH & operator = ( const CORE_FILESYSTEM_PATH & other ) {
+    CORE_FILESYSTEM_PATH & operator = ( const CORE_FILESYSTEM_PATH & other ) {
 
-    strcpy(Path, other.Path);
-    
-    return *this;
-}
-
-void SetPath( const char * file_path ) {
-    
-    strcpy( Path, file_path );
-}
-
-CORE_FILESYSTEM_PATH RemoveExtension() const {
-    
-    CORE_FILESYSTEM_PATH new_path( Path );
-    
-    char * dot = strrchr( new_path.Path, '.' );
-    
-    if ( dot ) {
-        *dot = '\0';
+        strcpy(Path, other.Path);
+        
+        return *this;
     }
-    
-    return new_path;
-}
 
-const char * GetPath() const { return Path; }
-const char * GetFileName() const;
+    void SetPath( const char * file_path ) {
+        
+        strcpy( Path, file_path );
+    }
 
-static CORE_FILESYSTEM_PATH FindFilePath( const char * path, const char * extension, const char * directory, bool override_extension = false );
+    CORE_FILESYSTEM_PATH RemoveExtension() const {
+        
+        CORE_FILESYSTEM_PATH new_path( Path );
+        
+        char * dot = strrchr( new_path.Path, '.' );
+        
+        if ( dot ) {
+            *dot = '\0';
+        }
+        
+        return new_path;
+    }
 
-static CORE_FILESYSTEM_PATH NotExisting;
+    const char * GetPath() const { return Path; }
+    const char * GetFileName() const;
+
+    static CORE_FILESYSTEM_PATH FindFilePath( const char * path, const char * extension, const char * directory, bool override_extension = false );
+
+    static CORE_FILESYSTEM_PATH NotExisting;
 
 private :
 
-char Path[ FILE_PATH_MAX_LENGHT ];
+    char
+        Path[ FILE_PATH_MAX_LENGHT ];
 
 XS_CLASS_END
 

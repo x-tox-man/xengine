@@ -16,6 +16,8 @@
 #if OPENGL2PLUS
     XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_MESH_OPENGL, GRAPHIC_MESH)
 
+    virtual ~GRAPHIC_MESH_OPENGL();
+
     virtual void Enable();
     virtual void Disable();
 

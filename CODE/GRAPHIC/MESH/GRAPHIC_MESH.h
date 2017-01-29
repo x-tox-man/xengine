@@ -27,6 +27,7 @@ public:
     XS_DEFINE_SERIALIZABLE
 
     GRAPHIC_MESH();
+    ~GRAPHIC_MESH();
 
     inline CORE_DATA_BUFFER & GetVertexCoreBuffer() { return *VertexCoreBuffer; }
     inline void SetVertexCoreBuffer( CORE_DATA_BUFFER * vertexCoreBuffer ) { VertexCoreBuffer = vertexCoreBuffer; }

@@ -18,6 +18,7 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     
     GRAPHIC_CAMERA();
     GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
+    virtual ~GRAPHIC_CAMERA();
 
     const CORE_MATH_MATRIX & GetProjectionMatrix() const { return ProjectionMatrix; }
     const CORE_MATH_MATRIX & GetViewMatrix() const { return ViewMatrix; }

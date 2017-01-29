@@ -14,7 +14,11 @@
 class NETWORK_CLIENT_DELEGATE {
     
 public :
+    
     NETWORK_CLIENT_DELEGATE() {
+        
+    }
+    virtual ~NETWORK_CLIENT_DELEGATE() {
         
     }
     

@@ -18,14 +18,15 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_AXIS, GRAPHIC_OBJECT_SHAPE)
 
-GRAPHIC_OBJECT_SHAPE_AXIS( float position[ 4 ], CORE_MATH_QUATERNION & orientation );
+    GRAPHIC_OBJECT_SHAPE_AXIS( float position[ 4 ], CORE_MATH_QUATERNION & orientation );
+    virtual ~GRAPHIC_OBJECT_SHAPE_AXIS();
 
-virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader );
-virtual void Render( const GRAPHIC_RENDERER & renderer );
+    virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) override;
+    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
 
 private :
 
-GRAPHIC_OBJECT_SHAPE_AXIS();
+    GRAPHIC_OBJECT_SHAPE_AXIS();
 
 XS_CLASS_END
 

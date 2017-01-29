@@ -14,27 +14,28 @@
 
 XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_KEYBOARD )
 
-PERIPHERIC_INTERACTION_KEYBOARD();
+    PERIPHERIC_INTERACTION_KEYBOARD();
+    ~PERIPHERIC_INTERACTION_KEYBOARD();
 
-void Initialize();
-void Update();
+    void Initialize();
+    void Update();
 
-bool IsKeyPressed( const KEYBOARD_KEY key );
-bool IsKeyReleased( const KEYBOARD_KEY key );
+    bool IsKeyPressed( const KEYBOARD_KEY key );
+    bool IsKeyReleased( const KEYBOARD_KEY key );
 
-void SetKeyPressed( const KEYBOARD_KEY key );
-void SetKeyReleased( const KEYBOARD_KEY key );
+    void SetKeyPressed( const KEYBOARD_KEY key );
+    void SetKeyReleased( const KEYBOARD_KEY key );
 
-static KEYBOARD_KEY KeyFromCode( int code );
+    static KEYBOARD_KEY KeyFromCode( int code );
 
 private :
 
-int KeyTable[ KEYBOARD_KEY_Count ];
+    int KeyTable[ KEYBOARD_KEY_Count ];
 
-enum KEY_STATE{
-    KEY_STATE_Up = 0x00000000,
-    KEY_STATE_Pressed = 0x00000001,
-    KEY_STATE_Released = 0x00000010
+    enum KEY_STATE{
+        KEY_STATE_Up = 0x00000001,
+        KEY_STATE_Pressed = 0x00000010,
+        KEY_STATE_Released = 0x00000100
 };
 
 XS_CLASS_END

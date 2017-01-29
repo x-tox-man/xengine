@@ -31,6 +31,10 @@ void xs_write_row_callback( png_struct * png_ptr, png_uint_32 row, int pass ) {
     /* put your code here */
 }
 
+RESOURCE_IMAGE_PNG_WRITER::RESOURCE_IMAGE_PNG_WRITER() {
+    
+}
+
 RESOURCE_IMAGE_PNG_WRITER::~RESOURCE_IMAGE_PNG_WRITER() {
 
 }

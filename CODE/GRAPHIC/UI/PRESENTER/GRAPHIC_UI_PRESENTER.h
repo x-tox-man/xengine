@@ -15,31 +15,33 @@
 
 XS_CLASS_BEGIN(GRAPHIC_UI_PRESENTER)
 
-GRAPHIC_UI_PRESENTER();
+    GRAPHIC_UI_PRESENTER();
+    virtual ~GRAPHIC_UI_PRESENTER();
 
-void Initialize( GRAPHIC_UI_FRAME * view ) {
-    
-    View = view;
-    
-    Configure();
-}
+    void Initialize( GRAPHIC_UI_FRAME * view ) {
+        
+        View = view;
+        
+        Configure();
+    }
 
-virtual void Configure() = 0;
+    virtual void Configure() = 0;
 
-void BindAction( GRAPHIC_UI_ELEMENT * element, CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE> * callback ) {
-    
-    element->SetActionCallback( *callback );
-    
-    delete callback;
-}
+    void BindAction( GRAPHIC_UI_ELEMENT * element, CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE> * callback ) {
+        
+        element->SetActionCallback( *callback );
+        
+        delete callback;
+    }
+
 protected :
 
-inline GRAPHIC_UI_FRAME * GetView() { return View; }
+    inline GRAPHIC_UI_FRAME * GetView() { return View; }
 
 private:
 
-GRAPHIC_UI_FRAME
-    * View;
+    GRAPHIC_UI_FRAME
+        * View;
 
 XS_CLASS_END
 

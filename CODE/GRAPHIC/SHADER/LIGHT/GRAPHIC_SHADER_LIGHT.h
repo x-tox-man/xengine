@@ -68,48 +68,49 @@ union GRAPHIC_SHADER_LIGHT_INTERNAL {
 
 XS_CLASS_BEGIN( GRAPHIC_SHADER_LIGHT )
 
-GRAPHIC_SHADER_LIGHT();
+    GRAPHIC_SHADER_LIGHT();
+    ~GRAPHIC_SHADER_LIGHT();
 
-void InitializePoint(
-                     CORE_MATH_VECTOR & color,
-                     CORE_MATH_VECTOR & position,
-                     float exp,
-                     float constant,
-                     float linear,
-                     float ambient_intensity,
-                     float diffuse_intensity
-                     );
+    void InitializePoint(
+                         CORE_MATH_VECTOR & color,
+                         CORE_MATH_VECTOR & position,
+                         float exp,
+                         float constant,
+                         float linear,
+                         float ambient_intensity,
+                         float diffuse_intensity
+                         );
 
-void InitializeAmbient(
-                       CORE_MATH_VECTOR & color,
-                       float ambient_intensity,
-                       float diffuse_intensity
-                       );
-void InitializeSpot(
-                    CORE_MATH_VECTOR & color,
-                    CORE_MATH_VECTOR & position,
-                    CORE_MATH_VECTOR & direction,
-                    float exp,
-                    float constant,
-                    float linear,
-                    float cutoff,
-                    float ambient_intensity,
-                    float diffuse_intensity);
-
-void InitializeDirectional(
+    void InitializeAmbient(
                            CORE_MATH_VECTOR & color,
-                           CORE_MATH_VECTOR & direction,
                            float ambient_intensity,
-                           float diffuse_intensity);
+                           float diffuse_intensity
+                           );
+    void InitializeSpot(
+                        CORE_MATH_VECTOR & color,
+                        CORE_MATH_VECTOR & position,
+                        CORE_MATH_VECTOR & direction,
+                        float exp,
+                        float constant,
+                        float linear,
+                        float cutoff,
+                        float ambient_intensity,
+                        float diffuse_intensity);
 
-void Apply( GRAPHIC_SHADER_PROGRAM & program );
+    void InitializeDirectional(
+                               CORE_MATH_VECTOR & color,
+                               CORE_MATH_VECTOR & direction,
+                               float ambient_intensity,
+                               float diffuse_intensity);
 
-GRAPHIC_SHADER_LIGHT_TYPE
-    Type;
-GRAPHIC_SHADER_LIGHT_INTERNAL
-    InternalLight;
-int
-    LightIndex;
+    void Apply( GRAPHIC_SHADER_PROGRAM & program );
+
+    GRAPHIC_SHADER_LIGHT_TYPE
+        Type;
+    GRAPHIC_SHADER_LIGHT_INTERNAL
+        InternalLight;
+    int
+        LightIndex;
 
 XS_CLASS_END
 

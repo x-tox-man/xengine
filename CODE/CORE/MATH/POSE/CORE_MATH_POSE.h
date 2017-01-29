@@ -20,35 +20,38 @@ CORE_MATH_POSE();
 
 XS_DEFINE_SERIALIZABLE
 
-CORE_MATH_POSE( CORE_MATH_POSE & other );
+    CORE_MATH_POSE( CORE_MATH_POSE & other );
+    ~CORE_MATH_POSE();
 
-void FromMatrix( const CORE_MATH_MATRIX & matrix );
-void FromMatrix( const float * mat );
+    void FromMatrix( const CORE_MATH_MATRIX & matrix );
+    void FromMatrix( const float * mat );
 
-void ToMatrix( CORE_MATH_MATRIX & matrix ) const;
-void ToMatrix( float * matrix ) const;
-void Lerp( const CORE_MATH_POSE & other, CORE_MATH_POSE & result, float percentage );
+    void ToMatrix( CORE_MATH_MATRIX & matrix ) const;
+    void ToMatrix( float * matrix ) const;
+    void Lerp( const CORE_MATH_POSE & other, CORE_MATH_POSE & result, float percentage );
 
-CORE_MATH_VECTOR & GetPosition() { return Position; }
-CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
-const CORE_MATH_VECTOR & GetPosition() const { return Position; }
-const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
+    CORE_MATH_VECTOR & GetPosition() { return Position; }
+    CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
+    const CORE_MATH_VECTOR & GetPosition() const { return Position; }
+    const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
 
-void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
-void SetOrientation( const CORE_MATH_QUATERNION & orientation ) {Orientation = orientation; }
+    void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
+    void SetOrientation( const CORE_MATH_QUATERNION & orientation ) {Orientation = orientation; }
 
-CORE_MATH_POSE & operator *= ( const CORE_MATH_POSE & other);
-CORE_MATH_POSE & operator = ( const CORE_MATH_POSE & other);
-friend CORE_MATH_POSE operator * ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & rhs);
-friend inline CORE_MATH_POSE operator + ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & rhs);
-friend inline bool operator == ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & rhs);
+    CORE_MATH_POSE & operator *= ( const CORE_MATH_POSE & other);
+    CORE_MATH_POSE & operator = ( const CORE_MATH_POSE & other);
+    friend CORE_MATH_POSE operator * ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & rhs);
+    friend inline CORE_MATH_POSE operator + ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & rhs);
+    friend inline bool operator == ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & rhs);
 
-void CopyFrom( const CORE_MATH_POSE & other );
+    void CopyFrom( const CORE_MATH_POSE & other );
 
 private :
 
-CORE_MATH_VECTOR Position;
-CORE_MATH_QUATERNION Orientation;
+    CORE_MATH_VECTOR
+        Position;
+    CORE_MATH_QUATERNION
+        Orientation;
 
 XS_CLASS_END
 

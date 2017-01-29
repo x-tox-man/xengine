@@ -38,6 +38,7 @@
 XS_CLASS_BEGIN_WITH_ANCESTOR( AUDIO_OPENAL, AUDIO_INTERFACE< AUDIO_OPENAL > )
 
     AUDIO_OPENAL();
+    virtual ~AUDIO_OPENAL();
 
     virtual void Initialize();
 

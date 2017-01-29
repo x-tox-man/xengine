@@ -15,25 +15,27 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_FRAME, GRAPHIC_OBJECT_SHAPE)
 
-GRAPHIC_OBJECT_SHAPE_FRAME();
+    GRAPHIC_OBJECT_SHAPE_FRAME();
+    virtual ~GRAPHIC_OBJECT_SHAPE_FRAME();
 
-virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader );
-virtual void Render( const GRAPHIC_RENDERER & renderer );
+    virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) override;
+    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
 
-void SetBorderSize( const float boder_width, const float boder_height ) {
-    BorderWidth = boder_width;
-    BorderHeight = boder_height;
-}
+    void SetBorderSize( const float boder_width, const float boder_height ) {
+        BorderWidth = boder_width;
+        BorderHeight = boder_height;
+    }
 
 private :
 
-void UpdateFrameVertexData( float * vertex_data, const GRAPHIC_TEXTURE_BLOCK & block );
-void CreateVertexData();
-float
-    * VertexData;
-float
-    BorderWidth,
-    BorderHeight;
+    void UpdateFrameVertexData( float * vertex_data, const GRAPHIC_TEXTURE_BLOCK & block );
+    void CreateVertexData();
+
+    float
+        * VertexData;
+    float
+        BorderWidth,
+        BorderHeight;
 
 XS_CLASS_END
 

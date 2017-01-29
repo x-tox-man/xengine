@@ -14,26 +14,28 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
 
-GAMEPLAY_COMPONENT_ANIMATION();
+    GAMEPLAY_COMPONENT_ANIMATION();
+    virtual ~GAMEPLAY_COMPONENT_ANIMATION();
 
-void * operator new(size_t size);
+    void * operator new(size_t size);
 
-CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Animation)
+    CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Animation)
 
-struct INTERNAL_ARRAY{
-    int LastIndex;
-    GAMEPLAY_COMPONENT_ANIMATION * MemoryArray;
-};
+    struct INTERNAL_ARRAY{
+        int LastIndex;
+        GAMEPLAY_COMPONENT_ANIMATION * MemoryArray;
+    };
 
-void UpdateAnimation( float time_step );
+    void UpdateAnimation( float time_step );
 
-void SetAnimation( GRAPHIC_MESH_ANIMATION_CONTROLLER * animation ) { Animation = animation; }
+    void SetAnimation( GRAPHIC_MESH_ANIMATION_CONTROLLER * animation ) { Animation = animation; }
 
-static std::vector< INTERNAL_ARRAY > InternalVector;
+    static std::vector< INTERNAL_ARRAY > InternalVector;
 
 private :
 
-GRAPHIC_MESH_ANIMATION_CONTROLLER * Animation;
+    GRAPHIC_MESH_ANIMATION_CONTROLLER
+        * Animation;
 
 XS_CLASS_END
 #endif /* defined(__GAME_ENGINE_REBORN__GAMEPLAY_COMPONENT_ANIMATION__) */

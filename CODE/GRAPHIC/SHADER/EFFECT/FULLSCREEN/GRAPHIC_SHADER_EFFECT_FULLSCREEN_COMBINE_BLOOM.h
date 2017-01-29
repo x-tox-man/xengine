@@ -14,16 +14,17 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM, GRAPHIC_SHADER_EFFECT )
 
-GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM();
+    GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM();
+    virtual ~GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM();
 
-virtual void Apply();
-virtual void BindAttributes();
+    virtual void Apply() override;
+    virtual void BindAttributes() override;
 
-static CORE_HELPERS_IDENTIFIER
-    BloomIntensityIdentifier,
-    BaseIntensityIdentifier,
-    BloomSaturationIdentifier,
-    BaseSaturationIdentifier;
+    static CORE_HELPERS_IDENTIFIER
+        BloomIntensityIdentifier,
+        BaseIntensityIdentifier,
+        BloomSaturationIdentifier,
+        BaseSaturationIdentifier;
 
 XS_CLASS_END
 

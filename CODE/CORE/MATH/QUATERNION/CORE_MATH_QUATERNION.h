@@ -48,6 +48,7 @@ XS_CLASS_BEGIN_WITH_COPY(CORE_MATH_QUATERNION)
         Z( z );
         W( w );
     }
+    ~CORE_MATH_QUATERNION();
 
     inline const float & operator [] ( const int index ) const {
         

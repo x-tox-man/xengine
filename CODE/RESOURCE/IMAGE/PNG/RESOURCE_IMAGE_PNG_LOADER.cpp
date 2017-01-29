@@ -41,6 +41,11 @@ int read_chunk_callback(png_struct * ptr, png_unknown_chunkp chunk) {
     //return (n); /* success */
 }
 
+RESOURCE_IMAGE_PNG_LOADER::RESOURCE_IMAGE_PNG_LOADER() :
+    RESOURCE_LOADER() {
+    
+};
+
 RESOURCE_IMAGE_PNG_LOADER::~RESOURCE_IMAGE_PNG_LOADER() {
 
 }

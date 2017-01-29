@@ -31,6 +31,7 @@ CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GRAPHIC_UI_ELEMENT );
 
 GRAPHIC_UI_ELEMENT();
 GRAPHIC_UI_ELEMENT(const CORE_HELPERS_IDENTIFIER &);
+virtual ~GRAPHIC_UI_ELEMENT();
 
 virtual void Initialize() {}
 virtual void Finalize() {}

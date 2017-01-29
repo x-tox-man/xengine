@@ -22,6 +22,7 @@
 XS_CLASS_BEGIN( FONT_EDITOR )
 
 FONT_EDITOR();
+~FONT_EDITOR();
 
 void CompileFont( int image_width,
                  int image_height,

@@ -21,39 +21,38 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(NETWORK_PLAYER, CORE_DATA_MODEL)
 
-XS_DEFINE_SERIALIZABLE
+    XS_DEFINE_SERIALIZABLE
 
-NETWORK_PLAYER();
+    NETWORK_PLAYER();
+    NETWORK_PLAYER( SERVICE_NETWORK_CONNECTION * connexion, int player_id, bool is_active, bool is_host );
+    NETWORK_PLAYER(int player_id, bool is_active);
+    virtual ~NETWORK_PLAYER();
 
-NETWORK_PLAYER( SERVICE_NETWORK_CONNECTION * connexion, int player_id, bool is_active, bool is_host );
+    CORE_DATA_STREAM & PrepareMessage();
 
-NETWORK_PLAYER(int player_id, bool is_active);
-
-CORE_DATA_STREAM & PrepareMessage();
-
-const CORE_HELPERS_UNIQUE_IDENTIFIER & GetUniqueId() const { return UniqueId; }
-const std::string & GetName() const { return Name; }
-void AppendMessage(SERVICE_NETWORK_COMMAND * message );
-SERVICE_NETWORK_CONNECTION * GetNetworkConnexion() { return CurrentNewtorkStream; }
-void SetNetworkConnexion( SERVICE_NETWORK_CONNECTION *connection ) { CurrentNewtorkStream = connection; }
+    const CORE_HELPERS_UNIQUE_IDENTIFIER & GetUniqueId() const { return UniqueId; }
+    const std::string & GetName() const { return Name; }
+    void AppendMessage(SERVICE_NETWORK_COMMAND * message );
+    SERVICE_NETWORK_CONNECTION * GetNetworkConnexion() { return CurrentNewtorkStream; }
+    void SetNetworkConnexion( SERVICE_NETWORK_CONNECTION *connection ) { CurrentNewtorkStream = connection; }
 
 private :
 
-std::string
-    Name;
-int
-    OutGoingMessageQueueIterator;
-bool
-    IsActive,
-    IsHost;
-CORE_DATA_STREAM
-    OutGoingMessage;
-std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE>
-    OutGoingMessageQueue;
-SERVICE_NETWORK_CONNECTION
-    * CurrentNewtorkStream;
-CORE_HELPERS_UNIQUE_IDENTIFIER
-    UniqueId;
+    std::string
+        Name;
+    int
+        OutGoingMessageQueueIterator;
+    bool
+        IsActive,
+        IsHost;
+    CORE_DATA_STREAM
+        OutGoingMessage;
+    std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE>
+        OutGoingMessageQueue;
+    SERVICE_NETWORK_CONNECTION
+        * CurrentNewtorkStream;
+    CORE_HELPERS_UNIQUE_IDENTIFIER
+        UniqueId;
 
 XS_CLASS_END
 

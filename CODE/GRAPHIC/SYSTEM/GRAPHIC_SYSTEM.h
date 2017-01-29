@@ -29,6 +29,8 @@ class GRAPHIC_MESH;
 
 XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
 
+~GRAPHIC_SYSTEM();
+
 static void EnableScissor( bool enable );
 static void SetScissorRectangle(float x, float y, float width, float height);
 

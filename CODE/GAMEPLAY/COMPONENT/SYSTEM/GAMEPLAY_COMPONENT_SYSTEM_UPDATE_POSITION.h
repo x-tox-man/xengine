@@ -13,14 +13,13 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION, GAMEPLAY_COMPONENT_SYSTEM )
 
-GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION();
+    GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION();
+    virtual ~GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION();
 
-virtual void Initialize();
-
-virtual void Update( float time_step );
-virtual void Render();
-
-virtual void Finalize();
+    virtual void Initialize() override;
+    virtual void Update( float time_step ) override;
+    virtual void Render() override;
+    virtual void Finalize() override;
 
 XS_CLASS_END
 

@@ -17,6 +17,7 @@
 XS_CLASS_BEGIN( GRAPHIC_MATERIAL )
 
 GRAPHIC_MATERIAL();
+~GRAPHIC_MATERIAL();
 
 GRAPHIC_MATERIAL(const char * image_path, const char * effect_name, const GRAPHIC_SHADER_BIND bind);
 

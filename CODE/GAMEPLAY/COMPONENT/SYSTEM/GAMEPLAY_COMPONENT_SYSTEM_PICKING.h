@@ -18,25 +18,26 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_PICKING, GAMEPLAY_COMPONENT_SYSTEM )
 
-GAMEPLAY_COMPONENT_SYSTEM_PICKING();
+    GAMEPLAY_COMPONENT_SYSTEM_PICKING();
+    virtual ~GAMEPLAY_COMPONENT_SYSTEM_PICKING();
 
-virtual void Initialize();
+    virtual void Initialize() override;
+    virtual void Update( float time_step) override;
+    virtual void Render() override;
+    virtual void Finalize() override;
 
-virtual void Update( float time_step);
-virtual void Render();
+    const CORE_MATH_RAY & GetRay() const { return Ray; };
 
-virtual void Finalize();
-
-const CORE_MATH_RAY & GetRay() const { return Ray; };
-
-void SetOnPickedCallback( CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_ENTITY * > * callback ) { OnPickedCallback = callback; };
+    void SetOnPickedCallback( CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_ENTITY * > * callback ) { OnPickedCallback = callback; };
 
 private :
 
-void ComputeRay( const CORE_MATH_VECTOR & origin, const GRAPHIC_CAMERA & camera );
+    void ComputeRay( const CORE_MATH_VECTOR & origin, const GRAPHIC_CAMERA & camera );
 
-CORE_MATH_RAY Ray;
-CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_ENTITY * > * OnPickedCallback;
+    CORE_MATH_RAY
+        Ray;
+    CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_ENTITY * >
+        * OnPickedCallback;
 
 XS_CLASS_END
 

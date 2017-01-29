@@ -16,19 +16,23 @@
 
 XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_SYSTEM )
 
-XS_DEFINE_UNIQUE( PERIPHERIC_INTERACTION_SYSTEM )
+    XS_DEFINE_UNIQUE( PERIPHERIC_INTERACTION_SYSTEM )
 
-//For now there is only one mouse & one keyboard => hotseat is for 1980 gamers
+    ~PERIPHERIC_INTERACTION_SYSTEM();
 
-void Update();
+    //For now there is only one mouse & one keyboard => hotseat is for 1980 gamers
 
-PERIPHERIC_INTERACTION_KEYBOARD & GetKeyboard() { return Keyboard; }
-PERIPHERIC_INTERACTION_MOUSE & GetMouse() { return Mouse; }
+    void Update();
+
+    PERIPHERIC_INTERACTION_KEYBOARD & GetKeyboard() { return Keyboard; }
+    PERIPHERIC_INTERACTION_MOUSE & GetMouse() { return Mouse; }
 
 private :
 
-PERIPHERIC_INTERACTION_KEYBOARD Keyboard;
-PERIPHERIC_INTERACTION_MOUSE Mouse;
+    PERIPHERIC_INTERACTION_KEYBOARD
+        Keyboard;
+    PERIPHERIC_INTERACTION_MOUSE
+        Mouse;
 
 XS_CLASS_END
 

@@ -15,9 +15,10 @@
 XS_CLASS_BEGIN_WITH_ANCESTOR(CORE_ABSTRACT_RUNTIME_V8, CORE_ABSTRACT_PROGRAM_RUNTIME< CORE_ABSTRACT_RUNTIME_V8 >)
 
     CORE_ABSTRACT_RUNTIME_V8();
+    virtual ~CORE_ABSTRACT_RUNTIME_V8();
 
-    virtual void Initialize();
-    virtual void Finalize();
+    virtual void Initialize() override;
+    virtual void Finalize() override;
 
 
     template <typename CLASS_NAME, typename RETURN_TYPE, typename FUNCTION_TO_BIND>

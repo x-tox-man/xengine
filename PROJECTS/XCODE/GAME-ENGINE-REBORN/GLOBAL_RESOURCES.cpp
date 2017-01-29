@@ -202,7 +202,7 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     
     line_shader_effect->Initialize( PlanObject->GetShaderBindParameter() );
     
-    HeightMapObject->InitializeShape( &basic_geometry_effect->GetProgram(), 1 );
+    HeightMapObject->InitializeShape( &basic_geometry_effect->GetProgram() );
     HeightMapObject->SetShaderForMesh(NULL, BasicEffectShadowMap->GetProgram().GetProgram());
     CubeObject->InitializeShape( &plane_shader_effect->GetProgram() );
     CubeObject->SetShaderForMesh(NULL, &BasicEffectShadowMap->GetProgram());

@@ -22,38 +22,40 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
 
-GAMEPLAY_COMPONENT_PHYSICS();
+    GAMEPLAY_COMPONENT_PHYSICS();
+    virtual ~GAMEPLAY_COMPONENT_PHYSICS();
 
-CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Physics)
+    CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Physics)
 
-void * operator new(size_t size);
+    void * operator new(size_t size);
 
-struct INTERNAL_ARRAY{
-    int LastIndex;
-    GAMEPLAY_COMPONENT_PHYSICS * MemoryArray;
-};
+    struct INTERNAL_ARRAY{
+        int LastIndex;
+        GAMEPLAY_COMPONENT_PHYSICS * MemoryArray;
+    };
 
-static std::vector< INTERNAL_ARRAY > InternalVector;
+    static std::vector< INTERNAL_ARRAY > InternalVector;
 
-CORE_MATH_SHAPE & GetShape() { return Shape; }
+    CORE_MATH_SHAPE & GetShape() { return Shape; }
 
-#ifdef __BULLET_PHYSICS__
-    btCollisionShape * GetBulletShape() { return BulletShape; }
-    btRigidBody* GetBulletRigidBody() { return BulletRigidBody; }
-#endif
+    #ifdef __BULLET_PHYSICS__
+        btCollisionShape * GetBulletShape() { return BulletShape; }
+        btRigidBody* GetBulletRigidBody() { return BulletRigidBody; }
+    #endif
 
-void ConfigureShapeSphere( const CORE_MATH_VECTOR & position );
-void ConfigureShapePlane( const CORE_MATH_VECTOR & position );
+    void ConfigureShapeSphere( const CORE_MATH_VECTOR & position );
+    void ConfigureShapePlane( const CORE_MATH_VECTOR & position );
 
-void ApplyMotionModificator(
-                            const CORE_MATH_VECTOR & position,
-                            const CORE_MATH_VECTOR & direction);
+    void ApplyMotionModificator(
+                                const CORE_MATH_VECTOR & position,
+                                const CORE_MATH_VECTOR & direction);
 
-void ForcePosition( const CORE_MATH_VECTOR & position );
+    void ForcePosition( const CORE_MATH_VECTOR & position );
 
 private:
 
-CORE_MATH_SHAPE Shape;
+    CORE_MATH_SHAPE
+        Shape;
 
 #ifdef __BULLET_PHYSICS__
     btCollisionShape * BulletShape;

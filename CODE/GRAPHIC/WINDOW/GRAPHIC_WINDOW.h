@@ -14,6 +14,7 @@
 XS_CLASS_BEGIN( GRAPHIC_WINDOW )
 
     GRAPHIC_WINDOW();
+    virtual ~GRAPHIC_WINDOW();
 
 protected:
 

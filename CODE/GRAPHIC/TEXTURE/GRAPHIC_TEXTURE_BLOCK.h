@@ -14,33 +14,34 @@
 
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_TEXTURE_BLOCK )
 
-GRAPHIC_TEXTURE_BLOCK();
+    GRAPHIC_TEXTURE_BLOCK();
+    ~GRAPHIC_TEXTURE_BLOCK();
 
-XS_DEFINE_SERIALIZABLE
+    XS_DEFINE_SERIALIZABLE
 
-void Initialize();
+    void Initialize();
 
-void Apply( int texture_index, int shader_texture_attribute_index );
-void ApplyDepth( int texture_index, int shader_texture_attribute_index );
+    void Apply( int texture_index, int shader_texture_attribute_index );
+    void ApplyDepth( int texture_index, int shader_texture_attribute_index );
 
-void Discard();
+    void Discard();
 
-const CORE_MATH_VECTOR & GetOffset() const { return Offset; }
-const CORE_MATH_VECTOR & GetSize() const { return Size; }
-void SetOffset( const CORE_MATH_VECTOR & offset ) { Offset = offset; }
-void SetSize( const CORE_MATH_VECTOR & size ) { Size = size; }
+    const CORE_MATH_VECTOR & GetOffset() const { return Offset; }
+    const CORE_MATH_VECTOR & GetSize() const { return Size; }
+    void SetOffset( const CORE_MATH_VECTOR & offset ) { Offset = offset; }
+    void SetSize( const CORE_MATH_VECTOR & size ) { Size = size; }
 
-void SetTexture( GRAPHIC_TEXTURE * texture ) { Texture = texture; }
-GRAPHIC_TEXTURE * GetTexture() { return Texture; }
-const GRAPHIC_TEXTURE * GetTexture() const { return Texture; }
+    void SetTexture( GRAPHIC_TEXTURE * texture ) { Texture = texture; }
+    GRAPHIC_TEXTURE * GetTexture() { return Texture; }
+    const GRAPHIC_TEXTURE * GetTexture() const { return Texture; }
 
 private:
 
-GRAPHIC_TEXTURE
-    *Texture;
-CORE_MATH_VECTOR
-    Offset,
-    Size;
+    GRAPHIC_TEXTURE
+        *Texture;
+    CORE_MATH_VECTOR
+        Offset,
+        Size;
 
 XS_CLASS_END
 

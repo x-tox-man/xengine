@@ -15,6 +15,7 @@
 XS_CLASS_BEGIN( GAME )
 
 GAME();
+virtual ~GAME();
 
 virtual void Initialize();
 virtual void Update( const float);

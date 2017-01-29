@@ -28,36 +28,40 @@
 
 XS_CLASS_BEGIN( GRAPHIC_UI_SYSTEM )
 
-CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GRAPHIC_UI_SYSTEM );
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GRAPHIC_UI_SYSTEM );
 
-XS_DEFINE_UNIQUE( GRAPHIC_UI_SYSTEM )
+    XS_DEFINE_UNIQUE( GRAPHIC_UI_SYSTEM )
 
-GRAPHIC_UI_FRAME * GetCurrentScreen() { return CurrentScreen; }
+    ~GRAPHIC_UI_SYSTEM();
 
-void Update( float time_step );
-void Render( GRAPHIC_RENDERER &);
+    GRAPHIC_UI_FRAME * GetCurrentScreen() { return CurrentScreen; }
 
-void RegisterScreen( GRAPHIC_UI_FRAME * screen, const char * screen_name );
-void RegisterScritpedScreen( const CORE_FILESYSTEM_PATH & script_path, const char * screen_name );
+    void Update( float time_step );
+    void Render( GRAPHIC_RENDERER &);
 
-void UnregisterScreen(const char * screen_name);
+    void RegisterScreen( GRAPHIC_UI_FRAME * screen, const char * screen_name );
+    void RegisterScritpedScreen( const CORE_FILESYSTEM_PATH & script_path, const char * screen_name );
 
-CORE_PARALLEL_LOCK_MUTEX & GetLockMutex() { return UISystemLock; }
+    void UnregisterScreen(const char * screen_name);
 
-const CORE_MATH_VECTOR & GetScreenMouseCoordinates() { return ScreenMouseCoordinates; }
+    CORE_PARALLEL_LOCK_MUTEX & GetLockMutex() { return UISystemLock; }
 
-void SetScreenSize( const CORE_MATH_VECTOR & screen_size ) { ScreenSize = screen_size; }
-const CORE_MATH_VECTOR & GetScreenSize() const { return ScreenSize; }
+    const CORE_MATH_VECTOR & GetScreenMouseCoordinates() { return ScreenMouseCoordinates; }
+
+    void SetScreenSize( const CORE_MATH_VECTOR & screen_size ) { ScreenSize = screen_size; }
+    const CORE_MATH_VECTOR & GetScreenSize() const { return ScreenSize; }
 
 private :
 
-std::map<CORE_HELPERS_IDENTIFIER, GRAPHIC_UI_FRAME * > VisibleScreenTable;
-GRAPHIC_UI_FRAME * CurrentScreen;
-CORE_PARALLEL_LOCK_MUTEX
-    UISystemLock;
-CORE_MATH_VECTOR
-    ScreenSize,
-    ScreenMouseCoordinates;
+    std::map<CORE_HELPERS_IDENTIFIER, GRAPHIC_UI_FRAME * >
+        VisibleScreenTable;
+    GRAPHIC_UI_FRAME
+        * CurrentScreen;
+    CORE_PARALLEL_LOCK_MUTEX
+        UISystemLock;
+    CORE_MATH_VECTOR
+        ScreenSize,
+        ScreenMouseCoordinates;
 
 XS_CLASS_END
 

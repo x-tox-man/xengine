@@ -26,6 +26,8 @@ enum GRAPHIC_MESH_TYPE {
 XS_CLASS_BEGIN( GRAPHIC_MESH_MANAGER )
 
     XS_DEFINE_UNIQUE( GRAPHIC_MESH_MANAGER )
+
+    ~GRAPHIC_MESH_MANAGER();
     
     GRAPHIC_OBJECT * LoadObject( const CORE_FILESYSTEM_PATH & path, int meshIdentifier, int meshTypeToLoad );
     GRAPHIC_OBJECT_ANIMATED * LoadObjectAnimated( const CORE_FILESYSTEM_PATH & path, int meshIdentifier, int meshTypeToLoad );

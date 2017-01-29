@@ -15,20 +15,21 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(NETWORK_GAME, GAME)
 
-NETWORK_GAME();
+    NETWORK_GAME();
+    virtual ~NETWORK_GAME();
 
-virtual void Initialize() override;
-virtual void Finalize() override;
+    virtual void Initialize() override;
+    virtual void Finalize() override;
 
-virtual void Start() override;
-virtual void Pause() override;
-virtual void Resume() override;
-virtual void End() override;
+    virtual void Start() override;
+    virtual void Pause() override;
+    virtual void Resume() override;
+    virtual void End() override;
 
 private:
 
-std::vector< NETWORK_GAME_PLAYER * >
-    PlayerTable;
+    std::vector< NETWORK_GAME_PLAYER * >
+        PlayerTable;
 
 
 XS_CLASS_END

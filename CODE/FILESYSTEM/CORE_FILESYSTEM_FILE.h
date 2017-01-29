@@ -20,34 +20,40 @@
 
 XS_CLASS_BEGIN_WITH_COPY( CORE_FILESYSTEM_FILE )
 
-CORE_FILESYSTEM_FILE();
-CORE_FILESYSTEM_FILE( const CORE_FILESYSTEM_PATH path );
+    CORE_FILESYSTEM_FILE();
+    CORE_FILESYSTEM_FILE( const CORE_FILESYSTEM_PATH path );
+    ~CORE_FILESYSTEM_FILE();
 
-bool OpenInput();
-bool OpenOutput();
+    bool OpenInput();
+    bool OpenOutput();
 
-int InputBytes( const void * bytes, int size );
-int OutputBytes( void * bytes, int size );
-void Rewind();
-FILE * GetFilePointer();
-CORE_FILESYSTEM_PATH GetPath() { return Path; }
-int GetSize();
+    int InputBytes( const void * bytes, int size );
+    int OutputBytes( void * bytes, int size );
+    void Rewind();
+    FILE * GetFilePointer();
+    CORE_FILESYSTEM_PATH GetPath() { return Path; }
+    int GetSize();
 
-void Close();
+    void Close();
 
-bool IsOpen() { return ItIsOpen; }
-bool IsOpenInput() { return ItIsOpenInput; }
-bool IsOpenOutput() { return ItIsOpenOutput; }
+    bool IsOpen() { return ItIsOpen; }
+    bool IsOpenInput() { return ItIsOpenInput; }
+    bool IsOpenOutput() { return ItIsOpenOutput; }
 
-static CORE_FILESYSTEM_FILE NotFound;
+    static CORE_FILESYSTEM_FILE NotFound;
 
 private :
 
-CORE_FILESYSTEM_PATH Path;
-FILE * FilePointer;
-bool ItIsOpen;
-bool ItIsOpenInput;
-bool ItIsOpenOutput;
+    CORE_FILESYSTEM_PATH
+        Path;
+    FILE
+        * FilePointer;
+    bool
+        ItIsOpen;
+    bool
+        ItIsOpenInput;
+    bool
+        ItIsOpenOutput;
 
 #if PLATFORM_ANDROID
     #include "CORE_FILESYSTEM_FILE_ANDROID.hpp"

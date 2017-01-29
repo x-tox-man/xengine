@@ -19,9 +19,9 @@
 XS_CLASS_BEGIN( CORE_DATA_STREAM )
 
 CORE_DATA_STREAM();
-
 CORE_DATA_STREAM( int size );
 CORE_DATA_STREAM( const char * pointer, int size );
+~CORE_DATA_STREAM();
 
 void Open();
 void Close();

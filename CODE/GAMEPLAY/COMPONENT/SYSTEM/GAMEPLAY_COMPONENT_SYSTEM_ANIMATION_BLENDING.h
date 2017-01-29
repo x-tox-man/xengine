@@ -17,25 +17,24 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING, GAMEPLAY_COMPONENT_SYSTEM )
 
-GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING();
+    GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING();
+    virtual ~GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING();
 
-virtual void Initialize();
+    virtual void Initialize() override;
+    virtual void Update( float time_step ) override;
+    virtual void Render() override;
+    virtual void Finalize() override;
 
-virtual void Update( float time_step );
-virtual void Render();
-
-virtual void Finalize();
-
-void SetFirstMeshAnimation( GRAPHIC_MESH_ANIMATION * animation ) { First = animation; }
-void SetSecondMeshAnimation( GRAPHIC_MESH_ANIMATION * animation ) { Second = animation; }
+    void SetFirstMeshAnimation( GRAPHIC_MESH_ANIMATION * animation ) { First = animation; }
+    void SetSecondMeshAnimation( GRAPHIC_MESH_ANIMATION * animation ) { Second = animation; }
 
 private :
 
-GRAPHIC_MESH_ANIMATION
-    * First,
-    * Second;
-GRAPHIC_MESH_ANIMATION
-    BlendedAnimation;
+    GRAPHIC_MESH_ANIMATION
+        * First,
+        * Second;
+    GRAPHIC_MESH_ANIMATION
+        BlendedAnimation;
 
 
 XS_CLASS_END

@@ -16,20 +16,20 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_RENDERER, GAMEPLAY_COMPONENT_SYSTEM )
 
-GAMEPLAY_COMPONENT_SYSTEM_RENDERER();
+    GAMEPLAY_COMPONENT_SYSTEM_RENDERER();
+    virtual ~GAMEPLAY_COMPONENT_SYSTEM_RENDERER();
 
-virtual void Initialize();
+    virtual void Initialize() override;
+    virtual void Update( float time_step ) override;
+    virtual void Render() override;
+    virtual void Finalize() override;
 
-virtual void Update( float time_step );
-virtual void Render();
-
-virtual void Finalize();
-
-void SetRenderer( GRAPHIC_RENDERER * renderer ) { Renderer = renderer; }
+    void SetRenderer( GRAPHIC_RENDERER * renderer ) { Renderer = renderer; }
 
 private :
 
-GRAPHIC_RENDERER * Renderer;
+    GRAPHIC_RENDERER
+        * Renderer;
 
 XS_CLASS_END
 

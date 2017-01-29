@@ -22,22 +22,24 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_OBJECT_SHAPE_LINE, GRAPHIC_OBJECT_SHAPE)
 
-GRAPHIC_OBJECT_SHAPE_LINE();
+    GRAPHIC_OBJECT_SHAPE_LINE();
+    virtual ~GRAPHIC_OBJECT_SHAPE_LINE();
 
-virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader );
-virtual void Render( const GRAPHIC_RENDERER & renderer );
+    virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) override;
+    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
 
-void SetTarget( const CORE_MATH_VECTOR & target) { Target = target; }
+    void SetTarget( const CORE_MATH_VECTOR & target) { Target = target; }
 
 private:
 
-CORE_MATH_VECTOR Target;
+    CORE_MATH_VECTOR
+        Target;
+    float
+        Vertices[16];
+    GRAPHIC_SHADER_ATTRIBUTE
+        * ShaderPositions;
 
-float Vertices[16];
-
-GRAPHIC_SHADER_ATTRIBUTE * ShaderPositions;
-
-static CORE_HELPERS_IDENTIFIER ShaderLineGeometry;
+    static CORE_HELPERS_IDENTIFIER ShaderLineGeometry;
 
 XS_CLASS_END
 

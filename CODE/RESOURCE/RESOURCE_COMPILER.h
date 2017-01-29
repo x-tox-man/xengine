@@ -13,9 +13,10 @@
 
 XS_CLASS_BEGIN( RESOURCE_COMPILER )
 
-RESOURCE_COMPILER();
+    RESOURCE_COMPILER();
+    ~RESOURCE_COMPILER();
 
-void Compile( const char * file_path );
+    void Compile( const char * file_path );
 
 XS_CLASS_END
 

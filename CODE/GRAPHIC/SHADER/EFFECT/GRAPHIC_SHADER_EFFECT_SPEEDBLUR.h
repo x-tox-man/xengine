@@ -15,15 +15,16 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_SPEEDBLUR, GRAPHIC_SHADER_EFFECT )
 
-GRAPHIC_SHADER_EFFECT_SPEEDBLUR();
+    GRAPHIC_SHADER_EFFECT_SPEEDBLUR();
+    virtual ~GRAPHIC_SHADER_EFFECT_SPEEDBLUR();
 
-virtual void Apply();
-virtual void BindAttributes();
+    virtual void Apply() override;
+    virtual void BindAttributes() override;
 
-static CORE_HELPERS_IDENTIFIER
-    PreviousModelViewProjectionIdentifier,
-    InverseCurrentModelViewIdentifier,
-    ViewRayIdentifier;
+    static CORE_HELPERS_IDENTIFIER
+        PreviousModelViewProjectionIdentifier,
+        InverseCurrentModelViewIdentifier,
+        ViewRayIdentifier;
 
 XS_CLASS_END
 

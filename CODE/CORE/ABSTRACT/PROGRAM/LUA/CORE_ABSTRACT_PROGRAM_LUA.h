@@ -20,10 +20,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(CORE_ABSTRACT_PROGRAM_LUA, CORE_ABSTRACT_PROGRAM_FA
     CORE_HELPERS_FACTORY_Element(CORE_ABSTRACT_PROGRAM_LUA, CORE_ABSTRACT_PROGRAM_FACTORY, CORE_ABSTRACT_PROGRAM_RUNTIME_TYPE, CORE_ABSTRACT_PROGRAM_RUNTIME_Lua)
 
     CORE_ABSTRACT_PROGRAM_LUA();
+    virtual ~CORE_ABSTRACT_PROGRAM_LUA();
 
-    virtual void Load( const char *, const CORE_ABSTRACT_BASE_PROGRAM_RUNTIME & );
-    virtual void Execute();
-    virtual void ExecuteFunction( const char * function, int args, int results, int error_func );
+    virtual void Load( const char *, const CORE_ABSTRACT_BASE_PROGRAM_RUNTIME & ) override;
+    virtual void Execute() override;
+    virtual void ExecuteFunction( const char * function, int args, int results, int error_func ) override;
 
     template <typename __PARAMETER__>
     void AddParameter( __PARAMETER__ parameter, int index) {

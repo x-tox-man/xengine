@@ -69,6 +69,7 @@ class __BASE_STATE_NAME__ { \
     __BASE_MACHINE_TYPE_CONTEXT__ * Context; \
     public : \
     __BASE_STATE_NAME__() {} \
+    virtual ~__BASE_STATE_NAME__() {} \
     virtual void EnterState() {}; \
     virtual void LeaveState() {}; \
     __BASE_MACHINE_TYPE_CONTEXT__ & GetContext() {return *Context; } \

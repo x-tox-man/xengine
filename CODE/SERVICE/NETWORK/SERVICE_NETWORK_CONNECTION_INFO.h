@@ -14,19 +14,20 @@
 
 XS_CLASS_BEGIN( SERVICE_NETWORK_CONNECTION_INFO )
 
-SERVICE_NETWORK_CONNECTION_INFO();
+    SERVICE_NETWORK_CONNECTION_INFO();
+    ~SERVICE_NETWORK_CONNECTION_INFO();
 
-SERVICE_NETWORK_CONNECTION_TYPE
-    ConnectionType;
-unsigned char
-    IPAddres[4],
-    BroadcastIPAddress[4];
-bool
-    ItIsReceiver;
-unsigned short
-    Port;
-bool
-    ItBroadcasts;
+    SERVICE_NETWORK_CONNECTION_TYPE
+        ConnectionType;
+    unsigned char
+        IPAddres[4],
+        BroadcastIPAddress[4];
+    bool
+        ItIsReceiver;
+    unsigned short
+        Port;
+    bool
+        ItBroadcasts;
 
 XS_CLASS_END
 

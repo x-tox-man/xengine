@@ -18,6 +18,7 @@ class GRAPHIC_UI_FRAME;
 XS_CLASS_BEGIN( GRAPHIC_UI_BASE_ADAPTER )
 
 GRAPHIC_UI_BASE_ADAPTER();
+virtual ~GRAPHIC_UI_BASE_ADAPTER();
 
 virtual void OnTextPropertyChanged( GRAPHIC_UI_ELEMENT * element, const char * text );
 virtual void OnLayoutItems( GRAPHIC_UI_FRAME * );

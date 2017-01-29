@@ -19,6 +19,7 @@ class CORE_TIMELINE_COMMAND  {
 public :
     
     CORE_TIMELINE_COMMAND();
+    virtual ~CORE_TIMELINE_COMMAND();
     
     /*template<typename __BOOL_TYPE__>
     void CustomSerialize(CORE_DATA_STREAM & stream) {

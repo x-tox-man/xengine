@@ -15,33 +15,34 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER, GRAPHIC_UI_PRESENTER)
 
-APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER();
+    APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER();
+    virtual ~APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER();
 
-void Update( const float);
+    void Update( const float);
 
-virtual void Configure() = 0;
+    virtual void Configure() = 0;
 
-virtual void StartGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) = 0;
-virtual void SelectGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) = 0;
-virtual void OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) = 0;
+    virtual void StartGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) = 0;
+    virtual void SelectGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) = 0;
+    virtual void OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) = 0;
 
-virtual void OnClientConnected(NETWORK_PLAYER * player) = 0;
-virtual void OnClientDisconnected(NETWORK_PLAYER * player) = 0;
-virtual void OnChatMessageReceived(NETWORK_PLAYER * player, const char * message) = 0;
-virtual void OnGameStarting() = 0;
-virtual void OnStoppedGameStarting() = 0;
+    virtual void OnClientConnected(NETWORK_PLAYER * player) = 0;
+    virtual void OnClientDisconnected(NETWORK_PLAYER * player) = 0;
+    virtual void OnChatMessageReceived(NETWORK_PLAYER * player, const char * message) = 0;
+    virtual void OnGameStarting() = 0;
+    virtual void OnStoppedGameStarting() = 0;
 
 private :
 
-MULTIPLAYER_GAME_LAUNCH_VALIDATOR
-    Validator;
+    MULTIPLAYER_GAME_LAUNCH_VALIDATOR
+        Validator;
 
 protected :
 
-bool
-    GameIsStarting;
-float
-    CountDown;
+    bool
+        GameIsStarting;
+    float
+        CountDown;
 
 XS_CLASS_END
 

@@ -16,22 +16,23 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP, GRAPHIC_OBJECT_SHAPE)
 
-GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP( const void * heights, int x_width, int y_width, float lenght );
+    GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP( const void * heights, int x_width, int y_width, float lenght );
+    virtual ~GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP();
 
-virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, int pixel_size );
-virtual void Render( const GRAPHIC_RENDERER & renderer );
+    virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) override;
+    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
 
 private :
 
-GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP();
+    GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP();
 
-const void
-    * Heights;
-int
-    XWidth,
-    YWidth;
-float
-    Length;
+    const void
+        * Heights;
+    int
+        XWidth,
+        YWidth;
+    float
+        Length;
 
 XS_CLASS_END
 

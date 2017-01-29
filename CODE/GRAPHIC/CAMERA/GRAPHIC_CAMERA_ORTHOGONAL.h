@@ -19,9 +19,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_CAMERA_ORTHOGONAL, GRAPHIC_CAMERA )
 
     GRAPHIC_CAMERA_ORTHOGONAL();
     GRAPHIC_CAMERA_ORTHOGONAL( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
+    virtual ~GRAPHIC_CAMERA_ORTHOGONAL();
 
-    virtual void CalculateProjectionMatrix( float near_plane, float far_plane, float width, float height );
-    virtual void CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
+    virtual void CalculateProjectionMatrix( float near_plane, float far_plane, float width, float height ) override;
+    virtual void CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) override;
 
 XS_CLASS_END
 

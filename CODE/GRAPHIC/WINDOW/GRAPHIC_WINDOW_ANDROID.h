@@ -14,12 +14,12 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_ANDROID, GRAPHIC_WINDOW )
 
-GRAPHIC_WINDOW_ANDROID();
+    GRAPHIC_WINDOW_ANDROID();
+    virtual ~GRAPHIC_WINDOW_ANDROID();
 
-virtual void Initialize();
+    virtual void Initialize() override;
 
 private :
-
 
 XS_CLASS_END
 

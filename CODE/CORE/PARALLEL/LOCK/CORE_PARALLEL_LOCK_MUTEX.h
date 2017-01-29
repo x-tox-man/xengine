@@ -15,6 +15,7 @@
 XS_CLASS_BEGIN(CORE_PARALLEL_LOCK_MUTEX)
 
 CORE_PARALLEL_LOCK_MUTEX();
+~CORE_PARALLEL_LOCK_MUTEX();
 
 std::mutex & GetMutex() { return Mutex; }
 

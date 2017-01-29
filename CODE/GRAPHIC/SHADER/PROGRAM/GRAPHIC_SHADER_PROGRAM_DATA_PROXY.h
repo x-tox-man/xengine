@@ -14,34 +14,34 @@
 
 XS_CLASS_BEGIN( GRAPHIC_SHADER_PROGRAM_DATA_PROXY )
 
-GRAPHIC_SHADER_PROGRAM_DATA_PROXY();
+    GRAPHIC_SHADER_PROGRAM_DATA_PROXY();
+    GRAPHIC_SHADER_PROGRAM_DATA_PROXY( const GRAPHIC_SHADER_PROGRAM & program );
+    GRAPHIC_SHADER_PROGRAM_DATA_PROXY( const GRAPHIC_SHADER_PROGRAM::PTR program );
+    ~GRAPHIC_SHADER_PROGRAM_DATA_PROXY();
 
-GRAPHIC_SHADER_PROGRAM_DATA_PROXY( const GRAPHIC_SHADER_PROGRAM & program );
-GRAPHIC_SHADER_PROGRAM_DATA_PROXY( const GRAPHIC_SHADER_PROGRAM::PTR program );
+    void Initialize( GRAPHIC_SHADER_PROGRAM::PTR program );
 
-void Initialize( GRAPHIC_SHADER_PROGRAM::PTR program );
+    void Enable();
+    void Disable();
 
-void Enable();
-void Disable();
+    GRAPHIC_SHADER_ATTRIBUTE & getShaderAttribute( const CORE_HELPERS_IDENTIFIER & identifier ) { return ShaderAttributeTable[identifier]; }
+    GRAPHIC_SHADER_PROGRAM::PTR GetProgram() { return Program; }
+    void SetProgram( GRAPHIC_SHADER_PROGRAM::PTR program ) { Program = program; }
+    void CopyAttributes();
 
-GRAPHIC_SHADER_ATTRIBUTE & getShaderAttribute( const CORE_HELPERS_IDENTIFIER & identifier ) { return ShaderAttributeTable[identifier]; }
-GRAPHIC_SHADER_PROGRAM::PTR GetProgram() { return Program; }
-void SetProgram( GRAPHIC_SHADER_PROGRAM::PTR program ) { Program = program; }
-void CopyAttributes();
-
-void setShaderAttribute( const GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
-    
-    ShaderAttributeTable[attribute.AttributeName].AttributeIndex = attribute.AttributeIndex;
-    ShaderAttributeTable[attribute.AttributeName].AttributeName = attribute.AttributeName;
-    ShaderAttributeTable[attribute.AttributeName].AttributeValue = attribute.AttributeValue;
-}
+    void setShaderAttribute( const GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+        
+        ShaderAttributeTable[attribute.AttributeName].AttributeIndex = attribute.AttributeIndex;
+        ShaderAttributeTable[attribute.AttributeName].AttributeName = attribute.AttributeName;
+        ShaderAttributeTable[attribute.AttributeName].AttributeValue = attribute.AttributeValue;
+    }
 
 protected:
 
-GRAPHIC_SHADER_PROGRAM::PTR
-    Program;
-std::map<CORE_HELPERS_IDENTIFIER, GRAPHIC_SHADER_ATTRIBUTE>
-    ShaderAttributeTable;
+    GRAPHIC_SHADER_PROGRAM::PTR
+        Program;
+    std::map<CORE_HELPERS_IDENTIFIER, GRAPHIC_SHADER_ATTRIBUTE>
+        ShaderAttributeTable;
 
 XS_CLASS_END
 

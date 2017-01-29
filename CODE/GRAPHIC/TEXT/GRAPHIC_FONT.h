@@ -22,6 +22,7 @@ XS_CLASS_BEGIN( GRAPHIC_FONT )
 XS_DEFINE_SERIALIZABLE
 
 GRAPHIC_FONT();
+~GRAPHIC_FONT();
 
 void Initialize();
 void Load( const CORE_FILESYSTEM_PATH & path, const CORE_FILESYSTEM_PATH & image_path );

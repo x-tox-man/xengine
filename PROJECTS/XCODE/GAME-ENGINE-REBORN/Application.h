@@ -102,12 +102,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( MyTestApp, CORE_APPLICATION )
     CORE_FIXED_STATE_MACHINE_EndDefineState( PAUSE_STATE )
 
     MyTestApp();
+    virtual ~MyTestApp();
 
-    virtual void Initialize();
-    virtual void Finalize();
+    virtual void Initialize() override;
+    virtual void Finalize() override;
 
-    virtual void Update( float time_step );
-    virtual void Render();
+    virtual void Update( float time_step ) override;
+    virtual void Render() override;
 
     void SetDisplacement( float x, float y, float z ) {
         

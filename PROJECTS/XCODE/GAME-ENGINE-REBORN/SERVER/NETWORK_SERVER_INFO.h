@@ -14,22 +14,23 @@
 
 XS_CLASS_BEGIN(NETWORK_SERVER_INFO)
 
-NETWORK_SERVER_INFO();
-NETWORK_SERVER_INFO(const char *, const char *, const char *, int, int);
+    NETWORK_SERVER_INFO();
+    NETWORK_SERVER_INFO(const char *, const char *, const char *, int, int);
+    ~NETWORK_SERVER_INFO();
 
-XS_DEFINE_SERIALIZABLE
+    XS_DEFINE_SERIALIZABLE
 
 private :
 
-char
-    * Name,
-    * GameTitle,
-    * Adress;
-int
-    PlayersCount,
-    MaxPlayers;
-std::vector<NETWORK_PLAYER *>
-    Players;
+    char
+        * Name,
+        * GameTitle,
+        * Adress;
+    int
+        PlayersCount,
+        MaxPlayers;
+    std::vector<NETWORK_PLAYER *>
+        Players;
 
 XS_CLASS_END
 

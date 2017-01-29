@@ -18,47 +18,48 @@
 
 XS_CLASS_BEGIN( GRAPHIC_UI_PLACEMENT )
 
-GRAPHIC_UI_PLACEMENT();
+    GRAPHIC_UI_PLACEMENT();
+    ~GRAPHIC_UI_PLACEMENT();
 
-inline const CORE_MATH_VECTOR & GetRelativePosition() const { return RelativePosition; }
-inline const CORE_MATH_VECTOR & GetAbsolutePosition() const { return AbsolutePosition; }
-inline const CORE_MATH_VECTOR & GetSize() const { return Size; }
-inline const int GetAnchor() const { return Anchor; }
-inline const int GetRotation() const { return Rotation; }
-inline void SetParent(const GRAPHIC_UI_PLACEMENT * parent ) { Parent = parent; }
+    inline const CORE_MATH_VECTOR & GetRelativePosition() const { return RelativePosition; }
+    inline const CORE_MATH_VECTOR & GetAbsolutePosition() const { return AbsolutePosition; }
+    inline const CORE_MATH_VECTOR & GetSize() const { return Size; }
+    inline const int GetAnchor() const { return Anchor; }
+    inline const int GetRotation() const { return Rotation; }
+    inline void SetParent(const GRAPHIC_UI_PLACEMENT * parent ) { Parent = parent; }
 
-inline CORE_MATH_VECTOR & GetRelativePosition() { return RelativePosition; }
-inline CORE_MATH_VECTOR & GetAbsolutePosition() { return AbsolutePosition; }
-inline CORE_MATH_VECTOR & GetSize() { return Size; }
-inline int GetAnchor() { return Anchor; }
-inline int GetRotation() { return Rotation; }
+    inline CORE_MATH_VECTOR & GetRelativePosition() { return RelativePosition; }
+    inline CORE_MATH_VECTOR & GetAbsolutePosition() { return AbsolutePosition; }
+    inline CORE_MATH_VECTOR & GetSize() { return Size; }
+    inline int GetAnchor() { return Anchor; }
+    inline int GetRotation() { return Rotation; }
 
-void Initialize( const GRAPHIC_UI_PLACEMENT * ParentPlacement, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor );
+    void Initialize( const GRAPHIC_UI_PLACEMENT * ParentPlacement, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor );
 
-inline void SetRelativePosition( const CORE_MATH_VECTOR & position ) { RelativePosition = position; OnPlacementPropertyChanged(); }
-inline void SetRelativePosition( const CORE_MATH_VECTOR & position, int anchor ) { RelativePosition = position; Anchor = anchor;OnPlacementPropertyChanged(); }
-inline void SetSize( const CORE_MATH_VECTOR & size ) { Size = size; OnPlacementPropertyChanged(); }
+    inline void SetRelativePosition( const CORE_MATH_VECTOR & position ) { RelativePosition = position; OnPlacementPropertyChanged(); }
+    inline void SetRelativePosition( const CORE_MATH_VECTOR & position, int anchor ) { RelativePosition = position; Anchor = anchor;OnPlacementPropertyChanged(); }
+    inline void SetSize( const CORE_MATH_VECTOR & size ) { Size = size; OnPlacementPropertyChanged(); }
 
-inline void SetAnchor( int anchor ) { Anchor = anchor; OnPlacementPropertyChanged(); }
-inline void SetRotation( int rotation ) { Rotation = rotation; OnPlacementPropertyChanged(); }
+    inline void SetAnchor( int anchor ) { Anchor = anchor; OnPlacementPropertyChanged(); }
+    inline void SetRotation( int rotation ) { Rotation = rotation; OnPlacementPropertyChanged(); }
 
-void OnPlacementPropertyChanged();
+    void OnPlacementPropertyChanged();
 
-void Copy( GRAPHIC_UI_PLACEMENT & other );
+    void Copy( GRAPHIC_UI_PLACEMENT & other );
 
 private:
 
-CORE_MATH_VECTOR
-    RelativePosition,
-    AbsolutePosition,
-    Size;
-int
-    Anchor;
-float
-    Rotation;
+    CORE_MATH_VECTOR
+        RelativePosition,
+        AbsolutePosition,
+        Size;
+    int
+        Anchor;
+    float
+        Rotation;
 
-const GRAPHIC_UI_PLACEMENT
-    * Parent;
+    const GRAPHIC_UI_PLACEMENT
+        * Parent;
 
 XS_CLASS_END
 

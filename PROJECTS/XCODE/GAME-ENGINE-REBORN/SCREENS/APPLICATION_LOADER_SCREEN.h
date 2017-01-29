@@ -21,6 +21,7 @@
 XS_CLASS_BEGIN_WITH_ANCESTOR( APPLICATION_LOADER_SCREEN, GRAPHIC_UI_FRAME )
 
 APPLICATION_LOADER_SCREEN();
+virtual ~APPLICATION_LOADER_SCREEN();
 
 virtual void Initialize() override;
 virtual void Update( const float ) override;

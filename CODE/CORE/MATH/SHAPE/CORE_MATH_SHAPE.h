@@ -22,6 +22,7 @@ XS_CLASS_BEGIN( CORE_MATH_SHAPE )
 XS_DEFINE_SERIALIZABLE
 
     CORE_MATH_SHAPE();
+    ~CORE_MATH_SHAPE();
 
     bool Intersects( const CORE_MATH_SHAPE & other );
     bool Intersects( const CORE_MATH_VECTOR & other );

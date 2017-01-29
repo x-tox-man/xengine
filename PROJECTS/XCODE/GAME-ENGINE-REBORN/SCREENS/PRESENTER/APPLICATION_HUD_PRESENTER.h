@@ -13,11 +13,12 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(APPLICATION_HUD_PRESENTER, GRAPHIC_UI_PRESENTER)
 
-APPLICATION_HUD_PRESENTER();
+    APPLICATION_HUD_PRESENTER();
+    virtual ~APPLICATION_HUD_PRESENTER();
 
-virtual void Update( const float);
+    virtual void Update( const float);
 
-virtual void Configure() = 0;
+    virtual void Configure() = 0;
 
 private :
 

@@ -50,43 +50,44 @@ union UVUnion {
 
 XS_CLASS_BEGIN( SERVICE_NETWORK_CONNECTION )
 
-SERVICE_NETWORK_CONNECTION();
+    SERVICE_NETWORK_CONNECTION();
+    ~SERVICE_NETWORK_CONNECTION();
 
-void Start();
-void Stop();
-void Send( const CORE_DATA_STREAM & data_to_send );
-void Receive();
-void InitializeCommunicationThread();
-void Listen();
+    void Start();
+    void Stop();
+    void Send( const CORE_DATA_STREAM & data_to_send );
+    void Receive();
+    void InitializeCommunicationThread();
+    void Listen();
 
-static void UDPReceivePacket(uv_udp_t *req, ssize_t nread, const uv_buf_t *buf, const struct sockaddr *addr, unsigned flags);
-static void TCPReceivePacket(uv_stream_t *req, ssize_t nread, const uv_buf_t *buf);
-static void UDPSend( uv_udp_send_t* req, int status );
-static void TCPSend( uv_write_t* req, int status );
-static void AllocateReceiveBuffer( uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf );
-static void TCPConnectionCallback( uv_connect_t* req, int status );
-static void OnTCPAccesNewConnection( uv_stream_t * server, int status );
-static void TCPClose( uv_handle_t* handle );
+    static void UDPReceivePacket(uv_udp_t *req, ssize_t nread, const uv_buf_t *buf, const struct sockaddr *addr, unsigned flags);
+    static void TCPReceivePacket(uv_stream_t *req, ssize_t nread, const uv_buf_t *buf);
+    static void UDPSend( uv_udp_send_t* req, int status );
+    static void TCPSend( uv_write_t* req, int status );
+    static void AllocateReceiveBuffer( uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf );
+    static void TCPConnectionCallback( uv_connect_t* req, int status );
+    static void OnTCPAccesNewConnection( uv_stream_t * server, int status );
+    static void TCPClose( uv_handle_t* handle );
 
-SERVICE_NETWORK_CONNECTION_INFO
-    Info;
-UVUnion
-    UVConnection;
-struct sockaddr_in
-    BroadcastAddress,
-    SocketConnectionAddress;
-static CORE_HELPERS_CALLBACK_1<uv_connect_t*>
-    OnNewConnexionCallback;
-CORE_PARALLEL_THREAD
-    TcpClientCommunicationThread;
-CORE_PARALLEL_TASK
-    * TcpCommunicationTask;
-uv_loop_t
-    * SelfLoop;
-CORE_HELPERS_CALLBACK
-    * ListenCallback;
-CORE_PARALLEL_LOCK_MUTEX
-    ConnexionLock;
+    SERVICE_NETWORK_CONNECTION_INFO
+        Info;
+    UVUnion
+        UVConnection;
+    struct sockaddr_in
+        BroadcastAddress,
+        SocketConnectionAddress;
+    static CORE_HELPERS_CALLBACK_1<uv_connect_t*>
+        OnNewConnexionCallback;
+    CORE_PARALLEL_THREAD
+        TcpClientCommunicationThread;
+    CORE_PARALLEL_TASK
+        * TcpCommunicationTask;
+    uv_loop_t
+        * SelfLoop;
+    CORE_HELPERS_CALLBACK
+        * ListenCallback;
+    CORE_PARALLEL_LOCK_MUTEX
+        ConnexionLock;
 
 private:
 

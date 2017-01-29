@@ -19,9 +19,10 @@
 XS_CLASS_BEGIN_WITH_ANCESTOR( APPLICATION_NETWORK_BROWSER, GRAPHIC_UI_FRAME )
 
 APPLICATION_NETWORK_BROWSER();
+virtual ~APPLICATION_NETWORK_BROWSER();
 
-virtual void Initialize();
-virtual void Finalize();
+virtual void Initialize() override;
+virtual void Finalize() override;
 
 void OnShow();
 void OnHide();

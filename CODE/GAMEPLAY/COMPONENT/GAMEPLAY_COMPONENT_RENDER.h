@@ -20,28 +20,31 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
-GAMEPLAY_COMPONENT_RENDER();
+    GAMEPLAY_COMPONENT_RENDER();
+    virtual ~GAMEPLAY_COMPONENT_RENDER();
 
-void * operator new(size_t size);
+    void * operator new(size_t size);
 
-CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Render)
+    CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Render)
 
-void Render( GRAPHIC_RENDERER &renderer, GAMEPLAY_COMPONENT_POSITION * component );
+    void Render( GRAPHIC_RENDERER &renderer, GAMEPLAY_COMPONENT_POSITION * component );
 
-struct INTERNAL_ARRAY{
-    int LastIndex;
-    GAMEPLAY_COMPONENT_RENDER * MemoryArray;
-};
+    struct INTERNAL_ARRAY{
+        int LastIndex;
+        GAMEPLAY_COMPONENT_RENDER * MemoryArray;
+    };
 
-void SetObject( GRAPHIC_OBJECT * object ) { Object = object; }
-GRAPHIC_OBJECT * GetObject() { return Object; }
+    void SetObject( GRAPHIC_OBJECT * object ) { Object = object; }
+    GRAPHIC_OBJECT * GetObject() { return Object; }
 
 private :
 
-static std::vector< INTERNAL_ARRAY > InternalVector;
+    static std::vector< INTERNAL_ARRAY > InternalVector;
 
-GRAPHIC_OBJECT * Object;
-CORE_MATH_SHAPE * BoundingObject;
+    GRAPHIC_OBJECT
+        * Object;
+    CORE_MATH_SHAPE
+        * BoundingObject;
 
 XS_CLASS_END
 

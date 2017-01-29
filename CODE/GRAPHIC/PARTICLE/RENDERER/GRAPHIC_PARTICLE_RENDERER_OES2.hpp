@@ -26,6 +26,9 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
      PlanObject.Render(renderer);
      }*/
     
+    GFX_CHECK(glEnable(GL_POINT_SPRITE_OES); )
+    GFX_CHECK( glTexEnvi( GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE ); )
+    
     VertexBuffer->InitializeWithMemory( 10 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
     GRAPHIC_SYSTEM::UpdateVertexBuffer(&Mesh, *VertexBuffer);
     

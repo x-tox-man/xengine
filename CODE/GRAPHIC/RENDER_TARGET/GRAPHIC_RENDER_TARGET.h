@@ -17,6 +17,7 @@
 XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
 
 GRAPHIC_RENDER_TARGET();
+~GRAPHIC_RENDER_TARGET();
 
 bool Initialize( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool generates_separate_depth_texture, int attachment );
 bool InitializeDepthTexture( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );

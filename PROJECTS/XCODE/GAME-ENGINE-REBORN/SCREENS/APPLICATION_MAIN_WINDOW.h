@@ -25,8 +25,9 @@
 XS_CLASS_BEGIN_WITH_ANCESTOR( APPLICATION_MAIN_WINDOW, GRAPHIC_UI_FRAME )
 
 APPLICATION_MAIN_WINDOW();
+virtual ~APPLICATION_MAIN_WINDOW();
 
-void Initialize();
+virtual void Initialize() override;
 
 void StartLobbyButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
 void StartServerButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
@@ -38,7 +39,7 @@ void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
 void SetNetworkServer( NETWORK_SERVER * server ) { Server = server; }
 void SetNetworkClient( NETWORK_CLIENT * client ) { Client = client; }
 
-virtual void Update( const float );
+virtual void Update( const float ) override;
 
 private:
 

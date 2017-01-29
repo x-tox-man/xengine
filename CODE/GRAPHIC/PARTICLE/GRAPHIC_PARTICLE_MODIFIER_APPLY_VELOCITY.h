@@ -22,7 +22,11 @@ public:
         
     }
     
-    virtual void Apply( float time_step, int start, int end, std::array< PARTICLE_TYPE, PARTICLE_ARRAY_SIZE > & particle_table, std::array< PARTICLE_TYPE_ATTRIBUTE, PARTICLE_ARRAY_SIZE > & particle_attribute_table ) {
+    virtual ~GRAPHIC_PARTICLE_MODIFIER_APPLY_VELOCITY() {
+        
+    }
+    
+    virtual void Apply( float time_step, int start, int end, std::array< PARTICLE_TYPE, PARTICLE_ARRAY_SIZE > & particle_table, std::array< PARTICLE_TYPE_ATTRIBUTE, PARTICLE_ARRAY_SIZE > & particle_attribute_table ) override {
         
         PARTICLE_TYPE_ATTRIBUTE * ptra = &particle_attribute_table[0];
         PARTICLE_TYPE * ptrp = &particle_table[0];

@@ -24,16 +24,18 @@
 
 XS_CLASS_BEGIN( ScriptEntity )
 
-CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( ScriptEntity );
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( ScriptEntity );
 
-ScriptEntity();
-static void Ping();
+    ScriptEntity();
+    ~ScriptEntity();
 
-void Initialize( CORE_FILESYSTEM_PATH path );
+    static void Ping();
 
-void mySuperScriptMethod();
-void mySuperScriptMethodWithParameter(const char *);
-int mySuperScriptMethodWithParameterAndReturnType(const char *);
+    void Initialize( CORE_FILESYSTEM_PATH path );
+
+    void mySuperScriptMethod();
+    void mySuperScriptMethodWithParameter(const char *);
+    int mySuperScriptMethodWithParameterAndReturnType(const char *);
     
 XS_CLASS_END
 

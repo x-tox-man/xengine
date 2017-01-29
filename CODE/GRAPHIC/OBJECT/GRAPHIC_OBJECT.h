@@ -26,6 +26,7 @@ XS_CLASS_BEGIN( GRAPHIC_OBJECT )
     XS_DEFINE_SERIALIZABLE
     
     GRAPHIC_OBJECT();
+    virtual ~GRAPHIC_OBJECT();
 
     void AddNewMesh( GRAPHIC_MESH * mesh );
     void SetShaderForMesh( GRAPHIC_MESH * meshToBind, GRAPHIC_SHADER_PROGRAM * shader );

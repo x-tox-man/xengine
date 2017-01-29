@@ -16,35 +16,44 @@
 
 XS_CLASS_BEGIN( TestClass2 )
 
-TestClass2() :
-    TestInt( 24 ),
-    TestInnerClass(),
-    TestInnerClassPtr(),
-    TestChar( 'c' ),
-    TestCharArray(),
-    TestFloat( 1.1234f ),
-    TestVector()
-{
-    TestCharArray = (char *) malloc( 8 );
-    strcpy( TestCharArray, "coucoutepoiuy\0" );
-}
+    TestClass2() :
+        TestInt( 24 ),
+        TestInnerClass(),
+        TestInnerClassPtr(),
+        TestChar( 'c' ),
+        TestCharArray(),
+        TestFloat( 1.1234f ),
+        TestVector() {
+            
+        TestCharArray = (char *) malloc( 8 );
+        strcpy( TestCharArray, "coucoutepoiuy\0" );
+    }
 
-void Initialize() {
-    
-    TestInnerClassPtr = new TestClass;
-}
+    ~TestClass2();
 
-XS_DEFINE_SERIALIZABLE
+    void Initialize() {
+        
+        TestInnerClassPtr = new TestClass;
+    }
+
+    XS_DEFINE_SERIALIZABLE
 
 public:
 
-int TestInt;
-TestClass TestInnerClass;
-TestClass::PTR TestInnerClassPtr;
-char TestChar;
-char * TestCharArray;
-float TestFloat;
-std::vector< TestClass > TestVector;
+    int
+        TestInt;
+    TestClass
+        TestInnerClass;
+    TestClass::PTR
+        TestInnerClassPtr;
+    char
+        TestChar;
+    char
+        * TestCharArray;
+    float
+        TestFloat;
+    std::vector< TestClass >
+        TestVector;
 
 XS_CLASS_END
 

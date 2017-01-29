@@ -7,3 +7,11 @@
 //
 
 #include "GAME_PLAYER.h"
+
+GAME_PLAYER::GAME_PLAYER() {
+    
+}
+
+GAME_PLAYER::~GAME_PLAYER() {
+    
+}

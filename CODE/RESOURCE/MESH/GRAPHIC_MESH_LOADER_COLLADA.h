@@ -165,6 +165,7 @@
     XS_CLASS_BEGIN( GRAPHIC_MESH_LOADER_COLLADA )
     public:
         GRAPHIC_MESH_LOADER_COLLADA();
+        ~GRAPHIC_MESH_LOADER_COLLADA();
         
         void LoadFile( GRAPHIC_OBJECT & meshToLoad, const CORE_FILESYSTEM_PATH & file_path );
         

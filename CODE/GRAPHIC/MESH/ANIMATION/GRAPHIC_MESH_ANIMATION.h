@@ -23,6 +23,7 @@
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION )
 
     GRAPHIC_MESH_ANIMATION();
+    ~GRAPHIC_MESH_ANIMATION();
 
     XS_DEFINE_SERIALIZABLE
 
@@ -54,16 +55,24 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION )
         void SetJointIndexTable( int * joint_index_table, int size ) { JointIndexTable.InitializeWithMemory(size, 0, joint_index_table); }
     #endif
 
-    private :
+private :
 
-    std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> JointTable;
-    std::vector<int> IndexTable;
-    GRAPHIC_MESH_ANIMATION_MODE Mode;
-    GRAPHIC_MESH_ANIMATION_SKELETON Skeleton;
-    CORE_DATA_BUFFER JointIndexTable;
-    std::string AnimationName;
-    CORE_SCALAR BindShapeMatrix;
-    CORE_DATA_BUFFER InverseBindMatrixes;
+    std::vector<GRAPHIC_MESH_ANIMATION_JOINT *>
+        JointTable;
+    std::vector<int>
+        IndexTable;
+    GRAPHIC_MESH_ANIMATION_MODE
+        Mode;
+    GRAPHIC_MESH_ANIMATION_SKELETON
+        Skeleton;
+    CORE_DATA_BUFFER
+        JointIndexTable;
+    std::string
+        AnimationName;
+    CORE_SCALAR
+        BindShapeMatrix;
+    CORE_DATA_BUFFER
+        InverseBindMatrixes;
 
 XS_CLASS_END
 

@@ -23,7 +23,11 @@ public:
         Gravity = gravity;
     }
     
-    virtual void Apply( float time_step, int start, int end, std::array< PARTICLE_TYPE, PARTICLE_ARRAY_SIZE > & particle_table, std::array< PARTICLE_TYPE_ATTRIBUTE, PARTICLE_ARRAY_SIZE > & particle_attribute_table ) {
+    virtual ~GRAPHIC_PARTICLE_MODIFIER_GRAVITY() {
+        
+    }
+    
+    virtual void Apply( float time_step, int start, int end, std::array< PARTICLE_TYPE, PARTICLE_ARRAY_SIZE > & particle_table, std::array< PARTICLE_TYPE_ATTRIBUTE, PARTICLE_ARRAY_SIZE > & particle_attribute_table ) override {
         
         float current_g = Gravity * time_step;
         

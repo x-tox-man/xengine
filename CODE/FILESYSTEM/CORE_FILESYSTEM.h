@@ -17,6 +17,7 @@
 XS_CLASS_BEGIN( CORE_FILESYSTEM )
 
 CORE_FILESYSTEM();
+~CORE_FILESYSTEM();
 
 static void SetDefaultFilesystem( CORE_FILESYSTEM & file_system ) {
     

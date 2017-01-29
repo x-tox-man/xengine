@@ -16,6 +16,7 @@
 XS_CLASS_BEGIN(CORE_PARALLEL_LOCK)
 
 CORE_PARALLEL_LOCK(CORE_PARALLEL_LOCK_MUTEX & lock_mutex );
+~CORE_PARALLEL_LOCK();
 
 private:
 std::lock_guard<std::mutex>

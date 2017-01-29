@@ -19,6 +19,10 @@ public :
     CORE_ABSTRACT_PROGRAM_RUNTIME() {
 
     }
+    
+    virtual ~CORE_ABSTRACT_PROGRAM_RUNTIME() {
+        
+    }
 
     virtual void Initialize() = 0;
     virtual void Finalize() = 0;

@@ -36,7 +36,7 @@ GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::~GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP() {
     
 } 
 
-void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, int pixel_size ) {
+void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
     
     float *vertex_data = (float *) CORE_MEMORY_ALLOCATOR_Allocate( 8 * sizeof( float ) * XWidth * YWidth );
     int * index_data = (int *) CORE_MEMORY_ALLOCATOR_Allocate( 6 * sizeof(int)* (XWidth-1) * (YWidth-1));
@@ -51,7 +51,7 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape( GRAPHIC_SHADER_PROGRAM_DA
             
             float height_offset = 0.0f;
             
-            switch ( pixel_size) {
+            switch ( 1 ) {
                 case 1:
                     
                     height_offset = *(((uint8_t *) Heights+ height_offset_index) ) ;

@@ -43,7 +43,6 @@ private : \
 public : \
     friend class XS_CLASS_SERIALIZER< __CLASS_NAME__ >; \
     typedef __CLASS_NAME__ * PTR; \
-    virtual ~__CLASS_NAME__();
 
 #define XS_CLASS_BEGIN_WITH_COPY( __CLASS_NAME__ ) \
 class __CLASS_NAME__ \
@@ -51,7 +50,6 @@ class __CLASS_NAME__ \
     public : \
     __CLASS_NAME__( const __CLASS_NAME__ & other ); \
     typedef __CLASS_NAME__ * PTR; \
-    virtual ~__CLASS_NAME__();
 
 #define XS_CLASS_BEGIN_WITH_ANCESTOR( __CLASS_NAME__, __ANCESTOR__ ) \
 class __CLASS_NAME__: public __ANCESTOR__ \
@@ -64,7 +62,6 @@ private : \
 public : \
     friend class XS_CLASS_SERIALIZER< __CLASS_NAME__ >; \
     typedef __CLASS_NAME__ * PTR; \
-    virtual ~__CLASS_NAME__();
 
 #define XS_CLASS_BEGIN_WITH_ANCESTOR_2( __CLASS_NAME__, __ANCESTOR__, __ANCESTOR__2 ) \
 class __CLASS_NAME__: public __ANCESTOR__, public __ANCESTOR__2 \
@@ -79,7 +76,6 @@ class __CLASS_NAME__: public __ANCESTOR__, public __ANCESTOR__2 \
     public : \
     friend class XS_CLASS_SERIALIZER< __CLASS_NAME__ >; \
     typedef __CLASS_NAME__ * PTR; \
-    virtual ~__CLASS_NAME__();
 
 #define XS_CLASS_END \
 };

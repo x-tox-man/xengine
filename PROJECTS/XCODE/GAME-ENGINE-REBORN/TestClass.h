@@ -15,6 +15,9 @@ template <typename __SPECIALIZED__ >
 class TestTemplate {
     
 public:
+    virtual ~TestTemplate() {
+        
+    }
     
     float Initialize() {
         
@@ -30,6 +33,10 @@ public:
 class TestTemplateSpecialized : public TestTemplate< TestTemplateSpecialized > {
     
 public:
+    
+    virtual ~TestTemplateSpecialized() {
+        
+    }
     
     static float Initialize() {
         
@@ -58,24 +65,25 @@ public:
 
 XS_CLASS_BEGIN_WITH_COPY( TestClass )
 
-TestClass() :
-    TestInt( 26 ) {
-    
-}
+    TestClass() :
+        TestInt( 26 ) {
+        
+    }
+    ~TestClass();
 
-TestClass & operator = ( const TestClass & other ) {
-    
-    TestInt = other.TestInt;
-    
-    return *this;
-}
+    TestClass & operator = ( const TestClass & other ) {
+        
+        TestInt = other.TestInt;
+        
+        return *this;
+    }
 
-XS_DEFINE_SERIALIZABLE
+    XS_DEFINE_SERIALIZABLE
 
 public:
 
-int
-    TestInt;
+    int
+        TestInt;
 
 XS_CLASS_END
 

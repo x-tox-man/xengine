@@ -16,17 +16,19 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_SPHERE, GRAPHIC_OBJECT_SHAPE)
 
-GRAPHIC_OBJECT_SHAPE_SPHERE();
+    GRAPHIC_OBJECT_SHAPE_SPHERE();
+    GRAPHIC_OBJECT_SHAPE_SPHERE( int sphere_rings );
+    virtual ~GRAPHIC_OBJECT_SHAPE_SPHERE();
 
-GRAPHIC_OBJECT_SHAPE_SPHERE( int sphere_rings );
-virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader);
-virtual void Render( const GRAPHIC_RENDERER & renderer );
+    virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader) override;
+    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
 
 private :
 
-void computePoint( float * data_pointer, float longi_ratio, float lati_ratio, int point_index );
+    void computePoint( float * data_pointer, float longi_ratio, float lati_ratio, int point_index );
 
-int SphereRings;
+    int
+        SphereRings;
 
 XS_CLASS_END
 
