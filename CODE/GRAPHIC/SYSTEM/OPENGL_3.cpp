@@ -546,4 +546,5 @@ void GRAPHIC_SYSTEM::ReleaseBuffers(GRAPHIC_MESH &mesh) {
     GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_JointIndices ); )
     GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight ); )
 }
+
 #endif

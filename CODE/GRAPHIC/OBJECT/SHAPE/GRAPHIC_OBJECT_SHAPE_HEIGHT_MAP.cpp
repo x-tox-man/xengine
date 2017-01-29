@@ -49,7 +49,7 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape( GRAPHIC_SHADER_PROGRAM_DA
         
         for ( int i = 0; i < XWidth; i++ ) {
             
-            float height_offset;
+            float height_offset = 0.0f;
             
             switch ( pixel_size) {
                 case 1:

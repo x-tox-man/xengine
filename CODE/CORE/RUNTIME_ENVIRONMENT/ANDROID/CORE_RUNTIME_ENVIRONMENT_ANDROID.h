@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <cstddef>
+#include <thread>
+#include <mutex>
 
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>

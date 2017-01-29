@@ -99,9 +99,8 @@ void SERVICE_NETWORK_CONNECTION::Listen() {
     while ( true ) {
         
         CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(ConnexionLock)
-            SERVICE_NETWORK_SYSTEM::GetInstance().Update( false, SelfLoop );
+            SERVICE_NETWORK_SYSTEM::GetInstance().Update( true, SelfLoop );
         CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
-        usleep(15);
     }
 }
 

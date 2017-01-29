@@ -23,7 +23,7 @@ public:
         
     }
     
-    ~RESOURCE_LOADER() {
+    virtual ~RESOURCE_LOADER() {
         
     }
     

@@ -38,8 +38,8 @@
     self.application->setApplicationName( "test" );
     
     GRAPHIC_WINDOW_IOS * window = new GRAPHIC_WINDOW_IOS;
-    window->SetWidth( [[UIScreen mainScreen] applicationFrame].size.width * [[UIScreen mainScreen] scale]);
-    window->SetHeight([[UIScreen mainScreen] applicationFrame].size.height * [[UIScreen mainScreen] scale]);
+    window->SetWidth( [[UIScreen mainScreen] bounds].size.width * [[UIScreen mainScreen] scale]);
+    window->SetHeight([[UIScreen mainScreen] bounds].size.height * [[UIScreen mainScreen] scale]);
     
     window->SetGlView(self.glView);
     window->Initialize();

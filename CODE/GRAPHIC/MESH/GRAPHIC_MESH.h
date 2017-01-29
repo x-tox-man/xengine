@@ -37,6 +37,7 @@ public:
     void CreateBuffers();
     void ApplyBuffers();
     void ReleaseBuffers();
+
     void ActivateBufferComponent( GRAPHIC_SHADER_BIND attribute );
 
     inline void SetTexture( GRAPHIC_TEXTURE * texture) { Texture = texture; }

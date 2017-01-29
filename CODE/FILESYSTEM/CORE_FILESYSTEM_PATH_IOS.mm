@@ -13,7 +13,7 @@
 
     #import <Foundation/Foundation.h>
 
-    CORE_FILESYSTEM_PATH CORE_FILESYSTEM_PATH::FindFilePath( const char * path, const char * extension, const char * directory ) {
+    CORE_FILESYSTEM_PATH CORE_FILESYSTEM_PATH::FindFilePath( const char * path, const char * extension, const char * directory, bool override_extension ) {
         
         CORE_FILESYSTEM_PATH
             file_path;

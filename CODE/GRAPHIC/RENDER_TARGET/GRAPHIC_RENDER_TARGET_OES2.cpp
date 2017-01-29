@@ -77,7 +77,7 @@ void GRAPHIC_RENDER_TARGET::Apply() {
     
     // Activation du test de profondeur
     GFX_CHECK( glEnable( GL_DEPTH_TEST ); )
-    GFX_CHECK(glDepthFunc(GL_ALWAYS));
+    GFX_CHECK( glDepthFunc(GL_ALWAYS); )
     
     // Activation et binding la texture
     GFX_CHECK( glBindTexture( GL_TEXTURE_2D, TargetTexture->GetTextureHandle()); )
@@ -95,8 +95,8 @@ void GRAPHIC_RENDER_TARGET::Apply() {
 void GRAPHIC_RENDER_TARGET::Discard() {
     
     GFX_CHECK( glBindFramebuffer(GL_FRAMEBUFFER, 0 ); )
-    GFX_CHECK( glViewport( 0, 0, CORE_APPLICATION::GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationWindow().GetHeight()); )
-    GFX_CHECK( glDisable(GL_DEPTH_TEST); )
+    GFX_CHECK( glViewport( 0, 0, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight()); )
+    GFX_CHECK( glDisable( GL_DEPTH_TEST ); )
     //on the whole framebuffer, complete from the lower left corner to the upper right
 }
 

@@ -45,6 +45,14 @@ void GRAPHIC_UI_FRAME::Initialize() {
     
     std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
     
+    do {
+        
+        (*it)->Initialize();
+        
+        it++;
+        
+    } while ( it != ElementTable.end() );
+    
     if ( Adapter ) {
         
         ((GRAPHIC_UI_FRAME_ADAPTER *) Adapter)->OnLayoutItems( this );

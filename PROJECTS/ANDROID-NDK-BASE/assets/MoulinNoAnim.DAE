@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>Djad</author>
+      <authoring_tool>OpenCOLLADA for 3ds Max;  ;  </authoring_tool>
+      <source_data>file:///C:/Users/Djad/Documents/3dsMax/scenes/Moulin/Moulin.max</source_data>
+    </contributor>
+    <created>2016-02-07T13:52:42</created>
+    <modified>2016-02-07T13:52:42</modified>
+    <unit name="centimeter" meter="0.01"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="Material__34">
+      <profile_COMMON>
+        <newparam sid="nwj90q30_jpg-surface">
+          <surface type="2D">
+            <init_from>nwj90q30_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="nwj90q30_jpg-sampler">
+          <sampler2D>
+            <source>nwj90q30_jpg-surface</source>
+          </sampler2D>
+        </newparam>
+        <newparam sid="nwj90q30_N_jpg-surface">
+          <surface type="2D">
+            <init_from>nwj90q30_N_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="nwj90q30_N_jpg-sampler">
+          <sampler2D>
+            <source>nwj90q30_N_jpg-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0.588 0.588 0.588 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="nwj90q30_jpg-sampler" texcoord="CHANNEL1"/>
+            </diffuse>
+            <specular>
+              <color>0 0 0 1</color>
+            </specular>
+            <shininess>
+              <float>10</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+          <extra>
+            <technique profile="OpenCOLLADA3dsMax">
+              <bump bumptype="HEIGHTFIELD">
+                <texture texture="nwj90q30_N_jpg-sampler" texcoord="CHANNEL1"/>
+              </bump>
+            </technique>
+          </extra>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <opacity_type sid="opacity_type" type="int">0</opacity_type>
+            <falloff_type sid="falloff_type" type="int">0</falloff_type>
+            <falloff sid="falloff" type="float">0</falloff>
+            <index_of_refraction sid="index_of_refraction" type="float">1.5</index_of_refraction>
+            <wire_size sid="wire_size" type="float">1</wire_size>
+            <wire_units sid="wire_units" type="int">0</wire_units>
+            <apply_reflection_dimming sid="apply_reflection_dimming" type="bool">0</apply_reflection_dimming>
+            <dim_level sid="dim_level" type="float">0</dim_level>
+            <reflection_level sid="reflection_level" type="float">3</reflection_level>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_texture_lock sid="ambient_diffuse_texture_lock" type="bool">1</ambient_diffuse_texture_lock>
+            <ambient_diffuse_lock sid="ambient_diffuse_lock" type="bool">1</ambient_diffuse_lock>
+            <diffuse_specular_lock sid="diffuse_specular_lock" type="bool">0</diffuse_specular_lock>
+            <use_self_illum_color sid="use_self_illum_color" type="bool">0</use_self_illum_color>
+            <self_illumination sid="self_illumination" type="float">0</self_illumination>
+            <specular_level sid="specular_level" type="float">0</specular_level>
+            <soften sid="soften" type="float">0.1</soften>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+    <effect id="Material__35">
+      <profile_COMMON>
+        <newparam sid="TexLauzes1024x768_jpg-surface">
+          <surface type="2D">
+            <init_from>TexLauzes1024x768_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="TexLauzes1024x768_jpg-sampler">
+          <sampler2D>
+            <source>TexLauzes1024x768_jpg-surface</source>
+          </sampler2D>
+        </newparam>
+        <newparam sid="TexLauzes1024x768_N_jpg-surface">
+          <surface type="2D">
+            <init_from>TexLauzes1024x768_N_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="TexLauzes1024x768_N_jpg-sampler">
+          <sampler2D>
+            <source>TexLauzes1024x768_N_jpg-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0.588 0.588 0.588 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="TexLauzes1024x768_jpg-sampler" texcoord="CHANNEL1"/>
+            </diffuse>
+            <specular>
+              <color>0 0 0 1</color>
+            </specular>
+            <shininess>
+              <float>10</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+          <extra>
+            <technique profile="OpenCOLLADA3dsMax">
+              <bump bumptype="HEIGHTFIELD">
+                <texture texture="TexLauzes1024x768_N_jpg-sampler" texcoord="CHANNEL1"/>
+              </bump>
+            </technique>
+          </extra>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <opacity_type sid="opacity_type" type="int">0</opacity_type>
+            <falloff_type sid="falloff_type" type="int">0</falloff_type>
+            <falloff sid="falloff" type="float">0</falloff>
+            <index_of_refraction sid="index_of_refraction" type="float">1.5</index_of_refraction>
+            <wire_size sid="wire_size" type="float">1</wire_size>
+            <wire_units sid="wire_units" type="int">0</wire_units>
+            <apply_reflection_dimming sid="apply_reflection_dimming" type="bool">0</apply_reflection_dimming>
+            <dim_level sid="dim_level" type="float">0</dim_level>
+            <reflection_level sid="reflection_level" type="float">3</reflection_level>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_texture_lock sid="ambient_diffuse_texture_lock" type="bool">1</ambient_diffuse_texture_lock>
+            <ambient_diffuse_lock sid="ambient_diffuse_lock" type="bool">1</ambient_diffuse_lock>
+            <diffuse_specular_lock sid="diffuse_specular_lock" type="bool">0</diffuse_specular_lock>
+            <use_self_illum_color sid="use_self_illum_color" type="bool">0</use_self_illum_color>
+            <self_illumination sid="self_illumination" type="float">0</self_illumination>
+            <specular_level sid="specular_level" type="float">0</specular_level>
+            <soften sid="soften" type="float">0.1</soften>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+    <effect id="Material__36">
+      <profile_COMMON>
+        <newparam sid="seamless_wood_texture_by_DoIknowWhatImDoing_jpg-surface">
+          <surface type="2D">
+            <init_from>seamless_wood_texture_by_DoIknowWhatImDoing_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="seamless_wood_texture_by_DoIknowWhatImDoing_jpg-sampler">
+          <sampler2D>
+            <source>seamless_wood_texture_by_DoIknowWhatImDoing_jpg-surface</source>
+            <wrap_s>MIRROR</wrap_s>
+            <wrap_t>MIRROR</wrap_t>
+          </sampler2D>
+        </newparam>
+        <newparam sid="seamless_wood_texture_by_DoIknowWhatImDoing_N_jpg-surface">
+          <surface type="2D">
+            <init_from>seamless_wood_texture_by_DoIknowWhatImDoing_N_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="seamless_wood_texture_by_DoIknowWhatImDoing_N_jpg-sampler">
+          <sampler2D>
+            <source>seamless_wood_texture_by_DoIknowWhatImDoing_N_jpg-surface</source>
+            <wrap_s>MIRROR</wrap_s>
+            <wrap_t>MIRROR</wrap_t>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0.588 0.588 0.588 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="seamless_wood_texture_by_DoIknowWhatImDoing_jpg-sampler" texcoord="CHANNEL1"/>
+            </diffuse>
+            <specular>
+              <color>0 0 0 1</color>
+            </specular>
+            <shininess>
+              <float>10</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+          <extra>
+            <technique profile="OpenCOLLADA3dsMax">
+              <bump bumptype="HEIGHTFIELD">
+                <texture texture="seamless_wood_texture_by_DoIknowWhatImDoing_N_jpg-sampler" texcoord="CHANNEL1"/>
+              </bump>
+            </technique>
+          </extra>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <opacity_type sid="opacity_type" type="int">0</opacity_type>
+            <falloff_type sid="falloff_type" type="int">0</falloff_type>
+            <falloff sid="falloff" type="float">0</falloff>
+            <index_of_refraction sid="index_of_refraction" type="float">1.5</index_of_refraction>
+            <wire_size sid="wire_size" type="float">1</wire_size>
+            <wire_units sid="wire_units" type="int">0</wire_units>
+            <apply_reflection_dimming sid="apply_reflection_dimming" type="bool">0</apply_reflection_dimming>
+            <dim_level sid="dim_level" type="float">0</dim_level>
+            <reflection_level sid="reflection_level" type="float">3</reflection_level>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_texture_lock sid="ambient_diffuse_texture_lock" type="bool">1</ambient_diffuse_texture_lock>
+            <ambient_diffuse_lock sid="ambient_diffuse_lock" type="bool">1</ambient_diffuse_lock>
+            <diffuse_specular_lock sid="diffuse_specular_lock" type="bool">0</diffuse_specular_lock>
+            <use_self_illum_color sid="use_self_illum_color" type="bool">0</use_self_illum_color>
+            <self_illumination sid="self_illumination" type="float">0</self_illumination>
+            <specular_level sid="specular_level" type="float">0</specular_level>
+            <soften sid="soften" type="float">0.1</soften>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+    <effect id="Material__33">
+      <profile_COMMON>
+        <newparam sid="Aile_diffus_png-surface">
+          <surface type="2D">
+            <init_from>Aile_diffus_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="Aile_diffus_png-sampler">
+          <sampler2D>
+            <source>Aile_diffus_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <newparam sid="Aile_alpha_png-surface">
+          <surface type="2D">
+            <init_from>Aile_alpha_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="Aile_alpha_png-sampler">
+          <sampler2D>
+            <source>Aile_alpha_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <newparam sid="Aile_normals_png-surface">
+          <surface type="2D">
+            <init_from>Aile_normals_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="Aile_normals_png-sampler">
+          <sampler2D>
+            <source>Aile_normals_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0.588 0.588 0.588 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="Aile_diffus_png-sampler" texcoord="CHANNEL1"/>
+            </diffuse>
+            <specular>
+              <color>0 0 0 1</color>
+            </specular>
+            <shininess>
+              <float>10</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="RGB_ZERO">
+              <texture texture="Aile_alpha_png-sampler" texcoord="CHANNEL1"/>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+          <extra>
+            <technique profile="OpenCOLLADA3dsMax">
+              <bump bumptype="HEIGHTFIELD">
+                <texture texture="Aile_normals_png-sampler" texcoord="CHANNEL1"/>
+              </bump>
+            </technique>
+          </extra>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <opacity_type sid="opacity_type" type="int">0</opacity_type>
+            <falloff_type sid="falloff_type" type="int">0</falloff_type>
+            <falloff sid="falloff" type="float">0</falloff>
+            <index_of_refraction sid="index_of_refraction" type="float">1.5</index_of_refraction>
+            <wire_size sid="wire_size" type="float">1</wire_size>
+            <wire_units sid="wire_units" type="int">0</wire_units>
+            <apply_reflection_dimming sid="apply_reflection_dimming" type="bool">0</apply_reflection_dimming>
+            <dim_level sid="dim_level" type="float">0</dim_level>
+            <reflection_level sid="reflection_level" type="float">3</reflection_level>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_texture_lock sid="ambient_diffuse_texture_lock" type="bool">1</ambient_diffuse_texture_lock>
+            <ambient_diffuse_lock sid="ambient_diffuse_lock" type="bool">1</ambient_diffuse_lock>
+            <diffuse_specular_lock sid="diffuse_specular_lock" type="bool">0</diffuse_specular_lock>
+            <use_self_illum_color sid="use_self_illum_color" type="bool">0</use_self_illum_color>
+            <self_illumination sid="self_illumination" type="float">0</self_illumination>
+            <specular_level sid="specular_level" type="float">0</specular_level>
+            <soften sid="soften" type="float">0.1</soften>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="Material__34-material" name="Material__34">
+      <instance_effect url="#Material__34"/>
+    </material>
+    <material id="Material__35-material" name="Material__35">
+      <instance_effect url="#Material__35"/>
+    </material>
+    <material id="Material__36-material" name="Material__36">
+      <instance_effect url="#Material__36"/>
+    </material>
+    <material id="Material__33-material" name="Material__33">
+      <instance_effect url="#Material__33"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="geom-Tour" name="Tour">
+      <mesh>
+        <source id="geom-Tour-positions">
+          <float_array id="geom-Tour-positions-array" count="48">230 0 0 162.6346 162.6346 0 -1.00536e-5 230 0 -162.6346 162.6346 0 -230 -2.01072e-5 0 -162.6345 -162.6346 0 2.74272e-6 -230 0 162.6345 -162.6346 0 230 0 1000 162.6346 162.6346 1000 -1.00536e-5 230 1000 -162.6346 162.6346 1000 -230 -2.01072e-5 1000 -162.6345 -162.6346 1000 2.74272e-6 -230 1000 162.6345 -162.6346 1000</float_array>
+          <technique_common>
+            <accessor source="#geom-Tour-positions-array" count="16" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Tour-normals">
+          <float_array id="geom-Tour-normals-array" count="48">0.776382 0 -0.6302626 0.5489851 0.5489851 -0.6302625 0.5489851 0.5489851 0.6302625 0.7763821 -3.18875e-8 0.6302624 -4.78312e-8 0.7763821 -0.6302624 -1.59437e-8 0.7763821 0.6302624 -0.5489851 0.5489851 -0.6302625 -0.5489851 0.5489851 0.6302625 -0.7763821 -4.78312e-8 -0.6302625 -0.7763821 -1.59437e-8 0.6302624 -0.548985 -0.548985 -0.6302626 -0.5489851 -0.5489851 0.6302625 -6.1782e-8 -0.776382 -0.6302626 6.3775e-8 -0.7763821 0.6302626 0.5489851 -0.5489851 -0.6302624 0.548985 -0.5489849 0.6302626</float_array>
+          <technique_common>
+            <accessor source="#geom-Tour-normals-array" count="16" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Tour-map1">
+          <float_array id="geom-Tour-map1-array" count="102">1.75 -2 0.9999999 2.375 -2 0.9999999 -2 -2 0.9999999 -1.375 -2 0.9999999 -0.7499999 -2 0.9999999 -0.1249999 -2 0.9999999 0.5 -2 0.9999999 1.125 -2 0.9999999 1.75 3 0.9999999 2.375 3 0.9999999 -2 3 0.9999999 -1.375 3 0.9999999 -0.7499999 3 0.9999999 -0.1249999 3 0.9999999 0.5 3 0.9999999 1.125 3 0.9999999 3 -2 0.9999999 3 3 0.9999999 2.267767 2.267767 -0.25 3 0.5 -0.25 2.267767 -1.267766 -0.25 0.5000002 -2 -0.25 -1.267767 -1.267767 -0.25 -2 0.4999998 -0.25 -1.267767 2.267766 -0.25 0.4999998 3 -0.25 0.4999998 3 0.25 -1.267767 2.267766 0.25 -2 0.4999998 0.25 -1.267767 -1.267767 0.25 0.5000002 -2 0.25 2.267767 -1.267766 0.25 3 0.5 0.25 2.267767 2.267767 0.25</float_array>
+          <technique_common>
+            <accessor source="#geom-Tour-map1-array" count="34" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Tour-vertices">
+          <input semantic="POSITION" source="#geom-Tour-positions"/>
+        </vertices>
+        <triangles material="Material__34_1" count="28">
+          <input semantic="VERTEX" source="#geom-Tour-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Tour-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Tour-map1" offset="2" set="0"/>
+          <p>0 0 0 1 1 1 9 2 9 9 2 9 8 3 8 0 0 0 1 1 1 2 4 16 10 5 17 10 5 17 9 2 9 1 1 1 2 4 2 3 6 3 11 7 11 11 7 11 10 5 10 2 4 2 3 6 3 4 8 4 12 9 12 12 9 12 11 7 11 3 6 3 4 8 4 5 10 5 13 11 13 13 11 13 12 9 12 4 8 4 5 10 5 6 12 6 14 13 14 14 13 14 13 11 13 5 10 5 6 12 6 7 14 7 15 15 15 15 15 15 14 13 14 6 12 6 7 14 7 0 0 0 8 3 8 8 3 8 15 15 15 7 14 7 6 12 19 5 10 20 4 8 21 4 8 21 3 6 22 2 4 23 2 4 23 1 1 24 0 0 25 4 8 21 2 4 23 0 0 25 6 12 19 4 8 21 0 0 25 7 14 18 6 12 19 0 0 25 9 2 27 10 5 28 11 7 29 11 7 29 12 9 30 13 11 31 13 11 31 14 13 32 15 15 33 11 7 29 13 11 31 15 15 33 9 2 27 11 7 29 15 15 33 8 3 26 9 2 27 15 15 33</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Toit" name="Toit">
+      <mesh>
+        <source id="geom-Toit-positions">
+          <float_array id="geom-Toit-positions-array" count="93">250 0 0 176.7767 176.7767 0 -1.09278e-5 250 0 -176.7767 176.7767 0 -250 -2.18557e-5 0 -176.7767 -176.7767 0 2.98122e-6 -250 0 176.7767 -176.7767 0 0 0 400 0 0 400 0 0 400 0 0 400 0 0 400 0 0 400 0 0 400 0 0 400 -99.034 99.034 175.9116 -5.30865e-6 121.4477 205.6838 99.01057 99.01057 175.9646 82.41347 116.3662 159.1953 143.0297 176.9824 22.03633 -1.05343e-5 237.7974 22.87394 -143.0297 176.9824 22.03633 -82.43369 116.3864 159.1495 0.006136496 135.9331 184.542 82.41404 184.3709 163.9596 110.2138 199.1293 48.91934 5.58903e-4 226.8583 38.54453 -110.2126 199.1293 48.91934 -82.43311 184.3799 163.9104 0.006705933 209.3042 194.9502</float_array>
+          <technique_common>
+            <accessor source="#geom-Toit-positions-array" count="31" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Toit-normals">
+          <float_array id="geom-Toit-normals-array" count="183">0.8479983 1.15573e-8 0.529999 0.6014438 0.5986255 0.5290679 0.5996254 0.5996253 0.529999 0.5996253 0.5996253 0.529999 0.8000774 -0.331403 0.5000483 0.05566891 0.928475 0.3671989 1.42376e-4 0.9937606 0.1115347 0.2860371 0.9488745 0.1334919 0.2564154 0.9472801 -0.1921235 -0.3213529 0.9441422 -0.07299266 -0.2859465 0.9489008 0.1334985 -0.5996255 0.5996252 0.529999 -0.8479983 -8.09009e-8 0.529999 -0.8000774 0.3314029 0.5000483 1 0 0 -0.3343398 0.798665 0.500351 -0.5996253 -0.5996255 0.529999 -0.8000773 -0.331403 0.5000483 -1.15573e-8 -0.8479984 0.529999 -0.3314029 -0.8000773 0.5000483 0.5996253 -0.5996255 0.5299989 0.3314028 -0.8000774 0.5000483 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -0.9999999 0 0 -1 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 -0.331403 0.8000773 0.5000483 0.001958068 0.8385369 0.5448413 0.340501 0.8339759 0.4342159 0.3324238 0.7984043 0.5020409 -0.004174552 0.8804491 0.4741225 0.02742935 0.8696881 0.492839 -0.3474789 0.8358001 0.4250844 -0.3363787 0.8006793 0.4957439 0.005344593 0.8269789 0.5622076 0.9479913 0.08882573 0.3056509 0.72776 0.4477485 0.5195062 0.8039299 0.3603547 0.4731186 0.9723682 -0.01632357 0.2328807 -0.8367825 0.433238 0.3348131 -0.9187595 -0.02756985 0.3938539 -0.9183474 0.07691377 0.38823 -0.6746355 0.6938139 0.2519709 -0.3027462 -0.09670901 0.9481519 0.01950751 -0.1261675 0.9918171 0.01061472 -0.1257314 0.9920075 -0.3341082 -0.06583212 0.9402329 0.2787295 -0.06712035 0.9580212 0.2937211 -0.09556576 0.9511021</float_array>
+          <technique_common>
+            <accessor source="#geom-Toit-normals-array" count="61" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Toit-map1">
+          <float_array id="geom-Toit-map1-array" count="237">0.4999995 -1.642857 1.035714 2.394035 -1.642857 0.8788073 0.4999995 3.178571 0.0714286 -1.394037 -1.642857 0.1211929 0.4999998 -1.642857 -0.03571427 2.394036 -1.642857 0.1211928 0.4999995 -1.642857 -0.03571427 2.394035 -1.642857 0.1211927 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 -0.5610789 0.2419102 0.2877843 0.4999998 0.5608974 0.760245 1.560827 0.2424784 0.7121655 -0.3830017 0.06280661 0.749356 -1.032462 -1.406754 0.879248 0.4999995 -1.397779 1.009566 2.032461 -1.406754 0.8792481 1.383218 0.06231618 0.7493995 0.4999337 0.3343782 0.7912852 -0.383008 0.113853 0.8950805 -0.6808622 -1.118721 0.9267057 0.4999933 -1.22988 0.986125 1.680849 -1.118721 0.9267058 1.383212 0.1133258 0.8950999 0.4999275 0.445895 0.9485089 -1.394036 -1.642857 0.1211928 0.5 2.642857 0.5 -1.394037 -1.642857 0.8788071 0.5 2.642857 0.5 -1.394035 -1.394037 0.0714286 0.5000005 -2.178571 0.0714286 2.394036 -1.394036 0.0714286 3.178571 0.5000002 0.0714286 2.394035 2.394036 0.0714286 -1.394037 2.394035 0.0714286 -2.178571 0.4999995 0.0714286 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 1.561078 0.2419102 0.7122158 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 0.5 2.642857 0.5 -0.5608277 0.2424784 0.7121655 -0.5608277 0.2424784 0.7121655 -1.394037 -1.642857 0.8788071 -1.394037 -1.642857 0.8788071 0.4999995 -1.642857 1.035714 0.4999995 -1.642857 1.035714 2.394035 -1.642857 0.8788073 2.394035 -1.642857 0.8788073 1.561078 0.2419102 0.7122158 1.561078 0.2419102 0.7122158 -0.5608277 0.2424784 0.7121655 1.74678 0.06280661 0.6766003 2.39624 -1.406754 0.8064923 2.633528 -1.118721 0.7361724 2.475402 0.113853 0.6766016 -1.396241 -1.406754 0.1935078 -0.7469974 0.06231618 0.3233564 -1.475499 0.1133258 0.3233577 -1.633529 -1.118721 0.2638302 -0.3832178 1.746997 0.4124632 0.5000663 1.956426 0.4668757 0.5000725 2.742544 0.489179 -0.3832115 2.475499 0.4226651 0.5000663 1.956426 0.4668757 1.383002 1.74678 0.4125613 1.383008 2.475402 0.4227706 0.5000725 2.742544 0.489179</float_array>
+          <technique_common>
+            <accessor source="#geom-Toit-map1-array" count="79" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Toit-vertices">
+          <input semantic="POSITION" source="#geom-Toit-positions"/>
+        </vertices>
+        <triangles material="Material__35_1" count="58">
+          <input semantic="VERTEX" source="#geom-Toit-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Toit-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Toit-map1" offset="2" set="0"/>
+          <p>0 0 0 1 1 1 18 2 18 0 0 0 18 2 18 9 3 9 0 0 0 9 3 9 8 4 8 27 5 27 30 6 30 25 7 25 25 7 25 26 8 26 27 5 27 27 5 27 28 9 28 29 10 29 29 10 29 30 6 30 27 5 27 3 11 3 4 12 4 12 13 12 12 13 12 11 14 11 16 15 16 3 11 3 12 13 12 16 15 16 4 12 4 5 16 5 13 17 13 13 17 13 12 13 12 4 12 4 5 16 31 6 18 6 14 19 14 14 19 14 13 17 32 5 16 31 6 18 6 7 20 7 15 21 15 15 21 15 14 19 14 6 18 6 7 20 33 0 0 0 8 4 8 8 4 8 15 21 34 7 20 33 6 22 36 5 23 37 4 24 38 4 24 38 3 25 39 2 26 2 2 26 2 1 27 40 0 28 41 4 24 38 2 26 2 0 28 41 6 22 36 4 24 38 0 28 41 7 29 35 6 22 36 0 28 41 9 30 9 10 31 10 11 32 42 11 32 42 12 33 43 13 34 44 13 34 44 14 35 45 15 36 46 11 32 42 13 34 44 15 36 46 9 30 9 11 32 42 15 36 46 8 37 8 9 30 9 15 36 46 10 38 49 17 39 17 16 15 47 16 15 47 11 14 48 10 38 49 9 3 51 18 2 52 17 39 17 17 39 17 10 38 50 9 3 51 18 2 53 1 1 54 20 40 20 20 40 20 19 41 19 18 2 53 1 1 55 2 42 56 21 43 21 21 43 21 20 40 20 1 1 55 2 42 57 3 11 58 22 44 22 22 44 22 21 43 21 2 42 57 3 11 59 16 15 60 23 45 23 23 45 23 22 44 22 3 11 59 16 15 61 17 39 17 24 46 24 24 46 24 23 45 23 16 15 61 17 39 17 18 2 62 19 41 19 19 41 19 24 46 24 17 39 17 19 47 63 20 48 64 26 49 65 26 49 65 25 50 66 19 47 63 20 40 20 21 43 21 27 5 27 27 5 27 26 8 26 20 40 20 21 43 21 22 44 22 28 9 28 28 9 28 27 5 27 21 43 21 22 51 67 23 52 68 29 53 69 29 53 69 28 54 70 22 51 67 23 55 71 24 56 72 30 57 73 30 57 73 29 58 74 23 55 71 24 56 75 19 59 76 25 60 77 25 60 77 30 57 78 24 56 75</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Support" name="Support">
+      <mesh>
+        <source id="geom-Support-positions">
+          <float_array id="geom-Support-positions-array" count="24">-30 -100 0 30 -100 0 -30 100 0 30 100 0 -30 -100 60 30 -100 60 -30 100 60 30 100 60</float_array>
+          <technique_common>
+            <accessor source="#geom-Support-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Support-normals">
+          <float_array id="geom-Support-normals-array" count="72">0 0 -0.9999999 0 0 -1 0 0 -0.9999999 0 0 -1 0 0 0.9999999 0 0 1 0 0 0.9999999 0 0 1 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0.9999999 0 0 1 0 0 0.9999999 0 0 1 0 0 0 1 0 0 1 0 0 1 0 0 1 0 -0.9999999 0 0 -1 0 0 -0.9999999 0 0 -1 0 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Support-normals-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Support-map1">
+          <float_array id="geom-Support-map1-array" count="36">0 0 0 1 0 0 0 1 0 1 1 0 0 0 0 1 0 0 0 1 0 1 1 0 0 0 0 1 0 0 0 1 0 1 1 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Support-map1-array" count="12" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Support-vertices">
+          <input semantic="POSITION" source="#geom-Support-positions"/>
+        </vertices>
+        <triangles material="Material__36_1" count="12">
+          <input semantic="VERTEX" source="#geom-Support-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Support-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Support-map1" offset="2" set="0"/>
+          <p>0 0 9 2 1 11 3 2 10 3 2 10 1 3 8 0 0 9 4 4 8 5 5 9 7 6 11 7 6 11 6 7 10 4 4 8 0 8 4 1 9 5 5 10 7 5 10 7 4 11 6 0 8 4 1 12 0 3 13 1 7 14 3 7 14 3 5 15 2 1 12 0 3 16 4 2 17 5 6 18 7 6 18 7 7 19 6 3 16 4 2 20 0 0 21 1 4 22 3 4 22 3 6 23 2 2 20 0</p>
+        </triangles>
+      </mesh>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <max_box>
+            <length sid="length" type="float">200</length>
+            <width sid="width" type="float">60</width>
+            <height sid="height" type="float">60</height>
+            <widthsegments sid="widthsegments" type="int">1</widthsegments>
+            <lengthsegments sid="lengthsegments" type="int">1</lengthsegments>
+            <heightsegments sid="heightsegments" type="int">1</heightsegments>
+            <generateuvs sid="generateuvs" type="int">1</generateuvs>
+          </max_box>
+        </technique>
+      </extra>
+    </geometry>
+    <geometry id="geom-Ailes" name="Ailes">
+      <mesh>
+        <source id="geom-Ailes-positions">
+          <float_array id="geom-Ailes-positions-array" count="96">-350 -125 0 350 -125 0 -350 125 0 350 125 0 674.9999 -900.0006 0.001853012 675.0011 -200.0006 2.72743e-4 424.9999 -900.0001 0.002290733 425.0011 -200.0001 7.10465e-4 1450.002 124.9987 6.92708e-4 750.0016 124.9986 -0.00408124 1450.002 -125.0013 0.001761908 750.0016 -125.0014 -0.00301204 425.0022 899.9991 -0.003970146 425.0012 199.999 -0.002567091 675.0022 899.9987 -0.001827441 675.0011 199.9987 -4.24386e-4 -350.0001 125 3.57628e-7 -350.0001 -125.0001 4.17233e-7 350.0001 -125 4.76837e-7 350.0001 125.0001 2.98023e-7 425 -900.0002 0.002291024 675.0001 -900.0007 0.001853347 675.0012 -200.0007 2.73108e-4 425.0012 -200.0002 7.10726e-4 1450.001 -125.0013 0.001762131 1450.001 124.9987 6.93139e-4 750.0013 124.9986 -0.004080751 750.0015 -125.0016 -0.003011638 675.0021 899.9985 -0.00182715 425.002 899.9991 -0.003969692 425.001 199.9987 -0.002566725 675.0011 199.9985 -4.24006e-4</float_array>
+          <technique_common>
+            <accessor source="#geom-Ailes-positions-array" count="32" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Ailes-normals">
+          <float_array id="geom-Ailes-normals-array" count="336">4.79603e-11 3.42548e-10 1 -8.51495e-11 7.15256e-10 1 -4.79603e-11 6.11126e-10 1 8.51494e-11 2.38419e-10 1 1.75066e-6 2.25755e-6 1 1.75047e-6 2.25748e-6 1 1.75053e-6 2.2575e-6 0.9999999 1.75071e-6 2.25757e-6 0.9999999 -6.81971e-6 4.27607e-6 1 -6.81984e-6 4.27644e-6 1 -6.8198e-6 4.27634e-6 1 -6.81967e-6 4.27597e-6 1 -8.57032e-6 2.00445e-6 1 -8.57087e-6 2.00425e-6 1 -8.57072e-6 2.00431e-6 1 -8.57016e-6 2.0045e-6 1 -0.004557244 0 -0.9999896 -0.004557244 0 -0.9999895 -0.004557244 0 -0.9999896 -0.00390622 -2.38417e-10 -0.9999924 -0.00390622 -2.38417e-10 -0.9999924 -0.00390622 -2.38417e-10 -0.9999924 0 -0.06237829 0.9980526 0 -0.06237829 0.9980526 0 -0.06237829 0.9980526 7.66322e-10 -0.007812263 -0.9999695 7.66322e-10 -0.007812263 -0.9999695 7.66322e-10 -0.007812263 -0.9999695 0.003255191 0 -0.9999946 0.003255191 0 -0.9999946 0.003255191 0 -0.9999948 0.005208262 -7.15246e-10 -0.9999864 0.005208263 -7.15246e-10 -0.9999865 0.005208262 -7.15246e-10 -0.9999864 0 0.04682359 0.9989032 0 0.04682359 0.9989032 0 0.04682358 0.9989032 -5.71709e-10 0.005580271 -0.9999844 -5.71709e-10 0.005580271 -0.9999844 -5.71709e-10 0.005580271 -0.9999844 -1.75625e-6 -0.002750084 -0.9999962 -1.75625e-6 -0.002750084 -0.9999961 -1.75625e-6 -0.002750084 -0.9999962 -1.75535e-6 -0.00238212 -0.9999971 -1.75535e-6 -0.00238212 -0.9999971 -1.75535e-6 -0.00238212 -0.9999971 0.002989578 -2.26273e-6 -0.9999956 0.002989578 -2.26273e-6 -0.9999955 0.002989578 -2.26273e-6 -0.9999956 0.00137216 -2.25963e-6 -0.999999 0.00137216 -2.25963e-6 -0.999999 0.00137216 -2.25963e-6 -0.999999 1.76026e-6 0.004274182 0.9999909 1.76026e-6 0.004274182 0.9999909 1.76026e-6 0.004274182 0.9999909 1.76359e-6 0.005984865 0.999982 1.76359e-6 0.005984865 0.9999821 1.76359e-6 0.005984865 0.9999821 -0.002378103 2.26156e-6 0.9999972 -0.002378103 2.26156e-6 0.9999971 -0.002378103 2.26156e-6 0.9999972 -0.004270158 2.26444e-6 0.9999909 -0.004270158 2.26444e-6 0.9999909 -0.004270157 2.26444e-6 0.9999908 0.003532121 4.2785e-6 0.9999939 0.00353212 4.2785e-6 0.9999937 0.00353212 4.2785e-6 0.9999937 9.09805e-4 4.27596e-6 0.9999996 9.09805e-4 4.27596e-6 0.9999995 9.09805e-4 4.27596e-6 0.9999996 6.81683e-6 0.01288436 -0.999917 6.81683e-6 0.01288436 -0.999917 6.81683e-6 0.01288436 -0.999917 -6.81633e-6 0.05653722 0.9984006 -6.81633e-6 0.05653721 0.9984004 -6.81633e-6 0.05653721 0.9984004 -0.006583102 -4.27671e-6 -0.9999784 -0.006583101 -4.27671e-6 -0.9999783 -0.006583101 -4.27671e-6 -0.9999783 -0.002007195 -4.27791e-6 -0.9999979 -0.002007195 -4.27791e-6 -0.999998 -0.002007195 -4.27791e-6 -0.999998 2.16361e-7 -1 2.3781e-4 2.16361e-7 -0.9999999 2.3781e-4 2.16361e-7 -0.9999999 2.3781e-4 6.82093e-6 -0.003299291 -0.9999946 6.82093e-6 -0.003299291 -0.9999945 6.82093e-6 -0.003299291 -0.9999946 1.94863e-6 0.9999998 5.23921e-4 1.94863e-6 0.9999999 5.23921e-4 1.94863e-6 0.9999999 5.23921e-4 -8.56431e-6 0.002387021 0.9999971 -8.56431e-6 0.002387021 0.9999971 -8.56432e-6 0.002387021 0.9999972 -0.002994246 -2.00005e-6 -0.9999956 -0.002994246 -2.00005e-6 -0.9999955 -0.002994246 -2.00005e-6 -0.9999954 -0.003719304 -1.99887e-6 -0.9999931 -0.003719304 -1.99887e-6 -0.999993 -0.003719304 -1.99887e-6 -0.999993 8.56622e-6 -0.003112778 -0.9999952 8.56622e-6 -0.003112778 -0.9999951 8.56622e-6 -0.003112778 -0.9999952 8.57038e-6 -0.001002943 -0.9999995 8.57038e-6 -0.001002943 -0.9999995 8.57038e-6 -0.001002943 -0.9999995 0.002376457 2.00063e-6 0.9999973 0.002376456 2.00063e-6 0.9999971 0.002376456 2.00063e-6 0.9999971 1 -1.39599e-6 -4.48468e-4 0.9999999 -1.39599e-6 -4.48468e-4 0.9999999 -1.39599e-6 -4.48468e-4</float_array>
+          <technique_common>
+            <accessor source="#geom-Ailes-normals-array" count="112" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Ailes-map1">
+          <float_array id="geom-Ailes-map1-array" count="96">0 0 0 1 0 0 0 1 0 1 1 0 0 0 0 1 0 0 0 1 0 1 1 0 0 0 0 1 0 0 0 1 0 1 1 0 0 0 0 1 0 0 0 1 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Ailes-map1-array" count="32" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Ailes-vertices">
+          <input semantic="POSITION" source="#geom-Ailes-positions"/>
+        </vertices>
+        <triangles material="Material__33_1" count="40">
+          <input semantic="VERTEX" source="#geom-Ailes-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Ailes-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Ailes-map1" offset="2" set="0"/>
+          <p>17 0 17 18 1 18 19 2 19 19 2 19 16 3 16 17 0 17 21 4 21 22 5 22 23 6 23 23 6 23 20 7 20 21 4 21 25 8 25 26 9 26 27 10 27 27 10 27 24 11 24 25 8 25 29 12 29 30 13 30 31 14 31 31 14 31 28 15 28 29 12 29 2 16 2 0 17 0 17 18 17 17 19 17 16 20 16 2 21 2 0 22 0 1 23 1 18 24 18 18 25 18 17 26 17 0 27 0 1 28 1 3 29 3 19 30 19 19 31 19 18 32 18 1 33 1 3 34 3 2 35 2 16 36 16 16 37 16 19 38 19 3 39 3 6 40 6 4 41 4 21 42 21 21 43 21 20 44 20 6 45 6 4 46 4 5 47 5 22 48 22 22 49 22 21 50 21 4 51 4 5 52 5 7 53 7 23 54 23 23 55 23 22 56 22 5 57 5 7 58 7 6 59 6 20 60 20 20 61 20 23 62 23 7 63 7 10 64 10 8 65 8 25 66 25 25 67 25 24 68 24 10 69 10 8 70 8 9 71 9 26 72 26 26 73 26 25 74 25 8 75 8 9 76 9 11 77 11 27 78 27 27 79 27 26 80 26 9 81 9 11 82 11 10 83 10 24 84 24 24 85 24 27 86 27 11 87 11 14 88 14 12 89 12 29 90 29 29 91 29 28 92 28 14 93 14 12 94 12 13 95 13 30 96 30 30 97 30 29 98 29 12 99 12 13 100 13 15 101 15 31 102 31 31 103 31 30 104 30 13 105 13 15 106 15 14 107 14 28 108 28 28 109 28 31 110 31 15 111 15</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Poutre_01" name="Poutre_01">
+      <mesh>
+        <source id="geom-Poutre_01-positions">
+          <float_array id="geom-Poutre_01-positions-array" count="24">899.9993 -29.99924 870.0019 899.9988 -29.99935 930.0019 899.9995 30.00075 870.002 899.999 30.00064 930.002 -900.0006 -29.99606 869.9869 -900.001 -29.99617 929.987 -900.0005 30.00393 869.9871 -900.0009 30.00382 929.9871</float_array>
+          <technique_common>
+            <accessor source="#geom-Poutre_01-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Poutre_01-normals">
+          <float_array id="geom-Poutre_01-normals-array" count="72">1 -2.03452e-6 8.13802e-6 0.9999999 -2.03452e-6 8.13802e-6 1 -2.03452e-6 8.13802e-6 0.9999999 -2.03452e-6 8.13802e-6 -1 2.03452e-6 -6.10351e-6 -0.9999999 2.03452e-6 -6.10351e-6 -1 2.03452e-6 -6.10351e-6 -0.9999999 2.03452e-6 -6.10351e-6 -1.76534e-6 -1 -1.90736e-6 -1.76534e-6 -1 -1.90736e-6 -1.76534e-6 -1 -1.90736e-6 -1.76534e-6 -1 -1.90736e-6 -8.27366e-6 -2.03449e-6 1 -8.27366e-6 -2.03449e-6 1 -8.27366e-6 -2.03449e-6 1 -8.27366e-6 -2.03449e-6 1 1.76534e-6 1 1.90736e-6 1.76534e-6 0.9999999 1.90736e-6 1.76534e-6 1 1.90736e-6 1.76534e-6 0.9999999 1.90736e-6 8.30757e-6 2.03449e-6 -1 8.30757e-6 2.03449e-6 -0.9999999 8.30757e-6 2.03449e-6 -1 8.30757e-6 2.03449e-6 -0.9999999</float_array>
+          <technique_common>
+            <accessor source="#geom-Poutre_01-normals-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Poutre_01-map1">
+          <float_array id="geom-Poutre_01-map1-array" count="72">2.416662 2.416687 5 2.416662 2.583354 4.999998 2.583328 2.416687 5 2.583328 2.583354 4.999999 2.583328 2.416646 1.3411e-6 2.583328 2.583313 1.49012e-7 2.416661 2.416646 1.63913e-6 2.416662 2.583313 4.47035e-7 5 2.416687 2.416662 4.999998 2.583354 2.416662 1.49012e-7 2.583313 2.416672 1.3411e-6 2.416646 2.416672 4.999998 2.416662 2.583354 4.999999 2.583328 2.583354 4.47035e-7 2.583338 2.583313 1.49012e-7 2.416672 2.583313 1.19209e-6 2.583354 2.583328 0 2.416687 2.583328 4.999998 2.416646 2.583339 5 2.583313 2.583338 0 2.583328 2.416687 2.98023e-7 2.416662 2.416687 4.999999 2.416672 2.416646 4.999998 2.583339 2.416646</float_array>
+          <technique_common>
+            <accessor source="#geom-Poutre_01-map1-array" count="24" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Poutre_01-vertices">
+          <input semantic="POSITION" source="#geom-Poutre_01-positions"/>
+        </vertices>
+        <triangles material="Material__36" count="12">
+          <input semantic="VERTEX" source="#geom-Poutre_01-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Poutre_01-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Poutre_01-map1" offset="2" set="0"/>
+          <p>0 0 0 2 1 2 3 2 3 3 2 3 1 3 1 0 0 0 4 4 4 5 5 5 7 6 7 7 6 7 6 7 6 4 4 4 0 8 8 1 9 9 5 10 10 5 10 10 4 11 11 0 8 8 1 12 12 3 13 13 7 14 14 7 14 14 5 15 15 1 12 12 3 16 16 2 17 17 6 18 18 6 18 18 7 19 19 3 16 16 2 20 20 0 21 21 4 22 22 4 22 22 6 23 23 2 20 20</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Poutre_02" name="Poutre_02">
+      <mesh>
+        <source id="geom-Poutre_02-positions">
+          <float_array id="geom-Poutre_02-positions-array" count="24">899.9993 -29.99924 870.0019 899.9988 -29.99935 930.0019 899.9995 30.00075 870.002 899.999 30.00064 930.002 -900.0006 -29.99606 869.9869 -900.001 -29.99617 929.987 -900.0005 30.00393 869.9871 -900.0009 30.00382 929.9871</float_array>
+          <technique_common>
+            <accessor source="#geom-Poutre_02-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Poutre_02-normals">
+          <float_array id="geom-Poutre_02-normals-array" count="72">1 -2.03452e-6 8.13802e-6 0.9999999 -2.03452e-6 8.13802e-6 1 -2.03452e-6 8.13802e-6 0.9999999 -2.03452e-6 8.13802e-6 -1 2.03452e-6 -6.10351e-6 -0.9999999 2.03452e-6 -6.10351e-6 -1 2.03452e-6 -6.10351e-6 -0.9999999 2.03452e-6 -6.10351e-6 -1.76534e-6 -1 -1.90736e-6 -1.76534e-6 -1 -1.90736e-6 -1.76534e-6 -1 -1.90736e-6 -1.76534e-6 -1 -1.90736e-6 -8.27366e-6 -2.03449e-6 1 -8.27366e-6 -2.03449e-6 1 -8.27366e-6 -2.03449e-6 1 -8.27366e-6 -2.03449e-6 1 1.76534e-6 1 1.90736e-6 1.76534e-6 0.9999999 1.90736e-6 1.76534e-6 1 1.90736e-6 1.76534e-6 0.9999999 1.90736e-6 8.30757e-6 2.03449e-6 -1 8.30757e-6 2.03449e-6 -0.9999999 8.30757e-6 2.03449e-6 -1 8.30757e-6 2.03449e-6 -0.9999999</float_array>
+          <technique_common>
+            <accessor source="#geom-Poutre_02-normals-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Poutre_02-map1">
+          <float_array id="geom-Poutre_02-map1-array" count="72">2.416662 2.416687 5 2.416662 2.583354 4.999998 2.583328 2.416687 5 2.583328 2.583354 4.999999 2.583328 2.416646 1.3411e-6 2.583328 2.583313 1.49012e-7 2.416661 2.416646 1.63913e-6 2.416662 2.583313 4.47035e-7 5 2.416687 2.416662 4.999998 2.583354 2.416662 1.49012e-7 2.583313 2.416672 1.3411e-6 2.416646 2.416672 4.999998 2.416662 2.583354 4.999999 2.583328 2.583354 4.47035e-7 2.583338 2.583313 1.49012e-7 2.416672 2.583313 1.19209e-6 2.583354 2.583328 0 2.416687 2.583328 4.999998 2.416646 2.583339 5 2.583313 2.583338 0 2.583328 2.416687 2.98023e-7 2.416662 2.416687 4.999999 2.416672 2.416646 4.999998 2.583339 2.416646</float_array>
+          <technique_common>
+            <accessor source="#geom-Poutre_02-map1-array" count="24" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Poutre_02-vertices">
+          <input semantic="POSITION" source="#geom-Poutre_02-positions"/>
+        </vertices>
+        <triangles material="Material__36" count="12">
+          <input semantic="VERTEX" source="#geom-Poutre_02-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Poutre_02-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Poutre_02-map1" offset="2" set="0"/>
+          <p>0 0 0 2 1 2 3 2 3 3 2 3 1 3 1 0 0 0 4 4 4 5 5 5 7 6 7 7 6 7 6 7 6 4 4 4 0 8 8 1 9 9 5 10 10 5 10 10 4 11 11 0 8 8 1 12 12 3 13 13 7 14 14 7 14 14 5 15 15 1 12 12 3 16 16 2 17 17 6 18 18 6 18 18 7 19 19 3 16 16 2 20 20 0 21 21 4 22 22 4 22 22 6 23 23 2 20 20</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_lights>
+    <light id="EnvironmentAmbientLight" name="EnvironmentAmbientLight">
+      <technique_common>
+        <ambient>
+          <color>0 0 0</color>
+        </ambient>
+      </technique_common>
+    </light>
+  </library_lights>
+  <library_images>
+    <image id="Aile_alpha_png">
+      <init_from>./images/7_Aile%20alpha.png</init_from>
+    </image>
+    <image id="Aile_diffus_png">
+      <init_from>./images/6_Aile%20diffus.png</init_from>
+    </image>
+    <image id="Aile_normals_png">
+      <init_from>./images/8_Aile%20normals.png</init_from>
+    </image>
+    <image id="TexLauzes1024x768_N_jpg">
+      <init_from>./images/3_TexLauzes1024x768%20N.jpg</init_from>
+    </image>
+    <image id="TexLauzes1024x768_jpg">
+      <init_from>./images/2_TexLauzes1024x768.jpg</init_from>
+    </image>
+    <image id="nwj90q30_N_jpg">
+      <init_from>./images/1_nwj90q30%20N.jpg</init_from>
+    </image>
+    <image id="nwj90q30_jpg">
+      <init_from>./images/0_nwj90q30.jpg</init_from>
+    </image>
+    <image id="seamless_wood_texture_by_DoIknowWhatImDoing_N_jpg">
+      <init_from>./images/5_seamless_wood_texture_by_DoIknowWhatImDoing%20N.jpg</init_from>
+    </image>
+    <image id="seamless_wood_texture_by_DoIknowWhatImDoing_jpg">
+      <init_from>./images/4_seamless_wood_texture_by_DoIknowWhatImDoing.jpg</init_from>
+    </image>
+  </library_images>
+  <library_visual_scenes>
+    <visual_scene id="MaxScene">
+      <node name="EnvironmentAmbientLight">
+        <instance_light url="#EnvironmentAmbientLight"/>
+      </node>
+      <node id="node-Tour" name="Tour">
+        <matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <instance_geometry url="#geom-Tour">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Material__34_1" target="#Material__34-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows sid="cast_shadows" type="bool">1</cast_shadows>
+            <receive_shadows sid="receive_shadows" type="bool">1</receive_shadows>
+            <primary_visibility sid="primary_visibility" type="int">1</primary_visibility>
+            <secondary_visibility sid="secondary_visibility" type="int">1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+      <node id="node-Toit" name="Toit">
+        <matrix>1 0 0 0 0 1 0 0 0 0 1 1000 0 0 0 1</matrix>
+        <instance_geometry url="#geom-Toit">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Material__35_1" target="#Material__35-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows sid="cast_shadows" type="bool">1</cast_shadows>
+            <receive_shadows sid="receive_shadows" type="bool">1</receive_shadows>
+            <primary_visibility sid="primary_visibility" type="int">1</primary_visibility>
+            <secondary_visibility sid="secondary_visibility" type="int">1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+      <node id="node-Support" name="Support">
+        <matrix>0.7071068 2.98023e-8 0.7071068 -21.21308 0.1227878 0.9848077 -0.1227878 165.0223 -0.6963642 0.1736482 0.6963642 1061.956 0 0 0 1</matrix>
+        <instance_geometry url="#geom-Support">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Material__36_1" target="#Material__36-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows sid="cast_shadows" type="bool">1</cast_shadows>
+            <receive_shadows sid="receive_shadows" type="bool">1</receive_shadows>
+            <primary_visibility sid="primary_visibility" type="int">1</primary_visibility>
+            <secondary_visibility sid="secondary_visibility" type="int">1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+      <node id="node-Ailes" name="Ailes">
+        <matrix sid="matrix">-0.9187862 -6.90079e-7 0.3947553 3.855623 -2.19056e-6 1.000001 -3.35036e-6 318.9387 -0.3947556 -3.94301e-6 -0.9187853 1109.162 0 0 0 1</matrix>
+        <node>
+          <matrix>0 0.9999999 2.98023e-8 8.405e-4 5.96046e-8 5.96046e-8 -0.9999999 -5.05861e-4 -1 -5.96046e-8 0 550.0005 0 0 0 1</matrix>
+          <instance_geometry url="#geom-Ailes">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="Material__33_1" target="#Material__33-material">
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                </instance_material>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows sid="cast_shadows" type="bool">1</cast_shadows>
+            <receive_shadows sid="receive_shadows" type="bool">1</receive_shadows>
+            <primary_visibility sid="primary_visibility" type="int">1</primary_visibility>
+            <secondary_visibility sid="secondary_visibility" type="int">1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+      <node id="node-Poutre_01" name="Poutre_01">
+        <matrix sid="matrix">0.9187869 -6.06725e-6 -0.3947544 3.857469 3.06678e-6 1 -8.23177e-6 288.5406 0.3947548 6.35262e-6 0.9187858 1109.163 0 0 0 1</matrix>
+        <node>
+          <matrix>1 0 0 7.93457e-4 0 1 0 -0.001945496 0 0 1 -900 0 0 0 1</matrix>
+          <instance_geometry url="#geom-Poutre_01">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="Material__36" target="#Material__36-material">
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                </instance_material>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows sid="cast_shadows" type="bool">1</cast_shadows>
+            <receive_shadows sid="receive_shadows" type="bool">1</receive_shadows>
+            <primary_visibility sid="primary_visibility" type="int">1</primary_visibility>
+            <secondary_visibility sid="secondary_visibility" type="int">1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+      <node id="node-Poutre_02" name="Poutre_02">
+        <matrix sid="matrix">-0.3947549 -9.69048e-6 -0.9187858 3.857469 -1.31764e-6 1 -9.98091e-6 288.5406 0.9187869 -2.72939e-6 -0.3947544 1109.163 0 0 0 1</matrix>
+        <node>
+          <matrix>1 0 0 7.93457e-4 0 1 0 -0.001945496 0 0 1 -900 0 0 0 1</matrix>
+          <instance_geometry url="#geom-Poutre_02">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="Material__36" target="#Material__36-material">
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                </instance_material>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows sid="cast_shadows" type="bool">1</cast_shadows>
+            <receive_shadows sid="receive_shadows" type="bool">1</receive_shadows>
+            <primary_visibility sid="primary_visibility" type="int">1</primary_visibility>
+            <secondary_visibility sid="secondary_visibility" type="int">1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#MaxScene"/>
+  </scene>
+</COLLADA>

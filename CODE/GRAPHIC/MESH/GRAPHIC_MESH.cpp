@@ -98,8 +98,19 @@ void GRAPHIC_MESH::ActivateBufferComponent( GRAPHIC_SHADER_BIND attribute ) {
     }
 }
 
-#if OPENGL2PLUS
-    #include "GRAPHIC_MESH_OPENGL_2_MEMBERS.hpp"
-#elif OPENGLES2
-    #include "GRAPHIC_MESH_OES2_MEMBERS.hpp"
-#endif
+void GRAPHIC_MESH::CreateBuffers()
+{
+    // Create Vertex Array Object
+    GRAPHIC_SYSTEM::CreateVertexBuffer(*this);
+    GRAPHIC_SYSTEM::CreateIndexBuffer(*this);
+}
+
+void GRAPHIC_MESH::ApplyBuffers() {
+    
+    GRAPHIC_SYSTEM::ApplyBuffers(*this);
+}
+
+void GRAPHIC_MESH::ReleaseBuffers() {
+    
+    GRAPHIC_SYSTEM::ReleaseBuffers(*this);
+}

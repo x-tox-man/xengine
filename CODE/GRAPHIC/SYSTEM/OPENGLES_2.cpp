@@ -95,7 +95,111 @@ void GRAPHIC_SYSTEM::DisableDepthTest() {
     GFX_CHECK( glDisable( GL_DEPTH_TEST ); )
 }
 
+void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture ) {
+    
+    GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
+    GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )
+    
+    // "Bind" the newly created texture : all future texture functions will modify this texture
+    GFX_CHECK( glBindTexture( GL_TEXTURE_2D, texture->GetTextureHandle() ); )
+    
+    GRAPHIC_TEXTURE_INFO & info = texture->GetTextureInfo();
+    
+    GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGLES_2_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGLES_2_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, 0 ); )
+    
+    GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
+    GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+    
+    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); )
+    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); )
+}
+
+void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {
+    
+    GRAPHIC_TEXTURE_INFO & info = texture->GetTextureInfo();
+    
+    GFX_CHECK( glGenTextures(1, &texture->GetDepthTextureHandle() ); )
+    GFX_CHECK( glBindTexture(GL_TEXTURE_2D, texture->GetDepthTextureHandle() ); )
+    
+    GFX_CHECK( glTexImage2D(GL_TEXTURE_2D, 0, OPENGLES_2_GetTextureFormat( type ), info.Width, info.Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL); )
+    
+    GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST ); )
+    GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST ); )
+    
+    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); )
+    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); )
+}
+
 void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, const void * texture_data, bool generate_mipmap ) {
+    
+    GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
+    GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )
+    
+    // "Bind" the newly created texture : all future texture functions will modify this texture
+    GFX_CHECK( glBindTexture( GL_TEXTURE_2D, texture->GetTextureHandle() ); )
+    
+    //static float pixels[] = { 0.0f, 0.0f,0.0f, 0.0f, 0.0f, 0.0f,0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
+    // Give the image to OpenGL
+    
+    GRAPHIC_TEXTURE_INFO & info = texture->GetTextureInfo();
+    
+    GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGLES_2_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGLES_2_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, texture_data ); )
+    //GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data ); )
+    
+    // TODO : generate mipmap -> disable for interface elements
+    if ( generate_mipmap ) {
+        
+        GFX_CHECK( glGenerateMipmap(GL_TEXTURE_2D); )
+    }
+    
+    
+    GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
+    
+    if ( generate_mipmap ) {
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST ); )
+    }
+    else {
+        
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+    }
+    
+    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); )
+    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); )
+}
+
+void GRAPHIC_SYSTEM::CreateSubTexture( GRAPHIC_TEXTURE * sub_texture, const GRAPHIC_TEXTURE & texture, const CORE_MATH_VECTOR & offset, const CORE_MATH_VECTOR & size, const void * data ) {
+    
+    GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
+    GFX_CHECK( glGenTextures( 1, &sub_texture->GetTextureHandle() ); )
+    
+    // "Bind" the newly created texture : all future texture functions will modify this texture
+    GFX_CHECK( glBindTexture( GL_TEXTURE_2D, sub_texture->GetTextureHandle() ); )
+    
+    GFX_CHECK( glTexSubImage2D( GL_TEXTURE_2D,
+                               0,
+                               offset[0],
+                               offset[1],
+                               size[0],
+                               size[1],
+                               OPENGLES_2_GetTextureFormat( texture.GetTextureInfo().ImageType ),
+                               GL_UNSIGNED_BYTE,
+                               data ); )
+}
+
+void GRAPHIC_SYSTEM::ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index ) {
+    
+    GFX_CHECK( glActiveTexture( texture_index == 0 ? GL_TEXTURE0 : GL_TEXTURE1 ); )
+    GFX_CHECK( glBindTexture( GL_TEXTURE_2D, texture->GetTextureHandle() ); )
+    GFX_CHECK( glUniform1i( shader_texture_attribute_index, texture_index ); )
+}
+
+void GRAPHIC_SYSTEM::DiscardTexture( GRAPHIC_TEXTURE * texture ) {
+    
+    GFX_CHECK( glBindTexture( GL_TEXTURE_2D, 0 ); )
+}
+
+
+/*void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, const void * texture_data, bool generate_mipmap ) {
     
     GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
     GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )
@@ -113,14 +217,6 @@ void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, const void * text
     
     GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST ); )
     GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST ); )
-}
-
-void GRAPHIC_SYSTEM::UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER & data ) {
-    
-    mesh->setVertexCoreBuffer( &data );
-    
-    GFX_CHECK( glBindBuffer( GL_ARRAY_BUFFER, mesh->GetVertexBuffer()); )
-    GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh->getVertexCoreBuffer().Getsize(), mesh->getVertexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
 }
 
 void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, bool creates_depth_texture ) {
@@ -153,18 +249,95 @@ void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, bool creates_dept
         GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); )
         GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); )
     }
+}*/
+
+void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {
+    // Create Vertex Array Object
+    
+    GLuint & vb = mesh.GetVertexBuffer();
+    GRAPHIC_SHADER_BIND components = mesh.GetVertexComponent();
+    int stride = mesh.GetVertexStride();
+    
+    GFX_CHECK( glGenBuffers( 1, &vb); )
+    GFX_CHECK( glBindBuffer( GL_ARRAY_BUFFER, vb); )
+    GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh.GetVertexCoreBuffer().Getsize(), mesh.GetVertexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
+    
+    //GFX_CHECK( glGenVertexArrays(1, &mesh.GetVertexArrays()); )
+    //GFX_CHECK( glBindVertexArray( mesh.GetVertexArrays()); )
+    
+    int vertex_offset = 0;
+    
+    if ( components & GRAPHIC_SHADER_BIND_Position ) {
+        
+        GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGLES2_Position); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_Position, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*) vertex_offset); )
+        
+        vertex_offset += 4;
+    }
+    
+    if ( components & GRAPHIC_SHADER_BIND_Normal ) {
+        
+        GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGLES2_Normal); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_Normal, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        
+        vertex_offset += 4;
+    }
+    
+    if ( components & GRAPHIC_SHADER_BIND_Texcoord0 ) {
+        
+        GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGLES2_Texcoord0); )
+        GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        
+        vertex_offset += 2;
+    }
+    
+    if ( components & GRAPHIC_SHADER_BIND_SkinWeight ) {
+        
+        GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGLES2_SkinWeight); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        
+        vertex_offset += 3;
+    }
+    
+    if ( components & GRAPHIC_SHADER_BIND_JointIndices ) {
+        
+        GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+                  )
+        
+        vertex_offset += 3;
+    }
+    
+    if ( components & GRAPHIC_SHADER_BIND_Tangents ) {
+        
+        GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGLES2_Tangents); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        
+        vertex_offset += 3;
+    }
+    
+    if ( components & GRAPHIC_SHADER_BIND_Bitangents ) {
+        
+        GFX_CHECK( glEnableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGLES2_Bitangents); )
+        GFX_CHECK( glVertexAttribPointer( GRAPHIC_SHADER_BIND_OPENGLES2_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        
+        vertex_offset += 3;
+    }
 }
 
-void GRAPHIC_SYSTEM::ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index ) {
+void GRAPHIC_SYSTEM::CreateIndexBuffer(GRAPHIC_MESH &mesh) {
     
-    GFX_CHECK( glActiveTexture( texture_index == 0 ? GL_TEXTURE0 : GL_TEXTURE1 ); )
-    GFX_CHECK( glBindTexture( GL_TEXTURE_2D, texture->GetTextureHandle() ); )
-    GFX_CHECK( glUniform1i( shader_texture_attribute_index, texture_index ); )
+    GFX_CHECK( glGenBuffers( 1, &mesh.GetIndexBuffer() ); )
+    GFX_CHECK( glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexBuffer()); )
+    GFX_CHECK( glBufferData( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexCoreBuffer().Getsize(), mesh.GetIndexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
 }
 
-void GRAPHIC_SYSTEM::DiscardTexture( GRAPHIC_TEXTURE * texture ) {
+void GRAPHIC_SYSTEM::UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER & data ) {
     
-    GFX_CHECK( glBindTexture( GL_TEXTURE_2D, 0 ); )
+    mesh->SetVertexCoreBuffer( &data );
+    
+    GFX_CHECK( glBindBuffer( GL_ARRAY_BUFFER, mesh->GetVertexBuffer()); )
+    GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh->GetVertexCoreBuffer().Getsize(), mesh->GetVertexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
 }
 
 void GRAPHIC_SYSTEM::ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
@@ -332,35 +505,35 @@ void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
     
     if ( component & GRAPHIC_SHADER_BIND_Position ) {
         
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Position, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*) 0); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_Position, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*) 0); )
         
         vertex_offset += 4;
     }
     
     if ( component & GRAPHIC_SHADER_BIND_Normal ) {
         
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Normal, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_Normal, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
         
         vertex_offset += 4;
     }
     
     if ( component & GRAPHIC_SHADER_BIND_Texcoord0 ) {
         
-        GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
         
         vertex_offset += 2;
     }
     
     if ( component & GRAPHIC_SHADER_BIND_SkinWeight ) {
         
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
         
         vertex_offset += 3;
     }
     
     if ( component & GRAPHIC_SHADER_BIND_JointIndices ) {
         
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
                   )
         
         vertex_offset += 3;
@@ -368,14 +541,14 @@ void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
     
     if ( component & GRAPHIC_SHADER_BIND_Tangents ) {
         
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
         
         vertex_offset += 3;
     }
     
     if ( component & GRAPHIC_SHADER_BIND_Bitangents ) {
         
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
         
         vertex_offset += 3;
     }
@@ -385,10 +558,16 @@ void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
     GFX_CHECK( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexBuffer()) ; )
     
     GFX_CHECK( glDrawElements(
-                              GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpengl3( mesh.GetPolygonRenderMode() ),      // mode
+                              GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpenglES2( mesh.GetPolygonRenderMode() ),      // mode
                               mesh.GetIndexCoreBuffer().Getsize() / 4,    // count
                               GL_UNSIGNED_INT,   // type
                               (void*)0); )
+}
+
+void GRAPHIC_SYSTEM::ReleaseBuffers(GRAPHIC_MESH &mesh) {
+    
+    GFX_CHECK( glDeleteBuffers(1, &mesh.GetIndexBuffer()); )
+    GFX_CHECK( glDeleteBuffers(1, &mesh.GetVertexBuffer()); )
 }
 
 void GRAPHIC_SYSTEM::ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index ) {
@@ -396,6 +575,21 @@ void GRAPHIC_SYSTEM::ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_i
     GFX_CHECK( glActiveTexture( texture_index == 0 ? GL_TEXTURE0 : GL_TEXTURE1 ); )
     GFX_CHECK( glBindTexture( GL_TEXTURE_2D, texture->GetDepthTextureHandle() ); )
     GFX_CHECK( glUniform1i( shader_texture_attribute_index, texture_index ); )
+}
+
+void GRAPHIC_SYSTEM::EnableScissor(bool enable) {
+    if ( enable ) {
+        
+        GFX_CHECK( glEnable( GL_SCISSOR_TEST ); )
+    }
+    else {
+        GFX_CHECK( glDisable( GL_SCISSOR_TEST ); )
+    }
+}
+
+void GRAPHIC_SYSTEM::SetScissorRectangle( float x, float y, float width, float height ) {
+    
+    GFX_CHECK( glScissor((GLint)x, (GLint)y, (GLsizei)width, (GLsizei)height); )
 }
 
 #endif

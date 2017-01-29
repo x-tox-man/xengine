@@ -30,6 +30,7 @@
                 SERVICE_LOGGER_Error( "GLError with %s  : - %d - \n", #__METHOD__ , error ); \
             } \
         }
+
 #elif PLATFORM_ANDROID
     #include <dlfcn.h>
     #include <GLES2/gl2.h>
@@ -40,7 +41,8 @@
     __METHOD__ \
     { \
         int error = glGetError(); \
-        if ( error || error == GL_INVALID_VALUE || error == GL_INVALID_OPERATION ) { \
+        if ( error || error == GL_INVALID_VALUE || error == GL_INVALID_OPERATION ) \
+        { \
             SERVICE_LOGGER_Error( "GLError with %s  : - %d - \n", #__METHOD__ , error ); \
         } \
     }
