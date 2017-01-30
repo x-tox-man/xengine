@@ -45,13 +45,13 @@ void GRAPHIC_UI_FRAME::Initialize() {
     
     std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
     
-    do {
+    while ( it != ElementTable.end() ) {
         
         (*it)->Initialize();
         
         it++;
         
-    } while ( it != ElementTable.end() );
+    }
     
     if ( Adapter ) {
         
@@ -325,4 +325,18 @@ GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::Copy() {
     }
     
     return otherFrame;
+}
+
+void GRAPHIC_UI_FRAME::SetOpacity( float opacity ) {
+    
+    GRAPHIC_UI_ELEMENT::SetOpacity( opacity );
+    
+    std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
+    
+    while ( it != ElementTable.end() ) {
+        
+        (*it)->SetOpacity( opacity );
+        
+        it++;
+    }
 }

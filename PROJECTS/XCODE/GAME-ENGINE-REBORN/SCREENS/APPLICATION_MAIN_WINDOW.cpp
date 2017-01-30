@@ -29,13 +29,7 @@ APPLICATION_MAIN_WINDOW::APPLICATION_MAIN_WINDOW() :
     TextShape( NULL ),
     TextShape2( NULL ),
     Text(),
-    StartLobbyButtonClickedCallback( NULL ),
-    StartServerButtonClickedCallback( NULL ),
-    StartClientButtonClickedCallback( NULL ),
-    StopLobbyButtonClickedCallback( NULL ),
-    Server( NULL ),
-    Client( NULL ),
-    IsClient( false ){
+    Presenter( NULL ) {
     
 }
 
@@ -50,6 +44,9 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
         return;
     #endif
     
+    Presenter = new MAIN_MENU_WINDOW_PRESENTER;
+    Presenter->Initialize( this );
+    
     GetPlacement().SetSize(CORE_MATH_VECTOR(600.0f, 300.0f));
     
     CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "main_window", "lua", "SCRIPTS" );
@@ -61,12 +58,6 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     GRAPHIC_UI_HELPER::DefaultFont = font;
     GRAPHIC_UI_HELPER::TextureAtlas = &GLOBAL_RESOURCES::GetInstance().UITextureAtlas;
     Shape = GLOBAL_RESOURCES::GetInstance().UIPlanObject;
-    
-    StartLobbyButtonClickedCallback = new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( Wrapper2< APPLICATION_MAIN_WINDOW, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE , &APPLICATION_MAIN_WINDOW::StartLobbyButtonClicked>, this );
-    StartServerButtonClickedCallback = new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( Wrapper2< APPLICATION_MAIN_WINDOW, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE , &APPLICATION_MAIN_WINDOW::StartServerButtonClicked>, this );
-    StartClientButtonClickedCallback = new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( Wrapper2< APPLICATION_MAIN_WINDOW, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE , &APPLICATION_MAIN_WINDOW::StartClientButtonClicked >, this );
-    StopLobbyButtonClickedCallback = new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( Wrapper2< APPLICATION_MAIN_WINDOW, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE , &APPLICATION_MAIN_WINDOW::StopLobbyButtonClicked>, this );
-    SendCommandButtonClickedCallback = new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( Wrapper2< APPLICATION_MAIN_WINDOW, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE , &APPLICATION_MAIN_WINDOW::SendCommandButtonClicked>, this );
     
     GRAPHIC_UI_ELEMENT * start_lobby_button = new GRAPHIC_UI_ELEMENT( IdStartLobby );
     GRAPHIC_UI_RENDER_STYLE * default_render_style = new GRAPHIC_UI_RENDER_STYLE;
@@ -88,7 +79,6 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     start_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
     start_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Hovered, hoovered_render_style );
     
-    start_lobby_button->SetActionCallback( *StartLobbyButtonClickedCallback );
     start_lobby_button->GetPlacement().Initialize( &GetPlacement(),
                                                   CORE_MATH_VECTOR( 200.0f, -64.0f, 0.0f, 1.0f ),
                                                   CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
@@ -99,7 +89,6 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     GRAPHIC_UI_ELEMENT * start_server_button = new GRAPHIC_UI_ELEMENT(IdStartServer);
     
     start_server_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
-    start_server_button->SetActionCallback( *StartServerButtonClickedCallback );
     start_server_button->GetPlacement().Initialize( &GetPlacement(),
                               CORE_MATH_VECTOR( -128.0f, 0.0f, 0.0f, 1.0f ),
                               CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
@@ -109,7 +98,6 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     GRAPHIC_UI_ELEMENT * start_client_button = new GRAPHIC_UI_ELEMENT(IdStartClient);
     
     start_client_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
-    start_client_button->SetActionCallback( *StartClientButtonClickedCallback );
     start_client_button->GetPlacement().Initialize( &GetPlacement(),
                                                    CORE_MATH_VECTOR( 128.0f, 0.0f, 0.0f, 1.0f ),
                                                    CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
@@ -119,7 +107,6 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     GRAPHIC_UI_ELEMENT * stop_lobby_button = new GRAPHIC_UI_ELEMENT(IdStopLobby);
     
     stop_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
-    stop_lobby_button->SetActionCallback( *StopLobbyButtonClickedCallback );
     stop_lobby_button->GetPlacement().Initialize( &GetPlacement(),
                                                    CORE_MATH_VECTOR::Zero,
                                                    CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
@@ -129,7 +116,6 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     GRAPHIC_UI_ELEMENT * send_command_button = new GRAPHIC_UI_ELEMENT(IdSendCommand);
     
     send_command_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
-    send_command_button->SetActionCallback( *SendCommandButtonClickedCallback );
     send_command_button->GetPlacement().Initialize( &GetPlacement(),
                                                  CORE_MATH_VECTOR(-128.0f,0.0f,0.0f,1.0f),
                                                  CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
@@ -192,9 +178,22 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     AddObject( stop_lobby_button );
     AddObject( send_command_button );
     
-    //GetAnimation().Initialize( path, this );
-    
     OnPlacementPropertyChanged();
+    
+    Presenter->BindAction( start_lobby_button,
+                          new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::StartLobbyButtonClicked >, Presenter) );
+    Presenter->BindAction( start_server_button,
+                          new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::StartLobbyButtonClicked >, Presenter) );
+    Presenter->BindAction( start_lobby_button,
+                          new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::StartServerButtonClicked >, Presenter) );
+    Presenter->BindAction( start_client_button,
+                          new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::StartClientButtonClicked >, Presenter) );
+    Presenter->BindAction( stop_lobby_button,
+                          new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::StopLobbyButtonClicked >, Presenter) );
+    Presenter->BindAction( send_command_button,
+                          new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::SendCommandButtonClicked >, Presenter) );
+    
+    //GetAnimation().Initialize( path, this );
 }
 
 void APPLICATION_MAIN_WINDOW::Update( const float time_step ) {
@@ -203,111 +202,6 @@ void APPLICATION_MAIN_WINDOW::Update( const float time_step ) {
     //ElementTable[ IdStartLobby ]->GetAnimation().Update( time_step );
     
     GRAPHIC_UI_FRAME::Update( time_step );
-}
-
-void APPLICATION_MAIN_WINDOW::StartLobbyButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) {
-    
-    if ( event == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
-
-        NamedElementTable[ IdStartLobby ]->SetVisible( false );
-        NamedElementTable[ IdStartServer ]->SetVisible( true );
-        NamedElementTable[ IdStartClient ]->SetVisible( true );
-    }
-}
-
-void APPLICATION_MAIN_WINDOW::StartServerButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) {
-    
-    if ( event == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
-        
-        Server->Initialize(1.0f / 25.0f );
-        IsClient = false;
-        
-        ((MyTestApp *)&CORE_APPLICATION::GetApplicationInstance())->SetItIsClient( false );
-        ((MyTestApp *)&CORE_APPLICATION::GetApplicationInstance())->SetItIsServer( true );
-        APPLICATION_SCREENS_NAVIGATION::GetInstance().NavigateToAsync<APPLICATION_MULTIPLAYER_GAME_CONFIGURATION>( "NetworkGameRoom" );
-        
-        NamedElementTable[ IdStartLobby ]->SetVisible( true );
-        NamedElementTable[ IdStartServer ]->SetVisible( false );
-        NamedElementTable[ IdStartClient ]->SetVisible( false );
-        
-        /*NamedElementTable[ IdStartServer ]->SetVisible( false );
-        NamedElementTable[ IdStartClient ]->SetVisible( false );
-        NamedElementTable[ IdStopLobby ]->SetVisible( true );
-        NamedElementTable[ IdSendCommand ]->SetVisible( true );*/
-    }
-}
-
-void APPLICATION_MAIN_WINDOW::StartClientButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) {
-    
-    if (event == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
-        
-        APPLICATION_SCREENS_NAVIGATION::GetInstance().NavigateToAsync<APPLICATION_NETWORK_BROWSER>( "NetworkBrowser" );
-        
-        Client->Initialize();
-        
-        IsClient = true;
-        
-        ((MyTestApp *)&CORE_APPLICATION::GetApplicationInstance())->SetItIsClient( IsClient );
-    
-        NamedElementTable[ IdStartLobby ]->SetVisible( true );
-        NamedElementTable[ IdStartServer ]->SetVisible( false );
-        NamedElementTable[ IdStartClient ]->SetVisible( false );
-        
-        /*NamedElementTable[ IdStartClient ]->SetVisible( false );
-        NamedElementTable[ IdStartServer ]->SetVisible( false );
-        NamedElementTable[ IdStopLobby ]->SetVisible( true );
-        NamedElementTable[ IdSendCommand ]->SetVisible( true );*/
-    }
-}
-
-void APPLICATION_MAIN_WINDOW::StopLobbyButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) {
-    
-    if (event == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
-        
-        if ( IsClient ) {
-            Client->Disconnect();
-            Client->Finalize();
-        }
-        
-        NamedElementTable[ IdStopLobby ]->SetVisible( false );
-        NamedElementTable[ IdStartLobby ]->SetVisible( true );
-    }
-}
-
-void APPLICATION_MAIN_WINDOW::SendCommandButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) {
-
-    if (event == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
-        
-        abort();
-        /*APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE_ENTITY * action = new APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE_ENTITY;
-
-        action->NewPosition = CORE_MATH_VECTOR(10.0f, 1.0f, 1.0f, 1.0f);
-        action->EntityToMove = NULL;
-
-        CORE_TIMELINE_EVENT * event = new CORE_TIMELINE_EVENT();
-
-        event->Setup( 10.0f, 0.0f, CORE_HELPERS_UNIQUE_IDENTIFIER( "TESTOUILLE"), action );
-
-        CORE_DATA_STREAM
-            stream;
-
-        const char * string = "MOV_COMMAND_1";
-
-        stream.Open();
-        stream.InputBytes( string, ( int ) strlen( string ) );
-        
-        stream.Close();
-        stream.ResetOffset();
-
-        //XS_CLASS_SERIALIZER<CORE_MATH_VECTOR>::Serialize< std::true_type >( action->NewPosition, stream );
-    
-        if ( IsClient ) {
-            Client->DispatchMessageToAllPlayers(stream);
-        }
-        else {
-            Server->DispatchMessageToAllPlayers(stream);
-        }*/
-    }
 }
 
 CORE_HELPERS_IDENTIFIER

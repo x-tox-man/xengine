@@ -21,55 +21,40 @@
 #include "SERVICE_NETWORK_SYSTEM.h"
 #include "GRAPHIC_TEXTURE_ATLAS.h"
 #include "GLOBAL_RESOURCES.h"
+#include "MAIN_MENU_WINDOW_PRESENTER.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( APPLICATION_MAIN_WINDOW, GRAPHIC_UI_FRAME )
 
-APPLICATION_MAIN_WINDOW();
-virtual ~APPLICATION_MAIN_WINDOW();
+    APPLICATION_MAIN_WINDOW();
+    virtual ~APPLICATION_MAIN_WINDOW();
 
-virtual void Initialize() override;
+    virtual void Initialize() override;
 
-void StartLobbyButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
-void StartServerButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
-void StartClientButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
-void StopLobbyButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
-void SendCommandButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
+    void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
 
-void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
-void SetNetworkServer( NETWORK_SERVER * server ) { Server = server; }
-void SetNetworkClient( NETWORK_CLIENT * client ) { Client = client; }
-
-virtual void Update( const float ) override;
+    virtual void Update( const float ) override;
 
 private:
 
-GRAPHIC_OBJECT_SHAPE
-    * Shape;
-GRAPHIC_TEXT
-    * TextShape,
-    * TextShape2;
-GRAPHIC_TEXT
-    Text;
-CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>
-    *StartLobbyButtonClickedCallback,
-    *StartServerButtonClickedCallback,
-    *StartClientButtonClickedCallback,
-    *StopLobbyButtonClickedCallback,
-    *SendCommandButtonClickedCallback;
-NETWORK_SERVER
-    * Server;
-NETWORK_CLIENT
-    * Client;
-bool
-    IsClient;
-static CORE_HELPERS_IDENTIFIER
-    IdStartLobby,
-    IdText,
-    IdTextClient,
-    IdStartServer,
-    IdStartClient,
-    IdStopLobby,
-    IdSendCommand;
+    GRAPHIC_OBJECT_SHAPE
+        * Shape;
+    GRAPHIC_TEXT
+        * TextShape,
+        * TextShape2;
+    GRAPHIC_TEXT
+        Text;
+    MAIN_MENU_WINDOW_PRESENTER
+        * Presenter;
+
+public:
+    static CORE_HELPERS_IDENTIFIER
+        IdStartLobby,
+        IdText,
+        IdTextClient,
+        IdStartServer,
+        IdStartClient,
+        IdStopLobby,
+        IdSendCommand;
 
 XS_CLASS_END
 

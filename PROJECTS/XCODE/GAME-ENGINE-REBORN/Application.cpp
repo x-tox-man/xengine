@@ -311,16 +311,11 @@ void MyTestApp::Initialize() {
         TestEntity.Initialize( path );
         
         GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() ) );
-        GRAPHIC_UI_SYSTEM::GetInstance().RegisterScreen( &main_window, "MainWindow" );
+        GRAPHIC_UI_SYSTEM::GetInstance().RegisterView( &main_window, "MainWindow" );
         
         SERVICE_LOGGER_Error( "ALL APP Inititialize 2.23" );
         
         main_window.Initialize();
-        
-        //GRAPHIC_UI_SYSTEM::GetInstance().RegisterScritpedScreen( CORE_FILESYSTEM_PATH::FindFilePath( "APPLICATION_OPTION_WINDOW" , "lua", "SCRIPTS" ), "APPLICATION_OPTION_WINDOW" );
-        
-        main_window.SetNetworkServer( &Server );
-        main_window.SetNetworkClient( &Client );
         /*LuaScript = CORE_ABSTRACT_PROGRAM_MANAGER::GetInstance().LoadProgram(
                                                                              path.GetPath(), CORE_ABSTRACT_PROGRAM_RUNTIME_Lua
                                                                              );*/
@@ -565,7 +560,7 @@ void MyTestApp::Update( float time_step ) {
     CORE_MATH_VECTOR direction;
     CORE_MATH_MATRIX inverse;
     
-    SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
+    //SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
     
     if ( ItIsClient ) {
         

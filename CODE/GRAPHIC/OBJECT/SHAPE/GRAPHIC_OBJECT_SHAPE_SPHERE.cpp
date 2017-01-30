@@ -134,11 +134,11 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::Render( const GRAPHIC_RENDERER & renderer ) {
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    GFX_CHECK( glUniformMatrix4fv(
-                                  attr->AttributeIndex,
-                                  1,
-                                  0,
-                                  (const GLfloat * )&result[0]); )
+    GRAPHIC_SYSTEM_ApplyMatrix(
+        attr->AttributeIndex,
+        1,
+        0,
+        (const GLfloat * )&result[0]);
 
     GetMeshTable()[ 0 ]->ApplyBuffers();
     GetShaderTable()[ 0 ]->Disable();

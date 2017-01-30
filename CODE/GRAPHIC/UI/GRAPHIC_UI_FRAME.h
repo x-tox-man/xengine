@@ -44,8 +44,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME, GRAPHIC_UI_ELEMENT )
     void RemoveObjects();
 
     GRAPHIC_UI_ELEMENT * GetElement( const char * element_name );
+    std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_UI_ELEMENT * > & GetNamedElementTable() { return NamedElementTable; }
 
     virtual GRAPHIC_UI_ELEMENT * Copy() override;
+    virtual void SetOpacity( float opacity ) override;
+
+    friend class GRAPHIC_UI_PRESENTER;
 
 protected:
 

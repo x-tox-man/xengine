@@ -79,7 +79,7 @@ void SERVICE_NETWORK_LOBBY::Finalize() {
     UDPBroadcastConnection = NULL;
     UDPBroadcastConnection = NULL;
     
-    SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
+    //SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
     
     for ( int i = 0; i < ConnectionPool.size(); i++ ) {
         

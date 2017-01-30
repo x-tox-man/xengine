@@ -13,8 +13,7 @@ attribute vec4 normal;
 
 varying highp vec4 colorVarying;
 
-uniform mat4 ProjectionMatrix;
-uniform mat4 modelViewMatrix;
+uniform mat4 MVPMatrix;
 uniform vec4 geometryColor;
 uniform vec4 geometryPosition[4];
 
@@ -25,5 +24,5 @@ void main()
     colorVarying = vec4( 0.4, 0.4, 0.4, 1.0 );
     int index = int(normal.x);
     
-    gl_Position = geometryPosition[index] * modelViewMatrix * ProjectionMatrix;
+    gl_Position = geometryPosition[index] * MVPMatrix;
 }

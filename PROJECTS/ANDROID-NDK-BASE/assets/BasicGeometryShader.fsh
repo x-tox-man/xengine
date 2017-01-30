@@ -10,6 +10,7 @@ struct DirectionalLight
 
 varying highp vec4 colorVarying;
 varying highp vec4 o_normal;
+
 uniform highp vec4 geometryColor;
 
 uniform DirectionalLight directional_light;
@@ -19,6 +20,6 @@ void main()
 	highp float nxDir = max(0.1, dot( o_normal.xyz, directional_light	.Direction.xyz));
     highp vec4 diffuse = directional_light.Color * nxDir;
 
-    gl_FragColor = vec4(1,1,1,1);//colorVarying * geometryColor;
+    gl_FragColor = colorVarying * geometryColor;
 }
 

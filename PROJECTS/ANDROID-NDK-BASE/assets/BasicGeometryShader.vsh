@@ -22,8 +22,7 @@ attribute vec4 normal;
 varying highp vec4 colorVarying;
 varying highp vec4 o_normal;
 
-uniform highp mat4 ProjectionMatrix;
-uniform highp mat4 modelViewMatrix;
+uniform highp mat4 MVPMatrix;
 uniform vec4 geometryColor;
 uniform DirectionalLight directional_light;
 
@@ -35,5 +34,5 @@ void main()
     
     o_normal = normal;
     
-    gl_Position = position * modelViewMatrix * ProjectionMatrix;
+    gl_Position = position * MVPMatrix;
 }

@@ -25,6 +25,7 @@
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
 #include "GRAPHIC_UI_FRAME.h"
 #include "CORE_PARALLEL.h"
+#include "GRAPHIC_UI_ANIMATION.h"
 
 XS_CLASS_BEGIN( GRAPHIC_UI_SYSTEM )
 
@@ -34,15 +35,15 @@ XS_CLASS_BEGIN( GRAPHIC_UI_SYSTEM )
 
     ~GRAPHIC_UI_SYSTEM();
 
-    GRAPHIC_UI_FRAME * GetCurrentScreen() { return CurrentScreen; }
+    GRAPHIC_UI_FRAME * GetCurrentView() { return CurrentView; }
 
     void Update( float time_step );
     void Render( GRAPHIC_RENDERER &);
 
-    void RegisterScreen( GRAPHIC_UI_FRAME * screen, const char * screen_name );
-    void RegisterScritpedScreen( const CORE_FILESYSTEM_PATH & script_path, const char * screen_name );
+    void RegisterView( GRAPHIC_UI_FRAME * view, const char * view_name );
+    void RegisterScritpedView( const CORE_FILESYSTEM_PATH & script_path, const char * view_name );
 
-    void UnregisterScreen(const char * screen_name);
+    void UnregisterScreen(const char * view_name);
 
     CORE_PARALLEL_LOCK_MUTEX & GetLockMutex() { return UISystemLock; }
 
@@ -51,12 +52,17 @@ XS_CLASS_BEGIN( GRAPHIC_UI_SYSTEM )
     void SetScreenSize( const CORE_MATH_VECTOR & screen_size ) { ScreenSize = screen_size; }
     const CORE_MATH_VECTOR & GetScreenSize() const { return ScreenSize; }
 
+    void CommitAnimation( GRAPHIC_UI_ANIMATION * animation);
+    void FinalizeAnimation( GRAPHIC_UI_ANIMATION * animation);
+
 private :
 
-    std::map<CORE_HELPERS_IDENTIFIER, GRAPHIC_UI_FRAME * >
-        VisibleScreenTable;
+    std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_UI_FRAME * >
+        VisibleViewTable;
+    std::vector< GRAPHIC_UI_ANIMATION * >
+        AnimationTable;
     GRAPHIC_UI_FRAME
-        * CurrentScreen;
+        * CurrentView;
     CORE_PARALLEL_LOCK_MUTEX
         UISystemLock;
     CORE_MATH_VECTOR

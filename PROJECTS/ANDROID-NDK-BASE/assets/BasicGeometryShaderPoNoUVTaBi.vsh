@@ -30,8 +30,7 @@ varying vec4 o_normal;
 
 // -- CONSTANTS
 
-uniform mat4 ProjectionMatrix;
-uniform mat4 modelViewMatrix;
+uniform mat4 MVPMatrix;
 uniform vec4 geometryColor;
 uniform DirectionalLight directional_light;
 
@@ -45,5 +44,5 @@ void main()
     
     colorVarying = normalize(position);
     
-    gl_Position = position * modelViewMatrix * ProjectionMatrix;
+    gl_Position = position * MVPMatrix;
 }

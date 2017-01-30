@@ -42,9 +42,10 @@ void APPLICATION_CLIENT_PRESENTER::SelectGameButtonClicked( GRAPHIC_UI_ELEMENT *
 
 void APPLICATION_CLIENT_PRESENTER::OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) {
     
-    Client->Disconnect();
+    
     
     if (event == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
+        Client->Disconnect();
         
         APPLICATION_SCREENS_NAVIGATION::GetInstance().NavigateBackAsync();
     }

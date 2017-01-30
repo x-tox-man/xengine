@@ -19,34 +19,34 @@
 
 XS_CLASS_BEGIN( GRAPHIC_UI_RENDER_STYLE )
 
-GRAPHIC_UI_RENDER_STYLE();
-GRAPHIC_UI_RENDER_STYLE( GRAPHIC_OBJECT_SHAPE * shape, GRAPHIC_TEXTURE_BLOCK * texture_block, const CORE_HELPERS_COLOR & color = CORE_COLOR_White, GRAPHIC_OBJECT_SHAPE * decorating_shape = NULL, GRAPHIC_TEXTURE_BLOCK * decorating_texture_block = NULL );
-~GRAPHIC_UI_RENDER_STYLE();
+    GRAPHIC_UI_RENDER_STYLE();
+    GRAPHIC_UI_RENDER_STYLE( GRAPHIC_OBJECT_SHAPE * shape, GRAPHIC_TEXTURE_BLOCK * texture_block, const CORE_HELPERS_COLOR & color = CORE_COLOR_White, GRAPHIC_OBJECT_SHAPE * decorating_shape = NULL, GRAPHIC_TEXTURE_BLOCK * decorating_texture_block = NULL );
+    ~GRAPHIC_UI_RENDER_STYLE();
 
-void Apply( const GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement );
+    void Apply( const GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity );
 
-void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
-void SetColor( const CORE_MATH_VECTOR & color ) { Color = color; }
-void SetTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { TextureBlock = texture_block; }
+    void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
+    void SetColor( const CORE_MATH_VECTOR & color ) { Color = color; }
+    void SetTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { TextureBlock = texture_block; }
 
-void SetDecoratingShape( GRAPHIC_OBJECT_SHAPE * shape ) { DecoratingShape = shape; }
-void SetDecoratingTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { DecoratingTextureBlock = texture_block; }
+    void SetDecoratingShape( GRAPHIC_OBJECT_SHAPE * shape ) { DecoratingShape = shape; }
+    void SetDecoratingTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { DecoratingTextureBlock = texture_block; }
 
-GRAPHIC_OBJECT * GetShape() { return Shape; }
-const CORE_MATH_VECTOR & GetColor() { return Color; }
-GRAPHIC_TEXTURE_BLOCK * GetTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { return TextureBlock; }
-const GRAPHIC_TEXTURE_BLOCK * GetTextureBlock() const { return TextureBlock; }
+    GRAPHIC_OBJECT * GetShape() { return Shape; }
+    const CORE_MATH_VECTOR & GetColor() { return Color; }
+    GRAPHIC_TEXTURE_BLOCK * GetTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { return TextureBlock; }
+    const GRAPHIC_TEXTURE_BLOCK * GetTextureBlock() const { return TextureBlock; }
 
 private :
 
-CORE_MATH_VECTOR
-    Color;
-GRAPHIC_OBJECT_SHAPE
-    * Shape,
-    * DecoratingShape;
-GRAPHIC_TEXTURE_BLOCK
-    * TextureBlock,
-    * DecoratingTextureBlock;
+    CORE_MATH_VECTOR
+        Color;
+    GRAPHIC_OBJECT_SHAPE
+        * Shape,
+        * DecoratingShape;
+    GRAPHIC_TEXTURE_BLOCK
+        * TextureBlock,
+        * DecoratingTextureBlock;
 
 XS_CLASS_END
 

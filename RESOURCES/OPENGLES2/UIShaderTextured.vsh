@@ -14,8 +14,7 @@ attribute vec2 tex0;
 varying highp vec4 colorVarying;
 varying highp vec2 textureCoordinates;
 
-uniform mat4 ProjectionMatrix;
-uniform mat4 modelViewMatrix;
+uniform mat4 MVPMatrix;
 
 void main()
 {
@@ -24,5 +23,5 @@ void main()
     colorVarying = vec4( 1.0, 0.4, 0.4, 0.4 ) * cosTheta;
     textureCoordinates = tex0;
     
-    gl_Position = position * modelViewMatrix * ProjectionMatrix;
+    gl_Position = position * MVPMatrix;
 }

@@ -56,6 +56,7 @@ varying highp mat3 TBNMatrix;
 varying highp vec3 LightDirection_tangentspace;
 varying highp vec3 EyeDirection_tangentspace;
 
+uniform mat4 MVPMatrix;
 uniform mat4 ProjectionMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 jointsMatrix[128];
@@ -112,5 +113,5 @@ void main()
     LightDirection_tangentspace = /*TBNMatrix * */- directional_light.Direction.xyz;
     EyeDirection_tangentspace =  TBNMatrix * CameraWorldPosition.xyz;
     
-    gl_Position = position * attrBindShapeMatrix * blend_result * modelViewMatrix * ProjectionMatrix;
+    gl_Position = position * attrBindShapeMatrix * blend_result * MVPMatrix;
 }

@@ -96,13 +96,15 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     
     GRAPHIC_SHADER_EFFECT::PTR effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::Default"), CORE_FILESYSTEM_PATH::FindFilePath( "Shader" , "vsh", "OPENGL2" ) );
     
-    GRAPHIC_SHADER_EFFECT::PTR effect_shadow_map = GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmentPath( CORE_FILESYSTEM_PATH::FindFilePath( "ShaderShadowMap" , "vsh", "OPENGL2" ),CORE_FILESYSTEM_PATH::FindFilePath( "ShadowMapEffect" , "fsh", "OPENGL2" ),
-                                                                                                              CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowMapShader"));
+    GRAPHIC_SHADER_EFFECT::PTR effect_shadow_map = GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmentPath(
+        CORE_FILESYSTEM_PATH::FindFilePath( "ShaderShadowMap" , "vsh", "OPENGL2" ),
+        CORE_FILESYSTEM_PATH::FindFilePath( "ShadowMapEffect" , "fsh", "OPENGL2" ),
+        CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowMapShader"));
     
     GRAPHIC_SHADER_EFFECT::PTR BasicEffectShadowMap = GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmentPath(
-                                                                                                                 CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometrySMShader" , "vsh", "OPENGL2" ),
-                                                                                                                 CORE_FILESYSTEM_PATH::FindFilePath( "ShadowMapEffect" , "fsh", "OPENGL2" ),
-                                                                                                                 CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BaicShadowMapShader"));
+        CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometrySMShader" , "vsh", "OPENGL2" ),
+        CORE_FILESYSTEM_PATH::FindFilePath( "ShadowMapEffect" , "fsh", "OPENGL2" ),
+        CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BaicShadowMapShader"));
     
     GRAPHIC_SHADER_EFFECT::PTR basic_geometry_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BasicGeometryShader"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader" , "vsh", "OPENGL2" ) );
     

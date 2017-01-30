@@ -93,7 +93,7 @@ public :
                 
                 CurrentNavigationItem = item;
             
-                GRAPHIC_UI_SYSTEM::GetInstance().RegisterScreen(CurrentNavigationItem->GetFrame(), screen_name);
+                GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(CurrentNavigationItem->GetFrame(), screen_name);
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
         CORE_PARALLEL_TASK_END()
     }
@@ -103,7 +103,7 @@ public :
         
         CurrentNavigationItem = CreateItemForNavigation<SCREEN_TYPE>( screen_name );
         
-        GRAPHIC_UI_SYSTEM::GetInstance().RegisterScreen(CurrentNavigationItem->GetFrame(), screen_name);
+        GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(CurrentNavigationItem->GetFrame(), screen_name);
         
         return *CurrentNavigationItem->GetFrame();
     }

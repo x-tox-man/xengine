@@ -1,15 +1,12 @@
-#version 330
+#version 100
 
 uniform sampler2D c_texture;
-uniform vec4 geometryColor;
+uniform highp vec4 geometryColor;
 
-in vec2 textureCoordinates;
-
-out vec4 colorOut;
-
+varying highp vec2 textureCoordinates;
 
 void main() {
-    
-    colorOut = texture( c_texture, gl_PointCoord );
+
+    gl_FragColor = texture2D( c_texture, gl_PointCoord );
 }
 

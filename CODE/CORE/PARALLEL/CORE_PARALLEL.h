@@ -19,13 +19,23 @@
 auto __func = [__VA_ARGS__] () {
 
 
-#define CORE_PARALLEL_TASK_END() \
-}; \
-CORE_PARALLEL_LAMBDA_TASK<typeof(__func)> *__task = new CORE_PARALLEL_LAMBDA_TASK<typeof(__func)>(__func); \
-CORE_PARALLEL_THREAD_TYPED< CORE_PARALLEL_LAMBDA_TASK<typeof(__func) > >* __taskThread = new CORE_PARALLEL_THREAD_TYPED< CORE_PARALLEL_LAMBDA_TASK<typeof(__func) > >(); \
-__taskThread->Initialize("XS background task", *__task ); \
-__taskThread->Start(); \
-}
+#if PLATFORM_WINDOWS || PLATFORM_ANDROID
+    #define CORE_PARALLEL_TASK_END() \
+        }; \
+        CORE_PARALLEL_LAMBDA_TASK< decltype( __func ) > * __task = new CORE_PARALLEL_LAMBDA_TASK< decltype( __func ) > ( __func ); \
+        CORE_PARALLEL_THREAD_TYPED< CORE_PARALLEL_LAMBDA_TASK< decltype( __func ) > > * __taskThread = new CORE_PARALLEL_THREAD_TYPED< CORE_PARALLEL_LAMBDA_TASK< decltype( __func ) > >(); \
+        __taskThread->Initialize("XS background task", *__task ); \
+        __taskThread->Start(); \
+        }
+#else
+    #define CORE_PARALLEL_TASK_END() \
+        }; \
+        CORE_PARALLEL_LAMBDA_TASK< typeof( __func ) > * __task = new CORE_PARALLEL_LAMBDA_TASK< typeof( __func ) > ( __func ); \
+        CORE_PARALLEL_THREAD_TYPED< CORE_PARALLEL_LAMBDA_TASK< typeof( __func ) > > * __taskThread = new CORE_PARALLEL_THREAD_TYPED< CORE_PARALLEL_LAMBDA_TASK< typeof( __func ) > >(); \
+        __taskThread->Initialize("XS background task", *__task ); \
+        __taskThread->Start(); \
+        }
+#endif
 
 #define CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(__LOCK_MUTEX__) \
 { \

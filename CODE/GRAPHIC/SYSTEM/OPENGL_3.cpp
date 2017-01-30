@@ -273,11 +273,11 @@ void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAP
     
     GRAPHIC_SHADER_ATTRIBUTE & ambient_light = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::AmbientLight );
     
-    GFX_CHECK( glUniformMatrix4fv(
+    GRAPHIC_SYSTEM_ApplyMatrix(
         ambient_light.AttributeIndex,
         1,
         0,
-        (const GLfloat * )&light.InternalLight.Ambient); )
+        (const GLfloat * )&light.InternalLight.Ambient);
 }
 
 void GRAPHIC_SYSTEM::ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
@@ -376,11 +376,11 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( const float value, GRAPHIC_SHADE
 
 void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( const float * matrix, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
-    GFX_CHECK( glUniformMatrix4fv(
-                                  attribute.AttributeIndex,
-                                  1,
-                                  0,
-                                  (const GLfloat * ) matrix); )
+    GRAPHIC_SYSTEM_ApplyMatrix(
+        attribute.AttributeIndex,
+        1,
+        0,
+        (const GLfloat * ) matrix);
 }
 
 void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {

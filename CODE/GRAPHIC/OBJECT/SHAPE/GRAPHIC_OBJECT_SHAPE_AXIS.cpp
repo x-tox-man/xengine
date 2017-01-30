@@ -140,17 +140,17 @@ void GRAPHIC_OBJECT_SHAPE_AXIS::Render( const GRAPHIC_RENDERER & renderer ) {
     GLOBAL_MULTIPLY_MATRIX( translation, rotation  );
     GLOBAL_MULTIPLY_MATRIX( rotation3, translation  );
     
-    GFX_CHECK( glUniformMatrix4fv(
-                                  attr->AttributeIndex,
-                                  1,
-                                  0,
-                                  (const GLfloat * )&renderer.GetCamera().GetProjectionMatrix()[0]); )
+    GRAPHIC_SYSTEM_ApplyMatrix(
+        attr->AttributeIndex,
+        1,
+        0,
+        (const GLfloat * )&renderer.GetCamera().GetProjectionMatrix()[0]);
     
-    GFX_CHECK( glUniformMatrix4fv(
-                                  attrModel->AttributeIndex,
-                                  1,
-                                  0,
-                                  (const GLfloat * )rotation3); )
+    GRAPHIC_SYSTEM_ApplyMatrix(
+        attrModel->AttributeIndex,
+        1,
+        0,
+        (const GLfloat * )rotation3);
     
     
     GetMeshTable()[ 0 ]->ApplyBuffers();

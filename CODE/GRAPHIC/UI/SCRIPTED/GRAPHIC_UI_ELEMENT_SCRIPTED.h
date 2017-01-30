@@ -30,10 +30,13 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT_SCRIPTED )
     void Reset();
 
     void Copy( GRAPHIC_UI_ELEMENT_SCRIPTED & other );
+
 private :
 
-    CORE_ABSTRACT_PROGRAM_LUA::PTR LuaProgram;
-    bool IsRunning;
+    CORE_ABSTRACT_PROGRAM_LUA::PTR
+        LuaProgram;
+    bool
+        IsRunning;
 
 XS_CLASS_END
 

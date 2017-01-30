@@ -23,7 +23,6 @@ CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GRAPHIC_UI_ELEMENT )
 
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_UI_ELEMENT, SetActionCallback, XS_UI_CALLBACK & )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( const CORE_HELPERS_IDENTIFIER &, GRAPHIC_UI_ELEMENT, GetIdentifier)
-
 CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GRAPHIC_UI_ELEMENT )
 
 GRAPHIC_UI_ELEMENT::GRAPHIC_UI_ELEMENT() :
@@ -34,7 +33,8 @@ GRAPHIC_UI_ELEMENT::GRAPHIC_UI_ELEMENT() :
     CurrentState( GRAPHIC_UI_ELEMENT_STATE_Default ),
     Enabled( true ),
     Visible( true ),
-    Adapter( NULL ) {
+    Adapter( NULL ),
+    Opacity( 1.0f ) {
     
 }
 
@@ -93,7 +93,7 @@ void GRAPHIC_UI_ELEMENT::Render( const GRAPHIC_RENDERER & renderer ) {
     
     if ( IsVisible() && RenderStyleTable[ CurrentState ] ) {
         
-        RenderStyleTable[ CurrentState ]->Apply( renderer, Placement );
+        RenderStyleTable[ CurrentState ]->Apply( renderer, Placement, Opacity );
     }
 }
 

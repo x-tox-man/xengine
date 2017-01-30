@@ -32,7 +32,7 @@ GRAPHIC_UI_RENDER_STYLE::~GRAPHIC_UI_RENDER_STYLE() {
 
 }
 
-void GRAPHIC_UI_RENDER_STYLE::Apply( const GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement ) {
+void GRAPHIC_UI_RENDER_STYLE::Apply( const GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity ) {
     
     if ( Shape ) {
         
@@ -46,10 +46,10 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( const GRAPHIC_RENDERER & renderer, const GR
         
         GRAPHIC_SHADER_ATTRIBUTE & color_attribute = Shape->GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
         
-        color_attribute.AttributeValue.Value.FloatArray4[0] = Color[0];
-        color_attribute.AttributeValue.Value.FloatArray4[1] = Color[1];
-        color_attribute.AttributeValue.Value.FloatArray4[2] = Color[2];
-        color_attribute.AttributeValue.Value.FloatArray4[3] = Color[3];
+        color_attribute.AttributeValue.Value.FloatArray4[0] = Color[0] * opacity;
+        color_attribute.AttributeValue.Value.FloatArray4[1] = Color[1] * opacity;
+        color_attribute.AttributeValue.Value.FloatArray4[2] = Color[2] * opacity;
+        color_attribute.AttributeValue.Value.FloatArray4[3] = Color[3] * opacity;
         
         Shape->Render( renderer );
     }

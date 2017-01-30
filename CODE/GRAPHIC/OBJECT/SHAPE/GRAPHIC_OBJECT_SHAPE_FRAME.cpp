@@ -159,11 +159,11 @@ void GRAPHIC_OBJECT_SHAPE_FRAME::Render( const GRAPHIC_RENDERER & renderer ) {
               1,
               (const GLfloat * )&color.AttributeValue.Value.FloatArray4 ); )
     
-    GFX_CHECK( glUniformMatrix4fv(
+    GRAPHIC_SYSTEM_ApplyMatrix(
         attr->AttributeIndex,
         1,
         0,
-        (const GLfloat * )&result[0]); )
+        (const GLfloat * )&result[0]);
     
     // TODO : improve efficiency with uniform shader attribute handling
     if ( Effect ) {

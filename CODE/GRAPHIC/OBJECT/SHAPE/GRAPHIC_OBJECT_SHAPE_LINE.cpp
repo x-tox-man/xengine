@@ -110,11 +110,11 @@ void GRAPHIC_OBJECT_SHAPE_LINE::Render( const GRAPHIC_RENDERER & renderer ) {
     result *= renderer.GetCamera().GetViewMatrix();
     result *= object_matrix;
     
-    GFX_CHECK( glUniformMatrix4fv(
+    GRAPHIC_SYSTEM_ApplyMatrix(
         attr->AttributeIndex,
         1,
         0,
-        (const GLfloat * )&result[0]); )
+        (const GLfloat * )&result[0]);
     
     GFX_CHECK( glUniform4fv(
         ShaderPositions->AttributeIndex,

@@ -36,13 +36,10 @@ void GRAPHIC_SHADER_PROGRAM::LoadProgram( const CORE_FILESYSTEM_PATH & path ) {
 
 void GRAPHIC_SHADER_PROGRAM::LoadPartial( const CORE_FILESYSTEM_PATH & path, GRAPHIC_SHADER_TYPE shader_type ) {
     
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT_LOADER loading 2-3");
     GRAPHIC_SHADER * vertex = new GRAPHIC_SHADER;
     
     vertex->SetProgram( ShaderProgram );
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT_LOADER loading 2-4");
     vertex->LoadShader( path, shader_type );
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT_LOADER loading 2-5");
 }
 
 void GRAPHIC_SHADER_PROGRAM::Finalize() {
@@ -108,16 +105,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     }
     
     // Get uniform locations.
-    
     GRAPHIC_SHADER_ATTRIBUTE * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    
-    SERVICE_LOGGER_Error("ShaderProgram %d", ShaderProgram );
-    SERVICE_LOGGER_Error("ProjectionMatrix.getTextValue() %s", ProjectionMatrix.GetTextValue() );
-    SERVICE_LOGGER_Error("ProjectionMatrix.getTextValue() %s", ModelViewMatrix.GetTextValue() );
-    SERVICE_LOGGER_Error("ProjectionMatrix.getTextValue() %s", SkinningMatrixTable.GetTextValue() );
-    SERVICE_LOGGER_Error("ProjectionMatrix.getTextValue() %s", AttrBindShapeMatrix.GetTextValue() );
-    
-    // Get uniform locations.
     
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ProjectionMatrix.GetTextValue() ); )
     attribute->AttributeName = ProjectionMatrix;
@@ -136,6 +124,16 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     if ( attribute->AttributeIndex != -1 ) {
         
         attribute->AttributeName = ShadowMapMVP;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, MVPMatrix.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = MVPMatrix;
         
         setShaderAttribute(*attribute);
     }
