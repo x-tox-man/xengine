@@ -91,7 +91,7 @@ void AUDIO_SOUND_BANK::Unload() {
             
             AUDIO_LOADER_Close( *it->second->Sound );
             
-            for ( int i = 0; i < it->second->Sound->GetSoundChunksTable().size(); i++ ) {
+            for ( size_t i = 0; i < it->second->Sound->GetSoundChunksTable().size(); i++ ) {
                 
                 delete it->second->Sound->GetSoundChunksTable()[i];
             }

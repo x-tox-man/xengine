@@ -55,13 +55,6 @@ CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( CORE_MATH_VECTOR );
     friend inline const CORE_MATH_VECTOR operator * ( const CORE_MATH_VECTOR & lhs, const float value );
     friend inline const CORE_MATH_VECTOR operator / ( const CORE_MATH_VECTOR & lhs, const float value );
 
-    inline CORE_MATH_VECTOR & operator = ( CORE_MATH_VECTOR & rhs ) {
-        
-        memcpy( Value, rhs.Value, 4 * sizeof( float ) );
-        
-        return *this;
-    }
-
     inline CORE_MATH_VECTOR & operator = ( const CORE_MATH_VECTOR & rhs ) {
         
         Value[ 0 ] =rhs.Value[ 0 ];
