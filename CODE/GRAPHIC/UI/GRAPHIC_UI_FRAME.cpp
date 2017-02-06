@@ -55,7 +55,7 @@ void GRAPHIC_UI_FRAME::Initialize() {
     
     if ( Adapter ) {
         
-        ((GRAPHIC_UI_FRAME_ADAPTER *) Adapter)->OnLayoutItems( this );
+        ((GRAPHIC_UI_FRAME_ADAPTER *) Adapter)->OnLayoutFrame( this );
     }
 }
 
@@ -99,19 +99,23 @@ void GRAPHIC_UI_FRAME::Update( const float time_step ) {
     }
 }
 
-void GRAPHIC_UI_FRAME::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_UI_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
     
     if ( IsVisible() ) {
-        
-        GRAPHIC_SYSTEM::EnableScissor( true );
-        
         
         int base_x = GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().X() * 0.5f + (GetPlacement().GetAbsolutePosition().X() - GetPlacement().GetSize().X() * 0.5f );
         int base_y = GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().Y() * 0.5f + (GetPlacement().GetAbsolutePosition().Y() - GetPlacement().GetSize().Y() * 0.5f );
         
-        GRAPHIC_SYSTEM::SetScissorRectangle(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y());
-        
         GRAPHIC_UI_ELEMENT::Render( renderer );
+        
+        bool scissor_is_enabled = renderer.IsScissorEnabled();
+        CORE_MATH_VECTOR scissor_rectangle = renderer.GetScissorRectangle();
+        
+        
+        renderer.SetScissorRectangle(CORE_MATH_VECTOR(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y() ) );
+        renderer.EnableScissor( true );
+        
+        GRAPHIC_SYSTEM::SetScissorRectangle(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y());
         
         std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
         
@@ -122,13 +126,14 @@ void GRAPHIC_UI_FRAME::Render( const GRAPHIC_RENDERER & renderer ) {
             it++;
         }
         
-        GRAPHIC_SYSTEM::EnableScissor( false );
+        renderer.SetScissorRectangle(scissor_rectangle);
+        renderer.EnableScissor( scissor_is_enabled );
     }
 }
 
 void GRAPHIC_UI_FRAME::Click( const CORE_MATH_VECTOR & cursor_position ) {
     
-    if ( Contains( cursor_position ) ) {
+    if ( GRAPHIC_UI_ELEMENT::Contains( cursor_position ) ) {
         
         std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
         
@@ -150,6 +155,11 @@ void GRAPHIC_UI_FRAME::Click( const CORE_MATH_VECTOR & cursor_position ) {
             
         }
         
+        if ( Adapter ) {
+            
+            Adapter->OnDragged( this, cursor_position );
+        }
+        
         ActionCallback( this, CurrentState );
     }
 }
@@ -168,6 +178,11 @@ void GRAPHIC_UI_FRAME::Hover( const CORE_MATH_VECTOR & cursor_position ) {
             
         }
         
+        if ( !PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetLeftButtonClicked() ) {
+            
+            Adapter->OnDragEnd();
+        }
+        
         ActionCallback( this, CurrentState );
     }
     else {
@@ -178,7 +193,6 @@ void GRAPHIC_UI_FRAME::Hover( const CORE_MATH_VECTOR & cursor_position ) {
             (*it)->Hover( false );
             
             it++;
-            
         }
     }
 }
@@ -300,31 +314,35 @@ void GRAPHIC_UI_FRAME::OnPlacementPropertyChanged() {
     }
 }
 
-GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::Copy() {
+GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::InnerCopy(GRAPHIC_UI_FRAME * other_frame ) {
     
-    GRAPHIC_UI_FRAME * otherFrame = new GRAPHIC_UI_FRAME();
-    Placement.Copy( otherFrame->Placement );
+    Placement.Copy( other_frame->Placement );
     
-    otherFrame->RenderStyleTable = RenderStyleTable;
+    other_frame->RenderStyleTable = RenderStyleTable;
     
     //otherFrame->Identifier = Identifier; //Fordidden
-    otherFrame->CurrentState = GRAPHIC_UI_ELEMENT_STATE_Default;
-    otherFrame->Enabled = Enabled;
-    otherFrame->Visible = Visible;
-    otherFrame->Adapter = Adapter;
+    other_frame->CurrentState = GRAPHIC_UI_ELEMENT_STATE_Default;
+    other_frame->Enabled = Enabled;
+    other_frame->Visible = Visible;
+    other_frame->Adapter = Adapter;
     
     std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
     
     while ( it != ElementTable.end() ) {
         
         auto new_item = (*it)->Copy();
-        new_item->GetPlacement().SetParent(&otherFrame->GetPlacement() );
-        otherFrame->ElementTable.push_back( new_item );
+        new_item->GetPlacement().SetParent(&other_frame->GetPlacement() );
+        other_frame->ElementTable.push_back( new_item );
         
         it++;
     }
     
-    return otherFrame;
+    return other_frame;
+}
+
+GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::Copy() {
+    
+    return InnerCopy( new GRAPHIC_UI_FRAME() );
 }
 
 void GRAPHIC_UI_FRAME::SetOpacity( float opacity ) {

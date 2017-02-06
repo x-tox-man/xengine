@@ -59,16 +59,32 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline void SetPassIndex(int pass) { PassIndex = pass; }
     inline void SetDepthTexture( GRAPHIC_TEXTURE * depth ) { DepthTexture = depth;}
     inline GRAPHIC_TEXTURE * GetDepthTexture() const { return DepthTexture; }
+
+    void EnableScissor( bool enable ) ;
+    inline bool IsScissorEnabled() const { return ScissorIsEnabled; }
+    inline const CORE_MATH_VECTOR & GetScissorRectangle() const { return ScissorRectangle; }
+    inline void SetScissorRectangle( const CORE_MATH_VECTOR & scissor_rectangle ) { ScissorRectangle = scissor_rectangle; }
+
 private :
     
-    GRAPHIC_CAMERA * Camera, *ShadowMapCamera;
-    CORE_HELPERS_CALLBACK * RenderCallback;
-    GRAPHIC_SHADER_LIGHT * DirectionalLight;
-    GRAPHIC_SHADER_LIGHT * PointLightTable[4]; // curently shaders have only 2 lights of each type, this is a fixed shader value
-    GRAPHIC_SHADER_LIGHT * SpotLightTable[4]; // curently shaders have only 2 lights of each type, this is a fixed shader value
-    GRAPHIC_TEXTURE * DepthTexture;
-    int LightCount;
-    int PassIndex;
+    GRAPHIC_CAMERA
+        * Camera,
+        *ShadowMapCamera;
+    CORE_HELPERS_CALLBACK
+        * RenderCallback;
+    GRAPHIC_SHADER_LIGHT
+        * DirectionalLight,
+        * PointLightTable[4], // curently shaders have only 2 lights of each type, this is a fixed shader value
+        * SpotLightTable[4]; // curently shaders have only 2 lights of each type, this is a fixed shader value
+    GRAPHIC_TEXTURE
+        * DepthTexture;
+    CORE_MATH_VECTOR
+        ScissorRectangle;
+    int
+        LightCount,
+        PassIndex;
+    bool
+        ScissorIsEnabled;
 
 XS_CLASS_END
 

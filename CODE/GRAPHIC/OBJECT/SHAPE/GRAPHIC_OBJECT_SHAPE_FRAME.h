@@ -19,11 +19,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_FRAME, GRAPHIC_OBJECT_SHAPE)
     virtual ~GRAPHIC_OBJECT_SHAPE_FRAME();
 
     virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) override;
-    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
+    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
 
     void SetBorderSize( const float boder_width, const float boder_height ) {
         BorderWidth = boder_width;
         BorderHeight = boder_height;
+        
+        //UpdateFrameVertexData
     }
 
 private :

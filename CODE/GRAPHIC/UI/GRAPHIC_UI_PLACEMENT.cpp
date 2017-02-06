@@ -10,7 +10,9 @@
 
 GRAPHIC_UI_PLACEMENT::GRAPHIC_UI_PLACEMENT() :
     RelativePosition( CORE_MATH_VECTOR::Zero ),
+    AbsolutePosition( CORE_MATH_VECTOR::Zero ),
     Size( CORE_MATH_VECTOR::Zero ),
+    ScrollOffset( CORE_MATH_VECTOR::Zero ),
     Anchor( GRAPHIC_UI_Center ),
     Parent( NULL ) {
     
@@ -63,6 +65,16 @@ void GRAPHIC_UI_PLACEMENT::OnPlacementPropertyChanged() {
     else if ( Anchor & GRAPHIC_UI_PLACEMENT_ANCHOR_Bottom ) {
         
         AbsolutePosition[1] -= (ParentSize[1] - Size[1]) * 0.5f;
+    }
+    
+    if ( Parent && Parent->GetScrollOffset()[0] != 0.0f )
+    {
+        AbsolutePosition[0] += Parent->GetScrollOffset()[0];
+    }
+    
+    if ( Parent && Parent->GetScrollOffset()[1] != 0.0f )
+    {
+        AbsolutePosition[1] += Parent->GetScrollOffset()[1];
     }
     
     AbsolutePosition += RelativePosition;

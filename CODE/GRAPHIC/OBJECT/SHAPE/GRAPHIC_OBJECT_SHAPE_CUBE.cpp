@@ -73,7 +73,7 @@ void GRAPHIC_OBJECT_SHAPE_CUBE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
     SetShaderForMesh( mesh, shader );
 }
 
-void GRAPHIC_OBJECT_SHAPE_CUBE::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_CUBE::Render( GRAPHIC_RENDERER & renderer ) {
     
     if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         

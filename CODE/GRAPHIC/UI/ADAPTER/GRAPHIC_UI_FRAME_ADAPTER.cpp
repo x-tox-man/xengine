@@ -18,7 +18,7 @@ GRAPHIC_UI_FRAME_ADAPTER::~GRAPHIC_UI_FRAME_ADAPTER() {
     
 }
 
-void GRAPHIC_UI_FRAME_ADAPTER::OnLayoutItems( GRAPHIC_UI_FRAME * frame ) {
+void GRAPHIC_UI_FRAME_ADAPTER::OnLayoutFrame( GRAPHIC_UI_FRAME * frame ) {
     
     
 }
@@ -28,6 +28,10 @@ void GRAPHIC_UI_FRAME_ADAPTER::OnResize( GRAPHIC_UI_ELEMENT * ) {
 }
 
 void GRAPHIC_UI_FRAME_ADAPTER::OnMove( GRAPHIC_UI_ELEMENT * ) {
+    
+}
+
+void GRAPHIC_UI_FRAME_ADAPTER::OnDragEnd() {
     
 }
 

@@ -19,7 +19,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_CUBE, GRAPHIC_OBJECT_SHAPE)
     virtual ~GRAPHIC_OBJECT_SHAPE_CUBE();
 
     virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) override;
-    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
+    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
 
     void UpdateGeometry( const CORE_MATH_VECTOR & center, const CORE_MATH_VECTOR & extent );
 

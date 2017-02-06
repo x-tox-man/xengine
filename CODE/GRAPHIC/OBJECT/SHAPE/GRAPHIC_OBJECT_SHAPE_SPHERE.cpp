@@ -97,7 +97,7 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_P
     SetShaderForMesh( mesh, shader );
 }
 
-void GRAPHIC_OBJECT_SHAPE_SPHERE::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_SPHERE::Render( GRAPHIC_RENDERER & renderer ) {
     
     CORE_MATH_MATRIX result,object_matrix;
     

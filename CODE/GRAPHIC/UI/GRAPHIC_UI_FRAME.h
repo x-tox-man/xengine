@@ -28,7 +28,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME, GRAPHIC_UI_ELEMENT )
     virtual void Finalize()  override{}
 
     virtual void Update( const float ) override;
-    virtual void Render( const GRAPHIC_RENDERER & ) override;
+    virtual void Render( GRAPHIC_RENDERER & ) override;
     virtual void Click( const CORE_MATH_VECTOR & cursor_position ) override;
     virtual void Hover( const CORE_MATH_VECTOR & cursor_position ) override;
     virtual void Hover( const bool force_hover ) override;
@@ -43,8 +43,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME, GRAPHIC_UI_ELEMENT )
     void RemoveObject( GRAPHIC_UI_ELEMENT * );
     void RemoveObjects();
 
+    void SetOffset( const CORE_MATH_VECTOR & offset ) { GetPlacement().SetOffset( offset );OnPlacementPropertyChanged(); }
+
     GRAPHIC_UI_ELEMENT * GetElement( const char * element_name );
     std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_UI_ELEMENT * > & GetNamedElementTable() { return NamedElementTable; }
+    std::vector<GRAPHIC_UI_ELEMENT *> & GetElementTable() { return ElementTable; }
 
     virtual GRAPHIC_UI_ELEMENT * Copy() override;
     virtual void SetOpacity( float opacity ) override;
@@ -52,6 +55,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME, GRAPHIC_UI_ELEMENT )
     friend class GRAPHIC_UI_PRESENTER;
 
 protected:
+
+virtual GRAPHIC_UI_ELEMENT * InnerCopy( GRAPHIC_UI_FRAME * other_frame );
+
+private :
 
     std::vector<GRAPHIC_UI_ELEMENT *>
         ElementTable;

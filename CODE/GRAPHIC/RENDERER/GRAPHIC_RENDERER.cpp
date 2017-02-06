@@ -11,8 +11,14 @@
 GRAPHIC_RENDERER::GRAPHIC_RENDERER():
     Camera( NULL ),
     ShadowMapCamera( NULL ),
+    RenderCallback(),
+    DirectionalLight(),
+    PointLightTable(),
+    SpotLightTable(),
     PassIndex( 0 ),
-    DepthTexture( NULL ) {
+    DepthTexture( NULL ),
+    ScissorRectangle(),
+    ScissorIsEnabled( false ) {
     
     PointLightTable[0] = NULL;
     PointLightTable[1] = NULL;
@@ -27,4 +33,10 @@ GRAPHIC_RENDERER::GRAPHIC_RENDERER():
 
 GRAPHIC_RENDERER::~GRAPHIC_RENDERER() {
 
+}
+
+void GRAPHIC_RENDERER::EnableScissor( bool enable ) {
+    
+    ScissorIsEnabled = enable;
+    GRAPHIC_SYSTEM::EnableScissor( enable );
 }

@@ -23,7 +23,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_RENDER_STYLE )
     GRAPHIC_UI_RENDER_STYLE( GRAPHIC_OBJECT_SHAPE * shape, GRAPHIC_TEXTURE_BLOCK * texture_block, const CORE_HELPERS_COLOR & color = CORE_COLOR_White, GRAPHIC_OBJECT_SHAPE * decorating_shape = NULL, GRAPHIC_TEXTURE_BLOCK * decorating_texture_block = NULL );
     ~GRAPHIC_UI_RENDER_STYLE();
 
-    void Apply( const GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity );
+    void Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity );
 
     void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
     void SetColor( const CORE_MATH_VECTOR & color ) { Color = color; }

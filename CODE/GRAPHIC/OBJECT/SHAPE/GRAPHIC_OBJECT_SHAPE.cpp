@@ -28,7 +28,7 @@ void GRAPHIC_OBJECT_SHAPE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::P
     
 }
 
-void GRAPHIC_OBJECT_SHAPE::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE::Render( GRAPHIC_RENDERER & renderer ) {
     
 }
 

@@ -14,17 +14,19 @@
 #include "GRAPHIC_UI_FRAME_ADAPTER.h"
 #include "CORE_MATH_VECTOR.h"
 #include "GRAPHIC_UI_ELEMENT.h"
+#include "GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME_LIST_ADAPTER, GRAPHIC_UI_FRAME_ADAPTER )
+XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME_LIST_ADAPTER, GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER )
 
     GRAPHIC_UI_FRAME_LIST_ADAPTER( GRAPHIC_UI_FRAME * frame, GRAPHIC_UI_ELEMENT * ui_template );
     virtual ~GRAPHIC_UI_FRAME_LIST_ADAPTER();
 
     virtual void OnResize( GRAPHIC_UI_ELEMENT * ) override;
-    virtual void OnLayoutItems( GRAPHIC_UI_FRAME * ) override;
+    virtual void OnLayoutFrame( GRAPHIC_UI_FRAME * ) override;
     virtual void OnDragged(GRAPHIC_UI_ELEMENT *, const CORE_MATH_VECTOR & ) override;
     virtual void OnScrolled(GRAPHIC_UI_ELEMENT *, const CORE_MATH_VECTOR & ) override;
     virtual void OnCollectionChanged();
+    virtual void OnDragEnd() override;
 
 protected:
 
@@ -34,9 +36,9 @@ protected:
 
 private:
 
-    int CalculateItemsCount(GRAPHIC_UI_FRAME * );
-    CORE_MATH_VECTOR CalculateListViewDimension();
-    void UpdateOffsetAndCheckBounds( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force = false);
+    int CalculateVisibleItemsCount(GRAPHIC_UI_FRAME * );
+    virtual CORE_MATH_VECTOR CalculateFrameDimension( GRAPHIC_UI_ELEMENT * ) override;
+    void UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force = false) override;
 
     GRAPHIC_UI_FRAME
         * Frame;
@@ -48,9 +50,7 @@ private:
         VisibleItemsCount,
         Spacing;
     CORE_MATH_VECTOR
-        TotalScrollOffset,
-        CellDimension,
-        OverallFrameDimension;
+        CellDimension;
 
 XS_CLASS_END
 

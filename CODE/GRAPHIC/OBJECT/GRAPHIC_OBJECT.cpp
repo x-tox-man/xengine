@@ -88,7 +88,7 @@ void GRAPHIC_OBJECT::BindShader() {
     
 }
 
-void GRAPHIC_OBJECT::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer ) {
     
     if( renderer.GetPassIndex() >= ShaderTable.size() )
         return;

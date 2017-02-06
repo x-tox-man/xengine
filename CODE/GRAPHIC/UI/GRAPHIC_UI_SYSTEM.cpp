@@ -46,12 +46,15 @@ void GRAPHIC_UI_SYSTEM::Update( float time_step ) {
         
         if ( it->second->IsEnabled() ) {
             
-            it->second->Hover( coordinates );
-            
             if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetLeftButtonClicked() ){
                 
                 it->second->Click( coordinates );
             }
+            else {
+                
+                it->second->Hover( coordinates );
+            }
+            
             it->second->Update( time_step );
         }
         
