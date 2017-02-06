@@ -88,7 +88,7 @@ void GRAPHIC_OBJECT_SHAPE_FRAME::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PR
     free(temp_ptr);
 }
 
-void GRAPHIC_OBJECT_SHAPE_FRAME::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
     
     if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         

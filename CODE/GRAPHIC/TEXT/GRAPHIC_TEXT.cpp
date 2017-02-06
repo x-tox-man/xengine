@@ -39,10 +39,33 @@ void GRAPHIC_TEXT::Initialize( const char * text, GRAPHIC_FONT & font, float siz
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Texcoord0);
     
-    UpdateText( text, size_factor );
+    TextSize = size_factor;
+    
+    Text = text;
+    
+    UpdateText( Text, TextSize );
 }
 
-void GRAPHIC_TEXT::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_TEXT::Initialize( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
+    
+    ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Position );
+    ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Normal );
+    ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Texcoord0 );
+    
+    GRAPHIC_MESH * mesh = new GRAPHIC_MESH();
+    
+    AddNewMesh( mesh );
+    
+    SetShaderForMesh( mesh, shader );
+    
+    mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
+    mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);
+    mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Texcoord0);
+    
+    UpdateText( Text, TextSize );
+}
+
+void GRAPHIC_TEXT::Render( GRAPHIC_RENDERER & renderer ) {
     
     CORE_MATH_MATRIX
         object_matrix, result;
@@ -182,9 +205,6 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
         
         text_extent[0] += current_glyph.Advance[0];
     }
-    
-    Size.X( 1.0f );
-    Size.Y( 1.0f );
     
     offset = 0;
     

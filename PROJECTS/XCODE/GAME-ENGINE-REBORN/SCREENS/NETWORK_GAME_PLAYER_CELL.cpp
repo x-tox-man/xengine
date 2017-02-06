@@ -61,27 +61,5 @@ void NETWORK_GAME_PLAYER_CELL::NotifyPropertyChanged( CORE_DATA_MODEL * PlayerIn
 
 GRAPHIC_UI_ELEMENT * NETWORK_GAME_PLAYER_CELL::Copy() {
     
-    NETWORK_GAME_PLAYER_CELL * otherFrame = new NETWORK_GAME_PLAYER_CELL();
-    Placement.Copy( otherFrame->Placement );
-    
-    otherFrame->RenderStyleTable = RenderStyleTable;
-    
-    //otherFrame->Identifier = Identifier; //Fordidden
-    otherFrame->CurrentState = GRAPHIC_UI_ELEMENT_STATE_Default;
-    otherFrame->Enabled = Enabled;
-    otherFrame->Visible = Visible;
-    otherFrame->Adapter = Adapter;
-    
-    std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
-    
-    do {
-        
-        auto new_item = (*it)->Copy();
-        new_item->GetPlacement().SetParent(&otherFrame->GetPlacement() );
-        otherFrame->ElementTable.push_back( new_item );
-        
-        it++;
-    } while ( it != ElementTable.end() );
-    
-    return otherFrame;
+    return GRAPHIC_UI_FRAME::InnerCopy( new NETWORK_GAME_PLAYER_CELL() );
 }

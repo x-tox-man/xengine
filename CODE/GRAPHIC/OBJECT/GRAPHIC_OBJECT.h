@@ -34,7 +34,7 @@ XS_CLASS_BEGIN( GRAPHIC_OBJECT )
     void BindShader();
     void Release();
 
-    virtual void Render( const GRAPHIC_RENDERER & renderer );
+    virtual void Render( GRAPHIC_RENDERER & renderer );
 
     inline std::vector< GRAPHIC_MESH *> & GetMeshTable() { return MeshTable;}
     inline std::vector< GRAPHIC_SHADER_PROGRAM_DATA_PROXY *> & GetShaderTable() { return ShaderTable; }

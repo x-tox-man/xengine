@@ -89,7 +89,7 @@ void GRAPHIC_UI_ELEMENT::Update( const float time_step ) {
     }
 }
 
-void GRAPHIC_UI_ELEMENT::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
     
     if ( IsVisible() && RenderStyleTable[ CurrentState ] ) {
         

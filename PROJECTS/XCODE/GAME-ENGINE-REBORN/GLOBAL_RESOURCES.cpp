@@ -30,16 +30,12 @@ void GLOBAL_RESOURCES::Initialize( GAMEPLAY_SCENE * scene ) {
     
     UIPlanObject = new GRAPHIC_OBJECT_SHAPE_PLAN;
     UIPlanObjectColorOnly = new GRAPHIC_OBJECT_SHAPE_PLAN;
-    UIFramePlanObject = new GRAPHIC_OBJECT_SHAPE_FRAME;
     
     ui_textured_shader_effect->Initialize( UIPlanObject->GetShaderBindParameter() );
     UIPlanObject->InitializeShape( &ui_textured_shader_effect->GetProgram() );
     
     ui_colored_shader_effect->Initialize( UIPlanObjectColorOnly->GetShaderBindParameter() );
     UIPlanObjectColorOnly->InitializeShape( &ui_colored_shader_effect->GetProgram() );
-    
-    UIFramePlanObject->SetBorderSize(11.0f / 400.0f, 11.0f / 200.0f);
-    UIFramePlanObject->InitializeShape( &ui_textured_shader_effect->GetProgram() );
     
     UIFrameTextureBlock = new GRAPHIC_TEXTURE_BLOCK;
     
@@ -49,31 +45,22 @@ void GLOBAL_RESOURCES::Initialize( GAMEPLAY_SCENE * scene ) {
     FrameRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     
     FrameRenderStyle->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
-    FrameRenderStyle->SetDecoratingShape( UIFramePlanObject );
+    FrameRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 400.0f, 11.0f / 200.0f, ui_textured_shader_effect) );
     FrameRenderStyle->SetDecoratingTextureBlock( UIFrameTextureBlock );
     FrameRenderStyle->SetShape(UIPlanObjectColorOnly);
-    
-    UIFramePlanObject = new GRAPHIC_OBJECT_SHAPE_FRAME;
-    UIFramePlanObject->SetBorderSize(11.0f / 500.0f, 11.0f / 32.0f);
-    UIFramePlanObject->InitializeShape( &ui_textured_shader_effect->GetProgram() );
     
     CellRenderStyle= new GRAPHIC_UI_RENDER_STYLE;
     
     CellRenderStyle->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
-    CellRenderStyle->SetDecoratingShape( UIFramePlanObject );
+    CellRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 500.0f, 11.0f / 32.0f, ui_textured_shader_effect ) );
     CellRenderStyle->SetDecoratingTextureBlock( UIFrameTextureBlock );
     CellRenderStyle->SetShape(UIPlanObjectColorOnly);
     CellRenderStyle= new GRAPHIC_UI_RENDER_STYLE;
     
-    UIFramePlanObject = new GRAPHIC_OBJECT_SHAPE_FRAME;
-    
-    UIFramePlanObject->SetBorderSize(11.0f / 600.0f, 11.0f / 300.0f);
-    UIFramePlanObject->InitializeShape( &ui_textured_shader_effect->GetProgram() );
-    
     PageFrameRenderStyle= new GRAPHIC_UI_RENDER_STYLE;
     
     PageFrameRenderStyle->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
-    PageFrameRenderStyle->SetDecoratingShape( UIFramePlanObject );
+    PageFrameRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 600.0f, 11.0f / 300.0f, ui_textured_shader_effect ) );
     PageFrameRenderStyle->SetDecoratingTextureBlock( UIFrameTextureBlock );
     PageFrameRenderStyle->SetShape(UIPlanObjectColorOnly);
     
@@ -247,7 +234,7 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     
     EffectPlan->SetEffect( BloomEffect );
     EffectPlan->SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
-    EffectPlan->SetScaleFactor( CORE_MATH_VECTOR( 512.0f, 384.0f, 0.0f, 1.0f ) );
+    EffectPlan->SetScaleFactor( CORE_MATH_VECTOR( 1024.0f, 768.0f, 0.0f, 1.0f ) );
     
     TextureBlock = new GRAPHIC_TEXTURE_BLOCK;
     TextureBlock->SetOffset(CORE_MATH_VECTOR::Zero );
@@ -400,6 +387,17 @@ GRAPHIC_TEXTURE * GLOBAL_RESOURCES::CreateTextureFromImagePath(const char * imag
     
     return image->CreateTextureObject( false );
 }
+
+GRAPHIC_OBJECT_SHAPE_FRAME * GLOBAL_RESOURCES::CreateFrameBorder( float height, float width, GRAPHIC_SHADER_EFFECT::PTR shader ) {
+    
+    auto frame = new GRAPHIC_OBJECT_SHAPE_FRAME;
+    
+    frame->SetBorderSize( height, width);
+    frame->InitializeShape( &shader->GetProgram() );
+    
+    return frame;
+}
+
 
 void GLOBAL_RESOURCES::CreateGround(GAMEPLAY_SCENE * scene) {
     

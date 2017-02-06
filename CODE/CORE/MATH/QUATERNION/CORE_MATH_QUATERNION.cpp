@@ -117,7 +117,7 @@ void CORE_MATH_QUATERNION::ToMatrix( float * matrix  ) const {
 
 void CORE_MATH_QUATERNION::RotateX( float angle ) {
     
-    /*CORE_MATH_MATRIX mat( CORE_MATH_MATRIX::Identity );
+    CORE_MATH_MATRIX mat( CORE_MATH_MATRIX::Identity );
     
     mat.XRotate( angle );
     
@@ -127,7 +127,7 @@ void CORE_MATH_QUATERNION::RotateX( float angle ) {
     
     quaternion.Normalize();
     
-    *this *= quaternion;*/
+    *this *= quaternion;
 }
 
 void CORE_MATH_QUATERNION::RotateY( float angle ) {
@@ -136,7 +136,7 @@ void CORE_MATH_QUATERNION::RotateY( float angle ) {
     
     quaternion.Normalize();*/
     
-    /*CORE_MATH_MATRIX mat( CORE_MATH_MATRIX::Identity );
+    CORE_MATH_MATRIX mat( CORE_MATH_MATRIX::Identity );
     
     mat.YRotate( angle );
     
@@ -147,7 +147,7 @@ void CORE_MATH_QUATERNION::RotateY( float angle ) {
     quaternion.Normalize();
     
     
-    *this *= quaternion;*/
+    *this *= quaternion;
 }
 
 void CORE_MATH_QUATERNION::RotateZ( float angle ) {
@@ -156,7 +156,7 @@ void CORE_MATH_QUATERNION::RotateZ( float angle ) {
     
     quaternion.Normalize();*/
     
-    /*CORE_MATH_MATRIX mat( CORE_MATH_MATRIX::Identity );
+    CORE_MATH_MATRIX mat( CORE_MATH_MATRIX::Identity );
     
     mat.ZRotate( angle );
     
@@ -166,7 +166,7 @@ void CORE_MATH_QUATERNION::RotateZ( float angle ) {
     
     quaternion.Normalize();
     
-    *this *= quaternion;*/
+    *this *= quaternion;
 }
 
 void CORE_MATH_QUATERNION::Normalize() {

@@ -123,7 +123,7 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape( GRAPHIC_SHADER_PROGRAM_DA
     SetShaderForMesh( mesh, shader );
 }
 
-void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::Render( GRAPHIC_RENDERER & renderer ) {
 
     CORE_MATH_MATRIX
         object_matrix,

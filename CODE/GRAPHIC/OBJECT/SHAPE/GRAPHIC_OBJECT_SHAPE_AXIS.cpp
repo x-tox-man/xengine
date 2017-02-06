@@ -56,7 +56,7 @@ void GRAPHIC_OBJECT_SHAPE_AXIS::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
     SetShaderForMesh( mesh, shader );
 }
 
-void GRAPHIC_OBJECT_SHAPE_AXIS::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_AXIS::Render( GRAPHIC_RENDERER & renderer ) {
     
     if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         

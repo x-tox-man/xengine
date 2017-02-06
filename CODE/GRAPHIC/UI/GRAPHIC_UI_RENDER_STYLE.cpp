@@ -32,7 +32,7 @@ GRAPHIC_UI_RENDER_STYLE::~GRAPHIC_UI_RENDER_STYLE() {
 
 }
 
-void GRAPHIC_UI_RENDER_STYLE::Apply( const GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity ) {
+void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity ) {
     
     if ( Shape ) {
         

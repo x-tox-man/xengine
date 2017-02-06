@@ -19,12 +19,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME_ADAPTER, GRAPHIC_UI_BASE_ADAPTER 
     GRAPHIC_UI_FRAME_ADAPTER();
     virtual ~GRAPHIC_UI_FRAME_ADAPTER();
 
-    virtual void OnLayoutItems( GRAPHIC_UI_FRAME * ) override;
+    virtual void OnLayoutFrame( GRAPHIC_UI_FRAME * ) override;
     virtual void OnResize( GRAPHIC_UI_ELEMENT * ) override;
     virtual void OnMove( GRAPHIC_UI_ELEMENT * ) override;
 
-    virtual void OnDragged(GRAPHIC_UI_ELEMENT *, const CORE_MATH_VECTOR & );
-    virtual void OnScrolled(GRAPHIC_UI_ELEMENT *, const CORE_MATH_VECTOR & );
+    virtual void OnDragEnd() override;
+    virtual void OnDragged(GRAPHIC_UI_ELEMENT *, const CORE_MATH_VECTOR & ) override;
+    virtual void OnScrolled(GRAPHIC_UI_ELEMENT *, const CORE_MATH_VECTOR & ) override;
 
 XS_CLASS_END
 

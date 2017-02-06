@@ -20,7 +20,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE, GRAPHIC_OBJECT)
     virtual ~GRAPHIC_OBJECT_SHAPE();
 
     virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader);
-    virtual void Render( const GRAPHIC_RENDERER & renderer ) override;
+    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
 
     void BindShaderColorAttribute();
 

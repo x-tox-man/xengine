@@ -50,6 +50,7 @@ in vec3 bitangent;
 // -- SHADER UNIFORM
 
 uniform mat4 MVPMatrix;
+uniform mat4 ProjectionMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 jointsMatrix[128];
 uniform mat4 attrBindShapeMatrix;

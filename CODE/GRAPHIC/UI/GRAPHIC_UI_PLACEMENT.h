@@ -24,9 +24,11 @@ XS_CLASS_BEGIN( GRAPHIC_UI_PLACEMENT )
     inline const CORE_MATH_VECTOR & GetRelativePosition() const { return RelativePosition; }
     inline const CORE_MATH_VECTOR & GetAbsolutePosition() const { return AbsolutePosition; }
     inline const CORE_MATH_VECTOR & GetSize() const { return Size; }
+    inline const CORE_MATH_VECTOR & GetScrollOffset() const { return ScrollOffset; }
     inline const int GetAnchor() const { return Anchor; }
     inline const int GetRotation() const { return Rotation; }
     inline void SetParent(const GRAPHIC_UI_PLACEMENT * parent ) { Parent = parent; }
+    inline void SetOffset( const CORE_MATH_VECTOR & offset ) { ScrollOffset = offset; OnPlacementPropertyChanged(); }
 
     inline CORE_MATH_VECTOR & GetRelativePosition() { return RelativePosition; }
     inline CORE_MATH_VECTOR & GetAbsolutePosition() { return AbsolutePosition; }
@@ -52,7 +54,8 @@ private:
     CORE_MATH_VECTOR
         RelativePosition,
         AbsolutePosition,
-        Size;
+        Size,
+        ScrollOffset;
     int
         Anchor;
     float

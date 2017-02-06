@@ -22,6 +22,7 @@
 #include "GRAPHIC_TEXTURE_ATLAS.h"
 #include "GLOBAL_RESOURCES.h"
 #include "MAIN_MENU_WINDOW_PRESENTER.h"
+#include "GRAPHIC_UI_TEXT.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( APPLICATION_MAIN_WINDOW, GRAPHIC_UI_FRAME )
 
@@ -38,11 +39,9 @@ private:
 
     GRAPHIC_OBJECT_SHAPE
         * Shape;
-    GRAPHIC_TEXT
-        * TextShape,
-        * TextShape2;
-    GRAPHIC_TEXT
-        Text;
+    GRAPHIC_UI_TEXT
+        * TextElement,
+        * TextElement2;
     MAIN_MENU_WINDOW_PRESENTER
         * Presenter;
 

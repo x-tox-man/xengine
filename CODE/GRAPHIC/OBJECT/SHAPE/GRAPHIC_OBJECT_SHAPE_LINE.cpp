@@ -70,7 +70,7 @@ void GRAPHIC_OBJECT_SHAPE_LINE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
     GetShaderTable()[0]->GetProgram()->BindAttribute(*ShaderPositions, ShaderLineGeometry );
 }
 
-void GRAPHIC_OBJECT_SHAPE_LINE::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_LINE::Render( GRAPHIC_RENDERER & renderer ) {
     
     if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         

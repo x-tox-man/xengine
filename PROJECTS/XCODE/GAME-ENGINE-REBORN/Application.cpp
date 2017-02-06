@@ -71,7 +71,7 @@ MyTestApp::MyTestApp() :
     SERVICE_LOGGER_Error( "ALL APP create 1" );
         
     #if PLATFORM_OSX
-        DefaultFileystem.Initialize( "/Users/CBE/DevelopProjects/game-engine/RESOURCES/" );
+        DefaultFileystem.Initialize( "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/" );
     #elif PLATFORM_IOS
         DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_ANDROID
@@ -405,8 +405,7 @@ void MyTestApp::Render() {
                 GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera(LightCamera);
                 GRAPHIC_RENDERER::GetInstance().SetDepthTexture( GLOBAL_RESOURCES::GetInstance().ShadowMapRenderTarget.TargetTexture);
             #endif
-            //EffectPlan->GetShaderTable()[0] = &BasicGeometryEffect->GetProgram();
-            //EffectPlz
+
             
             Game->GetScene()->Render();
             
@@ -470,9 +469,21 @@ void MyTestApp::Render() {
         //PrimaryRenderTarget.Discard();
     }
     
-    #if 0 && PLATFORM_OSX
-    GRAPHIC_RENDERER::GetInstance().SetCamera( GLOBAL_RESOURCES::GetInstance().RenderTargetCamera );
-
+    GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render(GRAPHIC_RENDERER::GetInstance());
+    
+    GRAPHIC_RENDERER::GetInstance().SetCamera( InterfaceCamera );
+    
+    GRAPHIC_UI_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
+    
+    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+    
+    GLOBAL_RESOURCES::GetInstance().Line->SetPosition( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game->GetScene()->GetUpdatableSystemTable()[2])->GetRay().GetOrigin() );
+    GLOBAL_RESOURCES::GetInstance().Line->SetTarget( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game->GetScene()->GetUpdatableSystemTable()[2])->GetRay().GetDirection() );
+    GLOBAL_RESOURCES::GetInstance().Line->Render(GRAPHIC_RENDERER::GetInstance());
+    
+#if PLATFORM_OSX
+    GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
+    
     {
         GLOBAL_RESOURCES::GetInstance().EffectPlan->GetShaderTable()[0] = &GLOBAL_RESOURCES::GetInstance().BloomEffect->GetProgram();
         GLOBAL_RESOURCES::GetInstance().EffectPlan->SetEffect( GLOBAL_RESOURCES::GetInstance().BloomEffect );
@@ -496,7 +507,7 @@ void MyTestApp::Render() {
     {
         GLOBAL_RESOURCES::GetInstance().EffectPlan->GetShaderTable()[0] = &GLOBAL_RESOURCES::GetInstance().VerticalBlurEffect->GetProgram();
         GLOBAL_RESOURCES::GetInstance().EffectPlan->SetEffect(
-                              GLOBAL_RESOURCES::GetInstance().VerticalBlurEffect );
+                                                              GLOBAL_RESOURCES::GetInstance().VerticalBlurEffect );
         GLOBAL_RESOURCES::GetInstance().TextureBlock->SetTexture( GLOBAL_RESOURCES::GetInstance().GaussianRenderTarget.TargetTexture );
         
         GLOBAL_RESOURCES::GetInstance().GaussianRenderTarget.Apply();
@@ -505,27 +516,15 @@ void MyTestApp::Render() {
     }
     
     {
-        GLOBAL_RESOURCES::GetInstance().EffectPlan->GetShaderTable()[0] = &GLOBAL_RESOURCES::GetInstance().CombineBloomEffect->GetProgram();
+        /*GLOBAL_RESOURCES::GetInstance().EffectPlan->GetShaderTable()[0] = &GLOBAL_RESOURCES::GetInstance().CombineBloomEffect->GetProgram();
         GLOBAL_RESOURCES::GetInstance().EffectPlan->SetEffect( GLOBAL_RESOURCES::GetInstance().CombineBloomEffect );
         GLOBAL_RESOURCES::GetInstance().TextureBlock->SetTexture( GLOBAL_RESOURCES::GetInstance().PrimaryRenderTarget.TargetTexture );
         
         GLOBAL_RESOURCES::GetInstance().EffectPlan->SetSecondTextureBlock( GLOBAL_RESOURCES::GetInstance().AlternateTextureBlock );
         GLOBAL_RESOURCES::GetInstance().EffectPlan->Render( GRAPHIC_RENDERER::GetInstance() );
-        GLOBAL_RESOURCES::GetInstance().EffectPlan->SetSecondTextureBlock( NULL );
+        GLOBAL_RESOURCES::GetInstance().EffectPlan->SetSecondTextureBlock( NULL );*/
     }
-    #endif
-    
-    GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render(GRAPHIC_RENDERER::GetInstance());
-    
-    GRAPHIC_RENDERER::GetInstance().SetCamera( InterfaceCamera );
-    
-    GRAPHIC_UI_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
-    
-    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
-    
-    GLOBAL_RESOURCES::GetInstance().Line->SetPosition( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game->GetScene()->GetUpdatableSystemTable()[2])->GetRay().GetOrigin() );
-    GLOBAL_RESOURCES::GetInstance().Line->SetTarget( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game->GetScene()->GetUpdatableSystemTable()[2])->GetRay().GetDirection() );
-    GLOBAL_RESOURCES::GetInstance().Line->Render(GRAPHIC_RENDERER::GetInstance());
+#endif
     
     CORE_MATH_MATRIX previous_mat( &Camera->GetProjectionMatrix()[0] );
     

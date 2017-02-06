@@ -65,6 +65,7 @@
     NSEventMaskRightMouseUp |
     NSEventMaskKeyDown |
     NSEventMaskKeyUp |
+    NSEventMaskLeftMouseDragged |
     NSEventMaskMouseMoved;
     
     [NSEvent addLocalMonitorForEventsMatchingMask:mask handler:^NSEvent *(NSEvent * event) {
@@ -126,6 +127,19 @@
                     
                     //PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().SetKeyPressed( [event keyCode] );
                 }
+                
+                break;
+            }
+                
+            case NSEventTypeLeftMouseDragged: {
+                
+                int32_t deltaX, deltaY;
+                
+                CGGetLastMouseDelta(&deltaX, &deltaY);
+                
+                PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().AddNormalizedDisplacement( deltaX / [self.window frame].size.width, deltaY / [self.window frame].size.height);
+                PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetScreenCoordinates( [event locationInWindow].x / [self.window frame].size.width, [event locationInWindow].y / [self.window frame].size.height);
+                PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetPointCoordinates( [event locationInWindow].x, [event locationInWindow].y );
                 
                 break;
             }

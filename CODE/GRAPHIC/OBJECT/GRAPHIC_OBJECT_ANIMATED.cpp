@@ -18,7 +18,7 @@ GRAPHIC_OBJECT_ANIMATED::~GRAPHIC_OBJECT_ANIMATED() {
 
 }
 
-void GRAPHIC_OBJECT_ANIMATED::Render( const GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer ) {
     
     if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         

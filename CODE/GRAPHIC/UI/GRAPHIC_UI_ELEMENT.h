@@ -37,7 +37,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
     virtual void Finalize() {}
 
     virtual void Update( const float );
-    virtual void Render( const GRAPHIC_RENDERER & );
+    virtual void Render( GRAPHIC_RENDERER & );
     virtual void Click( const CORE_MATH_VECTOR & cursor_position );
     virtual void Hover( const CORE_MATH_VECTOR & cursor_position );
     virtual void Hover( const bool force_hover );

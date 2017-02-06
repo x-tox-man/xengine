@@ -55,29 +55,7 @@ void NETWORK_PLAYER_LOBBY_CELL::ServerSelected( GRAPHIC_UI_ELEMENT * element, GR
 
 GRAPHIC_UI_ELEMENT * NETWORK_PLAYER_LOBBY_CELL::Copy() {
     
-    NETWORK_PLAYER_LOBBY_CELL * otherFrame = new NETWORK_PLAYER_LOBBY_CELL();
-    Placement.Copy( otherFrame->Placement );
-    
-    otherFrame->RenderStyleTable = RenderStyleTable;
-    
-    //otherFrame->Identifier = Identifier; //Fordidden
-    otherFrame->CurrentState = GRAPHIC_UI_ELEMENT_STATE_Default;
-    otherFrame->Enabled = Enabled;
-    otherFrame->Visible = Visible;
-    otherFrame->Adapter = Adapter;
-    
-    std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
-    
-    do {
-        
-        auto new_item = (*it)->Copy();
-        new_item->GetPlacement().SetParent(&otherFrame->GetPlacement() );
-        otherFrame->ElementTable.push_back( new_item );
-        
-        it++;
-    } while ( it != ElementTable.end() );
-    
-    return otherFrame;
+    return InnerCopy(new NETWORK_PLAYER_LOBBY_CELL());
 }
 
 void NETWORK_PLAYER_LOBBY_CELL::SetServerInfo(APPLICATION_NETWORK_REMOTE_SERVER_INFO * info) {

@@ -22,13 +22,13 @@
 #include "APPLICATION_SCREENS_NAVIGATION.h"
 #include "APPLICATION_NETWORK_BROWSER.h"
 #include "APPLICATION_MULTIPLAYER_GAME_CONFIGURATION.h"
+#include "GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.h"
 
 APPLICATION_MAIN_WINDOW::APPLICATION_MAIN_WINDOW() :
     GRAPHIC_UI_FRAME(),
     Shape( NULL ),
-    TextShape( NULL ),
-    TextShape2( NULL ),
-    Text(),
+    TextElement( NULL ),
+    TextElement2( NULL ),
     Presenter( NULL ) {
     
 }
@@ -113,7 +113,7 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
                                                    GRAPHIC_UI_BottomLeft );
     stop_lobby_button->SetVisible( false );
     
-    GRAPHIC_UI_ELEMENT * send_command_button = new GRAPHIC_UI_ELEMENT(IdSendCommand);
+    GRAPHIC_UI_ELEMENT * send_command_button = new GRAPHIC_UI_ELEMENT( IdSendCommand );
     
     send_command_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
     send_command_button->GetPlacement().Initialize( &GetPlacement(),
@@ -125,38 +125,43 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     
     GRAPHIC_FONT_MANAGER::GetInstance().LoadFont( CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ), CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "fxb", "FONTS/" ), CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "png", "FONTS/" ) );
     
-    TextShape = new GRAPHIC_TEXT;
+    TextElement = new GRAPHIC_UI_TEXT;
+    TextElement->SetFont( font );
+    TextElement->SetColor(CORE_COLOR_Red);
+    TextElement->SetText( "Server" );
+    TextElement->SetSize( 1.0f );
+    TextElement->Initialize();
     
-    TextShape->Initialize( "Server", *font, 1.0f, Shape->GetShaderTable()[0] );
     
-    TextShape2 = new GRAPHIC_TEXT;
-    TextShape2->Initialize( "Client", *font, 1.0f, Shape->GetShaderTable()[0] );
+    TextElement2 = new GRAPHIC_UI_TEXT;
+    TextElement2->SetFont( font );
+    TextElement2->SetColor(CORE_COLOR_Red);
+    TextElement2->SetText( "Client" );
+    TextElement2->SetSize( 1.0f );
+    TextElement2->Initialize();
     
-    GRAPHIC_TEXTURE_BLOCK * text_texture_block = new GRAPHIC_TEXTURE_BLOCK;
+    TextElement->GetPlacement().Initialize( &GetPlacement(),
+                                            CORE_MATH_VECTOR( -64.0f, 16.0f, 0.0f, 1.0f ),
+                                            CORE_MATH_VECTOR( 1.0f, 1.0f, 0.0f, 1.0f ),
+                                            GRAPHIC_UI_Center );
+    TextElement2->GetPlacement().Initialize( &GetPlacement(),
+        CORE_MATH_VECTOR( -64.0f, -16.0f, 0.0f, 1.0f ),
+        CORE_MATH_VECTOR( 1.0f, 1.0f, 0.0f, 1.0f ),
+        GRAPHIC_UI_Center );
     
-    text_texture_block->SetTexture( font->Texture );
+    auto test_button = new GRAPHIC_UI_ELEMENT();
     
-    GRAPHIC_UI_ELEMENT * text = new GRAPHIC_UI_ELEMENT;
-    GRAPHIC_UI_RENDER_STYLE * text_render_style = new GRAPHIC_UI_RENDER_STYLE;
-    text_render_style->SetColor( CORE_MATH_VECTOR(1.0f, 0.0f, 0.0f, 1.0f ) );
+    test_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
+    test_button->GetPlacement().Initialize( &GetPlacement(),
+                                                 CORE_MATH_VECTOR( 0.0f, -256.0f, 0.0f, 1.0f ),
+                                                 CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
+                                                 GRAPHIC_UI_BottomLeft );
     
-    TextShape->SetTextureBlock( text_texture_block );
-    
-    text_render_style->SetShape( TextShape );
-    text_render_style->SetTextureBlock( text_texture_block );
-    
-    text->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, text_render_style );
-    text->GetPlacement().Initialize( &GetPlacement(),
-                                CORE_MATH_VECTOR( -256.0f, 0.0f, 0.0f, 1.0f ),
-                                TextShape->GetTextSize(),
-                                GRAPHIC_UI_Center );
-    text->SetEnabled( false );
-    
-    GRAPHIC_UI_ELEMENT * text_client = new GRAPHIC_UI_ELEMENT;
+    /*GRAPHIC_UI_ELEMENT * text_client = new GRAPHIC_UI_ELEMENT;
     GRAPHIC_UI_RENDER_STYLE * text2_render_style = new GRAPHIC_UI_RENDER_STYLE;
-    text2_render_style->SetColor( CORE_MATH_VECTOR(1.0f, 1.0f, 0.0f, 1.0f ) );
+    text2_render_style->SetColor( CORE_MATH_VECTOR(1.0f, 1.0f, 0.0f, 1.0f ) );*/
     
-    TextShape2->SetTextureBlock( text_texture_block );
+    /*TextShape2->SetTextureBlock( text_texture_block );
     text2_render_style->SetShape( TextShape2 );
     text2_render_style->SetTextureBlock( text_texture_block );
     text_client->SetAdapter( (GRAPHIC_UI_BASE_ADAPTER * ) new GRAPHIC_UI_TEXT_ADAPTER() );
@@ -168,10 +173,13 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
                                     TextShape2->GetTextSize(),
                                     GRAPHIC_UI_Center );
     
-    text_client->SetEnabled( false );
+    text_client->SetEnabled( false );*/
     
-    AddObject( text );
-    AddObject( text_client );
+    SetAdapter( new GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER() );
+    
+    AddObject( test_button );
+    AddObject( TextElement );
+    AddObject( TextElement2 );
     AddObject( start_lobby_button );
     AddObject( start_server_button );
     AddObject( start_client_button );
@@ -181,7 +189,7 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     OnPlacementPropertyChanged();
     
     Presenter->BindAction( start_lobby_button,
-                          new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::StartLobbyButtonClicked >, Presenter) );
+        new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::StartLobbyButtonClicked >, Presenter) );
     Presenter->BindAction( start_server_button,
                           new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::StartLobbyButtonClicked >, Presenter) );
     Presenter->BindAction( start_lobby_button,
@@ -193,7 +201,7 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     Presenter->BindAction( send_command_button,
                           new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_WINDOW_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_WINDOW_PRESENTER::SendCommandButtonClicked >, Presenter) );
     
-    //GetAnimation().Initialize( path, this );
+    GRAPHIC_UI_FRAME::Initialize();
 }
 
 void APPLICATION_MAIN_WINDOW::Update( const float time_step ) {

@@ -68,13 +68,13 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
 
     GRAPHIC_RENDER_TARGET & GetShadowMapRenderTarget() { return ShadowMapRenderTarget;}
 
+    GRAPHIC_OBJECT_SHAPE_FRAME * CreateFrameBorder( float height, float width, GRAPHIC_SHADER_EFFECT::PTR shader );
+
     GRAPHIC_TEXTURE_ATLAS
         UITextureAtlas;
     GRAPHIC_OBJECT_SHAPE_PLAN
         * UIPlanObject,
         * UIPlanObjectColorOnly;
-    GRAPHIC_OBJECT_SHAPE_FRAME
-        * UIFramePlanObject;
     GRAPHIC_TEXTURE_BLOCK
         * UIFrameTextureBlock;
     GRAPHIC_UI_RENDER_STYLE
@@ -82,7 +82,6 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
         * CellRenderStyle,
         * PageFrameRenderStyle,
         * ButtonRenderStyle;
-
     GRAPHIC_OBJECT
         * NakedGirlObject,
         * AstroBoy,
@@ -103,7 +102,6 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
         * SphereObject;
     GRAPHIC_OBJECT_SHAPE_LINE
         * Line;
-
     GRAPHIC_RENDER_TARGET
         ShadowMapRenderTarget,
         PrimaryRenderTarget,
