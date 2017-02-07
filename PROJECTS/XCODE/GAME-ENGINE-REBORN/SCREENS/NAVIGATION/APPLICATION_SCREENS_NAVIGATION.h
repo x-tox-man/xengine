@@ -28,7 +28,7 @@ class NAVIGATION_ITEM {
         
     }
     
-    ~NAVIGATION_ITEM() {
+    virtual    ~NAVIGATION_ITEM() {
         
     }
     
@@ -74,7 +74,7 @@ XS_DEFINE_UNIQUE( APPLICATION_SCREENS_NAVIGATION )
 
 public :
 
-    ~APPLICATION_SCREENS_NAVIGATION();
+    virtual    ~APPLICATION_SCREENS_NAVIGATION();
     bool NavigateBackAsync();
 
     template<typename SCREEN_TYPE>

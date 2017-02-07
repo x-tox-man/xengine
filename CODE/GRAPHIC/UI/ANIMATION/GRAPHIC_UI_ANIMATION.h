@@ -23,7 +23,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ANIMATION )
         std::function<void (GRAPHIC_UI_ELEMENT *, float)> update,
         std::function<void (GRAPHIC_UI_ELEMENT *)> end,
         float time_modulator = 1.0f);
-    ~GRAPHIC_UI_ANIMATION();
+    virtual    ~GRAPHIC_UI_ANIMATION();
 
     void Update( float time_step );
 

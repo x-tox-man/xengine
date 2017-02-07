@@ -16,7 +16,7 @@ XS_CLASS_BEGIN(NETWORK_SERVER_INFO)
 
     NETWORK_SERVER_INFO();
     NETWORK_SERVER_INFO(const char *, const char *, const char *, int, int);
-    ~NETWORK_SERVER_INFO();
+    virtual    ~NETWORK_SERVER_INFO();
 
     XS_DEFINE_SERIALIZABLE
 

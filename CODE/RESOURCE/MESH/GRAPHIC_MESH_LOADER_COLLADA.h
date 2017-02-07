@@ -69,7 +69,7 @@
         public:
         COLLADA_LOADER_WRITER();
         
-        ~COLLADA_LOADER_WRITER() {};
+        virtual    ~COLLADA_LOADER_WRITER() {};
         
         void fillSkeleton(
             std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & joints,
@@ -165,7 +165,7 @@
     XS_CLASS_BEGIN( GRAPHIC_MESH_LOADER_COLLADA )
     public:
         GRAPHIC_MESH_LOADER_COLLADA();
-        ~GRAPHIC_MESH_LOADER_COLLADA();
+        virtual    ~GRAPHIC_MESH_LOADER_COLLADA();
         
         void LoadFile( GRAPHIC_OBJECT & meshToLoad, const CORE_FILESYSTEM_PATH & file_path );
         

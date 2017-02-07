@@ -69,7 +69,7 @@ union GRAPHIC_SHADER_LIGHT_INTERNAL {
 XS_CLASS_BEGIN( GRAPHIC_SHADER_LIGHT )
 
     GRAPHIC_SHADER_LIGHT();
-    ~GRAPHIC_SHADER_LIGHT();
+    virtual    ~GRAPHIC_SHADER_LIGHT();
 
     void InitializePoint(
                          CORE_MATH_VECTOR & color,

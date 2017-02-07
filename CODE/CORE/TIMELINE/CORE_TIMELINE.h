@@ -19,7 +19,7 @@ XS_CLASS_BEGIN( CORE_TIMELINE )
     XS_DEFINE_SERIALIZABLE
 
     CORE_TIMELINE();
-    ~CORE_TIMELINE();
+    virtual    ~CORE_TIMELINE();
 
     void Update( float time_step );
     void Reset();

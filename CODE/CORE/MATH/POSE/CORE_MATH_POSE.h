@@ -21,7 +21,7 @@ CORE_MATH_POSE();
 XS_DEFINE_SERIALIZABLE
 
     CORE_MATH_POSE( CORE_MATH_POSE & other );
-    ~CORE_MATH_POSE();
+    virtual    ~CORE_MATH_POSE();
 
     void FromMatrix( const CORE_MATH_MATRIX & matrix );
     void FromMatrix( const float * mat );

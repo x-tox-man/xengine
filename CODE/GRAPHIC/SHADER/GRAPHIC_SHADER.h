@@ -20,7 +20,7 @@
 XS_CLASS_BEGIN( GRAPHIC_SHADER )
 
     GRAPHIC_SHADER();
-    ~GRAPHIC_SHADER();
+    virtual    ~GRAPHIC_SHADER();
 
     void LoadShader( const CORE_FILESYSTEM_PATH & path, GRAPHIC_SHADER_TYPE shader_type );
     void EnableShader();

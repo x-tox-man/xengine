@@ -27,7 +27,7 @@ XS_CLASS_BEGIN( ScriptEntity )
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( ScriptEntity );
 
     ScriptEntity();
-    ~ScriptEntity();
+    virtual    ~ScriptEntity();
 
     static void Ping();
 

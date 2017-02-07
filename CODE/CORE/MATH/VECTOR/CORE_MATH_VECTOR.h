@@ -27,7 +27,7 @@ XS_DEFINE_SERIALIZABLE
 CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( CORE_MATH_VECTOR );
 
     CORE_MATH_VECTOR();
-    ~CORE_MATH_VECTOR();
+    virtual    ~CORE_MATH_VECTOR();
 
     CORE_MATH_VECTOR( const float[3] );
     CORE_MATH_VECTOR( const float x, const float y );

@@ -18,7 +18,7 @@ XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_SYSTEM )
 
     XS_DEFINE_UNIQUE( PERIPHERIC_INTERACTION_SYSTEM )
 
-    ~PERIPHERIC_INTERACTION_SYSTEM();
+    virtual    ~PERIPHERIC_INTERACTION_SYSTEM();
 
     //For now there is only one mouse & one keyboard => hotseat is for 1980 gamers
 

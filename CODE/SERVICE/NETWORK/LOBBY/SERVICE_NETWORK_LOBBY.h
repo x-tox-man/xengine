@@ -26,7 +26,7 @@
 XS_CLASS_BEGIN( SERVICE_NETWORK_LOBBY )
 
     SERVICE_NETWORK_LOBBY();
-    ~SERVICE_NETWORK_LOBBY();
+    virtual    ~SERVICE_NETWORK_LOBBY();
 
     void Initialize( int max_pool_size, const char * discover_message, const float interval = NETWORK_SERVICE_LOBBY_BROADCAST_INTERVAL );
     void Finalize();

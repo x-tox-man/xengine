@@ -26,7 +26,7 @@ XS_CLASS_BEGIN( AUDIO_SYSTEM )
 
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( AUDIO_SYSTEM );
 
-    ~AUDIO_SYSTEM();
+    virtual    ~AUDIO_SYSTEM();
 
     void Initialize();
     void Finalize();

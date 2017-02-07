@@ -50,7 +50,7 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
 
     XS_DEFINE_UNIQUE( GLOBAL_RESOURCES )
 
-    ~GLOBAL_RESOURCES();
+    virtual    ~GLOBAL_RESOURCES();
 
     void Initialize( GAMEPLAY_SCENE * scene );
     void Finalize();

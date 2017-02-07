@@ -28,7 +28,7 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_HELPERS_IDENTIFIER )
 
     CORE_HELPERS_IDENTIFIER();
     CORE_HELPERS_IDENTIFIER( const char * text );
-    ~CORE_HELPERS_IDENTIFIER();
+    virtual    ~CORE_HELPERS_IDENTIFIER();
 
     void Initialize( const char * text );
 

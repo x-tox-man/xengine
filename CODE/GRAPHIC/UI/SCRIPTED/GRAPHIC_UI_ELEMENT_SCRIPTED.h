@@ -21,7 +21,7 @@
 XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT_SCRIPTED )
 
     GRAPHIC_UI_ELEMENT_SCRIPTED();
-    ~GRAPHIC_UI_ELEMENT_SCRIPTED();
+    virtual    ~GRAPHIC_UI_ELEMENT_SCRIPTED();
 
     void Initialize( const CORE_FILESYSTEM_PATH & path, void * element_ptr );
     void InitializeFrame( const CORE_FILESYSTEM_PATH & path, void * frame_ptr );

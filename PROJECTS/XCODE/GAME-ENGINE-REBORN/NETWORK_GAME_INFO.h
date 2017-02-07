@@ -16,7 +16,7 @@ XS_CLASS_BEGIN(NETWORK_GAME_INFO)
     XS_DEFINE_SERIALIZABLE
 
     NETWORK_GAME_INFO();
-    ~NETWORK_GAME_INFO();
+    virtual    ~NETWORK_GAME_INFO();
     NETWORK_GAME_INFO(const char *, const char *);
 
 private :
