@@ -38,14 +38,26 @@ XS_CLASS_BEGIN( CORE_APPLICATION )
 
     void setApplicationName( const char * applicationName ) {
         
-        ApplicationName = (char * ) CORE_MEMORY_ALLOCATOR::Allocate( strlen( applicationName));
-        strcpy( ApplicationName, applicationName);
+        size_t l=strlen( applicationName )+1;
+
+        ApplicationName = (char * ) CORE_MEMORY_ALLOCATOR::Allocate( l );
+        
+        if ( l > 0 ) {
+
+            strcpy_s( ApplicationName, l, applicationName);
+        }
     }
 
     void setApplicationVersion( const char * applicationVersion ) {
         
-        ApplicationName = (char * ) CORE_MEMORY_ALLOCATOR::Allocate( strlen( applicationVersion));
-        strcpy( ApplicationVersion, applicationVersion);
+        size_t l=strlen( applicationVersion ) + 1;
+
+        ApplicationVersion=( char * ) CORE_MEMORY_ALLOCATOR::Allocate( l );
+
+        if ( l > 0 ) {
+            
+            strcpy_s( ApplicationVersion, l, applicationVersion);
+        }
     }
     
     const char * getApplicationName() const { return ApplicationName; }

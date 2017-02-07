@@ -77,7 +77,7 @@ MyTestApp::MyTestApp() :
     #elif PLATFORM_ANDROID
         //DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_WINDOWS
-        DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\game-engine\\RESOURCES\\" );
+        DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\game-engine-clean\\RESOURCES\\" );
     #endif
         
     CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );

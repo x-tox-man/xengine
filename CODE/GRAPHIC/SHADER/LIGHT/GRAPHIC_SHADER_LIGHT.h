@@ -18,6 +18,7 @@
 #include "CORE_FILESYSTEM.h"
 #include "CORE_MATH_VECTOR.h"
 #include "GRAPHIC_SHADER_LIGHT_TYPE.h"
+#include "GRAPHIC_SHADER_PROGRAM.h"
 
 struct GRAPHIC_SHADER_LIGHT_POINT {
     

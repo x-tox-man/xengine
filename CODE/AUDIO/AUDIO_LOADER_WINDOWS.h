@@ -33,6 +33,7 @@
 XS_CLASS_BEGIN(AUDIO_LOADER_WINDOWS )
 
 	AUDIO_LOADER_WINDOWS();
+    ~AUDIO_LOADER_WINDOWS();
 
     HRESULT OpenFromFile( TCHAR* inputFileName );
     HRESULT OpenFromMemory( BYTE* mp3InputBuffer, DWORD mp3InputBufferSize );

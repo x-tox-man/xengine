@@ -10,7 +10,8 @@
 #include "CORE_FILESYSTEM.h"
 #include "SERVICE_LOGGER.h"
 
-CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH() {
+CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH() :
+    Path( "\0" ) {
     
 }
 
@@ -18,7 +19,8 @@ CORE_FILESYSTEM_PATH::~CORE_FILESYSTEM_PATH() {
 
 }
 
-CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const char * path ) {
+CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const char * path ) :
+    Path() {
     
     strcpy( Path, path );
 }

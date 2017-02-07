@@ -22,6 +22,9 @@
 #include <assert.h>
 #include <math.h>
 
+#include <thread>
+#include <mutex>
+
 #if DEBUG
     #define CORE_RUNTIME_Abort() \
         DebugBreak();

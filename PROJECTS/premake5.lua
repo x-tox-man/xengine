@@ -12,8 +12,8 @@ project "XSGameEngine"
 	defines { "__X_APP__" }
 
 	files {
-		"XCODE/GAME-ENGINE-REBORN/*.h",
-		"XCODE/GAME-ENGINE-REBORN/*.cpp",
+		"XCODE/GAME-ENGINE-REBORN/**.h",
+		"XCODE/GAME-ENGINE-REBORN/**.cpp",
 		"../CODE/**.h",
 		"../CODE/**.hpp",
 		"../CODE/**.cpp",
@@ -26,10 +26,12 @@ project "XSGameEngine"
 		architecture "x86"
 		flags { "Maps", "MultiProcessorCompile", "NoImplicitLink", "NoImportLib", "NoIncrementalLink", "NoManifest", "NoRuntimeChecks", "WinMain" }
 		defines { "__PLATFORM_WINDOWS__", "__AUDIO_OPENAL__", "_USE_MATH_DEFINES", "WIN32", "_WINDOWS" }
-		links { "OpenAL32", "kernel32", "Userenv", "vcruntime", "EFX-Util", "freetype262", "ws2_32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32", "oleaut32","uuid", "odbc32", "odbccp32", "Iphlpapi", "Psapi" }
+		links { "OpenAL32", "kernel32", "Userenv", "EFX-Util", "freetype262", "ws2_32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32", "oleaut32","uuid", "odbc32", "odbccp32", "Iphlpapi", "Psapi" }
 		removefiles { "../CODE/**/*_OSX.h", "../CODE/**/*_LINUX.*", "../CODE/**/*_IOS.*", "../CODE/**/*_POSIX.*", "../CODE/TOOLS/**.*" }
 		includedirs {
 			"../CODE/**",
+			"XCODE/GAME-ENGINE-REBORN",
+			"XCODE/GAME-ENGINE-REBORN/**",
 			"../LIBRARY/WINDOWS/INCLUDES/LUA",
 			"../LIBRARY/WINDOWS/INCLUDES/PNG",
 			"../LIBRARY/WINDOWS/INCLUDES/UV",

@@ -20,15 +20,18 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_FILESYSTEM_PATH )
     virtual    ~CORE_FILESYSTEM_PATH();
 
     CORE_FILESYSTEM_PATH & operator = ( const CORE_FILESYSTEM_PATH & other ) {
+        
+        size_t l = strlen( other.Path ) + 1;
 
-        strcpy(Path, other.Path);
+        strcpy_s( Path, l, other.Path );
         
         return *this;
     }
 
     void SetPath( const char * file_path ) {
         
-        strcpy( Path, file_path );
+        size_t l=strlen( file_path ) + 1;
+            strcpy_s( Path, l, file_path );
     }
 
     CORE_FILESYSTEM_PATH RemoveExtension() const {

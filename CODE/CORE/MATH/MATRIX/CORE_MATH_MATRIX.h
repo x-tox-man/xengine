@@ -112,13 +112,6 @@ XS_DEFINE_SERIALIZABLE
         return Value + row * 4;
     }
 
-    inline CORE_MATH_MATRIX & operator = ( CORE_MATH_MATRIX & rhs ) {
-        
-        memcpy( Value, rhs.Value, 16 * sizeof( float ) );
-        
-        return *this;
-    }
-
     inline CORE_MATH_MATRIX & operator = ( const CORE_MATH_MATRIX & rhs ) {
         
         memcpy( Value, rhs.Value, 16 * sizeof( float ) );
