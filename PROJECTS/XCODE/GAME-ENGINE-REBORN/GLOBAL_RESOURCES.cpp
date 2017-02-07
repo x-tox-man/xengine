@@ -11,7 +11,8 @@
 #include "CORE_APPLICATION.h"
 
 GLOBAL_RESOURCES::GLOBAL_RESOURCES() :
-    ComponentIndex( 0 ) {
+    ComponentIndex( 0 ),
+    ChrisObject( NULL ) {
     
 }
 
@@ -74,8 +75,9 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     RESOURCE_IMAGE_PNG_LOADER loader;
     
     SERVICE_LOGGER_Error( "Trying to load resource 1" );
+    ChrisObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "Chris.geom-chris-base-skin1" , "abx", "MODELS" ));
+    
     NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ));
-    //NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "Chris.geom-chris-base-skin1" , "abx", "MODELS" ));
     
     Moulin = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath( "MoulinNoAnim" , "smx", "MODELS" ), 1337, GRAPHIC_MESH_TYPE_ModelResource);
     
@@ -101,6 +103,11 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     for ( int par = 0; par < NakedGirlObject->GetMeshTable().size(); par++  ) {
         
         NakedGirlObject->GetMeshTable()[par]->CreateBuffers();
+    }
+    
+    for ( int par = 0; par < ChrisObject->GetMeshTable().size(); par++  ) {
+        
+        ChrisObject->GetMeshTable()[par]->CreateBuffers();
     }
     
     /*for ( int par = 0; par < AstroBoy->GetMeshTable().size(); par++  ) {
@@ -157,6 +164,9 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     NakedGirlObject->SetShaderForMesh( NULL, &effect->GetProgram() );
     NakedGirlObject->SetShaderForMesh( NULL, &effect_shadow_map->GetProgram() );
     
+    ChrisObject->SetShaderForMesh( NULL, &effect->GetProgram() );
+    ChrisObject->SetShaderForMesh( NULL, &effect_shadow_map->GetProgram() );
+    
     GRAPHIC_SHADER_EFFECT::PTR plane_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "ShaderColor" , "vsh", "OPENGL2" ) );
     GRAPHIC_SHADER_EFFECT::PTR line_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", "OPENGL2" ) );
     
@@ -168,16 +178,6 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     CubeObject = new GRAPHIC_OBJECT_SHAPE_CUBE;
     SphereObject = new GRAPHIC_OBJECT_SHAPE_SPHERE;
     Line = new GRAPHIC_OBJECT_SHAPE_LINE;
-    
-    for ( int par = 0; par < NakedGirlObject->GetMeshTable().size(); par++  ) {
-        
-        NakedGirlObject->GetMeshTable()[ par ]->CreateBuffers();
-    }
-    
-    /*for ( int par = 0; par < AstroBoy->GetMeshTable().size(); par++  ) {
-     
-     AstroBoy->GetMeshTable()[par]->CreateBuffers();
-     }*/
     
     RESOURCE_IMAGE * height_map = (RESOURCE_IMAGE*) loader.Load( CORE_FILESYSTEM_PATH::FindFilePath("heightmap", "png", "MAP" ) );
     
@@ -320,8 +320,10 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     SpotLightTwo->InitializeSpot(diffuse_2, point2_position, direction_2, 0.1f, 0.2f, 0.9f, 0.1f, 1.0f, 1.0f );
     
     CreateGround( scene );
+    CreateChris( scene );
     CreateNakedGirl( scene );
     CreateMoulin( scene );
+    
 }
 
 void GLOBAL_RESOURCES::Finalize() {
@@ -454,6 +456,40 @@ void GLOBAL_RESOURCES::CreateNakedGirl(GAMEPLAY_SCENE * scene) {
     ( ( GAMEPLAY_COMPONENT_PHYSICS *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics))->ConfigureShapeSphere( position );
     
     ( ( GAMEPLAY_COMPONENT_ANIMATION *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Animation))->SetAnimation( ((GRAPHIC_OBJECT_ANIMATED*) NakedGirlObject)->GetAnimationController() );
+    
+    bullet_system->AddEntity( component_entity );
+    animation_system->AddEntity( component_entity );
+    
+    component_entity->SetPosition( position );
+}
+
+void GLOBAL_RESOURCES::CreateChris(GAMEPLAY_SCENE * scene) {
+    
+    component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
+    component_entity->SetIndex( ComponentIndex++ );
+    
+    //should not be done like this
+    
+    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Position ), GAMEPLAY_COMPONENT_TYPE_Position );
+    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Render ), GAMEPLAY_COMPONENT_TYPE_Render );
+    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Physics ), GAMEPLAY_COMPONENT_TYPE_Physics );
+    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Animation ), GAMEPLAY_COMPONENT_TYPE_Animation );
+    
+    ( ( GAMEPLAY_COMPONENT_RENDER *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetObject( ChrisObject );
+    
+    GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) scene->GetRenderableSystemTable()[0];
+    
+    render_system->AddEntity( component_entity );
+    render_system->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
+    
+    GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * bullet_system = ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) scene->GetUpdatableSystemTable()[3];
+    GAMEPLAY_COMPONENT_SYSTEM_ANIMATING * animation_system = ( GAMEPLAY_COMPONENT_SYSTEM_ANIMATING * ) scene->GetUpdatableSystemTable()[1];
+    
+    CORE_MATH_VECTOR position ( 0.0f, 10.0f, 0.0f, 1.0f );
+    
+    ( ( GAMEPLAY_COMPONENT_PHYSICS *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics))->ConfigureShapeSphere( position );
+    
+    ( ( GAMEPLAY_COMPONENT_ANIMATION *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Animation))->SetAnimation( ((GRAPHIC_OBJECT_ANIMATED*) ChrisObject)->GetAnimationController() );
     
     bullet_system->AddEntity( component_entity );
     animation_system->AddEntity( component_entity );

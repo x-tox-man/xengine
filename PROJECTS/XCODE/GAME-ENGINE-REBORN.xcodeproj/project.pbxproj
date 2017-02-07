@@ -196,10 +196,6 @@
 		323F0F631CE7EAFB00F8CA96 /* MoulinNoAnim.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F201CE7EAFB00F8CA96 /* MoulinNoAnim.smx */; };
 		323F0F661CE7EAFB00F8CA96 /* moulin.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F221CE7EAFB00F8CA96 /* moulin.smx */; };
 		323F0F671CE7EAFB00F8CA96 /* moulin.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F221CE7EAFB00F8CA96 /* moulin.smx */; };
-		323F0F6A1CE7EAFB00F8CA96 /* mesh2.smx1 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F241CE7EAFB00F8CA96 /* mesh2.smx1 */; };
-		323F0F6B1CE7EAFB00F8CA96 /* mesh2.smx1 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F241CE7EAFB00F8CA96 /* mesh2.smx1 */; };
-		323F0F6C1CE7EAFB00F8CA96 /* mesh2.smx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F251CE7EAFB00F8CA96 /* mesh2.smx0 */; };
-		323F0F6D1CE7EAFB00F8CA96 /* mesh2.smx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F251CE7EAFB00F8CA96 /* mesh2.smx0 */; };
 		323F0F6E1CE7EAFB00F8CA96 /* mesh2.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F261CE7EAFB00F8CA96 /* mesh2.smx */; };
 		323F0F6F1CE7EAFB00F8CA96 /* mesh2.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F261CE7EAFB00F8CA96 /* mesh2.smx */; };
 		323F0F741CE7EAFB00F8CA96 /* mesh2.Controller1.abx1 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F291CE7EAFB00F8CA96 /* mesh2.Controller1.abx1 */; };
@@ -208,26 +204,12 @@
 		323F0F7B1CE7EAFB00F8CA96 /* mesh2.Controller.abx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F2C1CE7EAFB00F8CA96 /* mesh2.Controller.abx0 */; };
 		323F0F7C1CE7EAFB00F8CA96 /* mesh2.Controller.abx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F2D1CE7EAFB00F8CA96 /* mesh2.Controller.abx */; };
 		323F0F7D1CE7EAFB00F8CA96 /* mesh2.Controller.abx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F2D1CE7EAFB00F8CA96 /* mesh2.Controller.abx */; };
-		323F0F7E1CE7EAFB00F8CA96 /* Ironman.smx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F2E1CE7EAFB00F8CA96 /* Ironman.smx0 */; };
-		323F0F7F1CE7EAFB00F8CA96 /* Ironman.smx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F2E1CE7EAFB00F8CA96 /* Ironman.smx0 */; };
 		323F0F801CE7EAFB00F8CA96 /* Ironman.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F2F1CE7EAFB00F8CA96 /* Ironman.smx */; };
 		323F0F811CE7EAFB00F8CA96 /* Ironman.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F2F1CE7EAFB00F8CA96 /* Ironman.smx */; };
 		323F0F861CE7EAFB00F8CA96 /* Ironman.Controller.abx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F321CE7EAFB00F8CA96 /* Ironman.Controller.abx0 */; };
 		323F0F871CE7EAFB00F8CA96 /* Ironman.Controller.abx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F321CE7EAFB00F8CA96 /* Ironman.Controller.abx0 */; };
 		323F0F881CE7EAFB00F8CA96 /* Ironman.Controller.abx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F331CE7EAFB00F8CA96 /* Ironman.Controller.abx */; };
 		323F0F891CE7EAFB00F8CA96 /* Ironman.Controller.abx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F331CE7EAFB00F8CA96 /* Ironman.Controller.abx */; };
-		323F0F8C1CE7EAFB00F8CA96 /* DefenderLingerie00.smx5 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F351CE7EAFB00F8CA96 /* DefenderLingerie00.smx5 */; };
-		323F0F8D1CE7EAFB00F8CA96 /* DefenderLingerie00.smx5 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F351CE7EAFB00F8CA96 /* DefenderLingerie00.smx5 */; };
-		323F0F8E1CE7EAFB00F8CA96 /* DefenderLingerie00.smx4 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F361CE7EAFB00F8CA96 /* DefenderLingerie00.smx4 */; };
-		323F0F8F1CE7EAFB00F8CA96 /* DefenderLingerie00.smx4 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F361CE7EAFB00F8CA96 /* DefenderLingerie00.smx4 */; };
-		323F0F901CE7EAFB00F8CA96 /* DefenderLingerie00.smx3 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F371CE7EAFB00F8CA96 /* DefenderLingerie00.smx3 */; };
-		323F0F911CE7EAFB00F8CA96 /* DefenderLingerie00.smx3 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F371CE7EAFB00F8CA96 /* DefenderLingerie00.smx3 */; };
-		323F0F921CE7EAFB00F8CA96 /* DefenderLingerie00.smx2 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F381CE7EAFB00F8CA96 /* DefenderLingerie00.smx2 */; };
-		323F0F931CE7EAFB00F8CA96 /* DefenderLingerie00.smx2 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F381CE7EAFB00F8CA96 /* DefenderLingerie00.smx2 */; };
-		323F0F941CE7EAFB00F8CA96 /* DefenderLingerie00.smx1 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F391CE7EAFB00F8CA96 /* DefenderLingerie00.smx1 */; };
-		323F0F951CE7EAFB00F8CA96 /* DefenderLingerie00.smx1 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F391CE7EAFB00F8CA96 /* DefenderLingerie00.smx1 */; };
-		323F0F961CE7EAFB00F8CA96 /* DefenderLingerie00.smx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F3A1CE7EAFB00F8CA96 /* DefenderLingerie00.smx0 */; };
-		323F0F971CE7EAFB00F8CA96 /* DefenderLingerie00.smx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F3A1CE7EAFB00F8CA96 /* DefenderLingerie00.smx0 */; };
 		323F0F981CE7EAFB00F8CA96 /* DefenderLingerie00.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F3B1CE7EAFB00F8CA96 /* DefenderLingerie00.smx */; };
 		323F0F991CE7EAFB00F8CA96 /* DefenderLingerie00.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F3B1CE7EAFB00F8CA96 /* DefenderLingerie00.smx */; };
 		323F0FA61CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx5 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F421CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx5 */; };
@@ -246,8 +228,6 @@
 		323F0FB31CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F481CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx */; };
 		323F0FB61CE7EAFB00F8CA96 /* cyl.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F4A1CE7EAFB00F8CA96 /* cyl.smx */; };
 		323F0FB71CE7EAFB00F8CA96 /* cyl.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F4A1CE7EAFB00F8CA96 /* cyl.smx */; };
-		323F0FBA1CE7EAFB00F8CA96 /* Chris.smx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F4C1CE7EAFB00F8CA96 /* Chris.smx0 */; };
-		323F0FBB1CE7EAFB00F8CA96 /* Chris.smx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F4C1CE7EAFB00F8CA96 /* Chris.smx0 */; };
 		323F0FBC1CE7EAFB00F8CA96 /* Chris.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F4D1CE7EAFB00F8CA96 /* Chris.smx */; };
 		323F0FBD1CE7EAFB00F8CA96 /* Chris.smx in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F4D1CE7EAFB00F8CA96 /* Chris.smx */; };
 		323F0FC01CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx0 in Resources */ = {isa = PBXBuildFile; fileRef = 323F0F4F1CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx0 */; };
@@ -1233,22 +1213,13 @@
 		323F0F1E1CE7EAFB00F8CA96 /* Primitives.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Primitives.smx; sourceTree = "<group>"; };
 		323F0F201CE7EAFB00F8CA96 /* MoulinNoAnim.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = MoulinNoAnim.smx; sourceTree = "<group>"; };
 		323F0F221CE7EAFB00F8CA96 /* moulin.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = moulin.smx; sourceTree = "<group>"; };
-		323F0F241CE7EAFB00F8CA96 /* mesh2.smx1 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mesh2.smx1; sourceTree = "<group>"; };
-		323F0F251CE7EAFB00F8CA96 /* mesh2.smx0 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mesh2.smx0; sourceTree = "<group>"; };
 		323F0F261CE7EAFB00F8CA96 /* mesh2.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = mesh2.smx; sourceTree = "<group>"; };
 		323F0F291CE7EAFB00F8CA96 /* mesh2.Controller1.abx1 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mesh2.Controller1.abx1; sourceTree = "<group>"; };
 		323F0F2C1CE7EAFB00F8CA96 /* mesh2.Controller.abx0 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mesh2.Controller.abx0; sourceTree = "<group>"; };
 		323F0F2D1CE7EAFB00F8CA96 /* mesh2.Controller.abx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mesh2.Controller.abx; sourceTree = "<group>"; };
-		323F0F2E1CE7EAFB00F8CA96 /* Ironman.smx0 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ironman.smx0; sourceTree = "<group>"; };
 		323F0F2F1CE7EAFB00F8CA96 /* Ironman.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ironman.smx; sourceTree = "<group>"; };
 		323F0F321CE7EAFB00F8CA96 /* Ironman.Controller.abx0 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ironman.Controller.abx0; sourceTree = "<group>"; };
 		323F0F331CE7EAFB00F8CA96 /* Ironman.Controller.abx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Ironman.Controller.abx; sourceTree = "<group>"; };
-		323F0F351CE7EAFB00F8CA96 /* DefenderLingerie00.smx5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.smx5; sourceTree = "<group>"; };
-		323F0F361CE7EAFB00F8CA96 /* DefenderLingerie00.smx4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.smx4; sourceTree = "<group>"; };
-		323F0F371CE7EAFB00F8CA96 /* DefenderLingerie00.smx3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.smx3; sourceTree = "<group>"; };
-		323F0F381CE7EAFB00F8CA96 /* DefenderLingerie00.smx2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.smx2; sourceTree = "<group>"; };
-		323F0F391CE7EAFB00F8CA96 /* DefenderLingerie00.smx1 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.smx1; sourceTree = "<group>"; };
-		323F0F3A1CE7EAFB00F8CA96 /* DefenderLingerie00.smx0 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.smx0; sourceTree = "<group>"; };
 		323F0F3B1CE7EAFB00F8CA96 /* DefenderLingerie00.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.smx; sourceTree = "<group>"; };
 		323F0F421CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.DE_Lingerie00_Skeleto.abx5; sourceTree = "<group>"; };
 		323F0F431CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.DE_Lingerie00_Skeleto.abx4; sourceTree = "<group>"; };
@@ -1258,7 +1229,6 @@
 		323F0F471CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx0 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefenderLingerie00.DE_Lingerie00_Skeleto.abx0; sourceTree = "<group>"; };
 		323F0F481CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DefenderLingerie00.DE_Lingerie00_Skeleto.abx; sourceTree = "<group>"; };
 		323F0F4A1CE7EAFB00F8CA96 /* cyl.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = cyl.smx; sourceTree = "<group>"; };
-		323F0F4C1CE7EAFB00F8CA96 /* Chris.smx0 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chris.smx0; sourceTree = "<group>"; };
 		323F0F4D1CE7EAFB00F8CA96 /* Chris.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chris.smx; sourceTree = "<group>"; };
 		323F0F4F1CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx0 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chris.geom-chris-base-skin1.abx0"; sourceTree = "<group>"; };
 		323F0F501CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Chris.geom-chris-base-skin1.abx"; sourceTree = "<group>"; };
@@ -3723,22 +3693,13 @@
 				323F0F1E1CE7EAFB00F8CA96 /* Primitives.smx */,
 				323F0F201CE7EAFB00F8CA96 /* MoulinNoAnim.smx */,
 				323F0F221CE7EAFB00F8CA96 /* moulin.smx */,
-				323F0F241CE7EAFB00F8CA96 /* mesh2.smx1 */,
-				323F0F251CE7EAFB00F8CA96 /* mesh2.smx0 */,
 				323F0F261CE7EAFB00F8CA96 /* mesh2.smx */,
 				323F0F291CE7EAFB00F8CA96 /* mesh2.Controller1.abx1 */,
 				323F0F2C1CE7EAFB00F8CA96 /* mesh2.Controller.abx0 */,
 				323F0F2D1CE7EAFB00F8CA96 /* mesh2.Controller.abx */,
-				323F0F2E1CE7EAFB00F8CA96 /* Ironman.smx0 */,
 				323F0F2F1CE7EAFB00F8CA96 /* Ironman.smx */,
 				323F0F321CE7EAFB00F8CA96 /* Ironman.Controller.abx0 */,
 				323F0F331CE7EAFB00F8CA96 /* Ironman.Controller.abx */,
-				323F0F351CE7EAFB00F8CA96 /* DefenderLingerie00.smx5 */,
-				323F0F361CE7EAFB00F8CA96 /* DefenderLingerie00.smx4 */,
-				323F0F371CE7EAFB00F8CA96 /* DefenderLingerie00.smx3 */,
-				323F0F381CE7EAFB00F8CA96 /* DefenderLingerie00.smx2 */,
-				323F0F391CE7EAFB00F8CA96 /* DefenderLingerie00.smx1 */,
-				323F0F3A1CE7EAFB00F8CA96 /* DefenderLingerie00.smx0 */,
 				323F0F3B1CE7EAFB00F8CA96 /* DefenderLingerie00.smx */,
 				323F0F421CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx5 */,
 				323F0F431CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx4 */,
@@ -3748,7 +3709,6 @@
 				323F0F471CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx0 */,
 				323F0F481CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx */,
 				323F0F4A1CE7EAFB00F8CA96 /* cyl.smx */,
-				323F0F4C1CE7EAFB00F8CA96 /* Chris.smx0 */,
 				323F0F4D1CE7EAFB00F8CA96 /* Chris.smx */,
 				323F0F4F1CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx0 */,
 				323F0F501CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx */,
@@ -4276,7 +4236,6 @@
 				3232787A1CB5BCC000DF6FDA /* Body2.PNG in Resources */,
 				323278801CB5BCC000DF6FDA /* aa427350402.png in Resources */,
 				3232787D1CB5BCC000DF6FDA /* atlas_test.iax in Resources */,
-				323F0F6B1CE7EAFB00F8CA96 /* mesh2.smx1 in Resources */,
 				323278791CB5BCC000DF6FDA /* button_start.png in Resources */,
 				3232785F1CB5BC9D00DF6FDA /* arial_black_20.fxb in Resources */,
 				323F0FEE1CEA77B500F8CA96 /* HEAD_DE_FC_N_05.png in Resources */,
@@ -4293,9 +4252,7 @@
 				323F0FB31CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx in Resources */,
 				32BF5C821B6A348F00B58EEE /* game.lua in Resources */,
 				327F472A1E3E1BA80088D7F4 /* ShaderColor.fsh in Resources */,
-				323F0F951CE7EAFB00F8CA96 /* DefenderLingerie00.smx1 in Resources */,
 				327F47291E3E1BA80088D7F4 /* Shader.vsh in Resources */,
-				323F0F8F1CE7EAFB00F8CA96 /* DefenderLingerie00.smx4 in Resources */,
 				327F47221E3E1BA80088D7F4 /* BasicGeometryShaderShadowMap.vsh in Resources */,
 				327F472F1E3E1BA80088D7F4 /* UIShaderColored.vsh in Resources */,
 				3232785D1CB5BC9D00DF6FDA /* arial_black_20.png in Resources */,
@@ -4304,7 +4261,6 @@
 				327F471F1E3E1BA80088D7F4 /* BasicGeometryShaderPoNoUVTaBi.fsh in Resources */,
 				327F472C1E3E1BA80088D7F4 /* ShaderShadowMap.vsh in Resources */,
 				323DDF801C0DC82A006D1BCE /* sound_voices.wav in Resources */,
-				323F0F8D1CE7EAFB00F8CA96 /* DefenderLingerie00.smx5 in Resources */,
 				323DDF761C0DC82A006D1BCE /* Rammstein-Du-Hast.mp3 in Resources */,
 				323F0F5B1CE7EAFB00F8CA96 /* T_34_85.smx in Resources */,
 				323F0FA91CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx4 in Resources */,
@@ -4317,7 +4273,6 @@
 				323F0FC31CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx in Resources */,
 				323F0FDC1CEA77B500F8CA96 /* FEET_DE_FT_N_00.png in Resources */,
 				323F0FAB1CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx3 in Resources */,
-				323F0F911CE7EAFB00F8CA96 /* DefenderLingerie00.smx3 in Resources */,
 				3236F1D81C73EE75005EEE55 /* APPLICATION_OPTION_WINDOW.lua in Resources */,
 				323278691CB5BCC000DF6FDA /* tulips.png in Resources */,
 				323F0FBD1CE7EAFB00F8CA96 /* Chris.smx in Resources */,
@@ -4339,7 +4294,6 @@
 				323F0F751CE7EAFB00F8CA96 /* mesh2.Controller1.abx1 in Resources */,
 				3232786E1CB5BCC000DF6FDA /* Playstation-Button-C.png in Resources */,
 				323278721CB5BCC000DF6FDA /* game-controller.png in Resources */,
-				323F0FBB1CE7EAFB00F8CA96 /* Chris.smx0 in Resources */,
 				3232787E1CB5BCC000DF6FDA /* agua-games-button.png in Resources */,
 				323F0FC11CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx0 in Resources */,
 				3232786B1CB5BCC000DF6FDA /* Sound On.png in Resources */,
@@ -4347,8 +4301,6 @@
 				327F472D1E3E1BA80088D7F4 /* ShadowMapEffect.fsh in Resources */,
 				3232786F1CB5BCC000DF6FDA /* Perspective-Button-Games-icon.png in Resources */,
 				323278631CB5BC9D00DF6FDA /* arial_black_12.fxb in Resources */,
-				323F0F6D1CE7EAFB00F8CA96 /* mesh2.smx0 in Resources */,
-				323F0F971CE7EAFB00F8CA96 /* DefenderLingerie00.smx0 in Resources */,
 				323DDF781C0DC82A006D1BCE /* sound_bubbles.wav in Resources */,
 				323278741CB5BCC000DF6FDA /* Game_Boy-Button-Start.png in Resources */,
 				327F47241E3E1BA80088D7F4 /* BasicParticleShader.fsh in Resources */,
@@ -4360,7 +4312,6 @@
 				323F0FAD1CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx2 in Resources */,
 				323F0FE51CEA77B500F8CA96 /* HANDS_DE_GL_N_00_NR.png in Resources */,
 				32E97A261D875C9200C2E00C /* GRAPHIC_PARTICLE_MODIFIER_APPLY_VELOCITY.h in Resources */,
-				323F0F7F1CE7EAFB00F8CA96 /* Ironman.smx0 in Resources */,
 				323278761CB5BCC000DF6FDA /* flowers-3.png in Resources */,
 				327F47271E3E1BA80088D7F4 /* LineShader.vsh in Resources */,
 				323F0FD91CEA77B500F8CA96 /* FEET_DE_FT_N_00_NR.png in Resources */,
@@ -4374,7 +4325,6 @@
 				323279001CB5BD0300DF6FDA /* main_window.lua in Resources */,
 				323F0FD31CEA77B500F8CA96 /* BODY_DE_BD_N_00_NR.png in Resources */,
 				327F47301E3E1BA80088D7F4 /* UIShaderTextured.fsh in Resources */,
-				323F0F931CE7EAFB00F8CA96 /* DefenderLingerie00.smx2 in Resources */,
 				323278781CB5BCC000DF6FDA /* Create_Server_button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4391,7 +4341,6 @@
 				3259AEA41BDD3DFC00E2A11C /* FullscreenGaussianHorrizontalBlurPostProcess.vsh in Resources */,
 				3297475F1A1BFDC1006BBF77 /* game.lua in Resources */,
 				327F46A31E3E00190088D7F4 /* atlas_test.iax in Resources */,
-				323F0FBA1CE7EAFB00F8CA96 /* Chris.smx0 in Resources */,
 				3259054D1B658FF7005231AF /* BasicGeometryShader.vsh in Resources */,
 				323F0F5A1CE7EAFB00F8CA96 /* T_34_85.smx in Resources */,
 				3259AEA11BDD3D5100E2A11C /* FullscreenGaussianVerticalBlurPostProcess.fsh in Resources */,
@@ -4423,23 +4372,19 @@
 				327F46E71E3E010B0088D7F4 /* ShadowMapEffect.fsh in Resources */,
 				327F468F1E3E00180088D7F4 /* tulips.png in Resources */,
 				326F18AF1BDC3C39003DDD98 /* FullscreenBloomPostProcess.fsh in Resources */,
-				323F0F8C1CE7EAFB00F8CA96 /* DefenderLingerie00.smx5 in Resources */,
 				323F0FC01CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx0 in Resources */,
 				327F46921E3E00180088D7F4 /* SearchButton.png in Resources */,
 				323F0FE01CEA77B500F8CA96 /* HAIR_CO_HR_N_24.png in Resources */,
 				322050DD1C12E24700BAC545 /* main_window.lua in Resources */,
 				327F46981E3E00180088D7F4 /* game-controller.png in Resources */,
 				323F0FE61CEA77B500F8CA96 /* HANDS_DE_GL_N_00.png in Resources */,
-				323F0F6A1CE7EAFB00F8CA96 /* mesh2.smx1 in Resources */,
 				3246022D1D2BC7D400A7D8AD /* ShaderShadowMap.vsh in Resources */,
 				326F18B01BDC3C39003DDD98 /* FullscreenBloomPostProcess.vsh in Resources */,
-				323F0F941CE7EAFB00F8CA96 /* DefenderLingerie00.smx1 in Resources */,
 				3232785C1CB5BC9D00DF6FDA /* arial_black_20.png in Resources */,
 				323F0FB21CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx in Resources */,
 				327F46971E3E00180088D7F4 /* heightmap.png in Resources */,
 				32899C0D180D3DC8002AA472 /* MainMenu.xib in Resources */,
 				327F469A1E3E00180088D7F4 /* Game_Boy-Button-Start.png in Resources */,
-				323F0F921CE7EAFB00F8CA96 /* DefenderLingerie00.smx2 in Resources */,
 				32D3854E1D5C526100B371D2 /* BasicGeometrySMShader.vsh in Resources */,
 				329BB3DA1BD5782A00F35A8A /* UberShader.vsh in Resources */,
 				323F0F521CE7EAFB00F8CA96 /* untitled.smx in Resources */,
@@ -4450,13 +4395,11 @@
 				3249C8F91B0A0054009F1832 /* LineShader.fsh in Resources */,
 				327F46931E3E00180088D7F4 /* remote-logoff.png in Resources */,
 				327F46A01E3E00190088D7F4 /* Body2.PNG in Resources */,
-				323F0F7E1CE7EAFB00F8CA96 /* Ironman.smx0 in Resources */,
 				327F46A61E3E00190088D7F4 /* aa427350402.png in Resources */,
 				3249D2D01B376905007E3314 /* UIShaderTextured.fsh in Resources */,
 				327F469D1E3E00190088D7F4 /* fireButton.png in Resources */,
 				323DDF751C0DC82A006D1BCE /* Rammstein-Du-Hast.mp3 in Resources */,
 				323F0FD41CEA77B500F8CA96 /* BODY_DE_BD_N_00.png in Resources */,
-				323F0F961CE7EAFB00F8CA96 /* DefenderLingerie00.smx0 in Resources */,
 				327F46A91E3E00B00088D7F4 /* frameBorder.png in Resources */,
 				323F0F741CE7EAFB00F8CA96 /* mesh2.Controller1.abx1 in Resources */,
 				327F46941E3E00180088D7F4 /* Playstation-Button-C.png in Resources */,
@@ -4476,9 +4419,7 @@
 				323DDF791C0DC82A006D1BCE /* sound_electric.wav in Resources */,
 				327F469F1E3E00190088D7F4 /* button_start.png in Resources */,
 				327F46911E3E00180088D7F4 /* Sound On.png in Resources */,
-				323F0F6C1CE7EAFB00F8CA96 /* mesh2.smx0 in Resources */,
 				327F46A11E3E00190088D7F4 /* Body1.png in Resources */,
-				323F0F901CE7EAFB00F8CA96 /* DefenderLingerie00.smx3 in Resources */,
 				3249C8FA1B0A0054009F1832 /* LineShader.vsh in Resources */,
 				323F0FDA1CEA77B500F8CA96 /* FEET_DE_FT_N_00.png in Resources */,
 				323F0F981CE7EAFB00F8CA96 /* DefenderLingerie00.smx in Resources */,
@@ -4487,7 +4428,6 @@
 				324602311D2BC86700A7D8AD /* BasicGeometryShaderPoNoUVTaBiShadowMap.vsh in Resources */,
 				323F0F661CE7EAFB00F8CA96 /* moulin.smx in Resources */,
 				323F0FEC1CEA77B500F8CA96 /* HEAD_DE_FC_N_05.png in Resources */,
-				323F0F8E1CE7EAFB00F8CA96 /* DefenderLingerie00.smx4 in Resources */,
 				3232785E1CB5BC9D00DF6FDA /* arial_black_20.fxb in Resources */,
 				323F0FAA1CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx3 in Resources */,
 				323F0F5E1CE7EAFB00F8CA96 /* Primitives.smx in Resources */,
@@ -5557,7 +5497,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GAME-ENGINE-REBORN/GAME-ENGINE-REBORN-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					__COMPILE_WITH__COLLADA__,
 					"$(inherited)",
 					"OPENGL3=1",
 					__X_APP__,
@@ -5569,8 +5508,6 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include/generated15,
 					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
 					/Users/CBE/DevelopStatic/libpng/made,
 					/Users/CBE/DevelopStatic/libpng,
@@ -5578,6 +5515,8 @@
 					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
 					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
 					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORN/GAME-ENGINE-REBORN-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -5588,6 +5527,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "afelio.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/CBE/DevelopStatic/bullet3/src/**";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5606,7 +5546,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GAME-ENGINE-REBORN/GAME-ENGINE-REBORN-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					__COMPILE_WITH__COLLADA__,
 					"$(inherited)",
 					"OPENGL3=1",
 					__X_APP__,
@@ -5618,8 +5557,6 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include/generated15,
 					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
 					/Users/CBE/DevelopStatic/libpng/made,
 					/Users/CBE/DevelopStatic/libpng,
@@ -5627,6 +5564,8 @@
 					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
 					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
 					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORN/GAME-ENGINE-REBORN-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -5637,6 +5576,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "afelio.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/CBE/DevelopStatic/bullet3/src/**";
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5665,8 +5605,6 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include/generated15,
 					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
 					/Users/CBE/DevelopStatic/libpng/made,
 					/Users/CBE/DevelopStatic/libpng,
@@ -5674,6 +5612,8 @@
 					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
 					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
 					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework/include\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORNTests/GAME-ENGINE-REBORNTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -5684,6 +5624,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "afelio.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "/Users/CBE/DevelopStatic/bullet3/src/**";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -5703,8 +5644,6 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include/generated15,
 					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
 					/Users/CBE/DevelopStatic/libpng/made,
 					/Users/CBE/DevelopStatic/libpng,
@@ -5712,6 +5651,8 @@
 					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
 					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
 					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework/include\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORNTests/GAME-ENGINE-REBORNTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -5722,6 +5663,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "afelio.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "/Users/CBE/DevelopStatic/bullet3/src/**";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

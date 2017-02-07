@@ -57,6 +57,7 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
 
     void CreateGround(GAMEPLAY_SCENE * scene);
     void CreateNakedGirl(GAMEPLAY_SCENE * scene);
+    void CreateChris(GAMEPLAY_SCENE * scene);
     void CreateMoulin(GAMEPLAY_SCENE * scene);
 
     void InitializeFromApplicationRefactor( GAMEPLAY_SCENE * scene );
@@ -84,6 +85,7 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
         * ButtonRenderStyle;
     GRAPHIC_OBJECT
         * NakedGirlObject,
+        * ChrisObject,
         * AstroBoy,
         * Moulin,
         * ResourceObject;

@@ -48,7 +48,7 @@ CORE_FILESYSTEM file_system;
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     
-    file_system.Initialize( "/Users/CBE/DevelopProjects/game-engine/RESOURCES/" );
+    file_system.Initialize( "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/" );
     
     CORE_FILESYSTEM::SetDefaultFilesystem( file_system );
 }
@@ -259,7 +259,7 @@ CORE_FILESYSTEM file_system;
     
     //writer.Write( "/Users/CBE/DevelopProjects/game-engine/RESOURCES/IMAGES/blit.png", images[0] );
     
-    atlas_compiler.Compile( "/Users/CBE/DevelopProjects/game-engine/RESOURCES/IMAGES/atlas_test", images );
+    atlas_compiler.Compile( "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/IMAGES/atlas_test", images );
 }
 
 -(void) testCoreData {
@@ -296,6 +296,13 @@ CORE_FILESYSTEM file_system;
 - (void) testCompileCollada {
     
     {
+        CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "dae", "MODELS" );
+        CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "smx", "MODELS" );
+        
+        GRAPHIC_MESH_MANAGER::GetInstance().Compile(path, destintation_path, 0, GRAPHIC_MESH_TYPE_OpenCollada );
+    }
+    
+    {
         CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "dae", "MODELS" );
         CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" );
         
@@ -330,12 +337,6 @@ CORE_FILESYSTEM file_system;
         GRAPHIC_MESH_MANAGER::GetInstance().Compile(path, destintation_path, 0, GRAPHIC_MESH_TYPE_OpenCollada );
     }
     
-    {
-        CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "dae", "MODELS" );
-        CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "smx", "MODELS" );
-        
-        GRAPHIC_MESH_MANAGER::GetInstance().Compile(path, destintation_path, 0, GRAPHIC_MESH_TYPE_OpenCollada );
-    }
     {
         CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "cyl" , "dae", "MODELS" );
         CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "cyl" , "smx", "MODELS" );
