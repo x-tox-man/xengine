@@ -33,10 +33,11 @@ inline AUDIO_BANK_SOUND * GetSound( const CORE_HELPERS_IDENTIFIER & sound ) {
 
 private:
 
-std::map< CORE_HELPERS_IDENTIFIER, AUDIO_BANK_SOUND *> SoundTable;
-static const char *
-    Mpeg3FileType,
-    WavFileType;
+    std::map< CORE_HELPERS_IDENTIFIER, AUDIO_BANK_SOUND *> SoundTable;
+
+    static const char *
+        Mpeg3FileType,
+        WavFileType;
 
 XS_CLASS_END
 

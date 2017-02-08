@@ -69,7 +69,7 @@ private :
     
     GRAPHIC_CAMERA
         * Camera,
-        *ShadowMapCamera;
+        * ShadowMapCamera;
     CORE_HELPERS_CALLBACK
         * RenderCallback;
     GRAPHIC_SHADER_LIGHT

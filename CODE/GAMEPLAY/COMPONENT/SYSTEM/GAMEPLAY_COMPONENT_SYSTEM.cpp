@@ -17,6 +17,14 @@ GAMEPLAY_COMPONENT_SYSTEM::GAMEPLAY_COMPONENT_SYSTEM() :
 
 GAMEPLAY_COMPONENT_SYSTEM::~GAMEPLAY_COMPONENT_SYSTEM() {
 
+    std::vector< GAMEPLAY_COMPONENT_ENTITY * >::iterator it = EntitiesVector.begin();
+    
+    while (it != EntitiesVector.end() ) {
+        
+        delete *it;
+        
+        it++;
+    }
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM::Initialize() {

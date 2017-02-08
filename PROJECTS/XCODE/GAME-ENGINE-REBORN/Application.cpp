@@ -338,23 +338,30 @@ void MyTestApp::Finalize() {
     Server.Finalize();
     Client.Finalize();
     
-    GRAPHIC_RENDERER::RemoveInstance();
+    APPLICATION_COMMAND_MANAGER::RemoveInstance();
+    APPLICATION_SCREENS_NAVIGATION::RemoveInstance();
+    AUDIO_SYSTEM::GetInstance().Finalize();
+    AUDIO_SYSTEM::RemoveInstance();
+    CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_MANAGER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::RemoveInstance();
+    CORE_HELPERS_IDENTIFIER_SYSTEM::RemoveInstance();
+    GAMEPLAY_COMPONENT_MANAGER::RemoveInstance();
+    
+    GLOBAL_RESOURCES::GetInstance().Finalize();
+    GLOBAL_RESOURCES::RemoveInstance();
+    
+    GRAPHIC_FONT_MANAGER::RemoveInstance();
+    GRAPHIC_MESH_MANAGER::RemoveInstance();
+    GRAPHIC_PARTICLE_SYSTEM::RemoveInstance();
+    GRAPHIC_RENDERER::RemoveInstance();
+    GRAPHIC_UI_SYSTEM::RemoveInstance();
+    PERIPHERIC_INTERACTION_SYSTEM::RemoveInstance();
     
     SERVICE_NETWORK_SYSTEM::GetInstance().Finalize();
     SERVICE_NETWORK_SYSTEM::RemoveInstance();
     
-    GAMEPLAY_COMPONENT_MANAGER::RemoveInstance();
-    
-    CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
-    
-    AUDIO_SYSTEM::GetInstance().Finalize();
-    AUDIO_SYSTEM::RemoveInstance();
-    
     DefaultFileystem.Finalize();
-    
-    GLOBAL_RESOURCES::GetInstance().Finalize();
     
     CORE_MEMORY_ObjectSafeDeallocation( Camera );
     CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );

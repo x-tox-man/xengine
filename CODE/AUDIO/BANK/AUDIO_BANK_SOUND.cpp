@@ -21,4 +21,9 @@ AUDIO_BANK_SOUND::AUDIO_BANK_SOUND( const AUDIO_BANK_SOUND & other ) {
 
 AUDIO_BANK_SOUND::~AUDIO_BANK_SOUND() {
 
+    if ( Sound ) {
+        
+        delete Sound;
+        Sound = NULL;
+    }
 }

@@ -14,6 +14,15 @@ private :
 void * ExtAudioFile;
 void * AudioFile;
 
+void Finalize() {
+    
+    if ( ExtAudioFile ) {
+        
+        //free( AudioFile );
+        //free( ExtAudioFile );
+    }
+}
+
 public :
 
 void * GetExtAudioFile() { return ExtAudioFile; }

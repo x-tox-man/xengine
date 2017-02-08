@@ -9,5 +9,8 @@
 #ifndef AUDIO_SOUND_IOS_h
 #define AUDIO_SOUND_IOS_h
 
+void Finalize() {
+    
+}
 
 #endif /* AUDIO_SOUND_IOS_h */

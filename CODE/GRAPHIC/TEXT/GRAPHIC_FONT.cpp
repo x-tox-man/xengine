@@ -31,7 +31,17 @@ GRAPHIC_FONT::GRAPHIC_FONT() :
 
 GRAPHIC_FONT::~GRAPHIC_FONT() {
     
-    free(Name);
+    if ( Name ) {
+        
+        free(Name);
+        Name = NULL;
+    }
+    
+    if ( Texture ) {
+        
+        delete Texture;
+        Texture = NULL;
+    }
 }
 
 void GRAPHIC_FONT::Initialize() {

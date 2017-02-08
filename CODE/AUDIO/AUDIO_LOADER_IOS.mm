@@ -22,10 +22,10 @@
 }
 
 -(void *)loadFile:(NSString *)file_name
-withExtention:(NSString *) extention
-yieldsSize:(UInt32 *) outDataSize
-yieldsFormat:(int *) outDataFormat
-yieldsSampleRate:(UInt32 *) outSampleRate {
+    withExtention:(NSString *) extention
+       yieldsSize:(UInt32 *) outDataSize
+     yieldsFormat:(int *) outDataFormat
+ yieldsSampleRate:(UInt32 *) outSampleRate {
 
     return NULL;
 }

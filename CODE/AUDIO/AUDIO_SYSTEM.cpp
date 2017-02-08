@@ -20,6 +20,20 @@ CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( AUDIO_SYSTEM )
 
 AUDIO_SYSTEM::~AUDIO_SYSTEM() {
 
+    if ( Interface ) {
+        
+        delete Interface;
+        Interface = NULL;
+    }
+    
+    Bank.Unload();
+    
+    if ( PlayingMusic ) {
+        
+        delete PlayingMusic;
+        PlayingMusic = NULL;
+    }
+    
 }
 
 void AUDIO_SYSTEM::Initialize() {
@@ -93,6 +107,8 @@ void AUDIO_SYSTEM::Finalize() {
     if ( PlayingMusic ) {
         
         Interface->StopSound( *PlayingMusic );
+
+        PlayingMusic = NULL;
     }
     
     Bank.Unload();

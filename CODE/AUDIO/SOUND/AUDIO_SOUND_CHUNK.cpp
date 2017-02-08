@@ -17,4 +17,9 @@ AUDIO_SOUND_CHUNK::AUDIO_SOUND_CHUNK() :
 
 AUDIO_SOUND_CHUNK::~AUDIO_SOUND_CHUNK() {
     
+    if ( Data ) {
+        
+        free( Data );
+        Data = NULL;
+    }
 }

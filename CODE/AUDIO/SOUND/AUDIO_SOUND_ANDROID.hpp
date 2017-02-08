@@ -10,4 +10,9 @@
 #define AUDIO_SOUND_ANDROID_h
 
 
+void Finalize() {
+    
+}
+
+
 #endif /* AUDIO_SOUND_ANDROID_h */

@@ -21,34 +21,34 @@
 
 XS_CLASS_BEGIN( AUDIO_SOUND )
 
-AUDIO_SOUND();
-~AUDIO_SOUND();
+    AUDIO_SOUND();
+    ~AUDIO_SOUND();
 
-void * GetData() const { return Data; }
-bool IsMono() const { return Mono; }
-bool IsCompressed() const { return Compressed; }
-int GetBufferWidth() const { return BufferWidth; }
-int GetSize() const { return Size; }
-int GetFrequency() const { return Frequency; }
-int GetChannels() const { return Channels; }
-int GetFrameSize() const { return FrameSize; }
-bool IsOpen() const { return ItIsOpen; }
+    void * GetData() const { return Data; }
+    bool IsMono() const { return Mono; }
+    bool IsCompressed() const { return Compressed; }
+    int GetBufferWidth() const { return BufferWidth; }
+    int GetSize() const { return Size; }
+    int GetFrequency() const { return Frequency; }
+    int GetChannels() const { return Channels; }
+    int GetFrameSize() const { return FrameSize; }
+    bool IsOpen() const { return ItIsOpen; }
 
-void SetData( void * data ) { Data = data; }
-void SetIsMono( bool is_mono ) { Mono = is_mono; }
-void SetIsCompressed( bool is_compressed) { Compressed = is_compressed; }
-void SetBufferWidth(int width ) { BufferWidth = width; }
-void SetSize( int buffer_size ) { Size = buffer_size; }
-void SetFrequency( int frequency ) { Frequency = frequency; }
-void SetChannels( int channels ) { Channels = channels; }
-void SetFrameSize( int frame_size ) { FrameSize = frame_size; }
-void SetIsOpen( bool open ) { ItIsOpen = open; }
-std::vector< AUDIO_SOUND_CHUNK::PTR > & GetSoundChunksTable() { return SoundChunksTable; }
+    void SetData( void * data ) { Data = data; }
+    void SetIsMono( bool is_mono ) { Mono = is_mono; }
+    void SetIsCompressed( bool is_compressed) { Compressed = is_compressed; }
+    void SetBufferWidth(int width ) { BufferWidth = width; }
+    void SetSize( int buffer_size ) { Size = buffer_size; }
+    void SetFrequency( int frequency ) { Frequency = frequency; }
+    void SetChannels( int channels ) { Channels = channels; }
+    void SetFrameSize( int frame_size ) { FrameSize = frame_size; }
+    void SetIsOpen( bool open ) { ItIsOpen = open; }
+    std::vector< AUDIO_SOUND_CHUNK::PTR > & GetSoundChunksTable() { return SoundChunksTable; }
 
-#if __AUDIO_OPENAL__
-    void SetSource( ALuint source ) { Source = source; }
-    ALuint GetSource() { return Source; }
-#endif
+    #if __AUDIO_OPENAL__
+        void SetSource( ALuint source ) { Source = source; }
+        ALuint GetSource() { return Source; }
+    #endif
 
 private:
 
