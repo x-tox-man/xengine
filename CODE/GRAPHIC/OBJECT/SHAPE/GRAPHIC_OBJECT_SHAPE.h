@@ -32,6 +32,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE, GRAPHIC_OBJECT)
 
 protected :
 
+    //Texture blocks must not be used here
     GRAPHIC_TEXTURE_BLOCK
         * TextureBlock,
         * SecondTextureBlock,

@@ -31,7 +31,7 @@ XS_CLASS_BEGIN(GRAPHIC_UI_PRESENTER)
         
         element->SetActionCallback( *callback );
         
-        delete callback;
+        CORE_MEMORY_ObjectSafeDeallocation( callback );
     }
 
 protected :

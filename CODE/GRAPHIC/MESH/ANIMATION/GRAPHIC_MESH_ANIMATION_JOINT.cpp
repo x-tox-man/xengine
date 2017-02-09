@@ -32,13 +32,17 @@ GRAPHIC_MESH_ANIMATION_JOINT::GRAPHIC_MESH_ANIMATION_JOINT() :
     JointName( NULL ),
     BindShapeMatrix() {
     
-    JointName = (char*) malloc((int) strlen("NONAME\0") );
+    JointName = (char*) malloc((int) strlen("NONAME\0")+1 );
     strcpy(JointName, "NONAME\0");
 }
 
 GRAPHIC_MESH_ANIMATION_JOINT::~GRAPHIC_MESH_ANIMATION_JOINT() {
 
-    free(JointName);
+    if ( JointName ) {
+    
+        free(JointName);
+        JointName = NULL;
+    }
 }
 
 GRAPHIC_MESH_ANIMATION_JOINT::GRAPHIC_MESH_ANIMATION_JOINT( const GRAPHIC_MESH_ANIMATION_JOINT & other ) {

@@ -39,6 +39,10 @@ void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::BindAttributes() {
         
         Program.setShaderAttribute(*attribute);
     }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), InverseCurrentModelViewIdentifier.GetTextValue() ); )
@@ -49,6 +53,10 @@ void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::BindAttributes() {
         
         Program.setShaderAttribute(*attribute);
     }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), PreviousModelViewProjectionIdentifier.GetTextValue() ); )
@@ -58,6 +66,10 @@ void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::BindAttributes() {
         attribute->AttributeName = PreviousModelViewProjectionIdentifier;
         
         Program.setShaderAttribute(*attribute);
+    }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
     }
 }
 

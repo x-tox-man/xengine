@@ -43,6 +43,10 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
         
         Program.setShaderAttribute(*attribute);
     }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BaseIntensityIdentifier.GetTextValue() ); )
@@ -53,6 +57,10 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
         attribute->AttributeValue.Value.FloatValue = 1.0f;
         
         Program.setShaderAttribute(*attribute);
+    }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
     }
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
@@ -65,6 +73,10 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
         
         Program.setShaderAttribute(*attribute);
     }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BaseSaturationIdentifier.GetTextValue() ); )
@@ -75,6 +87,10 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
         attribute->AttributeValue.Value.FloatValue = 1.0f;
         
         Program.setShaderAttribute(*attribute);
+    }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
     }
 }
 

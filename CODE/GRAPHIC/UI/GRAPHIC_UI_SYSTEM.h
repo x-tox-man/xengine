@@ -33,7 +33,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_SYSTEM )
 
     XS_DEFINE_UNIQUE( GRAPHIC_UI_SYSTEM )
 
-    virtual    ~GRAPHIC_UI_SYSTEM();
+    ~GRAPHIC_UI_SYSTEM();
 
     GRAPHIC_UI_FRAME * GetCurrentView() { return CurrentView; }
 

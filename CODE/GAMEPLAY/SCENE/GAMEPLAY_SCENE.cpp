@@ -44,14 +44,12 @@ GAMEPLAY_SCENE::~GAMEPLAY_SCENE() {
 
     for (int i = 0; i < UpdatableSystemTable.size(); i++ ) {
         
-        delete UpdatableSystemTable[ i ];
-        UpdatableSystemTable[ i ] = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( UpdatableSystemTable[ i ] );
     }
     
     for (int i = 0; i < RenderableSystemTable.size(); i++ ) {
         
-        delete RenderableSystemTable[ i ];
-        RenderableSystemTable[ i ] = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( RenderableSystemTable[ i ] );
     }
 }
 

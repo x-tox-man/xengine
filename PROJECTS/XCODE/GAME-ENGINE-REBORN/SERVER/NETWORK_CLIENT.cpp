@@ -259,8 +259,7 @@ void NETWORK_CLIENT::ProcessIncommingMessages() {
         
         StateMachine.DispatchEvent(GAME_EVENT(event));
         
-        delete IncommingMessageQueue[i];
-        IncommingMessageQueue[i] = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( IncommingMessageQueue[i] );
     }
 }
 

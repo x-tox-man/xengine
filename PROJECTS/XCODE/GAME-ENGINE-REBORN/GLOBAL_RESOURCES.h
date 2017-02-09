@@ -50,7 +50,7 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
 
     XS_DEFINE_UNIQUE( GLOBAL_RESOURCES )
 
-    virtual    ~GLOBAL_RESOURCES();
+    ~GLOBAL_RESOURCES();
 
     void Initialize( GAMEPLAY_SCENE * scene );
     void Finalize();
@@ -75,9 +75,9 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
         UITextureAtlas;
     GRAPHIC_OBJECT_SHAPE_PLAN
         * UIPlanObject,
-        * UIPlanObjectColorOnly;
-    GRAPHIC_TEXTURE_BLOCK
-        * UIFrameTextureBlock;
+        * UIPlanObjectColorOnly,
+        * PlanObject,
+        * EffectPlan;
     GRAPHIC_UI_RENDER_STYLE
         * FrameRenderStyle,
         * CellRenderStyle,
@@ -89,10 +89,6 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
         * AstroBoy,
         * Moulin,
         * ResourceObject;
-
-    GRAPHIC_OBJECT_SHAPE_PLAN
-        * PlanObject,
-        * EffectPlan;
     GAMEPLAY_COMPONENT_ENTITY
         * component_entity,
         *component_entity2;
@@ -132,6 +128,7 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
         * SpotLightOne,
         * SpotLightTwo;
     GRAPHIC_TEXTURE_BLOCK
+        * UIFrameTextureBlock,
         * TextureBlock,
         * AlternateTextureBlock;
     int

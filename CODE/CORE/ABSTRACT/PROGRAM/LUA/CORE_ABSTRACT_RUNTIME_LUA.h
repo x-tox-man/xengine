@@ -920,7 +920,7 @@ public :
 
         if ( ud->ItWasAllocated ) {
 
-            delete ud->InnerType.ObjectPointer;  // call destructor for T objects
+            CORE_MEMORY_ObjectSafeDeallocation( ud->InnerType.ObjectPointer );  // call destructor for T objects
         }
         
         return 0;

@@ -51,7 +51,7 @@ union UVUnion {
 XS_CLASS_BEGIN( SERVICE_NETWORK_CONNECTION )
 
     SERVICE_NETWORK_CONNECTION();
-    virtual    ~SERVICE_NETWORK_CONNECTION();
+    ~SERVICE_NETWORK_CONNECTION();
 
     void Start();
     void Stop();

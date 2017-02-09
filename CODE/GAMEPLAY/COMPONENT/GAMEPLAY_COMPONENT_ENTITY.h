@@ -19,7 +19,7 @@
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_ENTITY )
 
     GAMEPLAY_COMPONENT_ENTITY();
-    virtual    ~GAMEPLAY_COMPONENT_ENTITY();
+    ~GAMEPLAY_COMPONENT_ENTITY();
 
     inline void SetCompononent( GAMEPLAY_COMPONENT * component, int component_index ) {
         

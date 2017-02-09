@@ -25,7 +25,7 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_MATH_MATRIX )
 XS_DEFINE_SERIALIZABLE
 
     CORE_MATH_MATRIX();
-    virtual    ~CORE_MATH_MATRIX();
+    ~CORE_MATH_MATRIX();
 
     explicit CORE_MATH_MATRIX( const float array[ 16 ] ) {
         

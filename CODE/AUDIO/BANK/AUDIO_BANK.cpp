@@ -95,7 +95,7 @@ void AUDIO_SOUND_BANK::Unload() {
             
             AUDIO_LOADER_Close( *it->second->Sound );
             
-            delete it->second->Sound;
+            CORE_MEMORY_ObjectSafeDeallocation( it->second->Sound );
         }
         
         it++;

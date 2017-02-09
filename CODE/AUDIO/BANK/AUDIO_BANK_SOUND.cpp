@@ -23,7 +23,6 @@ AUDIO_BANK_SOUND::~AUDIO_BANK_SOUND() {
 
     if ( Sound ) {
         
-        delete Sound;
-        Sound = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( Sound );
     }
 }

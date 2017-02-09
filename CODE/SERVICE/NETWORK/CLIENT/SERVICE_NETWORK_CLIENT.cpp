@@ -42,9 +42,7 @@ void SERVICE_NETWORK_CLIENT::Finalize() {
         
         UDPListenConnection->Stop();
         
-        delete UDPListenConnection;
-        
-        UDPListenConnection = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( UDPListenConnection );
     }
 }
 

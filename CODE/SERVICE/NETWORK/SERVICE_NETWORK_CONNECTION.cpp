@@ -139,10 +139,13 @@ void SERVICE_NETWORK_CONNECTION::TCPSend( uv_write_t* req, int status ) {
 
 void SERVICE_NETWORK_CONNECTION::AllocateReceiveBuffer( uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf ) {
     
+    //TODO : Release memory
+    
     if ( buf->len != suggested_size ) {
         buf->base = (char*) malloc(suggested_size);
         buf->len = suggested_size;
     }
+    
     /*static char Buffer[2048];
     static char * AlternateBuffer;
     static int size = 0;

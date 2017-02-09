@@ -66,7 +66,8 @@ MyTestApp::MyTestApp() :
     Game( NULL ),
     ItIsClient( false ),
     ItIsServer( false ),
-    ItIsMultiplayer( false ) {
+    ItIsMultiplayer( false ),
+    LuaScript( NULL ) {
     
     SERVICE_LOGGER_Error( "ALL APP create 1" );
         
@@ -92,7 +93,7 @@ MyTestApp::MyTestApp() :
 }
 
 MyTestApp::~MyTestApp() {
-    
+
 }
 
 
@@ -335,6 +336,12 @@ void MyTestApp::OnObjectPicked( GAMEPLAY_COMPONENT_ENTITY * entity  ) {
 
 void MyTestApp::Finalize() {
 
+    CORE_MEMORY_ObjectSafeDeallocation( Camera );
+    CORE_MEMORY_ObjectSafeDeallocation( LightCamera );
+    CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );
+    CORE_MEMORY_ObjectSafeDeallocation( RenderTargetCamera );
+    CORE_MEMORY_ObjectSafeDeallocation( Game );
+    
     Server.Finalize();
     Client.Finalize();
     
@@ -362,10 +369,6 @@ void MyTestApp::Finalize() {
     SERVICE_NETWORK_SYSTEM::RemoveInstance();
     
     DefaultFileystem.Finalize();
-    
-    CORE_MEMORY_ObjectSafeDeallocation( Camera );
-    CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );
-    CORE_MEMORY_ObjectSafeDeallocation( RenderTargetCamera );
 }
 
 void MyTestApp::Render() {

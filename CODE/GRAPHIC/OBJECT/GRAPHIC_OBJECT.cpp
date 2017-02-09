@@ -41,26 +41,23 @@ GRAPHIC_OBJECT::GRAPHIC_OBJECT() :
 }
 
 GRAPHIC_OBJECT::~GRAPHIC_OBJECT() {
-
+    
+    Release();
+    
     for( int i = 0; i < MeshTable.size(); i++ ) {
 
-        delete MeshTable[ i ];
-        
-        MeshTable[ i ] = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( MeshTable[ i ] );
     }
 
     for ( int i=0; i < JointTable.size(); i++ ) {
 
-        delete JointTable[ i ];
-        JointTable[ i ] = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( JointTable[ i ] );
     }
     
     #if __COMPILE_WITH__COLLADA__
         for ( int i = 0; i < AnimationTable.size(); i++ ) {
             
-            delete AnimationTable[ i ];
-            
-            AnimationTable[ i ] = NULL;
+            CORE_MEMORY_ObjectSafeDeallocation( AnimationTable[ i ] );
         }
     #endif
 }

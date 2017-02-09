@@ -14,7 +14,7 @@
 XS_CLASS_BEGIN( RESOURCE_COMPILER )
 
     RESOURCE_COMPILER();
-    virtual    ~RESOURCE_COMPILER();
+    ~RESOURCE_COMPILER();
 
     void Compile( const char * file_path );
 

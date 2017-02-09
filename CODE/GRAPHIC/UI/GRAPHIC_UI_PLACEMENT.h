@@ -19,7 +19,7 @@
 XS_CLASS_BEGIN( GRAPHIC_UI_PLACEMENT )
 
     GRAPHIC_UI_PLACEMENT();
-    virtual    ~GRAPHIC_UI_PLACEMENT();
+    ~GRAPHIC_UI_PLACEMENT();
 
     inline const CORE_MATH_VECTOR & GetRelativePosition() const { return RelativePosition; }
     inline const CORE_MATH_VECTOR & GetAbsolutePosition() const { return AbsolutePosition; }

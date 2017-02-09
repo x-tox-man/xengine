@@ -28,8 +28,9 @@ class NAVIGATION_ITEM {
         
     }
     
-    virtual    ~NAVIGATION_ITEM() {
+    ~NAVIGATION_ITEM() {
         
+        CORE_MEMORY_ObjectSafeDeallocation( Window );
     }
     
     std::map<std::string, NAVIGATION_ITEM * > GetNavigationChilds() { return NavigationChilds; }
@@ -46,9 +47,7 @@ class NAVIGATION_ITEM {
     
     void Release() {
         
-        delete Window;
-        
-        Window = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( Window );
     }
     
     NAVIGATION_ITEM * GetParentNavigationItem() { return ParentNavigationItem; }
@@ -74,7 +73,7 @@ XS_DEFINE_UNIQUE( APPLICATION_SCREENS_NAVIGATION )
 
 public :
 
-    virtual    ~APPLICATION_SCREENS_NAVIGATION();
+    ~APPLICATION_SCREENS_NAVIGATION();
     bool NavigateBackAsync();
 
     template<typename SCREEN_TYPE>
@@ -139,10 +138,10 @@ private :
         return item;
     }
 
-NAVIGATION_ITEM *
-    CurrentNavigationItem;
-std::map<std::string, NAVIGATION_ITEM * >
-    NavigationItemsTable;
+    NAVIGATION_ITEM *
+        CurrentNavigationItem;
+    std::map<std::string, NAVIGATION_ITEM * >
+        NavigationItemsTable;
 
 XS_CLASS_END
 

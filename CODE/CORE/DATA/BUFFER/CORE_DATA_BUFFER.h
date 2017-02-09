@@ -19,7 +19,7 @@ XS_DEFINE_SERIALIZABLE
 
 public:
     CORE_DATA_BUFFER();
-    virtual    ~CORE_DATA_BUFFER();
+    ~CORE_DATA_BUFFER();
 
     void Initialize( unsigned int size, int section_count = 0 );
     void InitializeWithMemory( unsigned int size, int section_count, void * memory );

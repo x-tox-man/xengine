@@ -21,9 +21,7 @@ GAMEPLAY_COMPONENT_SYSTEM::~GAMEPLAY_COMPONENT_SYSTEM() {
     
     while (it != EntitiesVector.end() ) {
         
-        delete *it;
-        
-        it++;
+        CORE_MEMORY_ObjectSafeDeallocation( *it );
     }
 }
 

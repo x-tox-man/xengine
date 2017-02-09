@@ -87,6 +87,16 @@ bool GRAPHIC_RENDER_TARGET::InitializeDepthTexture( int width, int height, GRAPH
 
 void GRAPHIC_RENDER_TARGET::Finalize() {
     
+    if ( FrameBuffer ) {
+        
+        GFX_CHECK( glDeleteFramebuffers(1, &FrameBuffer ); )
+    }
+    
+    if ( DepthrenderBuffer ) {
+        
+        GFX_CHECK( glDeleteRenderbuffers(1, &DepthrenderBuffer ); )
+    }
+    
     if ( TargetTexture ) {
         
         GRAPHIC_SYSTEM::ReleaseTexture( TargetTexture );

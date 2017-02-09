@@ -681,7 +681,7 @@
                                 
                                 if ( mat[j] - mat2[j] > 0.03f ) {
                                     
-                                    abort();
+                                    //abort();
                                 }
                             }
                             

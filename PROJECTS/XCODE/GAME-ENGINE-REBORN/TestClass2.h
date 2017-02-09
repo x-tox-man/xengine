@@ -29,7 +29,7 @@ XS_CLASS_BEGIN( TestClass2 )
         strcpy( TestCharArray, "coucoutepoiuy\0" );
     }
 
-    virtual    ~TestClass2();
+    ~TestClass2();
 
     void Initialize() {
         

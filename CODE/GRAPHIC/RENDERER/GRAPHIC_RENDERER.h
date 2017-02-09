@@ -19,7 +19,7 @@
 XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     XS_DEFINE_UNIQUE( GRAPHIC_RENDERER )
 
-    virtual    ~GRAPHIC_RENDERER();
+    ~GRAPHIC_RENDERER();
 
     void Initialize() {
         

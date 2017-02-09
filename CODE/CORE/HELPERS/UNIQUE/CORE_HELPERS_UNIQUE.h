@@ -10,7 +10,7 @@
 #ifndef __UNIQUE__
 #define __UNIQUE__
 
-
+#include "CORE_MEMORY.h"
 
 template < typename __NAMED_CLASS__ >
 class UNIQUE {
@@ -24,9 +24,7 @@ public:
         
         if ( InnerInstance ) {
             
-            delete InnerInstance;
-            
-            InnerInstance = 0;
+            CORE_MEMORY_ObjectSafeDeallocation( InnerInstance );
         }
     }
     

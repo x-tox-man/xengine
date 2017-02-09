@@ -69,7 +69,7 @@
         public:
         COLLADA_LOADER_WRITER();
         
-        virtual    ~COLLADA_LOADER_WRITER() {};
+        ~COLLADA_LOADER_WRITER() {};
         
         void fillSkeleton(
             std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & joints,

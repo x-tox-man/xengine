@@ -20,7 +20,7 @@
 XS_CLASS_BEGIN(SERVICE_NETWORK_CLIENT)
 
     SERVICE_NETWORK_CLIENT();
-    virtual    ~SERVICE_NETWORK_CLIENT();
+    ~SERVICE_NETWORK_CLIENT();
 
     void Initialize();
     void Finalize();

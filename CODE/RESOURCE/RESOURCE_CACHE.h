@@ -68,9 +68,13 @@ public:
         
         while ( it!= ItemMap.end() ) {
             
-            delete it->second;
+            CORE_MEMORY_ObjectSafeDeallocation( it->second );
+            
+            
             it++;
         }
+        
+        ItemMap.clear();
     }
 };
 

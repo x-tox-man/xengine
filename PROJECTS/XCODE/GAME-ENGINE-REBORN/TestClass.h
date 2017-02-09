@@ -69,7 +69,7 @@ XS_CLASS_BEGIN_WITH_COPY( TestClass )
         TestInt( 26 ) {
         
     }
-    virtual    ~TestClass();
+    ~TestClass();
 
     TestClass & operator = ( const TestClass & other ) {
         

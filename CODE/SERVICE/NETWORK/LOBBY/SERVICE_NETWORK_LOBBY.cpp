@@ -58,6 +58,8 @@ void SERVICE_NETWORK_LOBBY::Initialize( int max_pool_size, const char * discover
     }
     
     SERVICE_NETWORK_SYSTEM::GetInstance().OnTCPDataReceivedCallback = new CORE_HELPERS_CALLBACK_2< SERVICE_NETWORK_COMMAND *, uv_stream_t * >( Wrapper2< SERVICE_NETWORK_LOBBY, SERVICE_NETWORK_COMMAND *, uv_stream_t *, &SERVICE_NETWORK_LOBBY::OnTCPDataReceived >, this );
+    
+    free( t );
 }
 
 void SERVICE_NETWORK_LOBBY::Finalize() {
@@ -67,8 +69,8 @@ void SERVICE_NETWORK_LOBBY::Finalize() {
         UDPBroadcastConnection->Stop();
     }
     
-    delete OnTCPNetworkCommandReceivedCallback;
-    delete UDPBroadcastConnection;
+    CORE_MEMORY_ObjectSafeDeallocation( OnTCPNetworkCommandReceivedCallback );
+    CORE_MEMORY_ObjectSafeDeallocation( UDPBroadcastConnection );
     
     OnTCPConnectionLostCallback.Disconnect();
     OnTCPConnectionResumedCallback.Disconnect();

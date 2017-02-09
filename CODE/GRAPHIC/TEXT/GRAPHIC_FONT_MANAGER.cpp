@@ -17,7 +17,8 @@ GRAPHIC_FONT_MANAGER::~GRAPHIC_FONT_MANAGER() {
     
     while (it != FontTable.end() ) {
         
-        delete it->second;
+        CORE_MEMORY_ObjectSafeDeallocation( it->second );
+        
         it++;
     }
     

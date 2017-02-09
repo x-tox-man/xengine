@@ -327,8 +327,6 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
 }
 
 void GLOBAL_RESOURCES::Finalize() {
- 
-    UIPlanObject->Release();
     
     UITextureAtlas.Finalize();
     
@@ -343,6 +341,9 @@ void GLOBAL_RESOURCES::Finalize() {
     Line->Release();
     PlanObject->Release();
     EffectPlan->Release();
+    
+    RESOURCE_IMAGE::FlushCache();
+    GRAPHIC_SHADER_EFFECT::FlushCache();
     
     if ( ResourceObject ) {
         
@@ -378,9 +379,6 @@ void GLOBAL_RESOURCES::Finalize() {
     CORE_MEMORY_ObjectSafeDeallocation( PointLightTwo);
     CORE_MEMORY_ObjectSafeDeallocation( SpotLightOne );
     CORE_MEMORY_ObjectSafeDeallocation( SpotLightTwo );
-    
-    CORE_MEMORY_ObjectSafeDeallocation( TextureBlock );
-    CORE_MEMORY_ObjectSafeDeallocation( AlternateTextureBlock );
 }
 
 GRAPHIC_TEXTURE * GLOBAL_RESOURCES::CreateTextureFromImagePath(const char * image_path) {

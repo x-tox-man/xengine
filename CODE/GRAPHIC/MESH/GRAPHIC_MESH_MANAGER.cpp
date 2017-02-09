@@ -58,6 +58,8 @@ GRAPHIC_OBJECT * GRAPHIC_MESH_MANAGER::LoadObject( const CORE_FILESYSTEM_PATH & 
                 
                 file.Close();
                 
+                CORE_MEMORY_ObjectSafeDeallocation( object );
+                
                 return NULL;
             }
             

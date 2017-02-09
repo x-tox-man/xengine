@@ -20,7 +20,7 @@ CORE_ABSTRACT_PROGRAM_MANAGER::~CORE_ABSTRACT_PROGRAM_MANAGER() {
     
     while( it != ProgramTable.end() ) {
         
-        delete it->second;
+        CORE_MEMORY_ObjectSafeDeallocation( it->second );
         
         it++;
     }

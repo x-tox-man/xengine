@@ -22,7 +22,7 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_FILESYSTEM_FILE )
 
     CORE_FILESYSTEM_FILE();
     CORE_FILESYSTEM_FILE( const CORE_FILESYSTEM_PATH path );
-    virtual    ~CORE_FILESYSTEM_FILE();
+    ~CORE_FILESYSTEM_FILE();
 
     bool OpenInput();
     bool OpenOutput();

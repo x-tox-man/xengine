@@ -295,6 +295,14 @@ CORE_FILESYSTEM file_system;
 
 - (void) testCompileCollada {
     
+    
+    {
+        CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "untitled2" , "dae", "MODELS" );
+        CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "untitled2" , "smx", "MODELS" );
+        
+        GRAPHIC_MESH_MANAGER::GetInstance().Compile(path, destintation_path, 0, GRAPHIC_MESH_TYPE_OpenCollada );
+    }
+    
     {
         CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "dae", "MODELS" );
         CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "smx", "MODELS" );

@@ -37,7 +37,7 @@ AUDIO_SOUND::~AUDIO_SOUND() {
         
         while (it != SoundChunksTable.end() ) {
             
-            delete *it;
+            CORE_MEMORY_ObjectSafeDeallocation( *it );
             
             it++;
         }

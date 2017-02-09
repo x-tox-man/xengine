@@ -16,7 +16,7 @@
 XS_CLASS_BEGIN( GRAPHIC_MESH_SUB_SKELETON )
 
     GRAPHIC_MESH_SUB_SKELETON();
-    virtual    ~GRAPHIC_MESH_SUB_SKELETON();
+    ~GRAPHIC_MESH_SUB_SKELETON();
 
     XS_DEFINE_SERIALIZABLE
 
@@ -29,11 +29,10 @@ XS_CLASS_BEGIN( GRAPHIC_MESH_SUB_SKELETON )
     GRAPHIC_MESH_ANIMATION_JOINT *
         Joint;
     int
-        JointIndex;
+        JointIndex,
+        ChildCount;
     CORE_SCALAR
         Transform;
-    int
-        ChildCount;
 
 XS_CLASS_END
 

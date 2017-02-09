@@ -455,6 +455,10 @@ void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {
         
         vertex_offset += 3;
     }
+    
+#if DEBUG
+    assert( vertex_offset >= 0 );
+#endif
 }
 
 void GRAPHIC_SYSTEM::CreateIndexBuffer(GRAPHIC_MESH &mesh) {
@@ -522,6 +526,10 @@ void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
         
         vertex_offset += 3;
     }
+    
+    #if DEBUG
+        assert( vertex_offset >= 0 );
+    #endif
     
     //GFX_CHECK( glBindBuffer(GL_ARRAY_BUFFER, 0); )
     

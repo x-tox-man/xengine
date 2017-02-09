@@ -19,6 +19,7 @@ APPLICATION_GAME_HUD::APPLICATION_GAME_HUD() :
 
 APPLICATION_GAME_HUD::~APPLICATION_GAME_HUD() {
     
+    CORE_MEMORY_ObjectSafeDeallocation( Presenter );
 }
 
 void APPLICATION_GAME_HUD::Initialize() {

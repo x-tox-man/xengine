@@ -18,7 +18,7 @@
 XS_CLASS_BEGIN( GRAPHIC_SHADER_PROGRAM )
 
     GRAPHIC_SHADER_PROGRAM();
-    virtual    ~GRAPHIC_SHADER_PROGRAM();
+    ~GRAPHIC_SHADER_PROGRAM();
 
     void Initialize();
     void LoadProgram( const CORE_FILESYSTEM_PATH & path );

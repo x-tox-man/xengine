@@ -67,6 +67,16 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
 
 void GRAPHIC_RENDER_TARGET::Finalize() {
     
+    if ( FrameBuffer ) {
+        
+        GFX_CHECK( glDeleteFramebuffers(1, &FrameBuffer ); )
+    }
+    
+    if ( DepthrenderBuffer ) {
+        
+        GFX_CHECK( glDeleteRenderbuffers(1, &DepthrenderBuffer ); )
+    }
+    
     if ( TargetTexture ) {
         
         GRAPHIC_SYSTEM::ReleaseTexture( TargetTexture );

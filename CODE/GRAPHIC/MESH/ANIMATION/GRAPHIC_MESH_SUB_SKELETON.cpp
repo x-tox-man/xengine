@@ -19,13 +19,15 @@ XS_END_INTERNAL_MEMORY_LAYOUT
 GRAPHIC_MESH_SUB_SKELETON::GRAPHIC_MESH_SUB_SKELETON() :
     SubSkelettonTable( NULL ),
     Joint( NULL ),
-    Transform(),
-    ChildCount( 0 ) {
+    JointIndex( 0 ),
+    ChildCount( 0 ),
+    Transform()  {
     
 }
 
 GRAPHIC_MESH_SUB_SKELETON::~GRAPHIC_MESH_SUB_SKELETON() {
 
+    //JOINTS will be relesed elsewhere
 }
 
 void GRAPHIC_MESH_SUB_SKELETON::Initialize( const std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & table ) {

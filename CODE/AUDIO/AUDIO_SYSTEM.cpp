@@ -22,16 +22,14 @@ AUDIO_SYSTEM::~AUDIO_SYSTEM() {
 
     if ( Interface ) {
         
-        delete Interface;
-        Interface = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( Interface );
     }
     
     Bank.Unload();
     
     if ( PlayingMusic ) {
         
-        delete PlayingMusic;
-        PlayingMusic = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( PlayingMusic );
     }
     
 }

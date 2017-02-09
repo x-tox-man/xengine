@@ -36,6 +36,7 @@ GRAPHIC_OBJECT_SHAPE_PLAN::GRAPHIC_OBJECT_SHAPE_PLAN() :
 
 GRAPHIC_OBJECT_SHAPE_PLAN::~GRAPHIC_OBJECT_SHAPE_PLAN() {
 
+    free( PlanVertexData );
 }
 
 void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
@@ -135,7 +136,7 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
         SecondTextureBlock->Apply( texture_index++, texture_3->AttributeIndex );
     }
     
-    if ( depth->AttributeIndex > 0 ) {
+    if ( TextureBlock && depth->AttributeIndex > 0 ) {
         
         TextureBlock->ApplyDepth( texture_index++, depth->AttributeIndex );
     }

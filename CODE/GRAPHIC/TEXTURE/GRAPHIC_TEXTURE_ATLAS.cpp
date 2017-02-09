@@ -26,7 +26,19 @@ GRAPHIC_TEXTURE_ATLAS::GRAPHIC_TEXTURE_ATLAS() :
 }
 
 GRAPHIC_TEXTURE_ATLAS::~GRAPHIC_TEXTURE_ATLAS() {
+    
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER , GRAPHIC_TEXTURE_BLOCK >::iterator it = TextureBlockTable.begin();
 
+    while ( it != TextureBlockTable.end() ) {
+        
+        it->second.SetTexture( NULL );
+        
+        it++;
+    }
+    
+    TextureBlockTable.clear();
+    
+    
     GRAPHIC_TEXTURE::Finalize();
 }
 
@@ -40,7 +52,7 @@ void GRAPHIC_TEXTURE_ATLAS::Load( const CORE_FILESYSTEM_PATH & atlas_path, const
     RESOURCE_IMAGE_PNG_LOADER loader;
     
     GRAPHIC_TEXTURE_BLOCK * texture_block = new GRAPHIC_TEXTURE_BLOCK;
-    GRAPHIC_TEXTURE * texture;
+    GRAPHIC_TEXTURE * texture = NULL;
     
     RESOURCE_IMAGE * image = (RESOURCE_IMAGE*) loader.Load( image_path );
     
@@ -48,33 +60,40 @@ void GRAPHIC_TEXTURE_ATLAS::Load( const CORE_FILESYSTEM_PATH & atlas_path, const
     
     texture = image->CreateTextureObject( false );
     
-    texture_block->SetTexture( texture );
-    
-    CORE_FILESYSTEM_FILE file( atlas_path );
-    
-    file.OpenOutput();
-    int size = file.GetSize();
-    CORE_DATA_STREAM stream( size );
-    
-    stream.Open();
-    
-    file.OutputBytes( stream.GetMemoryBuffer(), size );
-    
-    XS_CLASS_SERIALIZER< GRAPHIC_TEXTURE_ATLAS >::Serialize<std::false_type>( *this, stream );
-    
-    stream.Close();
-    stream.ResetOffset();
-    
-    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER , GRAPHIC_TEXTURE_BLOCK >::iterator it = TextureBlockTable.begin();
-    
-    while ( it != TextureBlockTable.end() ) {
+    if ( texture != NULL ){
         
-        it->second.SetTexture( texture );
+        CORE_FILESYSTEM_FILE file( atlas_path );
         
-        it++;
+        texture_block->SetTexture( texture );
+        
+        file.OpenOutput();
+        int size = file.GetSize();
+        CORE_DATA_STREAM stream( size );
+        
+        stream.Open();
+        
+        file.OutputBytes( stream.GetMemoryBuffer(), size );
+        
+        XS_CLASS_SERIALIZER< GRAPHIC_TEXTURE_ATLAS >::Serialize<std::false_type>( *this, stream );
+        
+        stream.Close();
+        stream.ResetOffset();
+        
+        std::map< CORE_HELPERS_UNIQUE_IDENTIFIER , GRAPHIC_TEXTURE_BLOCK >::iterator it = TextureBlockTable.begin();
+        
+        while ( it != TextureBlockTable.end() ) {
+            
+            it->second.SetTexture( texture );
+            
+            it++;
+        }
+        
+        CORE_MEMORY_ObjectSafeDeallocation( image );
     }
     
-    delete image;
+    texture_block->SetTexture( NULL );
+    CORE_MEMORY_ObjectSafeDeallocation( texture_block );
+    
 }
 
 void GRAPHIC_TEXTURE_ATLAS::AddTexture( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_MATH_VECTOR & size, const CORE_MATH_VECTOR & offset ) {

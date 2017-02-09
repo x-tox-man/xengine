@@ -25,7 +25,7 @@ GRAPHIC_FONT::GRAPHIC_FONT() :
     GlyphTable(),
     Texture() {
     
-    Name = (char*) malloc((int) strlen("NONAME\0") );
+    Name = (char*) malloc((int) strlen("NONAME\0")+1 );
     strcpy(Name, "NONAME\0");
 }
 
@@ -39,8 +39,7 @@ GRAPHIC_FONT::~GRAPHIC_FONT() {
     
     if ( Texture ) {
         
-        delete Texture;
-        Texture = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( Texture );
     }
 }
 

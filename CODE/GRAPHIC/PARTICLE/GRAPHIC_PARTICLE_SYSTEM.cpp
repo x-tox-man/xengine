@@ -19,7 +19,7 @@ GRAPHIC_PARTICLE_SYSTEM::~GRAPHIC_PARTICLE_SYSTEM() {
     
     while ( it != ManagerTable.end() ) {
         
-        delete *it;
+        CORE_MEMORY_ObjectSafeDeallocation( *it );
         
         it++;
     }

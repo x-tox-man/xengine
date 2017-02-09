@@ -27,7 +27,7 @@ public:
     XS_DEFINE_SERIALIZABLE
 
     GRAPHIC_MESH();
-    virtual    ~GRAPHIC_MESH();
+    ~GRAPHIC_MESH();
 
     inline CORE_DATA_BUFFER & GetVertexCoreBuffer() { return *VertexCoreBuffer; }
     inline void SetVertexCoreBuffer( CORE_DATA_BUFFER * vertexCoreBuffer ) { VertexCoreBuffer = vertexCoreBuffer; }
@@ -82,19 +82,19 @@ private :
     CORE_DATA_BUFFER
         * VertexCoreBuffer,
         * IndexCoreBuffer;
-
     GRAPHIC_TEXTURE
         * Texture,
         * NormalTexture;
-
-    GRAPHIC_SHADER_BIND VertexComponent;
-
-    GRAPHIC_MESH_POLYGON_RENDER_MODE PolygonRenderMode;
-    GRAPHIC_MESH_SURFACE_RENDER_MODE SurfaceRenderMode;
-
-    CORE_MATH_MATRIX Transform;
-
-    CORE_MATH_SHAPE BoundingShape;
+    GRAPHIC_SHADER_BIND
+        VertexComponent;
+    GRAPHIC_MESH_POLYGON_RENDER_MODE
+        PolygonRenderMode;
+    GRAPHIC_MESH_SURFACE_RENDER_MODE
+        SurfaceRenderMode;
+    CORE_MATH_MATRIX
+        Transform;
+    CORE_MATH_SHAPE
+        BoundingShape;
 
     int VertexStride;
 
