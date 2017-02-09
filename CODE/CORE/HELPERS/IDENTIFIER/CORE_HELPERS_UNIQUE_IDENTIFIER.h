@@ -31,7 +31,7 @@ XS_DEFINE_SERIALIZABLE
     CORE_HELPERS_UNIQUE_IDENTIFIER & operator = ( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ){
         
         CheckSum = other.CheckSum;
-        Identifier = (char*) CORE_MEMORY_ALLOCATOR::Allocate( 32 );
+
         strncpy( Identifier, other.Identifier, 31 );
         
         Identifier[31] = '\0';
@@ -57,7 +57,7 @@ XS_DEFINE_SERIALIZABLE
 private :
 
     char
-        * Identifier;
+        Identifier[32];
     int
         CheckSum;
 

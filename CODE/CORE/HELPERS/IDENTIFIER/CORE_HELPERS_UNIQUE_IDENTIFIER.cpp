@@ -24,6 +24,7 @@ CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER() :
     Identifier(),
     CheckSum( 0 ) {
     
+    Identifier[0] = '\0';
 }
 
 CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER( const char * text ) {
@@ -34,7 +35,6 @@ CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER( const char * tex
 CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ){
     
     CheckSum = other.CheckSum;
-    Identifier = (char*) CORE_MEMORY_ALLOCATOR::Allocate( 32 );
     
     strncpy( Identifier, other.Identifier, 31 );
     
@@ -49,7 +49,6 @@ void CORE_HELPERS_UNIQUE_IDENTIFIER::Generate( const char * value ) {
     
     assert( strlen( value ) < 32 );
 
-    Identifier = (char*) CORE_MEMORY_ALLOCATOR::Allocate( 32 );
     strncpy( Identifier, value, 31 );
     
     CheckSum = 31;
