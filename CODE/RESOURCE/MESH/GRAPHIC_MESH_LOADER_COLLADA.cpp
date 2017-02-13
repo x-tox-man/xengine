@@ -366,7 +366,8 @@
                 
                 //TODO : all vertices will have x-y-z components. when collada supports it, enable this
                 
-                CORE_DATA_BUFFER & vertex_buffer = mesh->GetVertexCoreBuffer();
+                CORE_DATA_BUFFER * vertex_buffer = new CORE_DATA_BUFFER();
+                mesh->SetVertexCoreBuffer( vertex_buffer );
                 
                 const COLLADAFW::Mesh * data = (COLLADAFW::Mesh *)geometry;
                 
@@ -418,8 +419,8 @@
                 }
                 
                 //unsigned int vertices_count = (int) (data->getPositions().getValuesCount() / 3);
-                
-                CORE_DATA_BUFFER & index_buffer = mesh->GetIndexCoreBuffer();
+                CORE_DATA_BUFFER * index_buffer = new CORE_DATA_BUFFER();
+                mesh->SetIndexCoreBuffer( index_buffer );
                 
                 if ( data->getMeshPrimitives().getCount() > 0 ) {
                     
@@ -448,7 +449,7 @@
                         }
                         
                         mesh->CurrenGeometrytTable = (GRAPHIC_MESH::VERTEX_ELEMENT *) CORE_MEMORY_ALLOCATOR::Allocate( sizeof( GRAPHIC_MESH::VERTEX_ELEMENT ) * 3 * prim->getFaceCount());
-                        index_buffer.Initialize( (unsigned int) prim->getFaceCount() * 3 * 4 );
+                        index_buffer->Initialize( (unsigned int) prim->getFaceCount() * 3 * 4 );
                         mesh->CurrenGeometrytTableSize = (int) (3 * prim->getFaceCount());
                         
                         for (int face = 0; face < prim->getFaceCount(); face++ ) {
@@ -456,7 +457,7 @@
                             
                             for ( int v_index = 0; v_index < prim->getGroupedVerticesVertexCount( face ); v_index++ ) {
                                 
-                                memcpy((void *)index_buffer.getpointerAtIndex( accumulated_index ), &accumulated_index, sizeof(unsigned int));
+                                memcpy((void *)index_buffer->getpointerAtIndex( accumulated_index ), &accumulated_index, sizeof(unsigned int));
                                 
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData()+ pos_indices[ accumulated_index ] * 3 );
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[1] = *(data->getPositions().getFloatValues()->getData()+ pos_indices[ accumulated_index ] * 3 + 1);
@@ -520,9 +521,9 @@
                         mesh->CurrenGeometrytTableSize = accumulated_index;
                         
                         
-                        vertex_buffer.Initialize( accumulated_index * vertex_size * sizeof( float ), 1 );
+                        vertex_buffer->Initialize( accumulated_index * vertex_size * sizeof( float ), 1 );
 
-                        ComputeMeshBoundingObject( data->getPositions().getFloatValues()->getData(), (int) data->getPositions().getFloatValues()->getCount() / 3, *mesh, (int) prim->getFaceCount() * 3, (int *) index_buffer.getpointerAtIndex(0,0) );
+                        ComputeMeshBoundingObject( data->getPositions().getFloatValues()->getData(), (int) data->getPositions().getFloatValues()->getCount() / 3, *mesh, (int) prim->getFaceCount() * 3, (int *) index_buffer->getpointerAtIndex(0,0) );
 
                         for (int i = 0; i< accumulated_index; i++ ) {
 
@@ -530,19 +531,19 @@
 
                              if ( hasPosition ) {
 
-                                 memcpy( (void *)(vertex_buffer.getpointerAtIndex( i * vertex_size )), (void *) ( &mesh->CurrenGeometrytTable[ i ].position[0]), 16 );
+                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size )), (void *) ( &mesh->CurrenGeometrytTable[ i ].position[0]), 16 );
                                  offset+= 4;
                              }
                              
                              if ( hasNormals ) {
                              
-                                 memcpy( (void *)(vertex_buffer.getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].Normals[0]), 16 );
+                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].Normals[0]), 16 );
                                  offset+= 4;
                              }
                              
                              if ( hasUV ) {
                              
-                                 memcpy( (void *)(vertex_buffer.getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].UV0[0]), 8 );
+                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].UV0[0]), 8 );
                                  offset+= 2;
                              }
                              
@@ -552,10 +553,10 @@
                              
                              if( hasUV && hasNormals ) {
                              
-                                 memcpy( (void *)(vertex_buffer.getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].tangents[0]), 12 );
+                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].tangents[0]), 12 );
                                  offset+= 3;
                              
-                                 memcpy( (void *)(vertex_buffer.getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].binormal[0]), 12 );
+                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].binormal[0]), 12 );
                                  offset+= 3;
                              }
                         }
@@ -734,7 +735,9 @@
         
         GRAPHIC_MESH * mesh = graphicObject->GetMeshTable()[unid];
         
-        CORE_DATA_BUFFER & buffer = mesh->GetVertexCoreBuffer();
+        CORE_DATA_BUFFER * buffer = new CORE_DATA_BUFFER();
+        mesh->SetVertexCoreBuffer(buffer);
+        
         GRAPHIC_MESH_ANIMATION *
         animation = new GRAPHIC_MESH_ANIMATION();
         
@@ -779,7 +782,7 @@
         
         unsigned int joint_index_offset = 0;
         
-        int new_buffer_size = buffer.Getsize()
+        int new_buffer_size = buffer->Getsize()
         + (int) ( BASE_JOINTS_PER_VERTEX * skinControllerData->getJointsPerVertex().getCount()* sizeof( float ) )
         + (int) ( BASE_JOINTS_PER_VERTEX * skinControllerData->getJointsPerVertex().getCount()* sizeof( unsigned int ) );
         
@@ -803,7 +806,7 @@
         const int base_stride = stride * sizeof(float);
         const int final_stride = base_stride + BASE_JOINTS_PER_VERTEX * sizeof( float ) + BASE_JOINTS_PER_VERTEX * sizeof( unsigned int );
         
-        assert ( new_buffer_size > buffer.Getsize() );
+        assert ( new_buffer_size > buffer->Getsize() );
         
         //void * new_buffer = CORE_MEMORY_ALLOCATOR::Allocate(new_buffer_size);
         void * alternate_new_buffer = CORE_MEMORY_ALLOCATOR::Allocate( mesh->CurrenGeometrytTableSize * final_stride );
@@ -863,10 +866,10 @@
         mesh->ActivateBufferComponent( GRAPHIC_SHADER_BIND_SkinWeight );
         mesh->ActivateBufferComponent( GRAPHIC_SHADER_BIND_JointIndices );
         
-        buffer.Finalize();
+        buffer->Finalize();
         
         //buffer.InitializeWithMemory( new_buffer_size, 1, new_buffer );
-        buffer.InitializeWithMemory( mesh->CurrenGeometrytTableSize * final_stride, 1, alternate_new_buffer );
+        buffer->InitializeWithMemory( mesh->CurrenGeometrytTableSize * final_stride, 1, alternate_new_buffer );
         
         return true;
     }

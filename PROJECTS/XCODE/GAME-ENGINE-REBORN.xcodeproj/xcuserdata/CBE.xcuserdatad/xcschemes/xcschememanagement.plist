@@ -4,10 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>ASSET_COMPILER.xcscheme_^#shared#^_</key>
+		<key>AssetCompiler.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>4</integer>
 		</dict>
 		<key>GAME-ENGINE-REBORN.xcscheme_^#shared#^_</key>
 		<dict>
@@ -32,6 +32,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>325A73741E522ACE0046520B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>32840AB319E472890005FEB1</key>
 		<dict>
 			<key>primary</key>

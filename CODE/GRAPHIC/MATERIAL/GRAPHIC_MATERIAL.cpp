@@ -7,6 +7,7 @@
 //
 
 #include "GRAPHIC_MATERIAL.h"
+#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "RESOURCE_IMAGE_PNG_LOADER.h"
 #include "RESOURCE_IMAGE.h"
 

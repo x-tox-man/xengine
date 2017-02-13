@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "32899BF2180D3DC8002AA472"
-               BuildableName = "GAME-ENGINE-REBORN.app"
-               BlueprintName = "GAME-ENGINE-REBORN"
-               ReferencedContainer = "container:GAME-ENGINE-REBORN.xcodeproj">
+               BlueprintIdentifier = "DEA2437F60364856BE8AFFF7"
+               BuildableName = "install"
+               BlueprintName = "install"
+               ReferencedContainer = "container:../../BUILDERS/JSON/nlohmann_json.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "32899BF2180D3DC8002AA472"
-            BuildableName = "GAME-ENGINE-REBORN.app"
-            BlueprintName = "GAME-ENGINE-REBORN"
-            ReferencedContainer = "container:GAME-ENGINE-REBORN.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -51,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "32899BF2180D3DC8002AA472"
-            BuildableName = "GAME-ENGINE-REBORN.app"
-            BlueprintName = "GAME-ENGINE-REBORN"
-            ReferencedContainer = "container:GAME-ENGINE-REBORN.xcodeproj">
+            BlueprintIdentifier = "DEA2437F60364856BE8AFFF7"
+            BuildableName = "install"
+            BlueprintName = "install"
+            ReferencedContainer = "container:../../BUILDERS/JSON/nlohmann_json.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "32899BF2180D3DC8002AA472"
-            BuildableName = "GAME-ENGINE-REBORN.app"
-            BlueprintName = "GAME-ENGINE-REBORN"
-            ReferencedContainer = "container:GAME-ENGINE-REBORN.xcodeproj">
+            BlueprintIdentifier = "DEA2437F60364856BE8AFFF7"
+            BuildableName = "install"
+            BlueprintName = "install"
+            ReferencedContainer = "container:../../BUILDERS/JSON/nlohmann_json.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

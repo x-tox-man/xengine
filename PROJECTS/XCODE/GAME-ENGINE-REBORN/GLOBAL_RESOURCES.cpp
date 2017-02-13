@@ -9,6 +9,7 @@
 #include "GLOBAL_RESOURCES.h"
 #include "GRAPHIC_UI_SYSTEM.h"
 #include "CORE_APPLICATION.h"
+#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 
 GLOBAL_RESOURCES::GLOBAL_RESOURCES() :
     ComponentIndex( 0 ),

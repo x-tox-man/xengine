@@ -101,6 +101,7 @@ void GRAPHIC_MESH::CreateBuffers()
         
         VertexCoreBuffer = new CORE_DATA_BUFFER();
     }
+    
     if ( IndexCoreBuffer == NULL ) {
         
         IndexCoreBuffer = new CORE_DATA_BUFFER();

@@ -57,9 +57,6 @@ public:
         return ResourceCache->ReloadResource( identifier );
     }
     
-    
-    CORE_HELPERS_FACTORY_Define( RESOURCE, RESOURCE_TYPE )
-    
 public :
     #if DEBUG
     

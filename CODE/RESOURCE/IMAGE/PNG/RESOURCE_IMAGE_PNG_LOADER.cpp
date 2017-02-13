@@ -222,7 +222,7 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
     return image_resource;
 }
 
-RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const void * memory, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const void * memory, unsigned int size, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     return new RESOURCE_IMAGE();
 }

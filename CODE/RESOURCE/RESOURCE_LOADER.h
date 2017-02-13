@@ -27,11 +27,13 @@ public:
         
     }
     
-    virtual __RESOURCE_TYPE__ * Load( const CORE_FILESYSTEM_PATH & file,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty ) { return NULL; }
+    virtual __RESOURCE_TYPE__ * Load( const CORE_FILESYSTEM_PATH & file ,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty ) { return NULL; }
     
-    virtual __RESOURCE_TYPE__ * Load( const void * memory,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty) { return NULL; }
+    virtual __RESOURCE_TYPE__ * Load( const void * memory, unsigned int size, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty) { return NULL; }
     
     virtual void ReloadResource( __RESOURCE_TYPE__ * resource_to_reload ) {};
+    
+    virtual void CompileResource( const CORE_FILESYSTEM_PATH & source_file, const CORE_FILESYSTEM_PATH & destination_file ) {}
 };
 
 #endif /* defined(__GAME_ENGINE_REBORN__RESOURCE_LOADER__) */

@@ -126,7 +126,7 @@ GRAPHIC_OBJECT_ANIMATED * GRAPHIC_MESH_MANAGER::LoadObjectAnimated( const CORE_F
 void GRAPHIC_MESH_MANAGER::Compile( const CORE_FILESYSTEM_PATH & path, const CORE_FILESYSTEM_PATH & destination_path, const int meshIdentifier, int meshTypeToLoad ) {
 
     GRAPHIC_OBJECT
-    * object;
+        * object;
     CORE_DATA_STREAM
         stream;
     CORE_FILESYSTEM_FILE
