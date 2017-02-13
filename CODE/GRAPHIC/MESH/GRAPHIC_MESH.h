@@ -29,11 +29,29 @@ public:
     GRAPHIC_MESH();
     ~GRAPHIC_MESH();
 
-    inline CORE_DATA_BUFFER & GetVertexCoreBuffer() { return *VertexCoreBuffer; }
-    inline void SetVertexCoreBuffer( CORE_DATA_BUFFER * vertexCoreBuffer ) { VertexCoreBuffer = vertexCoreBuffer; }
+    inline CORE_DATA_BUFFER * GetVertexCoreBuffer() { return VertexCoreBuffer; }
+    void SetVertexCoreBuffer( CORE_DATA_BUFFER * vertexCoreBuffer ) {
+        
+        if ( VertexCoreBuffer ) {
+            
+            delete VertexCoreBuffer;
+            VertexCoreBuffer = NULL;
+        }
+        
+        VertexCoreBuffer = vertexCoreBuffer;
+    }
 
-    inline CORE_DATA_BUFFER & GetIndexCoreBuffer() { return *IndexCoreBuffer; }
-    inline void SetIndexCoreBuffer( CORE_DATA_BUFFER * indexCoreBuffer ) { IndexCoreBuffer = indexCoreBuffer; }
+    inline CORE_DATA_BUFFER * GetIndexCoreBuffer() { return IndexCoreBuffer; }
+    void SetIndexCoreBuffer( CORE_DATA_BUFFER * indexCoreBuffer ) {
+        
+        if ( IndexCoreBuffer ) {
+            
+            delete IndexCoreBuffer;
+            VertexCoreBuffer = NULL;
+        }
+        
+        IndexCoreBuffer = indexCoreBuffer;
+    }
 
     void CreateBuffers();
     void ApplyBuffers();

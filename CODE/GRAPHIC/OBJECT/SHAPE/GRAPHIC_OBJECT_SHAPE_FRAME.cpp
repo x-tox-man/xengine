@@ -47,7 +47,10 @@ void Static_GetPlanIndexDataAdapted(unsigned int * base_index_data ) {
 }
 
 GRAPHIC_OBJECT_SHAPE_FRAME::GRAPHIC_OBJECT_SHAPE_FRAME() :
-    GRAPHIC_OBJECT_SHAPE() {
+    GRAPHIC_OBJECT_SHAPE(),
+    VertexData( NULL ),
+    BorderWidth( 0 ),
+    BorderHeight( 0 ) {
     
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Position );
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Normal );
@@ -56,6 +59,10 @@ GRAPHIC_OBJECT_SHAPE_FRAME::GRAPHIC_OBJECT_SHAPE_FRAME() :
 
 GRAPHIC_OBJECT_SHAPE_FRAME::~GRAPHIC_OBJECT_SHAPE_FRAME() {
 
+    if ( VertexData ) {
+        
+        CORE_MEMORY_ALLOCATOR_Free( VertexData );
+    }
 }
 
 void GRAPHIC_OBJECT_SHAPE_FRAME::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
@@ -71,7 +78,8 @@ void GRAPHIC_OBJECT_SHAPE_FRAME::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PR
     
     CreateVertexData();
     
-    unsigned int * temp_ptr = (unsigned int *) CORE_MEMORY_ALLOCATOR_Allocate( 8 * 6 * sizeof( unsigned int ) )
+    unsigned int * temp_ptr = (unsigned int *) CORE_MEMORY_ALLOCATOR_Allocate( 8 * 6 * sizeof( unsigned int ) );
+    
     Static_GetPlanIndexDataAdapted(temp_ptr);
     
     index_buffer->InitializeWithMemory( 8 * 6 * sizeof( unsigned int ), 0, ( void * ) temp_ptr );
@@ -85,7 +93,7 @@ void GRAPHIC_OBJECT_SHAPE_FRAME::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PR
     
     SetShaderForMesh( mesh, shader );
     
-    free(temp_ptr);
+    CORE_MEMORY_ALLOCATOR_Free(temp_ptr);
 }
 
 void GRAPHIC_OBJECT_SHAPE_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
@@ -153,11 +161,14 @@ void GRAPHIC_OBJECT_SHAPE_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_SHADER_ATTRIBUTE & color = GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
                                             
-                                            
-    GFX_CHECK( glUniform4fv(
-              color.AttributeIndex,
-              1,
-              (const GLfloat * )&color.AttributeValue.Value.FloatArray4 ); )
+    
+    if ( renderer.IsColorEnabled() ) {
+        
+        GFX_CHECK( glUniform4fv(
+                  color.AttributeIndex,
+                  1,
+                  (const GLfloat * )&color.AttributeValue.Value.FloatArray4 ); )
+    }
     
     GRAPHIC_SYSTEM_ApplyMatrix(
         attr->AttributeIndex,
@@ -198,6 +209,12 @@ void GRAPHIC_OBJECT_SHAPE_FRAME::UpdateFrameVertexData( float * plan_vertex_data
 void GRAPHIC_OBJECT_SHAPE_FRAME::CreateVertexData() {
     
     float * offset = NULL;
+    
+    if ( VertexData ) {
+        
+        CORE_MEMORY_ALLOCATOR_Free( VertexData );
+        VertexData = NULL;
+    }
     VertexData = (float * ) CORE_MEMORY_ALLOCATOR_Allocate( sizeof(float) * 40 * 8 );
     offset = VertexData;
     

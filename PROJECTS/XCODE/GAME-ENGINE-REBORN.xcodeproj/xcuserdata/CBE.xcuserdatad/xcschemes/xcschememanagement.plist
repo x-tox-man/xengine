@@ -4,12 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>GAME-ENGINE-REBORN.xcscheme</key>
+		<key>ASSET_COMPILER.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>GAME-ENGINE-REBORN.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>GAME-ENGINE-REBORNTests.xcscheme</key>
+		<key>GAME-ENGINE-REBORNTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
@@ -19,7 +24,7 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>gamePOC.xcscheme</key>
+		<key>gamePOC.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>

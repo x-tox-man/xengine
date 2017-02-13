@@ -141,6 +141,6 @@ void GRAPHIC_OBJECT_SHAPE_CUBE::UpdateGeometry( const CORE_MATH_VECTOR & center,
         - extent.X(), - extent.Y(),  - extent.Z(), 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,
     };
     
-    GetMeshTable()[ 0 ]->GetVertexCoreBuffer().InitializeWithMemory( 8 * 8 * sizeof(float), 0, (void*) vertex_data );
-    GRAPHIC_SYSTEM::UpdateVertexBuffer( GetMeshTable()[ 0 ], GetMeshTable()[ 0 ]->GetVertexCoreBuffer() );
+    GetMeshTable()[ 0 ]->GetVertexCoreBuffer()->InitializeWithMemory( 8 * 8 * sizeof(float), 0, (void*) vertex_data );
+    GRAPHIC_SYSTEM::UpdateVertexBuffer( GetMeshTable()[ 0 ], *GetMeshTable()[ 0 ]->GetVertexCoreBuffer() );
 }

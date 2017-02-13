@@ -74,7 +74,7 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape( GRAPHIC_SHADER_PROGRAM_DA
                     break;*/
             }
             
-            float temp[] = { i * Length, height_offset / 10.0f,  j * Length ,  1.0f,       0.0f, 1.0f, 0.0f, 1.0f, };
+            float temp[] = { i * Length,  j * Length, height_offset / 10.0f ,  1.0f,       0.0f, 1.0f, 0.0f, 1.0f, };
             //float temp[] = { i * Length, 0.0f,  j * Length ,  1.0f,       0.0f, 1.0f, 0.0f, 1.0f, };
             
             memcpy( (void*)(vertex_data+offset), temp, 8 * sizeof( float ) );

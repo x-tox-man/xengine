@@ -26,7 +26,7 @@ CORE_FIXED_STATE_EndOfStateEvent()
         char * txt;
         unsigned int size = 0;
 
-        stream.OutputBytes( (char ** ) & txt, size );
+        stream.OutputBytes( (char ** ) & txt, (size_t)  size );
 
         stream.Close();
 

@@ -161,7 +161,7 @@
             }
         }
         
-        free( index_table );
+        CORE_MEMORY_ALLOCATOR_Free( index_table );
         
         return true;
     }
@@ -257,7 +257,7 @@
             }
         }
         
-        free(temporary);
+        CORE_MEMORY_ALLOCATOR_Free(temporary);
     }
 
     void COLLADA_LOADER_WRITER::ComputeMeshBoundingObject( const float * points, int points_count, GRAPHIC_MESH & mesh, int index_count, int * indices ) {
@@ -444,7 +444,7 @@
                         
                         if ( mesh->CurrenGeometrytTable != NULL ) {
                             
-                            free( mesh->CurrenGeometrytTable );
+                            CORE_MEMORY_ALLOCATOR_Free( mesh->CurrenGeometrytTable );
                         }
                         
                         mesh->CurrenGeometrytTable = (GRAPHIC_MESH::VERTEX_ELEMENT *) CORE_MEMORY_ALLOCATOR::Allocate( sizeof( GRAPHIC_MESH::VERTEX_ELEMENT ) * 3 * prim->getFaceCount());

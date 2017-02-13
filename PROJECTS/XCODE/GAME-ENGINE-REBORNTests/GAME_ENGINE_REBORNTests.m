@@ -143,7 +143,7 @@ CORE_FILESYSTEM file_system;
         descriptor.Size = 12;
         
         int string_size = strlen( " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-" );
-        char * string = (char *) malloc (string_size);
+        char * string = (char *) CORE_MEMORY_ALLOCATOR_Allocate (string_size);
         memcpy(string, " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-", string_size );
         
         descriptor.CharacterSet.resize( string_size );
@@ -185,7 +185,7 @@ CORE_FILESYSTEM file_system;
         descriptor.Size = 20;
         
         int string_size = strlen( " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!" );
-        char * string = (char *) malloc (string_size);
+        char * string = (char *) CORE_MEMORY_ALLOCATOR_Allocate (string_size);
         memcpy(string, " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!", string_size );
         
         descriptor.CharacterSet.resize( string_size );
@@ -296,12 +296,12 @@ CORE_FILESYSTEM file_system;
 - (void) testCompileCollada {
     
     
-    {
+    /*{
         CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "untitled2" , "dae", "MODELS" );
         CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "untitled2" , "smx", "MODELS" );
         
         GRAPHIC_MESH_MANAGER::GetInstance().Compile(path, destintation_path, 0, GRAPHIC_MESH_TYPE_OpenCollada );
-    }
+    }*/
     
     {
         CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "dae", "MODELS" );
@@ -408,7 +408,7 @@ CORE_FILESYSTEM file_system;
     test_class2.TestChar = 'r';
     test_class2.TestInt = 123;
     test_class2.TestInnerClass.TestInt = 321;
-    test_class2.TestCharArray = (char *) malloc( 32);
+    test_class2.TestCharArray = (char *) CORE_MEMORY_ALLOCATOR_Allocate( 32 );
     strcpy(test_class2.TestCharArray, "azertyuiopmlkjhg\0");
     test_class2.TestVector.resize(1);
     

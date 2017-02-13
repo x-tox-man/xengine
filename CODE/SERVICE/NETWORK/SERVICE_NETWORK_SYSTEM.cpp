@@ -46,7 +46,7 @@ void SERVICE_NETWORK_SYSTEM::Finalize() {
     UV_CHECK_ERROR( uv_run( Loop, UV_RUN_DEFAULT ); )
     UV_CHECK_ERROR( uv_loop_close( Loop ); )
     
-    free( Loop );
+    CORE_MEMORY_ALLOCATOR_Free( Loop );
 }
 
 SERVICE_NETWORK_CONNECTION * SERVICE_NETWORK_SYSTEM::CreateConnection(

@@ -220,13 +220,13 @@ yieldAudioFile:(AudioFileID * ) audio_file {
     
     if ( chunk->Data ) {
         
-        free( chunk->Data );
+        CORE_MEMORY_ALLOCATOR_Free( chunk->Data );
         chunk->Data = NULL;
     }
     
     if ( size_to_read ) {
         
-        chunk->Data = malloc( size_to_read );
+        chunk->Data = CORE_MEMORY_ALLOCATOR_Allocate( size_to_read );
     }
     
     #if DEBUG

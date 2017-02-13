@@ -19,7 +19,7 @@ AUDIO_SOUND_CHUNK::~AUDIO_SOUND_CHUNK() {
     
     if ( Data ) {
         
-        free( Data );
+        CORE_MEMORY_ALLOCATOR_Free( Data );
         Data = NULL;
     }
 }

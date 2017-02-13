@@ -32,6 +32,8 @@ private :
         Text;
     CORE_HELPERS_COLOR
         Color;
+    GRAPHIC_UI_RENDER_STYLE
+        * RenderStyle;
 XS_CLASS_END
 
 #endif /* GRAPHIC_UI_TEXT_hpp */

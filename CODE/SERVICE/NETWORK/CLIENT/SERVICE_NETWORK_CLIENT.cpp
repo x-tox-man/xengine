@@ -113,7 +113,7 @@ void SERVICE_NETWORK_CLIENT::SendTcpCommand( CORE_DATA_STREAM & data_to_send, SE
         
         const char * end = "--END--";
         
-        data_to_send.InputBytes(end, 7);
+        data_to_send.InputBytes((char*) end, 7);
         
         TCPConnection->Send( data_to_send );
     }

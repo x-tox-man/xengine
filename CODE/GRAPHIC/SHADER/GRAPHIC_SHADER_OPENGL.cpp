@@ -118,13 +118,13 @@ bool GRAPHIC_SHADER::CompileShader( GLuint & shader, GLenum type,  const CORE_FI
                 SERVICE_LOGGER_Info( "%s\n", log);
             }
 
-            free(log);
+            CORE_MEMORY_ALLOCATOR_Free(log);
         }
     #endif
     
     GFX_CHECK( glGetShaderiv(shader, GL_COMPILE_STATUS, &status); )
     
-    free(source);
+    CORE_MEMORY_ALLOCATOR_Free(source);
     
     if (status == 0)
     {

@@ -21,7 +21,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
 
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Animation)
 
-    struct INTERNAL_ARRAY{
+    struct INTERNAL_ARRAY_A{
         int LastIndex;
         GAMEPLAY_COMPONENT_ANIMATION * MemoryArray;
     };
@@ -30,7 +30,18 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
 
     void SetAnimation( GRAPHIC_MESH_ANIMATION_CONTROLLER * animation ) { Animation = animation; }
 
-    static std::vector< INTERNAL_ARRAY > InternalVector;
+    static std::vector< INTERNAL_ARRAY_A > InternalVector;
+
+    static void FinalizeStaticMemory() {
+        
+        for ( int i = 0; i < InternalVector.size(); i++ ) {
+            
+            CORE_MEMORY_ALLOCATOR_Free( InternalVector[ i ].MemoryArray );
+        }
+        
+        InternalVector.resize( 0 );
+        InternalVector.clear();
+    }
 
 private :
 

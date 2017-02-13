@@ -198,7 +198,7 @@ void MyTestApp::Initialize() {
     
     SERVICE_LOGGER_Error( "ALL APP Inititialize 1" );
     
-    Position.Set( 0.0f, 0.0f, 0.0f, 1.0f);
+    Position.Set( 0.0f, -50.0f, 0.0f, 1.0f);
     
     AUDIO_SYSTEM::GetInstance().Initialize();
     AUDIO_SYSTEM::GetInstance().GetBank().RegisterSoundFilePath(
@@ -335,6 +335,11 @@ void MyTestApp::OnObjectPicked( GAMEPLAY_COMPONENT_ENTITY * entity  ) {
 }
 
 void MyTestApp::Finalize() {
+    
+    GAMEPLAY_COMPONENT_ANIMATION::FinalizeStaticMemory();
+    GAMEPLAY_COMPONENT_RENDER::FinalizeStaticMemory();
+    GAMEPLAY_COMPONENT_POSITION::FinalizeStaticMemory();
+    GAMEPLAY_COMPONENT_PHYSICS::FinalizeStaticMemory();
 
     CORE_MEMORY_ObjectSafeDeallocation( Camera );
     CORE_MEMORY_ObjectSafeDeallocation( LightCamera );
@@ -493,7 +498,7 @@ void MyTestApp::Render() {
     
 #if PLATFORM_OSX
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
-    
+    GRAPHIC_RENDERER::GetInstance().EnableColor( false );
     {
         GLOBAL_RESOURCES::GetInstance().EffectPlan->GetShaderTable()[0] = &GLOBAL_RESOURCES::GetInstance().BloomEffect->GetProgram();
         GLOBAL_RESOURCES::GetInstance().EffectPlan->SetEffect( GLOBAL_RESOURCES::GetInstance().BloomEffect );
@@ -534,6 +539,8 @@ void MyTestApp::Render() {
         GLOBAL_RESOURCES::GetInstance().EffectPlan->Render( GRAPHIC_RENDERER::GetInstance() );
         GLOBAL_RESOURCES::GetInstance().EffectPlan->SetSecondTextureBlock( NULL );*/
     }
+    
+    GRAPHIC_RENDERER::GetInstance().EnableColor( true );
 #endif
     
     CORE_MATH_MATRIX previous_mat( &Camera->GetProjectionMatrix()[0] );
@@ -635,15 +642,15 @@ void MyTestApp::Update( float time_step ) {
     static CORE_MATH_VECTOR vector;
     vector = PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetScreenCoordinates();
     
-    rotation_mat.XRotate( (vector[1] - 0.5f ) * M_PI_2 );
-    rotation_mat.YRotate( M_PI_2 + (vector[0] - 0.5f )  * M_PI_2 );
+    rotation_mat.XRotate( (vector[1]) * M_PI_2 );
+    rotation_mat.ZRotate( M_PI_2 + (vector[0]  )  * M_PI_2 );
     
     rotation_mat.GetInverse(inverse);
     rotation_quat.FromMatrix( &inverse[0] );
     rotation_quat.Normalize();
     
     Lookat[0] = rotation_quat[0];
-    Lookat[1] = -1.0f +rotation_quat[1];
+    Lookat[1] = rotation_quat[1];
     Lookat[2] = rotation_quat[2];
     Lookat[3] = rotation_quat[3];
     

@@ -70,7 +70,7 @@ static SERVICE_NETWORK_COMMAND * CreateNetworkCommand(__COMMAND_TYPE__ & command
     XS_CLASS_SERIALIZER<__COMMAND_TYPE__>::template Serialize< std::true_type >( command, stream );
     stream.Close();
     
-    message->Data = malloc(stream.GetOffset());
+    message->Data = CORE_MEMORY_ALLOCATOR_Allocate(stream.GetOffset());
     message->Size = (int) stream.GetOffset();
     
     memcpy(message->Data, stream.GetMemoryBuffer(), stream.GetOffset());

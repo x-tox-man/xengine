@@ -28,7 +28,7 @@
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_OSX, GRAPHIC_WINDOW )
 
     GRAPHIC_WINDOW_OSX();
-    virtual ~ GRAPHIC_WINDOW_OSX();
+    virtual ~GRAPHIC_WINDOW_OSX();
 
     virtual void Initialize() override;
     void Display();

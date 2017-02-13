@@ -32,6 +32,8 @@ private:
         *ServerInfo;
     CORE_HELPERS_CALLBACK_1<APPLICATION_NETWORK_REMOTE_SERVER_INFO *>
         OnClickedCallback;
+    GRAPHIC_UI_RENDER_STYLE
+        * DefaultRenderStyle;
 
 XS_CLASS_END
 

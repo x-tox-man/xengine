@@ -28,12 +28,7 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_JOINT )
     inline float * GetMatrixBuffer() { return (float *) FloatMatrixBuffer.getpointerAtIndex( 0, 0 ); }
     inline CORE_MATH_POSE * GetPoseBuffer() { return (CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( 0, 0 ); }
 
-    void SetJointName( const char * name ) {
-        
-        JointName = (char*) CORE_MEMORY_ALLOCATOR::Allocate( strlen( name ) );
-        
-        strcpy(JointName, name);
-    }
+    inline void SetJointName( const char * name ) { strcpy(JointName, name); }
 
     inline void * GetFloatMatrixBuffer( int offset = 0 ) { return FloatMatrixBuffer.getpointerAtIndex( offset, 0); }
     inline CORE_DATA_BUFFER &  GetTimeTableBuffer() { return TimeTableBuffer; }
@@ -69,8 +64,8 @@ private:
         WorldPose;
     CORE_DATA_BUFFER
         TimeTableBuffer;
-    char *
-        JointName;
+    char
+        JointName[256];
     CORE_SCALAR
         BindShapeMatrix;
 

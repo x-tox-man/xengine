@@ -27,7 +27,8 @@ GRAPHIC_OBJECT_SHAPE_SPHERE::GRAPHIC_OBJECT_SHAPE_SPHERE( int sphere_rings ) :
 }
 
 GRAPHIC_OBJECT_SHAPE_SPHERE::GRAPHIC_OBJECT_SHAPE_SPHERE() :
-    GRAPHIC_OBJECT_SHAPE() {
+    GRAPHIC_OBJECT_SHAPE(),
+    SphereRings( 0 ) {
 
 }
 
@@ -87,8 +88,8 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_P
     mesh->SetIndexCoreBuffer( index_buffer );
     mesh->SetVertexCoreBuffer( vertex_buffer );
     
-    free( index_data );
-    free( vertex_data );
+    CORE_MEMORY_ALLOCATOR_Free( index_data );
+    CORE_MEMORY_ALLOCATOR_Free( vertex_data );
     
     mesh->CreateBuffers();
     

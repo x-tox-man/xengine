@@ -30,10 +30,6 @@ GRAPHIC_UI_RENDER_STYLE::GRAPHIC_UI_RENDER_STYLE( GRAPHIC_OBJECT_SHAPE * shape, 
 
 GRAPHIC_UI_RENDER_STYLE::~GRAPHIC_UI_RENDER_STYLE() {
 
-    CORE_MEMORY_ObjectSafeDeallocation( Shape );
-    CORE_MEMORY_ObjectSafeDeallocation( DecoratingShape );
-    CORE_MEMORY_ObjectSafeDeallocation( TextureBlock );
-    CORE_MEMORY_ObjectSafeDeallocation( DecoratingTextureBlock );
 }
 
 void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity ) {

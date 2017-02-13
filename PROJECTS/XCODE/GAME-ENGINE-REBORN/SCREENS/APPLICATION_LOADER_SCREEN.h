@@ -28,10 +28,12 @@ virtual void Update( const float ) override;
 
 private:
 
-float
-    Percentage;
-GRAPHIC_UI_FRAME
-    * ProgressBar;
+    float
+        Percentage;
+    GRAPHIC_UI_FRAME
+        * ProgressBar;
+    GRAPHIC_UI_RENDER_STYLE
+        * DefaultRenderStyle;
 XS_CLASS_END
 
 #endif /* APPLICATION_LOADER_SCREEN_hpp */

@@ -56,9 +56,9 @@ void GLOBAL_RESOURCES::Initialize( GAMEPLAY_SCENE * scene ) {
     CellRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 500.0f, 11.0f / 32.0f, ui_textured_shader_effect ) );
     CellRenderStyle->SetDecoratingTextureBlock( UIFrameTextureBlock );
     CellRenderStyle->SetShape(UIPlanObjectColorOnly);
-    CellRenderStyle= new GRAPHIC_UI_RENDER_STYLE;
+
     
-    PageFrameRenderStyle= new GRAPHIC_UI_RENDER_STYLE;
+    PageFrameRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     
     PageFrameRenderStyle->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
     PageFrameRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 600.0f, 11.0f / 300.0f, ui_textured_shader_effect ) );
@@ -182,9 +182,12 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     RESOURCE_IMAGE * height_map = (RESOURCE_IMAGE*) loader.Load( CORE_FILESYSTEM_PATH::FindFilePath("heightmap", "png", "MAP" ) );
     
     float * heights = (float * ) height_map->GetImageRawData();
+    height_map->SetImageRawData( NULL );
     
     HeightMapObject = new GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP( heights, height_map->GetImageInfo().Width, height_map->GetImageInfo().Height, 2.0f );
     SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 56" );
+    
+    delete height_map;
     
     plane_shader_effect->Initialize( PlanObject->GetShaderBindParameter() );
     SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 57" );
@@ -331,9 +334,11 @@ void GLOBAL_RESOURCES::Finalize() {
     UITextureAtlas.Finalize();
     
     CORE_MEMORY_ObjectSafeDeallocation( UIPlanObject );
+    CORE_MEMORY_ObjectSafeDeallocation( FrameRenderStyle );
+    CORE_MEMORY_ObjectSafeDeallocation( CellRenderStyle );
+    CORE_MEMORY_ObjectSafeDeallocation( PageFrameRenderStyle );
     
     NakedGirlObject->Release();
-    //AstroBoy->Release();
     
     CubeObject->Release();
     HeightMapObject->Release();
@@ -344,11 +349,6 @@ void GLOBAL_RESOURCES::Finalize() {
     
     RESOURCE_IMAGE::FlushCache();
     GRAPHIC_SHADER_EFFECT::FlushCache();
-    
-    if ( ResourceObject ) {
-        
-        ResourceObject->Release();
-    }
     
     GRAPHIC_SYSTEM::ReleaseTexture( NakedGirlObject->GetMeshTable()[0]->GetTexture() );
     GRAPHIC_SYSTEM::ReleaseTexture( NakedGirlObject->GetMeshTable()[1]->GetTexture() );
@@ -364,7 +364,6 @@ void GLOBAL_RESOURCES::Finalize() {
     GRAPHIC_SYSTEM::ReleaseTexture( NakedGirlObject->GetMeshTable()[4]->GetNormalTexture() );
     GRAPHIC_SYSTEM::ReleaseTexture( NakedGirlObject->GetMeshTable()[5]->GetNormalTexture() );
     
-    CORE_MEMORY_ObjectSafeDeallocation( ResourceObject );
     CORE_MEMORY_ObjectSafeDeallocation( NakedGirlObject );
     CORE_MEMORY_ObjectSafeDeallocation( PlanObject);
     CORE_MEMORY_ObjectSafeDeallocation( EffectPlan );
@@ -588,7 +587,7 @@ GRAPHIC_OBJECT_ANIMATED * GLOBAL_RESOURCES::CreateAnimatedObject( const CORE_FIL
         
         animated_object->GetAnimationController()->GetAnimation( i )->Initialize( animated_object->GetJointTable(), 0);
         
-        CORE_MEMORY_ALLOCATOR::Free( temp_path );
+        CORE_MEMORY_ALLOCATOR_Free( temp_path );
     }
     
     animated_object->GetAnimationController()->Initialize();

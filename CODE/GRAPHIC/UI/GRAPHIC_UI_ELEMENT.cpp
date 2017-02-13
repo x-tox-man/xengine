@@ -53,6 +53,14 @@ GRAPHIC_UI_ELEMENT::GRAPHIC_UI_ELEMENT(const CORE_HELPERS_IDENTIFIER & identifie
 GRAPHIC_UI_ELEMENT::~GRAPHIC_UI_ELEMENT() {
 
     CORE_MEMORY_ObjectSafeDeallocation( Adapter );
+    
+    std::array< GRAPHIC_UI_RENDER_STYLE *, GRAPHIC_UI_ELEMENT_STATE_Count >::iterator it = RenderStyleTable.begin();
+    
+    while (it != RenderStyleTable.end() ) {
+        
+        *it = NULL;
+        it++;
+    }
 }
 
 void GRAPHIC_UI_ELEMENT::SetActionCallback( CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE > & action_callback ) {

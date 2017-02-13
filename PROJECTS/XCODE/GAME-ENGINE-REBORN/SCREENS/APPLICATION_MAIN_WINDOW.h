@@ -44,6 +44,9 @@ private:
         * TextElement2;
     MAIN_MENU_WINDOW_PRESENTER
         * Presenter;
+    GRAPHIC_UI_RENDER_STYLE
+        * DefaultRenderStyle,
+        * HooveredRenderStyle;
 
 public:
     static CORE_HELPERS_IDENTIFIER

@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CORE_FILESYSTEM_FILE_WATCHER_OSX.h"
 
-@implementation CORE_FILESYSTEM_FILE_WATCHER_OSX
+@implementation CORE_FILESYSTEM_FILE_WATCHER_OSX {
+    __block dispatch_source_t source;
+}
 
 -(void) setup:(const char*) fileToWatch andCallback:(CORE_HELPERS_CALLBACK &) callback{
     
@@ -18,9 +20,8 @@
     
     void (^eventHandler)(void), (^cancelHandler)(void);
     unsigned long mask = DISPATCH_VNODE_WRITE;
-    __block dispatch_source_t source;
     
-    eventHandler = ^{
+    /*eventHandler = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             unsigned long l = dispatch_source_get_data(source);
             if (l & DISPATCH_VNODE_DELETE) {
@@ -34,13 +35,15 @@
                 callback();
             }
         });
-        
     };
     
     source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE,fdes, mask, queue);
     dispatch_source_set_event_handler(source, eventHandler);
     dispatch_source_set_cancel_handler(source, cancelHandler);
     dispatch_resume(source);
+    
+    eventHandler = NULL;
+    cancelHandler = NULL;*/
     //dispatch_main();
 }
 

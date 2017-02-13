@@ -181,20 +181,17 @@ void FONT_EDITOR::SaveFont( const FONT_DESCRIPTOR & descriptor,
     
     GRAPHIC_FONT graphic_font;
     
-    int font_name_size = strlen("Arial Black");
-    
-    graphic_font.Name = (char *) CORE_MEMORY_ALLOCATOR::Allocate( font_name_size );
-    strcpy( graphic_font.Name, "Arial Black" );
-    graphic_font.Size = descriptor.Size;
+    graphic_font.SetName( "Arial Black" );
+    graphic_font.SetSize( descriptor.Size );
     
     for ( int i = 1; i < 128 ; i++ ) {
         
-        graphic_font.GlyphTable[ i ];
+        graphic_font.GetGlyphTable()[ i ];
     }
     
-    GLYPH_TABLE::iterator it = graphic_font.GlyphTable.begin();
+    GLYPH_TABLE::iterator it = graphic_font.GetGlyphTable().begin();
     
-    while ( it != graphic_font.GlyphTable.end() ) {
+    while ( it != graphic_font.GetGlyphTable().end() ) {
         
         GRAPHIC_GLYPH * gl = NULL;
         
