@@ -16,7 +16,7 @@
 // http://stackoverflow.com/questions/8317508/hash-function-for-a-string
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_HELPERS_UNIQUE_IDENTIFIER )
-    XS_DEFINE_ClassMemberArray( char, (char**) &Identifier, 32 )
+    XS_DEFINE_ClassMemberArray( char, Identifier, (size_t) 32 )
     XS_DEFINE_ClassMember( int, CheckSum )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
@@ -24,6 +24,7 @@ CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER() :
     Identifier(),
     CheckSum( 0 ) {
     
+    Identifier[0] = '\0';
 }
 
 CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER( const char * text ) {
@@ -34,7 +35,6 @@ CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER( const char * tex
 CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ){
     
     CheckSum = other.CheckSum;
-    Identifier = (char*) CORE_MEMORY_ALLOCATOR::Allocate( 32 );
     
     strncpy( Identifier, other.Identifier, 31 );
     
@@ -49,7 +49,6 @@ void CORE_HELPERS_UNIQUE_IDENTIFIER::Generate( const char * value ) {
     
     assert( strlen( value ) < 32 );
 
-    Identifier = (char*) CORE_MEMORY_ALLOCATOR::Allocate( 32 );
     strncpy( Identifier, value, 31 );
     
     CheckSum = 31;

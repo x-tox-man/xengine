@@ -35,6 +35,15 @@ GRAPHIC_MESH_ANIMATION::GRAPHIC_MESH_ANIMATION() :
 
 GRAPHIC_MESH_ANIMATION::~GRAPHIC_MESH_ANIMATION() {
 
+    std::vector<GRAPHIC_MESH_ANIMATION_JOINT *>::iterator it = JointTable.begin();
+    
+    while ( it != JointTable.end() ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( *it );
+        it++;
+    }
+    
+    JointTable.clear();
 }
 
 GRAPHIC_MESH_ANIMATION::GRAPHIC_MESH_ANIMATION( const GRAPHIC_MESH_ANIMATION & other ) {

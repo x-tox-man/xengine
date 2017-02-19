@@ -35,7 +35,7 @@ public:
             Program = CORE_ABSTRACT_PROGRAM_FACTORY::CurrentProgram;
     }
     
-    ~CORE_ABSTRACT_FUNCTION() {
+    virtual    ~CORE_ABSTRACT_FUNCTION() {
         
         Program = NULL;
         

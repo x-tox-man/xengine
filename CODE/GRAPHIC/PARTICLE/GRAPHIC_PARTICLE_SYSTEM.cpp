@@ -15,6 +15,14 @@ GRAPHIC_PARTICLE_SYSTEM::GRAPHIC_PARTICLE_SYSTEM() :
 
 GRAPHIC_PARTICLE_SYSTEM::~GRAPHIC_PARTICLE_SYSTEM() {
     
+    std::vector<GRAPHIC_PARTICLE_MANAGER *>::iterator it = ManagerTable.begin();
+    
+    while ( it != ManagerTable.end() ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( *it );
+        
+        it++;
+    }
 }
 
 void GRAPHIC_PARTICLE_SYSTEM::Update(float time_step, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat) {

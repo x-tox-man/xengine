@@ -326,12 +326,22 @@ void XS_CLASS_SERIALIZER< __TYPE__ >::Serialize< std::false_type >( __TYPE__ * &
 template<> template<>\
 void XS_CLASS_SERIALIZER< __TYPE__ >::Serialize< std::true_type >( __TYPE__ * & type, CORE_DATA_STREAM & stream, int size ) { \
 \
-stream.InputBytes( type, size ); \
+stream.InputBytes( (__TYPE__ * &) type, size ); \
 } \
 template<> template<>\
 void XS_CLASS_SERIALIZER< __TYPE__ >::Serialize< std::false_type >( __TYPE__ * & type, CORE_DATA_STREAM & stream, int size ) { \
 \
-stream.OutputBytes( type, size ); \
+stream.OutputBytes( (__TYPE__ * &) type, size ); \
+} \
+template<> template<>\
+void XS_CLASS_SERIALIZER< __TYPE__ >::Serialize< std::true_type >( __TYPE__ * type, CORE_DATA_STREAM & stream, size_t size ) { \
+\
+stream.InputBytes( (__TYPE__ *) type, size ); \
+} \
+template<> template<>\
+void XS_CLASS_SERIALIZER< __TYPE__ >::Serialize< std::false_type >( __TYPE__ * type, CORE_DATA_STREAM & stream, size_t size ) { \
+\
+stream.OutputBytes( (__TYPE__ *) type, size ); \
 } \
 template<> template<>\
 void XS_CLASS_SERIALIZER< __TYPE__ >::Serialize< std::true_type >( __TYPE__ ** type, CORE_DATA_STREAM & stream, int size ) { \
@@ -369,6 +379,9 @@ public:
     
     template<typename __BOOLEAN_TYPE__ >
     static void Serialize( __CLASS_TYPE__ * & type, CORE_DATA_STREAM & stream, int size );
+    
+    template<typename __BOOLEAN_TYPE__ >
+    static void Serialize( __CLASS_TYPE__ * type, CORE_DATA_STREAM & stream, size_t size );
     
     template<typename __BOOLEAN_TYPE__ >
     static void Serialize( __CLASS_TYPE__ ** type, CORE_DATA_STREAM & stream );

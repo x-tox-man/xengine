@@ -25,15 +25,15 @@ XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH )
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH * )
 
 GRAPHIC_MESH::GRAPHIC_MESH() :
-    VertexCoreBuffer(),
-    IndexCoreBuffer(),
+    VertexCoreBuffer( NULL ),
+    IndexCoreBuffer( NULL ),
     Texture( NULL ),
     NormalTexture( NULL ),
     VertexComponent( GRAPHIC_SHADER_BIND_None ),
     VertexStride( 0 ),
     PolygonRenderMode( GRAPHIC_MESH_POLYGON_RENDER_MODE_TriangleList ),
     SurfaceRenderMode( GRAPHIC_MESH_SURFACE_RENDER_MODE_Solid ),
-    Transform(){
+    Transform() {
         
         GLOBAL_IDENTITY_MATRIX( &Transform[0] );
         
@@ -41,9 +41,6 @@ GRAPHIC_MESH::GRAPHIC_MESH() :
         
             CurrenGeometrytTable = NULL;
         #endif
-    
-    VertexCoreBuffer = new CORE_DATA_BUFFER();
-    IndexCoreBuffer = new CORE_DATA_BUFFER();
 }
 
 GRAPHIC_MESH::GRAPHIC_MESH(const GRAPHIC_MESH & other ) {
@@ -100,6 +97,16 @@ void GRAPHIC_MESH::ActivateBufferComponent( GRAPHIC_SHADER_BIND attribute ) {
 
 void GRAPHIC_MESH::CreateBuffers()
 {
+    if ( VertexCoreBuffer == NULL ) {
+        
+        VertexCoreBuffer = new CORE_DATA_BUFFER();
+    }
+    
+    if ( IndexCoreBuffer == NULL ) {
+        
+        IndexCoreBuffer = new CORE_DATA_BUFFER();
+    }
+
     // Create Vertex Array Object
     GRAPHIC_SYSTEM::CreateVertexBuffer(*this);
     GRAPHIC_SYSTEM::CreateIndexBuffer(*this);

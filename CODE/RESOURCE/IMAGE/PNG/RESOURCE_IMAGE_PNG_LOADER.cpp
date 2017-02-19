@@ -132,7 +132,7 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
     
     png_bytep * row_pointers = png_get_rows(png_ptr, info_ptr);
     
-    void * imageData;
+    void * imageData = NULL;
     
     RESOURCE_IMAGE * image_resource = new RESOURCE_IMAGE();
     
@@ -210,17 +210,19 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
             break;
         }
     }
-
-    png_destroy_read_struct( &png_ptr, &info_ptr, NULL );
+    
+    CORE_MEMORY_ALLOCATOR_Free( header );
     
     image_resource->SetImageRawData( imageData );
-    
     image_resource->SetIdentifier( identifier );
+    
+    png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+    
     
     return image_resource;
 }
 
-RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const void * memory, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const void * memory, unsigned int size, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     return new RESOURCE_IMAGE();
 }

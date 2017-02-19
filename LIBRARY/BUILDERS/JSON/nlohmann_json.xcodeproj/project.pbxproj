@@ -1,0 +1,1094 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		BD087D725B8D4EE4B3F8E29A /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D587A2093D504D5EB2CC3711 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				8311FC34332D4D368CB9E429 /* CMake Rules */,
+			);
+			dependencies = (
+				663C2474A7394B4680F48F23 /* PBXTargetDependency */,
+				53181E5918704AC7806A4404 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		CFC57AF059CD4B2788B9A834 /* RUN_TESTS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6836AA22750E498482EA603C /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */;
+			buildPhases = (
+				BC9815C1710B40E8A245A3C4 /* CMake PostBuild Rules */,
+			);
+			dependencies = (
+			);
+			name = RUN_TESTS;
+			productName = RUN_TESTS;
+		};
+		DEA2437F60364856BE8AFFF7 /* install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 0D8B16A4EC2745C0826705B2 /* Build configuration list for PBXAggregateTarget "install" */;
+			buildPhases = (
+				8AFFCEBD742345AC8B934B30 /* CMake PostBuild Rules */,
+			);
+			dependencies = (
+				1CBDA242D060496DA5F39242 /* PBXTargetDependency */,
+			);
+			name = install;
+			productName = install;
+		};
+		FDE64F5FBCD04728B498CE12 /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 7703DFA3E7344AB8BD24ACAE /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				055AE2DD85AF4BAFBC21F3C5 /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0CD6AFF9D6014790B8D2DDAF /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-concepts.cpp */ = {isa = PBXBuildFile; fileRef = 9FD8E37B363C42A8B5BD41FE /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-concepts.cpp */; };
+		36297137737B4CD09ED7DC07 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-convenience.cpp */ = {isa = PBXBuildFile; fileRef = 97FD94BED61C4D83BCCED0D0 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-convenience.cpp */; };
+		3BCA29B3CCCF46D8AF6D08DD /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-inspection.cpp */ = {isa = PBXBuildFile; fileRef = 1232F2583B5E47869461FFAD /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-inspection.cpp */; };
+		3CAC2B065010432B83E22B63 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-modifiers.cpp */ = {isa = PBXBuildFile; fileRef = 91639F6885314944926924C1 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-modifiers.cpp */; };
+		42E0805AD4E04F63A3D85E62 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators1.cpp */ = {isa = PBXBuildFile; fileRef = 93292D5085F946A188914ACE /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators1.cpp */; };
+		47D14AE7F90C4DC39192E377 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-cbor.cpp */ = {isa = PBXBuildFile; fileRef = 3CEE45B90C3F4299B0A51C2E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-cbor.cpp */; };
+		47FF6860A2D447D6822909EB /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-algorithms.cpp */ = {isa = PBXBuildFile; fileRef = E1D23AAA6FE44246A9F615C7 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-algorithms.cpp */; };
+		5A1ADDFE700A4B52AC585560 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access1.cpp */ = {isa = PBXBuildFile; fileRef = 9F52126EEDEC4310B3AA907F /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access1.cpp */; };
+		665536D76931464C98212348 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access2.cpp */ = {isa = PBXBuildFile; fileRef = 49A0F85CAAFC4D0192DA4A1E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access2.cpp */; };
+		66F58FD27D2448A68AD39B76 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-testsuites.cpp */ = {isa = PBXBuildFile; fileRef = 0B69C15FDEA34336A9AAC876 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-testsuites.cpp */; };
+		6A1A5537B32A40BA8F1C76E7 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-readme.cpp */ = {isa = PBXBuildFile; fileRef = D3B21825D9294FB586887D1D /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-readme.cpp */; };
+		748DB64146EE439DA90AC0BD /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_parser.cpp */ = {isa = PBXBuildFile; fileRef = 05D9F543B11044918B24E9F3 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_parser.cpp */; };
+		74C009A01AFF4239BAF26F8F /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_lexer.cpp */ = {isa = PBXBuildFile; fileRef = 4707EBE93CAC4286889AC07D /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_lexer.cpp */; };
+		7D5F35BB89ED418398D6AAB8 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_iterator.cpp */ = {isa = PBXBuildFile; fileRef = C851B7B40174476BB410BE56 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_iterator.cpp */; };
+		8731F43888514B70B2121F9C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-unicode.cpp */ = {isa = PBXBuildFile; fileRef = 665B6BFBCB514D9A8392AE0C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-unicode.cpp */; };
+		899F2F1DA6864405A8B99744 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-reference_access.cpp */ = {isa = PBXBuildFile; fileRef = C336D14C57E44F58BCB8A8DA /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-reference_access.cpp */; };
+		8B70579C654948339537F95E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-allocator.cpp */ = {isa = PBXBuildFile; fileRef = 3FD223B8554F40A6A250D99B /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-allocator.cpp */; };
+		98848633DAD044E1B55DCB13 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit.cpp */ = {isa = PBXBuildFile; fileRef = C795E59546BF4C1F8CDC28BF /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit.cpp */; };
+		9D5AF3F1DBF143A9B2DE72FC /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-regression.cpp */ = {isa = PBXBuildFile; fileRef = 99D170B93032454E86C74DC1 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-regression.cpp */; };
+		A08D01E14A22446EACCB7856 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor2.cpp */ = {isa = PBXBuildFile; fileRef = 6269E6E3D8C841DBBE0953F3 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor2.cpp */; };
+		A8005FDB882B48DFBB0352EA /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor1.cpp */ = {isa = PBXBuildFile; fileRef = AF0B566D7F584B99BB3322F3 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor1.cpp */; };
+		B107226EFAC14285BBBB5C82 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_const_iterator.cpp */ = {isa = PBXBuildFile; fileRef = B5A3B84CB35F4D6CA6EC5375 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_const_iterator.cpp */; };
+		B149FAB3287F47D59C2D279D /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-noexcept.cpp */ = {isa = PBXBuildFile; fileRef = F1A020B64A0046A1933C3242 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-noexcept.cpp */; };
+		B2AFC57DB5CA42B5B07A4B03 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-udt.cpp */ = {isa = PBXBuildFile; fileRef = 702EFDAFFA96445CB9C728E0 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-udt.cpp */; };
+		B31CD51BAB3947D5A5F938A2 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-msgpack.cpp */ = {isa = PBXBuildFile; fileRef = DCD0599C6898458A83DE75A8 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-msgpack.cpp */; };
+		B7F72BDB1B0A4EE891B67AA0 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_pointer.cpp */ = {isa = PBXBuildFile; fileRef = 8553C8CFC374466087CD417C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_pointer.cpp */; };
+		B91A527DEF85498D933AA74C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-pointer_access.cpp */ = {isa = PBXBuildFile; fileRef = F942323DEB744A6FBCD1D8D4 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-pointer_access.cpp */; };
+		BCB7FC6F0622417CA6112B08 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-meta.cpp */ = {isa = PBXBuildFile; fileRef = 631261D404194764A886028A /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-meta.cpp */; };
+		C54D166BACDA494B83D43D91 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators2.cpp */ = {isa = PBXBuildFile; fileRef = 0B5E7447E7F549D6AE16F889 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators2.cpp */; };
+		CCF4A75B8E824EEBA7822A04 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-serialization.cpp */ = {isa = PBXBuildFile; fileRef = 03086FFFC4764DBE802C9A96 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-serialization.cpp */; };
+		D1D03169C4BC45ED9A0F5C48 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-deserialization.cpp */ = {isa = PBXBuildFile; fileRef = D5BF36D99B064E318AB0559B /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-deserialization.cpp */; };
+		D2EA2E3F6D104766A0615F57 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-comparison.cpp */ = {isa = PBXBuildFile; fileRef = 6EE29803280E42E59D4A364A /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-comparison.cpp */; };
+		DF29EA72D48D4310864E2475 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-capacity.cpp */ = {isa = PBXBuildFile; fileRef = 3071F82EE85745FCAE517959 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-capacity.cpp */; };
+		E109480C1DCA4E279236DCFB /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-conversions.cpp */ = {isa = PBXBuildFile; fileRef = BE1140BA722242BB862B177B /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-conversions.cpp */; };
+		EB48D7D86C174C90AB2B93E8 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/thirdparty/catch/catch.hpp */ = {isa = PBXBuildFile; fileRef = 9DB281EBF902426B8BD86D6E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/thirdparty/catch/catch.hpp */; };
+		EEB37C96E4F0426093764E11 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterator_wrapper.cpp */ = {isa = PBXBuildFile; fileRef = 5FF8AEAA987448A598696E82 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterator_wrapper.cpp */; };
+		F336D94D1051419889B7E3A4 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_patch.cpp */ = {isa = PBXBuildFile; fileRef = CF6E52BD563A4B9684A3AC53 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_patch.cpp */; };
+		FBF2712BC2234A43B8E767D5 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 659A85842365499BB4147D3C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/CMakeLists.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		12DFB9CA4AD248BDB5B3E238 /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+		4A857604B14145C886714B48 /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		7EDED114F99140D185EAFA16 /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		7F2FE3D2BD6B45ECAC6D5BB9 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		A37E25BA4E9C4F1F978F7335 = {
+			isa = PBXBuildStyle;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		10CF52200DDB456F9A8F475E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26C663B743C24A6BB0F17BCA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FDE64F5FBCD04728B498CE12;
+			remoteInfo = ZERO_CHECK;
+		};
+		3D08D9B1105B405CA0B86BB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26C663B743C24A6BB0F17BCA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FDE64F5FBCD04728B498CE12;
+			remoteInfo = ZERO_CHECK;
+		};
+		94C6BB0ACED74B1591E9B329 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26C663B743C24A6BB0F17BCA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42BE09E92AF1440C8B52EFE8;
+			remoteInfo = json_unit;
+		};
+		C9DACF85832B4C96AF8161D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26C663B743C24A6BB0F17BCA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD087D725B8D4EE4B3F8E29A;
+			remoteInfo = ALL_BUILD;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03086FFFC4764DBE802C9A96 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-serialization.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-serialization.cpp"; path = "test/src/unit-serialization.cpp"; sourceTree = SOURCE_ROOT; };
+		05D9F543B11044918B24E9F3 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_parser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-class_parser.cpp"; path = "test/src/unit-class_parser.cpp"; sourceTree = SOURCE_ROOT; };
+		0B5E7447E7F549D6AE16F889 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators2.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-iterators2.cpp"; path = "test/src/unit-iterators2.cpp"; sourceTree = SOURCE_ROOT; };
+		0B69C15FDEA34336A9AAC876 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-testsuites.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-testsuites.cpp"; path = "test/src/unit-testsuites.cpp"; sourceTree = SOURCE_ROOT; };
+		1232F2583B5E47869461FFAD /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-inspection.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-inspection.cpp"; path = "test/src/unit-inspection.cpp"; sourceTree = SOURCE_ROOT; };
+		3071F82EE85745FCAE517959 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-capacity.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-capacity.cpp"; path = "test/src/unit-capacity.cpp"; sourceTree = SOURCE_ROOT; };
+		3CEE45B90C3F4299B0A51C2E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-cbor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-cbor.cpp"; path = "test/src/unit-cbor.cpp"; sourceTree = SOURCE_ROOT; };
+		3FD223B8554F40A6A250D99B /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-allocator.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-allocator.cpp"; path = "test/src/unit-allocator.cpp"; sourceTree = SOURCE_ROOT; };
+		4707EBE93CAC4286889AC07D /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_lexer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-class_lexer.cpp"; path = "test/src/unit-class_lexer.cpp"; sourceTree = SOURCE_ROOT; };
+		49A0F85CAAFC4D0192DA4A1E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access2.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-element_access2.cpp"; path = "test/src/unit-element_access2.cpp"; sourceTree = SOURCE_ROOT; };
+		52175938231C4CA08B543F59 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		5FF8AEAA987448A598696E82 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterator_wrapper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-iterator_wrapper.cpp"; path = "test/src/unit-iterator_wrapper.cpp"; sourceTree = SOURCE_ROOT; };
+		6269E6E3D8C841DBBE0953F3 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor2.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-constructor2.cpp"; path = "test/src/unit-constructor2.cpp"; sourceTree = SOURCE_ROOT; };
+		631261D404194764A886028A /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-meta.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-meta.cpp"; path = "test/src/unit-meta.cpp"; sourceTree = SOURCE_ROOT; };
+		659A85842365499BB4147D3C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = test/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		665B6BFBCB514D9A8392AE0C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-unicode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-unicode.cpp"; path = "test/src/unit-unicode.cpp"; sourceTree = SOURCE_ROOT; };
+		6DD7CFFE8C9041B3A331C34F /* json_unit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = json_unit; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EE29803280E42E59D4A364A /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-comparison.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-comparison.cpp"; path = "test/src/unit-comparison.cpp"; sourceTree = SOURCE_ROOT; };
+		702EFDAFFA96445CB9C728E0 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-udt.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-udt.cpp"; path = "test/src/unit-udt.cpp"; sourceTree = SOURCE_ROOT; };
+		8553C8CFC374466087CD417C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_pointer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-json_pointer.cpp"; path = "test/src/unit-json_pointer.cpp"; sourceTree = SOURCE_ROOT; };
+		91639F6885314944926924C1 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-modifiers.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-modifiers.cpp"; path = "test/src/unit-modifiers.cpp"; sourceTree = SOURCE_ROOT; };
+		93292D5085F946A188914ACE /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators1.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-iterators1.cpp"; path = "test/src/unit-iterators1.cpp"; sourceTree = SOURCE_ROOT; };
+		97FD94BED61C4D83BCCED0D0 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-convenience.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-convenience.cpp"; path = "test/src/unit-convenience.cpp"; sourceTree = SOURCE_ROOT; };
+		99D170B93032454E86C74DC1 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-regression.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-regression.cpp"; path = "test/src/unit-regression.cpp"; sourceTree = SOURCE_ROOT; };
+		9DB281EBF902426B8BD86D6E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/thirdparty/catch/catch.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = catch.hpp; path = test/thirdparty/catch/catch.hpp; sourceTree = SOURCE_ROOT; };
+		9F52126EEDEC4310B3AA907F /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access1.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-element_access1.cpp"; path = "test/src/unit-element_access1.cpp"; sourceTree = SOURCE_ROOT; };
+		9FD8E37B363C42A8B5BD41FE /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-concepts.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-concepts.cpp"; path = "test/src/unit-concepts.cpp"; sourceTree = SOURCE_ROOT; };
+		AF0B566D7F584B99BB3322F3 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor1.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-constructor1.cpp"; path = "test/src/unit-constructor1.cpp"; sourceTree = SOURCE_ROOT; };
+		B5A3B84CB35F4D6CA6EC5375 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_const_iterator.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-class_const_iterator.cpp"; path = "test/src/unit-class_const_iterator.cpp"; sourceTree = SOURCE_ROOT; };
+		BE1140BA722242BB862B177B /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-conversions.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-conversions.cpp"; path = "test/src/unit-conversions.cpp"; sourceTree = SOURCE_ROOT; };
+		C336D14C57E44F58BCB8A8DA /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-reference_access.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-reference_access.cpp"; path = "test/src/unit-reference_access.cpp"; sourceTree = SOURCE_ROOT; };
+		C795E59546BF4C1F8CDC28BF /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = unit.cpp; path = test/src/unit.cpp; sourceTree = SOURCE_ROOT; };
+		C851B7B40174476BB410BE56 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_iterator.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-class_iterator.cpp"; path = "test/src/unit-class_iterator.cpp"; sourceTree = SOURCE_ROOT; };
+		CF6E52BD563A4B9684A3AC53 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_patch.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-json_patch.cpp"; path = "test/src/unit-json_patch.cpp"; sourceTree = SOURCE_ROOT; };
+		D3B21825D9294FB586887D1D /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-readme.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-readme.cpp"; path = "test/src/unit-readme.cpp"; sourceTree = SOURCE_ROOT; };
+		D5BF36D99B064E318AB0559B /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-deserialization.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-deserialization.cpp"; path = "test/src/unit-deserialization.cpp"; sourceTree = SOURCE_ROOT; };
+		DCD0599C6898458A83DE75A8 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-msgpack.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-msgpack.cpp"; path = "test/src/unit-msgpack.cpp"; sourceTree = SOURCE_ROOT; };
+		E1D23AAA6FE44246A9F615C7 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-algorithms.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-algorithms.cpp"; path = "test/src/unit-algorithms.cpp"; sourceTree = SOURCE_ROOT; };
+		F1A020B64A0046A1933C3242 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-noexcept.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-noexcept.cpp"; path = "test/src/unit-noexcept.cpp"; sourceTree = SOURCE_ROOT; };
+		F942323DEB744A6FBCD1D8D4 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-pointer_access.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "unit-pointer_access.cpp"; path = "test/src/unit-pointer_access.cpp"; sourceTree = SOURCE_ROOT; };
+		FCEE316760144F31B37C6B9C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		3E4778715FA248279E5B058C /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				CF601D99044E44DA9362085A /* CMake Rules */,
+				FCEE316760144F31B37C6B9C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		4AA5A9EB68744774B189EBCF = {
+			isa = PBXGroup;
+			children = (
+				890A5B54435E41719BBC41FD /* Sources */,
+				BE5194FB5FF242FB84BB093E /* Resources */,
+				A7A7893BC6DA4609BCE4E76D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5A06E12DE8264EB2819EAFEF /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		7231D67040EF4E4A8B44B58A /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				E1D23AAA6FE44246A9F615C7 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-algorithms.cpp */,
+				3FD223B8554F40A6A250D99B /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-allocator.cpp */,
+				3071F82EE85745FCAE517959 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-capacity.cpp */,
+				3CEE45B90C3F4299B0A51C2E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-cbor.cpp */,
+				B5A3B84CB35F4D6CA6EC5375 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_const_iterator.cpp */,
+				C851B7B40174476BB410BE56 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_iterator.cpp */,
+				4707EBE93CAC4286889AC07D /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_lexer.cpp */,
+				05D9F543B11044918B24E9F3 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_parser.cpp */,
+				6EE29803280E42E59D4A364A /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-comparison.cpp */,
+				9FD8E37B363C42A8B5BD41FE /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-concepts.cpp */,
+				AF0B566D7F584B99BB3322F3 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor1.cpp */,
+				6269E6E3D8C841DBBE0953F3 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor2.cpp */,
+				97FD94BED61C4D83BCCED0D0 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-convenience.cpp */,
+				BE1140BA722242BB862B177B /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-conversions.cpp */,
+				D5BF36D99B064E318AB0559B /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-deserialization.cpp */,
+				9F52126EEDEC4310B3AA907F /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access1.cpp */,
+				49A0F85CAAFC4D0192DA4A1E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access2.cpp */,
+				1232F2583B5E47869461FFAD /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-inspection.cpp */,
+				5FF8AEAA987448A598696E82 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterator_wrapper.cpp */,
+				93292D5085F946A188914ACE /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators1.cpp */,
+				0B5E7447E7F549D6AE16F889 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators2.cpp */,
+				CF6E52BD563A4B9684A3AC53 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_patch.cpp */,
+				8553C8CFC374466087CD417C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_pointer.cpp */,
+				631261D404194764A886028A /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-meta.cpp */,
+				91639F6885314944926924C1 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-modifiers.cpp */,
+				DCD0599C6898458A83DE75A8 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-msgpack.cpp */,
+				F1A020B64A0046A1933C3242 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-noexcept.cpp */,
+				F942323DEB744A6FBCD1D8D4 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-pointer_access.cpp */,
+				D3B21825D9294FB586887D1D /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-readme.cpp */,
+				C336D14C57E44F58BCB8A8DA /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-reference_access.cpp */,
+				99D170B93032454E86C74DC1 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-regression.cpp */,
+				03086FFFC4764DBE802C9A96 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-serialization.cpp */,
+				0B69C15FDEA34336A9AAC876 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-testsuites.cpp */,
+				702EFDAFFA96445CB9C728E0 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-udt.cpp */,
+				665B6BFBCB514D9A8392AE0C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-unicode.cpp */,
+				C795E59546BF4C1F8CDC28BF /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		890A5B54435E41719BBC41FD /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3E4778715FA248279E5B058C /* ALL_BUILD */,
+				A29D7A49E2234711BB4DD7DE /* ZERO_CHECK */,
+				D42525643E99457E86C4F08D /* json_unit */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		A29D7A49E2234711BB4DD7DE /* ZERO_CHECK */ = {
+			isa = PBXGroup;
+			children = (
+				5A06E12DE8264EB2819EAFEF /* CMake Rules */,
+				52175938231C4CA08B543F59 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/CMakeLists.txt */,
+			);
+			name = ZERO_CHECK;
+			sourceTree = "<group>";
+		};
+		A7A7893BC6DA4609BCE4E76D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6DD7CFFE8C9041B3A331C34F /* json_unit */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE5194FB5FF242FB84BB093E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		CF601D99044E44DA9362085A /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		D42525643E99457E86C4F08D /* json_unit */ = {
+			isa = PBXGroup;
+			children = (
+				D4EB01AC76FB4D77AF482B48 /* Header Files */,
+				7231D67040EF4E4A8B44B58A /* Source Files */,
+				659A85842365499BB4147D3C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/CMakeLists.txt */,
+			);
+			name = json_unit;
+			sourceTree = "<group>";
+		};
+		D4EB01AC76FB4D77AF482B48 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				9DB281EBF902426B8BD86D6E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/thirdparty/catch/catch.hpp */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42BE09E92AF1440C8B52EFE8 /* json_unit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8043FDD913FA4CF9BBC0BA86 /* Build configuration list for PBXNativeTarget "json_unit" */;
+			buildPhases = (
+				80F093A54DF94F6BBF0B9BC7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C09BFDFA2D42455CB40312BC /* PBXTargetDependency */,
+			);
+			name = json_unit;
+			productName = json_unit;
+			productReference = 6DD7CFFE8C9041B3A331C34F /* json_unit */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		26C663B743C24A6BB0F17BCA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0820;
+			};
+			buildConfigurationList = 88818D3435284BA78C4A08DA /* Build configuration list for PBXProject "nlohmann_json" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				7F2FE3D2BD6B45ECAC6D5BB9 /* Debug */,
+				12DFB9CA4AD248BDB5B3E238 /* Release */,
+				7EDED114F99140D185EAFA16 /* MinSizeRel */,
+				4A857604B14145C886714B48 /* RelWithDebInfo */,
+			);
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = 4AA5A9EB68744774B189EBCF;
+			projectDirPath = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON";
+			projectRoot = "";
+			targets = (
+				BD087D725B8D4EE4B3F8E29A /* ALL_BUILD */,
+				CFC57AF059CD4B2788B9A834 /* RUN_TESTS */,
+				FDE64F5FBCD04728B498CE12 /* ZERO_CHECK */,
+				DEA2437F60364856BE8AFFF7 /* install */,
+				42BE09E92AF1440C8B52EFE8 /* json_unit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		055AE2DD85AF4BAFBC21F3C5 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON -f /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		18B958351B38434A98F2D1E0 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		3869860DD3B1405AB4368375 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		3B19CF861B4744C687C1381C = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		5C22496FA9784FAD94B69949 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		8311FC34332D4D368CB9E429 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON -f /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		8AFFCEBD742345AC8B934B30 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON -f /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		BC9815C1710B40E8A245A3C4 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON -f /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/CMakeScripts/RUN_TESTS_postBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		80F093A54DF94F6BBF0B9BC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47FF6860A2D447D6822909EB /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-algorithms.cpp */,
+				8B70579C654948339537F95E /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-allocator.cpp */,
+				DF29EA72D48D4310864E2475 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-capacity.cpp */,
+				47D14AE7F90C4DC39192E377 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-cbor.cpp */,
+				B107226EFAC14285BBBB5C82 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_const_iterator.cpp */,
+				7D5F35BB89ED418398D6AAB8 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_iterator.cpp */,
+				74C009A01AFF4239BAF26F8F /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_lexer.cpp */,
+				748DB64146EE439DA90AC0BD /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-class_parser.cpp */,
+				D2EA2E3F6D104766A0615F57 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-comparison.cpp */,
+				0CD6AFF9D6014790B8D2DDAF /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-concepts.cpp */,
+				A8005FDB882B48DFBB0352EA /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor1.cpp */,
+				A08D01E14A22446EACCB7856 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-constructor2.cpp */,
+				36297137737B4CD09ED7DC07 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-convenience.cpp */,
+				E109480C1DCA4E279236DCFB /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-conversions.cpp */,
+				D1D03169C4BC45ED9A0F5C48 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-deserialization.cpp */,
+				5A1ADDFE700A4B52AC585560 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access1.cpp */,
+				665536D76931464C98212348 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-element_access2.cpp */,
+				3BCA29B3CCCF46D8AF6D08DD /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-inspection.cpp */,
+				EEB37C96E4F0426093764E11 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterator_wrapper.cpp */,
+				42E0805AD4E04F63A3D85E62 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators1.cpp */,
+				C54D166BACDA494B83D43D91 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-iterators2.cpp */,
+				F336D94D1051419889B7E3A4 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_patch.cpp */,
+				B7F72BDB1B0A4EE891B67AA0 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-json_pointer.cpp */,
+				BCB7FC6F0622417CA6112B08 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-meta.cpp */,
+				3CAC2B065010432B83E22B63 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-modifiers.cpp */,
+				B31CD51BAB3947D5A5F938A2 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-msgpack.cpp */,
+				B149FAB3287F47D59C2D279D /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-noexcept.cpp */,
+				B91A527DEF85498D933AA74C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-pointer_access.cpp */,
+				6A1A5537B32A40BA8F1C76E7 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-readme.cpp */,
+				899F2F1DA6864405A8B99744 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-reference_access.cpp */,
+				9D5AF3F1DBF143A9B2DE72FC /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-regression.cpp */,
+				CCF4A75B8E824EEBA7822A04 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-serialization.cpp */,
+				66F58FD27D2448A68AD39B76 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-testsuites.cpp */,
+				B2AFC57DB5CA42B5B07A4B03 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-udt.cpp */,
+				8731F43888514B70B2121F9C /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit-unicode.cpp */,
+				98848633DAD044E1B55DCB13 /* /Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src/unit.cpp */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1CBDA242D060496DA5F39242 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD087D725B8D4EE4B3F8E29A /* ALL_BUILD */;
+			targetProxy = C9DACF85832B4C96AF8161D0 /* PBXContainerItemProxy */;
+		};
+		53181E5918704AC7806A4404 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42BE09E92AF1440C8B52EFE8 /* json_unit */;
+			targetProxy = 94C6BB0ACED74B1591E9B329 /* PBXContainerItemProxy */;
+		};
+		663C2474A7394B4680F48F23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FDE64F5FBCD04728B498CE12 /* ZERO_CHECK */;
+			targetProxy = 10CF52200DDB456F9A8F475E /* PBXContainerItemProxy */;
+		};
+		C09BFDFA2D42455CB40312BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FDE64F5FBCD04728B498CE12 /* ZERO_CHECK */;
+			targetProxy = 3D08D9B1105B405CA0B86BB3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		054FCE87DB5848B986AAC768 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		130F3835D4A949828ACAD478 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		1DCBC71F6C04409D95051889 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src","/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/thirdparty/catch","/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/src");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG '-std=gnu++11'  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = json_unit;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/test";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		365D9D61BF7C4F989BAF5D0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		3834366E314245F29D9ABEF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/build";
+			};
+			name = Release;
+		};
+		3FC9E544C1C6435798109E44 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		6FB64B0FD9A74CE8BFAC743E /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		80808F48764E4B7E88C61F4E /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		91BF92986B64450B93D1946A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		91C400396C5347B790E41086 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/build";
+			};
+			name = MinSizeRel;
+		};
+		95EFFFB6078B4F789DE0DC34 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		9671A911B2D14E48A524DC4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src","/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/thirdparty/catch","/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/src");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=gnu++11'  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = json_unit;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/test";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		96906B864759458FB9635837 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		9AEB8FF95DD247148F762C81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/build";
+			};
+			name = Debug;
+		};
+		A117EA37CC2B49B2ADD7BE4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		A1F39677BC06415198B16E51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src","/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/thirdparty/catch","/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/src");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "   '-std=gnu++11'  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = json_unit;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/test";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		A32515D2F2904AAD93027754 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		BC4B2C71C38D474F9E3223CB /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		C788E4AEA16A48E7A78F6B42 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		CA84D5D068064CF6BEFA7AE4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		D313AB77DCCB40E5B9FC2BFF /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/build";
+			};
+			name = RelWithDebInfo;
+		};
+		DA26236D387E4070B4DCE2D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		EAF0FE76D28A4635B5522B13 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/src","/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/test/thirdparty/catch","/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/COMMON/JSON/src");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=gnu++11'  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = json_unit;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON/test";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		F1E461950F4B43B9B9B9E75D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/CBE/DevelopProjects/game-engine-clean/LIBRARY/BUILDERS/JSON";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0D8B16A4EC2745C0826705B2 /* Build configuration list for PBXAggregateTarget "install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96906B864759458FB9635837 /* Debug */,
+				91BF92986B64450B93D1946A /* Release */,
+				80808F48764E4B7E88C61F4E /* MinSizeRel */,
+				BC4B2C71C38D474F9E3223CB /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6836AA22750E498482EA603C /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA26236D387E4070B4DCE2D5 /* Debug */,
+				365D9D61BF7C4F989BAF5D0E /* Release */,
+				95EFFFB6078B4F789DE0DC34 /* MinSizeRel */,
+				6FB64B0FD9A74CE8BFAC743E /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7703DFA3E7344AB8BD24ACAE /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FC9E544C1C6435798109E44 /* Debug */,
+				CA84D5D068064CF6BEFA7AE4 /* Release */,
+				054FCE87DB5848B986AAC768 /* MinSizeRel */,
+				C788E4AEA16A48E7A78F6B42 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8043FDD913FA4CF9BBC0BA86 /* Build configuration list for PBXNativeTarget "json_unit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1F39677BC06415198B16E51 /* Debug */,
+				9671A911B2D14E48A524DC4E /* Release */,
+				EAF0FE76D28A4635B5522B13 /* MinSizeRel */,
+				1DCBC71F6C04409D95051889 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		88818D3435284BA78C4A08DA /* Build configuration list for PBXProject "nlohmann_json" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AEB8FF95DD247148F762C81 /* Debug */,
+				3834366E314245F29D9ABEF7 /* Release */,
+				91C400396C5347B790E41086 /* MinSizeRel */,
+				D313AB77DCCB40E5B9FC2BFF /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D587A2093D504D5EB2CC3711 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1E461950F4B43B9B9B9E75D /* Debug */,
+				A117EA37CC2B49B2ADD7BE4C /* Release */,
+				130F3835D4A949828ACAD478 /* MinSizeRel */,
+				A32515D2F2904AAD93027754 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 26C663B743C24A6BB0F17BCA /* Project object */;
+}

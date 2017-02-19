@@ -15,23 +15,25 @@
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_FONT )
     XS_DEFINE_ClassMember( GLYPH_TABLE, GlyphTable )
-    XS_DEFINE_ClassMemberArray( char , (char **) &Name, (int) strlen(Name) )
+    XS_DEFINE_ClassMemberArray( char , Name, (size_t)256 )
     XS_DEFINE_ClassMember( int, Size )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_FONT::GRAPHIC_FONT() :
-    Name( NULL ),
+    Name(),
     Size( 0 ),
     GlyphTable(),
     Texture() {
     
-    Name = (char*) malloc((int) strlen("NONAME\0") );
-    strcpy(Name, "NONAME\0");
+        strcpy( Name, "HELLO" );
 }
 
 GRAPHIC_FONT::~GRAPHIC_FONT() {
     
-    free(Name);
+    if ( Texture ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( Texture );
+    }
 }
 
 void GRAPHIC_FONT::Initialize() {
@@ -56,5 +58,9 @@ void GRAPHIC_FONT::Load( const CORE_FILESYSTEM_PATH & font_path, const CORE_FILE
     stream.Close();
     stream.ResetOffset();
     
-    Texture = ((RESOURCE_IMAGE*) loader.Load( image_path ))->CreateTextureObject( true );
+    auto img  = ((RESOURCE_IMAGE*) loader.Load( image_path ));
+    
+    Texture = img->CreateTextureObject( true );
+    
+    delete img;
 }

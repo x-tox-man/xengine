@@ -32,7 +32,11 @@ GAMEPLAY_COMPONENT_ENTITY * GAMEPLAY_COMPONENT_MANAGER::CreateEntity() {
     
     if( index == 0) {
         
-        InternalVector.resize(16);
+        if ( InternalVector.size() != 16 ) {
+            
+            InternalVector.resize(16);
+        }
+        
         InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_ENTITY * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_ENTITY ) );
         InternalVector[0].LastIndex = -1;
     }

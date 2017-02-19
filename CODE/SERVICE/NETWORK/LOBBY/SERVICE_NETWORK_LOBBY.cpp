@@ -44,11 +44,11 @@ void SERVICE_NETWORK_LOBBY::Initialize( int max_pool_size, const char * discover
     
     UdpBroadcastMinimumInterval = interval;
     
-    char * t = (char*) malloc((int) strlen(discover_message));
+    char * t = (char*) CORE_MEMORY_ALLOCATOR_Allocate((int) strlen(discover_message));
     strcpy(t, discover_message);
     
     UDPBroadcastMessage.Open();
-    UDPBroadcastMessage.InputBytes( t, (int) strlen( discover_message ) );
+    UDPBroadcastMessage.InputBytes( (char*) t, (int) strlen( discover_message ) );
     UDPBroadcastMessage.Close();
     UDPBroadcastMessage.ResetOffset();
     
@@ -58,6 +58,8 @@ void SERVICE_NETWORK_LOBBY::Initialize( int max_pool_size, const char * discover
     }
     
     SERVICE_NETWORK_SYSTEM::GetInstance().OnTCPDataReceivedCallback = new CORE_HELPERS_CALLBACK_2< SERVICE_NETWORK_COMMAND *, uv_stream_t * >( Wrapper2< SERVICE_NETWORK_LOBBY, SERVICE_NETWORK_COMMAND *, uv_stream_t *, &SERVICE_NETWORK_LOBBY::OnTCPDataReceived >, this );
+    
+    CORE_MEMORY_ALLOCATOR_Free( t );
 }
 
 void SERVICE_NETWORK_LOBBY::Finalize() {
@@ -67,8 +69,8 @@ void SERVICE_NETWORK_LOBBY::Finalize() {
         UDPBroadcastConnection->Stop();
     }
     
-    delete OnTCPNetworkCommandReceivedCallback;
-    delete UDPBroadcastConnection;
+    CORE_MEMORY_ObjectSafeDeallocation( OnTCPNetworkCommandReceivedCallback );
+    CORE_MEMORY_ObjectSafeDeallocation( UDPBroadcastConnection );
     
     OnTCPConnectionLostCallback.Disconnect();
     OnTCPConnectionResumedCallback.Disconnect();
@@ -225,7 +227,7 @@ void SERVICE_NETWORK_LOBBY::SendTcpCommand( CORE_DATA_STREAM & data_to_send, SER
         
         const char * end = "--END--";
         
-        data_to_send.InputBytes(end, 7);
+        data_to_send.InputBytes( (char*) end, 7);
         
         connexion->Send( data_to_send );
     }

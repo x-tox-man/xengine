@@ -15,6 +15,7 @@
 #include "CORE_HELPERS_SCALAR.h"
 #include "CORE_MATH_MATRIX.h"
 #include "CORE_DATA_STREAM.h"
+#include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_OBJECT )
     XS_DEFINE_ClassMember( std::vector< GRAPHIC_MESH * > , MeshTable )
@@ -41,26 +42,23 @@ GRAPHIC_OBJECT::GRAPHIC_OBJECT() :
 }
 
 GRAPHIC_OBJECT::~GRAPHIC_OBJECT() {
-
+    
+    Release();
+    
     for( int i = 0; i < MeshTable.size(); i++ ) {
 
-        delete MeshTable[ i ];
-        
-        MeshTable[ i ] = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( MeshTable[ i ] );
     }
 
     for ( int i=0; i < JointTable.size(); i++ ) {
 
-        delete JointTable[ i ];
-        JointTable[ i ] = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( JointTable[ i ] );
     }
     
     #if __COMPILE_WITH__COLLADA__
         for ( int i = 0; i < AnimationTable.size(); i++ ) {
             
-            delete AnimationTable[ i ];
-            
-            AnimationTable[ i ] = NULL;
+            CORE_MEMORY_ObjectSafeDeallocation( AnimationTable[ i ] );
         }
     #endif
 }

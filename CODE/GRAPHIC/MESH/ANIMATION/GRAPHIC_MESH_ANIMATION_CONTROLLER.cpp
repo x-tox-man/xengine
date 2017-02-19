@@ -20,6 +20,25 @@ GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER() :
 
 GRAPHIC_MESH_ANIMATION_CONTROLLER::~GRAPHIC_MESH_ANIMATION_CONTROLLER() {
     
+    std::vector< GRAPHIC_MESH_ANIMATION * >::iterator it = MeshAnimationTable.begin();
+    std::vector< float * >::iterator it2 = ThisFrameAnimationMatrixArrayTable.begin();
+    
+    while ( it != MeshAnimationTable.end() ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( *it );
+        it++;
+    }
+    
+    MeshAnimationTable.clear();
+    
+    while ( it2 != ThisFrameAnimationMatrixArrayTable.end() ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( *it2 );
+        
+        it2++;
+    }
+    
+    ThisFrameAnimationMatrixArrayTable.clear();
 }
 
 void GRAPHIC_MESH_ANIMATION_CONTROLLER::Initialize() {

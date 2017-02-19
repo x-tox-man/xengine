@@ -46,7 +46,7 @@ GRAPHIC_SHADER_EFFECT * GRAPHIC_SHADER_EFFECT_LOADER::Load( const CORE_FILESYSTE
     return effect;
 }
 
-GRAPHIC_SHADER_EFFECT * GRAPHIC_SHADER_EFFECT_LOADER::Load( const void * memory,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+GRAPHIC_SHADER_EFFECT * GRAPHIC_SHADER_EFFECT_LOADER::Load( const void * memory, unsigned int size, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     CORE_RUNTIME_Abort();
     

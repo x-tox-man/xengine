@@ -10,6 +10,7 @@
 #define __GAME_ENGINE_REBORN__CORE_FILESYSTEM_PATH__
 
 #include "CORE_HELPERS_CLASS.h"
+#include "CORE_DATA_TYPES.h"
 
 #define FILE_PATH_MAX_LENGHT 256
 
@@ -20,18 +21,15 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_FILESYSTEM_PATH )
     ~CORE_FILESYSTEM_PATH();
 
     CORE_FILESYSTEM_PATH & operator = ( const CORE_FILESYSTEM_PATH & other ) {
-        
-        size_t l = strlen( other.Path ) + 1;
 
-        strcpy_s( Path, l, other.Path );
+        CORE_DATA_COPY_STRING(Path, other.Path );
         
         return *this;
     }
 
     void SetPath( const char * file_path ) {
-        
-        size_t l=strlen( file_path ) + 1;
-            strcpy_s( Path, l, file_path );
+
+        CORE_DATA_COPY_STRING(Path, file_path );
     }
 
     CORE_FILESYSTEM_PATH RemoveExtension() const {

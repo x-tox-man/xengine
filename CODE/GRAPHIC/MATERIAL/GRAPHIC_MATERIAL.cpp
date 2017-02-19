@@ -7,6 +7,7 @@
 //
 
 #include "GRAPHIC_MATERIAL.h"
+#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "RESOURCE_IMAGE_PNG_LOADER.h"
 #include "RESOURCE_IMAGE.h"
 
@@ -24,7 +25,11 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL(const char * image_path, const char * effect_
     
     Texture = new GRAPHIC_TEXTURE_BLOCK();
     
-    Texture->SetTexture( loader.Load(CORE_FILESYSTEM_PATH::FindFilePath( image_path , "png", "IMAGES" ))->CreateTextureObject( false ) );
+    auto img = loader.Load(CORE_FILESYSTEM_PATH::FindFilePath( image_path , "png", "IMAGES" ));
+    
+    Texture->SetTexture( img->CreateTextureObject( false ) );
+    
+    delete img;
 }
 
 GRAPHIC_MATERIAL::~GRAPHIC_MATERIAL() {

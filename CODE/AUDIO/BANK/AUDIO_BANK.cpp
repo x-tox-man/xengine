@@ -17,6 +17,10 @@ AUDIO_SOUND_BANK::AUDIO_SOUND_BANK() :
 
 AUDIO_SOUND_BANK::~AUDIO_SOUND_BANK() {
     
+    if ( SoundTable.size() ) {
+        
+        Unload();
+    }
 }
 
 void AUDIO_SOUND_BANK::RegisterSoundFilePath( const CORE_FILESYSTEM_PATH & sound_path, CORE_HELPERS_IDENTIFIER sound_identifier, const AUDIO_BANK_SOUND_LOAD_OPTION & option, const char * type ) {
@@ -91,14 +95,11 @@ void AUDIO_SOUND_BANK::Unload() {
             
             AUDIO_LOADER_Close( *it->second->Sound );
             
-            for ( size_t i = 0; i < it->second->Sound->GetSoundChunksTable().size(); i++ ) {
-                
-                delete it->second->Sound->GetSoundChunksTable()[i];
-            }
-            
-            delete it->second->Sound;
+            CORE_MEMORY_ObjectSafeDeallocation( it->second->Sound );
         }
         
         it++;
     }
+    
+    SoundTable.clear();
 }

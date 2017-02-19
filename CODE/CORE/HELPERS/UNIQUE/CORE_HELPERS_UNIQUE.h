@@ -10,6 +10,8 @@
 #ifndef __UNIQUE__
 #define __UNIQUE__
 
+#include "CORE_MEMORY.h"
+
 template < typename __NAMED_CLASS__ >
 class UNIQUE {
 public:
@@ -19,14 +21,15 @@ public:
     }
     
     static void RemoveInstance() {
+        
         if ( InnerInstance ) {
-            delete InnerInstance;
             
-            InnerInstance = 0;
+            CORE_MEMORY_ObjectSafeDeallocation( InnerInstance );
         }
-        else {
-            // Do something to crash te app
-        }
+    }
+    
+    ~UNIQUE() {
+        
     }
     
 private :
@@ -40,7 +43,7 @@ private :
         return *InnerInstance;
     }
     
-    static __NAMED_CLASS__ *InnerInstance;
+    static __NAMED_CLASS__ * InnerInstance;
 };
 
 template < typename __NAMED_CLASS__ >

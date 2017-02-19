@@ -19,9 +19,8 @@ GRAPHIC_OBJECT_SHAPE::GRAPHIC_OBJECT_SHAPE() :
 }
 
 GRAPHIC_OBJECT_SHAPE::~GRAPHIC_OBJECT_SHAPE() {
-
-    CORE_MEMORY_ObjectSafeDeallocation( SecondTextureBlock );
-    CORE_MEMORY_ObjectSafeDeallocation( ThirdTextureBlock );
+    
+    //Deletion of textures and shaders must not be done here because it does not make sense
 }
 
 void GRAPHIC_OBJECT_SHAPE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader) {

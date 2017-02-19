@@ -29,11 +29,29 @@ public:
     GRAPHIC_MESH();
     ~GRAPHIC_MESH();
 
-    inline CORE_DATA_BUFFER & GetVertexCoreBuffer() { return *VertexCoreBuffer; }
-    inline void SetVertexCoreBuffer( CORE_DATA_BUFFER * vertexCoreBuffer ) { VertexCoreBuffer = vertexCoreBuffer; }
+    inline CORE_DATA_BUFFER * GetVertexCoreBuffer() { return VertexCoreBuffer; }
+    void SetVertexCoreBuffer( CORE_DATA_BUFFER * vertexCoreBuffer ) {
+        
+        if ( VertexCoreBuffer ) {
+            
+            delete VertexCoreBuffer;
+            VertexCoreBuffer = NULL;
+        }
+        
+        VertexCoreBuffer = vertexCoreBuffer;
+    }
 
-    inline CORE_DATA_BUFFER & GetIndexCoreBuffer() { return *IndexCoreBuffer; }
-    inline void SetIndexCoreBuffer( CORE_DATA_BUFFER * indexCoreBuffer ) { IndexCoreBuffer = indexCoreBuffer; }
+    inline CORE_DATA_BUFFER * GetIndexCoreBuffer() { return IndexCoreBuffer; }
+    void SetIndexCoreBuffer( CORE_DATA_BUFFER * indexCoreBuffer ) {
+        
+        if ( IndexCoreBuffer ) {
+            
+            delete IndexCoreBuffer;
+            VertexCoreBuffer = NULL;
+        }
+        
+        IndexCoreBuffer = indexCoreBuffer;
+    }
 
     void CreateBuffers();
     void ApplyBuffers();
@@ -82,19 +100,19 @@ private :
     CORE_DATA_BUFFER
         * VertexCoreBuffer,
         * IndexCoreBuffer;
-
     GRAPHIC_TEXTURE
         * Texture,
         * NormalTexture;
-
-    GRAPHIC_SHADER_BIND VertexComponent;
-
-    GRAPHIC_MESH_POLYGON_RENDER_MODE PolygonRenderMode;
-    GRAPHIC_MESH_SURFACE_RENDER_MODE SurfaceRenderMode;
-
-    CORE_MATH_MATRIX Transform;
-
-    CORE_MATH_SHAPE BoundingShape;
+    GRAPHIC_SHADER_BIND
+        VertexComponent;
+    GRAPHIC_MESH_POLYGON_RENDER_MODE
+        PolygonRenderMode;
+    GRAPHIC_MESH_SURFACE_RENDER_MODE
+        SurfaceRenderMode;
+    CORE_MATH_MATRIX
+        Transform;
+    CORE_MATH_SHAPE
+        BoundingShape;
 
     int VertexStride;
 

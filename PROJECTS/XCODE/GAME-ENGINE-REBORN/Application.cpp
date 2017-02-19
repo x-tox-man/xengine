@@ -66,7 +66,8 @@ MyTestApp::MyTestApp() :
     Game( NULL ),
     ItIsClient( false ),
     ItIsServer( false ),
-    ItIsMultiplayer( false ) {
+    ItIsMultiplayer( false ),
+    LuaScript( NULL ) {
     
     SERVICE_LOGGER_Error( "ALL APP create 1" );
         
@@ -92,7 +93,7 @@ MyTestApp::MyTestApp() :
 }
 
 MyTestApp::~MyTestApp() {
-    
+
 }
 
 
@@ -197,7 +198,7 @@ void MyTestApp::Initialize() {
     
     SERVICE_LOGGER_Error( "ALL APP Inititialize 1" );
     
-    Position.Set( 0.0f, 0.0f, 0.0f, 1.0f);
+    Position.Set( 0.0f, -50.0f, 0.0f, 1.0f);
     
     AUDIO_SYSTEM::GetInstance().Initialize();
     AUDIO_SYSTEM::GetInstance().GetBank().RegisterSoundFilePath(
@@ -334,31 +335,45 @@ void MyTestApp::OnObjectPicked( GAMEPLAY_COMPONENT_ENTITY * entity  ) {
 }
 
 void MyTestApp::Finalize() {
+    
+    GAMEPLAY_COMPONENT_ANIMATION::FinalizeStaticMemory();
+    GAMEPLAY_COMPONENT_RENDER::FinalizeStaticMemory();
+    GAMEPLAY_COMPONENT_POSITION::FinalizeStaticMemory();
+    GAMEPLAY_COMPONENT_PHYSICS::FinalizeStaticMemory();
 
+    CORE_MEMORY_ObjectSafeDeallocation( Camera );
+    CORE_MEMORY_ObjectSafeDeallocation( LightCamera );
+    CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );
+    CORE_MEMORY_ObjectSafeDeallocation( RenderTargetCamera );
+    CORE_MEMORY_ObjectSafeDeallocation( Game );
+    
     Server.Finalize();
     Client.Finalize();
     
-    GRAPHIC_RENDERER::RemoveInstance();
+    APPLICATION_COMMAND_MANAGER::RemoveInstance();
+    APPLICATION_SCREENS_NAVIGATION::RemoveInstance();
+    AUDIO_SYSTEM::GetInstance().Finalize();
+    AUDIO_SYSTEM::RemoveInstance();
+    CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_MANAGER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::RemoveInstance();
+    CORE_HELPERS_IDENTIFIER_SYSTEM::RemoveInstance();
+    GAMEPLAY_COMPONENT_MANAGER::RemoveInstance();
+    
+    GLOBAL_RESOURCES::GetInstance().Finalize();
+    GLOBAL_RESOURCES::RemoveInstance();
+    
+    GRAPHIC_FONT_MANAGER::RemoveInstance();
+    GRAPHIC_MESH_MANAGER::RemoveInstance();
+    GRAPHIC_PARTICLE_SYSTEM::RemoveInstance();
+    GRAPHIC_RENDERER::RemoveInstance();
+    GRAPHIC_UI_SYSTEM::RemoveInstance();
+    PERIPHERIC_INTERACTION_SYSTEM::RemoveInstance();
     
     SERVICE_NETWORK_SYSTEM::GetInstance().Finalize();
     SERVICE_NETWORK_SYSTEM::RemoveInstance();
     
-    GAMEPLAY_COMPONENT_MANAGER::RemoveInstance();
-    
-    CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
-    
-    AUDIO_SYSTEM::GetInstance().Finalize();
-    AUDIO_SYSTEM::RemoveInstance();
-    
     DefaultFileystem.Finalize();
-    
-    GLOBAL_RESOURCES::GetInstance().Finalize();
-    
-    CORE_MEMORY_ObjectSafeDeallocation( Camera );
-    CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );
-    CORE_MEMORY_ObjectSafeDeallocation( RenderTargetCamera );
 }
 
 void MyTestApp::Render() {
@@ -483,7 +498,7 @@ void MyTestApp::Render() {
     
 #if PLATFORM_OSX
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
-    
+    GRAPHIC_RENDERER::GetInstance().EnableColor( false );
     {
         GLOBAL_RESOURCES::GetInstance().EffectPlan->GetShaderTable()[0] = &GLOBAL_RESOURCES::GetInstance().BloomEffect->GetProgram();
         GLOBAL_RESOURCES::GetInstance().EffectPlan->SetEffect( GLOBAL_RESOURCES::GetInstance().BloomEffect );
@@ -524,6 +539,8 @@ void MyTestApp::Render() {
         GLOBAL_RESOURCES::GetInstance().EffectPlan->Render( GRAPHIC_RENDERER::GetInstance() );
         GLOBAL_RESOURCES::GetInstance().EffectPlan->SetSecondTextureBlock( NULL );*/
     }
+    
+    GRAPHIC_RENDERER::GetInstance().EnableColor( true );
 #endif
     
     CORE_MATH_MATRIX previous_mat( &Camera->GetProjectionMatrix()[0] );
@@ -625,15 +642,15 @@ void MyTestApp::Update( float time_step ) {
     static CORE_MATH_VECTOR vector;
     vector = PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetScreenCoordinates();
     
-    rotation_mat.XRotate( (vector[1] - 0.5f ) * M_PI_2 );
-    rotation_mat.YRotate( M_PI_2 + (vector[0] - 0.5f )  * M_PI_2 );
+    rotation_mat.XRotate( (vector[1]) * M_PI_2 );
+    rotation_mat.ZRotate( M_PI_2 + (vector[0]  )  * M_PI_2 );
     
     rotation_mat.GetInverse(inverse);
     rotation_quat.FromMatrix( &inverse[0] );
     rotation_quat.Normalize();
     
     Lookat[0] = rotation_quat[0];
-    Lookat[1] = -1.0f +rotation_quat[1];
+    Lookat[1] = rotation_quat[1];
     Lookat[2] = rotation_quat[2];
     Lookat[3] = rotation_quat[3];
     

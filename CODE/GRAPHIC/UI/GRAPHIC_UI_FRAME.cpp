@@ -31,7 +31,7 @@ GRAPHIC_UI_FRAME::~GRAPHIC_UI_FRAME() {
     
     do {
         
-        delete (*it);
+        CORE_MEMORY_ObjectSafeDeallocation( *it );
         
         it++;
         

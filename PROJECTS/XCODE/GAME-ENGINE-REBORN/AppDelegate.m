@@ -216,22 +216,22 @@
     
     _application->Finalize();
     
-    delete _application;
-    delete _applicationMainScreen;
+    CORE_MEMORY_ObjectSafeDeallocation( _application );
+    CORE_MEMORY_ObjectSafeDeallocation( _applicationMainScreen );
 }
 
 - (void)touchesBeganWithEvent:(NSEvent *)event {
     
-    NSSet *touches = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self.applicationMainScreen->GetGlView()];
+    /*NSSet *touches = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self.applicationMainScreen->GetGlView()];
     
     if (touches.count == 2) {
         self->initialPoint = [self.applicationMainScreen->GetGlView() convertPointFromBase:[event locationInWindow]];
         NSArray *array = [touches allObjects];
-        /*_initialTouches[0] = [[array objectAtIndex:0] retain];
+        _initialTouches[0] = [[array objectAtIndex:0] retain];
         _initialTouches[1] = [[array objectAtIndex:1] retain];
         _currentTouches[0] = [_initialTouches[0] retain];
-        _currentTouches[1] = [_initialTouches[1] retain];*/
-    }
+        _currentTouches[1] = [_initialTouches[1] retain];
+    }*/
 }
 
 - (void)touchesMovedWithEvent:(NSEvent *)event {

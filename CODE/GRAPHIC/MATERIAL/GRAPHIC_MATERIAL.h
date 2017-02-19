@@ -21,14 +21,14 @@ GRAPHIC_MATERIAL();
 
 GRAPHIC_MATERIAL(const char * image_path, const char * effect_name, const GRAPHIC_SHADER_BIND bind);
 
-void Apply( GRAPHIC_RENDERER & renderer );
-void Discard( GRAPHIC_RENDERER & renderer );
+    void Apply( GRAPHIC_RENDERER & renderer );
+    void Discard( GRAPHIC_RENDERER & renderer );
 
-GRAPHIC_TEXTURE_BLOCK * GetTexture() {return Texture; }
-void SetTexture( GRAPHIC_TEXTURE_BLOCK * texture ) {Texture = texture; }
+    GRAPHIC_TEXTURE_BLOCK * GetTexture() {return Texture; }
+    void SetTexture( GRAPHIC_TEXTURE_BLOCK * texture ) {Texture = texture; }
 
-GRAPHIC_SHADER_EFFECT * GetEffect() {return Effect; }
-void SetEffect( GRAPHIC_SHADER_EFFECT * effect ) {Effect = effect; }
+    GRAPHIC_SHADER_EFFECT * GetEffect() {return Effect; }
+    void SetEffect( GRAPHIC_SHADER_EFFECT * effect ) {Effect = effect; }
 
 private:
 

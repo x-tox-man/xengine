@@ -24,10 +24,6 @@ class RESOURCE_IMAGE : public RESOURCE< RESOURCE_IMAGE, RESOURCE_IMAGE_PNG_LOADE
     RESOURCE_IMAGE();
     virtual ~RESOURCE_IMAGE();
 
-    #if !PLATFORM_ANDROID && ! PLATFORM_WINDOWS
-        //CORE_HELPERS_FACTORY_Element( RESOURCE_IMAGE, RESOURCE, RESOURCE_TYPE, RESOURCE_TYPE_ImagePng )
-    #endif
-
     inline GRAPHIC_TEXTURE_INFO & GetImageInfo() { return TextureInfo; }
     inline const GRAPHIC_TEXTURE_INFO & GetImageInfo() const { return TextureInfo; }
     inline void SetImageRawData( void * raw_data) { RawData = raw_data; }

@@ -36,6 +36,10 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::BindAttributes() {
         
         Program.setShaderAttribute(*attribute);
     }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
 }
 
 CORE_HELPERS_IDENTIFIER

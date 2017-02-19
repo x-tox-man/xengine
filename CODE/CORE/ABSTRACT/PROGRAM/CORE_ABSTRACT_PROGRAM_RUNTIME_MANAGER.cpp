@@ -22,7 +22,7 @@ CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::~CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER() 
     
     while ( it != DefaultProgramRuntimeTable.end() ) {
         
-        delete it->second;
+        CORE_MEMORY_ObjectSafeDeallocation( it->second );
         
         it++;
     }
@@ -31,7 +31,7 @@ CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::~CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER() 
     
     while ( it2 != CustomProgramRuntimeTable.end() ) {
         
-        delete it2->second;
+        CORE_MEMORY_ObjectSafeDeallocation( it2->second );
         
         it2++;
     }

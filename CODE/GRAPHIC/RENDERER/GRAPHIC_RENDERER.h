@@ -65,11 +65,14 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline const CORE_MATH_VECTOR & GetScissorRectangle() const { return ScissorRectangle; }
     inline void SetScissorRectangle( const CORE_MATH_VECTOR & scissor_rectangle ) { ScissorRectangle = scissor_rectangle; }
 
+    inline bool IsColorEnabled() { return ColorEnabled; }
+    inline void EnableColor( bool enable ) { ColorEnabled = enable; }
+
 private :
     
     GRAPHIC_CAMERA
         * Camera,
-        *ShadowMapCamera;
+        * ShadowMapCamera;
     CORE_HELPERS_CALLBACK
         * RenderCallback;
     GRAPHIC_SHADER_LIGHT
@@ -84,7 +87,8 @@ private :
         LightCount,
         PassIndex;
     bool
-        ScissorIsEnabled;
+        ScissorIsEnabled,
+        ColorEnabled;
 
 XS_CLASS_END
 

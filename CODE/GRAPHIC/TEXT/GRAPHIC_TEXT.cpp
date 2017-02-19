@@ -29,6 +29,12 @@ void GRAPHIC_TEXT::Initialize( const char * text, GRAPHIC_FONT & font, float siz
     
     Font = &font;
     
+    if( GetMeshTable().size() ) {
+        
+        delete GetMeshTable()[0];
+        GetMeshTable().clear();
+    }
+    
     GRAPHIC_MESH * mesh = new GRAPHIC_MESH();
     
     AddNewMesh( mesh );
@@ -51,6 +57,12 @@ void GRAPHIC_TEXT::Initialize( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Position );
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Normal );
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Texcoord0 );
+    
+    if( GetMeshTable().size() ) {
+        
+        delete GetMeshTable()[0];
+        GetMeshTable().clear();
+    }
     
     GRAPHIC_MESH * mesh = new GRAPHIC_MESH();
     
@@ -132,12 +144,12 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
     text_extent[0] = 0.0f;
     text_extent[1] = 0.0f;
     
-    float font_size = (float) Font->Size * size_factor;
+    float font_size = (float) Font->GetSize() * size_factor;
     
     for ( int i = 0; i < text_size; i++ ) {
         
         char current_char = text[i];
-        GRAPHIC_GLYPH & current_glyph = Font->GlyphTable[ current_char ];
+        GRAPHIC_GLYPH & current_glyph = Font->GetGlyphTable()[ current_char ];
         
         if ( current_char == '\n' || current_char == '\r' ) {
             
@@ -225,4 +237,7 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
     GetMeshTable()[0]->SetVertexCoreBuffer( vertex_buffer );
     
     GetMeshTable()[0]->CreateBuffers();
+    
+    CORE_MEMORY_ALLOCATOR_Free( vertex_data );
+    CORE_MEMORY_ALLOCATOR_Free( index_data );
 }

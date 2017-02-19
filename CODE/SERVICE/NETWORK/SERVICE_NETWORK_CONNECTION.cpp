@@ -33,7 +33,7 @@ void SERVICE_NETWORK_CONNECTION::UDPReceivePacket(uv_udp_t *req, ssize_t nread, 
         fprintf( stderr, "Read error %s\n", uv_err_name( (int)nread ) );
         
         uv_close( ( uv_handle_t * ) req, NULL );
-        free( buf->base );
+        CORE_MEMORY_ALLOCATOR_Free( buf->base );
         
         return;
     }
@@ -139,10 +139,13 @@ void SERVICE_NETWORK_CONNECTION::TCPSend( uv_write_t* req, int status ) {
 
 void SERVICE_NETWORK_CONNECTION::AllocateReceiveBuffer( uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf ) {
     
+    //TODO : Release memory
+    
     if ( buf->len != suggested_size ) {
-        buf->base = (char*) malloc(suggested_size);
+        buf->base = (char*) CORE_MEMORY_ALLOCATOR_Allocate(suggested_size);
         buf->len = suggested_size;
     }
+    
     /*static char Buffer[2048];
     static char * AlternateBuffer;
     static int size = 0;
@@ -158,7 +161,7 @@ void SERVICE_NETWORK_CONNECTION::AllocateReceiveBuffer( uv_handle_t * handle, si
             
             if ( size > 0 ) {
                 
-                free(  AlternateBuffer );
+                CORE_MEMORY_ALLOCATOR_Free(  AlternateBuffer );
             }
             
             AlternateBuffer = (char *) CORE_MEMORY_ALLOCATOR::Allocate( suggested_size );

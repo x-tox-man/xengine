@@ -9,5 +9,8 @@
 #ifndef AUDIO_SOUND_WINDOWS_h
 #define AUDIO_SOUND_WINDOWS_h
 
+void Finalize() {
+
+}
 
 #endif /* AUDIO_SOUND_WINDOWS_h */

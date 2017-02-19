@@ -41,9 +41,7 @@ void GAME::Initialize() {
 
 void GAME::Finalize() {
     
-    delete Scene;
-    
-    Scene = NULL;
+    CORE_MEMORY_ObjectSafeDeallocation( Scene );
 }
 
 void GAME::Update( const float time_step) {

@@ -23,8 +23,23 @@ AUDIO_SOUND::AUDIO_SOUND() :
 
 AUDIO_SOUND::~AUDIO_SOUND() {
     
+    Finalize();
+    
     if ( Data ) {
         
         CORE_MEMORY_ALLOCATOR_Free( Data );
+        Data = NULL;
+    }
+    
+    if ( SoundChunksTable.size() ) {
+        
+        std::vector< AUDIO_SOUND_CHUNK::PTR >::iterator it = SoundChunksTable.begin();
+        
+        while (it != SoundChunksTable.end() ) {
+            
+            CORE_MEMORY_ObjectSafeDeallocation( *it );
+            
+            it++;
+        }
     }
 }

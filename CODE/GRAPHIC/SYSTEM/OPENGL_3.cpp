@@ -100,10 +100,8 @@
 
     void GRAPHIC_SYSTEM::UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER & data ) {
     
-        mesh->SetVertexCoreBuffer( &data );
-        
         GFX_CHECK( glBindBuffer( GL_ARRAY_BUFFER, mesh->GetVertexBuffer()); )
-        GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh->GetVertexCoreBuffer().Getsize(), mesh->GetVertexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
+        GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh->GetVertexCoreBuffer()->Getsize(), mesh->GetVertexCoreBuffer()->getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
     }
 
     void GRAPHIC_SYSTEM::SetPolygonMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE fill_mode ) {
@@ -392,7 +390,7 @@ void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {
 
     GFX_CHECK( glGenBuffers( 1, &vb); )
     GFX_CHECK( glBindBuffer( GL_ARRAY_BUFFER, vb); )
-    GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh.GetVertexCoreBuffer().Getsize(), mesh.GetVertexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
+    GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh.GetVertexCoreBuffer()->Getsize(), mesh.GetVertexCoreBuffer()->getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
     
     GFX_CHECK( glGenVertexArrays(1, &mesh.GetVertexArrays()); )
     GFX_CHECK( glBindVertexArray( mesh.GetVertexArrays()); )
@@ -455,13 +453,17 @@ void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {
         
         vertex_offset += 3;
     }
+    
+#if DEBUG
+    assert( vertex_offset >= 0 );
+#endif
 }
 
 void GRAPHIC_SYSTEM::CreateIndexBuffer(GRAPHIC_MESH &mesh) {
     
     GFX_CHECK( glGenBuffers( 1, &mesh.GetIndexBuffer() ); )
     GFX_CHECK( glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexBuffer()); )
-    GFX_CHECK( glBufferData( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexCoreBuffer().Getsize(), mesh.GetIndexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
+    GFX_CHECK( glBufferData( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexCoreBuffer()->Getsize(), mesh.GetIndexCoreBuffer()->getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
 }
 
 void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
@@ -523,13 +525,17 @@ void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
         vertex_offset += 3;
     }
     
+    #if DEBUG
+        assert( vertex_offset >= 0 );
+    #endif
+    
     //GFX_CHECK( glBindBuffer(GL_ARRAY_BUFFER, 0); )
     
     GFX_CHECK( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexBuffer()) ; )
     
     GFX_CHECK( glDrawElements(
         GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpengl3( mesh.GetPolygonRenderMode() ),      // mode
-        mesh.GetIndexCoreBuffer().Getsize() / 4,    // count
+        mesh.GetIndexCoreBuffer()->Getsize() / 4,    // count
         GL_UNSIGNED_INT,   // type
         (void*)0); )
 }

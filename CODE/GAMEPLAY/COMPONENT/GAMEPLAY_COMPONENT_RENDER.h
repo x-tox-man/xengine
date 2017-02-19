@@ -27,9 +27,20 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Render)
 
+    static void FinalizeStaticMemory() {
+        
+        for ( int i = 0; i < GAMEPLAY_COMPONENT_RENDER::InternalVector.size(); i++ ) {
+            
+            CORE_MEMORY_ALLOCATOR_Free( GAMEPLAY_COMPONENT_RENDER::InternalVector[ i ].MemoryArray );
+        }
+        
+        GAMEPLAY_COMPONENT_RENDER::InternalVector.resize( 0 );
+        GAMEPLAY_COMPONENT_RENDER::InternalVector.clear();
+    }
+
     void Render( GRAPHIC_RENDERER &renderer, GAMEPLAY_COMPONENT_POSITION * component );
 
-    struct INTERNAL_ARRAY{
+    struct INTERNAL_ARRAY_R{
         int LastIndex;
         GAMEPLAY_COMPONENT_RENDER * MemoryArray;
     };
@@ -39,7 +50,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
 private :
 
-    static std::vector< INTERNAL_ARRAY > InternalVector;
+    static std::vector< INTERNAL_ARRAY_R > InternalVector;
 
     GRAPHIC_OBJECT
         * Object;

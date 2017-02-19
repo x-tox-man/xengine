@@ -27,7 +27,8 @@ static float Static_PlanVertexData[] = {
 };
 
 GRAPHIC_OBJECT_SHAPE_PLAN::GRAPHIC_OBJECT_SHAPE_PLAN() :
-    GRAPHIC_OBJECT_SHAPE() {
+    GRAPHIC_OBJECT_SHAPE(),
+    PlanVertexData( NULL ) {
     
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Position );
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Normal );
@@ -36,6 +37,10 @@ GRAPHIC_OBJECT_SHAPE_PLAN::GRAPHIC_OBJECT_SHAPE_PLAN() :
 
 GRAPHIC_OBJECT_SHAPE_PLAN::~GRAPHIC_OBJECT_SHAPE_PLAN() {
 
+    if ( PlanVertexData ) {
+        
+        CORE_MEMORY_ALLOCATOR_Free( PlanVertexData );
+    }
 }
 
 void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
@@ -54,7 +59,7 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
     PlanVertexData = (float * ) CORE_MEMORY_ALLOCATOR_Allocate( sizeof(float) * 40 );
     memcpy(PlanVertexData, Static_PlanVertexData, sizeof(float) * 40 );
     
-    unsigned int * temp_ptr = (unsigned int *) CORE_MEMORY_ALLOCATOR_Allocate( 6 * sizeof( unsigned int ) )
+    unsigned int * temp_ptr = (unsigned int *) CORE_MEMORY_ALLOCATOR_Allocate( 6 * sizeof( unsigned int ) );
     memcpy(temp_ptr, index_data, 6 * sizeof( unsigned int ) );
     
     index_buffer->InitializeWithMemory( 6 * sizeof( unsigned int ), 0, ( void * ) temp_ptr );
@@ -67,6 +72,8 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
     AddNewMesh( mesh );
     
     SetShaderForMesh( mesh, shader );
+    
+    CORE_MEMORY_ALLOCATOR_Free( temp_ptr );
 }
 
 void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
@@ -85,9 +92,9 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
         UpdateVertexData( PlanVertexData, *TextureBlock );
     }
     
-    GetMeshTable()[ 0 ]->GetVertexCoreBuffer().InitializeWithMemory( 4 * 10 * sizeof( float ), 0, ( void * ) PlanVertexData );
+    GetMeshTable()[ 0 ]->GetVertexCoreBuffer()->InitializeWithMemory( 4 * 10 * sizeof( float ), 0, ( void * ) PlanVertexData );
     
-    GRAPHIC_SYSTEM::UpdateVertexBuffer( GetMeshTable()[0], GetMeshTable()[ 0 ]->GetVertexCoreBuffer() );
+    GRAPHIC_SYSTEM::UpdateVertexBuffer( GetMeshTable()[0], *GetMeshTable()[ 0 ]->GetVertexCoreBuffer() );
     
     GetShaderTable()[ 0 ]->Enable();
         
@@ -135,18 +142,20 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
         SecondTextureBlock->Apply( texture_index++, texture_3->AttributeIndex );
     }
     
-    if ( depth->AttributeIndex > 0 ) {
+    if ( TextureBlock && depth->AttributeIndex > 0 ) {
         
         TextureBlock->ApplyDepth( texture_index++, depth->AttributeIndex );
     }
     
     GRAPHIC_SHADER_ATTRIBUTE & color = GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
                                             
-                                            
-    GFX_CHECK( glUniform4fv(
-              color.AttributeIndex,
-              1,
-              (const GLfloat * )&color.AttributeValue.Value.FloatArray4 ); )
+
+    if ( renderer.IsColorEnabled() ) {
+        GFX_CHECK( glUniform4fv(
+                  color.AttributeIndex,
+                  1,
+                  (const GLfloat * )&color.AttributeValue.Value.FloatArray4 ); )
+    }
     
     GRAPHIC_SYSTEM_ApplyMatrix(
         attr->AttributeIndex,

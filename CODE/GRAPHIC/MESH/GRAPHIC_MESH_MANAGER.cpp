@@ -58,6 +58,8 @@ GRAPHIC_OBJECT * GRAPHIC_MESH_MANAGER::LoadObject( const CORE_FILESYSTEM_PATH & 
                 
                 file.Close();
                 
+                CORE_MEMORY_ObjectSafeDeallocation( object );
+                
                 return NULL;
             }
             
@@ -124,7 +126,7 @@ GRAPHIC_OBJECT_ANIMATED * GRAPHIC_MESH_MANAGER::LoadObjectAnimated( const CORE_F
 void GRAPHIC_MESH_MANAGER::Compile( const CORE_FILESYSTEM_PATH & path, const CORE_FILESYSTEM_PATH & destination_path, const int meshIdentifier, int meshTypeToLoad ) {
 
     GRAPHIC_OBJECT
-    * object;
+        * object;
     CORE_DATA_STREAM
         stream;
     CORE_FILESYSTEM_FILE

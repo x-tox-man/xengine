@@ -156,6 +156,9 @@ void AUDIO_OPENAL::PlaySound( AUDIO_SOUND & sound ) {
             }
             
             AUDIO_CHECK( alSourceQueueBuffers( sources, (ALsizei) sound.GetSoundChunksTable().size(), buffers); )
+            
+            CORE_MEMORY_ALLOCATOR_Free( buffers );
+            buffers = NULL;
         }
         else {
             

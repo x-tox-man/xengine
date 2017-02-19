@@ -23,4 +23,5 @@ XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( TestClass )
 
 TestClass2::~TestClass2() {
     
+    CORE_MEMORY_ALLOCATOR_Free( TestCharArray );
 }

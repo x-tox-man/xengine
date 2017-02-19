@@ -23,7 +23,7 @@ public:
         
     }
     
-    ~CORE_FIXED_STATE_MACHINE() {
+    virtual    ~CORE_FIXED_STATE_MACHINE() {
         
     }
 

@@ -9,6 +9,7 @@
 #include "RESOURCE_CACHE.h"
 #include "RESOURCE.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
+#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 
 #if PLATFORM_OSX && DEBUG
 template<>
@@ -36,8 +37,10 @@ GRAPHIC_SHADER_EFFECT * RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
         
         ItemMap[ identifier ]->Watcher.Setup( vsh_path, *callback );
         
+        delete( callback );
         
-        free( vsh_path );
+        
+        CORE_MEMORY_ALLOCATOR_Free( vsh_path );
     }
     
     return ItemMap[ identifier ];

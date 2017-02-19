@@ -25,10 +25,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_2( GRAPHIC_TEXTURE_ATLAS, GRAPHIC_TEXTURE, RESOURCE
 
     XS_DEFINE_SERIALIZABLE
 
-    #if !PLATFORM_ANDROID && !PLATFORM_WINDOWS
-        //CORE_HELPERS_FACTORY_Element( GRAPHIC_TEXTURE_ATLAS, RESOURCE, RESOURCE_TYPE, RESOURCE_TYPE_ImageAtlasPng )
-    #endif
-
     virtual void Initialize( const void * texture_data );
     void Load( const CORE_FILESYSTEM_PATH & atlas_path, const CORE_FILESYSTEM_PATH & image_path );
 

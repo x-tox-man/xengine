@@ -20,6 +20,18 @@ CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( AUDIO_SYSTEM )
 
 AUDIO_SYSTEM::~AUDIO_SYSTEM() {
 
+    if ( Interface ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( Interface );
+    }
+    
+    Bank.Unload();
+    
+    if ( PlayingMusic ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( PlayingMusic );
+    }
+    
 }
 
 void AUDIO_SYSTEM::Initialize() {
@@ -93,6 +105,8 @@ void AUDIO_SYSTEM::Finalize() {
     if ( PlayingMusic ) {
         
         Interface->StopSound( *PlayingMusic );
+
+        PlayingMusic = NULL;
     }
     
     Bank.Unload();

@@ -21,6 +21,8 @@ GRAPHIC_WINDOW_IOS::GRAPHIC_WINDOW_IOS() :
 
 GRAPHIC_WINDOW_IOS::~GRAPHIC_WINDOW_IOS() {
     
+    glView.context = nil;
+    [EAGLContext setCurrentContext:nil];
 }
 
 void GRAPHIC_WINDOW_IOS::Initialize()

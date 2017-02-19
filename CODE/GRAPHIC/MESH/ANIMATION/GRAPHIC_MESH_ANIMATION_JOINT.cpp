@@ -15,7 +15,7 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION_JOINT )
     XS_DEFINE_ClassMember( CORE_DATA_BUFFER, PoseBuffer )
     XS_DEFINE_ClassMember( CORE_SCALAR, WorldMatrix )
     XS_DEFINE_ClassMember( CORE_DATA_BUFFER, TimeTableBuffer )
-    XS_DEFINE_ClassMemberArray( char, JointName, (int) strlen(JointName) )
+    XS_DEFINE_ClassMemberArray( char, JointName, (size_t) 256 )
     XS_DEFINE_ClassMember( CORE_SCALAR, BindShapeMatrix )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
@@ -29,16 +29,12 @@ GRAPHIC_MESH_ANIMATION_JOINT::GRAPHIC_MESH_ANIMATION_JOINT() :
     WorldMatrix(),
     WorldPose(),
     TimeTableBuffer(),
-    JointName( NULL ),
+    JointName(),
     BindShapeMatrix() {
-    
-    JointName = (char*) malloc((int) strlen("NONAME\0") );
-    strcpy(JointName, "NONAME\0");
 }
 
 GRAPHIC_MESH_ANIMATION_JOINT::~GRAPHIC_MESH_ANIMATION_JOINT() {
-
-    free(JointName);
+    
 }
 
 GRAPHIC_MESH_ANIMATION_JOINT::GRAPHIC_MESH_ANIMATION_JOINT( const GRAPHIC_MESH_ANIMATION_JOINT & other ) {

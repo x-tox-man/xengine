@@ -304,8 +304,7 @@ void NETWORK_SERVER::Finalize() {
         
         if ( PlayerTable[i] == NULL ) {
             
-            delete PlayerTable[i];
-            PlayerTable[i] = NULL;
+            CORE_MEMORY_ObjectSafeDeallocation( PlayerTable[i] );
             
             break;
         }
@@ -317,8 +316,7 @@ void NETWORK_SERVER::Finalize() {
         
         if ( command != NULL ) {
             
-            delete command;
-            IncommingMessageQueue[i] = NULL;
+            CORE_MEMORY_ObjectSafeDeallocation( IncommingMessageQueue[i] );
         }
     }
 }
@@ -360,7 +358,7 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
         
         for (int i = 0; i < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; i++ ) {
             
-            if ( PlayerTable[i] !=  NULL && PlayerTable[i]->GetNetworkConnexion()->UVConnection.TCPType.TCPServer == command->Connection->UVConnection.TCPType.TCPServer ) {
+            if ( command && PlayerTable[i] !=  NULL && PlayerTable[i]->GetNetworkConnexion()->UVConnection.TCPType.TCPServer == command->Connection->UVConnection.TCPType.TCPServer ) {
                 
                 // Assign the command to the player
                 
@@ -384,8 +382,7 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
             }
         }
         
-        delete IncommingMessageQueue[i];
-        IncommingMessageQueue[i] = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( IncommingMessageQueue[i] );
     }
 }
 

@@ -7,17 +7,14 @@
 
 #ifndef __CORE__
 #define __CORE__
-#include <map>
-#include <vector>
+
 #include <string>
 #include <array>
+#include <vector>
 
 #include <cstddef>
-
-#include <boost/algorithm/string.hpp>
-#include <boost/function.hpp>
-#include <boost/array.hpp>
-
-using namespace boost;
+#include <mutex>
+#include <list>
+#include <map>
 
 #endif

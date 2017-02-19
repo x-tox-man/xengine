@@ -653,7 +653,7 @@ bool GRAPHIC_SHADER_PROGRAM::ValidateProgram() {
         GFX_CHECK( glGetProgramInfoLog( ShaderProgram, logLength, &logLength, log ); )
         //NSLog(@"Shader validate log:\n%s", log);
         SERVICE_LOGGER_Info("%s\n", log);
-        free( log );
+        CORE_MEMORY_ALLOCATOR_Free( log );
     }
     
     GFX_CHECK( glGetProgramiv( ShaderProgram, GL_VALIDATE_STATUS, &status ); )
@@ -677,7 +677,7 @@ bool GRAPHIC_SHADER_PROGRAM::LinkProgram() {
         
         SERVICE_LOGGER_Error("Program link log:\n%s", log);
         
-        free(log);
+        CORE_MEMORY_ALLOCATOR_Free(log);
     }
 #endif
     

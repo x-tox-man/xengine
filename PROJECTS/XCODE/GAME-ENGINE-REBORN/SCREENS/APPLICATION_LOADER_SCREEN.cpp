@@ -13,23 +13,26 @@
 
 APPLICATION_LOADER_SCREEN::APPLICATION_LOADER_SCREEN() :
     GRAPHIC_UI_FRAME(),
-    Percentage( 0.0f ) {
+    Percentage( 0.0f ),
+    DefaultRenderStyle() {
     
 }
 
 APPLICATION_LOADER_SCREEN::~APPLICATION_LOADER_SCREEN() {
     
+    CORE_MEMORY_ObjectSafeDeallocation( ProgressBar );
+    CORE_MEMORY_ObjectSafeDeallocation( DefaultRenderStyle );
 }
 
 void APPLICATION_LOADER_SCREEN::Initialize() {
     
     Percentage = 0.0f;
     
-    GRAPHIC_UI_RENDER_STYLE * default_render_style = new GRAPHIC_UI_RENDER_STYLE;
+    DefaultRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     
-    default_render_style->SetColor( CORE_MATH_VECTOR( 1.0f, 0.0f, 1.0f, 1.0f ) );
-    default_render_style->SetShape( GLOBAL_RESOURCES::GetInstance().UIPlanObject );
-    default_render_style->SetTextureBlock( &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "Create_Server_button" ) ) );
+    DefaultRenderStyle->SetColor( CORE_MATH_VECTOR( 1.0f, 0.0f, 1.0f, 1.0f ) );
+    DefaultRenderStyle->SetShape( GLOBAL_RESOURCES::GetInstance().UIPlanObject );
+    DefaultRenderStyle->SetTextureBlock( &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "Create_Server_button" ) ) );
     
     ProgressBar = new GRAPHIC_UI_FRAME();
     ProgressBar->GetPlacement().SetAnchor(GRAPHIC_UI_Left);
@@ -42,7 +45,7 @@ void APPLICATION_LOADER_SCREEN::Initialize() {
         object_bar->SetPosition( CORE_MATH_VECTOR(25.0f, -25.0f) );
         object_bar->Initialize();
         object_bar->GetPlacement().SetSize( CORE_MATH_VECTOR(128.0f, 32.0f) );
-        object_bar->SetRenderStyleForState(GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
+        object_bar->SetRenderStyleForState(GRAPHIC_UI_ELEMENT_STATE_Default, DefaultRenderStyle );
         
         ProgressBar->AddObject( object_bar );
     }

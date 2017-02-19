@@ -35,7 +35,7 @@ public:
         
         for (int i = 0; i < PARTICLE_ARRAY_SIZE; i++) {
             
-            ptr->Velocity.Y( ptr->Velocity.Y() - current_g);
+            ptr->Velocity.Z( ptr->Velocity.Z() - current_g);
             ++ptr;
         }
     }

@@ -26,7 +26,7 @@ CORE_FIXED_STATE_EndOfStateEvent()
         char * txt;
         unsigned int size = 0;
 
-        stream.OutputBytes( (char ** ) & txt, size );
+        stream.OutputBytes( (char ** ) & txt, (size_t)  size );
 
         stream.Close();
 
@@ -259,8 +259,7 @@ void NETWORK_CLIENT::ProcessIncommingMessages() {
         
         StateMachine.DispatchEvent(GAME_EVENT(event));
         
-        delete IncommingMessageQueue[i];
-        IncommingMessageQueue[i] = NULL;
+        CORE_MEMORY_ObjectSafeDeallocation( IncommingMessageQueue[i] );
     }
 }
 

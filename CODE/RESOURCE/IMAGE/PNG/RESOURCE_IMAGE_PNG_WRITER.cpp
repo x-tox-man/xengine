@@ -159,8 +159,8 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
     
     png_destroy_write_struct(&png_ptr, &info_ptr);
 
-    free( header );
-	free(ptr);
+    CORE_MEMORY_ALLOCATOR_Free( header );
+	CORE_MEMORY_ALLOCATOR_Free( ptr );
     
     return true;
 }

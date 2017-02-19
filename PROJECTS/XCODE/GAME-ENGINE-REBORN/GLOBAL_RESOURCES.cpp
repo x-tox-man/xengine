@@ -9,10 +9,12 @@
 #include "GLOBAL_RESOURCES.h"
 #include "GRAPHIC_UI_SYSTEM.h"
 #include "CORE_APPLICATION.h"
+#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 
 GLOBAL_RESOURCES::GLOBAL_RESOURCES() :
     ComponentIndex( 0 ),
-    ResourceObject( NULL ) {
+    ResourceObject( NULL ),
+    ChrisObject( NULL ) {
     
 }
 
@@ -56,9 +58,9 @@ void GLOBAL_RESOURCES::Initialize( GAMEPLAY_SCENE * scene ) {
     CellRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 500.0f, 11.0f / 32.0f, ui_textured_shader_effect ) );
     CellRenderStyle->SetDecoratingTextureBlock( UIFrameTextureBlock );
     CellRenderStyle->SetShape(UIPlanObjectColorOnly);
-    CellRenderStyle= new GRAPHIC_UI_RENDER_STYLE;
+
     
-    PageFrameRenderStyle= new GRAPHIC_UI_RENDER_STYLE;
+    PageFrameRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     
     PageFrameRenderStyle->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
     PageFrameRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 600.0f, 11.0f / 300.0f, ui_textured_shader_effect ) );
@@ -75,8 +77,9 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     RESOURCE_IMAGE_PNG_LOADER loader;
     
     SERVICE_LOGGER_Error( "Trying to load resource 1" );
+    ChrisObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "Chris.geom-chris-base-skin1" , "abx", "MODELS" ));
+    
     NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ));
-    //NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "Chris.geom-chris-base-skin1" , "abx", "MODELS" ));
     
     Moulin = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath( "MoulinNoAnim" , "smx", "MODELS" ), 1337, GRAPHIC_MESH_TYPE_ModelResource);
     
@@ -102,6 +105,11 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     for ( int par = 0; par < NakedGirlObject->GetMeshTable().size(); par++  ) {
         
         NakedGirlObject->GetMeshTable()[par]->CreateBuffers();
+    }
+    
+    for ( int par = 0; par < ChrisObject->GetMeshTable().size(); par++  ) {
+        
+        ChrisObject->GetMeshTable()[par]->CreateBuffers();
     }
     
     /*for ( int par = 0; par < AstroBoy->GetMeshTable().size(); par++  ) {
@@ -158,6 +166,9 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     NakedGirlObject->SetShaderForMesh( NULL, &effect->GetProgram() );
     NakedGirlObject->SetShaderForMesh( NULL, &effect_shadow_map->GetProgram() );
     
+    ChrisObject->SetShaderForMesh( NULL, &effect->GetProgram() );
+    ChrisObject->SetShaderForMesh( NULL, &effect_shadow_map->GetProgram() );
+    
     GRAPHIC_SHADER_EFFECT::PTR plane_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "ShaderColor" , "vsh", "OPENGL2" ) );
     GRAPHIC_SHADER_EFFECT::PTR line_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", "OPENGL2" ) );
     
@@ -170,22 +181,15 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     SphereObject = new GRAPHIC_OBJECT_SHAPE_SPHERE;
     Line = new GRAPHIC_OBJECT_SHAPE_LINE;
     
-    for ( int par = 0; par < NakedGirlObject->GetMeshTable().size(); par++  ) {
-        
-        NakedGirlObject->GetMeshTable()[ par ]->CreateBuffers();
-    }
-    
-    /*for ( int par = 0; par < AstroBoy->GetMeshTable().size(); par++  ) {
-     
-     AstroBoy->GetMeshTable()[par]->CreateBuffers();
-     }*/
-    
     RESOURCE_IMAGE * height_map = (RESOURCE_IMAGE*) loader.Load( CORE_FILESYSTEM_PATH::FindFilePath("heightmap", "png", "MAP" ) );
     
     float * heights = (float * ) height_map->GetImageRawData();
+    height_map->SetImageRawData( NULL );
     
     HeightMapObject = new GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP( heights, height_map->GetImageInfo().Width, height_map->GetImageInfo().Height, 2.0f );
     SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 56" );
+    
+    delete height_map;
     
     plane_shader_effect->Initialize( PlanObject->GetShaderBindParameter() );
     SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 57" );
@@ -321,18 +325,22 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     SpotLightTwo->InitializeSpot(diffuse_2, point2_position, direction_2, 0.1f, 0.2f, 0.9f, 0.1f, 1.0f, 1.0f );
     
     CreateGround( scene );
+    CreateChris( scene );
     CreateNakedGirl( scene );
     CreateMoulin( scene );
+    
 }
 
 void GLOBAL_RESOURCES::Finalize() {
- 
-    UIPlanObject->Release();
     
     UITextureAtlas.Finalize();
     
     CORE_MEMORY_ObjectSafeDeallocation( UIPlanObject );
+    CORE_MEMORY_ObjectSafeDeallocation( FrameRenderStyle );
+    CORE_MEMORY_ObjectSafeDeallocation( CellRenderStyle );
+    CORE_MEMORY_ObjectSafeDeallocation( PageFrameRenderStyle );
     
+    NakedGirlObject->Release();
     CubeObject->Release();
     HeightMapObject->Release();
     SphereObject->Release();
@@ -340,10 +348,8 @@ void GLOBAL_RESOURCES::Finalize() {
     PlanObject->Release();
     EffectPlan->Release();
     
-    if ( ResourceObject ) {
-        
-        ResourceObject->Release();
-    }
+    RESOURCE_IMAGE::FlushCache();
+    GRAPHIC_SHADER_EFFECT::FlushCache();
     
     GRAPHIC_SYSTEM::ReleaseTexture( NakedGirlObject->GetMeshTable()[0]->GetTexture() );
     GRAPHIC_SYSTEM::ReleaseTexture( NakedGirlObject->GetMeshTable()[1]->GetTexture() );
@@ -359,7 +365,6 @@ void GLOBAL_RESOURCES::Finalize() {
     GRAPHIC_SYSTEM::ReleaseTexture( NakedGirlObject->GetMeshTable()[4]->GetNormalTexture() );
     GRAPHIC_SYSTEM::ReleaseTexture( NakedGirlObject->GetMeshTable()[5]->GetNormalTexture() );
     
-    CORE_MEMORY_ObjectSafeDeallocation( ResourceObject );
     CORE_MEMORY_ObjectSafeDeallocation( NakedGirlObject );
     CORE_MEMORY_ObjectSafeDeallocation( PlanObject);
     CORE_MEMORY_ObjectSafeDeallocation( EffectPlan );
@@ -374,9 +379,6 @@ void GLOBAL_RESOURCES::Finalize() {
     CORE_MEMORY_ObjectSafeDeallocation( PointLightTwo);
     CORE_MEMORY_ObjectSafeDeallocation( SpotLightOne );
     CORE_MEMORY_ObjectSafeDeallocation( SpotLightTwo );
-    
-    CORE_MEMORY_ObjectSafeDeallocation( TextureBlock );
-    CORE_MEMORY_ObjectSafeDeallocation( AlternateTextureBlock );
 }
 
 GRAPHIC_TEXTURE * GLOBAL_RESOURCES::CreateTextureFromImagePath(const char * image_path) {
@@ -452,6 +454,40 @@ void GLOBAL_RESOURCES::CreateNakedGirl(GAMEPLAY_SCENE * scene) {
     ( ( GAMEPLAY_COMPONENT_PHYSICS *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics))->ConfigureShapeSphere( position );
     
     ( ( GAMEPLAY_COMPONENT_ANIMATION *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Animation))->SetAnimation( ((GRAPHIC_OBJECT_ANIMATED*) NakedGirlObject)->GetAnimationController() );
+    
+    bullet_system->AddEntity( component_entity );
+    animation_system->AddEntity( component_entity );
+    
+    component_entity->SetPosition( position );
+}
+
+void GLOBAL_RESOURCES::CreateChris(GAMEPLAY_SCENE * scene) {
+    
+    component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
+    component_entity->SetIndex( ComponentIndex++ );
+    
+    //should not be done like this
+    
+    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Position ), GAMEPLAY_COMPONENT_TYPE_Position );
+    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Render ), GAMEPLAY_COMPONENT_TYPE_Render );
+    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Physics ), GAMEPLAY_COMPONENT_TYPE_Physics );
+    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Animation ), GAMEPLAY_COMPONENT_TYPE_Animation );
+    
+    ( ( GAMEPLAY_COMPONENT_RENDER *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetObject( ChrisObject );
+    
+    GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) scene->GetRenderableSystemTable()[0];
+    
+    render_system->AddEntity( component_entity );
+    render_system->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
+    
+    GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * bullet_system = ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) scene->GetUpdatableSystemTable()[3];
+    GAMEPLAY_COMPONENT_SYSTEM_ANIMATING * animation_system = ( GAMEPLAY_COMPONENT_SYSTEM_ANIMATING * ) scene->GetUpdatableSystemTable()[1];
+    
+    CORE_MATH_VECTOR position ( 0.0f, 10.0f, 0.0f, 1.0f );
+    
+    ( ( GAMEPLAY_COMPONENT_PHYSICS *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics))->ConfigureShapeSphere( position );
+    
+    ( ( GAMEPLAY_COMPONENT_ANIMATION *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Animation))->SetAnimation( ((GRAPHIC_OBJECT_ANIMATED*) ChrisObject)->GetAnimationController() );
     
     bullet_system->AddEntity( component_entity );
     animation_system->AddEntity( component_entity );
@@ -552,7 +588,7 @@ GRAPHIC_OBJECT_ANIMATED * GLOBAL_RESOURCES::CreateAnimatedObject( const CORE_FIL
         
         animated_object->GetAnimationController()->GetAnimation( i )->Initialize( animated_object->GetJointTable(), 0);
         
-        CORE_MEMORY_ALLOCATOR::Free( temp_path );
+        CORE_MEMORY_ALLOCATOR_Free( temp_path );
     }
     
     animated_object->GetAnimationController()->Initialize();

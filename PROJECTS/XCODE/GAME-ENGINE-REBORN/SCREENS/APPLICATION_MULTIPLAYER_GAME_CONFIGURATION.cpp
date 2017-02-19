@@ -25,6 +25,19 @@ APPLICATION_MULTIPLAYER_GAME_CONFIGURATION::APPLICATION_MULTIPLAYER_GAME_CONFIGU
 
 APPLICATION_MULTIPLAYER_GAME_CONFIGURATION::~APPLICATION_MULTIPLAYER_GAME_CONFIGURATION() {
     
+    CORE_MEMORY_ObjectSafeDeallocation( PlayersListAdapter );
+    CORE_MEMORY_ObjectSafeDeallocation( Presenter );
+    
+    std::vector< NETWORK_PLAYER * >::iterator it = PlayersList.begin();
+    
+    while ( it != PlayersList.end() ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( *it );
+        
+        it++;
+    }
+    
+    PlayersList.clear();
 }
 
 void APPLICATION_MULTIPLAYER_GAME_CONFIGURATION::Initialize() {

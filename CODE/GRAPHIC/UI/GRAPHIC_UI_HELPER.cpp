@@ -108,7 +108,7 @@ GRAPHIC_UI_RENDER_STYLE * GRAPHIC_UI_HELPER::CreateTextRenderStyle( GRAPHIC_FONT
     GRAPHIC_UI_RENDER_STYLE * render_style = new GRAPHIC_UI_RENDER_STYLE;
     GRAPHIC_TEXTURE_BLOCK * text_texture_block = new GRAPHIC_TEXTURE_BLOCK;
     
-    text_texture_block->SetTexture( DefaultFont->Texture );
+    text_texture_block->SetTexture( DefaultFont->GetTexture() );
     
     render_style->SetColor( CORE_MATH_VECTOR( 1.0f, 0.0f, 0.0f, 1.0f ) );
     render_style->SetShape( text_shape );

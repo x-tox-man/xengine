@@ -19,23 +19,31 @@ typedef std::map< char, GRAPHIC_GLYPH > GLYPH_TABLE;
 
 XS_CLASS_BEGIN( GRAPHIC_FONT )
 
-XS_DEFINE_SERIALIZABLE
+    XS_DEFINE_SERIALIZABLE
 
-GRAPHIC_FONT();
-~GRAPHIC_FONT();
+    GRAPHIC_FONT();
+    ~GRAPHIC_FONT();
 
-void Initialize();
-void Load( const CORE_FILESYSTEM_PATH & path, const CORE_FILESYSTEM_PATH & image_path );
+    inline int GetSize() const { return Size; }
+    inline void SetSize(int size) { Size = size; }
+    inline GLYPH_TABLE & GetGlyphTable() { return GlyphTable; }
+    inline void SetTexture( GRAPHIC_TEXTURE * texture ) { Texture = texture; }
+    inline GRAPHIC_TEXTURE * GetTexture() { return Texture; }
+    inline void SetName( const char * name ) { strcpy(Name, name ); }
 
-char
-    * Name;
-int
-    Size;
-GLYPH_TABLE
-    GlyphTable;
-GRAPHIC_TEXTURE
-    * Texture;
+    void Initialize();
+    void Load( const CORE_FILESYSTEM_PATH & path, const CORE_FILESYSTEM_PATH & image_path );
 
+private :
+
+    int
+        Size;
+    GLYPH_TABLE
+        GlyphTable;
+    char
+        Name[256];
+    GRAPHIC_TEXTURE
+        * Texture;
 
 XS_CLASS_END
 

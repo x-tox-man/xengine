@@ -15,6 +15,16 @@ APPLICATION_SCREENS_NAVIGATION::APPLICATION_SCREENS_NAVIGATION() {
 
 APPLICATION_SCREENS_NAVIGATION::~APPLICATION_SCREENS_NAVIGATION() {
     
+    std::map<std::string, NAVIGATION_ITEM * >::iterator it = NavigationItemsTable.begin();
+    
+    while (it != NavigationItemsTable.end() ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( it->second );
+        
+        it++;
+    }
+    
+    NavigationItemsTable.clear();
 }
 
 bool APPLICATION_SCREENS_NAVIGATION::NavigateBackAsync() {

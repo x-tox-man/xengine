@@ -103,7 +103,7 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer ) {
             //Hardcoded from shader
             int max_size = 4 * 16 *128;
             
-            float * float_matrix_array_copy = (float*) malloc( max_size );
+            float * float_matrix_array_copy = (float*) CORE_MEMORY_ALLOCATOR_Allocate( max_size );
             
             memcpy(float_matrix_array_copy, float_matrix_array, size);
             
@@ -121,7 +121,7 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer ) {
             GRAPHIC_SYSTEM_ApplyMatrix(attrSkinningMatrixTable->AttributeIndex, 128, 0, float_matrix_array_copy)
             GRAPHIC_SYSTEM_ApplyMatrix(attrBindShapeMatrix->AttributeIndex, 1, 0, AnimationController->GetAnimation( i )->GetBindShapeMatrix().Value.FloatMatrix4x4)
             
-            free(float_matrix_array_copy);
+            CORE_MEMORY_ALLOCATOR_Free(float_matrix_array_copy);
         }
         
         MeshTable[ i ]->ApplyBuffers();

@@ -19,10 +19,6 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
 
 GAMEPLAY_COMPONENT_RENDER::~GAMEPLAY_COMPONENT_RENDER() {
 
-    for ( int i = 0; i < InternalVector.size(); i++ ) {
-        
-        CORE_MEMORY_ALLOCATOR_Free( InternalVector[ i ].MemoryArray );
-    }
 }
 
 void * GAMEPLAY_COMPONENT_RENDER::operator new( size_t size ) {
@@ -31,12 +27,16 @@ void * GAMEPLAY_COMPONENT_RENDER::operator new( size_t size ) {
     
     if ( index == 0 ) {
         
-        InternalVector.resize(16);
-        InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_RENDER * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_RENDER ) );
-        InternalVector[0].LastIndex = -1;
+        if ( GAMEPLAY_COMPONENT_RENDER::InternalVector.size() != 16 ) {
+            
+            GAMEPLAY_COMPONENT_RENDER::InternalVector.resize(16);
+        }
+        
+        GAMEPLAY_COMPONENT_RENDER::InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_RENDER * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_RENDER ) );
+        GAMEPLAY_COMPONENT_RENDER::InternalVector[0].LastIndex = -1;
     }
     
-    return ( void *) &( InternalVector[ 0 ].MemoryArray[++InternalVector[ 0 ].LastIndex] );
+    return ( void *) &( GAMEPLAY_COMPONENT_RENDER::InternalVector[ 0 ].MemoryArray[++GAMEPLAY_COMPONENT_RENDER::InternalVector[ 0 ].LastIndex] );
 }
 
 void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_COMPONENT_POSITION * component ) {
@@ -47,4 +47,4 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     Object->Render( renderer );
 }
 
-std::vector< GAMEPLAY_COMPONENT_RENDER::INTERNAL_ARRAY > GAMEPLAY_COMPONENT_RENDER::InternalVector;
+std::vector< GAMEPLAY_COMPONENT_RENDER::INTERNAL_ARRAY_R > GAMEPLAY_COMPONENT_RENDER::InternalVector = std::vector< GAMEPLAY_COMPONENT_RENDER::INTERNAL_ARRAY_R >();

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A81CEA798D44E788F2AA8FA5FDD00D0321ACCE9D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "33423835B021EF0D85C3E0D211CDA5FCB7775AEB" : 9223372036854775807,
+    "A81CEA798D44E788F2AA8FA5FDD00D0321ACCE9D" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "EFE989D4-F1B1-4810-9642-37BE4E536DD2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "33423835B021EF0D85C3E0D211CDA5FCB7775AEB" : "game-engine-clean\/LIBRARY\/COMMON\/JSON\/",
+    "A81CEA798D44E788F2AA8FA5FDD00D0321ACCE9D" : "game-engine-clean\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "nlohmann_json",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "LIBRARY\/BUILDERS\/JSON\/nlohmann_json.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nlohmann\/json.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "33423835B021EF0D85C3E0D211CDA5FCB7775AEB"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:x-tox-man\/xengine.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A81CEA798D44E788F2AA8FA5FDD00D0321ACCE9D"
+    }
+  ]
+}

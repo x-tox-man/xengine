@@ -25,8 +25,8 @@ XS_CLASS_BEGIN( TestClass2 )
         TestFloat( 1.1234f ),
         TestVector() {
             
-        TestCharArray = (char *) malloc( 8 );
-        strcpy( TestCharArray, "coucoutepoiuy\0" );
+        TestCharArray = (char *) CORE_MEMORY_ALLOCATOR_Allocate( 14 );
+        strcpy( TestCharArray, "coucoutepoiuy" );
     }
 
     ~TestClass2();

@@ -117,7 +117,16 @@ yieldAudioFile:(AudioFileID * ) audio_file {
         outFormat->mBytesPerFrame	= 1;
         
         err = ExtAudioFileSetProperty(outExtAudioFile, kExtAudioFileProperty_ClientDataFormat, thePropertySize, outFormat);
+        
+#if DEBUG
+        assert( err == 0 );
+#endif
+        
         err = ExtAudioFileSetProperty(outExtAudioFile, kExtAudioFileProperty_ClientChannelLayout, sizeof(AudioChannelLayout), outChannelLayout);
+        
+#if DEBUG
+        assert( err == 0 );
+#endif
     }
     
     *frameSize = 1;
@@ -209,7 +218,16 @@ yieldAudioFile:(AudioFileID * ) audio_file {
     
     chunk->Size = size_to_read;
     
-    chunk->Data = malloc( size_to_read );
+    if ( chunk->Data ) {
+        
+        CORE_MEMORY_ALLOCATOR_Free( chunk->Data );
+        chunk->Data = NULL;
+    }
+    
+    if ( size_to_read ) {
+        
+        chunk->Data = CORE_MEMORY_ALLOCATOR_Allocate( size_to_read );
+    }
     
     #if DEBUG
         assert( chunk->Data != NULL );
@@ -238,7 +256,7 @@ yieldAudioFile:(AudioFileID * ) audio_file {
     #if __AUDIO_OPENAL__
         OSStatus err = ExtAudioFileDispose( *file );
         
-        delete file;
+        CORE_MEMORY_ObjectSafeDeallocation( file );
         
     #if DEBUG
         assert( err == 0 );
@@ -246,7 +264,7 @@ yieldAudioFile:(AudioFileID * ) audio_file {
         
         err = AudioFileClose( *audio_file );
         
-        delete audio_file;
+        CORE_MEMORY_ObjectSafeDeallocation( audio_file );
         
         #if DEBUG
             assert( err == 0 );

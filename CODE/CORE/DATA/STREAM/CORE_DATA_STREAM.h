@@ -143,6 +143,32 @@ void OutputBytes(__TYPE__ ** pointer, int size ) {
     Offset  += length;
 }
 
+//Stupid fix with size_t
+template < typename __TYPE__ >
+void InputBytes(__TYPE__ * pointer, size_t size ) {
+    
+    unsigned int length = size * sizeof( __TYPE__ );
+    
+    if ( AllocatedBytes - Offset < length + sizeof(unsigned int) ) {
+        
+        AllocatedBytes += AllocatedBytes + length + sizeof(unsigned int);
+        
+        MemoryBuffer = realloc( MemoryBuffer, AllocatedBytes );
+        
+#if DEBUG
+        if ( MemoryBuffer == NULL ) {
+            
+            CORE_RUNTIME_Abort();
+        }
+#endif
+    }
+    
+    memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(unsigned int) );
+    Offset  += sizeof(unsigned int);
+    memcpy( ((( char* )MemoryBuffer) + Offset), (void*)pointer, length );
+    Offset += length;
+}
+
 template < typename __TYPE__ >
 void InputBytes(__TYPE__ * & pointer, int size ) {
     
@@ -177,6 +203,20 @@ void OutputBytes(__TYPE__ * & pointer, int size ) {
     Offset  += sizeof(unsigned int);
     
     pointer = ( __TYPE__ *) CORE_MEMORY_ALLOCATOR::Allocate( length * sizeof( __TYPE__ ) );
+    
+    memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), length );
+    
+    Offset  += length;
+}
+
+//Stupid fix with size_t
+template < typename __TYPE__ >
+void OutputBytes(__TYPE__ * pointer, size_t size ) {
+    
+    int length;
+    
+    memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
+    Offset  += sizeof(unsigned int);
     
     memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), length );
     

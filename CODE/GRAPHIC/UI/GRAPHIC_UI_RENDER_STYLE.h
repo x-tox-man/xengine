@@ -34,7 +34,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_RENDER_STYLE )
 
     GRAPHIC_OBJECT * GetShape() { return Shape; }
     const CORE_MATH_VECTOR & GetColor() { return Color; }
-    GRAPHIC_TEXTURE_BLOCK * GetTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { return TextureBlock; }
+    GRAPHIC_TEXTURE_BLOCK * GetTextureBlock() { return TextureBlock; }
     const GRAPHIC_TEXTURE_BLOCK * GetTextureBlock() const { return TextureBlock; }
 
 private :

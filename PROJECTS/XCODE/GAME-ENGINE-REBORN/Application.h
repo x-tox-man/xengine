@@ -140,12 +140,6 @@ private :
 
     CORE_MATH_QUATERNION
         Lookat;
-    GRAPHIC_CAMERA
-        * Camera,
-        * LightCamera;
-    GRAPHIC_CAMERA_ORTHOGONAL
-        * InterfaceCamera,
-        * RenderTargetCamera;
     CORE_FILESYSTEM
         DefaultFileystem;
     CORE_MATH_VECTOR
@@ -156,8 +150,6 @@ private :
         BoneLevel;
     ScriptEntity
         TestEntity;
-    CORE_ABSTRACT_PROGRAM_FACTORY
-        * LuaScript;
     CORE_FIXED_STATE_MACHINE< X_BASE_STATE, MyTestApp >
         StateMachine;
     NETWORK_SERVER
@@ -170,6 +162,14 @@ private :
         ItIsMultiplayer;
     GAME
          * Game;
+    GRAPHIC_CAMERA
+        * Camera,
+        * LightCamera;
+    GRAPHIC_CAMERA_ORTHOGONAL
+        * InterfaceCamera,
+        * RenderTargetCamera;
+    CORE_ABSTRACT_PROGRAM_FACTORY
+        * LuaScript;
 
 XS_CLASS_END
 

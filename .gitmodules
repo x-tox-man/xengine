@@ -19,3 +19,6 @@
 [submodule "LIBRARY/COMMON/BULLET"]
 	path = LIBRARY/COMMON/BULLET
 	url = https://github.com/bulletphysics/bullet3.git
+[submodule "LIBRARY/COMMON/JSON"]
+	path = LIBRARY/COMMON/JSON
+	url = https://github.com/nlohmann/json.git

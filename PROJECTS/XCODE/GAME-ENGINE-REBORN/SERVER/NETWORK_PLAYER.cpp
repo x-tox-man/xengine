@@ -56,8 +56,7 @@ NETWORK_PLAYER::~NETWORK_PLAYER() {
         
         if ( OutGoingMessageQueue[i] != NULL ) {
             
-            delete OutGoingMessageQueue[i];
-            OutGoingMessageQueue[i] = NULL;
+            CORE_MEMORY_ObjectSafeDeallocation( OutGoingMessageQueue[i] );
         }
     }
 }
@@ -79,8 +78,7 @@ CORE_DATA_STREAM & NETWORK_PLAYER::PrepareMessage() {
             command->Address[3] = 12;
             command->Serialize( OutGoingMessage );
             
-            delete OutGoingMessageQueue[i];
-            OutGoingMessageQueue[i] = NULL;
+            CORE_MEMORY_ObjectSafeDeallocation( OutGoingMessageQueue[i] );
         }
     }
     

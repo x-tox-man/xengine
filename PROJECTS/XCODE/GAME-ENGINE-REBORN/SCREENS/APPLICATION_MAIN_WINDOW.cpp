@@ -29,13 +29,17 @@ APPLICATION_MAIN_WINDOW::APPLICATION_MAIN_WINDOW() :
     Shape( NULL ),
     TextElement( NULL ),
     TextElement2( NULL ),
-    Presenter( NULL ) {
+    Presenter( NULL ),
+    DefaultRenderStyle( NULL ),
+    HooveredRenderStyle( NULL ) {
     
 }
 
 APPLICATION_MAIN_WINDOW::~APPLICATION_MAIN_WINDOW() {
     
-    
+    CORE_MEMORY_ObjectSafeDeallocation( Presenter );
+    CORE_MEMORY_ObjectSafeDeallocation( DefaultRenderStyle );
+    CORE_MEMORY_ObjectSafeDeallocation( HooveredRenderStyle );
 }
 
 void APPLICATION_MAIN_WINDOW::Initialize() {
@@ -60,24 +64,24 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     Shape = GLOBAL_RESOURCES::GetInstance().UIPlanObject;
     
     GRAPHIC_UI_ELEMENT * start_lobby_button = new GRAPHIC_UI_ELEMENT( IdStartLobby );
-    GRAPHIC_UI_RENDER_STYLE * default_render_style = new GRAPHIC_UI_RENDER_STYLE;
-    GRAPHIC_UI_RENDER_STYLE * hoovered_render_style = new GRAPHIC_UI_RENDER_STYLE;
+    DefaultRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
+    HooveredRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     
-    default_render_style->SetColor( CORE_MATH_VECTOR( 1.0f, 0.0f, 1.0f, 1.0f ) );
-    default_render_style->SetShape( Shape );
-    default_render_style->SetTextureBlock( &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "Create_Server_button" ) ) );
+    DefaultRenderStyle->SetColor( CORE_MATH_VECTOR( 1.0f, 0.0f, 1.0f, 1.0f ) );
+    DefaultRenderStyle->SetShape( Shape );
+    DefaultRenderStyle->SetTextureBlock( &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "Create_Server_button" ) ) );
     
     //Uncomment for debugging  Shadow texture :
     //GRAPHIC_TEXTURE_BLOCK * tb = new GRAPHIC_TEXTURE_BLOCK;
     //tb->SetTexture( ((MyTestApp *)&CORE_APPLICATION::GetApplicationInstance())->GetShadowMapRenderTarget().TargetTexture );
     //default_render_style->SetTextureBlock( tb );
     
-    hoovered_render_style->SetColor( CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
-    hoovered_render_style->SetShape( Shape );
-    hoovered_render_style->SetTextureBlock( &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "fireButton" ) ) );
+    HooveredRenderStyle->SetColor( CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    HooveredRenderStyle->SetShape( Shape );
+    HooveredRenderStyle->SetTextureBlock( &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "fireButton" ) ) );
     
-    start_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
-    start_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Hovered, hoovered_render_style );
+    start_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, DefaultRenderStyle );
+    start_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Hovered, HooveredRenderStyle );
     
     start_lobby_button->GetPlacement().Initialize( &GetPlacement(),
                                                   CORE_MATH_VECTOR( 200.0f, -64.0f, 0.0f, 1.0f ),
@@ -88,7 +92,7 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     
     GRAPHIC_UI_ELEMENT * start_server_button = new GRAPHIC_UI_ELEMENT(IdStartServer);
     
-    start_server_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
+    start_server_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, DefaultRenderStyle );
     start_server_button->GetPlacement().Initialize( &GetPlacement(),
                               CORE_MATH_VECTOR( -128.0f, 0.0f, 0.0f, 1.0f ),
                               CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
@@ -97,7 +101,7 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     
     GRAPHIC_UI_ELEMENT * start_client_button = new GRAPHIC_UI_ELEMENT(IdStartClient);
     
-    start_client_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
+    start_client_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, DefaultRenderStyle );
     start_client_button->GetPlacement().Initialize( &GetPlacement(),
                                                    CORE_MATH_VECTOR( 128.0f, 0.0f, 0.0f, 1.0f ),
                                                    CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
@@ -106,7 +110,7 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     
     GRAPHIC_UI_ELEMENT * stop_lobby_button = new GRAPHIC_UI_ELEMENT(IdStopLobby);
     
-    stop_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
+    stop_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, DefaultRenderStyle );
     stop_lobby_button->GetPlacement().Initialize( &GetPlacement(),
                                                    CORE_MATH_VECTOR::Zero,
                                                    CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
@@ -115,7 +119,7 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     
     GRAPHIC_UI_ELEMENT * send_command_button = new GRAPHIC_UI_ELEMENT( IdSendCommand );
     
-    send_command_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
+    send_command_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, DefaultRenderStyle );
     send_command_button->GetPlacement().Initialize( &GetPlacement(),
                                                  CORE_MATH_VECTOR(-128.0f,0.0f,0.0f,1.0f),
                                                  CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
@@ -130,7 +134,6 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     TextElement->SetColor(CORE_COLOR_Red);
     TextElement->SetText( "Server" );
     TextElement->SetSize( 1.0f );
-    TextElement->Initialize();
     
     
     TextElement2 = new GRAPHIC_UI_TEXT;
@@ -138,7 +141,6 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     TextElement2->SetColor(CORE_COLOR_Red);
     TextElement2->SetText( "Client" );
     TextElement2->SetSize( 1.0f );
-    TextElement2->Initialize();
     
     TextElement->GetPlacement().Initialize( &GetPlacement(),
                                             CORE_MATH_VECTOR( -64.0f, 16.0f, 0.0f, 1.0f ),
@@ -151,7 +153,7 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     
     auto test_button = new GRAPHIC_UI_ELEMENT();
     
-    test_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, default_render_style );
+    test_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, DefaultRenderStyle );
     test_button->GetPlacement().Initialize( &GetPlacement(),
                                                  CORE_MATH_VECTOR( 0.0f, -256.0f, 0.0f, 1.0f ),
                                                  CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),

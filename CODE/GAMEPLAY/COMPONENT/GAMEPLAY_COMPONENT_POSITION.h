@@ -52,6 +52,16 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
 
     static std::vector< INTERNAL_ARRAY > InternalVector;
 
+static void FinalizeStaticMemory() {
+    
+    for ( int i = 0; i < InternalVector.size(); i++ ) {
+        
+        CORE_MEMORY_ALLOCATOR_Free( InternalVector[ i ].MemoryArray );
+    }
+    
+    InternalVector.resize( 0 );
+}
+
 private :
 
     CORE_MATH_VECTOR

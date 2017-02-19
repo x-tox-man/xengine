@@ -57,6 +57,7 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
 
     void CreateGround(GAMEPLAY_SCENE * scene);
     void CreateNakedGirl(GAMEPLAY_SCENE * scene);
+    void CreateChris(GAMEPLAY_SCENE * scene);
     void CreateMoulin(GAMEPLAY_SCENE * scene);
 
     void InitializeFromApplicationRefactor( GAMEPLAY_SCENE * scene );
@@ -74,9 +75,9 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
         UITextureAtlas;
     GRAPHIC_OBJECT_SHAPE_PLAN
         * UIPlanObject,
-        * UIPlanObjectColorOnly;
-    GRAPHIC_TEXTURE_BLOCK
-        * UIFrameTextureBlock;
+        * UIPlanObjectColorOnly,
+        * PlanObject,
+        * EffectPlan;
     GRAPHIC_UI_RENDER_STYLE
         * FrameRenderStyle,
         * CellRenderStyle,
@@ -84,13 +85,10 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
         * ButtonRenderStyle;
     GRAPHIC_OBJECT
         * NakedGirlObject,
+        * ChrisObject,
         * AstroBoy,
         * Moulin,
         * ResourceObject;
-
-    GRAPHIC_OBJECT_SHAPE_PLAN
-        * PlanObject,
-        * EffectPlan;
     GAMEPLAY_COMPONENT_ENTITY
         * component_entity,
         *component_entity2;
@@ -130,6 +128,7 @@ XS_CLASS_BEGIN( GLOBAL_RESOURCES )
         * SpotLightOne,
         * SpotLightTwo;
     GRAPHIC_TEXTURE_BLOCK
+        * UIFrameTextureBlock,
         * TextureBlock,
         * AlternateTextureBlock;
     int

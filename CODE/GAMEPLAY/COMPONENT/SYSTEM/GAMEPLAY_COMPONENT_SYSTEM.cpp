@@ -17,6 +17,12 @@ GAMEPLAY_COMPONENT_SYSTEM::GAMEPLAY_COMPONENT_SYSTEM() :
 
 GAMEPLAY_COMPONENT_SYSTEM::~GAMEPLAY_COMPONENT_SYSTEM() {
 
+    std::vector< GAMEPLAY_COMPONENT_ENTITY * >::iterator it = EntitiesVector.begin();
+    
+    while (it != EntitiesVector.end() ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( *it );
+    }
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM::Initialize() {

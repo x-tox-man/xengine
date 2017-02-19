@@ -21,6 +21,7 @@ XS_CLASS_BEGIN_WITH_COPY( AUDIO_BANK_SOUND )
 
     AUDIO_SOUND * Sound;
     CORE_FILESYSTEM_PATH SoundPath;
+
     const char * SoundFileType;
     const AUDIO_BANK_SOUND_LOAD_OPTION * Option;
 
