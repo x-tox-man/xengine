@@ -63,11 +63,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/MODELS/cyl.dae"
+            argument = "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/MODELS/chris.dae"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/MODELS/"
+            argument = "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/MODELS"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

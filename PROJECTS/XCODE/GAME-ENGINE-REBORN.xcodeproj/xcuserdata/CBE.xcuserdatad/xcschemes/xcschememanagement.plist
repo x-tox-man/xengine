@@ -4,10 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AssetCompiler.xcscheme</key>
+		<key>ASSET_EDITOR.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>4</integer>
+		</dict>
+		<key>AssetCompiler.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>GAME-ENGINE-REBORN.xcscheme_^#shared#^_</key>
 		<dict>
@@ -32,6 +39,26 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>321911AC1E532C2700CF29A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>321911BF1E532C2800CF29A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>321911CA1E532C2800CF29A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>321911DE1E5331B200CF29A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>325A73741E522ACE0046520B</key>
 		<dict>
 			<key>primary</key>

@@ -179,8 +179,6 @@ CORE_FIXED_STATE_DefineStateLeaveEvent( MyTestApp::PAUSE_STATE )
 
 CORE_FIXED_STATE_EndOfStateEvent()
 
-
-
 void MyTestApp::Initialize() {
     
     CORE_MATH_MATRIX m;
@@ -573,9 +571,6 @@ void MyTestApp::Update( float time_step ) {
     UPDATE_EVENT ev(time_step);
     StateMachine.DispatchEvent( ev );
     
-    CORE_MATH_VECTOR direction;
-    CORE_MATH_MATRIX inverse;
-    
     //SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
     
     if ( ItIsClient ) {
@@ -606,47 +601,57 @@ void MyTestApp::Update( float time_step ) {
         //printf ( "%f %f %f\n", deltaPosition[0], deltaPosition[1], deltaPosition[2]);
     #endif
     
-    direction = CORE_MATH_VECTOR::Zero;
-    
-    direction.Set( 250.0f, 0.0f, 0.0f, 0.0f );
-    
     static float accumumated_time = 0.0f;
-    
-    CORE_MATH_QUATERNION rotation_quat;
-    CORE_MATH_MATRIX rotation_mat( CORE_MATH_MATRIX::Identity );
-    
-    rotation_quat.X( 0.0f );
-    rotation_quat.Y( 0.0f );
-    rotation_quat.Z( 0.0f );
-    rotation_quat.W( 1.0f );
     
     //CORE_MATH_VECTOR light_dir( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Scene->GetUpdatableSystemTable()[2])->GetRay().GetDirection() );
     
-    CORE_MATH_VECTOR light_dir( sinf(acc), 0.0f, cosf( acc), 1.0f );
+    {
+        CORE_MATH_VECTOR light_dir( sinf(acc), 0.0f, cosf( acc), 1.0f );
+        
+        light_dir.Normalize();
+        
+        GLOBAL_RESOURCES::GetInstance().DirectionalLight->InternalLight.Directional.Direction[0] = -light_dir[0];
+        GLOBAL_RESOURCES::GetInstance().DirectionalLight->InternalLight.Directional.Direction[1] = -light_dir[0];
+        GLOBAL_RESOURCES::GetInstance().DirectionalLight->InternalLight.Directional.Direction[2] = -light_dir[2];
+        
+        GLOBAL_RESOURCES::GetInstance().PointLightOne->InternalLight.Point.Position[0] = -5.0f * cosf( acc * 1.33f);
+        GLOBAL_RESOURCES::GetInstance().PointLightTwo->InternalLight.Point.Position[0] = 5.0f * cosf( acc* 0.5f);
+        
+        GLOBAL_RESOURCES::GetInstance().SpotLightOne->InternalLight.Spot.Direction[0] = -light_dir[0];
+        GLOBAL_RESOURCES::GetInstance().SpotLightOne->InternalLight.Spot.Direction[1] = -light_dir[0];
+        
+        GLOBAL_RESOURCES::GetInstance().SpotLightTwo->InternalLight.Spot.Direction[0] = -light_dir[0];
+        GLOBAL_RESOURCES::GetInstance().SpotLightTwo->InternalLight.Spot.Direction[1] = -light_dir[0];
+    }
     
-    light_dir.Normalize();
+    CORE_MATH_VECTOR vector = PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetScreenCoordinates();
+    CORE_MATH_VECTOR direction(250.0f, 0.0f, 0.0f, 0.0f );
     
-    GLOBAL_RESOURCES::GetInstance().DirectionalLight->InternalLight.Directional.Direction[0] = -light_dir[0];
-    GLOBAL_RESOURCES::GetInstance().DirectionalLight->InternalLight.Directional.Direction[1] = -light_dir[0];
-    GLOBAL_RESOURCES::GetInstance().DirectionalLight->InternalLight.Directional.Direction[2] = -light_dir[2];
+    CORE_MATH_MATRIX inverse;
     
-    GLOBAL_RESOURCES::GetInstance().PointLightOne->InternalLight.Point.Position[0] = -5.0f * cosf( acc * 1.33f);
-    GLOBAL_RESOURCES::GetInstance().PointLightTwo->InternalLight.Point.Position[0] = 5.0f * cosf( acc* 0.5f);
+    CORE_MATH_QUATERNION rotation_quat;
+
+    CORE_MATH_MATRIX rotation_mat( CORE_MATH_MATRIX::Identity );
     
-    GLOBAL_RESOURCES::GetInstance().SpotLightOne->InternalLight.Spot.Direction[0] = -light_dir[0];
-    GLOBAL_RESOURCES::GetInstance().SpotLightOne->InternalLight.Spot.Direction[1] = -light_dir[0];
+    rotation_mat.Translate(CORE_MATH_VECTOR(1.0f, 0.0f, 0.0f, 0.0f ));
+    rotation_mat.XRotate(M_PI_2);
     
-    GLOBAL_RESOURCES::GetInstance().SpotLightTwo->InternalLight.Spot.Direction[0] = -light_dir[0];
-    GLOBAL_RESOURCES::GetInstance().SpotLightTwo->InternalLight.Spot.Direction[1] = -light_dir[0];
+    /*rotation_quat.X( 0.0f );
+     rotation_quat.Y( 0.0f );
+     rotation_quat.Z( 0.0f );
+     rotation_quat.W( 1.0f );*/
     
-    static CORE_MATH_VECTOR vector;
-    vector = PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetScreenCoordinates();
-    
-    rotation_mat.XRotate( (vector[1]) * M_PI_2 );
-    rotation_mat.ZRotate( M_PI_2 + (vector[0]  )  * M_PI_2 );
-    
+    if (  PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetLeftButtonClicked() ) {
+        
+        rotation_mat.XRotate( (vector[1]-0.5f)*2.0f * M_PI_2 );
+        rotation_mat.ZRotate( (vector[0]-0.5f)*2.0f * M_PI_2 );
+        
+        printf( "x: %f   y: %f \n", vector[0], vector[1]);
+    }
+
     rotation_mat.GetInverse(inverse);
-    rotation_quat.FromMatrix( &inverse[0] );
+
+    rotation_quat.FromMatrix( &rotation_mat[0] );
     rotation_quat.Normalize();
     
     Lookat[0] = rotation_quat[0];
@@ -655,54 +660,23 @@ void MyTestApp::Update( float time_step ) {
     Lookat[3] = rotation_quat[3];
     
     Lookat.Normalize();
-    Lookat.ToMatrix( rotation_mat.GetRow(0) );
     
-    CORE_MATH_VECTOR result(direction * rotation_mat);
+    CORE_MATH_VECTOR result( direction * inverse );
     
     if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_Z ) ) {
         
         CORE_MATH_VECTOR add;
-        
-        add[0] =result[0] * time_step;
-        add[1] =result[1] * time_step;
-        add[2] =result[2] * time_step;
-        
-        Position += add;
-    }
-    else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed(KEYBOARD_KEY_CHAR_S ) ) {
-        
-        CORE_MATH_VECTOR add;
-        
-        add[0] =result[0] * time_step;
-        add[1] =result[1] * time_step;
-        add[2] =result[2] * time_step;
-        
-        Position -= add;
-    }
-    
-    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_A ) ) {
-        
-        Position.Set( Position[0], Position[1] + time_step * 250.0f, Position[2], 1.0f);
-    }
-    else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_E ) ) {
-        
-        Position.Set( Position[0], Position[1] - time_step * 250.0f, Position[2], 1.0f);
-    }
-    
-    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed(KEYBOARD_KEY_CHAR_Q ) ) {
-        
-        CORE_MATH_VECTOR add;
         CORE_MATH_MATRIX rot;
         
-        add[0] =result[0] * time_step;
-        add[1] =result[1] * time_step;
-        add[2] =result[2] * time_step;
+        add[0] = result[0] * time_step;
+        add[1] = result[1] * time_step;
+        add[2] = result[2] * time_step;
         
         rot.YRotate(-M_PI_2);
         
         Position += add*rot;
     }
-    else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed(KEYBOARD_KEY_CHAR_D ) ) {
+    else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed(KEYBOARD_KEY_CHAR_S ) ) {
         
         CORE_MATH_VECTOR add;
         CORE_MATH_MATRIX rot;
@@ -714,6 +688,56 @@ void MyTestApp::Update( float time_step ) {
         rot.YRotate(-M_PI_2);
         
         Position -= add*rot;
+    }
+    
+    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_A ) ) {
+        
+        CORE_MATH_VECTOR add;
+        CORE_MATH_MATRIX rot;
+        
+        add[0] = result[0] * time_step;
+        add[1] = result[1] * time_step;
+        add[2] = result[2] * time_step;
+        
+        rot.ZRotate(-M_PI_2);
+        
+        Position += add*rot;
+    }
+    else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_E ) ) {
+        
+        CORE_MATH_VECTOR add;
+        CORE_MATH_MATRIX rot;
+        
+        add[0] =result[0] * time_step;
+        add[1] =result[1] * time_step;
+        add[2] =result[2] * time_step;
+        
+        rot.ZRotate(-M_PI_2);
+        
+        Position -= add*rot;
+    }
+    
+    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed(KEYBOARD_KEY_CHAR_Q ) ) {
+        
+        CORE_MATH_VECTOR add;
+        CORE_MATH_MATRIX rot;
+        
+        add[0] =result[0] * time_step;
+        add[1] =result[1] * time_step;
+        add[2] =result[2] * time_step;
+        
+        Position -= add*rot;
+    }
+    else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed(KEYBOARD_KEY_CHAR_D ) ) {
+        
+        CORE_MATH_VECTOR add;
+        CORE_MATH_MATRIX rot;
+        
+        add[0] =result[0] * time_step;
+        add[1] =result[1] * time_step;
+        add[2] =result[2] * time_step;
+        
+        Position += add*rot;
     }
     
     Position += Displacement * 5.0f;

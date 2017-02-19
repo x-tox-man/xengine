@@ -9,13 +9,18 @@
 #import <Foundation/Foundation.h>
 #include "TOOL_ASSET_COMPILER.h"
 
+const char * GetCurrentDir() {
+    
+    return "./";
+}
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
-        if ( argc > 2 ) {
+        if ( argc > 1 ) {
             
             const char * source_path = argv[1];
-            const char * destination_dir = argv[2];
+            const char * destination_dir = argv[2] == NULL ? GetCurrentDir() : argv[2];
             const char * options = argv[3] == NULL ? "" : argv[3];
             
             TOOL_ASSET_COMPILER(source_path, destination_dir, options);

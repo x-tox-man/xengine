@@ -47,7 +47,9 @@ TOOL_ASSET_COMPILER::TOOL_ASSET_COMPILER(const char * source_path, const char * 
         GRAPHIC_OBJECT_RESOURCE_LOADER
             loader;
         
-        CORE_FILESYSTEM_PATH destination_file_path = CORE_FILESYSTEM_PATH::FindFilePath(file_name, "", ".smx" );
+        CORE_FILESYSTEM_PATH file_name_without_extension = source_file_path.RemoveExtension();
+        
+        CORE_FILESYSTEM_PATH destination_file_path = CORE_FILESYSTEM_PATH::FindFilePath(file_name_without_extension.GetFileName(), "smx", "" );
         
         loader.CompileResource( source_file_path, destination_file_path );
     }

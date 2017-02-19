@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		3205E40A1B5CD94F005150D2 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3205E4081B5CD94F005150D2 /* GRAPHIC_MESH_LOADER_COLLADA.cpp */; };
 		3212C3C91DD2567000B3033E /* GAME-ENGINE-REBORN.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32899BF3180D3DC8002AA472 /* GAME-ENGINE-REBORN.app */; };
+		321911E31E5331B300CF29A2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 321911E21E5331B300CF29A2 /* AppDelegate.m */; };
+		321911E61E5331B300CF29A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 321911E51E5331B300CF29A2 /* main.m */; };
+		321911E91E5331B300CF29A2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 321911E81E5331B300CF29A2 /* ViewController.m */; };
+		321911EC1E5331B300CF29A2 /* ASSET_EDITOR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 321911EA1E5331B300CF29A2 /* ASSET_EDITOR.xcdatamodeld */; };
+		321911EE1E5331B300CF29A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321911ED1E5331B300CF29A2 /* Assets.xcassets */; };
+		321911F11E5331B300CF29A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 321911EF1E5331B300CF29A2 /* Main.storyboard */; };
 		321B5CC31B8EE33900C0CE2D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321B5CC21B8EE33900C0CE2D /* AppKit.framework */; };
 		321B5CC71B8F40B200C0CE2D /* GRAPHIC_GLYPH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321B5CC51B8F40B200C0CE2D /* GRAPHIC_GLYPH.cpp */; };
 		321B5CC81B8F907400C0CE2D /* GRAPHIC_GLYPH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321B5CC51B8F40B200C0CE2D /* GRAPHIC_GLYPH.cpp */; };
@@ -1401,6 +1407,16 @@
 /* Begin PBXFileReference section */
 		3205E4081B5CD94F005150D2 /* GRAPHIC_MESH_LOADER_COLLADA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_MESH_LOADER_COLLADA.cpp; sourceTree = "<group>"; };
 		3205E4091B5CD94F005150D2 /* GRAPHIC_MESH_LOADER_COLLADA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_MESH_LOADER_COLLADA.h; sourceTree = "<group>"; };
+		321911DF1E5331B200CF29A2 /* ASSET_EDITOR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASSET_EDITOR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		321911E11E5331B300CF29A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		321911E21E5331B300CF29A2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		321911E51E5331B300CF29A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		321911E71E5331B300CF29A2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		321911E81E5331B300CF29A2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		321911EB1E5331B300CF29A2 /* ASSET_EDITOR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ASSET_EDITOR.xcdatamodel; sourceTree = "<group>"; };
+		321911ED1E5331B300CF29A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		321911F01E5331B300CF29A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		321911F21E5331B300CF29A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		321B5CC21B8EE33900C0CE2D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		321B5CC51B8F40B200C0CE2D /* GRAPHIC_GLYPH.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_GLYPH.cpp; sourceTree = "<group>"; };
 		321B5CC61B8F40B200C0CE2D /* GRAPHIC_GLYPH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_GLYPH.h; sourceTree = "<group>"; };
@@ -2231,6 +2247,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		321911DC1E5331B200CF29A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		325A73721E522ACE0046520B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2415,6 +2438,30 @@
 				3205E4091B5CD94F005150D2 /* GRAPHIC_MESH_LOADER_COLLADA.h */,
 			);
 			path = MESH;
+			sourceTree = "<group>";
+		};
+		321911E01E5331B300CF29A2 /* ASSET_EDITOR */ = {
+			isa = PBXGroup;
+			children = (
+				321911E11E5331B300CF29A2 /* AppDelegate.h */,
+				321911E21E5331B300CF29A2 /* AppDelegate.m */,
+				321911E71E5331B300CF29A2 /* ViewController.h */,
+				321911E81E5331B300CF29A2 /* ViewController.m */,
+				321911ED1E5331B300CF29A2 /* Assets.xcassets */,
+				321911EF1E5331B300CF29A2 /* Main.storyboard */,
+				321911F21E5331B300CF29A2 /* Info.plist */,
+				321911EA1E5331B300CF29A2 /* ASSET_EDITOR.xcdatamodeld */,
+				321911E41E5331B300CF29A2 /* Supporting Files */,
+			);
+			path = ASSET_EDITOR;
+			sourceTree = "<group>";
+		};
+		321911E41E5331B300CF29A2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				321911E51E5331B300CF29A2 /* main.m */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		321B5CC41B8EF57000C0CE2D /* FONTS */ = {
@@ -3752,6 +3799,7 @@
 				32899C1A180D3DC8002AA472 /* GAME-ENGINE-REBORNTests */,
 				32840ADE19E472A10005FEB1 /* gamePOC */,
 				325A73761E522ACE0046520B /* AssetCompiler */,
+				321911E01E5331B300CF29A2 /* ASSET_EDITOR */,
 				32899BF5180D3DC8002AA472 /* Frameworks */,
 				32899BF4180D3DC8002AA472 /* Products */,
 			);
@@ -3764,6 +3812,7 @@
 				32899C14180D3DC8002AA472 /* GAME-ENGINE-REBORNTests.xctest */,
 				32840ADD19E472A10005FEB1 /* gamePOC.app */,
 				325A73751E522ACE0046520B /* AssetCompiler-GL4 */,
+				321911DF1E5331B200CF29A2 /* ASSET_EDITOR.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4507,6 +4556,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		321911DE1E5331B200CF29A2 /* ASSET_EDITOR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 321911F31E5331B300CF29A2 /* Build configuration list for PBXNativeTarget "ASSET_EDITOR" */;
+			buildPhases = (
+				321911DB1E5331B200CF29A2 /* Sources */,
+				321911DC1E5331B200CF29A2 /* Frameworks */,
+				321911DD1E5331B200CF29A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ASSET_EDITOR;
+			productName = ASSET_EDITOR;
+			productReference = 321911DF1E5331B200CF29A2 /* ASSET_EDITOR.app */;
+			productType = "com.apple.product-type.application";
+		};
 		325A73741E522ACE0046520B /* AssetCompiler-GL4 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 325A73791E522ACE0046520B /* Build configuration list for PBXNativeTarget "AssetCompiler-GL4" */;
@@ -4582,9 +4648,14 @@
 		32899BEB180D3DC8002AA472 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Christophe Bernard";
 				TargetAttributes = {
+					321911DE1E5331B200CF29A2 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					325A73741E522ACE0046520B = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -4615,11 +4686,21 @@
 				32899C13180D3DC8002AA472 /* GAME-ENGINE-REBORNTests */,
 				32840ADC19E472A10005FEB1 /* gamePOC */,
 				325A73741E522ACE0046520B /* AssetCompiler-GL4 */,
+				321911DE1E5331B200CF29A2 /* ASSET_EDITOR */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		321911DD1E5331B200CF29A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				321911EE1E5331B300CF29A2 /* Assets.xcassets in Resources */,
+				321911F11E5331B300CF29A2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		32840ADB19E472A10005FEB1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4874,6 +4955,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		321911DB1E5331B200CF29A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				321911E91E5331B300CF29A2 /* ViewController.m in Sources */,
+				321911E61E5331B300CF29A2 /* main.m in Sources */,
+				321911E31E5331B300CF29A2 /* AppDelegate.m in Sources */,
+				321911EC1E5331B300CF29A2 /* ASSET_EDITOR.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		325A73711E522ACE0046520B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5895,6 +5987,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		321911EF1E5331B300CF29A2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				321911F01E5331B300CF29A2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		32840AE919E472A10005FEB1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -5946,6 +6046,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		321911F41E5331B300CF29A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = ASSET_EDITOR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "cbe.ASSET-EDITOR";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		321911F51E5331B300CF29A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = ASSET_EDITOR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "cbe.ASSET-EDITOR";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		325A737A1E522ACE0046520B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6418,6 +6558,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		321911F31E5331B300CF29A2 /* Build configuration list for PBXNativeTarget "ASSET_EDITOR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				321911F41E5331B300CF29A2 /* Debug */,
+				321911F51E5331B300CF29A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		325A73791E522ACE0046520B /* Build configuration list for PBXNativeTarget "AssetCompiler-GL4" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -6425,6 +6573,7 @@
 				325A737B1E522ACE0046520B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		32840AFD19E472A10005FEB1 /* Build configuration list for PBXNativeTarget "gamePOC" */ = {
 			isa = XCConfigurationList;
@@ -6463,6 +6612,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		321911EA1E5331B300CF29A2 /* ASSET_EDITOR.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				321911EB1E5331B300CF29A2 /* ASSET_EDITOR.xcdatamodel */,
+			);
+			currentVersion = 321911EB1E5331B300CF29A2 /* ASSET_EDITOR.xcdatamodel */;
+			path = ASSET_EDITOR.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 32899BEB180D3DC8002AA472 /* Project object */;
 }
