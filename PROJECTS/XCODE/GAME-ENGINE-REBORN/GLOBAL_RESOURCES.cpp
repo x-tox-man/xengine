@@ -11,7 +11,8 @@
 #include "CORE_APPLICATION.h"
 
 GLOBAL_RESOURCES::GLOBAL_RESOURCES() :
-    ComponentIndex( 0 ) {
+    ComponentIndex( 0 ),
+    ResourceObject( NULL ) {
     
 }
 
@@ -331,9 +332,6 @@ void GLOBAL_RESOURCES::Finalize() {
     UITextureAtlas.Finalize();
     
     CORE_MEMORY_ObjectSafeDeallocation( UIPlanObject );
-    
-    NakedGirlObject->Release();
-    //AstroBoy->Release();
     
     CubeObject->Release();
     HeightMapObject->Release();

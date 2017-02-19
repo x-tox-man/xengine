@@ -91,7 +91,7 @@ void GRAPHIC_UI_ELEMENT::Update( const float time_step ) {
 
 void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
     
-    if ( IsVisible() && RenderStyleTable[ CurrentState ] ) {
+    if ( IsVisible() && RenderStyleTable[ (unsigned int) CurrentState ] ) {
         
         RenderStyleTable[ CurrentState ]->Apply( renderer, Placement, Opacity );
     }

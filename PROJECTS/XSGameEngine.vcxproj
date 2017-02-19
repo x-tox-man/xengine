@@ -245,6 +245,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -565,6 +566,7 @@
     <ClInclude Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_BASE_ADAPTER.h" />
     <ClInclude Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_ADAPTER.h" />
     <ClInclude Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_LIST_ADAPTER.h" />
+    <ClInclude Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.h" />
     <ClInclude Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_TEXT_ADAPTER.h" />
     <ClInclude Include="..\CODE\GRAPHIC\UI\ANIMATION\GRAPHIC_UI_ANIMATION.h" />
     <ClInclude Include="..\CODE\GRAPHIC\UI\GRAPHIC_UI_ELEMENT.h" />
@@ -815,6 +817,7 @@
     <ClCompile Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_BASE_ADAPTER.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_ADAPTER.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp" />
+    <ClCompile Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_TEXT_ADAPTER.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\UI\ANIMATION\GRAPHIC_UI_ANIMATION.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\UI\GRAPHIC_UI_ELEMENT.cpp" />

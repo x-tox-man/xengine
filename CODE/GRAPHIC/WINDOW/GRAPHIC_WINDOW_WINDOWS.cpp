@@ -248,9 +248,17 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
             EndPaint( hWnd, &ps );
         }
         break;
+        case WM_CLOSE:
         case WM_DESTROY:
+            GRAPHIC_RENDERER::GetInstance().SetRenderCallback(new CORE_HELPERS_CALLBACK());
             PostQuitMessage( 0 );
+            if ( WaitForSingleObject( hWnd, 1000 ) == WAIT_TIMEOUT ) {
+                
+                TerminateProcess( hWnd, 0 );
+            }
+
             CORE_APPLICATION::GetApplicationInstance().Finalize();
+            
             break;
 
         default:
