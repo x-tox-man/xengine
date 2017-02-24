@@ -197,6 +197,17 @@ CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( CORE_MATH_VECTOR );
         ZAxis,
         WAxis;
 
+    CORE_MATH_VECTOR LerpInterpolate( CORE_MATH_VECTOR & second, float percentage ) {
+        CORE_MATH_VECTOR interpolated;
+        
+        interpolated[0] = (Value[0] * (1.0f - percentage) + second[0] * percentage);
+        interpolated[1] = (Value[1] * (1.0f - percentage) + second[1] * percentage);
+        interpolated[2] = (Value[2] * (1.0f - percentage) + second[2] * percentage);
+        interpolated[3] = (Value[3] * (1.0f - percentage) + second[3] * percentage);
+        
+        return interpolated;
+    }
+
 private :
 
     float

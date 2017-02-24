@@ -13,7 +13,9 @@
 GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     GAMEPLAY_COMPONENT(),
     Object(),
-    BoundingObject() {
+    BoundingObject(),
+    Color( CORE_COLOR_White ),
+    ScaleFactor( 1.0f ) {
     
 }
 
@@ -41,10 +43,14 @@ void * GAMEPLAY_COMPONENT_RENDER::operator new( size_t size ) {
 
 void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_COMPONENT_POSITION * component ) {
     
+    renderer.EnableColor(true);
     Object->SetPosition( component->GetPosition() );
     Object->SetOrientation(component->GetOrientation() );
+    Object->SetColor( Color );
+    Object->SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
     
     Object->Render( renderer );
+    renderer.EnableColor(false);
 }
 
 std::vector< GAMEPLAY_COMPONENT_RENDER::INTERNAL_ARRAY_R > GAMEPLAY_COMPONENT_RENDER::InternalVector = std::vector< GAMEPLAY_COMPONENT_RENDER::INTERNAL_ARRAY_R >();

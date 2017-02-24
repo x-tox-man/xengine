@@ -234,7 +234,7 @@ void MyTestApp::Initialize() {
     interface_lookat.Normalize();
     
     RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight(), Position, interface_lookat );
-    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight(), Position, interface_lookat );
+    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight(), CORE_MATH_VECTOR(0.0f, 0.0f), interface_lookat );
     
     InitializeGraphics();
 
@@ -290,6 +290,8 @@ void MyTestApp::Initialize() {
         CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "fxb", "FONTS/" ),
         CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "png", "FONTS/" ) );
         
+        GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() ) );
+        
         APPLICATION_MAIN_WINDOW & main_window = ( APPLICATION_MAIN_WINDOW & ) APPLICATION_SCREENS_NAVIGATION::GetInstance().InitializeNavigation<APPLICATION_MAIN_WINDOW>("MainWindow");
         
         main_window.GetPlacement().Initialize( NULL,
@@ -309,8 +311,7 @@ void MyTestApp::Initialize() {
         
         TestEntity.Initialize( path );
         
-        GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() ) );
-        GRAPHIC_UI_SYSTEM::GetInstance().RegisterView( &main_window, "MainWindow" );
+        
         
         SERVICE_LOGGER_Error( "ALL APP Inititialize 2.23" );
         

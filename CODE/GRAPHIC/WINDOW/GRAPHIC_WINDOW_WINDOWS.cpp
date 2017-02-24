@@ -22,7 +22,7 @@ void CreateOpenGlContext( HDC hdc );
 void DeleteOpenGlContext( HDC hdc );
 
 HGLRC OGLContext = NULL;
-
+HGLRC OGLBackgroundContext = NULL;
 GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS() :
     GRAPHIC_WINDOW(),
     hInstance(),
@@ -316,7 +316,8 @@ void CreateOpenGlContext( HDC hdc ) {
         CORE_RUNTIME_Abort();
     }
 
-    OGLContext= wglCreateContext( hdc );
+    OGLContext = wglCreateContext( hdc );
+    OGLBackgroundContext = wglCreateContext( hdc );
 
     if ( !wglMakeCurrent( hdc, OGLContext ) ) {
 

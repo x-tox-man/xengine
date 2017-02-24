@@ -25,6 +25,7 @@ protected:
     Scalar_SGet( int, PositionY );
 
     virtual void Initialize() = 0;
+    virtual void EnableBackgroundContext(bool enable) = 0;
 
 XS_CLASS_END
 

@@ -8,8 +8,6 @@
 
 #include "CORE_MEMORY_ALLOCATOR.h"
 
-#include <stdlib.h>
-
 void * operator new( size_t size )
 {
     void *p = CORE_MEMORY_ALLOCATOR::Allocate( size );

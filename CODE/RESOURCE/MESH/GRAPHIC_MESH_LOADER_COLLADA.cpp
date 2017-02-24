@@ -21,9 +21,6 @@
     #include "GRAPHIC_SHADER_BIND.h"
     #include "MATH_TOOLBOX.h"
 
-    #include <stdlib.h>
-    #include <string.h>
-
     bool COLLADA_LOADER_ERROR_HANDLER::handleError(const COLLADASaxFWL::IError *error )
     {
         return false;

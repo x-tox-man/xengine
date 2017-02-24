@@ -12,8 +12,6 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_DATA_TYPES.h"
-#include "CORE_MEMORY.h"
-#include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "SERVICE_LOGGER.h"
 
 XS_CLASS_BEGIN( CORE_DATA_STREAM )

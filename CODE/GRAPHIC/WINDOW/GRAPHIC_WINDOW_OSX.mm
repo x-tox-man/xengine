@@ -30,6 +30,11 @@ void GRAPHIC_WINDOW_OSX::Display() {
     [glView startUpdate];
 }
 
+void GRAPHIC_WINDOW_OSX::EnableBackgroundContext(bool enable) {
+    
+    [glView enableBackgroundContext:(BOOL)enable];
+}
+
 @implementation CustomGlView
 
 - (id) initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format
@@ -62,6 +67,7 @@ void GRAPHIC_WINDOW_OSX::Display() {
         NSOpenGLPixelFormat * pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attributes];
         
         self.openGLContext = [[NSOpenGLContext alloc] initWithFormat:pixelFormat shareContext:nil];
+        self.backgroundContext = [[NSOpenGLContext alloc] initWithFormat:pixelFormat shareContext:nil];
         
         [self setContext:self.openGLContext];
         
@@ -132,6 +138,7 @@ void GRAPHIC_WINDOW_OSX::Display() {
     glFlush();
     
     [[self openGLContext] flushBuffer];
+    [NSOpenGLContext clearCurrentContext];
 }
 
 -(void) startUpdate {
@@ -144,4 +151,11 @@ void GRAPHIC_WINDOW_OSX::Display() {
     [self.DisplayTimer invalidate];
 }
 
+-(void) enableBackgroundContext:(BOOL) enable {
+    
+    if ( enable ) {
+        
+        [self.backgroundContext makeCurrentContext];
+    }
+}
 @end

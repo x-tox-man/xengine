@@ -50,8 +50,9 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_
         color_attribute.AttributeValue.Value.FloatArray4[1] = Color[1] * opacity;
         color_attribute.AttributeValue.Value.FloatArray4[2] = Color[2] * opacity;
         color_attribute.AttributeValue.Value.FloatArray4[3] = Color[3] * opacity;
-        
+        renderer.EnableColor( true );
         Shape->Render( renderer );
+        renderer.EnableColor( false );
     }
     
     if ( DecoratingShape && DecoratingTextureBlock) {

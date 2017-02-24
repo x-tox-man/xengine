@@ -38,7 +38,9 @@ void GRAPHIC_UI_TEXT::Initialize() {
     RenderStyle->SetColor( Color );
     RenderStyle->SetShape( &Text );
     
-    GRAPHIC_SHADER_EFFECT::PTR ui_textured_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShader"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", "OPENGL2" ) );
+    GRAPHIC_SHADER_EFFECT::PTR ui_textured_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderText"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", "OPENGL2" ) );
+    
+    ui_textured_shader_effect->Initialize(GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
     Text.Initialize( &ui_textured_shader_effect->GetProgram() );
     

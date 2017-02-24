@@ -49,7 +49,7 @@ public:
 };
 
 template < typename __FACTORY_ELEMENT_CLASS__ >
-__FACTORY_ELEMENT_CLASS__ * FACTORY_ELEMENT< __FACTORY_ELEMENT_CLASS__ >::__InnerElement = __FACTORY_ELEMENT_CLASS__::__InnerCreateElement();
+    __FACTORY_ELEMENT_CLASS__ * FACTORY_ELEMENT< __FACTORY_ELEMENT_CLASS__ >::__InnerElement = __FACTORY_ELEMENT_CLASS__::__InnerCreateElement();
 
 #define CORE_HELPERS_FACTORY_Define( __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ ) \
     friend class FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >; \

@@ -16,12 +16,14 @@
 @interface CustomGlView : NSOpenGLView< NSWindowDelegate >
 
     @property NSOpenGLContext * context;
+    @property NSOpenGLContext * backgroundContext;
     @property NSTimer * DisplayTimer;
 
     -(void) surfaceNeedsUpdate;
     -(void) startUpdate;
     -(void) StopUpdate;
-    - (void)windowWillClose:(NSNotification *)notification;
+    -(void) enableBackgroundContext:(BOOL) enable;
+    -(void) windowWillClose:(NSNotification *)notification;
 
 @end
 
@@ -34,6 +36,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_OSX, GRAPHIC_WINDOW )
     void Display();
 
     CustomGlView * GetGlView() { return glView; }
+
+    virtual void EnableBackgroundContext(bool enable) override;
 
 private :
 

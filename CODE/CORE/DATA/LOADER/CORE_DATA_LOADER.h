@@ -9,10 +9,10 @@
 #ifndef CORE_DATA_LOADER_h
 #define CORE_DATA_LOADER_h
 
-#include "CORE_RUNTIME_ENVIRONMENT.h"
+#include "CORE_DATA_STREAM.h"
 #include "CORE_FILESYSTEM_PATH.h"
 #include "CORE_FILESYSTEM_FILE.h"
-#include "CORE_DATA_STREAM.h"
+
 
 template <typename __TYPE_TO_SERIALIZE__ >
 class CORE_DATA_LOADER {

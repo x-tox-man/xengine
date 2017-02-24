@@ -90,7 +90,7 @@ void GRAPHIC_TEXT::Render( GRAPHIC_RENDERER & renderer ) {
     
     object_matrix.Translate( GetPosition() );
     object_matrix.Scale( ScaleFactor[0], ScaleFactor[1], ScaleFactor[2] );
-
+    
     
     result = renderer.GetCamera().GetProjectionMatrix();
     result *= renderer.GetCamera().GetViewMatrix();
@@ -107,10 +107,12 @@ void GRAPHIC_TEXT::Render( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_SYSTEM_ApplyMatrix(attr->AttributeIndex, 1, 0, &result[0])
     
+    renderer.EnableColor(true);
     GFX_CHECK( glUniform4fv(
                   color->AttributeIndex,
                   1,
                   (const GLfloat * )&color->AttributeValue.Value.FloatArray4); )
+    renderer.EnableColor(false);
     
     GetMeshTable()[ 0 ]->ApplyBuffers();
     

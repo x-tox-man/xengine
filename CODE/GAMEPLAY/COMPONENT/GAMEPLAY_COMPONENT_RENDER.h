@@ -47,6 +47,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
     void SetObject( GRAPHIC_OBJECT * object ) { Object = object; }
     GRAPHIC_OBJECT * GetObject() { return Object; }
+    void SetColor( CORE_HELPERS_COLOR & color ) { Color = color; }
+    void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
 
 private :
 
@@ -56,6 +58,10 @@ private :
         * Object;
     CORE_MATH_SHAPE
         * BoundingObject;
+    CORE_HELPERS_COLOR
+        Color;
+    float
+        ScaleFactor;
 
 XS_CLASS_END
 

@@ -78,13 +78,15 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
 
 void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
     
+    CORE_MATH_MATRIX
+        object_matrix,
+        orientation_matrix,
+        result;
+    
     if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         
         return;
     }
-    
-    CORE_MATH_MATRIX
-        object_matrix,result;
     
     if( TextureBlock ) {
         
@@ -97,7 +99,7 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
     GRAPHIC_SYSTEM::UpdateVertexBuffer( GetMeshTable()[0], *GetMeshTable()[ 0 ]->GetVertexCoreBuffer() );
     
     GetShaderTable()[ 0 ]->Enable();
-        
+
     GRAPHIC_SHADER_ATTRIBUTE * attr = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
     GRAPHIC_SHADER_ATTRIBUTE * texture = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ColorTexture );
     GRAPHIC_SHADER_ATTRIBUTE * depth = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
@@ -106,9 +108,12 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
     
     static float angle = M_PI;
     
+    Orientation.ToMatrix(&orientation_matrix[0]);
+    
     object_matrix.Scale( ScaleFactor[0], ScaleFactor[1], ScaleFactor[2] );
     object_matrix.XRotate( angle );
-    //object_matrix.ZRotate( angle );
+    object_matrix.ZRotate( Orientation.Z() );
+    
     object_matrix.Translate( GetPosition() );
     
     result = renderer.GetCamera().GetProjectionMatrix();
@@ -148,13 +153,22 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
     }
     
     GRAPHIC_SHADER_ATTRIBUTE & color = GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
-                                            
-
+    
     if ( renderer.IsColorEnabled() ) {
         GFX_CHECK( glUniform4fv(
                   color.AttributeIndex,
                   1,
                   (const GLfloat * )&color.AttributeValue.Value.FloatArray4 ); )
+    }
+    else {
+        color.AttributeValue.Value.FloatArray4[0] = 1.0f;
+        color.AttributeValue.Value.FloatArray4[1] = 1.0f;
+        color.AttributeValue.Value.FloatArray4[2] = 1.0f;
+        color.AttributeValue.Value.FloatArray4[3] = 1.0f;
+        GFX_CHECK( glUniform4fv(
+                                color.AttributeIndex,
+                                1,
+                                (const GLfloat * )&color.AttributeValue.Value.FloatArray4 ); )
     }
     
     GRAPHIC_SYSTEM_ApplyMatrix(

@@ -20,6 +20,11 @@
 		321B5CC81B8F907400C0CE2D /* GRAPHIC_GLYPH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321B5CC51B8F40B200C0CE2D /* GRAPHIC_GLYPH.cpp */; };
 		321B5CC91B8F907600C0CE2D /* GRAPHIC_GLYPH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321B5CC51B8F40B200C0CE2D /* GRAPHIC_GLYPH.cpp */; };
 		321C0A871A14D780002BA464 /* CORE_ABSTRACT_PROGRAM_STATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321C0A851A14D780002BA464 /* CORE_ABSTRACT_PROGRAM_STATE.cpp */; };
+		321F6FFB1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F6FF91E5A491300E6710C /* CORE_HELPERS_STATIC.cpp */; };
+		321F6FFC1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F6FF91E5A491300E6710C /* CORE_HELPERS_STATIC.cpp */; };
+		321F6FFD1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F6FF91E5A491300E6710C /* CORE_HELPERS_STATIC.cpp */; };
+		321F6FFE1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F6FF91E5A491300E6710C /* CORE_HELPERS_STATIC.cpp */; };
+		321F6FFF1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F6FF91E5A491300E6710C /* CORE_HELPERS_STATIC.cpp */; };
 		322050DD1C12E24700BAC545 /* main_window.lua in Resources */ = {isa = PBXBuildFile; fileRef = 322050DC1C12E24700BAC545 /* main_window.lua */; };
 		322050E21C1428BF00BAC545 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 322050E11C1428BF00BAC545 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp */; };
 		3223F2AD1B3DF3F0003FBEB3 /* CORE_HELPERS_CLASS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3223F2AC1B3DF3F0003FBEB3 /* CORE_HELPERS_CLASS.cpp */; };
@@ -1064,6 +1069,7 @@
 		328BDA261AE03EB6000FE2F3 /* CORE_MATH_POSE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328BDA241AE03EB6000FE2F3 /* CORE_MATH_POSE.cpp */; };
 		328BDA291AE041D8000FE2F3 /* PERIPHERIC_INTERACTION_TOUCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328BDA271AE041D8000FE2F3 /* PERIPHERIC_INTERACTION_TOUCH.cpp */; };
 		329098581C5D7D1100608C6B /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS_CALLBACK_UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329098571C5D7D1100608C6B /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS_CALLBACK_UI.cpp */; };
+		3293FB011E60612C0090AC15 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 325A74B51E52642F0046520B /* libxml2.tbd */; };
 		3295AAF31BB34FE30058E179 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3295AAF11BB34FE30058E179 /* GRAPHIC_SHADER_LIGHT.cpp */; };
 		3295AAF41BB34FE30058E179 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3295AAF11BB34FE30058E179 /* GRAPHIC_SHADER_LIGHT.cpp */; };
 		3295AAF51BB34FE30058E179 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3295AAF11BB34FE30058E179 /* GRAPHIC_SHADER_LIGHT.cpp */; };
@@ -1422,6 +1428,8 @@
 		321B5CC61B8F40B200C0CE2D /* GRAPHIC_GLYPH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_GLYPH.h; sourceTree = "<group>"; };
 		321C0A851A14D780002BA464 /* CORE_ABSTRACT_PROGRAM_STATE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_ABSTRACT_PROGRAM_STATE.cpp; sourceTree = "<group>"; };
 		321C0A861A14D780002BA464 /* CORE_ABSTRACT_PROGRAM_STATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_ABSTRACT_PROGRAM_STATE.h; sourceTree = "<group>"; };
+		321F6FF91E5A491300E6710C /* CORE_HELPERS_STATIC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_HELPERS_STATIC.cpp; sourceTree = "<group>"; };
+		321F6FFA1E5A491300E6710C /* CORE_HELPERS_STATIC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_HELPERS_STATIC.h; sourceTree = "<group>"; };
 		322050DC1C12E24700BAC545 /* main_window.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main_window.lua; sourceTree = "<group>"; };
 		322050E11C1428BF00BAC545 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_ABSTRACT_PROGRAM_BINDER.cpp; sourceTree = "<group>"; };
 		3223F2AC1B3DF3F0003FBEB3 /* CORE_HELPERS_CLASS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_HELPERS_CLASS.cpp; sourceTree = "<group>"; };
@@ -2396,6 +2404,7 @@
 				32599F661C5E847900154BA3 /* libfreetype.a in Frameworks */,
 				32D55D4A1CD4DAFC00C1FA76 /* libftoa.a in Frameworks */,
 				32899C17180D3DC8002AA472 /* Cocoa.framework in Frameworks */,
+				3293FB011E60612C0090AC15 /* libxml2.tbd in Frameworks */,
 				32D55D4D1CD4DAFC00C1FA76 /* libMathMLSolver.a in Frameworks */,
 				32D314561B7230D700003802 /* libBullet2FileLoader.a in Frameworks */,
 				32D314601B7230D700003802 /* libHACD.a in Frameworks */,
@@ -2473,6 +2482,15 @@
 				3232785B1CB5BC9D00DF6FDA /* arial_black_12.fxb */,
 			);
 			path = FONTS;
+			sourceTree = "<group>";
+		};
+		321F6FF81E5A48F600E6710C /* STATIC */ = {
+			isa = PBXGroup;
+			children = (
+				321F6FF91E5A491300E6710C /* CORE_HELPERS_STATIC.cpp */,
+				321F6FFA1E5A491300E6710C /* CORE_HELPERS_STATIC.h */,
+			);
+			path = STATIC;
 			sourceTree = "<group>";
 		};
 		3223F2B61B400C06003FBEB3 /* STREAM */ = {
@@ -3003,6 +3021,7 @@
 		325420E7198E867B00BCA98D /* HELPERS */ = {
 			isa = PBXGroup;
 			children = (
+				321F6FF81E5A48F600E6710C /* STATIC */,
 				3229D9441E1FDB2800D7911E /* OBSERVABLE */,
 				3229D9411E1FD26700D7911E /* COLOR */,
 				32C337931A0FA6F8001FEC9B /* FACTORY */,
@@ -4962,6 +4981,7 @@
 				321911E91E5331B300CF29A2 /* ViewController.m in Sources */,
 				321911E61E5331B300CF29A2 /* main.m in Sources */,
 				321911E31E5331B300CF29A2 /* AppDelegate.m in Sources */,
+				321F6FFF1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */,
 				321911EC1E5331B300CF29A2 /* ASSET_EDITOR.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5044,6 +5064,7 @@
 				325A73C11E522F530046520B /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
 				325A73C21E522F530046520B /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER.cpp in Sources */,
 				325A73C31E522F530046520B /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
+				321F6FFE1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */,
 				325A73C41E522F530046520B /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.cpp in Sources */,
 				325A73C51E522F530046520B /* GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp in Sources */,
 				325A73C61E522F530046520B /* GAMEPLAY_COMPONENT_RENDER.cpp in Sources */,
@@ -5380,6 +5401,7 @@
 				325905DB1B680D67005231AF /* AUDIO_LOADER_IOS.mm in Sources */,
 				325905C31B680705005231AF /* GRAPHIC_SHADER_BIND.cpp in Sources */,
 				323FD8DA1E13B6E1009EBB6A /* APPLICATION_NETWORK_COMMAND_CLIENT_CONNECTED.cpp in Sources */,
+				321F6FFD1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */,
 				325905731B680598005231AF /* GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp in Sources */,
 				3259059C1B6806AE005231AF /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
 				3229D9571E20332E00D7911E /* APPLICATION_SERVER_PRESENTER.cpp in Sources */,
@@ -5542,6 +5564,7 @@
 				32E4CBF21E34B83700E79F0D /* GAME_PLAYER.cpp in Sources */,
 				32891C1E1BC43EB700EA53DE /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
 				32C9AD421DF4B348003AB9F9 /* GLOBAL_RESOURCES.cpp in Sources */,
+				321F6FFB1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */,
 				327217631DC6609600777CD8 /* APPLICATION_GAMEPLAY_COMMAND_ORDER_MOVE.cpp in Sources */,
 				3271810C1C823CF9007CDB79 /* GteBitHacks.cpp in Sources */,
 				32542144198E867B00BCA98D /* CORE_HELPERS_CALLBACK.cpp in Sources */,
@@ -5900,6 +5923,7 @@
 				32572EAE1E0C27A4005A2457 /* CORE_PARALLEL_LOCK_WINDOWS.cpp in Sources */,
 				3229D96E1E22F2CA00D7911E /* MULTIPLAYER_GAME_LAUNCH_VALIDATOR.cpp in Sources */,
 				323C9D351B94F69F00906C5C /* CORE_PARALLEL_THREAD_POSIX.cpp in Sources */,
+				321F6FFC1E5A491300E6710C /* CORE_HELPERS_STATIC.cpp in Sources */,
 				3230AC5F1B6E1B8E00E3B6CA /* CORE_FILESYSTEM.cpp in Sources */,
 				32D314481B72303500003802 /* CORE_MEMORY.cpp in Sources */,
 				327181551C824DEA007CDB79 /* GteTetrahedronKey.cpp in Sources */,
@@ -6502,6 +6526,7 @@
 					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
 					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
 					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADASaxFrameworkLoader/include\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORNTests/GAME-ENGINE-REBORNTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -6528,6 +6553,14 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GAME-ENGINE-REBORN/GAME-ENGINE-REBORN-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					__COMPILE_WITH__COLLADA__,
+					"$(inherited)",
+					"OPENGL3=1",
+					__X_APP__,
+					__PLATFORM_OSX__,
+					GTE_DISABLE_PCH,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -6540,6 +6573,7 @@
 					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
 					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
 					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADASaxFrameworkLoader/include\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORNTests/GAME-ENGINE-REBORNTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -6565,6 +6599,7 @@
 				321911F51E5331B300CF29A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		325A73791E522ACE0046520B /* Build configuration list for PBXNativeTarget "AssetCompiler-GL4" */ = {
 			isa = XCConfigurationList;

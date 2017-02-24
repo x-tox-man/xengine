@@ -18,7 +18,6 @@
 #include "GRAPHIC_MESH_SUB_SKELETON.h"
 
 #include "assert.h"
-#include <stdlib.h>
 
 XS_CLASS_BEGIN( GRAPHIC_MESH_ANIMATION_SKELETON )
 

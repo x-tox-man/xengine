@@ -28,6 +28,7 @@ GRAPHIC_OBJECT::GRAPHIC_OBJECT() :
     JointTable(),
     Position(),
     ScaleFactor( CORE_MATH_VECTOR::One),
+    Color( CORE_MATH_VECTOR::One),
     Orientation()
 #if __COMPILE_WITH__COLLADA__
     ,AnimationTable()
@@ -101,6 +102,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer ) {
             result;
 
         shader->Enable();
+        
         GRAPHIC_SYSTEM::ApplyLightDirectional( renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
         
         GRAPHIC_SYSTEM::ApplyLightPoint( renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
@@ -127,6 +129,12 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer ) {
         GRAPHIC_SHADER_ATTRIBUTE * attr = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         GRAPHIC_SHADER_ATTRIBUTE * texture = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ColorTexture );
         GRAPHIC_SHADER_ATTRIBUTE * normal_texture = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::NormalTexture );
+        GRAPHIC_SHADER_ATTRIBUTE * geometry_color = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
+        
+        GFX_CHECK( glUniform4fv(
+                                geometry_color->AttributeIndex,
+                                1,
+                                (const GLfloat * ) &Color[0] ); )
         
         if ( MeshTable[i]->GetTexture() != NULL  ) {
             
@@ -148,6 +156,15 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer ) {
             
             object_matrix *= MeshTable[i]->GetTransform();
         }
+        
+        CORE_MATH_MATRIX
+            orientation_mat;
+        
+        GetOrientation().ToMatrix( &orientation_mat[0] );
+        
+        object_matrix.Scale( ScaleFactor[0], ScaleFactor[1], ScaleFactor[2] );
+        object_matrix *= orientation_mat;
+        
         
         result = renderer.GetCamera().GetProjectionMatrix();
         result *= renderer.GetCamera().GetViewMatrix();

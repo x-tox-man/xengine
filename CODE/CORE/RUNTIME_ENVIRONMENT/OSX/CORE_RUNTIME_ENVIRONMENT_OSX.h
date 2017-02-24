@@ -17,4 +17,8 @@
 #include <list>
 #include <map>
 
+#include <map>
+#include <stdlib.h>
+#include <assert.h>
+
 #endif
