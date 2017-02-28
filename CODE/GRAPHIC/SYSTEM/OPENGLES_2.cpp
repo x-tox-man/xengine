@@ -260,7 +260,7 @@ void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {
     
     GFX_CHECK( glGenBuffers( 1, &vb); )
     GFX_CHECK( glBindBuffer( GL_ARRAY_BUFFER, vb); )
-    GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh.GetVertexCoreBuffer().Getsize(), mesh.GetVertexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
+    GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh.GetVertexCoreBuffer()->GetSize(), mesh.GetVertexCoreBuffer()->getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
     
     //GFX_CHECK( glGenVertexArrays(1, &mesh.GetVertexArrays()); )
     //GFX_CHECK( glBindVertexArray( mesh.GetVertexArrays()); )
@@ -329,7 +329,7 @@ void GRAPHIC_SYSTEM::CreateIndexBuffer(GRAPHIC_MESH &mesh) {
     
     GFX_CHECK( glGenBuffers( 1, &mesh.GetIndexBuffer() ); )
     GFX_CHECK( glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexBuffer()); )
-    GFX_CHECK( glBufferData( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexCoreBuffer().Getsize(), mesh.GetIndexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
+    GFX_CHECK( glBufferData( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexCoreBuffer()->GetSize(), mesh.GetIndexCoreBuffer()->getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
 }
 
 void GRAPHIC_SYSTEM::UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER & data ) {
@@ -337,7 +337,7 @@ void GRAPHIC_SYSTEM::UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER &
     mesh->SetVertexCoreBuffer( &data );
     
     GFX_CHECK( glBindBuffer( GL_ARRAY_BUFFER, mesh->GetVertexBuffer()); )
-    GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh->GetVertexCoreBuffer().Getsize(), mesh->GetVertexCoreBuffer().getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
+    GFX_CHECK( glBufferData( GL_ARRAY_BUFFER, mesh->GetVertexCoreBuffer()->GetSize(), mesh->GetVertexCoreBuffer()->getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
 }
 
 void GRAPHIC_SYSTEM::ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
@@ -559,7 +559,7 @@ void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
     
     GFX_CHECK( glDrawElements(
                               GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpenglES2( mesh.GetPolygonRenderMode() ),      // mode
-                              mesh.GetIndexCoreBuffer().Getsize() / 4,    // count
+                              mesh.GetIndexCoreBuffer()->GetSize() / 4,    // count
                               GL_UNSIGNED_INT,   // type
                               (void*)0); )
 }

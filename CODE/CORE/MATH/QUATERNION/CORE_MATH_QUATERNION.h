@@ -190,6 +190,17 @@ XS_CLASS_BEGIN_WITH_COPY(CORE_MATH_QUATERNION)
     inline void Z(float z) { Value[2] = z; }
     inline void W(float w) { Value[3] = w; }
 
+    CORE_MATH_QUATERNION LerpInterpolate( const CORE_MATH_QUATERNION & second, float percentage ) {
+        CORE_MATH_QUATERNION interpolated;
+        
+        interpolated[0] = (Value[0] * (1.0f - percentage) + second[0] * percentage);
+        interpolated[1] = (Value[1] * (1.0f - percentage) + second[1] * percentage);
+        interpolated[2] = (Value[2] * (1.0f - percentage) + second[2] * percentage);
+        interpolated[3] = (Value[3] * (1.0f - percentage) + second[3] * percentage);
+        
+        return interpolated;
+    }
+
 private:
 
 float Value[4];

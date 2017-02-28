@@ -28,13 +28,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Physics)
 
     void * operator new(size_t size);
+    void operator delete( void* ptr );
 
     struct INTERNAL_ARRAY_P{
         int LastIndex;
         GAMEPLAY_COMPONENT_PHYSICS * MemoryArray;
     };
-
-    static std::vector< INTERNAL_ARRAY_P > InternalVector;
 
     CORE_MATH_SHAPE & GetShape() { return Shape; }
 
@@ -51,17 +50,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
                                 const CORE_MATH_VECTOR & direction);
 
     void ForcePosition( const CORE_MATH_VECTOR & position );
-
-    static void FinalizeStaticMemory() {
-        
-        for ( int i = 0; i < InternalVector.size(); i++ ) {
-            
-            CORE_MEMORY_ALLOCATOR_Free( InternalVector[ i ].MemoryArray );
-        }
-        
-        InternalVector.resize( 0 );
-        InternalVector.clear();
-    }
 
 private:
 

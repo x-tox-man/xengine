@@ -13,10 +13,27 @@
 #include "CORE_HELPERS_FACTORY.h"
 #include "GAMEPLAY_COMPONENT_TYPE.h"
 
+template <typename INTERNAL_ARRAY, typename _COMPONENT_TYPE_ >
+static std::vector< INTERNAL_ARRAY > * InitializeMemory() {
+    
+    auto internal_vector = new std::vector< INTERNAL_ARRAY >();
+    
+    int index = (int) internal_vector->size();
+    
+    if( index == 0) {
+        
+        internal_vector->resize(1);
+        (*internal_vector)[0].MemoryArray = (_COMPONENT_TYPE_ * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( _COMPONENT_TYPE_ ) );
+        (*internal_vector)[0].LastIndex = -1;
+    }
+    
+    return internal_vector;
+}
+
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT )
 
-GAMEPLAY_COMPONENT();
-virtual ~GAMEPLAY_COMPONENT();
+    GAMEPLAY_COMPONENT();
+    virtual ~GAMEPLAY_COMPONENT();
 
 CORE_HELPERS_FACTORY_Define(GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE )
 

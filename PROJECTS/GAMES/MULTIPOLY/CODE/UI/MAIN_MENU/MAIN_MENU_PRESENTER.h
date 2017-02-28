@@ -22,6 +22,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(MAIN_MENU_PRESENTER, GRAPHIC_UI_PRESENTER)
     void StartBrowsingMultiplayerButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
     void NavigateToOptions();
 
+private :
+
+    bool
+        NavigationIsRequested;
 
 XS_CLASS_END
 

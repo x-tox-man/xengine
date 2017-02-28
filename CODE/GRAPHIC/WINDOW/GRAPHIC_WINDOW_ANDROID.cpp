@@ -19,3 +19,7 @@ GRAPHIC_WINDOW_ANDROID::~GRAPHIC_WINDOW_ANDROID() {
 void GRAPHIC_WINDOW_ANDROID::Initialize() {
 
 }
+
+void GRAPHIC_WINDOW_ANDROID::EnableBackgroundContext(bool enable) {
+    
+}

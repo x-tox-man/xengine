@@ -24,6 +24,11 @@ CORE_MATH_SHAPE_RECTANGLE::CORE_MATH_SHAPE_RECTANGLE( const CORE_MATH_VECTOR & c
     
 }
 
+bool CORE_MATH_SHAPE_RECTANGLE::Contains( const CORE_MATH_VECTOR & other ) {
+    
+    return CORE_MATH_SHAPE_RECTANGLE::Contains( Center, Size, other );
+}
+
 bool CORE_MATH_SHAPE_RECTANGLE::Contains( const CORE_MATH_VECTOR & rectangle_position,
                                         const CORE_MATH_VECTOR & rectangle_size,
                                         const CORE_MATH_VECTOR & other ) {

@@ -67,7 +67,7 @@ void GRAPHIC_WINDOW_OSX::EnableBackgroundContext(bool enable) {
         NSOpenGLPixelFormat * pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attributes];
         
         self.openGLContext = [[NSOpenGLContext alloc] initWithFormat:pixelFormat shareContext:nil];
-        self.backgroundContext = [[NSOpenGLContext alloc] initWithFormat:pixelFormat shareContext:nil];
+        //self.backgroundContext = [[NSOpenGLContext alloc] initWithFormat:pixelFormat shareContext:nil];
         
         [self setContext:self.openGLContext];
         
@@ -127,15 +127,17 @@ void GRAPHIC_WINDOW_OSX::EnableBackgroundContext(bool enable) {
     
     [self.openGLContext makeCurrentContext];
     
-    glClearColor(0, 0, 0.5, 1);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    GFX_CHECK( glClearColor(0, 0, 0.5, 1); )
+    GFX_CHECK( glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); )
 
     //Do graphic system instead: a renderer is for a gfx implementation
     GRAPHIC_RENDERER::GetInstance().BeginFrame();
+    GFX_CHECK( glViewport( 0, 0, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight()); )
+    
     GRAPHIC_RENDERER::GetInstance().Render();
     GRAPHIC_RENDERER::GetInstance().EndFrame();
     
-    glFlush();
+    GFX_CHECK( glFlush(); )
     
     [[self openGLContext] flushBuffer];
     [NSOpenGLContext clearCurrentContext];
@@ -154,8 +156,11 @@ void GRAPHIC_WINDOW_OSX::EnableBackgroundContext(bool enable) {
 -(void) enableBackgroundContext:(BOOL) enable {
     
     if ( enable ) {
+
+        [self.openGLContext makeCurrentContext];
         
-        [self.backgroundContext makeCurrentContext];
+        GFX_CHECK( glViewport( 0, 0, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight()); )
+        
     }
 }
 @end

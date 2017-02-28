@@ -24,29 +24,19 @@ GAMEPLAY_COMPONENT_PHYSICS::GAMEPLAY_COMPONENT_PHYSICS() :
 
 GAMEPLAY_COMPONENT_PHYSICS::~GAMEPLAY_COMPONENT_PHYSICS() {
 
-    for ( int i = 0; i < InternalVector.size(); i++ ) {
-        
-        CORE_MEMORY_ALLOCATOR_Free( InternalVector[ i ].MemoryArray );
-    }
 }
 
 void * GAMEPLAY_COMPONENT_PHYSICS::operator new( size_t size ) {
     
-    int index = (int) InternalVector.size();
+    static std::vector< INTERNAL_ARRAY_P > * InternalVector = InitializeMemory<INTERNAL_ARRAY_P, GAMEPLAY_COMPONENT_PHYSICS>();
     
-    if( index == 0) {
-        
-        if ( GAMEPLAY_COMPONENT_PHYSICS::InternalVector.size() != 16 ) {
-            
-            GAMEPLAY_COMPONENT_PHYSICS::InternalVector.resize(16);
-        }
-        
-        GAMEPLAY_COMPONENT_PHYSICS::InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_PHYSICS * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_PHYSICS ) );
-        GAMEPLAY_COMPONENT_PHYSICS::InternalVector[0].LastIndex = -1;
-    }
-    
-    return ( void *) &( GAMEPLAY_COMPONENT_PHYSICS::InternalVector[ 0 ].MemoryArray[++GAMEPLAY_COMPONENT_PHYSICS::InternalVector[ 0 ].LastIndex] );
+    return ( void *) &( (*InternalVector)[ 0 ].MemoryArray[ ++(( *InternalVector)[ 0 ].LastIndex) ] );
 }
+
+void GAMEPLAY_COMPONENT_PHYSICS::operator delete  ( void* ptr ) {
+    
+}
+
 
 void GAMEPLAY_COMPONENT_PHYSICS::ConfigureShapeSphere( const CORE_MATH_VECTOR & position ) {
     
@@ -89,4 +79,3 @@ void GAMEPLAY_COMPONENT_PHYSICS::ForcePosition( const CORE_MATH_VECTOR & positio
     #endif
 }
 
-std::vector< GAMEPLAY_COMPONENT_PHYSICS::INTERNAL_ARRAY_P > GAMEPLAY_COMPONENT_PHYSICS::InternalVector = std::vector< GAMEPLAY_COMPONENT_PHYSICS::INTERNAL_ARRAY_P >();

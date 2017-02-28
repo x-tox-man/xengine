@@ -9,6 +9,9 @@
 #include "GLOBAL_RESOURCES.h"
 #include "RESOURCE_IMAGE.h"
 #include "GRAPHIC_FONT_MANAGER.h"
+#include "GAMEPLAY_COMPONENT_POSITION.h"
+#include "GAMEPLAY_COMPONENT_RENDER.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
 
 GLOBAL_RESOURCES::GLOBAL_RESOURCES() {
 }
@@ -70,4 +73,52 @@ GRAPHIC_OBJECT_SHAPE_PLAN * GLOBAL_RESOURCES::CreateUIPlanShape( GRAPHIC_SHADER_
     shape->InitializeShape( &effect->GetProgram() );
     
     return shape;
+}
+
+GRAPHIC_OBJECT_SHAPE_FRAME * GLOBAL_RESOURCES::CreateFrameBorder( float height, float width, GRAPHIC_SHADER_EFFECT::PTR shader ) {
+    
+    auto frame = new GRAPHIC_OBJECT_SHAPE_FRAME;
+    
+    frame->SetBorderSize( height, width);
+    frame->InitializeShape( &shader->GetProgram() );
+    
+    return frame;
+}
+
+GAMEPLAY_COMPONENT_ENTITY * GLOBAL_RESOURCES::CreateThisComponent(
+    GAMEPLAY_COMPONENT_ENTITY * in_component,
+    GRAPHIC_OBJECT_SHAPE_PLAN::PTR object,
+    GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR program,
+    const CORE_MATH_VECTOR & position,
+    const CORE_MATH_QUATERNION & orientation,
+    const CORE_MATH_VECTOR & size,
+    GAMEPLAY_SCENE * scene ) {
+    
+    /*GRAPHIC_OBJECT * object = GRAPHIC_OBJECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER("CellID"), path);
+     
+     for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+     
+     object->GetMeshTable()[ i ]->CreateBuffers();
+     }
+     
+     object->GetShaderTable().resize( 1 );
+     object->GetShaderTable()[ 0 ] = program;*/
+    
+    auto pos = (GAMEPLAY_COMPONENT_POSITION * ) GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Position );
+    
+    in_component->SetCompononent( pos, GAMEPLAY_COMPONENT_TYPE_Position );
+    in_component->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Render ), GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    ( ( GAMEPLAY_COMPONENT_RENDER *) in_component->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetObject(  object );
+    ( ( GAMEPLAY_COMPONENT_RENDER *) in_component->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetScaleFactor(size.X());
+    
+    GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) scene->GetRenderableSystemTable()[0];
+    
+    render_system->AddEntity( in_component );
+    render_system->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
+    
+    in_component->SetPosition( position );
+    pos->SetOrientation( orientation );
+    
+    return in_component;
 }

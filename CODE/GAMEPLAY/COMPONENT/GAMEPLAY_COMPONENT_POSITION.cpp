@@ -20,29 +20,20 @@ GAMEPLAY_COMPONENT_POSITION::GAMEPLAY_COMPONENT_POSITION() :
 
 GAMEPLAY_COMPONENT_POSITION::~GAMEPLAY_COMPONENT_POSITION() {
 
-    for ( int i = 0; i < InternalVector.size(); i++ ) {
-        
-        CORE_MEMORY_ALLOCATOR_Free( InternalVector[ i ].MemoryArray );
-    }
 }
 
 void * GAMEPLAY_COMPONENT_POSITION::operator new( size_t size ) {
     
-    int index = (int) InternalVector.size();
+    static std::vector< INTERNAL_ARRAY > * InternalVector = InitializeMemory<INTERNAL_ARRAY, GAMEPLAY_COMPONENT_POSITION>();
     
-    if( index == 0) {
+    return ( void *) &( (*InternalVector)[ 0 ].MemoryArray[ ++(( *InternalVector)[ 0 ].LastIndex) ] );
+}
 
-        InternalVector.resize(16);
-        InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_POSITION * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_POSITION ) );
-        InternalVector[0].LastIndex = -1;
-    }
+void GAMEPLAY_COMPONENT_POSITION::operator delete  ( void* ptr ) {
     
-    return ( void *) &( InternalVector[ 0 ].MemoryArray[++InternalVector[ 0 ].LastIndex] );
 }
 
 bool GAMEPLAY_COMPONENT_POSITION::Intersects( const CORE_MATH_RAY & ray ) {
     
     return true;
 }
-
-std::vector< GAMEPLAY_COMPONENT_POSITION::INTERNAL_ARRAY > GAMEPLAY_COMPONENT_POSITION::InternalVector;

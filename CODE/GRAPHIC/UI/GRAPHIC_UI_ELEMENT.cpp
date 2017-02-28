@@ -46,7 +46,8 @@ GRAPHIC_UI_ELEMENT::GRAPHIC_UI_ELEMENT(const CORE_HELPERS_IDENTIFIER & identifie
     CurrentState( GRAPHIC_UI_ELEMENT_STATE_Default ),
     Enabled( true ),
     Visible( true ),
-    Adapter( NULL ) {
+    Adapter( NULL ),
+    Opacity( 1.0f ) {
 
 }
 
@@ -115,7 +116,7 @@ void GRAPHIC_UI_ELEMENT::Click( const CORE_MATH_VECTOR & cursor_position ) {
 
 void GRAPHIC_UI_ELEMENT::Hover( const CORE_MATH_VECTOR & cursor_position ) {
     
-    bool contains = GRAPHIC_UI_ELEMENT::Contains( cursor_position );
+    bool contains = Contains( cursor_position );
     
     if ( CurrentState != GRAPHIC_UI_ELEMENT_STATE_Hovered && CurrentState != GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
         

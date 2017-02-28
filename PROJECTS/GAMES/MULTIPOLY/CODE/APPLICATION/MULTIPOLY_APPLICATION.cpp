@@ -49,19 +49,22 @@ void MULTIPOLY_APPLICATION::Initialize() {
     GAME_PLAYER_MODEL mod, mod2;
     mod.Name = std::string("Christophe");
     mod.Color = CORE_COLOR_Red;
+    mod.IsHuman = true;
     
     mod2.Name = std::string("Charlotte");
     mod2.Color = CORE_COLOR_Blue;
+    mod2.IsHuman = false;
     
     players.push_back(mod);
     players.push_back(mod2);
     
     InitializeGraphics();
     InitializeRandom();
+    InitializeGameConfiguration();
     
     Game.Initialize( players );
     
-    auto startup_splash_page = (GRAPHIC_UI_FRAME *) &APPLICATION_SCREENS_NAVIGATION::GetInstance().InitializeNavigation<MAIN_MENU_PAGE>( "splash" );
+    auto startup_splash_page = (GRAPHIC_UI_FRAME *) &APPLICATION_SCREENS_NAVIGATION::GetInstance().InitializeNavigation<SPLASH>( "splash" );
     startup_splash_page->Initialize();
 }
 
@@ -78,7 +81,7 @@ void MULTIPOLY_APPLICATION::Update( float time_step ) {
 void MULTIPOLY_APPLICATION::Render() {
     
     CORE_MATH_VECTOR
-        position(4.0f, -5.0f, 17.0f, 1.0f);
+        position(4.0f, -5.0f, 16.0f, 1.0f);
     
     Lookat[0] = -1.0f;
     Lookat[1] = 0.0f;
@@ -117,14 +120,13 @@ void MULTIPOLY_APPLICATION::InitializeGraphics() {
     
     GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() ) );
     
-    interface_lookat.Normalize();
-    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight(), position, interface_lookat );
-    
-    GLOBAL_RESOURCES::GetInstance().Initialize();
+    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight(), CORE_MATH_VECTOR(0.0f, 0.0f), interface_lookat );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     GRAPHIC_RENDERER::GetInstance().Initialize();
     GRAPHIC_RENDERER::GetInstance().SetRenderCallback( myCallback );
+    
+    GLOBAL_RESOURCES::GetInstance().Initialize();
     GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( GLOBAL_RESOURCES::GetInstance().DirectionalLight );
     GRAPHIC_RENDERER::GetInstance().SetPointLight( GLOBAL_RESOURCES::GetInstance().PointLightOne, 0 );
     GRAPHIC_RENDERER::GetInstance().SetPointLight( GLOBAL_RESOURCES::GetInstance().PointLightTwo, 1 );
@@ -140,5 +142,12 @@ void MULTIPOLY_APPLICATION::InitializeRandom() {
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );
     srand((unsigned int) rawtime);
+}
+
+void MULTIPOLY_APPLICATION::InitializeGameConfiguration() {
+    
+    APPLICATION_CONFIGURATION_OPTIONS::GetInstance().StopOnStartGivesMoreMoney = false;
+    APPLICATION_CONFIGURATION_OPTIONS::GetInstance().StartCellMoney = 2000;
+    APPLICATION_CONFIGURATION_OPTIONS::GetInstance().StartUpMoney = 20000;
 }
 

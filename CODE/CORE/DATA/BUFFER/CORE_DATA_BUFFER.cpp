@@ -11,15 +11,15 @@
 #include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_DATA_BUFFER )
-    XS_DEFINE_ClassMember( int, sections )
-    XS_DEFINE_ClassMember( int, size )
-    XS_DEFINE_ClassMemberArray( char, (char **) &DataPointer, size )
+    XS_DEFINE_ClassMember( int, Sections )
+    XS_DEFINE_ClassMember( int, Size )
+    XS_DEFINE_ClassMemberArray( char, (char **) &DataPointer, Size )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_DATA_BUFFER::CORE_DATA_BUFFER() :
     DataPointer( NULL ),
-    sections ( 0 ),
-    size( 0 ) {
+    Sections ( 0 ),
+    Size( 0 ) {
     
 }
 
@@ -36,14 +36,14 @@ CORE_DATA_BUFFER::~CORE_DATA_BUFFER() {
 void CORE_DATA_BUFFER::Initialize( unsigned int size, int section_count ) {
     
     this->DataPointer = CORE_MEMORY_ALLOCATOR_Allocate( size );
-    this->size = size;
-    this->sections = section_count;
+    this->Size = size;
+    this->Sections = section_count;
 }
 
 void CORE_DATA_BUFFER::InitializeWithMemory( unsigned int size, int section_count, void * memory ) {
     
     // Only realloc memory if new array is bigger
-    if ( this->DataPointer && this->size < size ) {
+    if ( this->DataPointer && this->Size < size ) {
         
         CORE_MEMORY_ALLOCATOR_Free( this->DataPointer );
         
@@ -56,8 +56,8 @@ void CORE_DATA_BUFFER::InitializeWithMemory( unsigned int size, int section_coun
     }
     
     CORE_MEMORY_CopyBytes( this->DataPointer, size, memory);
-    this->size = size;
-    this->sections = section_count;
+    this->Size = size;
+    this->Sections = section_count;
 }
 
 void CORE_DATA_BUFFER::Finalize() {
@@ -68,8 +68,8 @@ void CORE_DATA_BUFFER::Finalize() {
         DataPointer = NULL;
     }
     
-    size = 0;
-    sections = 0;
+    Size = 0;
+    Sections = 0;
 }
 
 void CORE_DATA_BUFFER::setMarkerAtIndex( const CORE_HELPERS_IDENTIFIER * identifier, int section_index, int byte_offset, int item_size ) {

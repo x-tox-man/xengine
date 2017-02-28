@@ -25,20 +25,13 @@ GAMEPLAY_COMPONENT_RENDER::~GAMEPLAY_COMPONENT_RENDER() {
 
 void * GAMEPLAY_COMPONENT_RENDER::operator new( size_t size ) {
     
-    unsigned int index = (int) InternalVector.size();
+    static std::vector< INTERNAL_ARRAY_R > * InternalVector = InitializeMemory<INTERNAL_ARRAY_R, GAMEPLAY_COMPONENT_RENDER>();
     
-    if ( index == 0 ) {
-        
-        if ( GAMEPLAY_COMPONENT_RENDER::InternalVector.size() != 16 ) {
-            
-            GAMEPLAY_COMPONENT_RENDER::InternalVector.resize(16);
-        }
-        
-        GAMEPLAY_COMPONENT_RENDER::InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_RENDER * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_RENDER ) );
-        GAMEPLAY_COMPONENT_RENDER::InternalVector[0].LastIndex = -1;
-    }
+    return ( void *) &( (*InternalVector)[ 0 ].MemoryArray[ ++(( *InternalVector)[ 0 ].LastIndex) ] );
+}
+
+void GAMEPLAY_COMPONENT_RENDER::operator delete  ( void* ptr ) {
     
-    return ( void *) &( GAMEPLAY_COMPONENT_RENDER::InternalVector[ 0 ].MemoryArray[++GAMEPLAY_COMPONENT_RENDER::InternalVector[ 0 ].LastIndex] );
 }
 
 void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_COMPONENT_POSITION * component ) {
@@ -52,5 +45,3 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     Object->Render( renderer );
     renderer.EnableColor(false);
 }
-
-std::vector< GAMEPLAY_COMPONENT_RENDER::INTERNAL_ARRAY_R > GAMEPLAY_COMPONENT_RENDER::InternalVector = std::vector< GAMEPLAY_COMPONENT_RENDER::INTERNAL_ARRAY_R >();

@@ -62,3 +62,18 @@ void GAMEPLAY_COMPONENT_SYSTEM::AddEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) 
     
     EntitiesVector.push_back( entity );
 }
+
+void GAMEPLAY_COMPONENT_SYSTEM::RemoveEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+    
+    std::vector< GAMEPLAY_COMPONENT_ENTITY * >::iterator it =  EntitiesVector.begin();
+    
+    while (it != EntitiesVector.end() ) {
+        
+        if ( *it == entity ) {
+            
+            EntitiesVector.erase( it );
+            
+            break;
+        }
+    }
+}

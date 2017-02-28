@@ -45,6 +45,7 @@ void GRAPHIC_FONT::Load( const CORE_FILESYSTEM_PATH & font_path, const CORE_FILE
     CORE_FILESYSTEM_FILE file( font_path );
     RESOURCE_IMAGE_PNG_LOADER loader;
     
+    
     file.OpenOutput();
     int size = file.GetSize();
     CORE_DATA_STREAM stream( size );

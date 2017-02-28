@@ -40,6 +40,7 @@
 #include "GRAPHIC_PARTICLE_MODIFIER_APPLY_VELOCITY.h"
 #include "GRAPHIC_PARTICLE_MODIFIER_GRAVITY.h"
 #include "GAMEPLAY_GAME.h"
+#include "APPLICATION_CONFIGURATION.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( MULTIPOLY_APPLICATION, CORE_APPLICATION )
 
@@ -53,6 +54,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( MULTIPOLY_APPLICATION, CORE_APPLICATION )
     virtual void Render() override;
 
     inline GAMEPLAY_GAME_BOARD & GetGameBoard() { return Game.GetBoard(); }
+    inline GAMEPLAY_GAME & GetGame() { return Game; }
 
     CORE_FILESYSTEM & GetDefaultFileystem() { return DefaultFileystem; }
 
@@ -60,6 +62,7 @@ private :
 
     void InitializeGraphics();
     void InitializeRandom();
+    void InitializeGameConfiguration();
 
     CORE_MATH_QUATERNION
         Lookat;

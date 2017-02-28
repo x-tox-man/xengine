@@ -123,7 +123,7 @@
                     
                     if ( animation->GetAnimationName().compare( visualScene->getRootNodes()[i]->getName() ) == 0 ) {
                         
-                        int size = animation->GetJointIndexTable().Getsize() / 4;
+                        int size = animation->GetJointIndexTable().GetSize() / 4;
                         int * ptr = (int*) animation->GetJointIndexTable().getpointerAtIndex(0, 0);
                         
                         for ( int j = 0; j < size; j++ ) {
@@ -235,9 +235,9 @@
     void COLLADA_LOADER_WRITER::MakeInterleavedBuffer( CORE_DATA_BUFFER & buffer )
     {
         void * base = buffer.getpointerAtIndex( 0 );
-        void * temporary = CORE_MEMORY_ALLOCATOR::Allocate( buffer.Getsize() );
+        void * temporary = CORE_MEMORY_ALLOCATOR::Allocate( buffer.GetSize() );
         int sections = buffer.Getsections();
-        memcpy(temporary, base, buffer.Getsize());
+        memcpy(temporary, base, buffer.GetSize());
         
         int test = buffer.getSectionSize( 0 );
         test = buffer.getSectionItemOffset( 0 );
@@ -786,7 +786,7 @@
         
         unsigned int joint_index_offset = 0;
         
-        int new_buffer_size = buffer->Getsize()
+        int new_buffer_size = buffer->GetSize()
         + (int) ( BASE_JOINTS_PER_VERTEX * skinControllerData->getJointsPerVertex().getCount()* sizeof( float ) )
         + (int) ( BASE_JOINTS_PER_VERTEX * skinControllerData->getJointsPerVertex().getCount()* sizeof( unsigned int ) );
         
@@ -810,7 +810,7 @@
         const int base_stride = stride * sizeof(float);
         const int final_stride = base_stride + BASE_JOINTS_PER_VERTEX * sizeof( float ) + BASE_JOINTS_PER_VERTEX * sizeof( unsigned int );
         
-        assert ( new_buffer_size > buffer->Getsize() );
+        assert ( new_buffer_size > buffer->GetSize() );
         
         //void * new_buffer = CORE_MEMORY_ALLOCATOR::Allocate(new_buffer_size);
         void * alternate_new_buffer = CORE_MEMORY_ALLOCATOR::Allocate( mesh->CurrenGeometrytTableSize * final_stride );

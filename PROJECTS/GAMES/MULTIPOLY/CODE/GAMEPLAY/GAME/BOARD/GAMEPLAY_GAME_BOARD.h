@@ -23,6 +23,8 @@ XS_CLASS_BEGIN(GAMEPLAY_GAME_BOARD)
 
 private:
 
+    void CreateRules( std::array< GAMEPLAY_RULE *, 40 > & rules_table );
+
     std::array< GAMEPLAY_GAME_BOARD_CELL *, 40 >
         CellTable;
 

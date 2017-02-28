@@ -36,8 +36,8 @@ public:
     int getSectionItemOffset( int section_index );
     int getSectionItemOffset( const CORE_HELPERS_IDENTIFIER * section = NULL );
 
-    Scalar_SGet( int, sections );
-    Scalar_SGet( int, size );
+    Scalar_SGet( int, Sections );
+    Scalar_SGet( int, Size );
 
     template<typename __SCALAR__>
     __SCALAR__ * getpointerAtIndex( __SCALAR__ offset )
@@ -47,7 +47,7 @@ public:
         base_pointer += offset;
         
         #if DEBUG
-            if ( (__SCALAR__ *)base_pointer > (__SCALAR__ *)DataPointer + size ) {
+            if ( (__SCALAR__ *)base_pointer > (__SCALAR__ *)DataPointer + Size ) {
                 CORE_RUNTIME_Abort();
             }
         #endif

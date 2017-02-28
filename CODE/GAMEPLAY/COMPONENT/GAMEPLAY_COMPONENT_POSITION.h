@@ -28,6 +28,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
     friend class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
 
     void * operator new(size_t size);
+    void operator delete  ( void* ptr );
 
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Position)
 
@@ -49,18 +50,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
     inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation; }
 
     bool Intersects( const CORE_MATH_RAY & ray );
-
-    static std::vector< INTERNAL_ARRAY > InternalVector;
-
-static void FinalizeStaticMemory() {
-    
-    for ( int i = 0; i < InternalVector.size(); i++ ) {
-        
-        CORE_MEMORY_ALLOCATOR_Free( InternalVector[ i ].MemoryArray );
-    }
-    
-    InternalVector.resize( 0 );
-}
 
 private :
 

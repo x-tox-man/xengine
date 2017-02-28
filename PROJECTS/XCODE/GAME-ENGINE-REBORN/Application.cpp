@@ -286,9 +286,9 @@ void MyTestApp::Initialize() {
         SERVICE_LOGGER_Error( "ALL APP Inititialize 1.9" );
         
         GRAPHIC_FONT_MANAGER::GetInstance().LoadFont(
-                                                     CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ),
-        CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "fxb", "FONTS/" ),
-        CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "png", "FONTS/" ) );
+            CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ),
+            CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "fxb", "FONTS/" ),
+            CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "png", "FONTS/" ) );
         
         GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() ) );
         
@@ -334,11 +334,6 @@ void MyTestApp::OnObjectPicked( GAMEPLAY_COMPONENT_ENTITY * entity  ) {
 }
 
 void MyTestApp::Finalize() {
-    
-    GAMEPLAY_COMPONENT_ANIMATION::FinalizeStaticMemory();
-    GAMEPLAY_COMPONENT_RENDER::FinalizeStaticMemory();
-    GAMEPLAY_COMPONENT_POSITION::FinalizeStaticMemory();
-    GAMEPLAY_COMPONENT_PHYSICS::FinalizeStaticMemory();
 
     CORE_MEMORY_ObjectSafeDeallocation( Camera );
     CORE_MEMORY_ObjectSafeDeallocation( LightCamera );

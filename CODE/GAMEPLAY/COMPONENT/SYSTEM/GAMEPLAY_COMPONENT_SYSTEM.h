@@ -27,6 +27,7 @@ virtual void Render() = 0;
 virtual void Finalize() = 0;
 
 virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY * entity );
+virtual void RemoveEntity( GAMEPLAY_COMPONENT_ENTITY * entity );
 
 std::vector< GAMEPLAY_COMPONENT_ENTITY * > EntitiesVector;
 

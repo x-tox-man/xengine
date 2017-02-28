@@ -24,6 +24,14 @@ XS_END_INTERNAL_MEMORY_LAYOUT
  qz = (m10 - m01)/( 4 *qw)
  */
 
+CORE_MATH_QUATERNION::CORE_MATH_QUATERNION( const CORE_MATH_QUATERNION & other ) {
+    
+    X( other.X() );
+    Y( other.Y() );
+    Z( other.Z() );
+    W( other.W() );
+}
+
 CORE_MATH_QUATERNION::~CORE_MATH_QUATERNION() {
 
 }

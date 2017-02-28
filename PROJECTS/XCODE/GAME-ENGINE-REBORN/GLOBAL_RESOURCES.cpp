@@ -29,7 +29,7 @@ void GLOBAL_RESOURCES::Initialize( GAMEPLAY_SCENE * scene ) {
         CORE_FILESYSTEM_PATH::FindFilePath( "atlas_test", "png", "IMAGES" ));
     GRAPHIC_SHADER_EFFECT::PTR
         ui_textured_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShader"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", "OPENGL2" ) ),
-        ui_colored_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderColored"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderColored" , "vsh", "OPENGL2" ) );;
+        ui_colored_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderColored"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderColored" , "vsh", "OPENGL2" ) );
     
     UIPlanObject = new GRAPHIC_OBJECT_SHAPE_PLAN;
     UIPlanObjectColorOnly = new GRAPHIC_OBJECT_SHAPE_PLAN;

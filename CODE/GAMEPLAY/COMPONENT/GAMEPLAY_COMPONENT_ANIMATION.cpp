@@ -16,29 +16,19 @@ GAMEPLAY_COMPONENT_ANIMATION::GAMEPLAY_COMPONENT_ANIMATION() :
 
 GAMEPLAY_COMPONENT_ANIMATION::~GAMEPLAY_COMPONENT_ANIMATION() {
     
-    for ( int i = 0; i < InternalVector.size(); i++ ) {
-        
-        CORE_MEMORY_ALLOCATOR_Free( InternalVector[ i ].MemoryArray );
-    }
 }
 
 void * GAMEPLAY_COMPONENT_ANIMATION::operator new( size_t size ) {
     
-    int index = (int) InternalVector.size();
+    static std::vector< INTERNAL_ARRAY_A > * InternalVector = InitializeMemory<INTERNAL_ARRAY_A, GAMEPLAY_COMPONENT_ANIMATION>();
     
-    if( index == 0) {
-        
-        if ( GAMEPLAY_COMPONENT_ANIMATION::InternalVector.size() != 16 ) {
-            
-            GAMEPLAY_COMPONENT_ANIMATION::InternalVector.resize(16);
-        }
-        
-        GAMEPLAY_COMPONENT_ANIMATION::InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_ANIMATION * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_ANIMATION ) );
-        GAMEPLAY_COMPONENT_ANIMATION::InternalVector[0].LastIndex = -1;
-    }
-    
-    return ( void *) &( GAMEPLAY_COMPONENT_ANIMATION::InternalVector[ 0 ].MemoryArray[++GAMEPLAY_COMPONENT_ANIMATION::InternalVector[ 0 ].LastIndex] );
+    return ( void *) &( (*InternalVector)[ 0 ].MemoryArray[ ++(( *InternalVector)[ 0 ].LastIndex) ] );
 }
+
+void GAMEPLAY_COMPONENT_ANIMATION::operator delete  ( void* ptr ) {
+    
+}
+
 
 void GAMEPLAY_COMPONENT_ANIMATION::UpdateAnimation( float time_step ) {
     
@@ -54,4 +44,3 @@ void GAMEPLAY_COMPONENT_ANIMATION::UpdateAnimation( float time_step ) {
     }
 }
 
-std::vector< GAMEPLAY_COMPONENT_ANIMATION::INTERNAL_ARRAY_A > GAMEPLAY_COMPONENT_ANIMATION::InternalVector = std::vector< GAMEPLAY_COMPONENT_ANIMATION::INTERNAL_ARRAY_A >();

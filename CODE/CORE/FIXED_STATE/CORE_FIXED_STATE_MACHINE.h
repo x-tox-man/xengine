@@ -55,6 +55,11 @@ public:
         CurrentState->EnterState();
     }
     
+    const __BASE_STATE__ & GetState() {
+        
+        return *CurrentState;
+    }
+    
     __PARENT_CONTEXT__ * GetContext() { return Context; }
 
 private :

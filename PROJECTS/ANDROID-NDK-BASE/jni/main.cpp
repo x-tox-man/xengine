@@ -184,7 +184,7 @@ static int engine_init_display(struct engine* engine) {
     //glShadeModel(GL_SMOOTH);
     glDisable(GL_DEPTH_TEST);
 
-    GRAPHIC_WINDOW_ANDROID * window = new GRAPHIC_WINDOW_ANDROID;
+    GRAPHIC_WINDOW_ANDROID * window = new GRAPHIC_WINDOW_ANDROID();
     window->SetHeight( h );
     window->SetWidth( w );
     

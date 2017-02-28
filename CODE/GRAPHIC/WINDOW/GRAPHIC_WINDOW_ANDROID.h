@@ -18,8 +18,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_ANDROID, GRAPHIC_WINDOW )
     virtual ~GRAPHIC_WINDOW_ANDROID();
 
     virtual void Initialize() override;
-
-private :
+    virtual void EnableBackgroundContext(bool enable) override;
 
 XS_CLASS_END
 

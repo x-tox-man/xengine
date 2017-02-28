@@ -36,6 +36,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_TEXT, GRAPHIC_OBJECT_SHAPE )
     void UpdateText( const char * text, float size_factor = 1.0f, bool left_to_right = true );
     void SetFont( GRAPHIC_FONT * font ) { Font = font; }
 
+    const CORE_MATH_VECTOR & GetTextExtent();
+
     GRAPHIC_FONT * GetFont() { return Font; }
     void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
 
@@ -47,7 +49,8 @@ private :
 
     CORE_MATH_VECTOR
         Size,
-        Position;
+        Position,
+        TextExtent;
     GRAPHIC_FONT *
         Font;
     float

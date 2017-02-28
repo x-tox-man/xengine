@@ -53,7 +53,7 @@ void * GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForTime( const float 
     
     assert(time >= 0.0f );
     
-    for ( int i = 1; i < TimeTableBuffer.Getsize(); i++ ) {
+    for ( int i = 1; i < TimeTableBuffer.GetSize(); i++ ) {
         
         float min = *((float*) TimeTableBuffer.getpointerAtIndex(matrix_index * sizeof(float), 0));
         float max = *((float*) TimeTableBuffer.getpointerAtIndex( ( matrix_index + 1 ) * sizeof(float), 0));
@@ -72,7 +72,7 @@ void * GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForTime( const float 
         ++matrix_index;
     }
     
-    assert(matrix_index == TimeTableBuffer.Getsize() -1 );
+    assert(matrix_index == TimeTableBuffer.GetSize() -1 );
     
     return FloatMatrixBuffer.getpointerAtIndex((matrix_index-1) * sizeof(float) * 16, 0);
 }
@@ -83,7 +83,7 @@ void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( const float time, CORE_MATH
     
     assert(time >= 0.0f );
     
-    for ( int i = 1; i < TimeTableBuffer.Getsize(); i++ ) {
+    for ( int i = 1; i < TimeTableBuffer.GetSize(); i++ ) {
         
         float min = *((float*) TimeTableBuffer.getpointerAtIndex(pose_index * sizeof(float), 0));
         float max = *((float*) TimeTableBuffer.getpointerAtIndex( ( pose_index + 1 ) * sizeof(float), 0));
@@ -111,12 +111,12 @@ void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( const float time, CORE_MATH
         ++pose_index;
     }
     
-    assert(pose_index == TimeTableBuffer.Getsize() -1 );
+    assert(pose_index == TimeTableBuffer.GetSize() -1 );
     
     pose.CopyFrom(  *(( CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( ( pose_index - 1 ) * sizeof( CORE_MATH_POSE ), 0) ));
 }
 
 float GRAPHIC_MESH_ANIMATION_JOINT::GetDuration() {
     
-    return *(float*) TimeTableBuffer.getpointerAtIndex( (TimeTableBuffer.Getsize()/4) - 1 );
+    return *(float*) TimeTableBuffer.getpointerAtIndex( (TimeTableBuffer.GetSize()/4) - 1 );
 }

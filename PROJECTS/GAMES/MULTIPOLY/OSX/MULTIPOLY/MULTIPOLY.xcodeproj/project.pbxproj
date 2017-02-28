@@ -234,6 +234,12 @@
 		32207D1D1E5B8F9500DBCE53 /* arial_black_12.png in Resources */ = {isa = PBXBuildFile; fileRef = 32207D071E5B8F9500DBCE53 /* arial_black_12.png */; };
 		32207D1E1E5B8F9500DBCE53 /* arial_black_20.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 32207D081E5B8F9500DBCE53 /* arial_black_20.fxb */; };
 		32207D1F1E5B8F9500DBCE53 /* arial_black_20.png in Resources */ = {isa = PBXBuildFile; fileRef = 32207D091E5B8F9500DBCE53 /* arial_black_20.png */; };
+		327242F51E66112800A353E0 /* GAMEPLAY_RULE_RECEIVE_AMOUNT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 327242F31E66112800A353E0 /* GAMEPLAY_RULE_RECEIVE_AMOUNT.cpp */; };
+		327242F81E66131A00A353E0 /* GAMEPLAY_RULE_PAY_HOTEL_HOUSES.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 327242F61E66131A00A353E0 /* GAMEPLAY_RULE_PAY_HOTEL_HOUSES.cpp */; };
+		327242FB1E66270600A353E0 /* GAMEPLAY_RULE_ADVANCE_TO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 327242F91E66270600A353E0 /* GAMEPLAY_RULE_ADVANCE_TO.cpp */; };
+		327242FE1E662B7D00A353E0 /* GAMEPLAY_RULE_JUMP_TO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 327242FC1E662B7D00A353E0 /* GAMEPLAY_RULE_JUMP_TO.cpp */; };
+		328E9B1A1E64CC1500112815 /* GAMEPLAY_GAME_CARD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328E9B181E64CC1500112815 /* GAMEPLAY_GAME_CARD.cpp */; };
+		328E9B201E64E29000112815 /* GRAPHIC_BACKGROUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328E9B1E1E64E29000112815 /* GRAPHIC_BACKGROUND.cpp */; };
 		3291FA0C1E5CFE87003C9AD4 /* APPLICATION_SCREENS_NAVIGATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3291FA0A1E5CFE87003C9AD4 /* APPLICATION_SCREENS_NAVIGATION.cpp */; };
 		3293FAE71E5E45B30090AC15 /* BasicGeometryShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3293FAD41E5E45B30090AC15 /* BasicGeometryShader.fsh */; };
 		3293FAE81E5E45B30090AC15 /* BasicGeometryShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3293FAD51E5E45B30090AC15 /* BasicGeometryShader.vsh */; };
@@ -255,6 +261,17 @@
 		3293FAF81E5E45B40090AC15 /* UIShaderTextured.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3293FAE51E5E45B30090AC15 /* UIShaderTextured.fsh */; };
 		3293FAF91E5E45B40090AC15 /* UIShaderTextured.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3293FAE61E5E45B30090AC15 /* UIShaderTextured.vsh */; };
 		3293FAFC1E5E46840090AC15 /* mesh2.smx in Resources */ = {isa = PBXBuildFile; fileRef = 3293FAFB1E5E46840090AC15 /* mesh2.smx */; };
+		32C27C9A1E60EC2C008411C6 /* GAMEPLAY_RULE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27C981E60EC2C008411C6 /* GAMEPLAY_RULE.cpp */; };
+		32C27C9D1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27C9B1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.cpp */; };
+		32C27CA01E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27C9E1E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.cpp */; };
+		32C27CA31E60F302008411C6 /* GAMEPLAY_RULE_PRISON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27CA11E60F302008411C6 /* GAMEPLAY_RULE_PRISON.cpp */; };
+		32C27CA61E60F340008411C6 /* GAMEPLAY_RULE_CHANCE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27CA41E60F340008411C6 /* GAMEPLAY_RULE_CHANCE.cpp */; };
+		32C27CA91E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27CA71E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.cpp */; };
+		32C27CAC1E60F5E3008411C6 /* GAMEPLAY_RULE_START.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27CAA1E60F5E3008411C6 /* GAMEPLAY_RULE_START.cpp */; };
+		32C27CAF1E60F96D008411C6 /* GAMEPLAY_RULE_PARK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27CAD1E60F96D008411C6 /* GAMEPLAY_RULE_PARK.cpp */; };
+		32C27CB21E60F9DE008411C6 /* GAMEPLAY_RULE_PAY_AMOUNT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27CB01E60F9DE008411C6 /* GAMEPLAY_RULE_PAY_AMOUNT.cpp */; };
+		32C27CB51E617FF2008411C6 /* APPLICATION_CONFIGURATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27CB41E617FF2008411C6 /* APPLICATION_CONFIGURATION.cpp */; };
+		32C27CB91E62CCA7008411C6 /* POPUP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27CB71E62CCA7008411C6 /* POPUP.cpp */; };
 		32C3EC7F1E5B976F006ED1C8 /* monopoly-nintendo-plateau.png in Resources */ = {isa = PBXBuildFile; fileRef = 32C3EC7E1E5B976F006ED1C8 /* monopoly-nintendo-plateau.png */; };
 		32C3EC821E5B97D3006ED1C8 /* GLOBAL_RESOURCES.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C3EC801E5B97D3006ED1C8 /* GLOBAL_RESOURCES.cpp */; };
 /* End PBXBuildFile section */
@@ -765,6 +782,18 @@
 		32207D071E5B8F9500DBCE53 /* arial_black_12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arial_black_12.png; sourceTree = "<group>"; };
 		32207D081E5B8F9500DBCE53 /* arial_black_20.fxb */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial_black_20.fxb; sourceTree = "<group>"; };
 		32207D091E5B8F9500DBCE53 /* arial_black_20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arial_black_20.png; sourceTree = "<group>"; };
+		327242F31E66112800A353E0 /* GAMEPLAY_RULE_RECEIVE_AMOUNT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_RECEIVE_AMOUNT.cpp; sourceTree = "<group>"; };
+		327242F41E66112800A353E0 /* GAMEPLAY_RULE_RECEIVE_AMOUNT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_RECEIVE_AMOUNT.h; sourceTree = "<group>"; };
+		327242F61E66131A00A353E0 /* GAMEPLAY_RULE_PAY_HOTEL_HOUSES.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_PAY_HOTEL_HOUSES.cpp; sourceTree = "<group>"; };
+		327242F71E66131A00A353E0 /* GAMEPLAY_RULE_PAY_HOTEL_HOUSES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_PAY_HOTEL_HOUSES.h; sourceTree = "<group>"; };
+		327242F91E66270600A353E0 /* GAMEPLAY_RULE_ADVANCE_TO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_ADVANCE_TO.cpp; sourceTree = "<group>"; };
+		327242FA1E66270600A353E0 /* GAMEPLAY_RULE_ADVANCE_TO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_ADVANCE_TO.h; sourceTree = "<group>"; };
+		327242FC1E662B7D00A353E0 /* GAMEPLAY_RULE_JUMP_TO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_JUMP_TO.cpp; sourceTree = "<group>"; };
+		327242FD1E662B7D00A353E0 /* GAMEPLAY_RULE_JUMP_TO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_JUMP_TO.h; sourceTree = "<group>"; };
+		328E9B181E64CC1500112815 /* GAMEPLAY_GAME_CARD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_GAME_CARD.cpp; sourceTree = "<group>"; };
+		328E9B191E64CC1500112815 /* GAMEPLAY_GAME_CARD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_GAME_CARD.h; sourceTree = "<group>"; };
+		328E9B1E1E64E29000112815 /* GRAPHIC_BACKGROUND.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_BACKGROUND.cpp; sourceTree = "<group>"; };
+		328E9B1F1E64E29000112815 /* GRAPHIC_BACKGROUND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_BACKGROUND.h; sourceTree = "<group>"; };
 		3291FA0A1E5CFE87003C9AD4 /* APPLICATION_SCREENS_NAVIGATION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APPLICATION_SCREENS_NAVIGATION.cpp; sourceTree = "<group>"; };
 		3291FA0B1E5CFE87003C9AD4 /* APPLICATION_SCREENS_NAVIGATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APPLICATION_SCREENS_NAVIGATION.h; sourceTree = "<group>"; };
 		3293FAD41E5E45B30090AC15 /* BasicGeometryShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = BasicGeometryShader.fsh; sourceTree = "<group>"; };
@@ -790,6 +819,28 @@
 		3293FAFB1E5E46840090AC15 /* mesh2.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = mesh2.smx; sourceTree = "<group>"; };
 		3293FAFD1E5F660C0090AC15 /* CORE_MATH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CORE_MATH.h; sourceTree = "<group>"; };
 		3293FB001E5F708A0090AC15 /* GAME_PLAYER_MODEL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAME_PLAYER_MODEL.h; sourceTree = "<group>"; };
+		32C27C981E60EC2C008411C6 /* GAMEPLAY_RULE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE.cpp; sourceTree = "<group>"; };
+		32C27C991E60EC2C008411C6 /* GAMEPLAY_RULE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE.h; sourceTree = "<group>"; };
+		32C27C9B1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_PROPERTY.cpp; sourceTree = "<group>"; };
+		32C27C9C1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_PROPERTY.h; sourceTree = "<group>"; };
+		32C27C9E1E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_STATION.cpp; sourceTree = "<group>"; };
+		32C27C9F1E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_STATION.h; sourceTree = "<group>"; };
+		32C27CA11E60F302008411C6 /* GAMEPLAY_RULE_PRISON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_PRISON.cpp; sourceTree = "<group>"; };
+		32C27CA21E60F302008411C6 /* GAMEPLAY_RULE_PRISON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_PRISON.h; sourceTree = "<group>"; };
+		32C27CA41E60F340008411C6 /* GAMEPLAY_RULE_CHANCE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_CHANCE.cpp; sourceTree = "<group>"; };
+		32C27CA51E60F340008411C6 /* GAMEPLAY_RULE_CHANCE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_CHANCE.h; sourceTree = "<group>"; };
+		32C27CA71E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_CAISSE.cpp; sourceTree = "<group>"; };
+		32C27CA81E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_CAISSE.h; sourceTree = "<group>"; };
+		32C27CAA1E60F5E3008411C6 /* GAMEPLAY_RULE_START.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_START.cpp; sourceTree = "<group>"; };
+		32C27CAB1E60F5E3008411C6 /* GAMEPLAY_RULE_START.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_START.h; sourceTree = "<group>"; };
+		32C27CAD1E60F96D008411C6 /* GAMEPLAY_RULE_PARK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_PARK.cpp; sourceTree = "<group>"; };
+		32C27CAE1E60F96D008411C6 /* GAMEPLAY_RULE_PARK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_PARK.h; sourceTree = "<group>"; };
+		32C27CB01E60F9DE008411C6 /* GAMEPLAY_RULE_PAY_AMOUNT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_PAY_AMOUNT.cpp; sourceTree = "<group>"; };
+		32C27CB11E60F9DE008411C6 /* GAMEPLAY_RULE_PAY_AMOUNT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_PAY_AMOUNT.h; sourceTree = "<group>"; };
+		32C27CB31E61100C008411C6 /* GAMEPLAY_DICE_ROLL_RESULT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_DICE_ROLL_RESULT.h; sourceTree = "<group>"; };
+		32C27CB41E617FF2008411C6 /* APPLICATION_CONFIGURATION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APPLICATION_CONFIGURATION.cpp; sourceTree = "<group>"; };
+		32C27CB71E62CCA7008411C6 /* POPUP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = POPUP.cpp; sourceTree = "<group>"; };
+		32C27CB81E62CCA7008411C6 /* POPUP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPUP.h; sourceTree = "<group>"; };
 		32C3EC7E1E5B976F006ED1C8 /* monopoly-nintendo-plateau.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "monopoly-nintendo-plateau.png"; sourceTree = "<group>"; };
 		32C3EC801E5B97D3006ED1C8 /* GLOBAL_RESOURCES.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLOBAL_RESOURCES.cpp; sourceTree = "<group>"; };
 		32C3EC811E5B97D3006ED1C8 /* GLOBAL_RESOURCES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLOBAL_RESOURCES.h; sourceTree = "<group>"; };
@@ -2159,6 +2210,7 @@
 				321F734E1E5A55CA00E6710C /* MULTIPOLY_APPLICATION.cpp */,
 				321F734F1E5A55CA00E6710C /* MULTIPOLY_APPLICATION.h */,
 				3293FAFA1E5E46080090AC15 /* APPLICATION_CONFIGURATION.h */,
+				32C27CB41E617FF2008411C6 /* APPLICATION_CONFIGURATION.cpp */,
 			);
 			path = APPLICATION;
 			sourceTree = "<group>";
@@ -2181,6 +2233,7 @@
 		321F734B1E5A55B100E6710C /* GRAPHICS */ = {
 			isa = PBXGroup;
 			children = (
+				328E9B1D1E64E28700112815 /* BACKGROUND */,
 				32207CFC1E5B773400DBCE53 /* BOARD */,
 				32207CFD1E5B773400DBCE53 /* CELL */,
 				32207CFE1E5B773400DBCE53 /* EFFECT */,
@@ -2201,6 +2254,7 @@
 		321F734D1E5A55B100E6710C /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				32C27CB61E62CCA0008411C6 /* BASE */,
 				3291FA091E5CFE87003C9AD4 /* NAVIGATION */,
 				321F73541E5A571F00E6710C /* ABOUT */,
 				321F73551E5A571F00E6710C /* GAME_END */,
@@ -2359,12 +2413,14 @@
 		321F74841E5A618E00E6710C /* GAME */ = {
 			isa = PBXGroup;
 			children = (
+				328E9B171E64CC0900112815 /* CARD */,
 				321F74851E5A618E00E6710C /* BOARD */,
 				321F74861E5A618E00E6710C /* PLAYER */,
 				321F74871E5A618E00E6710C /* RULE */,
 				321F74B81E5A638E00E6710C /* GAMEPLAY_GAME.cpp */,
 				321F74B91E5A638E00E6710C /* GAMEPLAY_GAME.h */,
 				3293FB001E5F708A0090AC15 /* GAME_PLAYER_MODEL.h */,
+				32C27CB31E61100C008411C6 /* GAMEPLAY_DICE_ROLL_RESULT.h */,
 			);
 			path = GAME;
 			sourceTree = "<group>";
@@ -2392,6 +2448,34 @@
 		321F74871E5A618E00E6710C /* RULE */ = {
 			isa = PBXGroup;
 			children = (
+				328E9B1B1E64E23E00112815 /* CAISSE */,
+				328E9B1C1E64E23E00112815 /* CHANCE */,
+				32C27C981E60EC2C008411C6 /* GAMEPLAY_RULE.cpp */,
+				32C27C991E60EC2C008411C6 /* GAMEPLAY_RULE.h */,
+				32C27CA71E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.cpp */,
+				32C27CA81E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.h */,
+				32C27C9B1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.cpp */,
+				32C27C9C1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.h */,
+				32C27C9E1E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.cpp */,
+				32C27C9F1E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.h */,
+				32C27CA11E60F302008411C6 /* GAMEPLAY_RULE_PRISON.cpp */,
+				32C27CA21E60F302008411C6 /* GAMEPLAY_RULE_PRISON.h */,
+				32C27CA41E60F340008411C6 /* GAMEPLAY_RULE_CHANCE.cpp */,
+				32C27CA51E60F340008411C6 /* GAMEPLAY_RULE_CHANCE.h */,
+				32C27CAA1E60F5E3008411C6 /* GAMEPLAY_RULE_START.cpp */,
+				32C27CAB1E60F5E3008411C6 /* GAMEPLAY_RULE_START.h */,
+				32C27CAD1E60F96D008411C6 /* GAMEPLAY_RULE_PARK.cpp */,
+				32C27CAE1E60F96D008411C6 /* GAMEPLAY_RULE_PARK.h */,
+				32C27CB01E60F9DE008411C6 /* GAMEPLAY_RULE_PAY_AMOUNT.cpp */,
+				32C27CB11E60F9DE008411C6 /* GAMEPLAY_RULE_PAY_AMOUNT.h */,
+				327242F31E66112800A353E0 /* GAMEPLAY_RULE_RECEIVE_AMOUNT.cpp */,
+				327242F41E66112800A353E0 /* GAMEPLAY_RULE_RECEIVE_AMOUNT.h */,
+				327242F61E66131A00A353E0 /* GAMEPLAY_RULE_PAY_HOTEL_HOUSES.cpp */,
+				327242F71E66131A00A353E0 /* GAMEPLAY_RULE_PAY_HOTEL_HOUSES.h */,
+				327242F91E66270600A353E0 /* GAMEPLAY_RULE_ADVANCE_TO.cpp */,
+				327242FA1E66270600A353E0 /* GAMEPLAY_RULE_ADVANCE_TO.h */,
+				327242FC1E662B7D00A353E0 /* GAMEPLAY_RULE_JUMP_TO.cpp */,
+				327242FD1E662B7D00A353E0 /* GAMEPLAY_RULE_JUMP_TO.h */,
 			);
 			path = RULE;
 			sourceTree = "<group>";
@@ -2471,6 +2555,38 @@
 			path = TEXTURES;
 			sourceTree = "<group>";
 		};
+		328E9B171E64CC0900112815 /* CARD */ = {
+			isa = PBXGroup;
+			children = (
+				328E9B181E64CC1500112815 /* GAMEPLAY_GAME_CARD.cpp */,
+				328E9B191E64CC1500112815 /* GAMEPLAY_GAME_CARD.h */,
+			);
+			path = CARD;
+			sourceTree = "<group>";
+		};
+		328E9B1B1E64E23E00112815 /* CAISSE */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CAISSE;
+			sourceTree = "<group>";
+		};
+		328E9B1C1E64E23E00112815 /* CHANCE */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CHANCE;
+			sourceTree = "<group>";
+		};
+		328E9B1D1E64E28700112815 /* BACKGROUND */ = {
+			isa = PBXGroup;
+			children = (
+				328E9B1E1E64E29000112815 /* GRAPHIC_BACKGROUND.cpp */,
+				328E9B1F1E64E29000112815 /* GRAPHIC_BACKGROUND.h */,
+			);
+			path = BACKGROUND;
+			sourceTree = "<group>";
+		};
 		3291FA091E5CFE87003C9AD4 /* NAVIGATION */ = {
 			isa = PBXGroup;
 			children = (
@@ -2504,6 +2620,15 @@
 				3293FAE61E5E45B30090AC15 /* UIShaderTextured.vsh */,
 			);
 			path = OPENGL2;
+			sourceTree = "<group>";
+		};
+		32C27CB61E62CCA0008411C6 /* BASE */ = {
+			isa = PBXGroup;
+			children = (
+				32C27CB71E62CCA7008411C6 /* POPUP.cpp */,
+				32C27CB81E62CCA7008411C6 /* POPUP.h */,
+			);
+			path = BASE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2605,6 +2730,7 @@
 				321F739C1E5A5B0300E6710C /* ABOUT_PRESENTER.cpp in Sources */,
 				321F72BE1E5A55A600E6710C /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
 				321F72731E5A55A500E6710C /* CORE_ABSTRACT_PROGRAM_FACTORY.cpp in Sources */,
+				32C27CAC1E60F5E3008411C6 /* GAMEPLAY_RULE_START.cpp in Sources */,
 				321F72F81E5A55A600E6710C /* GRAPHIC_GLYPH.cpp in Sources */,
 				321F72921E5A55A500E6710C /* CORE_MATH_SHAPE_RECTANGLE.cpp in Sources */,
 				321F728A1E5A55A500E6710C /* CORE_HELPERS_STATIC.cpp in Sources */,
@@ -2628,6 +2754,7 @@
 				321F72A71E5A55A600E6710C /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				321F73691E5A576500E6710C /* NETWORK_SETUP_PAGE.cpp in Sources */,
 				321F72FC1E5A55A600E6710C /* GRAPHIC_TEXTURE_BLOCK.cpp in Sources */,
+				32C27CB91E62CCA7008411C6 /* POPUP.cpp in Sources */,
 				321F72FF1E5A55A600E6710C /* GRAPHIC_UI_FRAME_ADAPTER.cpp in Sources */,
 				321F72E71E5A55A600E6710C /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
 				321F72B71E5A55A600E6710C /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
@@ -2635,6 +2762,7 @@
 				321F748A1E5A619E00E6710C /* GAMEPLAY_PLAYER.cpp in Sources */,
 				321F72C81E5A55A600E6710C /* GRAPHIC_MESH_MANAGER.cpp in Sources */,
 				321F72CF1E5A55A600E6710C /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
+				328E9B201E64E29000112815 /* GRAPHIC_BACKGROUND.cpp in Sources */,
 				321F73151E5A55A600E6710C /* PERIPHERIC_INTERACTION_SYSTEM.cpp in Sources */,
 				321F72D11E5A55A600E6710C /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
 				321F72DC1E5A55A600E6710C /* GRAPHIC_PARTICLE_MODIFIER_GRAVITY.cpp in Sources */,
@@ -2659,6 +2787,7 @@
 				321F72C21E5A55A600E6710C /* GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp in Sources */,
 				321F731B1E5A55A600E6710C /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				321F730A1E5A55A600E6710C /* GRAPHIC_UI_PRESENTER.cpp in Sources */,
+				32C27CA01E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.cpp in Sources */,
 				321F726F1E5A55A500E6710C /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
 				321F70111E5A558900E6710C /* main.m in Sources */,
 				321F72951E5A55A500E6710C /* CORE_MATH_VECTOR.cpp in Sources */,
@@ -2668,13 +2797,16 @@
 				321F726C1E5A55A500E6710C /* AUDIO_OPENAL.cpp in Sources */,
 				321F73031E5A55A600E6710C /* GRAPHIC_UI_ANIMATION.cpp in Sources */,
 				321F72C11E5A55A600E6710C /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
+				32C27C9D1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.cpp in Sources */,
 				321F73751E5A57C100E6710C /* MULTIPLAYER_GAME_HUD_PAGE.cpp in Sources */,
 				321F731E1E5A55A600E6710C /* RESOURCE_COMPILER.cpp in Sources */,
 				321F72791E5A55A500E6710C /* CORE_ABSTRACT_RUNTIME_V8.cpp in Sources */,
 				321F73081E5A55A600E6710C /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
+				32C27CAF1E60F96D008411C6 /* GAMEPLAY_RULE_PARK.cpp in Sources */,
 				321F73061E5A55A600E6710C /* GRAPHIC_UI_HELPER.cpp in Sources */,
 				321F73041E5A55A600E6710C /* GRAPHIC_UI_ELEMENT.cpp in Sources */,
 				321F73601E5A571F00E6710C /* SPLASH.cpp in Sources */,
+				327242F51E66112800A353E0 /* GAMEPLAY_RULE_RECEIVE_AMOUNT.cpp in Sources */,
 				321F731D1E5A55A600E6710C /* RESOURCE_CACHE.cpp in Sources */,
 				321F72811E5A55A500E6710C /* CORE_DATA_MODEL.cpp in Sources */,
 				321F72E81E5A55A600E6710C /* GRAPHIC_SHADER_EFFECT_LOADER.cpp in Sources */,
@@ -2685,10 +2817,13 @@
 				321F72991E5A55A500E6710C /* CORE_PARALLEL_LOCK.cpp in Sources */,
 				321F727C1E5A55A500E6710C /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS_CALLBACK_UI.cpp in Sources */,
 				321F72C41E5A55A600E6710C /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
+				32C27CB21E60F9DE008411C6 /* GAMEPLAY_RULE_PAY_AMOUNT.cpp in Sources */,
 				321F730D1E5A55A600E6710C /* GRAPHIC_WINDOW.cpp in Sources */,
+				32C27C9A1E60EC2C008411C6 /* GAMEPLAY_RULE.cpp in Sources */,
 				321F72B51E5A55A600E6710C /* GAMEPLAY_COMPONENT_SYSTEM.cpp in Sources */,
 				321F73221E5A55A600E6710C /* SERVICE_NETWORK_LOBBY.cpp in Sources */,
 				321F72BA1E5A55A600E6710C /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER.cpp in Sources */,
+				32C27CB51E617FF2008411C6 /* APPLICATION_CONFIGURATION.cpp in Sources */,
 				321F73051E5A55A600E6710C /* GRAPHIC_UI_FRAME.cpp in Sources */,
 				321F72D21E5A55A600E6710C /* GRAPHIC_OBJECT_SHAPE_FRAME.cpp in Sources */,
 				321F72DF1E5A55A600E6710C /* GRAPHIC_PARTICLE_RENDERER_OPENGL.cpp in Sources */,
@@ -2716,6 +2851,7 @@
 				321F72861E5A55A500E6710C /* CORE_HELPERS_IDENTIFIER.cpp in Sources */,
 				321F72691E5A55A500E6710C /* AUDIO_BANK.cpp in Sources */,
 				321F726B1E5A55A500E6710C /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
+				32C27CA91E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.cpp in Sources */,
 				321F72CA1E5A55A600E6710C /* GRAPHIC_MESH_POLYGON_RENDER_MODE.cpp in Sources */,
 				321F700E1E5A558900E6710C /* AppDelegate.m in Sources */,
 				321F74B71E5A62E800E6710C /* GAMEPLAY_GAME_BOARD.cpp in Sources */,
@@ -2733,12 +2869,14 @@
 				321F72911E5A55A500E6710C /* CORE_MATH_SHAPE_BOX.cpp in Sources */,
 				321F728E1E5A55A500E6710C /* CORE_MATH_QUATERNION.cpp in Sources */,
 				321F72B81E5A55A600E6710C /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
+				32C27CA31E60F302008411C6 /* GAMEPLAY_RULE_PRISON.cpp in Sources */,
 				321F72E21E5A55A600E6710C /* GRAPHIC_RENDERER.cpp in Sources */,
 				321F72E91E5A55A600E6710C /* GRAPHIC_SHADER_EFFECT_SPEEDBLUR.cpp in Sources */,
 				321F72BD1E5A55A600E6710C /* GRAPHIC_CAMERA.cpp in Sources */,
 				321F73171E5A55A600E6710C /* RESOURCE_IMAGE_PNG_LOADER.cpp in Sources */,
 				32C3EC821E5B97D3006ED1C8 /* GLOBAL_RESOURCES.cpp in Sources */,
 				321F73251E5A55A600E6710C /* SERVICE_NETWORK_CONNECTION_INFO.cpp in Sources */,
+				327242FE1E662B7D00A353E0 /* GAMEPLAY_RULE_JUMP_TO.cpp in Sources */,
 				321F72BB1E5A55A600E6710C /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
 				321F73161E5A55A600E6710C /* PERIPHERIC_INTERACTION_TOUCH.cpp in Sources */,
 				321F72F91E5A55A600E6710C /* GRAPHIC_TEXT.cpp in Sources */,
@@ -2749,6 +2887,7 @@
 				321F72A31E5A55A600E6710C /* CORE_TIMELINE_EVENT.cpp in Sources */,
 				321F72E11E5A55A600E6710C /* GRAPHIC_RENDER_TARGET_OPENGL.cpp in Sources */,
 				321F72EB1E5A55A600E6710C /* GRAPHIC_SHADER_ATTRIBUTE.cpp in Sources */,
+				328E9B1A1E64CC1500112815 /* GAMEPLAY_GAME_CARD.cpp in Sources */,
 				321F727E1E5A55A500E6710C /* CORE_APPLICATION.cpp in Sources */,
 				321F73101E5A55A600E6710C /* GRAPHIC_WINDOW_OSX.mm in Sources */,
 				321F72F01E5A55A600E6710C /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */,
@@ -2767,9 +2906,11 @@
 				321F72EA1E5A55A600E6710C /* GRAPHIC_SHADER.cpp in Sources */,
 				321F73141E5A55A600E6710C /* PERIPHERIC_INTERACTION_MOUSE.cpp in Sources */,
 				321F72751E5A55A500E6710C /* CORE_ABSTRACT_PROGRAM_RUNTIME.cpp in Sources */,
+				327242FB1E66270600A353E0 /* GAMEPLAY_RULE_ADVANCE_TO.cpp in Sources */,
 				321F73991E5A5AFC00E6710C /* ABOUT_PAGE.cpp in Sources */,
 				321F72AF1E5A55A600E6710C /* GAMEPLAY_COMPONENT_ANIMATION.cpp in Sources */,
 				321F72721E5A55A500E6710C /* CORE_ABSTRACT_PROGRAM_BINDER.cpp in Sources */,
+				327242F81E66131A00A353E0 /* GAMEPLAY_RULE_PAY_HOTEL_HOUSES.cpp in Sources */,
 				321F73191E5A55A600E6710C /* RESOURCE_IMAGE.cpp in Sources */,
 				321F72C71E5A55A600E6710C /* GRAPHIC_MESH.cpp in Sources */,
 				321F737E1E5A57E700E6710C /* MULTIPLAYER_GAME_END_PRESENTER.cpp in Sources */,
@@ -2782,6 +2923,7 @@
 				321F72831E5A55A500E6710C /* CORE_DATA_STREAM.cpp in Sources */,
 				321F72F41E5A55A600E6710C /* OPENGL_3.cpp in Sources */,
 				321F731A1E5A55A600E6710C /* RESOURCE_IMAGE_ATLAS_COMPILER.cpp in Sources */,
+				32C27CA61E60F340008411C6 /* GAMEPLAY_RULE_CHANCE.cpp in Sources */,
 				321F72AA1E5A55A600E6710C /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				321F72E31E5A55A600E6710C /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp in Sources */,
 				321F736C1E5A577F00E6710C /* NETWORK_SETUP_PRESENTER.cpp in Sources */,

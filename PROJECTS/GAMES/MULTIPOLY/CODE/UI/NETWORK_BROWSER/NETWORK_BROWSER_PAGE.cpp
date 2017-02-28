@@ -7,3 +7,15 @@
 //
 
 #include "NETWORK_BROWSER_PAGE.h"
+
+NETWORK_BROWSER::NETWORK_BROWSER() {
+    
+}
+
+NETWORK_BROWSER::~NETWORK_BROWSER() {
+    
+}
+
+void NETWORK_BROWSER::Initialize() {
+    
+}

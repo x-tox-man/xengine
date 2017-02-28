@@ -127,14 +127,11 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     
     send_command_button->SetVisible( false );
     
-    GRAPHIC_FONT_MANAGER::GetInstance().LoadFont( CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ), CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "fxb", "FONTS/" ), CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "png", "FONTS/" ) );
-    
     TextElement = new GRAPHIC_UI_TEXT;
     TextElement->SetFont( font );
     TextElement->SetColor(CORE_COLOR_Red);
     TextElement->SetText( "Server" );
     TextElement->SetSize( 1.0f );
-    
     
     TextElement2 = new GRAPHIC_UI_TEXT;
     TextElement2->SetFont( font );
@@ -179,6 +176,7 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     
     SetAdapter( new GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER() );
     
+    //start_lobby_button->SetVisible( false );
     AddObject( test_button );
     AddObject( TextElement );
     AddObject( TextElement2 );

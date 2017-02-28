@@ -18,6 +18,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
     virtual ~GAMEPLAY_COMPONENT_ANIMATION();
 
     void * operator new(size_t size);
+    void operator delete( void* ptr );
 
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Animation)
 
@@ -29,19 +30,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
     void UpdateAnimation( float time_step );
 
     void SetAnimation( GRAPHIC_MESH_ANIMATION_CONTROLLER * animation ) { Animation = animation; }
-
-    static std::vector< INTERNAL_ARRAY_A > InternalVector;
-
-    static void FinalizeStaticMemory() {
-        
-        for ( int i = 0; i < InternalVector.size(); i++ ) {
-            
-            CORE_MEMORY_ALLOCATOR_Free( InternalVector[ i ].MemoryArray );
-        }
-        
-        InternalVector.resize( 0 );
-        InternalVector.clear();
-    }
 
 private :
 

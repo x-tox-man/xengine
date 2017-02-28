@@ -18,10 +18,10 @@
 #include "GRAPHIC_UI_TEXT.h"
 #include "OPTIONS_PRESENTER.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( OPTION_PAGE, GRAPHIC_UI_FRAME )
+XS_CLASS_BEGIN_WITH_ANCESTOR( OPTIONS_PAGE, GRAPHIC_UI_FRAME )
 
-    OPTION_PAGE();
-    virtual ~OPTION_PAGE();
+    OPTIONS_PAGE();
+    virtual ~OPTIONS_PAGE();
 
     virtual void Initialize() override;
     virtual void Update( const float ) override;

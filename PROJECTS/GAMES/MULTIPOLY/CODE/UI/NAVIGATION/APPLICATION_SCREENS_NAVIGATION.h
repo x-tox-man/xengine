@@ -74,13 +74,39 @@ XS_DEFINE_UNIQUE( APPLICATION_SCREENS_NAVIGATION )
 public :
 
     ~APPLICATION_SCREENS_NAVIGATION();
-    bool NavigateBackAsync();
 
-    template<typename SCREEN_TYPE>
+    bool NavigateBackAsync();
+    bool NavigateBackAsyncWithAnimation();
+
+    template <typename __SCREEN_TYPE__>
+    void DisplayModal(const char * modal_name, const CORE_MATH_VECTOR & size ) {
+
+        auto item = GetNextItemForNavigation<__SCREEN_TYPE__>( modal_name );
+        
+        item->GetFrame()->GetPlacement().Initialize(
+            NULL,
+            CORE_MATH_VECTOR::Zero,
+            size,
+            GRAPHIC_UI_Center );
+        
+        item->GetFrame()->Initialize();
+        
+        if ( CurrentNavigationItem != NULL ) {
+            
+            item->SetParentNavigationItem( CurrentNavigationItem );
+            GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(CurrentNavigationItem->GetScreenName().c_str());
+        }
+        
+        CurrentNavigationItem = item;
+        
+        GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(CurrentNavigationItem->GetFrame(), modal_name);
+    }
+
+    template<typename __SCREEN_TYPE__>
     void NavigateToAsync(const char * screen_name ) {
         
         CORE_PARALLEL_TASK_BEGIN(this, screen_name)
-            auto item = GetNextItemForNavigation<SCREEN_TYPE>( screen_name );
+            auto item = GetNextItemForNavigation<__SCREEN_TYPE__>( screen_name );
         
             item->GetFrame()->GetPlacement().Initialize(
                 NULL,

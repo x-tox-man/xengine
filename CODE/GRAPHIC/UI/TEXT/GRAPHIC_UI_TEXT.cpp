@@ -9,6 +9,7 @@
 #include "GRAPHIC_UI_TEXT.h"
 #include "GRAPHIC_UI_RENDER_STYLE.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "GRAPHIC_UI_TEXT_ADAPTER.h"
 
 GRAPHIC_UI_TEXT::GRAPHIC_UI_TEXT() :
     GRAPHIC_UI_ELEMENT(),
@@ -29,6 +30,8 @@ void GRAPHIC_UI_TEXT::Initialize() {
         delete RenderStyle;
     }
     
+    SetAdapter( new GRAPHIC_UI_TEXT_ADAPTER );
+    
     RenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     RenderStyle->SetTextureBlock( new GRAPHIC_TEXTURE_BLOCK );
     
@@ -44,7 +47,28 @@ void GRAPHIC_UI_TEXT::Initialize() {
     
     Text.Initialize( &ui_textured_shader_effect->GetProgram() );
     
+    TextRectangle.Size = Text.GetTextExtent();
+    TextRectangle.Center = GetPosition();
+    
     SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, RenderStyle );
     SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Hovered, RenderStyle );
     SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Pressed, RenderStyle );
+}
+
+void GRAPHIC_UI_TEXT::UpdateText( const char * text ) {
+    
+    Text.UpdateText( text );
+    
+    TextRectangle.Size = Text.GetTextExtent();
+    TextRectangle.Center = GetPosition();
+}
+
+GRAPHIC_UI_ELEMENT * GRAPHIC_UI_TEXT::Contains( const CORE_MATH_VECTOR & cursor_position ) {
+    
+    if ( TextRectangle.Contains(cursor_position) ){
+        
+        return this;
+    }
+    
+    return NULL;
 }

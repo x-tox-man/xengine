@@ -14,6 +14,7 @@ GRAPHIC_UI_PLACEMENT::GRAPHIC_UI_PLACEMENT() :
     Size( CORE_MATH_VECTOR::Zero ),
     ScrollOffset( CORE_MATH_VECTOR::Zero ),
     Anchor( GRAPHIC_UI_Center ),
+    Rotation( 0.0f ),
     Parent( NULL ) {
     
 }

@@ -15,6 +15,7 @@
 struct GAME_PLAYER_MODEL {
     std::string Name;
     CORE_HELPERS_COLOR Color;
+    bool IsHuman;
 };
 
 #endif /* PLAYER_MODEL_h */

@@ -19,6 +19,8 @@ CORE_MATH_SHAPE_RECTANGLE();
 
 CORE_MATH_SHAPE_RECTANGLE( const CORE_MATH_VECTOR & center, const CORE_MATH_VECTOR & size );
 
+bool Contains( const CORE_MATH_VECTOR & other );
+
 static bool Contains( const CORE_MATH_VECTOR & rectangle_position,
                      const CORE_MATH_VECTOR & rectangle_size,
                      const CORE_MATH_VECTOR & other );

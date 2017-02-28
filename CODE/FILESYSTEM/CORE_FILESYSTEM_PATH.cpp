@@ -11,8 +11,9 @@
 #include "SERVICE_LOGGER.h"
 
 CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH() :
-    Path( "\0" ) {
+    Path() {
     
+    Path[0] = '\0';
 }
 
 CORE_FILESYSTEM_PATH::~CORE_FILESYSTEM_PATH() {

@@ -23,6 +23,7 @@
 #include "GRAPHIC_SHADER_EFFECT.h"
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
 #include "GRAPHIC_TEXTURE_BLOCK.h"
+#include "GAMEPLAY_RULE.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_GAME_BOARD_CELL, GAMEPLAY_COMPONENT_ENTITY)
 
@@ -30,26 +31,23 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_GAME_BOARD_CELL, GAMEPLAY_COMPONENT_ENTITY
     ~GAMEPLAY_GAME_BOARD_CELL();
 
     void Initialize(
-                    const CORE_MATH_VECTOR & position,
-                    const CORE_MATH_VECTOR & size,
-                    const CORE_MATH_QUATERNION & orientation,
-                    GAMEPLAY_SCENE * scene,
-                    GRAPHIC_TEXTURE_BLOCK * block,
-                    bool is_corner );
+        const CORE_MATH_VECTOR & position,
+        const CORE_MATH_VECTOR & size,
+        const CORE_MATH_QUATERNION & orientation,
+        GAMEPLAY_SCENE * scene,
+        GRAPHIC_TEXTURE_BLOCK * block,
+        bool is_corner );
+
+    void SetRule( GAMEPLAY_RULE * rule ) { Rule = rule; }
+    GAMEPLAY_RULE * GetRule() { return Rule; }
 
 private:
 
-    GAMEPLAY_COMPONENT_ENTITY * CreateThisComponent(
-        //const CORE_FILESYSTEM_PATH & path,
-        GRAPHIC_OBJECT_SHAPE_PLAN::PTR object,
-        GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR program,
-        const CORE_MATH_VECTOR & position,
-        const CORE_MATH_QUATERNION & orientation,
-        const CORE_MATH_VECTOR & size,
-        GAMEPLAY_SCENE * scene );
-
     std::vector< GAMEPLAY_PLAYER * >
         ThisCellPlayerTable;
+//std::vector< GAMEPLAY_HOUSE * >
+    GAMEPLAY_RULE
+        *Rule;
 
 XS_CLASS_END
 

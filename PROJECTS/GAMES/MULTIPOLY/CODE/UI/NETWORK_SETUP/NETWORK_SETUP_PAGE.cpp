@@ -7,3 +7,15 @@
 //
 
 #include "NETWORK_SETUP_PAGE.h"
+
+NETWORK_SETUP::NETWORK_SETUP() {
+    
+}
+
+NETWORK_SETUP::~NETWORK_SETUP() {
+    
+}
+
+void NETWORK_SETUP::Initialize() {
+    
+}

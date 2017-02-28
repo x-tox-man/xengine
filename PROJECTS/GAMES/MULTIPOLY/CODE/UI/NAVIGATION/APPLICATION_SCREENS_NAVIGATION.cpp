@@ -31,6 +31,32 @@ bool APPLICATION_SCREENS_NAVIGATION::NavigateBackAsync() {
     
     auto item = GetPreviousItem();
     
+    if ( item == NULL ) {
+        return false;
+    }
+    else {
+    
+        CORE_PARALLEL_TASK_BEGIN(this, item)
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_UI_SYSTEM::GetInstance().GetLockMutex())
+                if ( this->CurrentNavigationItem != NULL ) {
+                    
+                    GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(this->CurrentNavigationItem->GetScreenName().c_str());
+                }
+                
+                this->CurrentNavigationItem = item;
+                
+                GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(this->CurrentNavigationItem->GetFrame(), CurrentNavigationItem->GetScreenName().c_str());
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+        CORE_PARALLEL_TASK_END()
+        
+        return true;
+    }
+}
+
+bool APPLICATION_SCREENS_NAVIGATION::NavigateBackAsyncWithAnimation() {
+    
+    auto item = GetPreviousItem();
+    
     if ( item == NULL )
         return false;
     

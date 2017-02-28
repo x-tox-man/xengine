@@ -13,7 +13,14 @@ CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GRAPHIC_TEXT )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_TEXT, UpdateText, const char * )
 CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GRAPHIC_TEXT )
 
-GRAPHIC_TEXT::GRAPHIC_TEXT() {
+GRAPHIC_TEXT::GRAPHIC_TEXT() :
+    GRAPHIC_OBJECT_SHAPE(),
+    Size(),
+    Position(),
+    TextExtent(),
+    Font( NULL ),
+    TextSize( 0.0f ),
+    Text( NULL ) {
     
 }
 
@@ -140,11 +147,10 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
     
     advance[0] = 0.0f;
     advance[1] = 0.0f;
+
     
-    float text_extent[2];
-    
-    text_extent[0] = 0.0f;
-    text_extent[1] = 0.0f;
+    TextExtent[0] = 0.0f;
+    TextExtent[1] = 0.0f;
     
     float font_size = (float) Font->GetSize() * size_factor;
     
@@ -217,8 +223,15 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
         
         advance[0] += current_glyph.Advance[0] + 1.0f;
         
-        text_extent[0] += current_glyph.Advance[0];
+        TextExtent[0] += current_glyph.Advance[0];
     }
+    
+    if ( text[strlen(text) -1 ] != '\n' || text[strlen(text) -1 ] != '\r' ) {
+        
+        TextExtent[1] += font_size;
+    }
+    
+    TextExtent[0] *= font_size;
     
     offset = 0;
     
@@ -242,4 +255,9 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
     
     CORE_MEMORY_ALLOCATOR_Free( vertex_data );
     CORE_MEMORY_ALLOCATOR_Free( index_data );
+}
+
+const CORE_MATH_VECTOR & GRAPHIC_TEXT::GetTextExtent() {
+    
+    return TextExtent;
 }

@@ -108,7 +108,7 @@ void GRAPHIC_OBJECT_SHAPE_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
     
     //UpdateFrameVertexData( VertexData, *TextureBlock );
     
-    //GetMeshTable()[ 0 ]->GetVertexCoreBuffer().InitializeWithMemory( 8 * 40  * sizeof( float ), 0, ( void * ) VertexData );
+    //GetMeshTable()[ 0 ]->GetVertexCoreBuffer()->InitializeWithMemory( 8 * 40  * sizeof( float ), 0, ( void * ) VertexData );
     
     //GRAPHIC_SYSTEM::UpdateVertexBuffer( GetMeshTable()[0], GetMeshTable()[ 0 ]->GetVertexCoreBuffer() );
     

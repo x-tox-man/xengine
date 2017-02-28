@@ -35,6 +35,11 @@ public:
         return (*__InnerMap)[classType];
     }
     
+    static void Finalize() {
+        
+        typename std::map< __FACTORY_TYPE_ENUM__, const __NAMED_CLASS__ * >::iterator it = (*__InnerMap).begin();
+    }
+    
     static std::map< __FACTORY_TYPE_ENUM__, const __NAMED_CLASS__ * > * __InnerMap;
 };
 

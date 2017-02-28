@@ -18,7 +18,8 @@ GRAPHIC_RENDERER::GRAPHIC_RENDERER():
     PassIndex( 0 ),
     DepthTexture( NULL ),
     ScissorRectangle(),
-    ScissorIsEnabled( false ) {
+    ScissorIsEnabled( false ),
+    ColorEnabled( false ) {
     
     PointLightTable[0] = NULL;
     PointLightTable[1] = NULL;

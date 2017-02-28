@@ -8,21 +8,21 @@
 
 #include "OPTIONS_PAGE.h"
 
-OPTION_PAGE::OPTION_PAGE() :
+OPTIONS_PAGE::OPTIONS_PAGE() :
     GRAPHIC_UI_FRAME(),
     Presenter() {
     
     Presenter.Initialize( (GRAPHIC_UI_FRAME*) this );
 }
 
-OPTION_PAGE::~OPTION_PAGE() {
+OPTIONS_PAGE::~OPTIONS_PAGE() {
     
 }
 
-void OPTION_PAGE::Initialize() {
+void OPTIONS_PAGE::Initialize() {
     
 }
 
-void OPTION_PAGE::Update( const float ) {
+void OPTIONS_PAGE::Update( const float ) {
     
 }
