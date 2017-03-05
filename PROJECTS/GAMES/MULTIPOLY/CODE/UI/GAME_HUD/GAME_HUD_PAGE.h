@@ -44,7 +44,8 @@ public:
         DiceRollResultId,
         MoneyId,
         BuyPropertyButtonId,
-        EndTurnButtonId;
+        EndTurnButtonId,
+        BuyHouseButtonId;
 
 XS_CLASS_END
 

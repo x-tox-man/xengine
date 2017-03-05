@@ -19,6 +19,7 @@
 #include "GAMEPLAY_DICE_ROLL_RESULT.h"
 #include "GAMEPLAY_GAME_CARD.h"
 #include "GRAPHIC_BACKGROUND.h"
+#include "GAMEPLAY_GAME_HOUSE.h"
 
 XS_CLASS_BEGIN( GAMEPLAY_GAME )
 
@@ -26,6 +27,7 @@ XS_CLASS_BEGIN( GAMEPLAY_GAME )
     ~GAMEPLAY_GAME();
 
     void Initialize( std::vector<GAME_PLAYER_MODEL> & player_model_table );
+    void Finalize();
 
     void Start();
     void Pause( bool enable );
@@ -37,10 +39,14 @@ XS_CLASS_BEGIN( GAMEPLAY_GAME )
     void PlayerDiceRoll();
     void PlayerBuyProperty();
     void PlayerEndTurn();
+    void PlayerBuyHouse();
+    void OnObjectPicked( GAMEPLAY_COMPONENT_ENTITY * entity );
 
     void DisplayNextChanceCard(GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player);
     void DisplayNextCommunityCaisseCard(GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player);
     void ProposeBuyProperty( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player );
+    void ProposeBuyHouse( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player );
+    void SelectCell( GAMEPLAY_GAME_BOARD_CELL * cell );
 
     void DisplayDiceRollResult( const GAMEPLAY_DICE_ROLL_RESULT & result );
 
@@ -49,6 +55,9 @@ XS_CLASS_BEGIN( GAMEPLAY_GAME )
     inline void SetUIGameHudPresenter( GAME_HUD_PRESENTER * presenter ) {UIGameHudPresenter = presenter;}
     inline GAME_HUD_PRESENTER * GetUIGameHudPresenter() { return UIGameHudPresenter; }
     inline std::vector<GAMEPLAY_PLAYER *> & GetPlayerTable() { return PlayerTable; }
+    inline GAMEPLAY_GAME_HOUSE * GetNextHouse() {return HouseTable[NextHouseIndex++]; }
+    inline GAMEPLAY_PLAYER * GetCurrentPlayer() { return PlayerTable[ActivePlayerIndex]; }
+
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, const float )
 
@@ -76,13 +85,15 @@ private:
 
     void InitializeCaisseCards();
     void InitializeChanceCards();
+    void InitializeHouses();
 
     GAMEPLAY_GAME_BOARD
         Board;
     std::vector<GAMEPLAY_PLAYER *>
         PlayerTable;
     int
-        ActivePlayerIndex;
+        ActivePlayerIndex,
+        NextHouseIndex;
     float
         AnimationTimer;
     bool
@@ -98,6 +109,10 @@ private:
         CaisseCardTable;
     GRAPHIC_BACKGROUND
         * Background;
+    std::vector< GAMEPLAY_GAME_HOUSE * >
+        HouseTable;
+    GAMEPLAY_GAME_BOARD_CELL
+        *SelectedCell;
 
 XS_CLASS_END
 

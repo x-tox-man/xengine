@@ -261,6 +261,11 @@
 		3293FAF81E5E45B40090AC15 /* UIShaderTextured.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3293FAE51E5E45B30090AC15 /* UIShaderTextured.fsh */; };
 		3293FAF91E5E45B40090AC15 /* UIShaderTextured.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3293FAE61E5E45B30090AC15 /* UIShaderTextured.vsh */; };
 		3293FAFC1E5E46840090AC15 /* mesh2.smx in Resources */ = {isa = PBXBuildFile; fileRef = 3293FAFB1E5E46840090AC15 /* mesh2.smx */; };
+		32B51BC91E6AD5200088E95F /* GAMEPLAY_GAME_HOUSE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B51BC71E6AD5200088E95F /* GAMEPLAY_GAME_HOUSE.cpp */; };
+		32B51BCC1E6B0D2F0088E95F /* GAMEPLAY_RULE_PROPERTY_GROUP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B51BCA1E6B0D2F0088E95F /* GAMEPLAY_RULE_PROPERTY_GROUP.cpp */; };
+		32B51BCE1E6B69A40088E95F /* untitled.smx in Resources */ = {isa = PBXBuildFile; fileRef = 32B51BCD1E6B699F0088E95F /* untitled.smx */; };
+		32B51BD11E6C4CF70088E95F /* GAMEPLAY_COMPONENT_ACTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B51BCF1E6C4CF70088E95F /* GAMEPLAY_COMPONENT_ACTION.cpp */; };
+		32B51BD41E6C620E0088E95F /* GAMEPLAY_RULE_PROPERTY_SERVICE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B51BD21E6C620E0088E95F /* GAMEPLAY_RULE_PROPERTY_SERVICE.cpp */; };
 		32C27C9A1E60EC2C008411C6 /* GAMEPLAY_RULE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27C981E60EC2C008411C6 /* GAMEPLAY_RULE.cpp */; };
 		32C27C9D1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27C9B1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.cpp */; };
 		32C27CA01E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27C9E1E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.cpp */; };
@@ -819,6 +824,15 @@
 		3293FAFB1E5E46840090AC15 /* mesh2.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = mesh2.smx; sourceTree = "<group>"; };
 		3293FAFD1E5F660C0090AC15 /* CORE_MATH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CORE_MATH.h; sourceTree = "<group>"; };
 		3293FB001E5F708A0090AC15 /* GAME_PLAYER_MODEL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAME_PLAYER_MODEL.h; sourceTree = "<group>"; };
+		32B51BC71E6AD5200088E95F /* GAMEPLAY_GAME_HOUSE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_GAME_HOUSE.cpp; sourceTree = "<group>"; };
+		32B51BC81E6AD5200088E95F /* GAMEPLAY_GAME_HOUSE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_GAME_HOUSE.h; sourceTree = "<group>"; };
+		32B51BCA1E6B0D2F0088E95F /* GAMEPLAY_RULE_PROPERTY_GROUP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_PROPERTY_GROUP.cpp; sourceTree = "<group>"; };
+		32B51BCB1E6B0D2F0088E95F /* GAMEPLAY_RULE_PROPERTY_GROUP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_PROPERTY_GROUP.h; sourceTree = "<group>"; };
+		32B51BCD1E6B699F0088E95F /* untitled.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = untitled.smx; sourceTree = "<group>"; };
+		32B51BCF1E6C4CF70088E95F /* GAMEPLAY_COMPONENT_ACTION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_COMPONENT_ACTION.cpp; sourceTree = "<group>"; };
+		32B51BD01E6C4CF70088E95F /* GAMEPLAY_COMPONENT_ACTION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_COMPONENT_ACTION.h; sourceTree = "<group>"; };
+		32B51BD21E6C620E0088E95F /* GAMEPLAY_RULE_PROPERTY_SERVICE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_PROPERTY_SERVICE.cpp; sourceTree = "<group>"; };
+		32B51BD31E6C620E0088E95F /* GAMEPLAY_RULE_PROPERTY_SERVICE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE_PROPERTY_SERVICE.h; sourceTree = "<group>"; };
 		32C27C981E60EC2C008411C6 /* GAMEPLAY_RULE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE.cpp; sourceTree = "<group>"; };
 		32C27C991E60EC2C008411C6 /* GAMEPLAY_RULE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_RULE.h; sourceTree = "<group>"; };
 		32C27C9B1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_RULE_PROPERTY.cpp; sourceTree = "<group>"; };
@@ -1548,6 +1562,8 @@
 		321F70FE1E5A55A500E6710C /* COMPONENT */ = {
 			isa = PBXGroup;
 			children = (
+				32B51BCF1E6C4CF70088E95F /* GAMEPLAY_COMPONENT_ACTION.cpp */,
+				32B51BD01E6C4CF70088E95F /* GAMEPLAY_COMPONENT_ACTION.h */,
 				321F70FF1E5A55A500E6710C /* GAMEPLAY_COMPONENT.cpp */,
 				321F71001E5A55A500E6710C /* GAMEPLAY_COMPONENT.h */,
 				321F71011E5A55A500E6710C /* GAMEPLAY_COMPONENT_ANIMATION.cpp */,
@@ -2413,6 +2429,7 @@
 		321F74841E5A618E00E6710C /* GAME */ = {
 			isa = PBXGroup;
 			children = (
+				32B51BC61E6AD5020088E95F /* HOUSE */,
 				328E9B171E64CC0900112815 /* CARD */,
 				321F74851E5A618E00E6710C /* BOARD */,
 				321F74861E5A618E00E6710C /* PLAYER */,
@@ -2448,12 +2465,14 @@
 		321F74871E5A618E00E6710C /* RULE */ = {
 			isa = PBXGroup;
 			children = (
-				328E9B1B1E64E23E00112815 /* CAISSE */,
-				328E9B1C1E64E23E00112815 /* CHANCE */,
 				32C27C981E60EC2C008411C6 /* GAMEPLAY_RULE.cpp */,
 				32C27C991E60EC2C008411C6 /* GAMEPLAY_RULE.h */,
 				32C27CA71E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.cpp */,
 				32C27CA81E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.h */,
+				32B51BCA1E6B0D2F0088E95F /* GAMEPLAY_RULE_PROPERTY_GROUP.cpp */,
+				32B51BCB1E6B0D2F0088E95F /* GAMEPLAY_RULE_PROPERTY_GROUP.h */,
+				32B51BD21E6C620E0088E95F /* GAMEPLAY_RULE_PROPERTY_SERVICE.cpp */,
+				32B51BD31E6C620E0088E95F /* GAMEPLAY_RULE_PROPERTY_SERVICE.h */,
 				32C27C9B1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.cpp */,
 				32C27C9C1E60F160008411C6 /* GAMEPLAY_RULE_PROPERTY.h */,
 				32C27C9E1E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.cpp */,
@@ -2535,6 +2554,7 @@
 		32207D0A1E5B8F9500DBCE53 /* MODELS */ = {
 			isa = PBXGroup;
 			children = (
+				32B51BCD1E6B699F0088E95F /* untitled.smx */,
 				3293FAFB1E5E46840090AC15 /* mesh2.smx */,
 			);
 			path = MODELS;
@@ -2562,20 +2582,6 @@
 				328E9B191E64CC1500112815 /* GAMEPLAY_GAME_CARD.h */,
 			);
 			path = CARD;
-			sourceTree = "<group>";
-		};
-		328E9B1B1E64E23E00112815 /* CAISSE */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CAISSE;
-			sourceTree = "<group>";
-		};
-		328E9B1C1E64E23E00112815 /* CHANCE */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CHANCE;
 			sourceTree = "<group>";
 		};
 		328E9B1D1E64E28700112815 /* BACKGROUND */ = {
@@ -2620,6 +2626,15 @@
 				3293FAE61E5E45B30090AC15 /* UIShaderTextured.vsh */,
 			);
 			path = OPENGL2;
+			sourceTree = "<group>";
+		};
+		32B51BC61E6AD5020088E95F /* HOUSE */ = {
+			isa = PBXGroup;
+			children = (
+				32B51BC71E6AD5200088E95F /* GAMEPLAY_GAME_HOUSE.cpp */,
+				32B51BC81E6AD5200088E95F /* GAMEPLAY_GAME_HOUSE.h */,
+			);
+			path = HOUSE;
 			sourceTree = "<group>";
 		};
 		32C27CB61E62CCA0008411C6 /* BASE */ = {
@@ -2700,6 +2715,7 @@
 				3293FAEA1E5E45B30090AC15 /* BasicGeometryShaderPoNoUVTaBi.vsh in Resources */,
 				3293FAF61E5E45B40090AC15 /* UIShaderColored.fsh in Resources */,
 				32207D1C1E5B8F9500DBCE53 /* arial_black_12.fxb in Resources */,
+				32B51BCE1E6B69A40088E95F /* untitled.smx in Resources */,
 				3293FAEB1E5E45B30090AC15 /* BasicGeometryShaderPoNoUVTaBiShadowMap.vsh in Resources */,
 				3293FAF51E5E45B40090AC15 /* ShaderColor.vsh in Resources */,
 				3293FAE71E5E45B30090AC15 /* BasicGeometryShader.fsh in Resources */,
@@ -2804,6 +2820,7 @@
 				321F73081E5A55A600E6710C /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
 				32C27CAF1E60F96D008411C6 /* GAMEPLAY_RULE_PARK.cpp in Sources */,
 				321F73061E5A55A600E6710C /* GRAPHIC_UI_HELPER.cpp in Sources */,
+				32B51BD41E6C620E0088E95F /* GAMEPLAY_RULE_PROPERTY_SERVICE.cpp in Sources */,
 				321F73041E5A55A600E6710C /* GRAPHIC_UI_ELEMENT.cpp in Sources */,
 				321F73601E5A571F00E6710C /* SPLASH.cpp in Sources */,
 				327242F51E66112800A353E0 /* GAMEPLAY_RULE_RECEIVE_AMOUNT.cpp in Sources */,
@@ -2843,6 +2860,7 @@
 				321F73631E5A573100E6710C /* OPTIONS_PAGE.cpp in Sources */,
 				321F736F1E5A579100E6710C /* NETWORK_BROWSER_PAGE.cpp in Sources */,
 				321F73131E5A55A600E6710C /* PERIPHERIC_INTERACTION_KEYBOARD.cpp in Sources */,
+				32B51BD11E6C4CF70088E95F /* GAMEPLAY_COMPONENT_ACTION.cpp in Sources */,
 				321F72641E5A55A500E6710C /* AUDIO_LOADER.cpp in Sources */,
 				321F72661E5A55A500E6710C /* AUDIO_LOADER_OSX.mm in Sources */,
 				321F731C1E5A55A600E6710C /* RESOURCE.cpp in Sources */,
@@ -2854,6 +2872,7 @@
 				32C27CA91E60F3CA008411C6 /* GAMEPLAY_RULE_CAISSE.cpp in Sources */,
 				321F72CA1E5A55A600E6710C /* GRAPHIC_MESH_POLYGON_RENDER_MODE.cpp in Sources */,
 				321F700E1E5A558900E6710C /* AppDelegate.m in Sources */,
+				32B51BCC1E6B0D2F0088E95F /* GAMEPLAY_RULE_PROPERTY_GROUP.cpp in Sources */,
 				321F74B71E5A62E800E6710C /* GAMEPLAY_GAME_BOARD.cpp in Sources */,
 				321F72B31E5A55A600E6710C /* GAMEPLAY_COMPONENT_POSITION.cpp in Sources */,
 				321F726D1E5A55A500E6710C /* AUDIO_SOUND.cpp in Sources */,
@@ -2929,6 +2948,7 @@
 				321F736C1E5A577F00E6710C /* NETWORK_SETUP_PRESENTER.cpp in Sources */,
 				321F72D51E5A55A600E6710C /* GRAPHIC_OBJECT_SHAPE_LINE.cpp in Sources */,
 				321F72901E5A55A500E6710C /* CORE_MATH_SHAPE.cpp in Sources */,
+				32B51BC91E6AD5200088E95F /* GAMEPLAY_GAME_HOUSE.cpp in Sources */,
 				321F72F31E5A55A600E6710C /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */,
 				321F72D91E5A55A600E6710C /* GRAPHIC_PARTICLE_EMITER.cpp in Sources */,
 				321F72F61E5A55A600E6710C /* GRAPHIC_FONT.cpp in Sources */,

@@ -25,6 +25,8 @@ XS_CLASS_BEGIN( GAMEPLAY_RULE )
     virtual void OnLeftCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) = 0;
     virtual void OnStoppedCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) = 0;
     virtual bool Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) { return true; }
+    virtual void OnPicked(GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) {}
+    virtual void OnDismiss(GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) {};
 
 XS_CLASS_END
 

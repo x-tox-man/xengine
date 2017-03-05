@@ -16,6 +16,8 @@
 #include "GAMEPLAY_RULE_CHANCE.h"
 #include "GAMEPLAY_RULE_PARK.h"
 #include "GAMEPLAY_RULE_PAY_AMOUNT.h"
+#include "GAMEPLAY_RULE_PROPERTY_GROUP.h"
+#include "GAMEPLAY_RULE_PROPERTY_SERVICE.h"
 
 GAMEPLAY_GAME_BOARD::GAMEPLAY_GAME_BOARD() :
     CellTable() {
@@ -113,6 +115,10 @@ void GAMEPLAY_GAME_BOARD::Initialize( GAMEPLAY_SCENE * scene ) {
             offset_position.X( 0.0f );
             offset_position.Y( 1.0f );
         }
+        else if( index == 21 ) {
+            
+             offset_position.X( offset_position.X() + twice_offset);
+        }
         else if ( index < 30) {
            
             offset_position.X( offset_position.X() + tb->GetSize().X());
@@ -121,6 +127,10 @@ void GAMEPLAY_GAME_BOARD::Initialize( GAMEPLAY_SCENE * scene ) {
             
             offset_position.X( 1.0f - tb->GetSize().X() );
             offset_position.Y( 1.0f );
+        }
+        else if ( index == 31) {
+            
+            offset_position.Y( offset_position.Y() - twice_offset );
         }
         else {
             
@@ -148,48 +158,62 @@ void GAMEPLAY_GAME_BOARD::Initialize( GAMEPLAY_SCENE * scene ) {
 
 void GAMEPLAY_GAME_BOARD::CreateRules( std::array< GAMEPLAY_RULE *, 40 > & rules_table ) {
     
+    auto first_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    auto second_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    auto third_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    auto fourth_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    auto fifth_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    auto sixth_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    auto seventh_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    auto eighth_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    
+    auto station_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    auto service_property_group = new GAMEPLAY_RULE_PROPERTY_GROUP;
+    
+    //int front_price, int rent_price, int house_price, int mortgage_price
     rules_table[0] = new GAMEPLAY_RULE_START();
-    rules_table[1] = new GAMEPLAY_RULE_PROPERTY( 60 );
+    rules_table[1] = new GAMEPLAY_RULE_PROPERTY( 60, 10, 50, 25, first_property_group );
     rules_table[2] = new GAMEPLAY_RULE_CAISSE();
-    rules_table[3] = new GAMEPLAY_RULE_PROPERTY( 60 );
+    rules_table[3] = new GAMEPLAY_RULE_PROPERTY( 60, 10, 50, 25, first_property_group );
     rules_table[4] = new GAMEPLAY_RULE_PAY_AMOUNT( 200 );
-    rules_table[5] = new GAMEPLAY_RULE_STATION( 200 );
-    rules_table[6] = new GAMEPLAY_RULE_PROPERTY( 100 );
+    
+    rules_table[5] = new GAMEPLAY_RULE_STATION( 200, 100, station_property_group );
+    rules_table[6] = new GAMEPLAY_RULE_PROPERTY( 100, 20, 70, 45, second_property_group );
     rules_table[7] = new GAMEPLAY_RULE_CHANCE();
-    rules_table[8] = new GAMEPLAY_RULE_PROPERTY( 100 );
-    rules_table[9] = new GAMEPLAY_RULE_PROPERTY( 120 );
+    rules_table[8] = new GAMEPLAY_RULE_PROPERTY( 100, 20, 70, 45, second_property_group );
+    rules_table[9] = new GAMEPLAY_RULE_PROPERTY( 120, 20, 70, 45, second_property_group );
     
     rules_table[10] = new GAMEPLAY_RULE_PRISON( false );
-    rules_table[11] = new GAMEPLAY_RULE_PROPERTY( 140 );
-    rules_table[12] = new GAMEPLAY_RULE_PROPERTY( 150 );
-    rules_table[13] = new GAMEPLAY_RULE_PROPERTY( 140 );
-    rules_table[14] = new GAMEPLAY_RULE_PROPERTY( 160 );
-    rules_table[15] = new GAMEPLAY_RULE_STATION( 200 );
-    rules_table[16] = new GAMEPLAY_RULE_PROPERTY( 180 );
+    rules_table[11] = new GAMEPLAY_RULE_PROPERTY( 140, 30, 90, 65, third_property_group );
+    rules_table[12] = new GAMEPLAY_RULE_PROPERTY_SERVICE( 150, 65, service_property_group );
+    rules_table[13] = new GAMEPLAY_RULE_PROPERTY( 140, 30, 90, 65, third_property_group );
+    rules_table[14] = new GAMEPLAY_RULE_PROPERTY( 160, 30, 90, 65, third_property_group );
+    rules_table[15] = new GAMEPLAY_RULE_STATION( 200, 100, station_property_group );
+    rules_table[16] = new GAMEPLAY_RULE_PROPERTY( 180, 40, 110, 85, fourth_property_group );
     rules_table[17] = new GAMEPLAY_RULE_CAISSE();
-    rules_table[18] = new GAMEPLAY_RULE_PROPERTY( 180 );
-    rules_table[19] = new GAMEPLAY_RULE_PROPERTY( 200 );
+    rules_table[18] = new GAMEPLAY_RULE_PROPERTY( 180, 40, 110, 85, fourth_property_group );
+    rules_table[19] = new GAMEPLAY_RULE_PROPERTY( 200, 40, 110, 85, fourth_property_group );
     
     rules_table[20] = new GAMEPLAY_RULE_PARK();
-    rules_table[21] = new GAMEPLAY_RULE_PROPERTY( 220 );
+    rules_table[21] = new GAMEPLAY_RULE_PROPERTY( 220, 50, 130, 115, fifth_property_group );
     rules_table[22] = new GAMEPLAY_RULE_CHANCE();
-    rules_table[23] = new GAMEPLAY_RULE_PROPERTY( 220 );
-    rules_table[24] = new GAMEPLAY_RULE_PROPERTY( 240 );
-    rules_table[25] = new GAMEPLAY_RULE_STATION( 200 );
-    rules_table[26] = new GAMEPLAY_RULE_PROPERTY( 260 );
-    rules_table[27] = new GAMEPLAY_RULE_PROPERTY( 260 );
-    rules_table[28] = new GAMEPLAY_RULE_PROPERTY( 150 );
-    rules_table[29] = new GAMEPLAY_RULE_PROPERTY( 280 );
+    rules_table[23] = new GAMEPLAY_RULE_PROPERTY( 220, 50, 130, 115, fifth_property_group );
+    rules_table[24] = new GAMEPLAY_RULE_PROPERTY( 240, 50, 130, 115, fifth_property_group );
+    rules_table[25] = new GAMEPLAY_RULE_STATION( 200, 100, station_property_group );
+    rules_table[26] = new GAMEPLAY_RULE_PROPERTY( 260, 60, 150, 125, sixth_property_group );
+    rules_table[27] = new GAMEPLAY_RULE_PROPERTY( 260, 60, 150, 125, sixth_property_group );
+    rules_table[28] = new GAMEPLAY_RULE_PROPERTY_SERVICE( 150, 65, service_property_group );
+    rules_table[29] = new GAMEPLAY_RULE_PROPERTY( 280, 60, 150, 125, sixth_property_group );
     
     rules_table[30] = new GAMEPLAY_RULE_PRISON( true );
-    rules_table[31] = new GAMEPLAY_RULE_PROPERTY( 300 );
-    rules_table[32] = new GAMEPLAY_RULE_PROPERTY( 300 );
+    rules_table[31] = new GAMEPLAY_RULE_PROPERTY( 300, 70, 170, 145, seventh_property_group );
+    rules_table[32] = new GAMEPLAY_RULE_PROPERTY( 300, 70, 170, 145, seventh_property_group );
     rules_table[33] = new GAMEPLAY_RULE_CAISSE();
-    rules_table[34] = new GAMEPLAY_RULE_PROPERTY( 320 );
-    rules_table[35] = new GAMEPLAY_RULE_STATION( 200 );
+    rules_table[34] = new GAMEPLAY_RULE_PROPERTY( 320, 70, 170, 145, seventh_property_group );
+    rules_table[35] = new GAMEPLAY_RULE_STATION( 200, 100, station_property_group );
     rules_table[36] = new GAMEPLAY_RULE_CHANCE();
-    rules_table[37] = new GAMEPLAY_RULE_PROPERTY( 350 );
+    rules_table[37] = new GAMEPLAY_RULE_PROPERTY( 350, 90, 190, 170, eighth_property_group );
     rules_table[38] = new GAMEPLAY_RULE_PAY_AMOUNT( 100 );
-    rules_table[39] = new GAMEPLAY_RULE_PROPERTY( 400 );
+    rules_table[39] = new GAMEPLAY_RULE_PROPERTY( 400, 90, 190, 200, eighth_property_group );
 }
 

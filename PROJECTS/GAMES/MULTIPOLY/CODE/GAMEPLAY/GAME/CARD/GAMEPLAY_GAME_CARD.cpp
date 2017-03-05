@@ -37,14 +37,15 @@ void GAMEPLAY_GAME_CARD::Initialize(
     shader->Initialize( shape->GetShaderBindParameter() );
     shape->SetTextureBlock( block );
     
-    GLOBAL_RESOURCES::CreateThisComponent(
+    GLOBAL_RESOURCES::CreatePlanComponent(
         this,
         shape,
         &shader->GetProgram(),
         position,
         orientation,
         size,
-        scene);
+        scene,
+        CORE_HELPERS_CALLBACK_1<GAMEPLAY_COMPONENT_ENTITY *>());
     
     RuleIsApplied = false;
 }

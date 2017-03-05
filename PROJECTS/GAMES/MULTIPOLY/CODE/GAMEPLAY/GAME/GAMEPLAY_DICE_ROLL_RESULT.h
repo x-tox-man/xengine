@@ -14,6 +14,7 @@ typedef struct {
     int FirstDice;
     int SecondDice;
     int Total;
+    int DoublesInRowCount;
     bool IsDouble;
 } GAMEPLAY_DICE_ROLL_RESULT;
 

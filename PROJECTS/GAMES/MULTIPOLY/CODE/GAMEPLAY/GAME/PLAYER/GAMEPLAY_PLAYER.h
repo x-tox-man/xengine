@@ -75,6 +75,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_PLAYER, GAMEPLAY_COMPONENT_ENTITY)
     void RollDice();
     GAMEPLAY_DICE_ROLL_RESULT ComputeRollResult();
     void SetTurnIsOver() { ItIsDone = true; }
+    void PrepareForRollingDice( GAME_HUD_PRESENTER * presenter );
 
     inline int GetPlayerIndex() { return PlayerIndex; }
     inline void AddMoney( int amount ) { Money += amount;OnChangedCallback( this ); }
@@ -86,9 +87,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_PLAYER, GAMEPLAY_COMPONENT_ENTITY)
     inline GAMEPLAY_DICE_ROLL_RESULT & GetRollResult() {return RollResult; }
     inline int GetCurrentCellIndex() { return CurrentCellIndex; }
     int AttemptPay( int amount );
+    inline CORE_HELPERS_COLOR & GetPlayerColor() { return Color; }
 
     void JumpTo( int cell_index );
     void ForceAdvanceTo( int cell_index );
+    void PerformIAActions();
 
     void ShowActiveGameplayCard( GAMEPLAY_GAME_CARD * card );
 
@@ -130,6 +133,8 @@ private :
         RollResult;
     GAMEPLAY_GAME_CARD
         * ActiveCard;
+    CORE_HELPERS_COLOR
+        Color;
 
 XS_CLASS_END
 

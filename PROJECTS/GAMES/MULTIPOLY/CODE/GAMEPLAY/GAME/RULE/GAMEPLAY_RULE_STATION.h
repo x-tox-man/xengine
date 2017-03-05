@@ -14,13 +14,11 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_RULE_STATION, GAMEPLAY_RULE_PROPERTY )
 
-    GAMEPLAY_RULE_STATION(int amount);
+    GAMEPLAY_RULE_STATION( int amount, int mortgage_price, GAMEPLAY_RULE_PROPERTY_GROUP * group );
     ~GAMEPLAY_RULE_STATION();
 
-    virtual void OnPassOntoCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
-    virtual void OnLeftCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
-    virtual void OnStoppedCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
-    virtual bool Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override { return true; }
+    virtual bool CanBuyHouse( GAMEPLAY_PLAYER * player ) override;
+    virtual int CalculateAmount( GAMEPLAY_PLAYER * player ) override;
 
 XS_CLASS_END
 

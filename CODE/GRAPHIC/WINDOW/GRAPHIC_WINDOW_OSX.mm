@@ -67,6 +67,7 @@ void GRAPHIC_WINDOW_OSX::EnableBackgroundContext(bool enable) {
         NSOpenGLPixelFormat * pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attributes];
         
         self.openGLContext = [[NSOpenGLContext alloc] initWithFormat:pixelFormat shareContext:nil];
+        
         //self.backgroundContext = [[NSOpenGLContext alloc] initWithFormat:pixelFormat shareContext:nil];
         
         [self setContext:self.openGLContext];
@@ -78,6 +79,15 @@ void GRAPHIC_WINDOW_OSX::EnableBackgroundContext(bool enable) {
         [self.openGLContext makeCurrentContext];
         
         [self.openGLContext flushBuffer];
+        
+        // https://developer.apple.com/library/content/documentation/GraphicsImaging/Conceptual/OpenGL-MacProgGuide/opengl_threading/opengl_threading.html#//apple_ref/doc/uid/TP40001987-CH409-SW12
+        /*CGLError err =  CGLEnable( CGLGetCurrentContext(), kCGLCEMPEngine);
+        
+        if (err != kCGLNoError )
+        {
+            // Multithreaded execution may not be available
+            // Insert your code to take appropriate action
+        }*/
         
         [[self window] setDelegate:self];
         

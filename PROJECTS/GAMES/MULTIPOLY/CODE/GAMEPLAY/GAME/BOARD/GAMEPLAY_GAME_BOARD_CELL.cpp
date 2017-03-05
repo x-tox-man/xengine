@@ -11,6 +11,8 @@
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
 #include "GLOBAL_RESOURCES.h"
+#include "MULTIPOLY_APPLICATION.h"
+#include "GAMEPLAY_COMPONENT_RENDER.h"
 
 GAMEPLAY_GAME_BOARD_CELL::GAMEPLAY_GAME_BOARD_CELL() :
     GAMEPLAY_COMPONENT_ENTITY(),
@@ -37,12 +39,34 @@ void GAMEPLAY_GAME_BOARD_CELL::Initialize(
     shader->Initialize( shape->GetShaderBindParameter() );
     shape->SetTextureBlock( block );
     
-    GLOBAL_RESOURCES::CreateThisComponent(
+    GLOBAL_RESOURCES::CreatePlanComponent(
         this,
         shape,
         &shader->GetProgram(),
         position,
         orientation,
         size,
-        scene);
+        scene,
+        CORE_HELPERS_CALLBACK_1<GAMEPLAY_COMPONENT_ENTITY *>(&Wrapper1<GAMEPLAY_GAME_BOARD_CELL, GAMEPLAY_COMPONENT_ENTITY *, &GAMEPLAY_GAME_BOARD_CELL::OnCellPicked>, this),
+        true );
+}
+
+void GAMEPLAY_GAME_BOARD_CELL::OnCellPicked( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+    
+    ((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().SelectCell( this );
+    Rule->OnPicked(this, ((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().GetCurrentPlayer());
+}
+
+void GAMEPLAY_GAME_BOARD_CELL::SetSelected( bool selected ) {
+    
+    if ( selected ) {
+        
+        if ( Rule )
+        Rule->OnDismiss(this , NULL);
+        ((GAMEPLAY_COMPONENT_RENDER*)GetComponent( GAMEPLAY_COMPONENT_TYPE_Render))->SetColor( CORE_COLOR_Cyan );
+    }
+    else {
+        
+        ((GAMEPLAY_COMPONENT_RENDER*)GetComponent( GAMEPLAY_COMPONENT_TYPE_Render))->SetColor( CORE_COLOR_White );
+    }
 }

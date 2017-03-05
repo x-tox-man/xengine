@@ -12,6 +12,10 @@
 #include "GLOBAL_RESOURCES.h"
 #include "GAME_PLAYER_MODEL.h"
 #include "MAIN_MENU_PAGE.h"
+#include "GAMEPLAY_COMPONENT_MANAGER.h"
+#include "GRAPHIC_FONT_MANAGER.h"
+#include "PERIPHERIC_INTERACTION_SYSTEM.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
 
 MULTIPOLY_APPLICATION::MULTIPOLY_APPLICATION() :
     CORE_APPLICATION(),
@@ -56,7 +60,7 @@ void MULTIPOLY_APPLICATION::Initialize() {
     mod2.IsHuman = false;
     
     players.push_back(mod);
-    players.push_back(mod2);
+    //players.push_back(mod2);
     
     InitializeGraphics();
     InitializeRandom();
@@ -70,6 +74,36 @@ void MULTIPOLY_APPLICATION::Initialize() {
 
 void MULTIPOLY_APPLICATION::Finalize() {
     
+    CORE_MEMORY_ObjectSafeDeallocation( Camera );
+    CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );
+    
+    Game.Finalize();
+    //Server.Finalize();
+    //Client.Finalize();
+    
+    APPLICATION_SCREENS_NAVIGATION::RemoveInstance();
+    //AUDIO_SYSTEM::GetInstance().Finalize();
+    //AUDIO_SYSTEM::RemoveInstance();
+    CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
+    CORE_ABSTRACT_PROGRAM_MANAGER::RemoveInstance();
+    CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::RemoveInstance();
+    CORE_HELPERS_IDENTIFIER_SYSTEM::RemoveInstance();
+    GAMEPLAY_COMPONENT_MANAGER::RemoveInstance();
+    
+    GLOBAL_RESOURCES::GetInstance().Finalize();
+    GLOBAL_RESOURCES::RemoveInstance();
+    
+    GRAPHIC_FONT_MANAGER::RemoveInstance();
+    GRAPHIC_MESH_MANAGER::RemoveInstance();
+    GRAPHIC_PARTICLE_SYSTEM::RemoveInstance();
+    GRAPHIC_RENDERER::RemoveInstance();
+    GRAPHIC_UI_SYSTEM::RemoveInstance();
+    PERIPHERIC_INTERACTION_SYSTEM::RemoveInstance();
+    
+    SERVICE_NETWORK_SYSTEM::GetInstance().Finalize();
+    SERVICE_NETWORK_SYSTEM::RemoveInstance();
+    
+    DefaultFileystem.Finalize();
 }
 
 void MULTIPOLY_APPLICATION::Update( float time_step ) {
@@ -80,8 +114,11 @@ void MULTIPOLY_APPLICATION::Update( float time_step ) {
 
 void MULTIPOLY_APPLICATION::Render() {
     
+    static float pos= 0.0f;
+    
+    pos+=0.1f;
     CORE_MATH_VECTOR
-        position(4.0f, -5.0f, 16.0f, 1.0f);
+        position(4.0f, -5.0f, 17.0f, 1.0f);
     
     Lookat[0] = -1.0f;
     Lookat[1] = 0.0f;
@@ -97,6 +134,12 @@ void MULTIPOLY_APPLICATION::Render() {
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( InterfaceCamera );
     GRAPHIC_UI_SYSTEM::GetInstance().Render(GRAPHIC_RENDERER::GetInstance());
+    
+    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+    
+    GLOBAL_RESOURCES::GetInstance().Line->SetPosition( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game.GetScene().GetUpdatableSystemTable()[2])->GetRay().GetOrigin() );
+    GLOBAL_RESOURCES::GetInstance().Line->SetTarget( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game.GetScene().GetUpdatableSystemTable()[2])->GetRay().GetDirection() );
+    GLOBAL_RESOURCES::GetInstance().Line->Render(GRAPHIC_RENDERER::GetInstance());
 }
 
 
@@ -147,7 +190,7 @@ void MULTIPOLY_APPLICATION::InitializeRandom() {
 void MULTIPOLY_APPLICATION::InitializeGameConfiguration() {
     
     APPLICATION_CONFIGURATION_OPTIONS::GetInstance().StopOnStartGivesMoreMoney = false;
-    APPLICATION_CONFIGURATION_OPTIONS::GetInstance().StartCellMoney = 2000;
-    APPLICATION_CONFIGURATION_OPTIONS::GetInstance().StartUpMoney = 20000;
+    APPLICATION_CONFIGURATION_OPTIONS::GetInstance().StartCellMoney = 200;
+    APPLICATION_CONFIGURATION_OPTIONS::GetInstance().StartUpMoney = APPLICATION_PLAYER_BASE_MONEY;
 }
 

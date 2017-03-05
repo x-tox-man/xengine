@@ -92,6 +92,10 @@ void MAIN_MENU_PAGE::Initialize() {
     Presenter->Configure();
     
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
-    GRAPHIC_UI_FRAME::Initialize();
+    
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_UI_SYSTEM::GetInstance().GetLockMutex())
+        GRAPHIC_UI_FRAME::Initialize();
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+    
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
 }

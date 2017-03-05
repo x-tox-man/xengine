@@ -10,6 +10,7 @@
 #include "GLOBAL_RESOURCES.h"
 #include "GRAPHIC_FONT_MANAGER.h"
 #include "MULTIPOLY_APPLICATION.h"
+#include "GRAPHIC_UI_SYSTEM.h"
 
 GAME_HUD_PAGE::GAME_HUD_PAGE() :
     Presenter() {
@@ -35,6 +36,7 @@ void GAME_HUD_PAGE::Initialize() {
     auto roll_dice_render_style = new GRAPHIC_UI_RENDER_STYLE;
     auto buy_property_render_style = new GRAPHIC_UI_RENDER_STYLE;
     auto end_button_render_style = new GRAPHIC_UI_RENDER_STYLE;
+    auto buy_house_button_render_style = new GRAPHIC_UI_RENDER_STYLE;
     
     auto pause_tb = new GRAPHIC_TEXTURE_BLOCK;
     pause_tb->SetTexture( GLOBAL_RESOURCES::CreateTextureFromImagePath("pause_button") );
@@ -52,6 +54,9 @@ void GAME_HUD_PAGE::Initialize() {
     end_button_tb->SetTexture( GLOBAL_RESOURCES::CreateTextureFromImagePath("end_button") );
     end_button_tb->Initialize();
     
+    auto buy_house_button_tb = new GRAPHIC_TEXTURE_BLOCK;
+    buy_house_button_tb->SetTexture( GLOBAL_RESOURCES::CreateTextureFromImagePath("house_image") );
+    buy_house_button_tb->Initialize();
     
 
     render_style->SetShape( GLOBAL_RESOURCES::GetInstance().CreateUIPlanShape( ui_textured_shader_effect ) );
@@ -69,6 +74,10 @@ void GAME_HUD_PAGE::Initialize() {
     end_button_render_style->SetShape( GLOBAL_RESOURCES::GetInstance().CreateUIPlanShape( ui_textured_shader_effect ) );
     end_button_render_style->SetTextureBlock( end_button_tb );
     end_button_render_style->SetColor( CORE_COLOR_White );
+    
+    buy_house_button_render_style->SetShape(GLOBAL_RESOURCES::GetInstance().CreateUIPlanShape( ui_textured_shader_effect ) );
+    buy_house_button_render_style->SetTextureBlock( buy_house_button_tb );
+    buy_house_button_render_style->SetColor( CORE_COLOR_White );
     
     auto pause_button = new GRAPHIC_UI_ELEMENT();
     pause_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, render_style );
@@ -112,6 +121,18 @@ void GAME_HUD_PAGE::Initialize() {
     end_turn_button->Disable();
     
     
+    auto buy_house_button = new GRAPHIC_UI_ELEMENT( GAME_HUD_PAGE::BuyHouseButtonId );
+    buy_house_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, buy_house_button_render_style );
+    buy_house_button->GetPlacement().Initialize(
+        &GetPlacement(),
+        CORE_MATH_VECTOR( -128.0f, 0.0f, 0.0f, 1.0f ),
+        CORE_MATH_VECTOR( 128.0f, 128.0f, 0.0f, 1.0f ),
+        GRAPHIC_UI_TopRight );
+    
+    buy_house_button->SetVisible( false );
+    buy_house_button->Disable();
+    
+    
     auto dice_roll_result_text = new GRAPHIC_UI_TEXT;
     dice_roll_result_text->SetFont( font );
     dice_roll_result_text->SetIdentifier( DiceRollResultId );
@@ -139,6 +160,7 @@ void GAME_HUD_PAGE::Initialize() {
     AddObject( dice_roll_result_text );
     AddObject( buy_property_button );
     AddObject( end_turn_button );
+    AddObject( buy_house_button );
     
     OnPlacementPropertyChanged();
     
@@ -155,10 +177,15 @@ void GAME_HUD_PAGE::Initialize() {
                          new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<GAME_HUD_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &GAME_HUD_PRESENTER::OnBuyPropertyButtonPressed >, &Presenter) );
     Presenter.BindAction( end_turn_button,
                          new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<GAME_HUD_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &GAME_HUD_PRESENTER::OnEndGameButtonPressed >, &Presenter) );
+    Presenter.BindAction( buy_house_button,
+                         new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<GAME_HUD_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &GAME_HUD_PRESENTER::OnBuyHouseButtonPressed >, &Presenter) );
     
     Presenter.Configure();
     
-    GRAPHIC_UI_FRAME::Initialize();
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_UI_SYSTEM::GetInstance().GetLockMutex())
+        GRAPHIC_UI_FRAME::Initialize();
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+    
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
 }
 
@@ -203,4 +230,5 @@ CORE_HELPERS_IDENTIFIER
     GAME_HUD_PAGE::DiceRollResultId( "DiceRollResultId" ),
     GAME_HUD_PAGE::MoneyId( "MoneyId" ),
     GAME_HUD_PAGE::BuyPropertyButtonId( "BuyPropertyButtonId" ),
-    GAME_HUD_PAGE::EndTurnButtonId( "EndTurnButtonId" );
+    GAME_HUD_PAGE::EndTurnButtonId( "EndTurnButtonId" ),
+    GAME_HUD_PAGE::BuyHouseButtonId( "BuyHouseButtonId" );

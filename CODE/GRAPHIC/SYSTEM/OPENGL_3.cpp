@@ -532,7 +532,7 @@
         //GFX_CHECK( glBindBuffer(GL_ARRAY_BUFFER, 0); )
         
         GFX_CHECK( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexBuffer()) ; )
-        
+         
         GFX_CHECK( glDrawElements(
             GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpengl3( mesh.GetPolygonRenderMode() ),      // mode
             mesh.GetIndexCoreBuffer()->GetSize() / 4,    // count

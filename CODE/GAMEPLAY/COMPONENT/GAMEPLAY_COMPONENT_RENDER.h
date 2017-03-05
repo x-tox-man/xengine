@@ -37,8 +37,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
     void SetObject( GRAPHIC_OBJECT * object ) { Object = object; }
     GRAPHIC_OBJECT * GetObject() { return Object; }
-    void SetColor( CORE_HELPERS_COLOR & color ) { Color = color; }
+    void SetColor( const CORE_HELPERS_COLOR & color ) { Color = color; }
     void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
+    void SetProgram( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR program) { Program = program; }
+    GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR GetProgram() { return Program; }
 
 private :
 
@@ -46,6 +48,8 @@ private :
         * Object;
     CORE_MATH_SHAPE
         * BoundingObject;
+    GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR
+        Program;
     CORE_HELPERS_COLOR
         Color;
     float

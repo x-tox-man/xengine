@@ -68,8 +68,11 @@ void GAME_HUD_PRESENTER::OnEndGameButtonPressed( GRAPHIC_UI_ELEMENT * clicked_el
         clicked_element->Disable();
         clicked_element->SetVisible( false );
         
-        (GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyPropertyButtonId ) )->Disable();
+        (GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyPropertyButtonId ) )->SetEnabled( false );
         (GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyPropertyButtonId ) )->SetVisible( false );
+        
+        (GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyHouseButtonId ) )->SetEnabled( false );
+        (GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyHouseButtonId ) )->SetVisible( false );
         
         ((MULTIPOLY_APPLICATION*)&MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().PlayerEndTurn();
     }
@@ -83,6 +86,17 @@ void GAME_HUD_PRESENTER::OnRollDiceButtonPressed( GRAPHIC_UI_ELEMENT * clicked_e
         clicked_element->Disable();
         
         ((MULTIPOLY_APPLICATION*)&MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().PlayerDiceRoll();
+    }
+}
+
+void GAME_HUD_PRESENTER::OnBuyHouseButtonPressed( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event ) {
+    
+    if ( event == GRAPHIC_UI_ELEMENT_STATE_Pressed) {
+        
+        clicked_element->SetVisible( false );
+        clicked_element->Disable();
+        
+        ((MULTIPOLY_APPLICATION*)&MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().PlayerBuyHouse();
     }
 }
 
@@ -102,6 +116,12 @@ void GAME_HUD_PRESENTER::DisplayRollDiceResult( const GAMEPLAY_DICE_ROLL_RESULT 
     GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::DiceRollResultId )->SetTextValue(dice_result);
 }
 
+void GAME_HUD_PRESENTER::DisplayBuyHouseButton() {
+    
+    GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyHouseButtonId )->SetEnabled( true );
+    GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyHouseButtonId )->SetVisible( true );
+}
+
 void GAME_HUD_PRESENTER::UpdateMoneyForPlayer( GAMEPLAY_PLAYER * player  ) {
     
     CORE_HELPERS_IDENTIFIER * id_array[4];
@@ -119,10 +139,25 @@ void GAME_HUD_PRESENTER::UpdateMoneyForPlayer( GAMEPLAY_PLAYER * player  ) {
     frame_element->GetObjectForIdentifier( GAME_HUD_PAGE::MoneyId )->SetTextValue( money_value_text );
 }
 
+void GAME_HUD_PRESENTER::HidePropertyAndHouse() {
+    
+    GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyHouseButtonId )->SetEnabled( false );
+    GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyHouseButtonId )->SetVisible( false );
+    
+    GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyPropertyButtonId )->SetEnabled( false );
+    GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyPropertyButtonId )->SetVisible( false );
+}
+
 void GAME_HUD_PRESENTER::ProposeBuyProperty( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) {
     
     (GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyPropertyButtonId ) )->Enable();
     (GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyPropertyButtonId ) )->SetVisible( true );
+}
+
+void GAME_HUD_PRESENTER::ProposeBuyHouse( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) {
+    
+    (GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyHouseButtonId ) )->SetEnabled( true );
+    (GetView()->GetObjectForIdentifier( GAME_HUD_PAGE::BuyHouseButtonId ) )->SetVisible( true );
 }
 
 void GAME_HUD_PRESENTER::ShowEndButton() {

@@ -14,6 +14,7 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     GAMEPLAY_COMPONENT(),
     Object(),
     BoundingObject(),
+    Program(),
     Color( CORE_COLOR_White ),
     ScaleFactor( 1.0f ) {
     
@@ -41,6 +42,11 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     Object->SetOrientation(component->GetOrientation() );
     Object->SetColor( Color );
     Object->SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
+    
+    if ( Program) {
+        
+        Object->GetShaderTable()[0] = Program;
+    }
     
     Object->Render( renderer );
     renderer.EnableColor(false);

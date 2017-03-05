@@ -11,10 +11,12 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "GAMEPLAY_RULE.h"
+#include "GAMEPLAY_RULE_PROPERTY_GROUP.h"
+#include "GAMEPLAY_GAME_HOUSE.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_RULE_PROPERTY, GAMEPLAY_RULE )
 
-    GAMEPLAY_RULE_PROPERTY( int front_price );
+    GAMEPLAY_RULE_PROPERTY( int front_price, int rent_price, int house_price, int mortgage_price, GAMEPLAY_RULE_PROPERTY_GROUP * group );
     ~GAMEPLAY_RULE_PROPERTY();
 
     virtual void OnVisit( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
@@ -22,21 +24,39 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_RULE_PROPERTY, GAMEPLAY_RULE )
     virtual void OnLeftCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
     virtual void OnStoppedCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
     virtual bool Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
+    virtual void OnPicked(GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
+    virtual void OnDismiss(GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
 
-    void Buy( GAMEPLAY_PLAYER * player);
+    inline GAMEPLAY_PLAYER * GetOwner() { return Owner; }
+    inline std::vector< GAMEPLAY_GAME_HOUSE * > & GetHouseTable() { return HouseTable; }
+    inline bool IsInMortgage() const { return ItIsInMortgage; }
+    inline void SetIsInMortgage( bool in_mortgage ) { ItIsInMortgage = in_mortgage; }
+    inline GAMEPLAY_RULE_PROPERTY_GROUP * GetPropertyGroup() { return PropertyGroup; }
+
+    void Buy( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player);
+    virtual bool CanBuyHouse( GAMEPLAY_PLAYER * player );
+    void BuyHouse( GAMEPLAY_SCENE * scene, GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player, GAMEPLAY_GAME_HOUSE * house );
 
 private:
 
-    virtual int CalculateAmount();
+    virtual int CalculateAmount( GAMEPLAY_PLAYER * player );
     void ProposeBuy( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player);
+    void ProposeBuyHouse( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player);
     void TransferTo( GAMEPLAY_PLAYER * player);
 
-    std::vector<GAMEPLAY_RULE_PROPERTY *>
-        PropertyGroupement;
     GAMEPLAY_PLAYER
         * Owner;
+    GAMEPLAY_RULE_PROPERTY_GROUP
+        * PropertyGroup;
     int
-        BuyPrice;
+        BuyPrice,
+        HousePrice,
+        RentPrice,
+        MortgagePrice;
+    bool
+        ItIsInMortgage;
+    std::vector< GAMEPLAY_GAME_HOUSE * >
+        HouseTable;
 
 XS_CLASS_END
 

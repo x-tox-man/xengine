@@ -26,7 +26,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_RENDER_STYLE )
     void Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity );
 
     void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
-    void SetColor( const CORE_MATH_VECTOR & color ) { Color = color; }
+    void SetColor( const CORE_HELPERS_COLOR & color ) { Color = color; }
     void SetTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { TextureBlock = texture_block; }
 
     void SetDecoratingShape( GRAPHIC_OBJECT_SHAPE * shape ) { DecoratingShape = shape; }

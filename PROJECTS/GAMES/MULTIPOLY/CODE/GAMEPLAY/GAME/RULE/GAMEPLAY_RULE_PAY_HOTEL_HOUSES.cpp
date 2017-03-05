@@ -30,6 +30,6 @@ void GAMEPLAY_RULE_PAY_HOTEL_HOUSES::OnStoppedCell( GAMEPLAY_GAME_BOARD_CELL * c
 
 bool GAMEPLAY_RULE_PAY_HOTEL_HOUSES::Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) {
     
-    //abort(); // TODO : change player state
+    abort(); // TODO : change player state
     return true;
 }

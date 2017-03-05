@@ -23,8 +23,12 @@ public:
         
     }
     
-    virtual    ~CORE_FIXED_STATE_MACHINE() {
+    virtual ~CORE_FIXED_STATE_MACHINE() {
         
+        if ( CurrentState ) {
+            
+            FinalizeState();
+        }
     }
 
     void InitializeState( __BASE_STATE__ & state, __PARENT_CONTEXT__ * context ) {
@@ -33,6 +37,14 @@ public:
         CurrentState = &state;
         CurrentState->SetContext( Context );
         CurrentState->EnterState();
+    }
+    
+    void FinalizeState() {
+        
+        CurrentState->LeaveState();
+        CurrentState = NULL;
+        Context = NULL;
+        
     }
 
     template < typename __EVENT__ >

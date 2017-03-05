@@ -26,12 +26,16 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GAME_HUD_PRESENTER, GRAPHIC_UI_PRESENTER)
     void OnRollDiceButtonPressed( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
     void OnBuyPropertyButtonPressed( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
     void OnEndGameButtonPressed( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
+    void OnBuyHouseButtonPressed( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
 
 
     void DisplayRollDiceButton();
+    void DisplayBuyHouseButton();
     void DisplayRollDiceResult( const GAMEPLAY_DICE_ROLL_RESULT & result );
     void UpdateMoneyForPlayer( GAMEPLAY_PLAYER * player );
     void ProposeBuyProperty( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player );
+    void ProposeBuyHouse( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player );
+    void HidePropertyAndHouse();
 
     void ShowEndButton();
 

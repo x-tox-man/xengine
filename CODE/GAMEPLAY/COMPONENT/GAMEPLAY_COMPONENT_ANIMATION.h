@@ -37,4 +37,5 @@ private :
         * Animation;
 
 XS_CLASS_END
+
 #endif /* defined(__GAME_ENGINE_REBORN__GAMEPLAY_COMPONENT_ANIMATION__) */

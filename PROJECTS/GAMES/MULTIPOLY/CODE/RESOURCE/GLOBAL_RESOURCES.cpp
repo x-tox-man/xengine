@@ -12,6 +12,8 @@
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
+#include "GAMEPLAY_COMPONENT_ACTION.h"
 
 GLOBAL_RESOURCES::GLOBAL_RESOURCES() {
 }
@@ -50,6 +52,29 @@ void GLOBAL_RESOURCES::Initialize() {
     SpotLightTwo->InitializeSpot(diffuse_2, point2_position, direction_2, 0.1f, 0.2f, 0.9f, 0.1f, 1.0f, 1.0f );
     
     GRAPHIC_FONT_MANAGER::GetInstance().LoadFont( CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ), CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "fxb", "FONTS/" ), CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "png", "FONTS/" ) );
+    GRAPHIC_SHADER_EFFECT::PTR line_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", "OPENGL2" ) );
+    
+    
+    HouseObject = GRAPHIC_OBJECT::LoadResourceForPath( "HouseObject", CORE_FILESYSTEM_PATH::FindFilePath( "untitled", "smx", "MODELS" ) );
+    
+    for ( int i = 0; i < HouseObject->GetMeshTable().size(); i++ ) {
+        
+        HouseObject->GetMeshTable()[ i ]->CreateBuffers();
+    }
+    
+    Line = new GRAPHIC_OBJECT_SHAPE_LINE;
+    line_shader_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
+    
+    Line->InitializeShape( &line_shader_effect->GetProgram() );
+}
+
+void GLOBAL_RESOURCES::Finalize() {
+ 
+    CORE_MEMORY_ObjectSafeDeallocation( DirectionalLight );
+    CORE_MEMORY_ObjectSafeDeallocation( PointLightTwo );
+    CORE_MEMORY_ObjectSafeDeallocation( SpotLightOne );
+    CORE_MEMORY_ObjectSafeDeallocation( SpotLightTwo );
+    CORE_MEMORY_ObjectSafeDeallocation( HouseObject );
 }
 
 GRAPHIC_TEXTURE * GLOBAL_RESOURCES::CreateTextureFromImagePath(const char * image_path) {
@@ -85,14 +110,16 @@ GRAPHIC_OBJECT_SHAPE_FRAME * GLOBAL_RESOURCES::CreateFrameBorder( float height, 
     return frame;
 }
 
-GAMEPLAY_COMPONENT_ENTITY * GLOBAL_RESOURCES::CreateThisComponent(
+GAMEPLAY_COMPONENT_ENTITY * GLOBAL_RESOURCES::CreatePlanComponent(
     GAMEPLAY_COMPONENT_ENTITY * in_component,
     GRAPHIC_OBJECT_SHAPE_PLAN::PTR object,
     GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR program,
     const CORE_MATH_VECTOR & position,
     const CORE_MATH_QUATERNION & orientation,
     const CORE_MATH_VECTOR & size,
-    GAMEPLAY_SCENE * scene ) {
+    GAMEPLAY_SCENE * scene,
+    const CORE_HELPERS_CALLBACK_1<GAMEPLAY_COMPONENT_ENTITY *> & callback,
+    bool picking ) {
     
     /*GRAPHIC_OBJECT * object = GRAPHIC_OBJECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER("CellID"), path);
      
@@ -109,7 +136,54 @@ GAMEPLAY_COMPONENT_ENTITY * GLOBAL_RESOURCES::CreateThisComponent(
     in_component->SetCompononent( pos, GAMEPLAY_COMPONENT_TYPE_Position );
     in_component->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Render ), GAMEPLAY_COMPONENT_TYPE_Render );
     
+    auto action = (GAMEPLAY_COMPONENT_ACTION * ) GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Render );
+    in_component->SetCompononent( action, GAMEPLAY_COMPONENT_TYPE_Action );
+    
+    action->SetActionCallback( callback );
+    
     ( ( GAMEPLAY_COMPONENT_RENDER *) in_component->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetObject(  object );
+    ( ( GAMEPLAY_COMPONENT_RENDER *) in_component->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetScaleFactor(size.X());
+    
+    GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) scene->GetRenderableSystemTable()[0];
+    
+    render_system->AddEntity( in_component );
+    render_system->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
+    
+    if ( picking ) {
+        
+        GAMEPLAY_COMPONENT_SYSTEM_PICKING * picking_system = ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) scene->GetUpdatableSystemTable()[2];
+        
+        in_component->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Physics ), GAMEPLAY_COMPONENT_TYPE_Physics );
+    
+        picking_system->AddEntity( in_component );
+    }
+    
+    
+    in_component->SetPosition( position );
+    pos->SetOrientation( orientation );
+    
+    return in_component;
+}
+
+GAMEPLAY_COMPONENT_ENTITY * GLOBAL_RESOURCES::CreateOtherObjectComponent(
+    GAMEPLAY_COMPONENT_ENTITY * in_component,
+    GRAPHIC_OBJECT::PTR object,
+    GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR program,
+    const CORE_MATH_VECTOR & position,
+    const CORE_MATH_QUATERNION & orientation,
+    const CORE_MATH_VECTOR & size,
+    GAMEPLAY_SCENE * scene ) {
+    
+    object->GetShaderTable().resize( 1 );
+    object->GetShaderTable()[ 0 ] = program;
+    
+    auto pos = (GAMEPLAY_COMPONENT_POSITION * ) GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Position );
+    
+    in_component->SetCompononent( pos, GAMEPLAY_COMPONENT_TYPE_Position );
+    in_component->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Render ), GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    ( ( GAMEPLAY_COMPONENT_RENDER *) in_component->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetObject(  object );
+    ( ( GAMEPLAY_COMPONENT_RENDER *) in_component->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetProgram(  program );
     ( ( GAMEPLAY_COMPONENT_RENDER *) in_component->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetScaleFactor(size.X());
     
     GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) scene->GetRenderableSystemTable()[0];
@@ -121,4 +195,5 @@ GAMEPLAY_COMPONENT_ENTITY * GLOBAL_RESOURCES::CreateThisComponent(
     pos->SetOrientation( orientation );
     
     return in_component;
+
 }

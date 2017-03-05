@@ -82,8 +82,8 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_GAME::PLAYER_TURN_STATE )
 
+    GetContext().SelectCell( NULL );
     GetContext().PlayerTable[GetContext().ActivePlayerIndex]->SetupTurn( GetContext().UIGameHudPresenter );
-
 
 CORE_FIXED_STATE_EndOfStateEvent()
 
@@ -152,6 +152,7 @@ GAMEPLAY_GAME::GAMEPLAY_GAME() :
     Board(),
     PlayerTable(),
     ActivePlayerIndex( -1 ),
+    NextHouseIndex( 0 ),
     AnimationTimer( 0.0f ),
     IsRunning( false ),
     StateMachine(),
@@ -159,7 +160,9 @@ GAMEPLAY_GAME::GAMEPLAY_GAME() :
     UIGameHudPresenter( NULL ),
     ChanceCardTable(),
     CaisseCardTable(),
-    Background( NULL ) {
+    Background( NULL ),
+    HouseTable(),
+    SelectedCell( NULL ) {
     
 }
 
@@ -171,7 +174,13 @@ void GAMEPLAY_GAME::Initialize( std::vector<GAME_PLAYER_MODEL> & player_model_ta
     
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION );
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_ANIMATING );
-    Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_PICKING );
+    
+    auto picking_system = new GAMEPLAY_COMPONENT_SYSTEM_PICKING;
+    Scene.InsertUpdatableSystem( picking_system );
+    
+    auto * callback = new CORE_HELPERS_CALLBACK_1<GAMEPLAY_COMPONENT_ENTITY *>( &Wrapper1<GAMEPLAY_GAME, GAMEPLAY_COMPONENT_ENTITY *, &GAMEPLAY_GAME::OnObjectPicked >, this );
+    
+    picking_system->SetOnPickedCallback( callback );
     
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     
@@ -198,6 +207,46 @@ void GAMEPLAY_GAME::Initialize( std::vector<GAME_PLAYER_MODEL> & player_model_ta
     
     Background = new GRAPHIC_BACKGROUND;
     Background->Initialize( &Scene );
+    
+    InitializeHouses();
+}
+
+void GAMEPLAY_GAME::Finalize() {
+    
+    StateMachine.FinalizeState();
+    
+    std::vector<GAMEPLAY_PLAYER *>::iterator it_p = PlayerTable.begin();
+    
+    while (it_p != PlayerTable.end()) {
+        delete *it_p;
+        it_p++;
+    }
+    
+    PlayerTable.resize(0);
+    UIGameHudPresenter = NULL;
+    
+    std::vector< GAMEPLAY_GAME_CARD * >::iterator
+        it_chance = ChanceCardTable.begin(),
+        it_caisse = CaisseCardTable.begin();
+    
+    while (it_chance != ChanceCardTable.end()) {
+        
+        delete *it_chance;
+        it_chance++;
+    }
+    
+    ChanceCardTable.resize( 0 );
+    
+    while (it_caisse != CaisseCardTable.end()) {
+        
+        delete *it_caisse;
+        it_caisse++;
+    }
+    
+    CaisseCardTable.resize( 0 );
+    
+    CORE_MEMORY_ObjectSafeDeallocation(Background);
+    
 }
 
 void GAMEPLAY_GAME::Start() {
@@ -221,6 +270,14 @@ void GAMEPLAY_GAME::Update(const float step) {
         
         (*it)->Update( step );
         it++;
+    }
+    
+    std::vector< GAMEPLAY_GAME_HOUSE * >::iterator it_house = HouseTable.begin();
+    
+    while (it_house != HouseTable.end() ) {
+        
+        (*it_house)->Update(step );
+        it_house++;
     }
     
     StateMachine.DispatchEvent( UPDATE_EVENT( step ) );
@@ -259,12 +316,31 @@ void GAMEPLAY_GAME::PlayerDiceRoll() {
 void GAMEPLAY_GAME::PlayerBuyProperty() {
     
     auto rule = ( GAMEPLAY_RULE_PROPERTY *) Board.GetCell( PlayerTable[ActivePlayerIndex]->GetCurrentCellIndex() )->GetRule();
-    rule->Buy( PlayerTable[ActivePlayerIndex] );
+    rule->Buy( Board.GetCell( PlayerTable[ActivePlayerIndex]->GetCurrentCellIndex() ), PlayerTable[ActivePlayerIndex] );
 }
 
 void GAMEPLAY_GAME::PlayerEndTurn() {
     
     PlayerTable[ActivePlayerIndex]->SetTurnIsOver();
+}
+
+void GAMEPLAY_GAME::PlayerBuyHouse() {
+    
+    if( SelectedCell ) {
+        
+        auto property = ( GAMEPLAY_RULE_PROPERTY *) SelectedCell->GetRule();
+        property->BuyHouse(&Scene, SelectedCell, PlayerTable[ActivePlayerIndex], GetNextHouse() );
+    }
+    else {
+        
+        auto property = ( GAMEPLAY_RULE_PROPERTY *) Board.GetCell( PlayerTable[ActivePlayerIndex]->GetCurrentCellIndex() )->GetRule();
+        property->BuyHouse(&Scene, Board.GetCell( PlayerTable[ActivePlayerIndex]->GetCurrentCellIndex()), PlayerTable[ActivePlayerIndex], GetNextHouse() );
+    }
+}
+
+void GAMEPLAY_GAME::OnObjectPicked( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+    
+    ((GAMEPLAY_COMPONENT_RENDER*)entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render))->SetColor( CORE_COLOR_Cyan );
 }
 
 void GAMEPLAY_GAME::DisplayNextChanceCard(GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player) {
@@ -274,6 +350,7 @@ void GAMEPLAY_GAME::DisplayNextChanceCard(GAMEPLAY_GAME_BOARD_CELL * cell, GAMEP
     auto temp = ChanceCardTable[0];
     
     for (int i = 0; i < 15; i++) {
+        
         ChanceCardTable[i] = ChanceCardTable[i+1];
     }
     
@@ -298,6 +375,26 @@ void GAMEPLAY_GAME::ProposeBuyProperty( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLA
     UIGameHudPresenter->ProposeBuyProperty( cell, player );
 }
 
+void GAMEPLAY_GAME::ProposeBuyHouse( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) {
+    
+    UIGameHudPresenter->ProposeBuyHouse( cell, player );
+}
+
+void GAMEPLAY_GAME::SelectCell( GAMEPLAY_GAME_BOARD_CELL * cell ) {
+    
+    if ( SelectedCell ) {
+        
+        SelectedCell->SetSelected( false );
+    }
+    
+    SelectedCell = cell;
+    
+    if ( SelectedCell ) {
+        
+        SelectedCell->SetSelected( true );
+    }
+}
+
 void GAMEPLAY_GAME::DisplayDiceRollResult( const GAMEPLAY_DICE_ROLL_RESULT & result ) {
     
     UIGameHudPresenter->DisplayRollDiceResult( result );
@@ -316,11 +413,14 @@ void GAMEPLAY_GAME::InitializeCaisseCards() {
     std::array<int, 16> random_table;
     
     index_table.resize(16);
+    
     for( int j = 0; j < 16; j++ ) {
+        
         index_table[j] = j;
     }
     
     for( int j = 0; j < 16; j++ ) {
+        
         int rnd = rand() % index_table.size();
         
         random_table[ j ] = index_table[rnd];
@@ -330,23 +430,23 @@ void GAMEPLAY_GAME::InitializeCaisseCards() {
     std::array<GAMEPLAY_RULE *, 16> RulesTable;
     
     RulesTable[random_table[0]] = new GAMEPLAY_RULE_PAY_AMOUNT( 100 );
-    RulesTable[random_table[1]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 500 );
-    RulesTable[random_table[2]] = new GAMEPLAY_RULE_PAY_HOTEL_HOUSES( 400, 1150 );
-    RulesTable[random_table[3]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 2000 );
-    RulesTable[random_table[4]] = new GAMEPLAY_RULE_PAY_AMOUNT( 1500 );
+    RulesTable[random_table[1]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 50 );
+    RulesTable[random_table[2]] = new GAMEPLAY_RULE_PAY_HOTEL_HOUSES( 40, 115 );
+    RulesTable[random_table[3]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 200 );
+    RulesTable[random_table[4]] = new GAMEPLAY_RULE_PAY_AMOUNT( 150 );
     RulesTable[random_table[5]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_LAST_CELL );
-    RulesTable[random_table[6]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 500 );
+    RulesTable[random_table[6]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 50 );
     RulesTable[random_table[7]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_SPECIAL_ADVANCE_1 );
-    RulesTable[random_table[8]] = new GAMEPLAY_RULE_PAY_HOTEL_HOUSES( 250, 1000 );
+    RulesTable[random_table[8]] = new GAMEPLAY_RULE_PAY_HOTEL_HOUSES( 25, 100 );
     
     RulesTable[random_table[9]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_SPECIAL_ADVANCE_2 );
     RulesTable[random_table[10]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_SPECIAL_ADVANCE_3 );
     
-    RulesTable[random_table[11]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 1500 );
+    RulesTable[random_table[11]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 150 );
     RulesTable[random_table[12]] = new GAMEPLAY_RULE_PRISON( true );
     RulesTable[random_table[13]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_SPECIAL_ADVANCE_1 );
     RulesTable[random_table[14]] = new GAMEPLAY_RULE_PAY_AMOUNT( 200 );
-    RulesTable[random_table[15]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 1000 );
+    RulesTable[random_table[15]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 100 );
     
     ChanceCardTable.resize(16);
     
@@ -389,23 +489,23 @@ void GAMEPLAY_GAME::InitializeChanceCards() {
     std::array<GAMEPLAY_RULE *, 16> RulesTable;
     
     RulesTable[random_table[0]] = new GAMEPLAY_RULE_PAY_AMOUNT( 100 );
-    RulesTable[random_table[1]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 500 );
-    RulesTable[random_table[2]] = new GAMEPLAY_RULE_PAY_HOTEL_HOUSES( 400, 1150 );
-    RulesTable[random_table[3]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 2000 );
-    RulesTable[random_table[4]] = new GAMEPLAY_RULE_PAY_AMOUNT( 1500 );
+    RulesTable[random_table[1]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 50 );
+    RulesTable[random_table[2]] = new GAMEPLAY_RULE_PAY_HOTEL_HOUSES( 40, 115 );
+    RulesTable[random_table[3]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 200 );
+    RulesTable[random_table[4]] = new GAMEPLAY_RULE_PAY_AMOUNT( 150 );
     RulesTable[random_table[5]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_LAST_CELL );
-    RulesTable[random_table[6]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 500 );
+    RulesTable[random_table[6]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 50 );
     RulesTable[random_table[7]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_SPECIAL_ADVANCE_1 );
-    RulesTable[random_table[8]] = new GAMEPLAY_RULE_PAY_HOTEL_HOUSES( 250, 1000 );
+    RulesTable[random_table[8]] = new GAMEPLAY_RULE_PAY_HOTEL_HOUSES( 25, 100 );
     
     RulesTable[random_table[9]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_SPECIAL_ADVANCE_2 );
     RulesTable[random_table[10]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_SPECIAL_ADVANCE_3 );
     
-    RulesTable[random_table[11]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 1500 );
+    RulesTable[random_table[11]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 150 );
     RulesTable[random_table[12]] = new GAMEPLAY_RULE_PRISON( true );
     RulesTable[random_table[13]] = new GAMEPLAY_RULE_ADVANCE_TO( APPLICATION_SPECIAL_ADVANCE_1 );
-    RulesTable[random_table[14]] = new GAMEPLAY_RULE_PAY_AMOUNT( 200 );
-    RulesTable[random_table[15]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 1000 );
+    RulesTable[random_table[14]] = new GAMEPLAY_RULE_PAY_AMOUNT( 20 );
+    RulesTable[random_table[15]] = new GAMEPLAY_RULE_RECEIVE_AMOUNT( 100 );
     
     CaisseCardTable.resize(16);
     
@@ -416,5 +516,33 @@ void GAMEPLAY_GAME::InitializeChanceCards() {
         CaisseCardTable[i]->SetRule( RulesTable[i] );
         
         start_position.Z( start_position.Z() - 2.0f );
+    }
+}
+
+void GAMEPLAY_GAME::InitializeHouses() {
+    
+    HouseTable.resize( 23* 5 );
+    CORE_MATH_VECTOR
+    house_position( 1.5f, 3.5f, 0.0f, 1.0f );
+    int index = 0;
+    
+    std::vector< GAMEPLAY_GAME_HOUSE * >::iterator it = HouseTable.begin();
+    
+    while (it != HouseTable.end() ) {
+        
+        house_position.X(house_position.X()+0.2f);
+        
+        (*it) = new GAMEPLAY_GAME_HOUSE;
+        (*it)->Initialize(house_position, CORE_MATH_VECTOR::One, CORE_MATH_QUATERNION(), &Scene, CORE_COLOR_White );
+        //(*it)->SetupAnimation(CORE_MATH_VECTOR(house_position.X(), house_position.Y() ), CORE_MATH_QUATERNION() );
+        
+        if ( index % 7 == 0) {
+            
+            house_position.X( 1.5f );
+            house_position.Y( house_position.Y() + 0.2f );
+        }
+        
+        it++;
+        index++;
     }
 }

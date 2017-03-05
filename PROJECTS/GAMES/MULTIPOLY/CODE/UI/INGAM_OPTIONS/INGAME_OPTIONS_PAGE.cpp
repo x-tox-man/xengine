@@ -73,6 +73,8 @@ void INGAME_OPTIONS_PAGE::Initialize() {
     
     OnPlacementPropertyChanged();
     
-    GRAPHIC_UI_FRAME::Initialize();
     POPUP::Initialize();
+    
+    GRAPHIC_UI_FRAME::Initialize();
+    
 }

@@ -16,6 +16,7 @@
 #include "MULTIPOLY_APPLICATION.h"
 #include "CORE_MATH.h"
 #include "GAMEPLAY_GAME_CARD.h"
+#include "GAMEPLAY_RULE_PRISON.h"
 
 CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_PLAYER::IDLE_STATE )
 
@@ -229,7 +230,7 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_PLAYER::ACTION_CHOICE_STATE )
 
-    if ( GetContext().IsHuman() ) {
+    if ( GetContext().IsHuman() && !GetContext().GetRollResult().IsDouble ) {
         ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGame().GetUIGameHudPresenter()->ShowEndButton();
     }
 
@@ -238,22 +239,38 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::ACTION_CHOICE_STATE, UPDATE_EVENT )
 
-    if ( GetContext().IsHuman() ) {
+    if ( GetContext().IsDone() ) {
         
-        if ( GetContext().IsDone() ) {
-            
-            CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().IDLE_STATE);
-        }
+        CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().IDLE_STATE);
+    }
+
+    if ( GetContext().GetRollResult().IsDouble && GetContext().GetRollResult().DoublesInRowCount < 3 ) {
+        
+        GetContext().PrepareForRollingDice( ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGame().GetUIGameHudPresenter() );
+    }
+    else if ( GetContext().GetRollResult().IsDouble && GetContext().GetRollResult().DoublesInRowCount == 3 ) {
+        
+        GAMEPLAY_RULE_PRISON prison_rule( true );
+        
+        prison_rule.Apply( NULL, &GetContext() );
+        
+        CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().IDLE_STATE);
+        GetContext().ItIsDone = true;
     }
     else {
-        CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().IDLE_STATE);
+        
+        if ( !GetContext().IsHuman()) {
+            
+            GetContext().PerformIAActions();
+            GetContext().ItIsDone = true;
+        }
     }
 
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
 CORE_FIXED_STATE_DefineStateLeaveEvent( GAMEPLAY_PLAYER::ACTION_CHOICE_STATE )
-    GetContext().ItIsDone = true;
+
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
@@ -303,7 +320,8 @@ GAMEPLAY_PLAYER::GAMEPLAY_PLAYER(std::string & name) :
     DiceRollTime( 0.0f ),
     PlayerMoveAnimationTime( 0.0f ),
     RollResult(),
-    ActiveCard( NULL ) {
+    ActiveCard( NULL ),
+    Color() {
     
 }
 
@@ -316,6 +334,7 @@ void GAMEPLAY_PLAYER::Initialize( CORE_HELPERS_COLOR & player_color, GAMEPLAY_CO
     Money = money_amount;
     ItIsHuman = is_human;
     PlayerIndex = index;
+    Color = player_color;
     
     auto shader = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(
         CORE_HELPERS_UNIQUE_IDENTIFIER("PlayerShader"),
@@ -339,7 +358,7 @@ void GAMEPLAY_PLAYER::Initialize( CORE_HELPERS_COLOR & player_color, GAMEPLAY_CO
 
 void GAMEPLAY_PLAYER::Update(const float step ) {
     
-    if ( !HasLost && !ItIsDone ) {
+    if ( !HasLost ) {
         
         TurnTime += step;
         
@@ -351,18 +370,31 @@ void GAMEPLAY_PLAYER::SetupTurn( GAME_HUD_PRESENTER * presenter ) {
     
     if (!HasLost ) {
         
-        ItIsDone = false;
+        RollResult.DoublesInRowCount = 0;
         TurnTime = 0.0f;
-        CellAdvance = 0;
         
-        if ( ItIsHuman ) {
-            
-            presenter->DisplayRollDiceButton();
-        }
-        else {
-            
-            RollDice();
-        }
+        PrepareForRollingDice( presenter );
+    }
+    else {
+        
+        ItIsDone = true;
+    }
+}
+
+void GAMEPLAY_PLAYER::PrepareForRollingDice( GAME_HUD_PRESENTER * presenter ) {
+    
+    
+    ItIsDone = false;
+    
+    CellAdvance = 0;
+    
+    if ( ItIsHuman ) {
+        
+        presenter->DisplayRollDiceButton();
+    }
+    else {
+        
+        RollDice();
     }
 }
 
@@ -373,10 +405,15 @@ void GAMEPLAY_PLAYER::RollDice() {
 
 GAMEPLAY_DICE_ROLL_RESULT GAMEPLAY_PLAYER::ComputeRollResult() {
     
-    RollResult.FirstDice = 1;//(rand() % 6)+1;
+    RollResult.FirstDice = 0;//(rand() % 6)+1;
     RollResult.SecondDice = 1;//(rand() % 6)+1;
-    RollResult.Total = 2; //RollResult.FirstDice + RollResult.SecondDice;
+    RollResult.Total = RollResult.FirstDice + RollResult.SecondDice;
     RollResult.IsDouble = RollResult.FirstDice == RollResult.SecondDice;
+    
+    if ( RollResult.IsDouble ) {
+        
+        RollResult.DoublesInRowCount++;
+    }
     
     return RollResult;
 }
@@ -392,7 +429,7 @@ GAMEPLAY_COMPONENT_ENTITY * GAMEPLAY_PLAYER::CreateThisComponent(
      
      for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
      
-     object->GetMeshTable()[ i ]->CreateBuffers();
+         object->GetMeshTable()[ i ]->CreateBuffers();
      }
      
      object->GetShaderTable().resize( 1 );
@@ -414,9 +451,10 @@ GAMEPLAY_COMPONENT_ENTITY * GAMEPLAY_PLAYER::CreateThisComponent(
     
     pos->SetPosition( position );
     pos->SetOrientation( orientation );
-    pos->GetOrientation().X(1.0f);
-    pos->GetOrientation().Y(0.0f);
-    pos->GetOrientation().Z(0.0f);
+    
+    pos->GetOrientation().X( 1.0f );
+    pos->GetOrientation().Y( 0.0f );
+    pos->GetOrientation().Z( 0.0f );
     
     return this;
 }
@@ -455,6 +493,10 @@ void GAMEPLAY_PLAYER::ForceAdvanceTo( int cell_index ) {
     SpecialDestination = cell_index;
     
     StateMachine.ChangeState( PLAYER_FORCED_ADVANCE_MOVE_STATESTATE );
+}
+
+void GAMEPLAY_PLAYER::PerformIAActions() {
+    
 }
 
 void GAMEPLAY_PLAYER::ShowActiveGameplayCard( GAMEPLAY_GAME_CARD * card ) {

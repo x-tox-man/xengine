@@ -60,7 +60,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_OBJECT, GR_O_ANCESTOR_TYPE )
     inline const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
     inline CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
     inline GRAPHIC_SHADER_BIND & GetShaderBindParameter() { return ShaderBindParameter; }
-    inline void SetColor( CORE_HELPERS_COLOR & color ){ Color = color; }
+    inline void SetColor( const CORE_HELPERS_COLOR & color ){ Color = color; }
 
     #if __COMPILE_WITH__COLLADA__
         inline std::vector< GRAPHIC_MESH_ANIMATION *> & GetAnimationTable() { return AnimationTable; }

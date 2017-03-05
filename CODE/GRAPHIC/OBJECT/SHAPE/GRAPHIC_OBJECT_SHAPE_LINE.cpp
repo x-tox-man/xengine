@@ -85,7 +85,7 @@ void GRAPHIC_OBJECT_SHAPE_LINE::Render( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_SHADER_ATTRIBUTE * attr = &GetShaderTable()[0]->getShaderAttribute(GRAPHIC_SHADER_PROGRAM::MVPMatrix );
     
-    ShaderPositions->AttributeValue.Value.FloatMatrix4x4[0] = Position[0];
+    ShaderPositions->AttributeValue.Value.FloatMatrix4x4[0] = 0.0f;
     ShaderPositions->AttributeValue.Value.FloatMatrix4x4[1] = 0.0f;
     ShaderPositions->AttributeValue.Value.FloatMatrix4x4[2] = 0.0f;
     ShaderPositions->AttributeValue.Value.FloatMatrix4x4[3] = 1.0f;
@@ -95,10 +95,6 @@ void GRAPHIC_OBJECT_SHAPE_LINE::Render( GRAPHIC_RENDERER & renderer ) {
     ShaderPositions->AttributeValue.Value.FloatMatrix4x4[6] = Target[2] * 5000.0f;
     ShaderPositions->AttributeValue.Value.FloatMatrix4x4[7] = 1.0f;
     
-    CORE_MATH_MATRIX temp( CORE_MATH_MATRIX::Identity );
-    temp = renderer.GetCamera().GetViewMatrix();
-    temp *= object_matrix;
-    
     glEnable(GL_BLEND);
     GFX_CHECK( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); )
     
@@ -106,6 +102,7 @@ void GRAPHIC_OBJECT_SHAPE_LINE::Render( GRAPHIC_RENDERER & renderer ) {
     
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
+    object_matrix.Translate( Position );
     
     result = renderer.GetCamera().GetProjectionMatrix();
     result *= renderer.GetCamera().GetViewMatrix();

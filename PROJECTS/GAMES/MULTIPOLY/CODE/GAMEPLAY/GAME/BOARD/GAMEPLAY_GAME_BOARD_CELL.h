@@ -39,15 +39,17 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_GAME_BOARD_CELL, GAMEPLAY_COMPONENT_ENTITY
         bool is_corner );
 
     void SetRule( GAMEPLAY_RULE * rule ) { Rule = rule; }
+    void OnCellPicked( GAMEPLAY_COMPONENT_ENTITY * entity );
     GAMEPLAY_RULE * GetRule() { return Rule; }
+
+    void SetSelected( bool selected );
 
 private:
 
     std::vector< GAMEPLAY_PLAYER * >
         ThisCellPlayerTable;
-//std::vector< GAMEPLAY_HOUSE * >
     GAMEPLAY_RULE
-        *Rule;
+        * Rule;
 
 XS_CLASS_END
 

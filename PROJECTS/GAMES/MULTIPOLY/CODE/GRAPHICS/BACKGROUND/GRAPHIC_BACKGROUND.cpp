@@ -27,12 +27,13 @@ void GRAPHIC_BACKGROUND::Initialize( GAMEPLAY_SCENE * scene ) {
     shader->Initialize( shape->GetShaderBindParameter() );
     shape->SetTextureBlock( texture );
     
-    GLOBAL_RESOURCES::CreateThisComponent(
+    GLOBAL_RESOURCES::CreatePlanComponent(
         this,
         shape,
         &shader->GetProgram(),
         CORE_MATH_VECTOR( 0.0f, 0.0f, 1.0f, 1.0f ),
         CORE_MATH_QUATERNION(),
         CORE_MATH_VECTOR(1024.0f, 1024.0f),
-        scene);
+        scene,
+        CORE_HELPERS_CALLBACK_1<GAMEPLAY_COMPONENT_ENTITY *>() );
 }

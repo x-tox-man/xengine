@@ -158,13 +158,14 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
         GFX_CHECK( glUniform4fv(
                   color.AttributeIndex,
                   1,
-                  (const GLfloat * )&color.AttributeValue.Value.FloatArray4 ); )
+                  (const GLfloat * )&Color[0] ); )
     }
     else {
         color.AttributeValue.Value.FloatArray4[0] = 1.0f;
         color.AttributeValue.Value.FloatArray4[1] = 1.0f;
         color.AttributeValue.Value.FloatArray4[2] = 1.0f;
         color.AttributeValue.Value.FloatArray4[3] = 1.0f;
+        
         GFX_CHECK( glUniform4fv(
                                 color.AttributeIndex,
                                 1,
