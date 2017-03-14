@@ -11,8 +11,22 @@
 #include "GAMEPLAY_GAME_BOARD_CELL.h"
 #include "APPLICATION_CONFIGURATION.h"
 
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_RULE_PRISON )
+    XS_DEFINE_ClassMember(bool , GotoPrisonCell)
+XS_END_INTERNAL_MEMORY_LAYOUT
+
+ImplementTrickFroSerializeation(GAMEPLAY_RULE_PRISON, GAMEPLAY_ACTION_TYPE_Custom_13 )
+
+GAMEPLAY_RULE_PRISON::GAMEPLAY_RULE_PRISON() :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
+    GotoPrisonCell( false ) {
+    
+}
+
 GAMEPLAY_RULE_PRISON::GAMEPLAY_RULE_PRISON( bool is_goto_prison_cell ) :
     GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
     GotoPrisonCell( is_goto_prison_cell ) {
     
 }
@@ -49,4 +63,8 @@ bool GAMEPLAY_RULE_PRISON::Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAY
     player->JumpTo( APPLICATION_PRISON_CELL_INDEX );
     
     return false;
+}
+
+void GAMEPLAY_RULE_PRISON::Apply() {
+    
 }

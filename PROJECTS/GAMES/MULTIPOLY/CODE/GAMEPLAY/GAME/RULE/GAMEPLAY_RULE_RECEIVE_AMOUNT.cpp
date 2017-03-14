@@ -10,8 +10,22 @@
 #include "GAMEPLAY_PLAYER.h"
 #include "GAMEPLAY_GAME_BOARD_CELL.h"
 
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_RULE_RECEIVE_AMOUNT )
+    XS_DEFINE_ClassMember(int , AmountToReceive)
+XS_END_INTERNAL_MEMORY_LAYOUT
+
+ImplementTrickFroSerializeation(GAMEPLAY_RULE_RECEIVE_AMOUNT, GAMEPLAY_ACTION_TYPE_Custom_8 )
+
+GAMEPLAY_RULE_RECEIVE_AMOUNT::GAMEPLAY_RULE_RECEIVE_AMOUNT() :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
+    AmountToReceive() {
+    
+}
+
 GAMEPLAY_RULE_RECEIVE_AMOUNT::GAMEPLAY_RULE_RECEIVE_AMOUNT( int amount ) :
     GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
     AmountToReceive( amount ) {
     
 }
@@ -38,4 +52,8 @@ bool GAMEPLAY_RULE_RECEIVE_AMOUNT::Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEP
     player->AddMoney( AmountToReceive );
     
     return true;
+}
+
+void GAMEPLAY_RULE_RECEIVE_AMOUNT::Apply() {
+    
 }

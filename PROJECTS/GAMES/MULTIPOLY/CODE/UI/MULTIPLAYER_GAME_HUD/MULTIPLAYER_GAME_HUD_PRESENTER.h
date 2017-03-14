@@ -10,6 +10,7 @@
 #define MULTIPLAYER_GAME_HUD_PRESENTER_hpp
 
 #include "GAME_HUD_PRESENTER.h"
+#include "NETWORK_PLAYER.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( MULTIPLAYER_GAME_HUD_PRESENTER, GAME_HUD_PRESENTER)
 
@@ -18,7 +19,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( MULTIPLAYER_GAME_HUD_PRESENTER, GAME_HUD_PRESENTER
 
     virtual void Configure() override;
 
-    void OnPauseClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
+    void GameStartedServer();
 
 private:
 

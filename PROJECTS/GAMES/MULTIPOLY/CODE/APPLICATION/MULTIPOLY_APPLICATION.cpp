@@ -23,14 +23,15 @@ MULTIPOLY_APPLICATION::MULTIPOLY_APPLICATION() :
     DefaultFileystem(),
     Camera( NULL ),
     InterfaceCamera( NULL ),
-    Game() {
+    Game(),
+    NetworkManager() {
     
     #if PLATFORM_OSX
         DefaultFileystem.Initialize( "/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/RESOURCES/" );
     #elif PLATFORM_IOS
         DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_ANDROID
-        //DefaultFileystem.Initialize( "None" );
+        DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_WINDOWS
         abort();
         DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\game-engine-clean\\RESOURCES\\" );
@@ -49,27 +50,16 @@ MULTIPOLY_APPLICATION::~MULTIPOLY_APPLICATION() {
 
 void MULTIPOLY_APPLICATION::Initialize() {
     
-    std::vector< GAME_PLAYER_MODEL > players;
-    GAME_PLAYER_MODEL mod, mod2;
-    mod.Name = std::string("Christophe");
-    mod.Color = CORE_COLOR_Red;
-    mod.IsHuman = true;
-    
-    mod2.Name = std::string("Charlotte");
-    mod2.Color = CORE_COLOR_Blue;
-    mod2.IsHuman = false;
-    
-    players.push_back(mod);
-    //players.push_back(mod2);
-    
     InitializeGraphics();
     InitializeRandom();
     InitializeGameConfiguration();
     
-    Game.Initialize( players );
+    Game.Initialize();
     
     auto startup_splash_page = (GRAPHIC_UI_FRAME *) &APPLICATION_SCREENS_NAVIGATION::GetInstance().InitializeNavigation<SPLASH>( "splash" );
+    
     startup_splash_page->Initialize();
+    NetworkManager.Initialize();
 }
 
 void MULTIPOLY_APPLICATION::Finalize() {
@@ -78,9 +68,8 @@ void MULTIPOLY_APPLICATION::Finalize() {
     CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );
     
     Game.Finalize();
-    //Server.Finalize();
-    //Client.Finalize();
     
+    NetworkManager.Finalize();
     APPLICATION_SCREENS_NAVIGATION::RemoveInstance();
     //AUDIO_SYSTEM::GetInstance().Finalize();
     //AUDIO_SYSTEM::RemoveInstance();
@@ -108,13 +97,15 @@ void MULTIPOLY_APPLICATION::Finalize() {
 
 void MULTIPOLY_APPLICATION::Update( float time_step ) {
     
+    NetworkManager.Update( time_step );
+    
     Game.Update( time_step );
     GRAPHIC_UI_SYSTEM::GetInstance().Update( time_step );
 }
 
 void MULTIPOLY_APPLICATION::Render() {
     
-    static float pos= 0.0f;
+    static float pos = 0.0f;
     
     pos+=0.1f;
     CORE_MATH_VECTOR
@@ -184,7 +175,9 @@ void MULTIPOLY_APPLICATION::InitializeRandom() {
     
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );
-    srand((unsigned int) rawtime);
+    Seed = (unsigned int) rawtime;
+    
+    srand( Seed );
 }
 
 void MULTIPOLY_APPLICATION::InitializeGameConfiguration() {

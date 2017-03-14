@@ -10,6 +10,8 @@
 #include "GRAPHIC_OBJECT.h"
 #include "GRAPHIC_MESH_MANAGER.h"
 #include "GRAPHIC_RENDERER.h"
+#include "GRAPHIC_SYSTEM.h"
+#include "CORE_PARALLEL_LOCK.h"
 
 GRAPHIC_WINDOW_OSX::GRAPHIC_WINDOW_OSX() : GRAPHIC_WINDOW()
 {
@@ -134,6 +136,8 @@ void GRAPHIC_WINDOW_OSX::EnableBackgroundContext(bool enable) {
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    
+    CORE_PARALLEL_LOCK Lock( GRAPHIC_SYSTEM::GraphicSystemLock );
     
     [self.openGLContext makeCurrentContext];
     

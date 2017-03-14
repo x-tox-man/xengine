@@ -61,11 +61,14 @@ void GAMEPLAY_GAME_BOARD_CELL::SetSelected( bool selected ) {
     
     if ( selected ) {
         
-        if ( Rule )
-        Rule->OnDismiss(this , NULL);
         ((GAMEPLAY_COMPONENT_RENDER*)GetComponent( GAMEPLAY_COMPONENT_TYPE_Render))->SetColor( CORE_COLOR_Cyan );
     }
     else {
+        
+        if ( Rule ) {
+            
+            Rule->OnDismiss(this , NULL);
+        }
         
         ((GAMEPLAY_COMPONENT_RENDER*)GetComponent( GAMEPLAY_COMPONENT_TYPE_Render))->SetColor( CORE_COLOR_White );
     }

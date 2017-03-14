@@ -10,9 +10,24 @@
 #include "GAMEPLAY_PLAYER.h"
 #include "GAMEPLAY_GAME_BOARD_CELL.h"
 
-GAMEPLAY_RULE_JUMP_TO::GAMEPLAY_RULE_JUMP_TO( int cell_index_to_remove ) :
-    CellOffset( cell_index_to_remove ) {
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_RULE_JUMP_TO )
+    XS_DEFINE_ClassMember(int , CellOffset)
+XS_END_INTERNAL_MEMORY_LAYOUT
 
+ImplementTrickFroSerializeation(GAMEPLAY_RULE_JUMP_TO, GAMEPLAY_ACTION_TYPE_Custom_5 )
+
+GAMEPLAY_RULE_JUMP_TO::GAMEPLAY_RULE_JUMP_TO() :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION() {
+    
+}
+
+GAMEPLAY_RULE_JUMP_TO::GAMEPLAY_RULE_JUMP_TO( int cell_index_to_remove ) :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
+    CellOffset( cell_index_to_remove ) {
+    
+        
 }
 
 GAMEPLAY_RULE_JUMP_TO::~GAMEPLAY_RULE_JUMP_TO() {
@@ -43,4 +58,8 @@ bool GAMEPLAY_RULE_JUMP_TO::Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLA
     player->JumpTo( index );
     
     return false;
+}
+
+void GAMEPLAY_RULE_JUMP_TO::Apply() {
+    
 }

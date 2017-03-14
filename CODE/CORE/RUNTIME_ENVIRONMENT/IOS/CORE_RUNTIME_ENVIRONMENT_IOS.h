@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
 //
 
-#include <array>
 #include <map>
 #include <list>
 #include <vector>
@@ -16,3 +15,4 @@
 #include <cstddef>
 #include <thread>
 #include <mutex>
+#include <array>

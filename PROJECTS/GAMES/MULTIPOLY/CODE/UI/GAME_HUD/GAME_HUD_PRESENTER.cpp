@@ -30,6 +30,8 @@ void GAME_HUD_PRESENTER::Configure() {
     
     std::vector<GAMEPLAY_PLAYER *> players = ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGame().GetPlayerTable();
     
+    NavigationIsRequested = false;
+    
     for ( int i = 0; i < players.size(); i++ ) {
         
         CORE_HELPERS_CALLBACK_1<GAMEPLAY_PLAYER *> callback( &Wrapper1<GAME_HUD_PRESENTER, GAMEPLAY_PLAYER *, &GAME_HUD_PRESENTER::UpdateMoneyForPlayer>, this);

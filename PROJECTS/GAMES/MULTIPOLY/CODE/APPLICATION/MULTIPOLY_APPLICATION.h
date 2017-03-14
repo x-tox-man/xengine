@@ -41,6 +41,7 @@
 #include "GRAPHIC_PARTICLE_MODIFIER_GRAVITY.h"
 #include "GAMEPLAY_GAME.h"
 #include "APPLICATION_CONFIGURATION.h"
+#include "NETWORK_MANAGER.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( MULTIPOLY_APPLICATION, CORE_APPLICATION )
 
@@ -55,6 +56,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( MULTIPOLY_APPLICATION, CORE_APPLICATION )
 
     inline GAMEPLAY_GAME_BOARD & GetGameBoard() { return Game.GetBoard(); }
     inline GAMEPLAY_GAME & GetGame() { return Game; }
+    inline NETWORK_MANAGER & GetNetworkManager() { return NetworkManager; }
+    inline int GetSeed() { return Seed; }
 
     CORE_FILESYSTEM & GetDefaultFileystem() { return DefaultFileystem; }
 
@@ -74,6 +77,10 @@ private :
         * InterfaceCamera;
     GAMEPLAY_GAME
         Game;
+    NETWORK_MANAGER
+        NetworkManager;
+    int
+        Seed;
 
 XS_CLASS_END
 

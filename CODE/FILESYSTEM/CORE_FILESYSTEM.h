@@ -16,55 +16,55 @@
 
 XS_CLASS_BEGIN( CORE_FILESYSTEM )
 
-CORE_FILESYSTEM();
-~CORE_FILESYSTEM();
+    CORE_FILESYSTEM();
+    ~CORE_FILESYSTEM();
 
-static void SetDefaultFilesystem( CORE_FILESYSTEM & file_system ) {
-    
-    DefaultFileSystem = &file_system;
-}
+    static void SetDefaultFilesystem( CORE_FILESYSTEM & file_system ) {
+        
+        DefaultFileSystem = &file_system;
+    }
 
-static CORE_FILESYSTEM & GetDefaultFilesystem() {
-    
-    return *DefaultFileSystem;
-}
+    static CORE_FILESYSTEM & GetDefaultFilesystem() {
+        
+        return *DefaultFileSystem;
+    }
 
-#if PLATFORM_WINDOWS
-static const char * GetDirectorySeparator(){
+    #if PLATFORM_WINDOWS
+    static const char * GetDirectorySeparator(){
 
-    const char * separator = "\\";
-    return separator;
-}
+        const char * separator = "\\";
+        return separator;
+    }
 
-static char GetDirectorySeparatorChar(){
-    
-    return '\\';
-}
-#else
-static const char *GetDirectorySeparator() {
-    
-    const char * separator="/";
-    return separator;
-}
+    static char GetDirectorySeparatorChar(){
+        
+        return '\\';
+    }
+    #else
+    static const char *GetDirectorySeparator() {
+        
+        const char * separator="/";
+        return separator;
+    }
 
-static char GetDirectorySeparatorChar() {
-    
-    return '/';
-}
-#endif
+    static char GetDirectorySeparatorChar() {
+        
+        return '/';
+    }
+    #endif
 
-void Initialize( const char * base_directory_path );
-void Finalize();
+    void Initialize( const char * base_directory_path );
+    void Finalize();
 
-bool DoesFileExist( const CORE_FILESYSTEM_PATH & path );
-CORE_FILESYSTEM_FILE FindFile( const char * path, const char * extension, const char * directory );
+    bool DoesFileExist( const CORE_FILESYSTEM_PATH & path );
+    CORE_FILESYSTEM_FILE FindFile( const char * path, const char * extension, const char * directory );
 
-const char * GetBaseDirectoryPath() { return BaseDirectoryPath; }
+    const char * GetBaseDirectoryPath() { return BaseDirectoryPath; }
 
-private :
+    private :
 
-char * BaseDirectoryPath;
-static CORE_FILESYSTEM * DefaultFileSystem;
+    char BaseDirectoryPath[256];
+    static CORE_FILESYSTEM * DefaultFileSystem;
 
 #if PLATFORM_ANDROID
     #include "CORE_FILESYSTEM_ANDROID.hpp"

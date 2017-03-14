@@ -8,7 +8,26 @@
 
 #include "GAMEPLAY_RULE_PAY_HOTEL_HOUSES.h"
 
-GAMEPLAY_RULE_PAY_HOTEL_HOUSES::GAMEPLAY_RULE_PAY_HOTEL_HOUSES( int amount_per_house, int amount_per_hotel ) {
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_RULE_PAY_HOTEL_HOUSES )
+    XS_DEFINE_ClassMember(int , AmountPerHouse)
+    XS_DEFINE_ClassMember(int , AmountPerHotel)
+XS_END_INTERNAL_MEMORY_LAYOUT
+
+ImplementTrickFroSerializeation(GAMEPLAY_RULE_PAY_HOTEL_HOUSES, GAMEPLAY_ACTION_TYPE_Custom_7 )
+
+GAMEPLAY_RULE_PAY_HOTEL_HOUSES::GAMEPLAY_RULE_PAY_HOTEL_HOUSES() :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
+    AmountPerHouse(),
+    AmountPerHotel() {
+    
+}
+
+GAMEPLAY_RULE_PAY_HOTEL_HOUSES::GAMEPLAY_RULE_PAY_HOTEL_HOUSES( int amount_per_house, int amount_per_hotel ) :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
+    AmountPerHouse( amount_per_house ),
+    AmountPerHotel( amount_per_hotel ) {
     
 }
 
@@ -30,6 +49,10 @@ void GAMEPLAY_RULE_PAY_HOTEL_HOUSES::OnStoppedCell( GAMEPLAY_GAME_BOARD_CELL * c
 
 bool GAMEPLAY_RULE_PAY_HOTEL_HOUSES::Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) {
     
-    abort(); // TODO : change player state
+    //abort(); // TODO : change player state
     return true;
+}
+
+void GAMEPLAY_RULE_PAY_HOTEL_HOUSES::Apply() {
+    
 }

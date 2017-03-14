@@ -21,8 +21,6 @@ XS_CLASS_BEGIN(GRAPHIC_UI_PRESENTER)
     void Initialize( GRAPHIC_UI_FRAME * view ) {
         
         View = view;
-        
-        Configure();
     }
 
     virtual void Configure() = 0;

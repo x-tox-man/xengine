@@ -38,8 +38,9 @@ CORE_FILESYSTEM_FILE::~CORE_FILESYSTEM_FILE() {
 }
 
 bool CORE_FILESYSTEM_FILE::OpenInput() {
+ 
     
-    SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH OpenInput forbiddebn %s", Path.GetPath() );
+    //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH OpenInput forbiddebn %s", Path.GetPath() );
     
     
     CORE_RUNTIME_Abort();
@@ -56,7 +57,7 @@ bool CORE_FILESYSTEM_FILE::OpenInput() {
 
 bool CORE_FILESYSTEM_FILE::OpenOutput() {
     
-    SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH OpenOutput %s", Path.GetPath() );
+    //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH OpenOutput %s", Path.GetPath() );
     
     AssetFile = AAssetManager_open( CORE_FILESYSTEM::GetDefaultFilesystem().GetAndroidAssetManager(), Path.GetPath(), AASSET_MODE_UNKNOWN );
     FilePointer = funopen( AssetFile, android_read, android_write, android_seek, android_close );
@@ -77,6 +78,7 @@ int CORE_FILESYSTEM_FILE::InputBytes( const void * bytes, int size ) {
 
 int CORE_FILESYSTEM_FILE::OutputBytes( void * bytes, int size ) {
     
+
     return AAsset_read( AssetFile, bytes, size );
 }
 

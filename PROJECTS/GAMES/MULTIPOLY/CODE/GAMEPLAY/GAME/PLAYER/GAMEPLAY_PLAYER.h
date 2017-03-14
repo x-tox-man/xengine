@@ -27,13 +27,24 @@
 #include "CORE_DATA_MODEL.h"
 
 class GAMEPLAY_GAME_CARD;
+class GAMEPLAY_RULE;
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_PLAYER, GAMEPLAY_COMPONENT_ENTITY)
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, const float )
+    CORE_FIXED_STATE_MACHINE_DefineEvent( MULTIPLAYER_ROLL_DICE, GAMEPLAY_DICE_ROLL_RESULT )
+    CORE_FIXED_STATE_MACHINE_DefineEvent( MULTIPLAYER_APPLY_RULE, GAMEPLAY_RULE * )
+    CORE_FIXED_STATE_MACHINE_DefineEventVoid( MULTIPLAYER_END_TURN )
+    CORE_FIXED_STATE_MACHINE_DefineEventVoid( MULTIPLAYER_BUY_HOUSE )
+    CORE_FIXED_STATE_MACHINE_DefineEventVoid( MULTIPLAYER_BUY_PROPERTY )
 
     CORE_FIXED_STATE_MACHINE_DeclareBaseState(PLAYER_BASE_STATE, GAMEPLAY_PLAYER)
         CORE_FIXED_STATE_MACHINE_DeclareHandleEvent( UPDATE_EVENT )
+        CORE_FIXED_STATE_MACHINE_DeclareHandleEvent( MULTIPLAYER_ROLL_DICE )
+        CORE_FIXED_STATE_MACHINE_DeclareHandleEvent( MULTIPLAYER_END_TURN )
+        CORE_FIXED_STATE_MACHINE_DeclareHandleEvent( MULTIPLAYER_APPLY_RULE )
+        CORE_FIXED_STATE_MACHINE_DeclareHandleEvent( MULTIPLAYER_BUY_HOUSE )
+        CORE_FIXED_STATE_MACHINE_DeclareHandleEvent( MULTIPLAYER_BUY_PROPERTY )
     CORE_FIXED_STATE_MACHINE_End()
 
     CORE_FIXED_STATE_MACHINE_DefineState( PLAYER_BASE_STATE, IDLE_STATE )
@@ -64,11 +75,20 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_PLAYER, GAMEPLAY_COMPONENT_ENTITY)
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
     CORE_FIXED_STATE_MACHINE_EndDefineState( PLAYER_DISPLAY_CARD_STATE )
 
+    CORE_FIXED_STATE_MACHINE_DefineState( PLAYER_BASE_STATE, MULTIPLAYER_STATE )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( MULTIPLAYER_ROLL_DICE )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( MULTIPLAYER_END_TURN )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( MULTIPLAYER_APPLY_RULE )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( MULTIPLAYER_BUY_HOUSE )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( MULTIPLAYER_BUY_PROPERTY )
+    CORE_FIXED_STATE_MACHINE_EndDefineState( MULTIPLAYER_STATE )
+
 
     GAMEPLAY_PLAYER( std::string & name );
     ~GAMEPLAY_PLAYER();
 
-    void Initialize( CORE_HELPERS_COLOR & player_color, GAMEPLAY_COMPONENT_POSITION * component, GAMEPLAY_SCENE * scene, bool is_human, int money_amount, int index );
+    void Initialize( CORE_HELPERS_COLOR & player_color, GAMEPLAY_COMPONENT_POSITION * component, GAMEPLAY_SCENE * scene, bool is_human, bool is_multiplayer, int money_amount, int index );
     void Update(const float);
 
     void SetupTurn( GAME_HUD_PRESENTER * presenter );
@@ -86,12 +106,16 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_PLAYER, GAMEPLAY_COMPONENT_ENTITY)
     inline void SetOnChangedCallback(CORE_HELPERS_CALLBACK_1< GAMEPLAY_PLAYER * > & callback ) { OnChangedCallback = callback; }
     inline GAMEPLAY_DICE_ROLL_RESULT & GetRollResult() {return RollResult; }
     inline int GetCurrentCellIndex() { return CurrentCellIndex; }
-    int AttemptPay( int amount );
+    inline void SetRollDiceResult(GAMEPLAY_DICE_ROLL_RESULT result ) { DiceRollResult = result; }
     inline CORE_HELPERS_COLOR & GetPlayerColor() { return Color; }
+    inline CORE_FIXED_STATE_MACHINE<PLAYER_BASE_STATE, GAMEPLAY_PLAYER> & GetStateMachine() { return StateMachine; }
+    inline bool IsMultiplayer() const { return ItIsMultiplayer; }
 
+    int AttemptPay( int amount );
     void JumpTo( int cell_index );
     void ForceAdvanceTo( int cell_index );
     void PerformIAActions();
+
 
     void ShowActiveGameplayCard( GAMEPLAY_GAME_CARD * card );
 
@@ -118,6 +142,7 @@ private :
         PlayerMoveAnimationTime;
     bool
         ItIsHuman,
+        ItIsMultiplayer,
         ItIsDone,
         HasLost,
         DiceIsRolling;

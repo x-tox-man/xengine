@@ -12,9 +12,15 @@
 #include "GAMEPLAY_PLAYER.h"
 #include "GAMEPLAY_GAME_BOARD_CELL.h"
 
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_RULE_PARK )
+    XS_DEFINE_ClassMember(int , ParkAmount)
+XS_END_INTERNAL_MEMORY_LAYOUT
+
+ImplementTrickFroSerializeation(GAMEPLAY_RULE_PARK, GAMEPLAY_ACTION_TYPE_Custom_10 )
 
 GAMEPLAY_RULE_PARK::GAMEPLAY_RULE_PARK() :
     GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
     ParkAmount( 0 ),
     BillsRenderers() {
     
@@ -55,4 +61,8 @@ void GAMEPLAY_RULE_PARK::AddAmount( int amount ) {
 void GAMEPLAY_RULE_PARK::AddBill( int amount, GAMEPLAY_COMPONENT_RENDER * template_bill ) {
     
     ParkAmount += amount;
+}
+
+void GAMEPLAY_RULE_PARK::Apply() {
+    
 }

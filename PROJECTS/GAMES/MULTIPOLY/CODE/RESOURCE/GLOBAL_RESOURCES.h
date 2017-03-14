@@ -19,6 +19,7 @@
 #include "GAMEPLAY_SCENE.h"
 #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 #include "GRAPHIC_OBJECT_SHAPE_LINE.h"
+#include "GRAPHIC_UI_RENDER_STYLE.h"
 
 class GLOBAL_RESOURCES {
     
@@ -58,6 +59,8 @@ public:
         const CORE_MATH_VECTOR & size,
         GAMEPLAY_SCENE * scene );
     
+    static GRAPHIC_UI_RENDER_STYLE * CreateRenderStyleFromTextureName( const char * texture_name );
+    
     GRAPHIC_SHADER_LIGHT
         * DirectionalLight,
         * PointLightOne,
@@ -66,8 +69,14 @@ public:
         * SpotLightTwo;
     GRAPHIC_OBJECT
         * HouseObject;
+    GRAPHIC_OBJECT_SHAPE_PLAN
+        * TexturedPlanObject;
     GRAPHIC_OBJECT_SHAPE_LINE
         * Line;
+    GRAPHIC_UI_RENDER_STYLE
+        * FrameRenderStyle,
+        * PageFrameRenderStyle,
+        * CellRenderStyle;
 };
 
 #endif /* RESOURCE_hpp */

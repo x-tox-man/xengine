@@ -16,6 +16,8 @@
 
 #if OPENGLES2
 
+CORE_PARALLEL_LOCK_MUTEX GRAPHIC_SYSTEM::GraphicSystemLock;
+
 GRAPHIC_SYSTEM::~GRAPHIC_SYSTEM() {
 
 }
@@ -347,7 +349,7 @@ void GRAPHIC_SYSTEM::ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, 
     GRAPHIC_SHADER_ATTRIBUTE & directional_light_diffuse_intensity = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightDiffuseIntensity );
     GRAPHIC_SHADER_ATTRIBUTE & directional_light_ambient_intensity = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightAmbientIntensity );
     
-    if ( directional_light_color.AttributeIndex != -1 ) {
+    /*if ( directional_light_color.AttributeIndex != -1 ) {
         
         GFX_CHECK( glUniform4fv(
                                 directional_light_color.AttributeIndex,
@@ -364,7 +366,7 @@ void GRAPHIC_SYSTEM::ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, 
         
         GFX_CHECK( glUniform1f( directional_light_diffuse_intensity.AttributeIndex,
                                light.InternalLight.Directional.DiffuseIntensity); )
-    }
+    }*/
 }
 
 void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {

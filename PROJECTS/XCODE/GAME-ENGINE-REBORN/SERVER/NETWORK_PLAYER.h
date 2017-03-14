@@ -30,11 +30,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(NETWORK_PLAYER, CORE_DATA_MODEL)
 
     CORE_DATA_STREAM & PrepareMessage();
 
-    const CORE_HELPERS_UNIQUE_IDENTIFIER & GetUniqueId() const { return UniqueId; }
-    const std::string & GetName() const { return Name; }
+    inline const CORE_HELPERS_UNIQUE_IDENTIFIER & GetUniqueId() const { return UniqueId; }
+    inline const std::string & GetName() const { return Name; }
     void AppendMessage(SERVICE_NETWORK_COMMAND * message );
-    SERVICE_NETWORK_CONNECTION * GetNetworkConnexion() { return CurrentNewtorkStream; }
-    void SetNetworkConnexion( SERVICE_NETWORK_CONNECTION *connection ) { CurrentNewtorkStream = connection; }
+    inline SERVICE_NETWORK_CONNECTION * GetNetworkConnexion() { return CurrentNewtorkStream; }
+    inline void SetNetworkConnexion( SERVICE_NETWORK_CONNECTION *connection ) { CurrentNewtorkStream = connection; }
+    inline bool IsActive() const { return ItIsActive; }
+    inline bool IsHost() const { return ItIsHost; }
 
 private :
 
@@ -43,8 +45,8 @@ private :
     int
         OutGoingMessageQueueIterator;
     bool
-        IsActive,
-        IsHost;
+        ItIsActive,
+        ItIsHost;
     CORE_DATA_STREAM
         OutGoingMessage;
     std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE>

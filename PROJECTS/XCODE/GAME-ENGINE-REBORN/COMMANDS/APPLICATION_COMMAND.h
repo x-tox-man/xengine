@@ -30,6 +30,7 @@ XS_CLASS_SERIALIZER<__CLASS_TYPE__>::Serialize<std::true_type>( *this, stream );
 } \
 void __CLASS_TYPE__::InnerDeSerialize(CORE_DATA_STREAM & stream) { \
 }
+
 enum APPLICATION_NETWORK_COMMAND_TYPE {
     
     APPLICATION_NETWORK_COMMAND_ClientConnected = 0,

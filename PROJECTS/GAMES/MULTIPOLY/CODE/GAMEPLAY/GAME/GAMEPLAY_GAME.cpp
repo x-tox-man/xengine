@@ -20,9 +20,12 @@
 #include "GAMEPLAY_RULE_PAY_HOTEL_HOUSES.h"
 #include "GAMEPLAY_RULE_ADVANCE_TO.h"
 #include "GAMEPLAY_RULE_PRISON.h"
+#include "CORE_PARALLEL.h"
+#include "CORE_PARALLEL_TASK.h"
 
 CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_GAME::GAME_STARTING )
     GetContext().AnimationTimer = 0.0f;
+    GetContext().IsRunning = true;
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
@@ -73,7 +76,6 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 
 CORE_FIXED_STATE_DefineStateLeaveEvent( GAMEPLAY_GAME::GAME_STARTING )
-
     GetContext().SelectNextPlayer();
 CORE_FIXED_STATE_EndOfStateEvent()
 
@@ -110,10 +112,13 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_GAME::PLAYER_TRANSITION_STATE )
     GetContext().AnimationTimer = 0.0f;
+
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
 CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_GAME::PLAYER_TRANSITION_STATE, UPDATE_EVENT )
+
+    auto player = GetContext().GetCurrentPlayer();
 
     GetContext().AnimationTimer += event.GetEventData();
 
@@ -170,7 +175,7 @@ GAMEPLAY_GAME::~GAMEPLAY_GAME() {
     
 }
 
-void GAMEPLAY_GAME::Initialize( std::vector<GAME_PLAYER_MODEL> & player_model_table ) {
+void GAMEPLAY_GAME::Initialize() {
     
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION );
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_ANIMATING );
@@ -184,31 +189,16 @@ void GAMEPLAY_GAME::Initialize( std::vector<GAME_PLAYER_MODEL> & player_model_ta
     
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+
     Board.Initialize( &Scene );
-    
-    CORE_FIXED_STATE_InitializeState( StateMachine, GAMEPLAY_GAME::GAME_STARTING, this );
-    
-    PlayerTable.resize( player_model_table.size() );
-    
-    std::vector<GAMEPLAY_PLAYER *>::iterator it = PlayerTable.begin();
-    std::vector<GAME_PLAYER_MODEL>::iterator names_it = player_model_table.begin();
-    
-    int index = 0;
-    while (it != PlayerTable.end() ) {
-        *it = new GAMEPLAY_PLAYER((*names_it).Name);
-        (*it)->Initialize( (*names_it).Color, (GAMEPLAY_COMPONENT_POSITION*) Board.GetCell(0)->GetComponent(GAMEPLAY_COMPONENT_TYPE_Position), &Scene, (*names_it).IsHuman, APPLICATION_PLAYER_BASE_MONEY, index++ );
-        
-        it++;
-        names_it++;
-    }
-    
-    InitializeCaisseCards();
-    InitializeChanceCards();
     
     Background = new GRAPHIC_BACKGROUND;
     Background->Initialize( &Scene );
     
     InitializeHouses();
+    
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
 }
 
 void GAMEPLAY_GAME::Finalize() {
@@ -250,8 +240,11 @@ void GAMEPLAY_GAME::Finalize() {
 }
 
 void GAMEPLAY_GAME::Start() {
+ 
+    InitializeCaisseCards();
+    InitializeChanceCards();
     
-    IsRunning = true;
+    CORE_FIXED_STATE_InitializeState( StateMachine, GAMEPLAY_GAME::GAME_STARTING, this );
 }
 
 void GAMEPLAY_GAME::Pause( bool enable ) {
@@ -392,6 +385,23 @@ void GAMEPLAY_GAME::SelectCell( GAMEPLAY_GAME_BOARD_CELL * cell ) {
     if ( SelectedCell ) {
         
         SelectedCell->SetSelected( true );
+    }
+}
+
+void GAMEPLAY_GAME::SetPlayers( std::vector< GAME_PLAYER_MODEL > & players ) {
+    
+    PlayerTable.resize( players.size() );
+    
+    std::vector<GAMEPLAY_PLAYER *>::iterator it = PlayerTable.begin();
+    std::vector<GAME_PLAYER_MODEL>::iterator names_it = players.begin();
+    
+    int index = 0;
+    while (it != PlayerTable.end() ) {
+        *it = new GAMEPLAY_PLAYER((*names_it).Name);
+        (*it)->Initialize( (*names_it).Color, (GAMEPLAY_COMPONENT_POSITION*) Board.GetCell(0)->GetComponent(GAMEPLAY_COMPONENT_TYPE_Position), &Scene, (*names_it).IsHuman, (*names_it).IsMultiplayer,APPLICATION_PLAYER_BASE_MONEY, index++ );
+        
+        it++;
+        names_it++;
     }
 }
 

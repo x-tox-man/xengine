@@ -12,9 +12,33 @@
 #include "MULTIPOLY_APPLICATION.h"
 #include "GAMEPLAY_GAME_HOUSE.h"
 #include "GLOBAL_RESOURCES.h"
+#include "GAMEPLAY_ACTION_SYSTEM.h"
+#include "GAMEPLAY_ACTION_BUY_PROPERTY.h"
+#include "GAMEPLAY_ACTION_BUY_HOUSE.h"
+
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_RULE_PROPERTY )
+
+XS_END_INTERNAL_MEMORY_LAYOUT
+
+ImplementTrickFroSerializeation(GAMEPLAY_RULE_PROPERTY, GAMEPLAY_ACTION_TYPE_Custom_15 )
+
+GAMEPLAY_RULE_PROPERTY::GAMEPLAY_RULE_PROPERTY() :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
+    PropertyGroup( NULL ),
+    Owner( NULL ),
+    BuyPrice( 0 ),
+    HousePrice( 0 ),
+    RentPrice( 0 ),
+    MortgagePrice( 0 ),
+    ItIsInMortgage( false ),
+    HouseTable() {
+    
+}
 
 GAMEPLAY_RULE_PROPERTY::GAMEPLAY_RULE_PROPERTY( int front_price, int rent_price, int house_price, int mortgage_price, GAMEPLAY_RULE_PROPERTY_GROUP * group ) :
     GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
     PropertyGroup( group ),
     Owner( NULL ),
     BuyPrice( front_price ),
@@ -24,7 +48,10 @@ GAMEPLAY_RULE_PROPERTY::GAMEPLAY_RULE_PROPERTY( int front_price, int rent_price,
     ItIsInMortgage( false ),
     HouseTable() {
     
-    PropertyGroup->AddProperty( this );
+    if ( PropertyGroup ) {
+        
+        PropertyGroup->AddProperty( this );
+    }
 }
 
 GAMEPLAY_RULE_PROPERTY::~GAMEPLAY_RULE_PROPERTY() {
@@ -79,7 +106,7 @@ bool GAMEPLAY_RULE_PROPERTY::Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PL
             return false;
         }
     }
-    else if ( Owner == player ) {
+    else if ( Owner == player && !player->IsMultiplayer() ) {
         
         if ( CanBuyHouse( player ) ) {
             
@@ -87,9 +114,11 @@ bool GAMEPLAY_RULE_PROPERTY::Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PL
         }
     }
     else {
-        ProposeBuy( cell, player );
-        
-        //TODO : enchères
+        if ( !player->IsMultiplayer() ) {
+            
+            ProposeBuy( cell, player );
+            //TODO : enchères
+        }
     }
     
     return false;
@@ -178,6 +207,11 @@ void GAMEPLAY_RULE_PROPERTY::Buy( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAY
         auto render = (GAMEPLAY_COMPONENT_RENDER*) cell->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render);
         render->SetColor(player->GetPlayerColor() );
         
+        GAMEPLAY_ACTION_BUY_PROPERTY
+            action;
+        auto command = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand< GAMEPLAY_ACTION_BUY_PROPERTY >( action );
+        ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetNetworkManager().SendCommand( command );
+        
         if ( CanBuyHouse( player ) ) {
             
             ProposeBuyHouse( cell, player );
@@ -216,9 +250,19 @@ void GAMEPLAY_RULE_PROPERTY::BuyHouse( GAMEPLAY_SCENE * scene, GAMEPLAY_GAME_BOA
         house->SetColor(player->GetPlayerColor());
         house->SetupAnimation(pos->GetPosition(), CORE_MATH_QUATERNION() );
         HouseTable.push_back( house );
+        
+        GAMEPLAY_ACTION_BUY_HOUSE
+            action;
+        
+        auto command = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand< GAMEPLAY_ACTION_BUY_HOUSE >( action );
+        ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetNetworkManager().SendCommand( command );
     }
     else {
         
         //Hide button
     }
+}
+
+void GAMEPLAY_RULE_PROPERTY::Apply() {
+    
 }

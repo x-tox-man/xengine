@@ -1,0 +1,41 @@
+//
+//  GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.h
+//  MULTIPOLY
+//
+//  Created by Christophe Bernard on 5/03/17.
+//  Copyright © 2017 cbe. All rights reserved.
+//
+
+#ifndef GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED_h
+#define GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED_h
+
+#include "GAMEPLAY_ACTION.h"
+#include "NETWORK_PLAYER.h"
+
+XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED,  GAMEPLAY_ACTION )
+
+    GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED();
+    virtual ~GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED();
+
+    XS_DEFINE_SERIALIZABLE
+
+    CORE_HELPERS_FACTORY_Element( GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED, GAMEPLAY_ACTION, GAMEPLAY_ACTION_TYPE, GAMEPLAY_ACTION_TYPE_ClientConnected )
+
+    virtual void Apply() override;
+
+    inline NETWORK_PLAYER * GetPlayer() { return Player; }
+    inline void SetPlayer( NETWORK_PLAYER * player ) { Player = player; }
+
+    SimpleTrickForSerialization()
+
+    static CORE_HELPERS_CALLBACK_1< NETWORK_PLAYER * >
+        ClientConnectedCallback;
+
+private :
+
+    NETWORK_PLAYER
+        * Player;
+
+XS_CLASS_END
+
+#endif /* GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED_h */

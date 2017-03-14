@@ -41,9 +41,11 @@ bool APPLICATION_SCREENS_NAVIGATION::NavigateBackAsync() {
                 if ( this->CurrentNavigationItem != NULL ) {
                     
                     GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(this->CurrentNavigationItem->GetScreenName().c_str());
+                    this->CurrentNavigationItem->GetFrame()->OnViewDisappearing();
                 }
                 
                 this->CurrentNavigationItem = item;
+                this->CurrentNavigationItem->GetFrame()->OnViewAppearing();
                 
                 GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(this->CurrentNavigationItem->GetFrame(), CurrentNavigationItem->GetScreenName().c_str());
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
@@ -80,10 +82,12 @@ bool APPLICATION_SCREENS_NAVIGATION::NavigateBackAsyncWithAnimation() {
                 CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_UI_SYSTEM::GetInstance().GetLockMutex())
                     if ( this->CurrentNavigationItem != NULL ) {
 
+                        this->CurrentNavigationItem->GetFrame()->OnViewDisappearing();
                         GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(this->CurrentNavigationItem->GetScreenName().c_str());
                     }
 
                     this->CurrentNavigationItem = item;
+                    this->CurrentNavigationItem->GetFrame()->OnViewAppearing();
 
                     GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(this->CurrentNavigationItem->GetFrame(), CurrentNavigationItem->GetScreenName().c_str());
                 CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()

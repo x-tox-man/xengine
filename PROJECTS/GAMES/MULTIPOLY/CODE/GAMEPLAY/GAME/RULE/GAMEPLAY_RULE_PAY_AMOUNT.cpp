@@ -10,8 +10,23 @@
 #include "GAMEPLAY_PLAYER.h"
 #include "GAMEPLAY_GAME_BOARD_CELL.h"
 
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_RULE_PAY_AMOUNT )
+    XS_DEFINE_ClassMember(int , AmountToPay)
+XS_END_INTERNAL_MEMORY_LAYOUT
+
+ImplementTrickFroSerializeation(GAMEPLAY_RULE_PAY_AMOUNT, GAMEPLAY_ACTION_TYPE_Custom_9 )
+
+GAMEPLAY_RULE_PAY_AMOUNT::GAMEPLAY_RULE_PAY_AMOUNT() :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
+    AmountToPay( 0 ),
+    Destination( NULL ) {
+    
+}
+
 GAMEPLAY_RULE_PAY_AMOUNT::GAMEPLAY_RULE_PAY_AMOUNT( int amount ) :
     GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
     AmountToPay( amount ),
     Destination( NULL ) {
     
@@ -58,4 +73,8 @@ bool GAMEPLAY_RULE_PAY_AMOUNT::Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_
         //médiation de dettes
         return false;
     }
+}
+
+void GAMEPLAY_RULE_PAY_AMOUNT::Apply() {
+    
 }

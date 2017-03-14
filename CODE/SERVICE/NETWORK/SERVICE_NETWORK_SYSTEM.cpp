@@ -29,12 +29,16 @@ void SERVICE_NETWORK_SYSTEM::Initialize() {
 
 void SERVICE_NETWORK_SYSTEM::Update( bool it_waits ) {
     
-    UV_CHECK_ERROR( uv_run( Loop, it_waits ? UV_RUN_ONCE : UV_RUN_NOWAIT ); )
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( SERVICE_NETWORK_SYSTEM::NetworkLock )
+        UV_CHECK_ERROR( uv_run( Loop, it_waits ? UV_RUN_ONCE : UV_RUN_NOWAIT ); )
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
 }
 
 void SERVICE_NETWORK_SYSTEM::Update( bool it_waits, uv_loop_t * loop ) {
     
-    UV_CHECK_ERROR( uv_run( loop, it_waits ? UV_RUN_ONCE : UV_RUN_NOWAIT ); )
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( SERVICE_NETWORK_SYSTEM::NetworkLock )
+        UV_CHECK_ERROR( uv_run( loop, it_waits ? UV_RUN_ONCE : UV_RUN_NOWAIT ); )
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
 }
 
 void SERVICE_NETWORK_SYSTEM::Finalize() {
@@ -171,3 +175,4 @@ void SERVICE_NETWORK_SYSTEM::NewConnection( uv_stream_t * server ) {
 unsigned char SERVICE_NETWORK_SYSTEM::AllInterfaces[4] = { 0,0,0,0 };
 unsigned char SERVICE_NETWORK_SYSTEM::AllBroadcastAddress[4] = { 255,255, 255, 255 };
 short int SERVICE_NETWORK_SYSTEM::BroadcastPortDefault = 0;
+CORE_PARALLEL_LOCK_MUTEX SERVICE_NETWORK_SYSTEM::NetworkLock;

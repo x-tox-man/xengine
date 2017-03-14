@@ -7,6 +7,9 @@
 //
 
 #include "SERVICE_NETWORK_LOBBY.h"
+#include "CORE_PARALLEL.h"
+#include "CORE_PARALLEL_TASK.h"
+#include "SERVICE_NETWORK_SYSTEM.h"
 
 SERVICE_NETWORK_LOBBY::SERVICE_NETWORK_LOBBY() :
     ConnectionPool(),
@@ -104,9 +107,9 @@ void SERVICE_NETWORK_LOBBY::Update( const float time_step ) {
         accumulated_interval += time_step;
         
         if ( accumulated_interval > UdpBroadcastMinimumInterval ) {
-            
-            UDPBroadcastConnection->Send( UDPBroadcastMessage );
-            
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( SERVICE_NETWORK_SYSTEM::NetworkLock )
+                UDPBroadcastConnection->Send( UDPBroadcastMessage );
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
             accumulated_interval = 0.0f;
         }
     }
@@ -157,6 +160,9 @@ void SERVICE_NETWORK_LOBBY::StopBroadcast() {
     if ( UDPBroadcastConnection ) {
         
         UDPBroadcastConnection->Stop();
+        SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
+        delete UDPBroadcastConnection;
+        UDPBroadcastConnection= NULL;
     }
 }
 
@@ -174,7 +180,7 @@ void SERVICE_NETWORK_LOBBY::OnTCPNewConnection( uv_stream_t * server ) {
                 0,
                 true,
                 false,
-                true );
+                false );
             
             ConnectionPool[ i ]->UVConnection.TCPType.TCPServer = server;
             

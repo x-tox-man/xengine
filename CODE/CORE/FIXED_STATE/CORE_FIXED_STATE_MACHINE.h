@@ -72,7 +72,7 @@ public:
         return *CurrentState;
     }
     
-    __PARENT_CONTEXT__ * GetContext() { return Context; }
+    inline __PARENT_CONTEXT__ * GetContext() { return Context; }
 
 private :
 

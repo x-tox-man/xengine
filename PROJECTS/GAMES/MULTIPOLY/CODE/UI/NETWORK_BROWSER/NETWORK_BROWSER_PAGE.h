@@ -16,14 +16,31 @@
 #include "CORE_HELPERS_CALLBACK.h"
 #include "GRAPHIC_TEXTURE_ATLAS.h"
 #include "GRAPHIC_UI_TEXT.h"
+#include "GRAPHIC_UI_FRAME.h"
+#include "SERVICE_NETWORK_SYSTEM.h"
+#include "CORE_TIMELINE_EVENT.h"
+#include "NETWORK_BROWSER_LIST_ADAPTER.h"
+#include "CORE_MATH_VECTOR.h"
+#include "NETWORK_BROWSER_PRESENTER.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_BROWSER, GRAPHIC_UI_FRAME )
+XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_BROWSER_PAGE, GRAPHIC_UI_FRAME )
 
-    NETWORK_BROWSER();
-    virtual ~NETWORK_BROWSER();
+    NETWORK_BROWSER_PAGE();
+    virtual ~NETWORK_BROWSER_PAGE();
 
     virtual void Initialize() override;
+    virtual void Finalize() override;
+    virtual void OnViewAppearing() override;
+
+private:
+
+    NETWORK_BROWSER_LIST_ADAPTER
+        * ListAdapter;
+    NETWORK_BROWSER_PRESENTER
+        Presenter;
+    static CORE_HELPERS_IDENTIFIER
+        IdServerList;
 
 XS_CLASS_END
 
-#endif /* NETWORK_BROWSER_PAGE_hpp */
+#endif /* APPLICATION_NETWORK_BROWSER_hpp */

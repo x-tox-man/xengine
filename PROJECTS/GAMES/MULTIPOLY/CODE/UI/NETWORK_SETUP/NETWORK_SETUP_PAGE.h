@@ -16,13 +16,31 @@
 #include "CORE_HELPERS_CALLBACK.h"
 #include "GRAPHIC_TEXTURE_ATLAS.h"
 #include "GRAPHIC_UI_TEXT.h"
+#include "NETWORK_PLAYER.h"
+#include "NETWORK_SETUP_PLAYER_LIST_ADAPTER.h"
+#include "NETWORK_SETUP_PRESENTER.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP, GRAPHIC_UI_FRAME )
+class NETWORK_SETUP_PRESENTER;
 
-    NETWORK_SETUP();
-    virtual ~NETWORK_SETUP();
+XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PAGE, GRAPHIC_UI_FRAME )
+
+    NETWORK_SETUP_PAGE();
+    virtual ~NETWORK_SETUP_PAGE();
 
     virtual void Initialize() override;
+    virtual void Update( const float) override;
+
+    inline NETWORK_SETUP_PLAYER_LIST_ADAPTER * GetPlayersListAdapter() { return PlayersListAdapter; }
+    inline std::vector< NETWORK_PLAYER * > & GetPlayersList() { return PlayersList; }
+
+private :
+
+    NETWORK_SETUP_PLAYER_LIST_ADAPTER
+        * PlayersListAdapter;
+    std::vector< NETWORK_PLAYER * >
+        PlayersList;
+    NETWORK_SETUP_PRESENTER
+        Presenter;
 
 XS_CLASS_END
 

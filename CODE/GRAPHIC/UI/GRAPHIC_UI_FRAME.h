@@ -25,7 +25,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME, GRAPHIC_UI_ELEMENT )
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GRAPHIC_UI_FRAME );
 
     virtual void Initialize() override;
-    virtual void Finalize()  override{}
+    virtual void Finalize()  override {}
+
+    virtual void OnViewAppearing() {}
+    virtual void OnViewDisappearing() {}
 
     virtual void Update( const float ) override;
     virtual void Render( GRAPHIC_RENDERER & ) override;

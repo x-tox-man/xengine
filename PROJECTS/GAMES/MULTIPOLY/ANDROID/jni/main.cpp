@@ -31,10 +31,15 @@
 #include <android/sensor.h>
 #include <android/log.h>
 #include <android_native_app_glue.h>
-#include "Application.h"
+#include "MULTIPOLY_APPLICATION.h"
 #include "GRAPHIC_WINDOW_ANDROID.h"
 #include "GRAPHIC_RENDERER.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
+#include <unistd.h>
+#include <time.h>
+
+extern unsigned int __page_size=getpagesize();
+
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "native-activity", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "native-activity", __VA_ARGS__))
@@ -64,10 +69,11 @@ struct engine {
     EGLDisplay display;
     EGLSurface surface;
     EGLContext context;
+    EGLContext shared_context;
     int32_t width;
     int32_t height;
     struct saved_state state;
-    MyTestApp * application;
+    MULTIPOLY_APPLICATION * application;
 };
 
 /**
@@ -82,7 +88,7 @@ static int engine_init_display(struct engine* engine) {
      * component compatible with on-screen windows
      */
 
-     LOGI("native-activity engine_init_display\n");
+    //LOGI("native-activity engine_init_display\n");
      
     /*const EGLint attribs[] = {
             EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
@@ -115,8 +121,9 @@ static int engine_init_display(struct engine* engine) {
     EGLConfig config;
     EGLSurface surface;
     EGLContext context;
+    EGLContext shared_context;
 
-    engine->application = new MyTestApp();
+    engine->application = new MULTIPOLY_APPLICATION();
     engine->application->setApplicationName( "testAndroid" );
 
     EGLDisplay display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
@@ -147,16 +154,18 @@ static int engine_init_display(struct engine* engine) {
 
     surface = eglCreateWindowSurface(display, config, engine->app->window, NULL);
 
-    LOGW("native-activity  surface %d", surface);
+    //LOGW("native-activity  surface %d", surface);
 
     const EGLint context_option[] = {
         EGL_CONTEXT_CLIENT_VERSION, 2,
         EGL_NONE
     };
 
+    
     context = eglCreateContext(display, config, EGL_NO_CONTEXT, context_option);
+    shared_context = eglCreateContext(display, config, context, context_option);
 
-    LOGW("native-activity  context %d", context);
+    //LOGW("native-activity  context %d", context);
 
     if ( eglMakeCurrent(display, surface, surface, context) == EGL_FALSE) {
         LOGW("native-activity Unable to eglMakeCurrent");
@@ -179,9 +188,13 @@ static int engine_init_display(struct engine* engine) {
     //glShadeModel(GL_SMOOTH);
     glDisable(GL_DEPTH_TEST);
 
-    GRAPHIC_WINDOW_ANDROID * window = new GRAPHIC_WINDOW_ANDROID;
-    window->setHeight( h );
-    window->setWidth( w );
+    GRAPHIC_WINDOW_ANDROID * window = new GRAPHIC_WINDOW_ANDROID();
+    window->SetHeight( h );
+    window->SetWidth( w );
+    window->Context = context;
+    window->SharedContext = shared_context;
+    window->Surface = surface;
+    window->Display = display;
     
     window->Initialize();
     
@@ -194,24 +207,25 @@ static int engine_init_display(struct engine* engine) {
     LOGW( "native-activity asset_manager_object jni , %d\n", jni );
 
     jclass activityClass = jni->FindClass("android/app/NativeActivity");
+    activityClass = reinterpret_cast<jclass>(jni->NewGlobalRef( activityClass ));
 
     LOGW( "native-activity asset_manager_object activityClass, %d\n", activityClass );
 
-    //JNI_ASSERT(jni, activityClass);
-
     jmethodID getAssets = jni->GetMethodID( activityClass, "getAssets", "()Landroid/content/res/AssetManager;");
-
+    //getAssets = reinterpret_cast<jmethodID>(jni->NewGlobalRef( getAssets ));
     LOGW( "native-activity getAssets jni , %d\n", getAssets );
-
+    
     jobject asset_manager_object = jni->CallObjectMethod( engine->app->activity->clazz, getAssets );
+    asset_manager_object = reinterpret_cast<jobject>(jni->NewGlobalRef( asset_manager_object ) );
 
     LOGW( "native-activity asset_manager_object asset_manager_object , %d\n", asset_manager_object );
 
     AAssetManager * AssetManager = AAssetManager_fromJava( jni, asset_manager_object );
     AAssetDir * AssetDirectory = AAssetManager_openDir( AssetManager, "" );
 
-    LOGW( "native-activity asset_manager_object AssetDirectory , %d\n", AssetDirectory );
-    //JNI_ASSERT(jni, getAssets);
+    const char * filename = AAssetDir_getNextFileName( AssetDirectory );
+
+    LOGW( "native-activity asset_manager_object AssetDirectory , %d first file name %s\n", AssetDirectory, filename );
 
     engine->application->GetDefaultFileystem().SetJNIEnv( jni );
     engine->application->GetDefaultFileystem().SetAssetManager( AssetManager );
@@ -233,13 +247,14 @@ static void engine_draw_frame(struct engine* engine) {
     }
 
     // Just fill the screen with a color.
-    glClearColor(0.0f, engine->state.angle,
-            1.0f, 1);
+    glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     GRAPHIC_RENDERER::GetInstance().BeginFrame();
     GRAPHIC_RENDERER::GetInstance().Render();
     GRAPHIC_RENDERER::GetInstance().EndFrame();
+
+    glFlush();
 
     eglSwapBuffers(engine->display, engine->surface);
 }
@@ -271,30 +286,38 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) 
     struct engine* engine = (struct engine*)app->userData;
     if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
 
+        static float last_x = 0;
+        static float last_y = 0;
+        
         engine->animating = 1;
         engine->state.x = AMotionEvent_getX(event, 0);
         engine->state.y = AMotionEvent_getY(event, 0);
 
-            int32_t deltaX, deltaY;
+        int deltaX, deltaY;
+        
+        deltaX = engine->state.x - last_x;
+        deltaY = engine->state.y - last_y;
+        
+        last_x = engine->state.x;
+        last_y = engine->state.y;
                 
-            //CGGetLastMouseDelta(&deltaX, &deltaY);
-                
-            //PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().AddNormalizedDisplacement( deltaX / [self.window frame].size.width, deltaY / [self.window frame].size.height);
-            PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetScreenCoordinates( (float) engine->state.x / engine->width, -(float)engine->state.y / engine->height);
-            PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetPointCoordinates( engine->state.x, engine->state.y );
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().AddNormalizedDisplacement( (float)deltaX / engine->width, (float)deltaY / engine->height);
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetScreenCoordinates( (float) engine->state.x / engine->width, 1.0f - (float)engine->state.y / engine->height);
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetPointCoordinates( (float)engine->state.x, (float)engine->state.y );
 
-            LOGE( "MOuuFFE %f %f", (float)engine->state.x / engine->width, -(float)engine->state.y / engine->height );
-            
-            if ( AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_DOWN ) {
-                LOGE( "KLIK AKEY_EVENT_ACTION_DOWN");
-                PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetLeftButtonClicked();
-            }
+        LOGE( "MOuuFFE      %f  %f", (float)deltaX / engine->width, (float)deltaY / engine->height );
+        LOGE( "MOuuFFE2     %f  %f", (float)engine->state.x / engine->width, -(float)engine->state.y / engine->height );
+        LOGE( "MOuuFFE3     %f  %f", (float)engine->state.x, (float)engine->state.y );
 
-            if ( AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_UP ) {
-                LOGE( "KLIK AKEY_EVENT_ACTION_UP ");
-                PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetLeftButtonReleased();
-            }
+        if ( AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_DOWN ) {
+            LOGE( "KLIK AKEY_EVENT_ACTION_DOWN");
+            PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetLeftButtonClicked();
+        }
 
+        if ( AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_UP ) {
+            LOGE( "KLIK AKEY_EVENT_ACTION_UP ");
+            PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetLeftButtonReleased();
+        }
 
         return 1;
     }
@@ -307,7 +330,7 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) 
 static void engine_handle_cmd(struct android_app* app, int32_t cmd) {
     struct engine* engine = (struct engine*)app->userData;
 
-    LOGI("engine_handle_cmd\n");
+    //LOGI("engine_handle_cmd\n");
     switch (cmd) {
         case APP_CMD_SAVE_STATE:
             // The system has asked us to save our current state.  Do so.
@@ -404,9 +427,11 @@ void android_main(struct android_app* state) {
                     ASensorEvent event;
                     while (ASensorEventQueue_getEvents(engine.sensorEventQueue,
                             &event, 1) > 0) {
-                        LOGI("accelerometer: x=%f y=%f z=%f",
+                        /*LOGI("accelerometer: x=%f y=%f z=%f",
                                 event.acceleration.x, event.acceleration.y,
-                                event.acceleration.z);
+                                event.acceleration.z);*/
+
+                        //engine.application->SetDisplacement( event.acceleration.y* 0.1f, 0.0f, event.acceleration.x* 0.1f);
                     }
                 }
             }
@@ -420,10 +445,17 @@ void android_main(struct android_app* state) {
 
         if (engine.animating) {
             // Done with events; draw next animation frame.
-            engine.state.angle += .01f;
-            if (engine.state.angle > 1) {
-                engine.state.angle = 0;
-            }
+            static clock_t begin_time = clock();
+            // do something
+            clock_t current_clock = clock();  
+
+            float delta = ((current_clock - begin_time) * (1000000 / CLOCKS_PER_SEC ));
+            delta = delta * 0.000001f;
+            begin_time = current_clock;
+
+            LOGI("NDK DELTA : %f", delta );
+
+            CORE_APPLICATION::GetApplicationInstance().Update( delta );
 
             // Drawing is throttled to the screen update rate, so there
             // is no need to do timing here.

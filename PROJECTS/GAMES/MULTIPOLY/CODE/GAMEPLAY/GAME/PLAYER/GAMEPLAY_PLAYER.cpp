@@ -17,6 +17,11 @@
 #include "CORE_MATH.h"
 #include "GAMEPLAY_GAME_CARD.h"
 #include "GAMEPLAY_RULE_PRISON.h"
+#include "GAMEPLAY_ACTION_SYSTEM.h"
+#include "GAMEPLAY_ACTION_ROLL_DICE.h"
+#include "GAMEPLAY_ACTION_BUY_HOUSE.h"
+#include "GAMEPLAY_ACTION_BUY_PROPERTY.h"
+#include "GAMEPLAY_ACTION_END_TURN.h"
 
 CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_PLAYER::IDLE_STATE )
 
@@ -31,6 +36,45 @@ CORE_FIXED_STATE_EndOfStateEvent()
 CORE_FIXED_STATE_DefineStateLeaveEvent( GAMEPLAY_PLAYER::IDLE_STATE )
 
 CORE_FIXED_STATE_EndOfStateEvent()
+
+
+
+
+CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE )
+
+CORE_FIXED_STATE_EndOfStateEvent()
+
+    CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE, UPDATE_EVENT )
+
+    CORE_FIXED_STATE_EndOfStateEvent()
+
+    CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE, MULTIPLAYER_ROLL_DICE )
+        GetContext().SetRollDiceResult(event.GetEventData());
+        CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().PLAYER_MOVE_STATE);
+    CORE_FIXED_STATE_EndOfStateEvent()
+
+    CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE, MULTIPLAYER_BUY_HOUSE )
+
+    CORE_FIXED_STATE_EndOfStateEvent()
+
+    CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE, MULTIPLAYER_BUY_PROPERTY )
+
+    CORE_FIXED_STATE_EndOfStateEvent()
+
+    CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE, MULTIPLAYER_END_TURN )
+        GetContext().SetTurnIsOver();
+        CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().IDLE_STATE);
+
+    CORE_FIXED_STATE_EndOfStateEvent()
+
+    CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE, MULTIPLAYER_APPLY_RULE )
+
+    CORE_FIXED_STATE_EndOfStateEvent()
+
+CORE_FIXED_STATE_DefineStateLeaveEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE )
+
+CORE_FIXED_STATE_EndOfStateEvent()
+
 
 
 
@@ -55,6 +99,12 @@ CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::LAUNCH_DICE_STATE, UPDATE_EV
         cell->GetRule()->OnLeftCell( cell, &GetContext() );
         
         ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGame().DisplayDiceRollResult( GetContext().DiceRollResult );
+        
+        GAMEPLAY_ACTION_ROLL_DICE
+            action(GetContext().DiceRollResult);
+        
+        auto command = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand< GAMEPLAY_ACTION_ROLL_DICE >( action );
+        ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetNetworkManager().SendCommand( command );
         
         CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().PLAYER_MOVE_STATE);
     }
@@ -140,6 +190,7 @@ CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::PLAYER_FORCED_ADVANCE_MOVE_S
         
         GetContext().PlayerMoveAnimationTime = 0.0f;
         GetContext().CellAdvance++;
+        GetContext().CellAdvance = (GetContext().CellAdvance++) % 40;
         GetContext().CurrentCellIndex = (GetContext().CurrentCellIndex+1) % 40;
         
         auto board = &((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGameBoard();
@@ -230,7 +281,12 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_PLAYER::ACTION_CHOICE_STATE )
 
-    if ( GetContext().IsHuman() && !GetContext().GetRollResult().IsDouble ) {
+    if ( GetContext().ItIsMultiplayer ) {
+        
+        CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().MULTIPLAYER_STATE);
+    }
+    else if ( GetContext().IsHuman() && !GetContext().GetRollResult().IsDouble ) {
+        
         ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGame().GetUIGameHudPresenter()->ShowEndButton();
     }
 
@@ -240,11 +296,16 @@ CORE_FIXED_STATE_EndOfStateEvent()
 CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::ACTION_CHOICE_STATE, UPDATE_EVENT )
 
     if ( GetContext().IsDone() ) {
+        GAMEPLAY_ACTION_END_TURN
+            action;
+        
+        auto command = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand< GAMEPLAY_ACTION_END_TURN >( action );
+        ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetNetworkManager().SendCommand( command );
         
         CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().IDLE_STATE);
     }
 
-    if ( GetContext().GetRollResult().IsDouble && GetContext().GetRollResult().DoublesInRowCount < 3 ) {
+    if ( !GetContext().ItIsMultiplayer && GetContext().GetRollResult().IsDouble && GetContext().GetRollResult().DoublesInRowCount < 3 ) {
         
         GetContext().PrepareForRollingDice( ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGame().GetUIGameHudPresenter() );
     }
@@ -313,6 +374,7 @@ GAMEPLAY_PLAYER::GAMEPLAY_PLAYER(std::string & name) :
     SpecialDestination( 0 ),
     PlayerIndex( 0 ),
     ItIsHuman( false ),
+    ItIsMultiplayer( false ),
     ItIsDone( true ),
     HasLost( false ),
     DiceIsRolling( false ),
@@ -329,10 +391,11 @@ GAMEPLAY_PLAYER::~GAMEPLAY_PLAYER() {
     
 }
 
-void GAMEPLAY_PLAYER::Initialize( CORE_HELPERS_COLOR & player_color, GAMEPLAY_COMPONENT_POSITION * component, GAMEPLAY_SCENE * scene, bool is_human, int money_amount, int index ) {
+void GAMEPLAY_PLAYER::Initialize( CORE_HELPERS_COLOR & player_color, GAMEPLAY_COMPONENT_POSITION * component, GAMEPLAY_SCENE * scene, bool is_human, bool is_multiplayer, int money_amount, int index ) {
 
     Money = money_amount;
     ItIsHuman = is_human;
+    ItIsMultiplayer = is_multiplayer;
     PlayerIndex = index;
     Color = player_color;
     
@@ -383,14 +446,17 @@ void GAMEPLAY_PLAYER::SetupTurn( GAME_HUD_PRESENTER * presenter ) {
 
 void GAMEPLAY_PLAYER::PrepareForRollingDice( GAME_HUD_PRESENTER * presenter ) {
     
-    
     ItIsDone = false;
     
     CellAdvance = 0;
     
-    if ( ItIsHuman ) {
+    if ( ItIsHuman && !ItIsMultiplayer ) {
         
         presenter->DisplayRollDiceButton();
+    }
+    else if ( ItIsMultiplayer ) {
+        
+        StateMachine.ChangeState( MULTIPLAYER_STATESTATE );
     }
     else {
         
@@ -405,8 +471,8 @@ void GAMEPLAY_PLAYER::RollDice() {
 
 GAMEPLAY_DICE_ROLL_RESULT GAMEPLAY_PLAYER::ComputeRollResult() {
     
-    RollResult.FirstDice = 0;//(rand() % 6)+1;
-    RollResult.SecondDice = 1;//(rand() % 6)+1;
+    RollResult.FirstDice = (rand() % 6)+1;
+    RollResult.SecondDice = (rand() % 6)+1;
     RollResult.Total = RollResult.FirstDice + RollResult.SecondDice;
     RollResult.IsDouble = RollResult.FirstDice == RollResult.SecondDice;
     

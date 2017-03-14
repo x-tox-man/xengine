@@ -32,7 +32,7 @@ public:
     inline CORE_DATA_BUFFER * GetVertexCoreBuffer() { return VertexCoreBuffer; }
     void SetVertexCoreBuffer( CORE_DATA_BUFFER * vertexCoreBuffer ) {
         
-        if ( VertexCoreBuffer ) {
+        if ( VertexCoreBuffer && VertexCoreBuffer != vertexCoreBuffer) {
             
             delete VertexCoreBuffer;
             VertexCoreBuffer = NULL;

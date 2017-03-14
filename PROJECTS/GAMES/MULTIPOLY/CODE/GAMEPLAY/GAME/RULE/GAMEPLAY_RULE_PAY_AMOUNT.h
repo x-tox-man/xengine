@@ -13,15 +13,24 @@
 #include "GAMEPLAY_RULE.h"
 #include "GAMEPLAY_RULE_PARK.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_RULE_PAY_AMOUNT, GAMEPLAY_RULE )
+XS_CLASS_BEGIN_WITH_ANCESTOR_2( GAMEPLAY_RULE_PAY_AMOUNT, GAMEPLAY_RULE, GAMEPLAY_ACTION )
 
+    GAMEPLAY_RULE_PAY_AMOUNT();
     GAMEPLAY_RULE_PAY_AMOUNT( int amount );
-    ~GAMEPLAY_RULE_PAY_AMOUNT();
+    virtual ~GAMEPLAY_RULE_PAY_AMOUNT();
 
     virtual void OnPassOntoCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
     virtual void OnLeftCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
     virtual void OnStoppedCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
     virtual bool Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override;
+
+    XS_DEFINE_SERIALIZABLE
+
+    CORE_HELPERS_FACTORY_Element( GAMEPLAY_RULE_PAY_AMOUNT, GAMEPLAY_ACTION, GAMEPLAY_ACTION_TYPE, GAMEPLAY_ACTION_TYPE_Custom_9 )
+
+    virtual void Apply() override;
+
+    SimpleTrickForSerialization()
 
 private :
 

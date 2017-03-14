@@ -22,6 +22,7 @@
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAME_HUD_PAGE, GRAPHIC_UI_FRAME )
 
     GAME_HUD_PAGE();
+    GAME_HUD_PAGE( GAME_HUD_PRESENTER * presenter);
     virtual ~GAME_HUD_PAGE();
 
     virtual void Initialize() override;
@@ -29,8 +30,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAME_HUD_PAGE, GRAPHIC_UI_FRAME )
 private :
 
     void CreatePlayerInfoFrames( GAMEPLAY_PLAYER * player, CORE_HELPERS_IDENTIFIER &, int offset );
+    virtual GAME_HUD_PRESENTER * CreatePresenter() { return new GAME_HUD_PRESENTER; }
 
-    GAME_HUD_PRESENTER
+    GAME_HUD_PRESENTER *
         Presenter;
 
 public:

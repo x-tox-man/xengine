@@ -20,7 +20,7 @@
 #ifdef __UNIT_TESTING__
     return;
 #endif
-    
+    self.Window = nil;
     self.Application = new MULTIPOLY_APPLICATION();
     self.Application->setApplicationName( "test" );
     
@@ -48,6 +48,9 @@
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
+    if ( self.Window )
+        return;
+    
     self.Window = [[NSApplication sharedApplication] mainWindow];
     
     [self.Window setFrame:CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f) display:YES];

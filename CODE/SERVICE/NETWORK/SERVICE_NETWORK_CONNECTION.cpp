@@ -76,7 +76,7 @@ void SERVICE_NETWORK_CONNECTION::UDPReceivePacket(uv_udp_t *req, ssize_t nread, 
         command->Address[3] = atoi( &sender[ l ] );
     }
     
-    command->Size = (int) 33;
+    command->Size = 0;
     command->Data = ( void * ) buf->base;
     
     (*SERVICE_NETWORK_SYSTEM::GetInstance().OnUPDDataReceivedCallback)( command );
@@ -99,7 +99,14 @@ void SERVICE_NETWORK_CONNECTION::Listen() {
     while ( true ) {
         
         CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(ConnexionLock)
-            SERVICE_NETWORK_SYSTEM::GetInstance().Update( true, SelfLoop );
+        if ( SelfLoop ) {
+            
+            SERVICE_NETWORK_SYSTEM::GetInstance().Update( false, SelfLoop );
+        }
+        else {
+            SERVICE_NETWORK_SYSTEM::GetInstance().Update( false, SERVICE_NETWORK_SYSTEM::GetInstance().Loop );
+        }
+        
         CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
     }
 }

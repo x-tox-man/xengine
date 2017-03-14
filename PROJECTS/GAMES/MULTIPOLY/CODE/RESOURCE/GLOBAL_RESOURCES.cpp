@@ -15,7 +15,10 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
 #include "GAMEPLAY_COMPONENT_ACTION.h"
 
-GLOBAL_RESOURCES::GLOBAL_RESOURCES() {
+GLOBAL_RESOURCES::GLOBAL_RESOURCES() :
+    FrameRenderStyle( NULL ),
+    TexturedPlanObject( NULL ) {
+        
 }
 
 GLOBAL_RESOURCES::~GLOBAL_RESOURCES() {
@@ -66,6 +69,46 @@ void GLOBAL_RESOURCES::Initialize() {
     line_shader_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     
     Line->InitializeShape( &line_shader_effect->GetProgram() );
+    
+    GRAPHIC_SHADER_EFFECT::PTR
+    ui_textured_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShader"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", "OPENGL2" ) ),
+    ui_colored_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderColored"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderColored" , "vsh", "OPENGL2" ) );
+    
+    ui_textured_shader_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    ui_colored_shader_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
+    
+    auto frame_tb = new GRAPHIC_TEXTURE_BLOCK;
+    
+    frame_tb->SetTexture( CreateTextureFromImagePath("frameBorder") );
+    frame_tb->Initialize();
+    
+    auto plan_color = new GRAPHIC_OBJECT_SHAPE_PLAN;
+    
+    plan_color->InitializeShape( &ui_colored_shader_effect->GetProgram() );
+    
+    FrameRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
+    
+    FrameRenderStyle->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
+    FrameRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 400.0f, 11.0f / 200.0f, ui_textured_shader_effect) );
+    FrameRenderStyle->SetDecoratingTextureBlock( frame_tb );
+    FrameRenderStyle->SetShape( plan_color );
+    
+    CellRenderStyle= new GRAPHIC_UI_RENDER_STYLE;
+    
+    CellRenderStyle->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
+    CellRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 500.0f, 11.0f / 32.0f, ui_textured_shader_effect ) );
+    CellRenderStyle->SetDecoratingTextureBlock( frame_tb );
+    CellRenderStyle->SetShape( plan_color );
+    
+    
+    PageFrameRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
+    
+    PageFrameRenderStyle->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
+    PageFrameRenderStyle->SetDecoratingShape( CreateFrameBorder( 11.0f / 600.0f, 11.0f / 300.0f, ui_textured_shader_effect ) );
+    PageFrameRenderStyle->SetDecoratingTextureBlock( frame_tb );
+    PageFrameRenderStyle->SetShape( plan_color );
+    
+    TexturedPlanObject = CreateUIPlanShape( ui_textured_shader_effect );
 }
 
 void GLOBAL_RESOURCES::Finalize() {
@@ -75,6 +118,12 @@ void GLOBAL_RESOURCES::Finalize() {
     CORE_MEMORY_ObjectSafeDeallocation( SpotLightOne );
     CORE_MEMORY_ObjectSafeDeallocation( SpotLightTwo );
     CORE_MEMORY_ObjectSafeDeallocation( HouseObject );
+    
+    CORE_MEMORY_ObjectSafeDeallocation( Line );
+    
+    CORE_MEMORY_ObjectSafeDeallocation( FrameRenderStyle );
+    CORE_MEMORY_ObjectSafeDeallocation( PageFrameRenderStyle );
+    CORE_MEMORY_ObjectSafeDeallocation( CellRenderStyle );
 }
 
 GRAPHIC_TEXTURE * GLOBAL_RESOURCES::CreateTextureFromImagePath(const char * image_path) {
@@ -195,5 +244,14 @@ GAMEPLAY_COMPONENT_ENTITY * GLOBAL_RESOURCES::CreateOtherObjectComponent(
     pos->SetOrientation( orientation );
     
     return in_component;
+}
 
+GRAPHIC_UI_RENDER_STYLE * GLOBAL_RESOURCES::CreateRenderStyleFromTextureName( const char * texture_name ) {
+    
+    auto rs = new GRAPHIC_UI_RENDER_STYLE;
+    rs->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
+    rs->SetShape( GetInstance().TexturedPlanObject );
+    rs->SetTextureBlock(CreateTextureBlockFromImagePath(texture_name));
+    
+    return rs;
 }

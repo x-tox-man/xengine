@@ -26,7 +26,7 @@ XS_CLASS_BEGIN( GAMEPLAY_GAME )
     GAMEPLAY_GAME();
     ~GAMEPLAY_GAME();
 
-    void Initialize( std::vector<GAME_PLAYER_MODEL> & player_model_table );
+    void Initialize();
     void Finalize();
 
     void Start();
@@ -47,6 +47,7 @@ XS_CLASS_BEGIN( GAMEPLAY_GAME )
     void ProposeBuyProperty( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player );
     void ProposeBuyHouse( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player );
     void SelectCell( GAMEPLAY_GAME_BOARD_CELL * cell );
+    void SetPlayers( std::vector< GAME_PLAYER_MODEL > & players );
 
     void DisplayDiceRollResult( const GAMEPLAY_DICE_ROLL_RESULT & result );
 
@@ -57,7 +58,6 @@ XS_CLASS_BEGIN( GAMEPLAY_GAME )
     inline std::vector<GAMEPLAY_PLAYER *> & GetPlayerTable() { return PlayerTable; }
     inline GAMEPLAY_GAME_HOUSE * GetNextHouse() {return HouseTable[NextHouseIndex++]; }
     inline GAMEPLAY_PLAYER * GetCurrentPlayer() { return PlayerTable[ActivePlayerIndex]; }
-
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, const float )
 
@@ -86,6 +86,7 @@ private:
     void InitializeCaisseCards();
     void InitializeChanceCards();
     void InitializeHouses();
+
 
     GAMEPLAY_GAME_BOARD
         Board;

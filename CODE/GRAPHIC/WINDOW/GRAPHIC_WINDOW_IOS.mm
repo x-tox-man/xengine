@@ -10,6 +10,8 @@
 #include "GRAPHIC_OBJECT.h"
 #include "GRAPHIC_MESH_MANAGER.h"
 #include "GRAPHIC_RENDERER.h"
+#include "GRAPHIC_SYSTEM.h"
+#include "CORE_PARALLEL_LOCK.h"
 
 GRAPHIC_WINDOW_IOS::GRAPHIC_WINDOW_IOS() :
     GRAPHIC_WINDOW(),
@@ -33,6 +35,11 @@ void GRAPHIC_WINDOW_IOS::Initialize()
     glView.context = context;
     
     glView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+}
+
+void GRAPHIC_WINDOW_IOS::EnableBackgroundContext(bool enable) {
+    
+    [EAGLContext setCurrentContext:context];
 }
 
 @implementation CustomGlView {
@@ -81,6 +88,7 @@ void GRAPHIC_WINDOW_IOS::Initialize()
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    CORE_PARALLEL_LOCK Lock( GRAPHIC_SYSTEM::GraphicSystemLock );
     
     [EAGLContext setCurrentContext: self.context];
     

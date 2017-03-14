@@ -16,7 +16,7 @@
 #endif
 
 CORE_FILESYSTEM::CORE_FILESYSTEM() :
-    BaseDirectoryPath( NULL )
+    BaseDirectoryPath()
 #if PLATFORM_ANDROID
     ,AssetDirectory( NULL ),
     AssetManager( NULL  ),
@@ -32,7 +32,6 @@ CORE_FILESYSTEM::~CORE_FILESYSTEM() {
 
 void CORE_FILESYSTEM::Initialize( const char * base_directory_path ) {
     
-    BaseDirectoryPath = (char * ) CORE_MEMORY_ALLOCATOR::Allocate( strlen( base_directory_path ) );
     strcpy( BaseDirectoryPath, base_directory_path );
 }
 

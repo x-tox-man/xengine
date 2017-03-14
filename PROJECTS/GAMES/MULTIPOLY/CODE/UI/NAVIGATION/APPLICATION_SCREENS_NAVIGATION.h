@@ -33,7 +33,7 @@ class NAVIGATION_ITEM {
         CORE_MEMORY_ObjectSafeDeallocation( Window );
     }
     
-    std::map<std::string, NAVIGATION_ITEM * > GetNavigationChilds() { return NavigationChilds; }
+    std::map<std::string, NAVIGATION_ITEM * > & GetNavigationChilds() { return NavigationChilds; }
     
     GRAPHIC_UI_FRAME * GetFrame() {
         
@@ -82,19 +82,14 @@ public :
     void DisplayModal(const char * modal_name, const CORE_MATH_VECTOR & size ) {
 
         auto item = GetNextItemForNavigation<__SCREEN_TYPE__>( modal_name );
-        
-        item->GetFrame()->GetPlacement().Initialize(
-            NULL,
-            CORE_MATH_VECTOR::Zero,
-            size,
-            GRAPHIC_UI_Center );
-        
-        item->GetFrame()->Initialize();
+        item->GetFrame()->OnViewAppearing();
         
         if ( CurrentNavigationItem != NULL ) {
             
             item->SetParentNavigationItem( CurrentNavigationItem );
             GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(CurrentNavigationItem->GetScreenName().c_str());
+            CurrentNavigationItem->GetFrame()->OnViewDisappearing();
+            CurrentNavigationItem->GetNavigationChilds()[std::string(modal_name)] = item;
         }
         
         CurrentNavigationItem = item;
@@ -108,20 +103,15 @@ public :
         CORE_PARALLEL_TASK_BEGIN(this, screen_name)
             auto item = GetNextItemForNavigation<__SCREEN_TYPE__>( screen_name );
         
-            item->GetFrame()->GetPlacement().Initialize(
-                NULL,
-                CORE_MATH_VECTOR::Zero,
-                CORE_MATH_VECTOR( GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().X(),
-                GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().Y() ),
-                GRAPHIC_UI_Center );
-        
-            item->GetFrame()->Initialize();
+            item->GetFrame()->OnViewAppearing();
         
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_UI_SYSTEM::GetInstance().GetLockMutex())
                 if ( CurrentNavigationItem != NULL ) {
                     
                     item->SetParentNavigationItem( CurrentNavigationItem );
                     GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(CurrentNavigationItem->GetScreenName().c_str());
+                    CurrentNavigationItem->GetFrame()->OnViewDisappearing();
+                    CurrentNavigationItem->GetNavigationChilds()[std::string(screen_name)] = item;
                 }
                 
                 CurrentNavigationItem = item;
@@ -150,11 +140,22 @@ private :
     template<typename SCREEN_TYPE>
     NAVIGATION_ITEM * GetNextItemForNavigation( const char * screen_name ) {
         
-        NAVIGATION_ITEM * item = CurrentNavigationItem->GetNavigationChilds()[screen_name];
+        NAVIGATION_ITEM * item = CurrentNavigationItem->GetNavigationChilds()[std::string(screen_name)];
         
         if ( item == NULL ) {
             
-            return CreateItemForNavigation<SCREEN_TYPE>( screen_name );
+            auto item = CreateItemForNavigation<SCREEN_TYPE>( screen_name );
+            
+            item->GetFrame()->GetPlacement().Initialize(
+                                                        NULL,
+                                                        CORE_MATH_VECTOR::Zero,
+                                                        CORE_MATH_VECTOR( GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().X(),
+                                                                         GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().Y() ),
+                                                        GRAPHIC_UI_Center );
+            
+            item->GetFrame()->Initialize();
+            
+            return item;
         }
         
         return item;

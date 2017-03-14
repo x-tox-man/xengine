@@ -54,13 +54,13 @@ void MAIN_MENU_PAGE::Initialize() {
     
     start_single_game_button->GetPlacement().Initialize(
         &GetPlacement(),
-        CORE_MATH_VECTOR( 0.0f, 32.0f, 0.0f, 1.0f ),
+        CORE_MATH_VECTOR( 0.0f, 128.0f, 0.0f, 1.0f ),
         CORE_MATH_VECTOR( 1.0f, 1.0f, 0.0f, 1.0f ),
         GRAPHIC_UI_Center );
     
     start_multiplayer_game_button->GetPlacement().Initialize(
         &GetPlacement(),
-        CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ),
+        CORE_MATH_VECTOR( 0.0f, 32.0f, 0.0f, 1.0f ),
         CORE_MATH_VECTOR( 1.0f, 1.0f, 0.0f, 1.0f ),
         GRAPHIC_UI_Center );
     
@@ -72,7 +72,7 @@ void MAIN_MENU_PAGE::Initialize() {
     
     about->GetPlacement().Initialize(
         &GetPlacement(),
-        CORE_MATH_VECTOR( 0.0f, -64.0f, 0.0f, 1.0f ),
+        CORE_MATH_VECTOR( 0.0f, -128.0f, 0.0f, 1.0f ),
         CORE_MATH_VECTOR( 1.0f, 1.0f, 0.0f, 1.0f ),
         GRAPHIC_UI_Center );
     
@@ -91,11 +91,15 @@ void MAIN_MENU_PAGE::Initialize() {
                           new CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE>( &Wrapper2<MAIN_MENU_PRESENTER, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE, &MAIN_MENU_PRESENTER::StartBrowsingMultiplayerButtonClicked >, Presenter) );
     Presenter->Configure();
     
-    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
     
-    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_UI_SYSTEM::GetInstance().GetLockMutex())
+    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+        CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
         GRAPHIC_UI_FRAME::Initialize();
+        CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
     CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+}
+
+void MAIN_MENU_PAGE::OnViewAppearing() {
     
-    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
+    Presenter->Configure();
 }

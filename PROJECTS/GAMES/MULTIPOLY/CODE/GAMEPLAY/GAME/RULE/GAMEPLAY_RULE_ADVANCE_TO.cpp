@@ -10,7 +10,21 @@
 #include "GAMEPLAY_PLAYER.h"
 #include "GAMEPLAY_GAME_BOARD_CELL.h"
 
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_RULE_ADVANCE_TO )
+    XS_DEFINE_ClassMember(int , CellIndex)
+XS_END_INTERNAL_MEMORY_LAYOUT
+
+ImplementTrickFroSerializeation(GAMEPLAY_RULE_ADVANCE_TO, GAMEPLAY_ACTION_TYPE_Custom_6 )
+
+GAMEPLAY_RULE_ADVANCE_TO::GAMEPLAY_RULE_ADVANCE_TO() :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION() {
+    
+}
+
 GAMEPLAY_RULE_ADVANCE_TO::GAMEPLAY_RULE_ADVANCE_TO( int index ) :
+    GAMEPLAY_RULE(),
+    GAMEPLAY_ACTION(),
     CellIndex( index ) {
     
 }
@@ -37,4 +51,8 @@ bool GAMEPLAY_RULE_ADVANCE_TO::Apply( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_
     player->ForceAdvanceTo( CellIndex );
     
     return false;
+}
+
+void GAMEPLAY_RULE_ADVANCE_TO::Apply() {
+    
 }

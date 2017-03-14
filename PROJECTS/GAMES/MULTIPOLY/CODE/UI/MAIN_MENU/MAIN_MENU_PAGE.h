@@ -24,6 +24,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( MAIN_MENU_PAGE, GRAPHIC_UI_FRAME )
     virtual ~MAIN_MENU_PAGE();
 
     virtual void Initialize() override;
+    virtual void OnViewAppearing() override;
 
 private:
 

@@ -18,7 +18,7 @@ class GAMEPLAY_PLAYER;
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_RULE_PROPERTY_GROUP, GAMEPLAY_RULE )
 
     GAMEPLAY_RULE_PROPERTY_GROUP();
-    ~GAMEPLAY_RULE_PROPERTY_GROUP();
+    virtual ~GAMEPLAY_RULE_PROPERTY_GROUP();
 
     virtual void OnVisit( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override {}
     virtual void OnPassOntoCell( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player ) override {}
@@ -30,6 +30,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_RULE_PROPERTY_GROUP, GAMEPLAY_RULE )
     bool DoesPlayerOwnAllPropertiesInGroup( GAMEPLAY_PLAYER * player);
     bool HouseOnGroupAreEven(int size_to_ask );
     inline std::vector<GAMEPLAY_RULE_PROPERTY *> & GetProperties() { return Properties; }
+
+    XS_DEFINE_SERIALIZABLE
 
 private:
 

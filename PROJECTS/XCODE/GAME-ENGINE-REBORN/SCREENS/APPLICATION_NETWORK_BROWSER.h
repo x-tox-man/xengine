@@ -18,36 +18,36 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( APPLICATION_NETWORK_BROWSER, GRAPHIC_UI_FRAME )
 
-APPLICATION_NETWORK_BROWSER();
-virtual ~APPLICATION_NETWORK_BROWSER();
+    APPLICATION_NETWORK_BROWSER();
+    virtual ~APPLICATION_NETWORK_BROWSER();
 
-virtual void Initialize() override;
-virtual void Finalize() override;
+    virtual void Initialize() override;
+    virtual void Finalize() override;
 
-void OnShow();
-void OnHide();
+    void OnShow();
+    void OnHide();
 
-void SetMessage( CORE_TIMELINE_EVENT * last_message ) { LastMessage = last_message; MessageReceivedCount++; }
-void SetServer( SERVICE_NETWORK_COMMAND * server_connection );
-void ConnectToServer(APPLICATION_NETWORK_REMOTE_SERVER_INFO *);
+    void SetMessage( CORE_TIMELINE_EVENT * last_message ) { LastMessage = last_message; MessageReceivedCount++; }
+    void SetServer( SERVICE_NETWORK_COMMAND * server_connection );
+    void ConnectToServer(APPLICATION_NETWORK_REMOTE_SERVER_INFO *);
 
 private :
 
-void StartServer();
+    void StartServer();
 
-std::vector< APPLICATION_NETWORK_REMOTE_SERVER_INFO * >
-    ServersList;
-int
-    MessageReceivedCount;
-CORE_TIMELINE_EVENT
-    * LastMessage;
-NETWORK_CLIENT
-    * Client;
-NETWORK_BROWSER_LIST_ADAPTER
-    * ListAdapter;
+    std::vector< APPLICATION_NETWORK_REMOTE_SERVER_INFO * >
+        ServersList;
+    int
+        MessageReceivedCount;
+    CORE_TIMELINE_EVENT
+        * LastMessage;
+    NETWORK_CLIENT
+        * Client;
+    NETWORK_BROWSER_LIST_ADAPTER
+        * ListAdapter;
 
-static CORE_HELPERS_IDENTIFIER
-    IdServerList;
+    static CORE_HELPERS_IDENTIFIER
+        IdServerList;
 
 XS_CLASS_END
 

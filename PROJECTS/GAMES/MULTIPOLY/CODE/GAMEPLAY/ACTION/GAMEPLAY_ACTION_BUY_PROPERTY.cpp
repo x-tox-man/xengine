@@ -1,0 +1,33 @@
+//
+//  GAMEPLAY_ACTION_BUY_PROPERTY.cpp
+//  MULTIPOLY
+//
+//  Created by Christophe Bernard on 11/03/17.
+//  Copyright © 2017 cbe. All rights reserved.
+//
+
+#include "GAMEPLAY_ACTION_BUY_PROPERTY.h"
+#include "GAMEPLAY_PLAYER.h"
+#include "MULTIPOLY_APPLICATION.h"
+
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_ACTION_BUY_PROPERTY )
+
+XS_END_INTERNAL_MEMORY_LAYOUT
+
+ImplementTrickFroSerializeation(GAMEPLAY_ACTION_BUY_PROPERTY, GAMEPLAY_ACTION_TYPE_Custom_2 )
+
+GAMEPLAY_ACTION_BUY_PROPERTY::GAMEPLAY_ACTION_BUY_PROPERTY() :
+    GAMEPLAY_ACTION() {
+    
+}
+
+GAMEPLAY_ACTION_BUY_PROPERTY::~GAMEPLAY_ACTION_BUY_PROPERTY() {
+    
+}
+
+void GAMEPLAY_ACTION_BUY_PROPERTY::Apply() {
+    
+    auto state_machine = &((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().GetCurrentPlayer()->GetStateMachine();
+    
+    state_machine->DispatchEvent( GAMEPLAY_PLAYER::MULTIPLAYER_BUY_PROPERTY() );
+}

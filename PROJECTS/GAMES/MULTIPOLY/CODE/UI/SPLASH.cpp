@@ -76,17 +76,17 @@ void SPLASH::Initialize() {
 
 void SPLASH::Update( const float step ) {
     
-    if ( AccumulatedTime < 2.0f ) {
+    if ( AccumulatedTime < 0.75f ) {
         
         AccumulatedTime += step;
         
-        if ( AccumulatedTime >= 2.0f ) {
+        if ( AccumulatedTime >= 0.75f ) {
             
-            AccumulatedTime = 2.0f;
+            AccumulatedTime = 0.75f;
             
             APPLICATION_SCREENS_NAVIGATION::GetInstance().NavigateToAsync< MAIN_MENU_PAGE >( "main_menu" );
         }
         
-        SetOpacity( fmin( 2.0f - AccumulatedTime, 1.0f) );
+        //SetOpacity( fmin( 2.0f - AccumulatedTime, 1.0f) );
     }
 }

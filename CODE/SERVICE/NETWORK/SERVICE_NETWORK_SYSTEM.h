@@ -36,41 +36,42 @@
 
 XS_CLASS_BEGIN( SERVICE_NETWORK_SYSTEM )
 
-XS_DEFINE_UNIQUE( SERVICE_NETWORK_SYSTEM )
+    XS_DEFINE_UNIQUE( SERVICE_NETWORK_SYSTEM )
 
-~SERVICE_NETWORK_SYSTEM();
+    ~SERVICE_NETWORK_SYSTEM();
 
-void Initialize();
-void Update( bool it_waits );
-void Update( bool it_waits, uv_loop_t * loop );
+    void Initialize();
+    void Update( bool it_waits );
+    void Update( bool it_waits, uv_loop_t * loop );
 
-void NewConnection( uv_stream_t * server );
+    void NewConnection( uv_stream_t * server );
 
-void Finalize();
+    void Finalize();
 
-SERVICE_NETWORK_CONNECTION * CreateConnection(
-    const SERVICE_NETWORK_CONNECTION_TYPE type,
-    const unsigned char ip_addr[4],
-    const unsigned char broadcast_addr[4],
-    const unsigned short port,
-    const unsigned short broadcast_port,
-    const bool receiver,
-    const bool broadcasts = false,
-    const bool create_loop = false
-    );
+    SERVICE_NETWORK_CONNECTION * CreateConnection(
+        const SERVICE_NETWORK_CONNECTION_TYPE type,
+        const unsigned char ip_addr[4],
+        const unsigned char broadcast_addr[4],
+        const unsigned short port,
+        const unsigned short broadcast_port,
+        const bool receiver,
+        const bool broadcasts = false,
+        const bool create_loop = false
+        );
 
-uv_loop_t
-    * Loop;
-CORE_HELPERS_CALLBACK_1< uv_stream_t * >
-    * OnNewTCPConnectionCallback;
-CORE_HELPERS_CALLBACK_2< SERVICE_NETWORK_COMMAND *, uv_stream_t * >
-    * OnTCPDataReceivedCallback;
-CORE_HELPERS_CALLBACK_1< SERVICE_NETWORK_COMMAND * >
-    * OnUPDDataReceivedCallback;
+    uv_loop_t
+        * Loop;
+    CORE_HELPERS_CALLBACK_1< uv_stream_t * >
+        * OnNewTCPConnectionCallback;
+    CORE_HELPERS_CALLBACK_2< SERVICE_NETWORK_COMMAND *, uv_stream_t * >
+        * OnTCPDataReceivedCallback;
+    CORE_HELPERS_CALLBACK_1< SERVICE_NETWORK_COMMAND * >
+        * OnUPDDataReceivedCallback;
 
-static unsigned char AllInterfaces[4];
-static unsigned char AllBroadcastAddress[4];
-static short int BroadcastPortDefault;
+    static unsigned char AllInterfaces[4];
+    static unsigned char AllBroadcastAddress[4];
+    static short int BroadcastPortDefault;
+    static CORE_PARALLEL_LOCK_MUTEX NetworkLock;
 
 XS_CLASS_END
 

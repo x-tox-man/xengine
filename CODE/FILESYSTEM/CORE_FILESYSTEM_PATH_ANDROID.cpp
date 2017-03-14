@@ -21,22 +21,22 @@
             file_path;
         char path_buffer[ FILE_PATH_MAX_LENGHT ];
         
-        SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence %s %s %s", path, extension, directory );
+        //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence %s %s %s", path, extension, directory );
         
         strcpy( path_buffer, path );
-        SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence 2" );
+        //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence 2" );
         if ( strlen( extension ) ) {
-            SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence 3" );
+            //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence 3" );
             strcat( path_buffer, "." );
-            SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence 4" );
+            //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence 4" );
             strcat( path_buffer, extension );
         }
         
-        SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence 5" );
+        //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH constructing sequence 5" );
         
         file_path.SetPath( path_buffer );
         
-        SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH looking for %s - %d - %d", path_buffer, CORE_FILESYSTEM::GetDefaultFilesystem().GetAndroidAssetDirectory(), CORE_FILESYSTEM::GetDefaultFilesystem().GetAndroidAssetManager() );
+        //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH looking for %s - %d - %d", path_buffer, CORE_FILESYSTEM::GetDefaultFilesystem().GetAndroidAssetDirectory(), CORE_FILESYSTEM::GetDefaultFilesystem().GetAndroidAssetManager() );
         
         while ( 1 ) {
             
@@ -44,7 +44,8 @@
             
             if ( filename == NULL ) {
                 
-                SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH could not find %s", path_buffer );
+                
+                //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH could not find %s", path_buffer );
                 
                 AAssetDir_rewind( CORE_FILESYSTEM::GetDefaultFilesystem().GetAndroidAssetDirectory() );
                 
@@ -53,7 +54,7 @@
                 return file_path;
             }
             
-            SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH comparing %s and %s", path_buffer, filename);
+            //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH comparing %s and %s", path_buffer, filename);
             
             if ( strcmp( path_buffer, filename ) == 0 ) {
                 

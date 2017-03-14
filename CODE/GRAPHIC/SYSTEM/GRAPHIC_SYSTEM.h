@@ -19,6 +19,7 @@
 #include "CORE_MATH_MATRIX.h"
 #include "CORE_DATA_BUFFER.h"
 #include "GRAPHIC_TEXTURE_INFO.h"
+#include "CORE_PARALLEL_LOCK_MUTEX.h"
 
 class GRAPHIC_TEXTURE;
 class GRAPHIC_RENDER_TARGET;
@@ -76,6 +77,9 @@ static void CreateVertexBuffer( GRAPHIC_MESH & mesh );
 static void CreateIndexBuffer( GRAPHIC_MESH & mesh );
 static void ReleaseBuffers(GRAPHIC_MESH &mesh);
 static void ApplyBuffers(GRAPHIC_MESH &mesh);
+
+static CORE_PARALLEL_LOCK_MUTEX
+    GraphicSystemLock;
 
 XS_CLASS_END
 
