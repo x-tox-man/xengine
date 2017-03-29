@@ -35,6 +35,7 @@
 #include "GRAPHIC_WINDOW_ANDROID.h"
 #include "GRAPHIC_RENDERER.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
+#include "AUDIO_SYSTEM.h"
 #include <unistd.h>
 #include <time.h>
 
@@ -225,7 +226,12 @@ static int engine_init_display(struct engine* engine) {
 
     const char * filename = AAssetDir_getNextFileName( AssetDirectory );
 
-    LOGW( "native-activity asset_manager_object AssetDirectory , %d first file name %s\n", AssetDirectory, filename );
+    LOGE( "native-activity asset_manager_object AssetDirectory , %d first file name %s\n", AssetDirectory, filename );
+
+    AUDIO_SYSTEM::GetInstance().Initialize();
+
+    PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().SetJNIActivityEnvAndClass( jni, engine->app->activity->clazz );
+    PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().Initialize();
 
     engine->application->GetDefaultFileystem().SetJNIEnv( jni );
     engine->application->GetDefaultFileystem().SetAssetManager( AssetManager );
@@ -305,9 +311,9 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) 
         PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetScreenCoordinates( (float) engine->state.x / engine->width, 1.0f - (float)engine->state.y / engine->height);
         PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().SetPointCoordinates( (float)engine->state.x, (float)engine->state.y );
 
-        LOGE( "MOuuFFE      %f  %f", (float)deltaX / engine->width, (float)deltaY / engine->height );
-        LOGE( "MOuuFFE2     %f  %f", (float)engine->state.x / engine->width, -(float)engine->state.y / engine->height );
-        LOGE( "MOuuFFE3     %f  %f", (float)engine->state.x, (float)engine->state.y );
+        //LOGE( "MOuuFFE      %f  %f", (float)deltaX / engine->width, (float)deltaY / engine->height );
+        //LOGE( "MOuuFFE2     %f  %f", (float)engine->state.x / engine->width, -(float)engine->state.y / engine->height );
+        //LOGE( "MOuuFFE3     %f  %f", (float)engine->state.x, (float)engine->state.y );
 
         if ( AKeyEvent_getAction(event) == AKEY_EVENT_ACTION_DOWN ) {
             LOGE( "KLIK AKEY_EVENT_ACTION_DOWN");
@@ -453,7 +459,7 @@ void android_main(struct android_app* state) {
             delta = delta * 0.000001f;
             begin_time = current_clock;
 
-            LOGI("NDK DELTA : %f", delta );
+            //LOGI("NDK DELTA : %f", delta );
 
             CORE_APPLICATION::GetApplicationInstance().Update( delta );
 

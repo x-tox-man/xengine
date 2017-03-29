@@ -17,8 +17,13 @@
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
 #include "AUDIO_SOUND.h"
 #include "AUDIO_INTERFACE.h"
-#include "AUDIO_OPENAL.h"
 #include "AUDIO_BANK.h"
+
+#if __AUDIO_OPENAL__
+    #include "AUDIO_OPENAL.h"
+#elif __AUDIO_OPENSL__
+    #include "AUDIO_OPENSL.h"
+#endif
 
 XS_CLASS_BEGIN( AUDIO_SYSTEM )
 
@@ -37,6 +42,8 @@ XS_CLASS_BEGIN( AUDIO_SYSTEM )
     void PlayMusic( const char * sound_identifier );
     void PlayMusic( const CORE_HELPERS_IDENTIFIER & sound_identifier );
 
+    void OnSoundIsRead();
+
     void Update( const float time_step );
 
     inline AUDIO_SOUND_BANK & GetBank() { return Bank; }
@@ -45,7 +52,11 @@ XS_CLASS_BEGIN( AUDIO_SYSTEM )
 
 private:
 
-AUDIO_INTERFACE< AUDIO_OPENAL >
+#if __AUDIO_OPENAL__
+    AUDIO_INTERFACE< AUDIO_OPENAL >
+#elif __AUDIO_OPENSL__
+    AUDIO_INTERFACE< AUDIO_OPENSL >
+#endif
     * Interface;
 AUDIO_SOUND_BANK
     Bank;

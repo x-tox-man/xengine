@@ -20,6 +20,7 @@
 #include "GAMEPLAY_GAME_CARD.h"
 #include "GRAPHIC_BACKGROUND.h"
 #include "GAMEPLAY_GAME_HOUSE.h"
+#include "GRAPHICS_CAMERA_MANAGER.h"
 
 XS_CLASS_BEGIN( GAMEPLAY_GAME )
 
@@ -29,7 +30,7 @@ XS_CLASS_BEGIN( GAMEPLAY_GAME )
     void Initialize();
     void Finalize();
 
-    void Start();
+    void Start(int seed = -1);
     void Pause( bool enable );
 
     void Update(const float);
@@ -48,6 +49,7 @@ XS_CLASS_BEGIN( GAMEPLAY_GAME )
     void ProposeBuyHouse( GAMEPLAY_GAME_BOARD_CELL * cell, GAMEPLAY_PLAYER * player );
     void SelectCell( GAMEPLAY_GAME_BOARD_CELL * cell );
     void SetPlayers( std::vector< GAME_PLAYER_MODEL > & players );
+    void UpdatePlayer( GAMEPLAY_PLAYER * player_to_update );
 
     void DisplayDiceRollResult( const GAMEPLAY_DICE_ROLL_RESULT & result );
 
@@ -87,7 +89,6 @@ private:
     void InitializeChanceCards();
     void InitializeHouses();
 
-
     GAMEPLAY_GAME_BOARD
         Board;
     std::vector<GAMEPLAY_PLAYER *>
@@ -114,6 +115,8 @@ private:
         HouseTable;
     GAMEPLAY_GAME_BOARD_CELL
         *SelectedCell;
+    GRAPHICS_CAMERA_MANAGER
+        GameCamera;
 
 XS_CLASS_END
 

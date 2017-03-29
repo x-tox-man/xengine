@@ -35,7 +35,7 @@ GAMEPLAY_ACTION_COMMAND_START_GAME::~GAMEPLAY_ACTION_COMMAND_START_GAME() {
 
 void GAMEPLAY_ACTION_COMMAND_START_GAME::Apply() {
     
-    GameStartingCallback( Players );
+    GameStartingCallback( Players, Seed );
 }
 
-CORE_HELPERS_CALLBACK_1< std::vector< NETWORK_PLAYER* > & > GAMEPLAY_ACTION_COMMAND_START_GAME::GameStartingCallback;
+CORE_HELPERS_CALLBACK_2< std::vector< NETWORK_PLAYER* > &, int > GAMEPLAY_ACTION_COMMAND_START_GAME::GameStartingCallback;

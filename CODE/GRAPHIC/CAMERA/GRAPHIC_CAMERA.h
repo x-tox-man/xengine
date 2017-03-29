@@ -20,9 +20,10 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
     virtual ~GRAPHIC_CAMERA();
 
-    const CORE_MATH_MATRIX & GetProjectionMatrix() const { return ProjectionMatrix; }
-    const CORE_MATH_MATRIX & GetViewMatrix() const { return ViewMatrix; }
-    const CORE_MATH_VECTOR & GetPosition() const { return Position; }
+    inline const CORE_MATH_MATRIX & GetProjectionMatrix() const { return ProjectionMatrix; }
+    inline const CORE_MATH_MATRIX & GetViewMatrix() const { return ViewMatrix; }
+    inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
+    inline const CORE_MATH_QUATERNION & GetOrientation() const { return Lookat; }
 
     void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
 
@@ -33,9 +34,13 @@ private :
 
 protected :
 
-    CORE_MATH_VECTOR Position;
-    CORE_MATH_MATRIX ProjectionMatrix;
-    CORE_MATH_MATRIX ViewMatrix;
+    CORE_MATH_VECTOR
+        Position;
+    CORE_MATH_MATRIX
+        ProjectionMatrix,
+        ViewMatrix;
+    CORE_MATH_QUATERNION
+        Lookat;
 
 XS_CLASS_END
 

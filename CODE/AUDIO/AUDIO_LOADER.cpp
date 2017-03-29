@@ -10,6 +10,7 @@
 #include "AUDIO_SOUND.h"
 
 #include "CORE_RUNTIME_ENVIRONMENT.h"
+#include "RESOURCE_SOUND.h"
 
 #if PLATFORM_OSX
     #include "AUDIO_LOADER_OSX.h"
@@ -19,6 +20,7 @@
 	#include "AUDIO_LOADER_WINDOWS.h"
 #elif PLATFORM_ANDROID
     #include "AUDIO_LOADER_ANDROID.h"
+    #include "AUDIO_SOUND_LOADER_MPG123.h"
 #else
     #error 1
 #endif
@@ -30,7 +32,9 @@
 
 void AUDIO_LOADER_Open( const CORE_FILESYSTEM_PATH & file_path, const char * extension, AUDIO_SOUND & sound, const AUDIO_BANK_SOUND_LOAD_OPTION & option ) {
     
-    #if PLATFORM_OSX && __AUDIO_OPENAL__
+    #if PLATFORM_ANDROID && defined AUDIO_MPG
+        MPG_123_Open( file_path, sound );
+    #elif PLATFORM_OSX && __AUDIO_OPENAL__
         UInt32 size,
             samplerate;
         int
@@ -82,6 +86,8 @@ bool AUDIO_LOADER_ReadChunk( AUDIO_SOUND & sound, int chunk_index ) {
                     withFrameSize:sound.GetFrameSize()
                      withChannels:sound.GetChannels()
                          fromFile:(ExtAudioFileRef * ) sound.GetExtAudioFile()];
+    #else
+        MPG_123_Read( sound , chunk_index);
     #endif
     
     return file_is_at_end;
@@ -92,5 +98,7 @@ void AUDIO_LOADER_Close( AUDIO_SOUND & sound ) {
     #if PLATFORM_OSX
         [XSAudioLoader closeAudioFile:(ExtAudioFileRef * ) sound.GetExtAudioFile()
                         withAudioFile:(AudioFileID * ) sound.GetAudioFile() ];
+    #elif PLATFORM_ANDROID && defined AUDIO_MPG
+        MPG_123_Close( sound );
     #endif
 }

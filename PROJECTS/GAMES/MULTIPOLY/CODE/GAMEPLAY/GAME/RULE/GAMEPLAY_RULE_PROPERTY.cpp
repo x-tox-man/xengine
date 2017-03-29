@@ -254,6 +254,8 @@ void GAMEPLAY_RULE_PROPERTY::BuyHouse( GAMEPLAY_SCENE * scene, GAMEPLAY_GAME_BOA
         GAMEPLAY_ACTION_BUY_HOUSE
             action;
         
+        action.CellIndex = cell->GetIndex();
+        
         auto command = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand< GAMEPLAY_ACTION_BUY_HOUSE >( action );
         ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetNetworkManager().SendCommand( command );
     }

@@ -10,7 +10,8 @@
 
 PERIPHERIC_INTERACTION_SYSTEM::PERIPHERIC_INTERACTION_SYSTEM() :
     Keyboard(),
-    Mouse() {
+    Mouse(),
+    Vibrator() {
     
     Keyboard.Initialize();
     Mouse.Initialize();

@@ -11,13 +11,14 @@
 #include "MULTIPOLY_APPLICATION.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_ACTION_BUY_HOUSE )
-
+    XS_DEFINE_ClassMember(int , CellIndex)
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 ImplementTrickFroSerializeation(GAMEPLAY_ACTION_BUY_HOUSE, GAMEPLAY_ACTION_TYPE_Custom_3 )
 
 GAMEPLAY_ACTION_BUY_HOUSE::GAMEPLAY_ACTION_BUY_HOUSE() :
-    GAMEPLAY_ACTION() {
+    GAMEPLAY_ACTION(),
+    CellIndex() {
     
 }
 
@@ -29,5 +30,5 @@ void GAMEPLAY_ACTION_BUY_HOUSE::Apply() {
     
     auto state_machine = &((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().GetCurrentPlayer()->GetStateMachine();
     
-    state_machine->DispatchEvent( GAMEPLAY_PLAYER::MULTIPLAYER_BUY_HOUSE() );
+    state_machine->DispatchEvent( GAMEPLAY_PLAYER::MULTIPLAYER_BUY_HOUSE( CellIndex ) );
 }

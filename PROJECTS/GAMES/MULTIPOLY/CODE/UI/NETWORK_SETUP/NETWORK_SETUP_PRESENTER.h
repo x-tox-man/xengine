@@ -22,7 +22,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PRESENTER, GRAPHIC_UI_PRESENTER)
     virtual void Configure() override;
     void Update( const float step );
 
-    void GameStarted( std::vector<NETWORK_PLAYER *> & players);
+    void GameStarted( std::vector<NETWORK_PLAYER *> & players, int seed);
 
     void StartGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );
     void SelectGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_STATE event );

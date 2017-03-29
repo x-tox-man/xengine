@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.gles3jni"
+    package="be.igz.MULTIPOLY"
     android:versionCode="2"
     android:versionName="1.0" >
 
@@ -10,6 +10,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -34,7 +36,7 @@
             <!-- Tell NativeActivity the name of our .so -->
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="nativeapptest" />
+                android:value="native-multipoly-app" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +44,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     </application>
 
 </manifest>

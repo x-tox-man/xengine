@@ -58,13 +58,15 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( MULTIPOLY_APPLICATION, CORE_APPLICATION )
     inline GAMEPLAY_GAME & GetGame() { return Game; }
     inline NETWORK_MANAGER & GetNetworkManager() { return NetworkManager; }
     inline int GetSeed() { return Seed; }
+    inline GRAPHIC_CAMERA * GetCamera() { return Camera; }
 
     CORE_FILESYSTEM & GetDefaultFileystem() { return DefaultFileystem; }
+
+    void ResetRandom();
 
 private :
 
     void InitializeGraphics();
-    void InitializeRandom();
     void InitializeGameConfiguration();
 
     CORE_MATH_QUATERNION

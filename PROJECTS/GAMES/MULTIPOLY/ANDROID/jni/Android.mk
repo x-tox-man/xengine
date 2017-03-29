@@ -25,25 +25,28 @@ include $(CLEAR_VARS)
 
 LOCAL_CPP_EXTENSION := .cxx .cpp .cc
 
-LOCAL_MODULE    	:= nativeapptest
+LOCAL_MODULE    	:= native-multipoly-app
 LOCAL_C_INCLUDES 	:= /Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/HEADERS \
 /Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/HEADERS/openal_include \
 /Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/HEADERS/openal_include/OpenAL \
 /Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/HEADERS/png_include \
 /Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/HEADERS/lua_include \
 /Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/HEADERS/uv_include \
+/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/HEADERS/mpg123_includes \
 /Users/CBE/DevelopStatic/NDK/sources/cxx-stl/gnu-libstdc++/4.9/include
 
 include engine.mk
 
 LOCAL_SRC_FILES 	+= main.cpp \
 
-LOCAL_CFLAGS 	:= -D__PLATFORM_ANDROID__ -DNDK_DEBUG=1 -DOPENGLES2 -D__X_APP__ -DDEBUG=1 $(LOCAL_CFLAGS)
+LOCAL_CFLAGS 	:= -D__PLATFORM_ANDROID__ -DNDK_DEBUG=1 -DOPENGLES2 -D__AUDIO_OPENSL__=1 -DAUDIO_MPG -D__X_APP__ -DDEBUG=1 $(LOCAL_CFLAGS)
 
-LOCAL_LDLIBS    := -llog -landroid -lGLESv2 -lEGL -lz -L/Users/CBE/DevelopStatic/NDK/sources/cxx-stl/stlport/libs/$(TARGET_ARCH_ABI) \
+LOCAL_LDLIBS    := -llog -landroid -lGLESv2 -lOpenSLES -lEGL -lz -L/Users/CBE/DevelopStatic/NDK/sources/cxx-stl/stlport/libs/$(TARGET_ARCH_ABI) \
 -l/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/libpng.a \
 -l/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/liblua.a \
--l/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/libuv.a
+-l/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/libuv.a \
+-l/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/libmpg123.a \
+-l/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/libopenal.a
 
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 

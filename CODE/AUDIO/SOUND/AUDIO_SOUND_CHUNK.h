@@ -17,18 +17,20 @@
 
 XS_CLASS_BEGIN( AUDIO_SOUND_CHUNK )
 
-AUDIO_SOUND_CHUNK();
-~AUDIO_SOUND_CHUNK();
+    AUDIO_SOUND_CHUNK();
+    ~AUDIO_SOUND_CHUNK();
 
-void * Data;
-int Size;
-int Index;
+    void
+        * Data;
+    int
+        Size,
+        Index;
 
-#if __AUDIO_OPENAL__
-    ALuint & GetChunkBufferName() { return ChunkBufferName; }
-    void SetChunkBufferName( ALuint name ) { ChunkBufferName = name; }
-    ALuint ChunkBufferName;
-#endif
+    #if __AUDIO_OPENAL__
+        ALuint & GetChunkBufferName() { return ChunkBufferName; }
+        void SetChunkBufferName( ALuint name ) { ChunkBufferName = name; }
+        ALuint ChunkBufferName;
+    #endif
 
 XS_CLASS_END
 

@@ -43,7 +43,7 @@ android {
     }*/
 
     defaultConfig {
-        applicationId 'com.android.gles3jni'
+        applicationId 'be.igz.MULTIPOLY'
         minSdkVersion 16
         targetSdkVersion 25
         ndk {

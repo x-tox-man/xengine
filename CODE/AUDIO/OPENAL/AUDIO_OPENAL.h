@@ -22,7 +22,7 @@
 
 #include <math.h>
 
-#if __AUDIO_OPENAL__
+#if __AUDIO_OPENAL__ && DEBUG
     #define AUDIO_CHECK( __function__ ) \
         { \
             __function__ \
@@ -31,7 +31,7 @@
                 SERVICE_LOGGER_Error( "OPENAL error %d\n", error ); \
             }\
         }
-#else 
+#elif __AUDIO_OPENAL__
     #define AUDIO_CHECK( __function__ )
 #endif
 
@@ -58,6 +58,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( AUDIO_OPENAL, AUDIO_INTERFACE< AUDIO_OPENAL > )
 
     void Resume();
 
+    void OnSoundIsRead() {}
+
     private :
 
     #if __AUDIO_OPENAL__
@@ -69,8 +71,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( AUDIO_OPENAL, AUDIO_INTERFACE< AUDIO_OPENAL > )
         ALenum GetSoundFormat( const AUDIO_SOUND & sound );
 
     #endif
-
-
 
 XS_CLASS_END
 

@@ -1,0 +1,33 @@
+//
+//  GAMEPLAY_ACTION_UPDATE_PLAYER.hpp
+//  MULTIPOLY
+//
+//  Created by Christophe Bernard on 14/03/17.
+//  Copyright © 2017 cbe. All rights reserved.
+//
+
+#ifndef GAMEPLAY_ACTION_UPDATE_PLAYER_hpp
+#define GAMEPLAY_ACTION_UPDATE_PLAYER_hpp
+
+#include "GAMEPLAY_ACTION.h"
+#include "GAMEPLAY_PLAYER.h"
+
+XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_ACTION_UPDATE_PLAYER, GAMEPLAY_ACTION )
+
+    GAMEPLAY_ACTION_UPDATE_PLAYER();
+    virtual ~GAMEPLAY_ACTION_UPDATE_PLAYER();
+
+    XS_DEFINE_SERIALIZABLE
+
+    CORE_HELPERS_FACTORY_Element( GAMEPLAY_ACTION_UPDATE_PLAYER, GAMEPLAY_ACTION, GAMEPLAY_ACTION_TYPE, GAMEPLAY_ACTION_TYPE_Custom_18 )
+
+    virtual void Apply() override;
+
+    SimpleTrickForSerialization()
+
+    GAMEPLAY_PLAYER
+        * PlayerToUpdate;
+
+XS_CLASS_END
+
+#endif /* GAMEPLAY_ACTION_UPDATE_PLAYER_hpp */

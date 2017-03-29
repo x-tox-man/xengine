@@ -24,6 +24,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_ACTION_BUY_HOUSE, GAMEPLAY_ACTION )
 
     SimpleTrickForSerialization()
 
+    int
+        CellIndex;
+
 XS_CLASS_END
 
 #endif /* GAMEPLAY_ACTION_BUY_HOUSE_hpp */

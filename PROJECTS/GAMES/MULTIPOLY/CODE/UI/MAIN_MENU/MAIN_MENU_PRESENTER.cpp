@@ -12,6 +12,7 @@
 #include "APPLICATION_SCREENS_NAVIGATION.h"
 #include "OPTIONS_PAGE.h"
 #include "MULTIPOLY_APPLICATION.h"
+#include "PERIPHERIC_INTERACTION_SYSTEM.h"
 
 MAIN_MENU_PRESENTER::MAIN_MENU_PRESENTER() :
     GRAPHIC_UI_PRESENTER(),
@@ -56,6 +57,8 @@ void MAIN_MENU_PRESENTER::StartSingleGameButtonClicked( GRAPHIC_UI_ELEMENT * ele
         players.push_back(mod);
         players.push_back(mod2);
         players.push_back(mod3);
+        
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().Vibrate( 0.1f );
         
         APPLICATION_SCREENS_NAVIGATION::GetInstance().NavigateToAsync<GAME_HUD_PAGE>( "igame_hud" );
         CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )

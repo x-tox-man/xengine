@@ -16,17 +16,20 @@
 
             <!-- Tell NativeActivity the name of our .so -->
             <meta-data android:name="android.app.lib_name"
-                       android:value="nativeapptest" />
+                       android:value="native-multipoly-app" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature android:glEsVersion="0x00020000" android:required="true" />
     <uses-feature android:name="android.hardware.wifi" />

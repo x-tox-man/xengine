@@ -16,6 +16,7 @@
 #include "GRAPHIC_FONT_MANAGER.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
+#include "AUDIO_SYSTEM.h"
 
 MULTIPOLY_APPLICATION::MULTIPOLY_APPLICATION() :
     CORE_APPLICATION(),
@@ -42,6 +43,12 @@ MULTIPOLY_APPLICATION::MULTIPOLY_APPLICATION() :
     SERVICE_LOGGER_Error( "ALL APP create 2" );
     
     SetApplicationInstance( *this );
+    
+    #if !PLATFORM_ANDROID
+        AUDIO_SYSTEM::GetInstance().Initialize();
+    #endif
+        
+    SERVICE_LOGGER_Error( "ALL APP create 2,1" );
 }
 
 MULTIPOLY_APPLICATION::~MULTIPOLY_APPLICATION() {
@@ -50,10 +57,22 @@ MULTIPOLY_APPLICATION::~MULTIPOLY_APPLICATION() {
 
 void MULTIPOLY_APPLICATION::Initialize() {
     
+    SERVICE_LOGGER_Error( "ALL APP create 2,5" );
+    
     InitializeGraphics();
-    InitializeRandom();
+    ResetRandom();
     InitializeGameConfiguration();
     
+    SERVICE_LOGGER_Error( "ALL APP create 3" );
+    
+    AUDIO_SYSTEM::GetInstance().GetBank().RegisterSoundFilePath(
+        CORE_FILESYSTEM_PATH::FindFilePath( "rammstein" , "mp3", "SOUNDS" ),
+        CORE_HELPERS_IDENTIFIER( "rammstein" ),
+        AUDIO_BANK_SOUND_LOAD_OPTION_StartupStreamMusic, "mp3" );
+    
+    AUDIO_SYSTEM::GetInstance().GetBank().Load();
+    
+    AUDIO_SYSTEM::GetInstance().PlayMusic( CORE_HELPERS_IDENTIFIER( "rammstein" ) );
     Game.Initialize();
     
     auto startup_splash_page = (GRAPHIC_UI_FRAME *) &APPLICATION_SCREENS_NAVIGATION::GetInstance().InitializeNavigation<SPLASH>( "splash" );
@@ -71,8 +90,8 @@ void MULTIPOLY_APPLICATION::Finalize() {
     
     NetworkManager.Finalize();
     APPLICATION_SCREENS_NAVIGATION::RemoveInstance();
-    //AUDIO_SYSTEM::GetInstance().Finalize();
-    //AUDIO_SYSTEM::RemoveInstance();
+    AUDIO_SYSTEM::GetInstance().Finalize();
+    AUDIO_SYSTEM::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_MANAGER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::RemoveInstance();
@@ -97,6 +116,8 @@ void MULTIPOLY_APPLICATION::Finalize() {
 
 void MULTIPOLY_APPLICATION::Update( float time_step ) {
     
+    AUDIO_SYSTEM::GetInstance().Update( time_step );
+    
     NetworkManager.Update( time_step );
     
     Game.Update( time_step );
@@ -104,21 +125,6 @@ void MULTIPOLY_APPLICATION::Update( float time_step ) {
 }
 
 void MULTIPOLY_APPLICATION::Render() {
-    
-    static float pos = 0.0f;
-    
-    pos+=0.1f;
-    CORE_MATH_VECTOR
-        position(4.0f, -5.0f, 17.0f, 1.0f);
-    
-    Lookat[0] = -1.0f;
-    Lookat[1] = 0.0f;
-    Lookat[2] = 0.0f;
-    Lookat[3] = 0.0f;
-    
-    Lookat.Normalize();
-    
-    Camera->UpdateCamera(position, Lookat);
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     Game.Render();
@@ -137,7 +143,7 @@ void MULTIPOLY_APPLICATION::Render() {
 void MULTIPOLY_APPLICATION::InitializeGraphics() {
     
     CORE_MATH_VECTOR
-        position( 0.0f, 0.0f, 0.0f, 1.0f );
+        position(4.0f, 5.0f, 19.0f, 1.0f);
     
     Lookat[0] = -1.0f;
     Lookat[1] = 0.0f;
@@ -168,10 +174,12 @@ void MULTIPOLY_APPLICATION::InitializeGraphics() {
     GRAPHIC_RENDERER::GetInstance().SetSpotLight( GLOBAL_RESOURCES::GetInstance().SpotLightTwo, 1 );
 }
 
-void MULTIPOLY_APPLICATION::InitializeRandom() {
+void MULTIPOLY_APPLICATION::ResetRandom() {
     
-    time_t rawtime;
-    struct tm * timeinfo;
+    time_t
+        rawtime;
+    struct tm
+        * timeinfo;
     
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );

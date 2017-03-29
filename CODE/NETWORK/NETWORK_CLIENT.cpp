@@ -226,6 +226,7 @@ void NETWORK_CLIENT::OnUDPDataReceived( SERVICE_NETWORK_COMMAND * command ) {
 void NETWORK_CLIENT::SetClientIsConnected(NETWORK_PLAYER * player) {
     
     if ( player != NULL ) {
+        CurrentPlayer.SetUniqueId( player->GetUniqueId() );
         StateMachine.DispatchEvent(SERVER_ACCEPTED_CONNECTION_EVENT(player));
     }
     else {

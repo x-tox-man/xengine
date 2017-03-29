@@ -13,6 +13,7 @@
 #include "CORE_HELPERS_UNIQUE.h"
 #include "PERIPHERIC_INTERACTION_KEYBOARD.h"
 #include "PERIPHERIC_INTERACTION_MOUSE.h"
+#include "PERIPHERIC_INTERRACTION_VIBRATOR.h"
 
 XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_SYSTEM )
 
@@ -24,8 +25,9 @@ XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_SYSTEM )
 
     void Update();
 
-    PERIPHERIC_INTERACTION_KEYBOARD & GetKeyboard() { return Keyboard; }
-    PERIPHERIC_INTERACTION_MOUSE & GetMouse() { return Mouse; }
+    inline PERIPHERIC_INTERACTION_KEYBOARD & GetKeyboard() { return Keyboard; }
+    inline PERIPHERIC_INTERACTION_MOUSE & GetMouse() { return Mouse; }
+    inline PERIPHERIC_INTERRACTION_VIBRATOR & GetVibrator() { return Vibrator; }
 
 private :
 
@@ -33,6 +35,8 @@ private :
         Keyboard;
     PERIPHERIC_INTERACTION_MOUSE
         Mouse;
+    PERIPHERIC_INTERRACTION_VIBRATOR
+        Vibrator;
 
 XS_CLASS_END
 

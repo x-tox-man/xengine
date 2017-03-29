@@ -41,15 +41,24 @@ AUDIO_OPENAL::~AUDIO_OPENAL() {
 void AUDIO_OPENAL::Initialize() {
     
     #if __AUDIO_OPENAL__
+        SERVICE_LOGGER_Error( "AUDIO_OPENAL Initialize" );
+        Device = alcOpenDevice(NULL);
+    
+        SERVICE_LOGGER_Error( "AUDIO_OPENAL Initialize 1" );
+
         AUDIO_CHECK( Device = alcOpenDevice(NULL); ) // open default device
-        
+    
+        SERVICE_LOGGER_Error( "AUDIO_OPENAL Initialize 2" );
         if ( Device != NULL ) {
             
             AUDIO_CHECK( Context = alcCreateContext( Device, NULL); ) // create context
-            
+        
+            SERVICE_LOGGER_Error( "AUDIO_OPENAL Initialize 3" );
             if ( Context != NULL ) {
                 
                 AUDIO_CHECK( alcMakeContextCurrent( Context ); ) // set active context
+                
+                SERVICE_LOGGER_Error( "AUDIO_OPENAL Initialize 4" );
             }
         }
     #endif
@@ -57,7 +66,9 @@ void AUDIO_OPENAL::Initialize() {
 
 void AUDIO_OPENAL::Finalize() {
     
-    AUDIO_CHECK( alcDestroyContext( Context ); )
+    #if __AUDIO_OPENAL__
+        AUDIO_CHECK( alcDestroyContext( Context ); )
+    #endif
 }
 
 
@@ -206,32 +217,40 @@ void AUDIO_OPENAL::PlaySound( AUDIO_SOUND & sound ) {
 
 void AUDIO_OPENAL::StopSound( AUDIO_SOUND & sound) {
     
-    AUDIO_CHECK( alSourceStop( sound.GetSource() ); )
-    
-    for ( int i = 0; i < sound.GetSoundChunksTable().size(); i++ ) {
+    #if __AUDIO_OPENAL__
+        AUDIO_CHECK( alSourceStop( sound.GetSource() ); )
         
-        AUDIO_CHECK( alDeleteBuffers(1, &sound.GetSoundChunksTable()[ i ]->GetChunkBufferName()); )
-    }
+        for ( int i = 0; i < sound.GetSoundChunksTable().size(); i++ ) {
+            
+            AUDIO_CHECK( alDeleteBuffers(1, &sound.GetSoundChunksTable()[ i ]->GetChunkBufferName()); )
+        }
+    #endif
 }
 
 void AUDIO_OPENAL::ResumeSound( AUDIO_SOUND & sound) {
-    
-    AUDIO_CHECK( alSourcePlay( sound.GetSource() ); )
+    #if __AUDIO_OPENAL__
+        AUDIO_CHECK( alSourcePlay( sound.GetSource() ); )
+    #endif
 }
 
 void AUDIO_OPENAL::PauseSound( AUDIO_SOUND & sound) {
-    
-    AUDIO_CHECK( alSourcePause( sound.GetSource() ); )
+    #if __AUDIO_OPENAL__
+        AUDIO_CHECK( alSourcePause( sound.GetSource() ); )
+    #endif
 }
 
 void AUDIO_OPENAL::Suspend() {
     
-    AUDIO_CHECK( alcSuspendContext ( Context ); )
+    #if __AUDIO_OPENAL__
+        AUDIO_CHECK( alcSuspendContext ( Context ); )
+    #endif
 }
 
 void AUDIO_OPENAL::Resume() {
     
-    AUDIO_CHECK( alcMakeContextCurrent( Context ); )
+    #if __AUDIO_OPENAL__
+        AUDIO_CHECK( alcMakeContextCurrent( Context ); )
+    #endif
 }
 
 #if __AUDIO_OPENAL__

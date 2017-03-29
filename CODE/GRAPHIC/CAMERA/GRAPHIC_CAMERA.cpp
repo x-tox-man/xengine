@@ -12,7 +12,8 @@
 GRAPHIC_CAMERA::GRAPHIC_CAMERA() :
     ProjectionMatrix( CORE_MATH_MATRIX::Identity ),
     ViewMatrix( CORE_MATH_MATRIX::Identity ),
-    Position() {
+    Position(),
+    Lookat() {
     
 }
 
@@ -21,6 +22,7 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, 
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
     CalculateModelViewMatrix( position, lookat );
     
+    Lookat = lookat;
     Position = position;
 }
 
@@ -30,6 +32,7 @@ GRAPHIC_CAMERA::~GRAPHIC_CAMERA() {
 
 void GRAPHIC_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
+    Lookat = lookat;
     Position = position;
     
     CalculateModelViewMatrix( position, lookat );
@@ -73,7 +76,8 @@ void GRAPHIC_CAMERA::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position
     translation[7] = position[1];
     translation[11] = position[2];
     
-    lookat.ToMatrix( &rotation[0] );
+    //abort();//TODO
+    //lookat.ToMatrix( &rotation[0] );
     
     tmp =rotation;
     tmp *=translation;

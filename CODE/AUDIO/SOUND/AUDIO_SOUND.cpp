@@ -10,6 +10,12 @@
 #include "CORE_MEMORY.h"
 
 AUDIO_SOUND::AUDIO_SOUND() :
+#if __AUDIO_OPENSL__
+    SLPlayerObject(),
+    SLPlayer(),
+    SLPlayerVolume(),
+    PlayerBufferQueue(),
+#endif
     Data( NULL ),
     Mono( false ),
     Compressed( false ),
@@ -18,7 +24,10 @@ AUDIO_SOUND::AUDIO_SOUND() :
     Size( 0 ),
     Frequency( 0 ),
     CurrentChunkIndex( 0 ) {
-    
+        
+    #if PLATFORM_ANDROID
+        MpgHandle = NULL;
+    #endif
 }
 
 AUDIO_SOUND::~AUDIO_SOUND() {

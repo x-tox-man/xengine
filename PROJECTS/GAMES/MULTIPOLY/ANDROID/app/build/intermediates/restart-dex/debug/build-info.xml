@@ -6,7 +6,7 @@
     density="xxhdpi"
     format="10"
     plugin-version="2.3.0"
-    timestamp="1489520212051"
+    timestamp="1490739813466"
     token="-3767735526923759273"
     verifier="COLD_SWAP_REQUESTED" >
 
@@ -23,9 +23,13 @@
         name="verifier"
         duration="0" />
 
+    <artifact
+        location="/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/app/build/outputs/apk/app-debug.apk"
+        type="SPLIT_MAIN" />
+
     <build
         build-mode="FULL"
-        timestamp="1489519936984"
+        timestamp="1490725715330"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/app/build/outputs/apk/app-debug.apk"
@@ -63,7 +67,11 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1489520212051"
-        verifier="COLD_SWAP_REQUESTED" />
+        timestamp="1490739813466"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/app/build/outputs/apk/app-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
 
 </instant-run>

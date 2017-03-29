@@ -25,10 +25,10 @@ void Finalize() {
 
 public :
 
-void * GetExtAudioFile() { return ExtAudioFile; }
-void * GetAudioFile() { return AudioFile; }
-void SetExtAudioFile( void * ext_audio_file ) { ExtAudioFile = ext_audio_file; }
-void SetAudioFile(void * audio_file) { AudioFile = audio_file; }
+    void * GetExtAudioFile() { return ExtAudioFile; }
+    void * GetAudioFile() { return AudioFile; }
+    void SetExtAudioFile( void * ext_audio_file ) { ExtAudioFile = ext_audio_file; }
+    void SetAudioFile(void * audio_file) { AudioFile = audio_file; }
 
 private :
 

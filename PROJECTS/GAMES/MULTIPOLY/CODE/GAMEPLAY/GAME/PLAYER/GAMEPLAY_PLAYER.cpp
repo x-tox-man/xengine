@@ -21,10 +21,29 @@
 #include "GAMEPLAY_ACTION_ROLL_DICE.h"
 #include "GAMEPLAY_ACTION_BUY_HOUSE.h"
 #include "GAMEPLAY_ACTION_BUY_PROPERTY.h"
+#include "GAMEPLAY_RULE_PROPERTY.h"
 #include "GAMEPLAY_ACTION_END_TURN.h"
 
-CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_PLAYER::IDLE_STATE )
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_PLAYER )
+    XS_DEFINE_ClassMember( int, Money )
+    XS_DEFINE_ClassMember( int, CellAdvance )
+    XS_DEFINE_ClassMember( int, CurrentCellIndex )
+    XS_DEFINE_ClassMember( int, SpecialDestination )
+    XS_DEFINE_ClassMember( int, PlayerIndex )
+    XS_DEFINE_ClassMember( float, TurnTime )
+    XS_DEFINE_ClassMember( float, DiceRollTime )
+    XS_DEFINE_ClassMember( float, PlayerMoveAnimationTime )
+    XS_DEFINE_ClassMember( bool, ItIsHuman )
+    XS_DEFINE_ClassMember( bool, ItIsMultiplayer )
+    XS_DEFINE_ClassMember( bool, ItIsDone )
+    XS_DEFINE_ClassMember( bool, HasLost )
+    XS_DEFINE_ClassMember( bool, DiceIsRolling )
+    XS_DEFINE_ClassMember( std::string, Name )
+    XS_DEFINE_ClassMember( CORE_MATH_VECTOR, Color )
+XS_END_INTERNAL_MEMORY_LAYOUT
 
+CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_PLAYER::IDLE_STATE )
+    
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
@@ -54,11 +73,15 @@ CORE_FIXED_STATE_EndOfStateEvent()
     CORE_FIXED_STATE_EndOfStateEvent()
 
     CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE, MULTIPLAYER_BUY_HOUSE )
-
+        auto board = &((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGameBoard();
+        auto property = ( GAMEPLAY_RULE_PROPERTY *) board->GetCell( event.GetEventData() )->GetRule();
+        property->BuyHouse(&(((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame()).GetScene(), board->GetCell( GetContext().GetCurrentCellIndex()), &GetContext(), (((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame()).GetNextHouse() );
     CORE_FIXED_STATE_EndOfStateEvent()
 
     CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE, MULTIPLAYER_BUY_PROPERTY )
-
+        auto board = &((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGameBoard();
+        auto rule = ( GAMEPLAY_RULE_PROPERTY *) board->GetCell( GetContext().GetCurrentCellIndex() )->GetRule();
+        rule->Buy( board->GetCell( GetContext().GetCurrentCellIndex() ), &GetContext() );
     CORE_FIXED_STATE_EndOfStateEvent()
 
     CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::MULTIPLAYER_STATE, MULTIPLAYER_END_TURN )
@@ -130,7 +153,8 @@ CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::PLAYER_MOVE_STATE, UPDATE_EV
     if ( GetContext().PlayerMoveAnimationTime > 0.75f) {
         
         GetContext().PlayerMoveAnimationTime = 0.0f;
-        GetContext().CellAdvance++;
+        
+        GetContext().CellAdvance = (GetContext().CellAdvance +1) % 40;
         GetContext().CurrentCellIndex = (GetContext().CurrentCellIndex+1) % 40;
         
         auto board = &((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGameBoard();
@@ -163,7 +187,7 @@ CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::PLAYER_MOVE_STATE, UPDATE_EV
         
         CORE_MATH_VECTOR lerp_pos = CORE_MATH_GetLerpInterpolation<CORE_MATH_VECTOR>(cell_pos->GetPosition(), next_cell_pos->GetPosition(), percentage );
         
-        lerp_pos.Z(cell_pos->GetPosition().Z() - 2.0f * sinf( percentage*M_PI ));
+        lerp_pos.Z(cell_pos->GetPosition().Z() + 2.0f * sinf( percentage*M_PI ));
         
         pos->SetPosition( lerp_pos );
     }
@@ -189,8 +213,8 @@ CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::PLAYER_FORCED_ADVANCE_MOVE_S
     if ( GetContext().PlayerMoveAnimationTime > 0.75f) {
         
         GetContext().PlayerMoveAnimationTime = 0.0f;
-        GetContext().CellAdvance++;
-        GetContext().CellAdvance = (GetContext().CellAdvance++) % 40;
+
+        GetContext().CellAdvance = (GetContext().CellAdvance +1) % 40;
         GetContext().CurrentCellIndex = (GetContext().CurrentCellIndex+1) % 40;
         
         auto board = &((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGameBoard();
@@ -295,6 +319,12 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::ACTION_CHOICE_STATE, UPDATE_EVENT )
 
+    if( GetContext().ItIsMultiplayer ) {
+        
+        CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().MULTIPLAYER_STATE);
+        return;
+    }
+
     if ( GetContext().IsDone() ) {
         GAMEPLAY_ACTION_END_TURN
             action;
@@ -305,7 +335,7 @@ CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_PLAYER::ACTION_CHOICE_STATE, UPDATE_
         CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().IDLE_STATE);
     }
 
-    if ( !GetContext().ItIsMultiplayer && GetContext().GetRollResult().IsDouble && GetContext().GetRollResult().DoublesInRowCount < 3 ) {
+    if ( GetContext().GetRollResult().IsDouble && GetContext().GetRollResult().DoublesInRowCount < 3 ) {
         
         GetContext().PrepareForRollingDice( ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetGame().GetUIGameHudPresenter() );
     }
@@ -387,6 +417,29 @@ GAMEPLAY_PLAYER::GAMEPLAY_PLAYER(std::string & name) :
     
 }
 
+GAMEPLAY_PLAYER::GAMEPLAY_PLAYER() :
+    GAMEPLAY_COMPONENT_ENTITY(),
+    Name(),
+    Money( -1 ),
+    DiceRollResult(),
+    CellAdvance( 0 ),
+    CurrentCellIndex( 0 ),
+    SpecialDestination( 0 ),
+    PlayerIndex( 0 ),
+    ItIsHuman( false ),
+    ItIsMultiplayer( false ),
+    ItIsDone( true ),
+    HasLost( false ),
+    DiceIsRolling( false ),
+    TurnTime( 0.0f ),
+    DiceRollTime( 0.0f ),
+    PlayerMoveAnimationTime( 0.0f ),
+    RollResult(),
+    ActiveCard( NULL ),
+    Color() {
+    
+}
+
 GAMEPLAY_PLAYER::~GAMEPLAY_PLAYER() {
     
 }
@@ -417,6 +470,13 @@ void GAMEPLAY_PLAYER::Initialize( CORE_HELPERS_COLOR & player_color, GAMEPLAY_CO
         player_color);
     
     CORE_FIXED_STATE_InitializeState( StateMachine, GAMEPLAY_PLAYER::IDLE_STATE, this );
+}
+
+void GAMEPLAY_PLAYER::SetPlayerColor( const CORE_HELPERS_COLOR & color) {
+    Color = color;
+    
+    auto render_comp = (GAMEPLAY_COMPONENT_RENDER*) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    render_comp->SetColor( color );
 }
 
 void GAMEPLAY_PLAYER::Update(const float step ) {
@@ -472,7 +532,7 @@ void GAMEPLAY_PLAYER::RollDice() {
 GAMEPLAY_DICE_ROLL_RESULT GAMEPLAY_PLAYER::ComputeRollResult() {
     
     RollResult.FirstDice = (rand() % 6)+1;
-    RollResult.SecondDice = (rand() % 6)+1;
+    RollResult.SecondDice =(rand() % 6)+1;
     RollResult.Total = RollResult.FirstDice + RollResult.SecondDice;
     RollResult.IsDouble = RollResult.FirstDice == RollResult.SecondDice;
     
@@ -516,7 +576,7 @@ GAMEPLAY_COMPONENT_ENTITY * GAMEPLAY_PLAYER::CreateThisComponent(
     render_system->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
     pos->SetPosition( position );
-    pos->SetOrientation( orientation );
+    pos->SetOrientation( orientation+ CORE_MATH_QUATERNION(1.0f, 0.0f, 0.0f, 0.0f) );
     
     pos->GetOrientation().X( 1.0f );
     pos->GetOrientation().Y( 0.0f );

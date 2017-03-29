@@ -21,13 +21,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_ACTION_COMMAND_START_GAME, GAMEPLAY_ACTIO
 
     CORE_HELPERS_FACTORY_Element( GAMEPLAY_ACTION_COMMAND_START_GAME, GAMEPLAY_ACTION, GAMEPLAY_ACTION_TYPE, GAMEPLAY_ACTION_TYPE_GameStarting );
 
-    static void SetGameStartingCallback( const CORE_HELPERS_CALLBACK_1< std::vector< NETWORK_PLAYER* > & > & callback ) { GameStartingCallback = callback; }
+    static void SetGameStartingCallback( const CORE_HELPERS_CALLBACK_2< std::vector< NETWORK_PLAYER* > &, int > & callback ) { GameStartingCallback = callback; }
 
     SimpleTrickForSerialization()
 
     virtual void Apply() override;
 
-    static CORE_HELPERS_CALLBACK_1< std::vector< NETWORK_PLAYER* > & >
+    static CORE_HELPERS_CALLBACK_2< std::vector< NETWORK_PLAYER* > &, int >
         GameStartingCallback;
 
     std::vector<NETWORK_PLAYER*>

@@ -31,7 +31,7 @@ void GRAPHIC_BACKGROUND::Initialize( GAMEPLAY_SCENE * scene ) {
         this,
         shape,
         &shader->GetProgram(),
-        CORE_MATH_VECTOR( 0.0f, 0.0f, 1.0f, 1.0f ),
+        CORE_MATH_VECTOR( 0.0f, 0.0f, -1.0f, 1.0f ),
         CORE_MATH_QUATERNION(),
         CORE_MATH_VECTOR(1024.0f, 1024.0f),
         scene,

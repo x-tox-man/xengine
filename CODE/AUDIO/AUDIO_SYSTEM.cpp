@@ -7,8 +7,8 @@
 //
 
 #include "AUDIO_SYSTEM.h"
-#include "AUDIO_OPENAL.h"
 #include "AUDIO_LOADER.h"
+#include "AUDIO_SOUND_LOADER_MPG123.h"
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( AUDIO_SYSTEM )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_STATIC_YIELD_METHOD( AUDIO_SYSTEM &, AUDIO_SYSTEM, GetInstance )
@@ -31,13 +31,22 @@ AUDIO_SYSTEM::~AUDIO_SYSTEM() {
         
         CORE_MEMORY_ObjectSafeDeallocation( PlayingMusic );
     }
-    
 }
 
 void AUDIO_SYSTEM::Initialize() {
     
+    SERVICE_LOGGER_Error( "AUDIO_SYSTEM Initialize 0" );
+#if __AUDIO_OPENAL__
     Interface = new AUDIO_OPENAL();
+#elif __AUDIO_OPENSL__
+    Interface = new AUDIO_OPENSL();
+#endif
+    SERVICE_LOGGER_Error( "AUDIO_SYSTEM Initialize 1" );
     Interface->Initialize();
+    SERVICE_LOGGER_Error( "AUDIO_SYSTEM Initialize 2" );
+    #ifdef AUDIO_MPG
+        MPG_123_Init();
+    #endif
     
     PlayingMusic = NULL;
 }
@@ -93,6 +102,11 @@ void AUDIO_SYSTEM::PlayMusic( const CORE_HELPERS_IDENTIFIER & sound_identifier )
     }
     
     Interface->PlaySound( *sound.Sound );
+}
+
+void AUDIO_SYSTEM::OnSoundIsRead() {
+    
+    Interface->OnSoundIsRead();
 }
 
 void AUDIO_SYSTEM::Update( const float time_step ) {

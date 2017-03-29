@@ -7,8 +7,10 @@
 //
 
 public :
-AAsset * GetAssetFile() { return AssetFile; }
+    inline AAsset * GetAssetFile() { return AssetFile; }
+    int OpenFileDescriptor();
 
 private :
 
-AAsset * AssetFile;
+    AAsset
+        * AssetFile;

@@ -13,6 +13,7 @@ enum RESOURCE_TYPE {
     RESOURCE_TYPE_ImagePng = 0,
     RESOURCE_TYPE_ImageAtlasPng,
     RESOURCE_TYPE_ImageJpeg,
+    RESOURCE_TYPE_SoundMp3,
     RESOURCE_TYPE_ModelResource,
     RESOURCE_TYPE_ModelDaeAnimation,
     RESOURCE_TYPE_ModelDaeModel,

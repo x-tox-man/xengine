@@ -217,6 +217,7 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
     image_resource->SetIdentifier( identifier );
     
     png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+    file.Close();
     
     
     return image_resource;
@@ -224,10 +225,11 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
 
 RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const void * memory, unsigned int size, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
+    abort();
     return new RESOURCE_IMAGE();
 }
 
 void RESOURCE_IMAGE_PNG_LOADER::ReloadResource( RESOURCE_IMAGE * resource_to_reload ) {
     
-    
+    abort();
 }

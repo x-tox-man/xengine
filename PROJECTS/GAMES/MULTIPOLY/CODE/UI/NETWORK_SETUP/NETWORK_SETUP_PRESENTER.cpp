@@ -52,12 +52,12 @@ void NETWORK_SETUP_PRESENTER::Configure() {
         Server->SetOnPlayerConnectedCallback( callback );
     }
     else {
-        CORE_HELPERS_CALLBACK_1<std::vector<NETWORK_PLAYER *> & > callback( &Wrapper1< NETWORK_SETUP_PRESENTER, std::vector< NETWORK_PLAYER * > &, &NETWORK_SETUP_PRESENTER::GameStarted >, this);
+        CORE_HELPERS_CALLBACK_2< std::vector< NETWORK_PLAYER* > &, int > callback( &Wrapper2< NETWORK_SETUP_PRESENTER, std::vector< NETWORK_PLAYER * > &, int, &NETWORK_SETUP_PRESENTER::GameStarted >, this);
         GAMEPLAY_ACTION_COMMAND_START_GAME::SetGameStartingCallback( callback );
     }
 }
 
-void NETWORK_SETUP_PRESENTER::GameStarted( std::vector<NETWORK_PLAYER *> & players) {
+void NETWORK_SETUP_PRESENTER::GameStarted( std::vector<NETWORK_PLAYER *> & players, int seed) {
     
     std::vector< GAME_PLAYER_MODEL >
         players_model;
@@ -76,7 +76,7 @@ void NETWORK_SETUP_PRESENTER::GameStarted( std::vector<NETWORK_PLAYER *> & playe
     
     CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
         ((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().SetPlayers( players_model );
-        ((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().Start();
+        ((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().Start( seed );
     CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
 }
 

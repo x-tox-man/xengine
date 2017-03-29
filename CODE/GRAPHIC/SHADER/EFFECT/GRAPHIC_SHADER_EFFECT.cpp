@@ -23,17 +23,17 @@ void GRAPHIC_SHADER_EFFECT::Initialize( const GRAPHIC_SHADER_BIND & bind ) {
     
     Bind = bind;
     
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT Initialize 1" );
+    //SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT Initialize 1" );
     
     Program.GetProgram()->LinkTogether( bind );
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT Initialize 2" );
+    //SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT Initialize 2" );
     Program.CopyAttributes();
     
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT Initialize 3" );
+    //SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT Initialize 3" );
     
     BindAttributes();
     
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT Initialize 4" );
+    //SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT Initialize 4" );
 }
 
 void GRAPHIC_SHADER_EFFECT::BindAttributes() {

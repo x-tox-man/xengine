@@ -22,10 +22,38 @@
 #include "GAMEPLAY_RULE_PRISON.h"
 #include "CORE_PARALLEL.h"
 #include "CORE_PARALLEL_TASK.h"
+#include "GAMEPLAY_ACTION_UPDATE_PLAYER.h"
+#include "GAMEPLAY_ACTION_SYSTEM.h"
+#include "MULTIPOLY_APPLICATION.h"
 
 CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_GAME::GAME_STARTING )
     GetContext().AnimationTimer = 0.0f;
     GetContext().IsRunning = true;
+
+    std::vector<GAMEPLAY_PLAYER *>::iterator it = GetContext().PlayerTable.begin();
+
+    while(it != GetContext().PlayerTable.end() ) {
+    
+        if ( !(*it)->IsMultiplayer() ) {
+            GAMEPLAY_ACTION_UPDATE_PLAYER
+                action;
+            
+            CORE_MATH_VECTOR
+                color( (rand()%256)/256.0f, (rand()%256)/256.0f,(rand()%256)/256.0f, 1.0f );
+            (*it)->SetPlayerColor( color );
+            action.PlayerToUpdate = (*it);
+            
+            auto command = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand< GAMEPLAY_ACTION_UPDATE_PLAYER >( action );
+            ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetNetworkManager().SendCommand( command );
+            
+            break;
+        }
+        it++;
+    }
+
+    auto cell_pos = (GAMEPLAY_COMPONENT_POSITION * ) GetContext().Board.GetCell( 0 )->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    GetContext().GameCamera.StartAnimation(3.2f, GetContext().GameCamera.GetCamera()->GetPosition(), cell_pos->GetPosition() + CORE_MATH_VECTOR(0.0f, 0.0f, 15.0f, 0.0f), GetContext().GameCamera.GetCamera()->GetOrientation(), GetContext().GameCamera.GetCamera()->GetOrientation() );
+
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
@@ -86,7 +114,6 @@ CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_GAME::PLAYER_TURN_STATE )
 
     GetContext().SelectCell( NULL );
     GetContext().PlayerTable[GetContext().ActivePlayerIndex]->SetupTurn( GetContext().UIGameHudPresenter );
-
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
@@ -104,7 +131,7 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 
 CORE_FIXED_STATE_DefineStateLeaveEvent( GAMEPLAY_GAME::PLAYER_TURN_STATE )
-
+    ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->ResetRandom();
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
@@ -113,12 +140,19 @@ CORE_FIXED_STATE_EndOfStateEvent()
 CORE_FIXED_STATE_DefineStateEnterEvent( GAMEPLAY_GAME::PLAYER_TRANSITION_STATE )
     GetContext().AnimationTimer = 0.0f;
 
+    int index = GetContext().ActivePlayerIndex + 1;
+
+    if( index >= GetContext().PlayerTable.size() ) {
+        
+        index = 0;
+    }
+
+    auto cell_pos = (GAMEPLAY_COMPONENT_POSITION * ) GetContext().Board.GetCell( GetContext().GetPlayerTable()[index]->GetCurrentCellIndex() )->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    GetContext().GameCamera.StartAnimation(2.0f, GetContext().GameCamera.GetCamera()->GetPosition(), cell_pos->GetPosition() + CORE_MATH_VECTOR(0.0f, 0.0f, 15.0f, 0.0f), GetContext().GameCamera.GetCamera()->GetOrientation(), GetContext().GameCamera.GetCamera()->GetOrientation() );
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
 CORE_FIXED_STATE_DefineStateEvent( GAMEPLAY_GAME::PLAYER_TRANSITION_STATE, UPDATE_EVENT )
-
-    auto player = GetContext().GetCurrentPlayer();
 
     GetContext().AnimationTimer += event.GetEventData();
 
@@ -167,7 +201,8 @@ GAMEPLAY_GAME::GAMEPLAY_GAME() :
     CaisseCardTable(),
     Background( NULL ),
     HouseTable(),
-    SelectedCell( NULL ) {
+    SelectedCell( NULL ),
+    GameCamera() {
     
 }
 
@@ -197,6 +232,8 @@ void GAMEPLAY_GAME::Initialize() {
     Background->Initialize( &Scene );
     
     InitializeHouses();
+    
+    GameCamera.SetCamera( ((MULTIPOLY_APPLICATION*)&CORE_APPLICATION::GetApplicationInstance())->GetCamera() );
     
     CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
 }
@@ -239,8 +276,11 @@ void GAMEPLAY_GAME::Finalize() {
     
 }
 
-void GAMEPLAY_GAME::Start() {
+void GAMEPLAY_GAME::Start(int seed) {
  
+    if ( seed != -1 )
+    srand( seed );
+    
     InitializeCaisseCards();
     InitializeChanceCards();
     
@@ -253,6 +293,8 @@ void GAMEPLAY_GAME::Pause( bool enable ) {
 }
 
 void GAMEPLAY_GAME::Update(const float step) {
+    
+    GameCamera.Update( step );
     
     if( PlayerTable.size() == 0 || !IsRunning )
         return;
@@ -405,6 +447,24 @@ void GAMEPLAY_GAME::SetPlayers( std::vector< GAME_PLAYER_MODEL > & players ) {
     }
 }
 
+void GAMEPLAY_GAME::UpdatePlayer( GAMEPLAY_PLAYER * player_to_update ) {
+    
+    std::vector<GAMEPLAY_PLAYER *>::iterator it = PlayerTable.begin();
+    
+    while ( it != PlayerTable.end()) {
+        
+        if ( (*it)->GetPlayerIndex() == player_to_update->GetPlayerIndex() ) {
+            
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_SYSTEM::GraphicSystemLock)
+                (*it)->SetPlayerColor( player_to_update->GetPlayerColor());
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+            
+            break;
+        }
+        it++;
+    }
+}
+
 void GAMEPLAY_GAME::DisplayDiceRollResult( const GAMEPLAY_DICE_ROLL_RESULT & result ) {
     
     UIGameHudPresenter->DisplayRollDiceResult( result );
@@ -544,7 +604,6 @@ void GAMEPLAY_GAME::InitializeHouses() {
         
         (*it) = new GAMEPLAY_GAME_HOUSE;
         (*it)->Initialize(house_position, CORE_MATH_VECTOR::One, CORE_MATH_QUATERNION(), &Scene, CORE_COLOR_White );
-        //(*it)->SetupAnimation(CORE_MATH_VECTOR(house_position.X(), house_position.Y() ), CORE_MATH_QUATERNION() );
         
         if ( index % 7 == 0) {
             

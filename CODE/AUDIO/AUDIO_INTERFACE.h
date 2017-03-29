@@ -65,6 +65,11 @@ public :
         
         ( ( __AUDIO_INTERFACE__ * ) this )->Resume();
     }
+    
+    void OnSoundIsRead() {
+        
+        ( ( __AUDIO_INTERFACE__ * ) this )->OnSoundIsRead();
+    }
 
 };
 

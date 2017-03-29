@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3212F5751E7D9FCD00A49D79 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3212F5731E7D9FCD00A49D79 /* AUDIO_SOUND_LOADER_MPG123.cpp */; };
+		3212F5791E7F379A00A49D79 /* AUDIO_OPENSL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3212F5771E7F379A00A49D79 /* AUDIO_OPENSL.cpp */; };
+		32196B6E1E788F61005B37AF /* GAMEPLAY_ACTION_UPDATE_PLAYER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32196B6C1E788F61005B37AF /* GAMEPLAY_ACTION_UPDATE_PLAYER.cpp */; };
+		32196B721E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32196B701E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.cpp */; };
+		32196B731E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32196B701E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.cpp */; };
 		321F700E1E5A558900E6710C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 321F700D1E5A558900E6710C /* AppDelegate.m */; };
 		321F70111E5A558900E6710C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 321F70101E5A558900E6710C /* main.m */; };
 		321F70131E5A558900E6710C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321F70121E5A558900E6710C /* Assets.xcassets */; };
@@ -244,6 +249,8 @@
 		32277D5A1E74695300E1D4C9 /* GAMEPLAY_ACTION_BUY_HOUSE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32277D501E7467CC00E1D4C9 /* GAMEPLAY_ACTION_BUY_HOUSE.cpp */; };
 		32277D5B1E74695300E1D4C9 /* GAMEPLAY_ACTION_BUY_PROPERTY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32277D531E7467E100E1D4C9 /* GAMEPLAY_ACTION_BUY_PROPERTY.cpp */; };
 		32277D5C1E74695300E1D4C9 /* GAMEPLAY_ACTION_END_TURN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32277D561E7467F900E1D4C9 /* GAMEPLAY_ACTION_END_TURN.cpp */; };
+		323C1B5B1E8B0F2A00CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323C1B591E8B0F2A00CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp */; };
+		323C1B5E1E8B10A700CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323C1B5C1E8B10A700CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp */; };
 		3263225F1E6D9104007881DA /* NETWORK_MANAGER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3263225D1E6D9104007881DA /* NETWORK_MANAGER.cpp */; };
 		326322631E6E0D59007881DA /* GAME_LOADER_SCREEN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 326322611E6E0D59007881DA /* GAME_LOADER_SCREEN.cpp */; };
 		326322661E6E1142007881DA /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 326322641E6E1142007881DA /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp */; };
@@ -624,9 +631,19 @@
 		32C27CB91E62CCA7008411C6 /* POPUP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C27CB71E62CCA7008411C6 /* POPUP.cpp */; };
 		32C3EC7F1E5B976F006ED1C8 /* monopoly-nintendo-plateau.png in Resources */ = {isa = PBXBuildFile; fileRef = 32C3EC7E1E5B976F006ED1C8 /* monopoly-nintendo-plateau.png */; };
 		32C3EC821E5B97D3006ED1C8 /* GLOBAL_RESOURCES.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32C3EC801E5B97D3006ED1C8 /* GLOBAL_RESOURCES.cpp */; };
+		32D6D8B51E7B47F900EE8172 /* RESOURCE_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32D6D8B31E7B47F900EE8172 /* RESOURCE_SOUND.cpp */; };
+		32D6D8B81E7B480900EE8172 /* RESOURCE_SOUND_MP3_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32D6D8B61E7B480900EE8172 /* RESOURCE_SOUND_MP3_LOADER.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3212F5731E7D9FCD00A49D79 /* AUDIO_SOUND_LOADER_MPG123.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_SOUND_LOADER_MPG123.cpp; sourceTree = "<group>"; };
+		3212F5741E7D9FCD00A49D79 /* AUDIO_SOUND_LOADER_MPG123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_SOUND_LOADER_MPG123.h; sourceTree = "<group>"; };
+		3212F5771E7F379A00A49D79 /* AUDIO_OPENSL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_OPENSL.cpp; sourceTree = "<group>"; };
+		3212F5781E7F379A00A49D79 /* AUDIO_OPENSL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_OPENSL.h; sourceTree = "<group>"; };
+		32196B6C1E788F61005B37AF /* GAMEPLAY_ACTION_UPDATE_PLAYER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_ACTION_UPDATE_PLAYER.cpp; sourceTree = "<group>"; };
+		32196B6D1E788F61005B37AF /* GAMEPLAY_ACTION_UPDATE_PLAYER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_ACTION_UPDATE_PLAYER.h; sourceTree = "<group>"; };
+		32196B701E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHICS_CAMERA_MANAGER.cpp; sourceTree = "<group>"; };
+		32196B711E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHICS_CAMERA_MANAGER.h; sourceTree = "<group>"; };
 		321F70091E5A558900E6710C /* MULTIPOLY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MULTIPOLY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		321F700C1E5A558900E6710C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		321F700D1E5A558900E6710C /* AppDelegate.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1135,6 +1152,10 @@
 		32277D541E7467E100E1D4C9 /* GAMEPLAY_ACTION_BUY_PROPERTY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_ACTION_BUY_PROPERTY.h; sourceTree = "<group>"; };
 		32277D561E7467F900E1D4C9 /* GAMEPLAY_ACTION_END_TURN.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_ACTION_END_TURN.cpp; sourceTree = "<group>"; };
 		32277D571E7467F900E1D4C9 /* GAMEPLAY_ACTION_END_TURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_ACTION_END_TURN.h; sourceTree = "<group>"; };
+		323C1B591E8B0F2A00CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PERIPHERIC_INTERRACTION_VIBRATOR.cpp; sourceTree = "<group>"; };
+		323C1B5A1E8B0F2A00CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PERIPHERIC_INTERRACTION_VIBRATOR.h; sourceTree = "<group>"; };
+		323C1B5C1E8B10A700CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp; sourceTree = "<group>"; };
+		323C1B5D1E8B10A700CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.h; sourceTree = "<group>"; };
 		3263225D1E6D9104007881DA /* NETWORK_MANAGER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_MANAGER.cpp; sourceTree = "<group>"; };
 		3263225E1E6D9104007881DA /* NETWORK_MANAGER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_MANAGER.h; sourceTree = "<group>"; };
 		326322611E6E0D59007881DA /* GAME_LOADER_SCREEN.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAME_LOADER_SCREEN.cpp; sourceTree = "<group>"; };
@@ -1299,6 +1320,10 @@
 		32C3EC7E1E5B976F006ED1C8 /* monopoly-nintendo-plateau.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "monopoly-nintendo-plateau.png"; sourceTree = "<group>"; };
 		32C3EC801E5B97D3006ED1C8 /* GLOBAL_RESOURCES.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLOBAL_RESOURCES.cpp; sourceTree = "<group>"; };
 		32C3EC811E5B97D3006ED1C8 /* GLOBAL_RESOURCES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLOBAL_RESOURCES.h; sourceTree = "<group>"; };
+		32D6D8B31E7B47F900EE8172 /* RESOURCE_SOUND.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RESOURCE_SOUND.cpp; sourceTree = "<group>"; };
+		32D6D8B41E7B47F900EE8172 /* RESOURCE_SOUND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESOURCE_SOUND.h; sourceTree = "<group>"; };
+		32D6D8B61E7B480900EE8172 /* RESOURCE_SOUND_MP3_LOADER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RESOURCE_SOUND_MP3_LOADER.cpp; sourceTree = "<group>"; };
+		32D6D8B71E7B480900EE8172 /* RESOURCE_SOUND_MP3_LOADER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESOURCE_SOUND_MP3_LOADER.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1340,6 +1365,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3212F5761E7F378B00A49D79 /* OPENSL */ = {
+			isa = PBXGroup;
+			children = (
+				3212F5771E7F379A00A49D79 /* AUDIO_OPENSL.cpp */,
+				3212F5781E7F379A00A49D79 /* AUDIO_OPENSL.h */,
+			);
+			path = OPENSL;
+			sourceTree = "<group>";
+		};
+		32196B6F1E78ACDD005B37AF /* CAMERA */ = {
+			isa = PBXGroup;
+			children = (
+				32196B701E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.cpp */,
+				32196B711E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.h */,
+			);
+			path = CAMERA;
+			sourceTree = "<group>";
+		};
 		321F70001E5A558800E6710C = {
 			isa = PBXGroup;
 			children = (
@@ -1412,12 +1455,15 @@
 				321F70201E5A55A500E6710C /* AUDIO_INTERFACE.h */,
 				321F70211E5A55A500E6710C /* AUDIO_LOADER.cpp */,
 				321F70221E5A55A500E6710C /* AUDIO_LOADER.h */,
+				3212F5731E7D9FCD00A49D79 /* AUDIO_SOUND_LOADER_MPG123.cpp */,
+				3212F5741E7D9FCD00A49D79 /* AUDIO_SOUND_LOADER_MPG123.h */,
 				321F70241E5A55A500E6710C /* AUDIO_LOADER_IOS.h */,
 				321F70251E5A55A500E6710C /* AUDIO_LOADER_IOS.mm */,
 				321F70261E5A55A500E6710C /* AUDIO_LOADER_OSX.h */,
 				321F70271E5A55A500E6710C /* AUDIO_LOADER_OSX.mm */,
 				321F702A1E5A55A500E6710C /* AUDIO_SYSTEM.cpp */,
 				321F702B1E5A55A500E6710C /* AUDIO_SYSTEM.h */,
+				3212F5761E7F378B00A49D79 /* OPENSL */,
 				321F702C1E5A55A500E6710C /* BANK */,
 				321F70331E5A55A500E6710C /* OPENAL */,
 				321F70361E5A55A500E6710C /* SOUND */,
@@ -2492,6 +2538,7 @@
 		321F71F91E5A55A500E6710C /* INTERRACTION */ = {
 			isa = PBXGroup;
 			children = (
+				323C1B581E8B0F1B00CA3C19 /* VIBRATOR */,
 				321F71FA1E5A55A500E6710C /* KEYBOARD_KEY.h */,
 				321F71FB1E5A55A500E6710C /* PERIPHERIC_INTERACTION_KEYBOARD.cpp */,
 				321F71FC1E5A55A500E6710C /* PERIPHERIC_INTERACTION_KEYBOARD.h */,
@@ -2538,6 +2585,7 @@
 		321F72071E5A55A500E6710C /* RESOURCE */ = {
 			isa = PBXGroup;
 			children = (
+				32D6D8B11E7B47B400EE8172 /* SOUND */,
 				321F72081E5A55A500E6710C /* IMAGE */,
 				321F72131E5A55A500E6710C /* MESH */,
 				321F72161E5A55A500E6710C /* RESOURCE.cpp */,
@@ -2709,6 +2757,7 @@
 		321F734B1E5A55B100E6710C /* GRAPHICS */ = {
 			isa = PBXGroup;
 			children = (
+				32196B6F1E78ACDD005B37AF /* CAMERA */,
 				328E9B1D1E64E28700112815 /* BACKGROUND */,
 				32207CFC1E5B773400DBCE53 /* BOARD */,
 				32207CFD1E5B773400DBCE53 /* CELL */,
@@ -3076,8 +3125,21 @@
 				32277D541E7467E100E1D4C9 /* GAMEPLAY_ACTION_BUY_PROPERTY.h */,
 				32277D561E7467F900E1D4C9 /* GAMEPLAY_ACTION_END_TURN.cpp */,
 				32277D571E7467F900E1D4C9 /* GAMEPLAY_ACTION_END_TURN.h */,
+				32196B6C1E788F61005B37AF /* GAMEPLAY_ACTION_UPDATE_PLAYER.cpp */,
+				32196B6D1E788F61005B37AF /* GAMEPLAY_ACTION_UPDATE_PLAYER.h */,
 			);
 			path = ACTION;
+			sourceTree = "<group>";
+		};
+		323C1B581E8B0F1B00CA3C19 /* VIBRATOR */ = {
+			isa = PBXGroup;
+			children = (
+				323C1B591E8B0F2A00CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp */,
+				323C1B5A1E8B0F2A00CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR.h */,
+				323C1B5C1E8B10A700CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp */,
+				323C1B5D1E8B10A700CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.h */,
+			);
+			path = VIBRATOR;
 			sourceTree = "<group>";
 		};
 		3263225C1E6D90FB007881DA /* NETWORK */ = {
@@ -3286,6 +3348,25 @@
 				32C27CB81E62CCA7008411C6 /* POPUP.h */,
 			);
 			path = BASE;
+			sourceTree = "<group>";
+		};
+		32D6D8B11E7B47B400EE8172 /* SOUND */ = {
+			isa = PBXGroup;
+			children = (
+				32D6D8B21E7B47B400EE8172 /* MP3 */,
+				32D6D8B31E7B47F900EE8172 /* RESOURCE_SOUND.cpp */,
+				32D6D8B41E7B47F900EE8172 /* RESOURCE_SOUND.h */,
+			);
+			path = SOUND;
+			sourceTree = "<group>";
+		};
+		32D6D8B21E7B47B400EE8172 /* MP3 */ = {
+			isa = PBXGroup;
+			children = (
+				32D6D8B61E7B480900EE8172 /* RESOURCE_SOUND_MP3_LOADER.cpp */,
+				32D6D8B71E7B480900EE8172 /* RESOURCE_SOUND_MP3_LOADER.h */,
+			);
+			path = MP3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3510,6 +3591,7 @@
 				321F72FC1E5A55A600E6710C /* GRAPHIC_TEXTURE_BLOCK.cpp in Sources */,
 				32C27CB91E62CCA7008411C6 /* POPUP.cpp in Sources */,
 				321F72FF1E5A55A600E6710C /* GRAPHIC_UI_FRAME_ADAPTER.cpp in Sources */,
+				3212F5791E7F379A00A49D79 /* AUDIO_OPENSL.cpp in Sources */,
 				321F72E71E5A55A600E6710C /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
 				321F72B71E5A55A600E6710C /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
 				321F72FB1E5A55A600E6710C /* GRAPHIC_TEXTURE_ATLAS.cpp in Sources */,
@@ -3538,10 +3620,12 @@
 				32277D4A1E733F2B00E1D4C9 /* GAMEPLAY_COMPONENT_POSITION_INTERPOLATION.cpp in Sources */,
 				32B51BDF1E6C90E90088E95F /* NETWORK_PLAYER.cpp in Sources */,
 				321F72D61E5A55A600E6710C /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
+				32196B721E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.cpp in Sources */,
 				321F72941E5A55A500E6710C /* CORE_MATH_SHAPE_TYPE.cpp in Sources */,
 				321F73181E5A55A600E6710C /* RESOURCE_IMAGE_PNG_WRITER.cpp in Sources */,
 				321F72C21E5A55A600E6710C /* GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp in Sources */,
 				32B51C041E6CD6190088E95F /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */,
+				3212F5751E7D9FCD00A49D79 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */,
 				321F731B1E5A55A600E6710C /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				321F730A1E5A55A600E6710C /* GRAPHIC_UI_PRESENTER.cpp in Sources */,
 				32C27CA01E60F2BA008411C6 /* GAMEPLAY_RULE_STATION.cpp in Sources */,
@@ -3560,11 +3644,13 @@
 				321F73751E5A57C100E6710C /* MULTIPLAYER_GAME_HUD_PAGE.cpp in Sources */,
 				321F731E1E5A55A600E6710C /* RESOURCE_COMPILER.cpp in Sources */,
 				32B51BEA1E6CA5180088E95F /* GAMEPLAY_ACTION_COMMAND_CLIENT_READY.cpp in Sources */,
+				32D6D8B51E7B47F900EE8172 /* RESOURCE_SOUND.cpp in Sources */,
 				321F72791E5A55A500E6710C /* CORE_ABSTRACT_RUNTIME_V8.cpp in Sources */,
 				32277D581E7467F900E1D4C9 /* GAMEPLAY_ACTION_END_TURN.cpp in Sources */,
 				321F73081E5A55A600E6710C /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
 				32C27CAF1E60F96D008411C6 /* GAMEPLAY_RULE_PARK.cpp in Sources */,
 				321F73061E5A55A600E6710C /* GRAPHIC_UI_HELPER.cpp in Sources */,
+				32196B6E1E788F61005B37AF /* GAMEPLAY_ACTION_UPDATE_PLAYER.cpp in Sources */,
 				32B51BD41E6C620E0088E95F /* GAMEPLAY_RULE_PROPERTY_SERVICE.cpp in Sources */,
 				321F73041E5A55A600E6710C /* GRAPHIC_UI_ELEMENT.cpp in Sources */,
 				321F73601E5A571F00E6710C /* SPLASH.cpp in Sources */,
@@ -3602,6 +3688,7 @@
 				321F729B1E5A55A500E6710C /* CORE_PARALLEL_LOCK_POSIX.cpp in Sources */,
 				321F72AD1E5A55A600E6710C /* GAMEPLAY_ACTION_SYSTEM.cpp in Sources */,
 				321F72971E5A55A500E6710C /* CORE_MEMORY_ALLOCATOR.cpp in Sources */,
+				323C1B5B1E8B0F2A00CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp in Sources */,
 				326322661E6E1142007881DA /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */,
 				32207CFB1E5B61C800DBCE53 /* GAMEPLAY_GAME_BOARD_CELL.cpp in Sources */,
 				321F73631E5A573100E6710C /* OPTIONS_PAGE.cpp in Sources */,
@@ -3625,6 +3712,7 @@
 				321F726D1E5A55A500E6710C /* AUDIO_SOUND.cpp in Sources */,
 				321F729E1E5A55A500E6710C /* CORE_PARALLEL_THREAD.cpp in Sources */,
 				321F73021E5A55A600E6710C /* GRAPHIC_UI_TEXT_ADAPTER.cpp in Sources */,
+				323C1B5E1E8B10A700CA3C19 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp in Sources */,
 				321F72E61E5A55A600E6710C /* GRAPHIC_SHADER_EFFECT.cpp in Sources */,
 				321F73201E5A55A600E6710C /* SERVICE_LOGGER.cpp in Sources */,
 				321F73211E5A55A600E6710C /* SERVICE_NETWORK_CLIENT.cpp in Sources */,
@@ -3665,6 +3753,7 @@
 				321F72EF1E5A55A600E6710C /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
 				321F727B1E5A55A500E6710C /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS.cpp in Sources */,
 				321F72CB1E5A55A600E6710C /* GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp in Sources */,
+				32D6D8B81E7B480900EE8172 /* RESOURCE_SOUND_MP3_LOADER.cpp in Sources */,
 				321F72DA1E5A55A600E6710C /* GRAPHIC_PARTICLE_MANAGER.cpp in Sources */,
 				321F72C61E5A55A600E6710C /* GRAPHIC_MESH_SUB_SKELETON.cpp in Sources */,
 				321F73781E5A57CB00E6710C /* MULTIPLAYER_GAME_HUD_PRESENTER.cpp in Sources */,
@@ -3887,6 +3976,7 @@
 				32651F481E71D0E6003F33E1 /* GRAPHIC_CAMERA.cpp in Sources */,
 				32651F491E71D0E6003F33E1 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
 				32651F4A1E71D0E6003F33E1 /* GRAPHIC_CAMERA_ORTHOGONAL.cpp in Sources */,
+				32196B731E78ACEF005B37AF /* GRAPHICS_CAMERA_MANAGER.cpp in Sources */,
 				32651F4B1E71D0E6003F33E1 /* GRAPHIC_MATERIAL.cpp in Sources */,
 				32651F4C1E71D0E6003F33E1 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
 				32651F4D1E71D0E6003F33E1 /* GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp in Sources */,
@@ -4159,6 +4249,21 @@
 					"__AUDIO_OPENAL__=1",
 					GTE_DISABLE_PCH,
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/Users/CBE/DevelopStatic/boost_1_54_0/,
+					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
+					/Users/CBE/DevelopStatic/libpng/made,
+					/Users/CBE/DevelopStatic/libpng,
+					"/Users/CBE/DevelopStatic/zlib-1.2.8",
+					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
+					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
+					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
+					"/Users/CBE/Downloads/libmpg123-ndk-develop/lib/jni/libmpg123",
+				);
 				INFOPLIST_FILE = MULTIPOLY/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -4179,6 +4284,21 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = /Users/CBE/DevelopStatic/COMPILED_LIBS_OSX/lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/Users/CBE/DevelopStatic/boost_1_54_0/,
+					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
+					/Users/CBE/DevelopStatic/libpng/made,
+					/Users/CBE/DevelopStatic/libpng,
+					"/Users/CBE/DevelopStatic/zlib-1.2.8",
+					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
+					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
+					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
+					"/Users/CBE/Downloads/libmpg123-ndk-develop/lib/jni/libmpg123",
+				);
 				INFOPLIST_FILE = MULTIPOLY/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (

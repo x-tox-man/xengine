@@ -89,7 +89,7 @@ bool GRAPHIC_SHADER::CompileShader( GLuint & shader, GLenum type,  const CORE_FI
     
     source[length] = '\0';
     
-    SERVICE_LOGGER_Info("%s\n", source );
+    //SERVICE_LOGGER_Info("%s\n", source );
     
     shader = glCreateShader( type );
     
