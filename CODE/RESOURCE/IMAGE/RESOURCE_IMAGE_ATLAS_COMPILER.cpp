@@ -211,7 +211,9 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
     
     RESOURCE_IMAGE * atlas_texture = new RESOURCE_IMAGE;
     
-    atlas_texture->SetImageRawData( CORE_MEMORY_ALLOCATOR::Allocate( side_size * side_size * 4 ) );
+    void * memory = CORE_MEMORY_ALLOCATOR::Allocate( (size_t) (side_size * side_size * 16 ) );
+    memset(memory, 18790648, (size_t) (side_size * side_size * 16 ));
+    atlas_texture->SetImageRawData( memory );
     atlas_texture->GetImageInfo().Height = side_size;
     atlas_texture->GetImageInfo().Width = side_size;
     atlas_texture->GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;
@@ -256,6 +258,16 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
             CORE_RUNTIME_Abort();
         }
     }
+    
+    ((uint8_t*)memory)[(((side_size * side_size ) * 3 ) -1) + 0] = 255;
+    ((uint8_t*)memory)[(((side_size * side_size ) * 3 ) -1) + 1] = 0;
+    ((uint8_t*)memory)[(((side_size * side_size ) * 3 ) -1) + 2] = 0;
+    ((uint8_t*)memory)[(((side_size * side_size ) * 3 ) -1) + 3] = 255;
+    
+    ((uint8_t*)memory)[(((side_size * side_size ) * 4 ) -1) + 0] = 255;
+    ((uint8_t*)memory)[(((side_size * side_size ) * 4 ) -1) + 1] = 0;
+    ((uint8_t*)memory)[(((side_size * side_size ) * 4 ) -1) + 2] = 0;
+    ((uint8_t*)memory)[(((side_size * side_size ) * 4 ) -1) + 3] = 255;
     
     CORE_DATA_STREAM
         stream( 128 );

@@ -272,7 +272,7 @@ CORE_FILESYSTEM file_system;
     
     char * test = (char *) CORE_MEMORY_ALLOCATOR_Allocate( (int) strlen("1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567\0"));
     
-    buffer.Setsections( 1 );
+    buffer.SetSections( 1 );
     buffer.InitializeWithMemory( 128, 1, (void*) test );
     
     stream.Open();
@@ -289,7 +289,7 @@ CORE_FILESYSTEM file_system;
     
     stream.Close();
     
-    XCTAssert( buffer2.Getsize() == buffer.Getsize() );
+    XCTAssert( buffer2.GetSize() == buffer.GetSize() );
     XCTAssert( strcmp( (char*)buffer2.getpointerAtIndex(0, 0), (char*) buffer.getpointerAtIndex(0, 0)) == 0 );
 }
 
@@ -390,7 +390,7 @@ CORE_FILESYSTEM file_system;
     
     images[0]->Blit(images[1], 0, 100, 5, 5, 0);
     
-    writer.Write( "/Users/CBE/DevelopProjects/game-engine/RESOURCES/IMAGES/blit.png", images[0] );
+    writer.Write( "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/IMAGES/blit.png", images[0] );
 }
 
 -(void) testSerialization {

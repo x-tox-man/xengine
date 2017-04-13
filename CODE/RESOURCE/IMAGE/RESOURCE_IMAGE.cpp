@@ -45,9 +45,8 @@ void RESOURCE_IMAGE::Blit( RESOURCE_IMAGE * image, int x_offset, int y_offset, i
     
     //int pixel_size = GRAPHIC_TEXTURE_INFO_GetPixelBitSizeByColorType(GetImageInfo().ImageType, GetImageInfo().ColorChannelWidth ) / 8;
     
-    int line_size = image->GetImageInfo().Width;
     float * ptr_dest = (float *) RawData;
-    const void * ptr_src = image->GetImageRawData();
+    const float * ptr_src = (const float *) image->GetImageRawData();
     
     if ( image->GetImageInfo().PixelSize != GetImageInfo().PixelSize ) {
         
@@ -56,10 +55,12 @@ void RESOURCE_IMAGE::Blit( RESOURCE_IMAGE * image, int x_offset, int y_offset, i
     
     ptr_dest += y_offset * GetImageInfo().Width + x_offset;
     
-    for (int i = 0; i < image->GetImageInfo().Height; i++ ) {
+    for (int i = 0; i < columns; i++ ) {
         
-        memcpy( (void*) ptr_dest, (void*)((int *)ptr_src + (i * line_size)), line_size * sizeof(float) );
+        memcpy( (void*) ptr_dest, (void*)ptr_src, rows * sizeof(float) );
         
         ptr_dest += GetImageInfo().Width;
+        
+        ptr_src += rows;
     }
 }

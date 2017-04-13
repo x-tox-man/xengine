@@ -16,6 +16,8 @@ XS_CLASS_BEGIN( GRAPHIC_WINDOW )
     GRAPHIC_WINDOW();
     virtual ~GRAPHIC_WINDOW();
 
+    virtual void Resize( int width, int height ) {}
+
 protected:
 
     Scalar_SGet( int, Height );

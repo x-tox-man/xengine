@@ -7,8 +7,38 @@
 //
 
 #import "AppDelegate.h"
+#import "Constants.h"
 
-@interface AppDelegate ()
+#include "CORE_MATH_QUATERNION.h"
+#include "CORE_MATH_MATRIX.h"
+#include "CORE_MATH_VECTOR.h"
+#include "CORE_MATH_RAY.h"
+#include "CORE_HELPERS_SCALAR.h"
+#include "CORE_MATH_SHAPE.h"
+#include "CORE_DATA_STREAM.h"
+#include "CORE_ABSTRACT_PROGRAM_LUA.h"
+#include "CORE_ABSTRACT_PROGRAM_MANAGER.h"
+#include "ScriptEntity.h"
+#include "RESOURCE.h"
+#include "RESOURCE_IMAGE.h"
+#include "RESOURCE_IMAGE_ATLAS_COMPILER.h"
+#include "RESOURCE_IMAGE_PNG_LOADER.h"
+#include "RESOURCE_IMAGE_PNG_WRITER.h"
+#include "CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.h"
+#include "CORE_DATA_BUFFER.h"
+#include "GRAPHIC_OBJECT.h"
+#include "GRAPHIC_MESH_MANAGER.h"
+#include "GRAPHIC_FONT.h"
+#include "GRAPHIC_GLYPH.h"
+#include "FONT_EDITOR.h"
+
+@interface AppDelegate () {
+    CORE_FILESYSTEM file_system;
+    RESOURCE_IMAGE_PNG_LOADER loader;
+    RESOURCE_IMAGE_PNG_WRITER writer;
+    RESOURCE_IMAGE_ATLAS_COMPILER atlas_compiler;
+    std::vector< RESOURCE_IMAGE *> images;
+}
 
 - (IBAction)saveAction:(id)sender;
 
@@ -17,12 +47,17 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+    
 }
 
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+- (IBAction)NewAtlasAction:(id)sender {
+    
+    
 }
 
 

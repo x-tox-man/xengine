@@ -28,6 +28,7 @@ void xs_user_write_warning_fn( png_struct * png_struct, const char *png_warning 
 void xs_write_row_callback( png_struct * png_ptr, png_uint_32 row, int pass ) {
     
     test++;
+    printf( "%d\n", row );
     /* put your code here */
 }
 
@@ -83,13 +84,13 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
     png_set_filter( png_ptr, 0, PNG_FILTER_NONE );
     
     /* set the zlib compression level */
-    png_set_compression_level( png_ptr, Z_BEST_COMPRESSION );
+    //png_set_compression_level( png_ptr, Z_BEST_COMPRESSION );
     /* set other zlib parameters */
-    png_set_compression_mem_level( png_ptr, 8 );
-    png_set_compression_strategy( png_ptr, Z_DEFAULT_STRATEGY );
-    png_set_compression_window_bits( png_ptr, 15 );
-    png_set_compression_method( png_ptr, 8 );
-    png_set_compression_buffer_size( png_ptr, 8192 );
+    //png_set_compression_mem_level( png_ptr, 8 );
+    //png_set_compression_strategy( png_ptr, Z_DEFAULT_STRATEGY );
+    //png_set_compression_window_bits( png_ptr, 15 );
+    //png_set_compression_method( png_ptr, 8 );
+    //png_set_compression_buffer_size( png_ptr, 8192 );
     
     switch (image->GetImageInfo().ImageType) {
             
@@ -127,8 +128,8 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
                          8,
                          PNG_COLOR_TYPE_RGB_ALPHA,
                          PNG_INTERLACE_NONE,
-                         PNG_COMPRESSION_TYPE_DEFAULT,
-                         PNG_FILTER_TYPE_DEFAULT);
+                         PNG_COMPRESSION_TYPE_BASE,
+                         PNG_FILTER_TYPE_BASE);
             
             break;
             
@@ -137,7 +138,14 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
             
     }
     
-    //png_write_image(png_ptr, (png_bytepp) image->GetImageRawData());
+    png_write_info( png_ptr, info_ptr );
+    
+    if (setjmp(png_jmpbuf(png_ptr))) {
+        
+        png_destroy_write_struct(&png_ptr, &info_ptr);
+        fclose(fp);
+        return false;
+    }
     
     int line_size = image->GetImageInfo().Width;
     
@@ -153,11 +161,12 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
     
     png_write_png( png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, NULL);
     
-    //png_write_info( png_ptr, info_ptr );
+    png_write_end( png_ptr, NULL );
     
-    //png_write_end( png_ptr, info_ptr );
+    png_free_data(png_ptr, info_ptr, PNG_FREE_ALL, -1);
+    png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
     
-    png_destroy_write_struct(&png_ptr, &info_ptr);
+    fclose(fp);
 
     CORE_MEMORY_ALLOCATOR_Free( header );
 	CORE_MEMORY_ALLOCATOR_Free( ptr );

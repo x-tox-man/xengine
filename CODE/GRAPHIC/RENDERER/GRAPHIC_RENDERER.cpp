@@ -41,3 +41,8 @@ void GRAPHIC_RENDERER::EnableScissor( bool enable ) {
     ScissorIsEnabled = enable;
     GRAPHIC_SYSTEM::EnableScissor( enable );
 }
+
+void GRAPHIC_RENDERER::Resize(int width, int height) {
+    
+    ResizeViewCallback( width, height );
+}

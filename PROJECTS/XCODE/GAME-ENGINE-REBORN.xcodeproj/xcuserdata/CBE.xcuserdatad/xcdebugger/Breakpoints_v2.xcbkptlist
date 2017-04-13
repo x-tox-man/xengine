@@ -9,14 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../CODE/RESOURCE/MESH/GRAPHIC_MESH_LOADER_COLLADA.cpp"
-            timestampString = "509632825.926506"
+            filePath = "../../CODE/RESOURCE/IMAGE/PNG/RESOURCE_IMAGE_PNG_WRITER.cpp"
+            timestampString = "513638984.741179"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "COLLADA_LOADER_WRITER::CopyVertexDataToBuffer( const COLLADAFW::FloatOrDoubleArray &amp; array, const CORE_HELPERS_IDENTIFIER * identifier, CORE_DATA_BUFFER &amp; buffer, int marker_index, int vertices_count )"
-            landmarkType = "7">
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "xs_png_write_error_callback( png_struct * png_struct, const char *png_error )"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -25,14 +25,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../CODE/RESOURCE/MESH/GRAPHIC_MESH_LOADER_COLLADA.cpp"
-            timestampString = "509632825.926506"
+            filePath = "../../CODE/RESOURCE/IMAGE/PNG/RESOURCE_IMAGE_PNG_WRITER.cpp"
+            timestampString = "513638985.426826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "630"
-            endingLineNumber = "630"
-            landmarkName = "COLLADA_LOADER_WRITER::writeAnimation( const COLLADAFW::Animation* animation )"
-            landmarkType = "7">
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "xs_user_write_warning_fn( png_struct * png_struct, const char *png_warning )"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

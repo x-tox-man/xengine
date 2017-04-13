@@ -42,11 +42,12 @@ void APPLICATION_SERVER_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * 
         
         GameIsStarting = true;
         
-        APPLICATION_GAMEPLAY_COMMAND_LOAD_GAME
+        abort();
+        /*APPLICATION_GAMEPLAY_COMMAND_LOAD_GAME
             command;
         
         
-        Server->DispatchMessageToAllPlayers( APPLICATION_COMMAND_MANAGER::CreateNetworkCommand(command));
+        Server->DispatchMessageToAllPlayers( APPLICATION_COMMAND_MANAGER::CreateNetworkCommand(command));*/
     }
 }
 

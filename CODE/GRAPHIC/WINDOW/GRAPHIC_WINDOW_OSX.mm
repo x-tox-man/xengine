@@ -37,6 +37,20 @@ void GRAPHIC_WINDOW_OSX::EnableBackgroundContext(bool enable) {
     [glView enableBackgroundContext:(BOOL)enable];
 }
 
+void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
+    
+    SetWidth( width );
+    SetHeight( height );
+    
+    CGRect newFrame = glView.frame;
+    newFrame.size.width = width;
+    newFrame.size.height = height;
+    [glView setFrame:newFrame];
+    [glView.superview setFrame:newFrame];
+    
+    GRAPHIC_RENDERER::GetInstance().Resize(width, height);
+}
+
 @implementation CustomGlView
 
 - (id) initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format

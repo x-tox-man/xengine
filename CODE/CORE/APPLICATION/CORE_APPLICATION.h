@@ -68,8 +68,10 @@ XS_CLASS_BEGIN( CORE_APPLICATION )
     
     protected :
     
-    GRAPHIC_WINDOW * ApplicationWindow;
-    static CORE_APPLICATION * Instance;
+    GRAPHIC_WINDOW
+        * ApplicationWindow;
+    static CORE_APPLICATION
+        * Instance;
     
 XS_CLASS_END
 

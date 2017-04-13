@@ -236,7 +236,7 @@
     {
         void * base = buffer.getpointerAtIndex( 0 );
         void * temporary = CORE_MEMORY_ALLOCATOR::Allocate( buffer.GetSize() );
-        int sections = buffer.Getsections();
+        int sections = buffer.GetSections();
         memcpy(temporary, base, buffer.GetSize());
         
         int test = buffer.getSectionSize( 0 );

@@ -16,6 +16,10 @@
     CGPoint initialPoint;
 }
 
+- (IBAction)NewAtlasAction:(id)sender {
+    
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application

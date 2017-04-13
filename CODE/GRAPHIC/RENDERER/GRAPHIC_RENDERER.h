@@ -67,6 +67,9 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
 
     inline bool IsColorEnabled() { return ColorEnabled; }
     inline void EnableColor( bool enable ) { ColorEnabled = enable; }
+    inline void SetResizeViewCallback(CORE_HELPERS_CALLBACK_2<int, int> & callback) {ResizeViewCallback = callback; }
+
+    void Resize(int width, int height);
 
 private :
     
@@ -75,6 +78,8 @@ private :
         * ShadowMapCamera;
     CORE_HELPERS_CALLBACK
         * RenderCallback;
+    CORE_HELPERS_CALLBACK_2<int, int>
+        ResizeViewCallback;
     GRAPHIC_SHADER_LIGHT
         * DirectionalLight,
         * PointLightTable[4], // curently shaders have only 2 lights of each type, this is a fixed shader value

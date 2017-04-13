@@ -38,6 +38,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_OSX, GRAPHIC_WINDOW )
     CustomGlView * GetGlView() { return glView; }
 
     virtual void EnableBackgroundContext(bool enable) override;
+    virtual void Resize( int width, int height ) override;
 
 private :
 

@@ -14,8 +14,9 @@
 #include "SERVICE_NETWORK_COMMAND.h"
 #include "SERVICE_NETWORK_CONNECTION.h"
 #include "CORE_HELPERS_UNIQUE_IDENTIFIER.h"
-#include <string>
 #include "CORE_DATA_MODEL.h"
+
+#include <string>
 
 #define OUTGOING_MESSAGE_QUEUE_SIZE 36
 
