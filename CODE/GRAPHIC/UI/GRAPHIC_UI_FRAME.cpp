@@ -272,8 +272,21 @@ void GRAPHIC_UI_FRAME::AddObject( GRAPHIC_UI_ELEMENT * element ) {
     }
 }
 
-void GRAPHIC_UI_FRAME::RemoveObject( GRAPHIC_UI_ELEMENT * ) {
+void GRAPHIC_UI_FRAME::RemoveObject( GRAPHIC_UI_ELEMENT * element ) {
     
+    std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
+    
+    while ( it != ElementTable.end() ) {
+        
+        if ( (*it ) == element ) {
+            
+            ElementTable.erase( it );
+            
+            break;
+        }
+        
+        it++;
+    }
 }
 
 void GRAPHIC_UI_FRAME::RemoveObjects() {

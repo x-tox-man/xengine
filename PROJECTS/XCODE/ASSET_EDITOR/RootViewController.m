@@ -22,6 +22,10 @@
     
     self.applicationMainScreen = new GRAPHIC_WINDOW_OSX();
     
+    CORE_HELPERS_CALLBACK_1<const char *> callback( &Wrapper1<ASSET_EDITOR, const char *, &ASSET_EDITOR::OnDraggedPath>, self.Application );
+    
+    self.applicationMainScreen->SetOndraggedCallback(callback );
+    
     self.applicationMainScreen->Initialize();
     self.applicationMainScreen->Resize( 1024, 768 );
     
@@ -36,7 +40,6 @@
 
     // Update the view, if already loaded.
 }
-
 
 -(void) viewWillAppear {
     

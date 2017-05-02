@@ -11,7 +11,8 @@
 #import <AppKit/AppKit.h>
 #import <GLKit/GLKit.h>
 #import <Cocoa/Cocoa.h>
-#include "GRAPHIC_WINDOW.h"
+#import "GRAPHIC_WINDOW.h"
+#import "CORE_HELPERS_CALLBACK.h"
 
 @interface CustomGlView : NSOpenGLView< NSWindowDelegate >
 
@@ -39,6 +40,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_OSX, GRAPHIC_WINDOW )
 
     virtual void EnableBackgroundContext(bool enable) override;
     virtual void Resize( int width, int height ) override;
+
+    static void SetOndraggedCallback( const CORE_HELPERS_CALLBACK_1<const char *> & callback) { OndraggedCallback = callback; }
+
+    static CORE_HELPERS_CALLBACK_1< const char * >
+        OndraggedCallback;
 
 private :
 

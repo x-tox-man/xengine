@@ -31,6 +31,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_2( GRAPHIC_TEXTURE_ATLAS, GRAPHIC_TEXTURE, RESOURCE
     void AddTexture( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_MATH_VECTOR & size, const CORE_MATH_VECTOR & offset );
     GRAPHIC_TEXTURE_BLOCK & GetTextureBlock( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) { return TextureBlockTable[ identifier ]; }
 
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER , GRAPHIC_TEXTURE_BLOCK > & GetTextureBlockTable() { return TextureBlockTable; }
+
 private:
 
     std::map< CORE_HELPERS_UNIQUE_IDENTIFIER , GRAPHIC_TEXTURE_BLOCK >

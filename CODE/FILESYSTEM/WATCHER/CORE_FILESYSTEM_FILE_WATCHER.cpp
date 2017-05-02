@@ -24,7 +24,7 @@ void CORE_FILESYSTEM_FILE_WATCHER::Setup( const char * path, const CORE_HELPERS_
     
     Callback = callback;
     
-    #if PLATFORM_OSX
+    #if PLATFORM_OSX && DEBUG
         CORE_FILESYSTEM_FILE_WATCHER_OSX *Watcher;
 
         Watcher = [[CORE_FILESYSTEM_FILE_WATCHER_OSX alloc] init];

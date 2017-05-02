@@ -9,6 +9,7 @@
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "GRAPHIC_SHADER_PROGRAM.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
+#include "CORE_APPLICATION.h"
 
 GRAPHIC_SHADER_EFFECT_LOADER::GRAPHIC_SHADER_EFFECT_LOADER() :
     RESOURCE_LOADER() {
@@ -56,6 +57,7 @@ GRAPHIC_SHADER_EFFECT * GRAPHIC_SHADER_EFFECT_LOADER::Load( const void * memory,
 void GRAPHIC_SHADER_EFFECT_LOADER::ReloadResource( GRAPHIC_SHADER_EFFECT * resource_to_reload ) {
     
     //resource_to_reload->GetProgram().GetProgram()->Finalize();
+    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
     
     resource_to_reload->GetProgram().SetProgram( new GRAPHIC_SHADER_PROGRAM );
     resource_to_reload->GetProgram().GetProgram()->Initialize();
@@ -71,4 +73,7 @@ void GRAPHIC_SHADER_EFFECT_LOADER::ReloadResource( GRAPHIC_SHADER_EFFECT * resou
     #endif
     
     resource_to_reload->Initialize( resource_to_reload->GetSahderBind() );
+    
+    
+    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
 }

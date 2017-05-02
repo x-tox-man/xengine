@@ -12,6 +12,13 @@
 		3212C3C91DD2567000B3033E /* GAME-ENGINE-REBORN.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32899BF3180D3DC8002AA472 /* GAME-ENGINE-REBORN.app */; };
 		321911EE1E5331B300CF29A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321911ED1E5331B300CF29A2 /* Assets.xcassets */; };
 		321B5CC31B8EE33900C0CE2D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321B5CC21B8EE33900C0CE2D /* AppKit.framework */; };
+		321F89341EA79C1E001A7E78 /* LeftPane3DViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 321F89321EA79C1E001A7E78 /* LeftPane3DViewController.m */; };
+		321F89351EA79C1E001A7E78 /* LeftPane3DViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 321F89331EA79C1E001A7E78 /* LeftPane3DViewController.xib */; };
+		321F89391EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F89371EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp */; };
+		321F893A1EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F89371EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp */; };
+		321F893B1EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F89371EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp */; };
+		321F893C1EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F89371EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp */; };
+		321F893D1EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F89371EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp */; };
 		322050DD1C12E24700BAC545 /* main_window.lua in Resources */ = {isa = PBXBuildFile; fileRef = 322050DC1C12E24700BAC545 /* main_window.lua */; };
 		3223F2BC1B41D2C4003FBEB3 /* TestClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3223F2BA1B41D2C4003FBEB3 /* TestClass.cpp */; };
 		3223F2BF1B41D2CD003FBEB3 /* TestClass2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3223F2BD1B41D2CD003FBEB3 /* TestClass2.cpp */; };
@@ -1508,6 +1515,7 @@
 		327F472F1E3E1BA80088D7F4 /* UIShaderColored.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 327F471A1E3E1BA80088D7F4 /* UIShaderColored.vsh */; };
 		327F47301E3E1BA80088D7F4 /* UIShaderTextured.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 327F471B1E3E1BA80088D7F4 /* UIShaderTextured.fsh */; };
 		327F47311E3E1BA80088D7F4 /* UIShaderTextured.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 327F471C1E3E1BA80088D7F4 /* UIShaderTextured.vsh */; };
+		327F84AA1EA18DAB00F1334F /* CreateFontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 327F84A91EA18DAB00F1334F /* CreateFontViewController.m */; };
 		3283948E184B9B8D0005CA58 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3283948C184B9B8D0005CA58 /* Application.cpp */; };
 		32840AE219E472A10005FEB1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32840AE119E472A10005FEB1 /* main.m */; };
 		32840AE519E472A10005FEB1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32840AE419E472A10005FEB1 /* AppDelegate.m */; };
@@ -1595,9 +1603,16 @@
 		329FABCE1B6829DB004396A7 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329FABCD1B6829DB004396A7 /* CoreFoundation.framework */; };
 		329FABD01B6829E6004396A7 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329FABCF1B6829E6004396A7 /* GLKit.framework */; };
 		329FAD0C1B69378A004396A7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 329FAD0B1B69378A004396A7 /* libz.dylib */; };
+		32A672C91EB21BB8007B0E3E /* ResourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A672C71EB21BB8007B0E3E /* ResourceList.m */; };
+		32A672CA1EB21BB8007B0E3E /* ResourceList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A672C81EB21BB8007B0E3E /* ResourceList.xib */; };
 		32ADAB2C1B128C60000038F5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32ADAB2B1B128C60000038F5 /* AudioToolbox.framework */; };
 		32ADAB2E1B13CFAE000038F5 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32ADAB2D1B13CFAE000038F5 /* CoreAudio.framework */; };
 		32ADFE7D1E92DC4B0039E893 /* CreateItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32ADFE7C1E92DC4B0039E893 /* CreateItemViewController.m */; };
+		32AFECED1EB731B8006664AB /* CppUIDataProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AFECEC1EB731B8006664AB /* CppUIDataProxy.m */; };
+		32AFECF91EB902AE006664AB /* RESOURCE_CONTAINER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32AFECF81EB902AE006664AB /* RESOURCE_CONTAINER.cpp */; };
+		32AFECFB1EB902C4006664AB /* RESOURCE_CONTAINER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32AFECFA1EB902C4006664AB /* RESOURCE_CONTAINER.cpp */; };
+		32AFECFE1EB90408006664AB /* RESOURCE_PROXY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32AFECFC1EB90408006664AB /* RESOURCE_PROXY.cpp */; };
+		32AFED011EB919EE006664AB /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AFED001EB919EE006664AB /* MainSplitViewController.m */; };
 		32B240FF1BC318D4009A0DC0 /* FullScreenSpeedBlurShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 32B240FD1BC318D4009A0DC0 /* FullScreenSpeedBlurShader.fsh */; };
 		32B241011BC318D4009A0DC0 /* FullScreenSpeedBlurShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 32B240FE1BC318D4009A0DC0 /* FullScreenSpeedBlurShader.vsh */; };
 		32B303A31DC6959F002EF7FF /* APPLICATION_NETWORK_BROWSER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B303A11DC6959F002EF7FF /* APPLICATION_NETWORK_BROWSER.cpp */; };
@@ -1708,6 +1723,7 @@
 		32E97A201D87585500C2E00C /* BasicParticleShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 32E97A1F1D87585500C2E00C /* BasicParticleShader.vsh */; };
 		32EB474D19EFCFF100123D8C /* libbuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32EB473E19EFCFF100123D8C /* libbuffer.a */; };
 		32EFD5231AF8219D0071A5A3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32EFD5221AF8219D0071A5A3 /* Carbon.framework */; };
+		32F24BA61EA6C6AF00D19613 /* VIEWER3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F24BA41EA6C6AF00D19613 /* VIEWER3D.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1742,6 +1758,11 @@
 		321911ED1E5331B300CF29A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		321911F21E5331B300CF29A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		321B5CC21B8EE33900C0CE2D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		321F89311EA79C1E001A7E78 /* LeftPane3DViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftPane3DViewController.h; sourceTree = "<group>"; };
+		321F89321EA79C1E001A7E78 /* LeftPane3DViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftPane3DViewController.m; sourceTree = "<group>"; };
+		321F89331EA79C1E001A7E78 /* LeftPane3DViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftPane3DViewController.xib; sourceTree = "<group>"; };
+		321F89371EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_CAMERA.cpp; sourceTree = "<group>"; };
+		321F89381EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_CAMERA.h; sourceTree = "<group>"; };
 		322050DC1C12E24700BAC545 /* main_window.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main_window.lua; sourceTree = "<group>"; };
 		3223F2BA1B41D2C4003FBEB3 /* TestClass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestClass.cpp; sourceTree = "<group>"; };
 		3223F2BB1B41D2C4003FBEB3 /* TestClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestClass.h; sourceTree = "<group>"; };
@@ -2147,7 +2168,7 @@
 		3238F50E1E90E80400838C62 /* GRAPHIC_UI_ELEMENT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_UI_ELEMENT.cpp; sourceTree = "<group>"; };
 		3238F50F1E90E80400838C62 /* GRAPHIC_UI_ELEMENT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_UI_ELEMENT.h; sourceTree = "<group>"; };
 		3238F5101E90E80400838C62 /* GRAPHIC_UI_ELEMENT_STATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_UI_ELEMENT_STATE.h; sourceTree = "<group>"; };
-		3238F5111E90E80400838C62 /* GRAPHIC_UI_FRAME.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_UI_FRAME.cpp; sourceTree = "<group>"; };
+		3238F5111E90E80400838C62 /* GRAPHIC_UI_FRAME.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_UI_FRAME.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		3238F5121E90E80400838C62 /* GRAPHIC_UI_FRAME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_UI_FRAME.h; sourceTree = "<group>"; };
 		3238F5131E90E80400838C62 /* GRAPHIC_UI_HELPER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_UI_HELPER.cpp; sourceTree = "<group>"; };
 		3238F5141E90E80400838C62 /* GRAPHIC_UI_HELPER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_UI_HELPER.h; sourceTree = "<group>"; };
@@ -2517,6 +2538,8 @@
 		327F471A1E3E1BA80088D7F4 /* UIShaderColored.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = UIShaderColored.vsh; sourceTree = "<group>"; };
 		327F471B1E3E1BA80088D7F4 /* UIShaderTextured.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = UIShaderTextured.fsh; sourceTree = "<group>"; };
 		327F471C1E3E1BA80088D7F4 /* UIShaderTextured.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = UIShaderTextured.vsh; sourceTree = "<group>"; };
+		327F84A81EA18DAB00F1334F /* CreateFontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateFontViewController.h; sourceTree = "<group>"; };
+		327F84A91EA18DAB00F1334F /* CreateFontViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CreateFontViewController.m; sourceTree = "<group>"; };
 		3283948C184B9B8D0005CA58 /* Application.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Application.cpp; sourceTree = "<group>"; };
 		3283948D184B9B8D0005CA58 /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
 		32840ADD19E472A10005FEB1 /* gamePOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gamePOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2559,10 +2582,22 @@
 		329FABCD1B6829DB004396A7 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		329FABCF1B6829E6004396A7 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
 		329FAD0B1B69378A004396A7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
+		32A672C61EB21BB8007B0E3E /* ResourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceList.h; sourceTree = "<group>"; };
+		32A672C71EB21BB8007B0E3E /* ResourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceList.m; sourceTree = "<group>"; };
+		32A672C81EB21BB8007B0E3E /* ResourceList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResourceList.xib; sourceTree = "<group>"; };
 		32ADAB2B1B128C60000038F5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		32ADAB2D1B13CFAE000038F5 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		32ADFE7C1E92DC4B0039E893 /* CreateItemViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CreateItemViewController.m; sourceTree = "<group>"; };
 		32ADFE7E1E92F57C0039E893 /* CreateItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateItemViewController.h; sourceTree = "<group>"; };
+		32AFECEB1EB731B8006664AB /* CppUIDataProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CppUIDataProxy.h; sourceTree = "<group>"; };
+		32AFECEC1EB731B8006664AB /* CppUIDataProxy.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CppUIDataProxy.m; sourceTree = "<group>"; };
+		32AFECF61EB8D95E006664AB /* RESOURCE_CONTAINER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESOURCE_CONTAINER.h; sourceTree = "<group>"; };
+		32AFECF81EB902AE006664AB /* RESOURCE_CONTAINER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RESOURCE_CONTAINER.cpp; path = ../RESOURCE_CONTAINER.cpp; sourceTree = "<group>"; };
+		32AFECFA1EB902C4006664AB /* RESOURCE_CONTAINER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RESOURCE_CONTAINER.cpp; sourceTree = "<group>"; };
+		32AFECFC1EB90408006664AB /* RESOURCE_PROXY.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RESOURCE_PROXY.cpp; sourceTree = "<group>"; };
+		32AFECFD1EB90408006664AB /* RESOURCE_PROXY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESOURCE_PROXY.h; sourceTree = "<group>"; };
+		32AFECFF1EB919EE006664AB /* MainSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
+		32AFED001EB919EE006664AB /* MainSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
 		32B240FD1BC318D4009A0DC0 /* FullScreenSpeedBlurShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = FullScreenSpeedBlurShader.fsh; sourceTree = "<group>"; };
 		32B240FE1BC318D4009A0DC0 /* FullScreenSpeedBlurShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = FullScreenSpeedBlurShader.vsh; sourceTree = "<group>"; };
 		32B303A11DC6959F002EF7FF /* APPLICATION_NETWORK_BROWSER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APPLICATION_NETWORK_BROWSER.cpp; sourceTree = "<group>"; };
@@ -2635,6 +2670,8 @@
 		32EB474A19EFCFF100123D8C /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcre.a; sourceTree = "<group>"; };
 		32EB474B19EFCFF100123D8C /* libUTF.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUTF.a; sourceTree = "<group>"; };
 		32EFD5221AF8219D0071A5A3 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		32F24BA41EA6C6AF00D19613 /* VIEWER3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VIEWER3D.cpp; sourceTree = "<group>"; };
+		32F24BA51EA6C6AF00D19613 /* VIEWER3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIEWER3D.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2879,14 +2916,18 @@
 		321911E01E5331B300CF29A2 /* ASSET_EDITOR */ = {
 			isa = PBXGroup;
 			children = (
-				32E0A1A21E9CF59B00B14365 /* ImageView */,
 				32BFC8201E9A428C0080BF8E /* Constants.h */,
+				32A672C51EB21BA2007B0E3E /* RESOURCE_MANAGER */,
+				327F84A71EA18D9100F1334F /* Font */,
+				32E0A1A21E9CF59B00B14365 /* ImageView */,
 				32BFC8211E9A780C0080BF8E /* Atlas */,
 				324FBCF51E92F7D000329999 /* LeftPane */,
 				324FBCF41E92F7AD00329999 /* CreateItem */,
 				3261CEEF1E91229E000872F4 /* AppDelegate.h */,
 				3261CEF01E91229E000872F4 /* AppDelegate.m */,
 				3261CEFD1E9122B3000872F4 /* Main.storyboard */,
+				32AFECFF1EB919EE006664AB /* MainSplitViewController.h */,
+				32AFED001EB919EE006664AB /* MainSplitViewController.m */,
 				3261CEF51E91229E000872F4 /* main.m */,
 				3261CEF61E91229E000872F4 /* RootViewController.h */,
 				3261CEF71E91229E000872F4 /* RootViewController.m */,
@@ -2897,6 +2938,8 @@
 				3238F17B1E8FC69300838C62 /* ASSET_EDITOR.h */,
 				32D7E9E11E913C91000F5703 /* ASSET_SCREEN.cpp */,
 				32D7E9E21E913C91000F5703 /* ASSET_SCREEN.h */,
+				32F24BA41EA6C6AF00D19613 /* VIEWER3D.cpp */,
+				32F24BA51EA6C6AF00D19613 /* VIEWER3D.h */,
 			);
 			path = ASSET_EDITOR;
 			sourceTree = "<group>";
@@ -2918,6 +2961,15 @@
 				3232785B1CB5BC9D00DF6FDA /* arial_black_12.fxb */,
 			);
 			path = FONTS;
+			sourceTree = "<group>";
+		};
+		321F89361EAEAC5C001A7E78 /* CAMERA */ = {
+			isa = PBXGroup;
+			children = (
+				321F89371EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp */,
+				321F89381EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.h */,
+			);
+			path = CAMERA;
 			sourceTree = "<group>";
 		};
 		3229D9521E20331B00D7911E /* PRESENTER */ = {
@@ -3551,6 +3603,7 @@
 		3238F4221E90E80400838C62 /* GAMEPLAY */ = {
 			isa = PBXGroup;
 			children = (
+				321F89361EAEAC5C001A7E78 /* CAMERA */,
 				3238F4231E90E80400838C62 /* ACTION */,
 				3238F4361E90E80400838C62 /* COMPONENT */,
 				3238F4571E90E80400838C62 /* SCENE */,
@@ -4148,6 +4201,10 @@
 			children = (
 				3238F5501E90E80400838C62 /* IMAGE */,
 				3238F55B1E90E80400838C62 /* MESH */,
+				32AFECFA1EB902C4006664AB /* RESOURCE_CONTAINER.cpp */,
+				32AFECF61EB8D95E006664AB /* RESOURCE_CONTAINER.h */,
+				32AFECFC1EB90408006664AB /* RESOURCE_PROXY.cpp */,
+				32AFECFD1EB90408006664AB /* RESOURCE_PROXY.h */,
 				3238F55E1E90E80400838C62 /* RESOURCE.cpp */,
 				3238F55F1E90E80400838C62 /* RESOURCE.h */,
 				3238F5601E90E80400838C62 /* RESOURCE_CACHE.cpp */,
@@ -4197,6 +4254,7 @@
 		3238F55B1E90E80400838C62 /* MESH */ = {
 			isa = PBXGroup;
 			children = (
+				32AFECF81EB902AE006664AB /* RESOURCE_CONTAINER.cpp */,
 				3238F55C1E90E80400838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp */,
 				3238F55D1E90E80400838C62 /* GRAPHIC_MESH_LOADER_COLLADA.h */,
 			);
@@ -4491,6 +4549,11 @@
 				3261CEF21E91229E000872F4 /* LeftPaneViewController.xib */,
 				3261CEF31E91229E000872F4 /* LeftPaneViewController.h */,
 				3261CEF41E91229E000872F4 /* LeftPaneViewController.m */,
+				321F89311EA79C1E001A7E78 /* LeftPane3DViewController.h */,
+				321F89321EA79C1E001A7E78 /* LeftPane3DViewController.m */,
+				321F89331EA79C1E001A7E78 /* LeftPane3DViewController.xib */,
+				32AFECEB1EB731B8006664AB /* CppUIDataProxy.h */,
+				32AFECEC1EB731B8006664AB /* CppUIDataProxy.m */,
 			);
 			name = LeftPane;
 			sourceTree = "<group>";
@@ -4632,6 +4695,15 @@
 				3278CFC31ABF45C7003F5459 /* Body1.png */,
 			);
 			path = IMAGES;
+			sourceTree = "<group>";
+		};
+		327F84A71EA18D9100F1334F /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				327F84A81EA18DAB00F1334F /* CreateFontViewController.h */,
+				327F84A91EA18DAB00F1334F /* CreateFontViewController.m */,
+			);
+			name = Font;
 			sourceTree = "<group>";
 		};
 		32839488184B9B720005CA58 /* Application */ = {
@@ -4851,6 +4923,18 @@
 			path = OPENGLES2;
 			sourceTree = "<group>";
 		};
+		32A672C51EB21BA2007B0E3E /* RESOURCE_MANAGER */ = {
+			isa = PBXGroup;
+			children = (
+				32AFECF31EB8D720006664AB /* ASSET */,
+				32AFECF41EB8D720006664AB /* RESOURCE */,
+				32A672C61EB21BB8007B0E3E /* ResourceList.h */,
+				32A672C71EB21BB8007B0E3E /* ResourceList.m */,
+				32A672C81EB21BB8007B0E3E /* ResourceList.xib */,
+			);
+			path = RESOURCE_MANAGER;
+			sourceTree = "<group>";
+		};
 		32ADAB251B123DB8000038F5 /* AUDIO */ = {
 			isa = PBXGroup;
 			children = (
@@ -4895,6 +4979,20 @@
 				323F0F501CE7EAFB00F8CA96 /* Chris.geom-chris-base-skin1.abx */,
 			);
 			path = MODELS;
+			sourceTree = "<group>";
+		};
+		32AFECF31EB8D720006664AB /* ASSET */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ASSET;
+			sourceTree = "<group>";
+		};
+		32AFECF41EB8D720006664AB /* RESOURCE */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RESOURCE;
 			sourceTree = "<group>";
 		};
 		32B303AB1DC6B758002EF7FF /* NAVIGATION */ = {
@@ -5283,7 +5381,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3261CEFF1E9122B3000872F4 /* Main.storyboard in Resources */,
+				32A672CA1EB21BB8007B0E3E /* ResourceList.xib in Resources */,
 				3261CEF91E91229E000872F4 /* LeftPaneViewController.xib in Resources */,
+				321F89351EA79C1E001A7E78 /* LeftPane3DViewController.xib in Resources */,
 				321911EE1E5331B300CF29A2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5568,6 +5668,8 @@
 				3238FA6A1E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */,
 				3238F9521E90E80600838C62 /* NETWORK_CLIENT.cpp in Sources */,
 				3238F8C61E90E80600838C62 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
+				321F893D1EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */,
+				321F89341EA79C1E001A7E78 /* LeftPane3DViewController.m in Sources */,
 				3238FA101E90E80700838C62 /* GteLogReporter.cpp in Sources */,
 				3238F6911E90E80500838C62 /* CORE_MATH_POSE.cpp in Sources */,
 				3238F7771E90E80500838C62 /* GAMEPLAY_COMPONENT_RENDER.cpp in Sources */,
@@ -5591,6 +5693,7 @@
 				3238F8261E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_SPHERE.cpp in Sources */,
 				3238F9AC1E90E80700838C62 /* RESOURCE_SOUND_MP3_LOADER.cpp in Sources */,
 				3238F6E11E90E80500838C62 /* CORE_PARALLEL_TASK.cpp in Sources */,
+				32AFECED1EB731B8006664AB /* CppUIDataProxy.m in Sources */,
 				3238F6871E90E80500838C62 /* CORE_HELPERS_UNIQUE.cpp in Sources */,
 				3238F91B1E90E80600838C62 /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
 				3238F7451E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */,
@@ -5650,6 +5753,7 @@
 				3238F9841E90E80600838C62 /* RESOURCE_IMAGE_PNG_WRITER.cpp in Sources */,
 				3238F81C1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_LINE.cpp in Sources */,
 				3238F9431E90E80600838C62 /* GRAPHIC_WINDOW_OSX.mm in Sources */,
+				32F24BA61EA6C6AF00D19613 /* VIEWER3D.cpp in Sources */,
 				3238F9661E90E80600838C62 /* PERIPHERIC_INTERACTION_MOUSE.cpp in Sources */,
 				3238F74F1E90E80500838C62 /* GAMEPLAY_ACTION_SYSTEM.cpp in Sources */,
 				3238F87B1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_LOADER.cpp in Sources */,
@@ -5678,6 +5782,7 @@
 				3238F92F1E90E80600838C62 /* GRAPHIC_UI_TEXT.cpp in Sources */,
 				3238F5D81E90E80400838C62 /* AUDIO_BANK.cpp in Sources */,
 				3238F7F41E90E80500838C62 /* GRAPHIC_OBJECT_ANIMATED.cpp in Sources */,
+				32AFED011EB919EE006664AB /* MainSplitViewController.m in Sources */,
 				3238F7B81E90E80500838C62 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
 				3238F8B71E90E80600838C62 /* OPENGL_3.cpp in Sources */,
 				3238F8D01E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
@@ -5723,6 +5828,7 @@
 				3238F7541E90E80500838C62 /* GAMEPLAY_COMPONENT.cpp in Sources */,
 				3238F9751E90E80600838C62 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp in Sources */,
 				3238F75E1E90E80500838C62 /* GAMEPLAY_COMPONENT_ANIMATION.cpp in Sources */,
+				327F84AA1EA18DAB00F1334F /* CreateFontViewController.m in Sources */,
 				3238F6D21E90E80500838C62 /* CORE_PARALLEL_LOCK_MUTEX.cpp in Sources */,
 				3238F65F1E90E80500838C62 /* CORE_DATA_STREAM.cpp in Sources */,
 				3238F8031E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
@@ -5761,6 +5867,7 @@
 				3238F6321E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA.cpp in Sources */,
 				3238F83A1E90E80600838C62 /* GRAPHIC_PARTICLE_SYSTEM.cpp in Sources */,
 				3238FA421E90E80700838C62 /* GteEdgeKey.cpp in Sources */,
+				32A672C91EB21BB8007B0E3E /* ResourceList.m in Sources */,
 				3238F9CF1E90E80700838C62 /* SERVICE_NETWORK_CONNECTION_INFO.cpp in Sources */,
 				3238F67D1E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
 				3238F9701E90E80600838C62 /* PERIPHERIC_INTERACTION_TOUCH.cpp in Sources */,
@@ -6030,6 +6137,7 @@
 				3238F72B1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */,
 				325A73AB1E522F530046520B /* ScriptEntity.cpp in Sources */,
 				3238F6631E90E80500838C62 /* CORE_HELPERS_CALLBACK.cpp in Sources */,
+				321F893B1EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */,
 				3238F5D71E90E80400838C62 /* AUDIO_BANK.cpp in Sources */,
 				3238FA731E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */,
 				3238F8BB1E90E80600838C62 /* OPENGLES_2.cpp in Sources */,
@@ -6231,6 +6339,7 @@
 				3238F9C31E90E80700838C62 /* SERVICE_NETWORK_COMMAND.cpp in Sources */,
 				3238F8A11E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */,
 				3238F8EC1E90E80600838C62 /* GRAPHIC_UI_FRAME_ADAPTER.cpp in Sources */,
+				321F893A1EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */,
 				3238FA4A1E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
 				3238F9641E90E80600838C62 /* PERIPHERIC_INTERACTION_MOUSE.cpp in Sources */,
 				3238FA681E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */,
@@ -6383,6 +6492,7 @@
 				32B303AE1DC6B764002EF7FF /* APPLICATION_SCREENS_NAVIGATION.cpp in Sources */,
 				3238F6291E90E80500838C62 /* CORE_ABSTRACT_RUNTIME_V8.cpp in Sources */,
 				3238F9E41E90E80700838C62 /* GteEnvironment.cpp in Sources */,
+				32AFECFE1EB90408006664AB /* RESOURCE_PROXY.cpp in Sources */,
 				3238FA701E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */,
 				3238F6A61E90E80500838C62 /* CORE_MATH_SHAPE_RECTANGLE.cpp in Sources */,
 				3238F6791E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
@@ -6476,6 +6586,7 @@
 				3238F5E81E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */,
 				327217611DC6609600777CD8 /* APPLICATION_GAMEPLAY_COMMAND_ORDER_ATTACK.cpp in Sources */,
 				3238F6061E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp in Sources */,
+				32AFECF91EB902AE006664AB /* RESOURCE_CONTAINER.cpp in Sources */,
 				3238F73C1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.cpp in Sources */,
 				3238F9A31E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
 				32B303A31DC6959F002EF7FF /* APPLICATION_NETWORK_BROWSER.cpp in Sources */,
@@ -6491,6 +6602,7 @@
 				3238F8311E90E80600838C62 /* GRAPHIC_PARTICLE_MANAGER.cpp in Sources */,
 				3238F5F71E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
 				3238F8CC1E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
+				32AFECFB1EB902C4006664AB /* RESOURCE_CONTAINER.cpp in Sources */,
 				3238F9301E90E80600838C62 /* GRAPHIC_WINDOW.cpp in Sources */,
 				3238F83B1E90E80600838C62 /* GRAPHIC_PARTICLE_MODIFIER_GRAVITY.cpp in Sources */,
 				3238F7BE1E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_JOINT.cpp in Sources */,
@@ -6543,6 +6655,7 @@
 				3238F9031E90E80600838C62 /* GRAPHIC_UI_ELEMENT.cpp in Sources */,
 				3238F8131E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.cpp in Sources */,
 				3238F8A41E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
+				321F89391EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */,
 				32E4CBF81E34B85D00E79F0D /* NETWORK_GAME_PLAYER.cpp in Sources */,
 				3238F8FE1E90E80600838C62 /* GRAPHIC_UI_ANIMATION.cpp in Sources */,
 				3238F8EF1E90E80600838C62 /* GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp in Sources */,
@@ -6655,6 +6768,7 @@
 				3238FA711E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */,
 				3238F6A71E90E80500838C62 /* CORE_MATH_SHAPE_RECTANGLE.cpp in Sources */,
 				3238F67A1E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
+				321F893C1EAEAC6C001A7E78 /* GAMEPLAY_CAMERA.cpp in Sources */,
 				3238F6B11E90E80500838C62 /* CORE_MATH_SHAPE_TYPE.cpp in Sources */,
 				3238F6891E90E80500838C62 /* CORE_MATH_MATRIX.cpp in Sources */,
 				3238F7CE1E90E80500838C62 /* GRAPHIC_MESH_SUB_SKELETON.cpp in Sources */,

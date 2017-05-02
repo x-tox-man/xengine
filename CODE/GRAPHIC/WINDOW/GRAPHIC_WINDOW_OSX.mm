@@ -22,9 +22,14 @@ GRAPHIC_WINDOW_OSX::~GRAPHIC_WINDOW_OSX() {
     
 }
 
+CORE_HELPERS_CALLBACK_1< const char * >
+    GRAPHIC_WINDOW_OSX::OndraggedCallback;
+
 void GRAPHIC_WINDOW_OSX::Initialize()
 {
     glView = [[CustomGlView alloc] initWithFrame:NSMakeRect( GetPositionX(), GetPositionY(), GetWidth(), GetHeight())];
+    
+    [glView registerForDraggedTypes:[NSArray arrayWithObjects: NSFilenamesPboardType, nil]];
 }
 
 void GRAPHIC_WINDOW_OSX::Display() {
@@ -52,6 +57,47 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
 }
 
 @implementation CustomGlView
+
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
+    
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    
+    if ([[pboard types] containsObject:NSFilenamesPboardType]) {
+        
+        NSArray *paths = [pboard propertyListForType:NSFilenamesPboardType];
+        for (NSString *path in paths) {
+            NSError *error = nil;
+            NSString *utiType = [[NSWorkspace sharedWorkspace]
+                                 typeOfFile:path error:&error];
+            if (![[NSWorkspace sharedWorkspace]
+                  type:utiType conformsToType:(id)kUTTypeFolder]) {
+                
+                return NSDragOperationEvery;
+            }
+        }
+    }
+    
+    return NSDragOperationEvery;
+}
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
+    
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    
+    if ([[pboard types] containsObject:NSFilenamesPboardType]) {
+        
+        NSArray *paths = [pboard propertyListForType:NSFilenamesPboardType];
+        
+        for (NSString *path in paths) {
+            
+            if ( GRAPHIC_WINDOW_OSX::OndraggedCallback.IsConnected() ) {
+                
+                GRAPHIC_WINDOW_OSX::OndraggedCallback( [path cStringUsingEncoding:NSASCIIStringEncoding] );
+            }
+        }
+    }
+    return YES;
+}
 
 - (id) initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format
 {

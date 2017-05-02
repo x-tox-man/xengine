@@ -21,7 +21,7 @@
     void (^eventHandler)(void), (^cancelHandler)(void);
     unsigned long mask = DISPATCH_VNODE_WRITE;
     
-    /*eventHandler = ^{
+    eventHandler = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             unsigned long l = dispatch_source_get_data(source);
             if (l & DISPATCH_VNODE_DELETE) {
@@ -43,7 +43,7 @@
     dispatch_resume(source);
     
     eventHandler = NULL;
-    cancelHandler = NULL;*/
+    cancelHandler = NULL;
     //dispatch_main();
 }
 

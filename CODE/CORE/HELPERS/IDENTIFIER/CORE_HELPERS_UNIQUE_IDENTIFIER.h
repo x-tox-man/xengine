@@ -26,7 +26,7 @@ XS_DEFINE_SERIALIZABLE
         return CheckSum == other.CheckSum;
     }
 
-    char * GetIdentifier() { return Identifier; }
+    const char * GetIdentifier() const { return Identifier; }
 
     CORE_HELPERS_UNIQUE_IDENTIFIER & operator = ( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ){
         

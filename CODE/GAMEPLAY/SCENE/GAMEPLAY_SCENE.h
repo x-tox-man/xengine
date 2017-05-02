@@ -17,24 +17,24 @@
 
 XS_CLASS_BEGIN( GAMEPLAY_SCENE )
 
-CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_SCENE );
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_SCENE );
 
-GAMEPLAY_SCENE();
-~GAMEPLAY_SCENE();
+    GAMEPLAY_SCENE();
+    ~GAMEPLAY_SCENE();
 
-static void Ping();
+    static void Ping();
 
-void Update( float time_step );
-void Render();
+    void Update( float time_step );
+    void Render();
 
-std::vector< GAMEPLAY_COMPONENT_SYSTEM * > & GetUpdatableSystemTable() { return UpdatableSystemTable; };
-std::vector< GAMEPLAY_COMPONENT_SYSTEM * > & GetRenderableSystemTable() { return RenderableSystemTable; };
+    std::vector< GAMEPLAY_COMPONENT_SYSTEM * > & GetUpdatableSystemTable() { return UpdatableSystemTable; };
+    std::vector< GAMEPLAY_COMPONENT_SYSTEM * > & GetRenderableSystemTable() { return RenderableSystemTable; };
 
-void InsertUpdatableSystem( GAMEPLAY_COMPONENT_SYSTEM * system );
-void InsertRenderableSystem( GAMEPLAY_COMPONENT_SYSTEM * system );
+    void InsertUpdatableSystem( GAMEPLAY_COMPONENT_SYSTEM * system );
+    void InsertRenderableSystem( GAMEPLAY_COMPONENT_SYSTEM * system );
 
-std::vector< GAMEPLAY_COMPONENT_SYSTEM * > UpdatableSystemTable;
-std::vector< GAMEPLAY_COMPONENT_SYSTEM * > RenderableSystemTable;
+    std::vector< GAMEPLAY_COMPONENT_SYSTEM * > UpdatableSystemTable;
+    std::vector< GAMEPLAY_COMPONENT_SYSTEM * > RenderableSystemTable;
 
 XS_CLASS_END
 

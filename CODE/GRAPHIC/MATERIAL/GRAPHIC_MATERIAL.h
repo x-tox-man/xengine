@@ -13,13 +13,14 @@
 #include "GRAPHIC_RENDERER.h"
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
+#include "CORE_HELPERS_COLOR.h"
 
 XS_CLASS_BEGIN( GRAPHIC_MATERIAL )
 
-GRAPHIC_MATERIAL();
-~GRAPHIC_MATERIAL();
+    GRAPHIC_MATERIAL();
+    ~GRAPHIC_MATERIAL();
 
-GRAPHIC_MATERIAL(const char * image_path, const char * effect_name, const GRAPHIC_SHADER_BIND bind);
+    GRAPHIC_MATERIAL(const char * image_path, const char * effect_name, const GRAPHIC_SHADER_BIND bind);
 
     void Apply( GRAPHIC_RENDERER & renderer );
     void Discard( GRAPHIC_RENDERER & renderer );
@@ -28,12 +29,18 @@ GRAPHIC_MATERIAL(const char * image_path, const char * effect_name, const GRAPHI
     void SetTexture( GRAPHIC_TEXTURE_BLOCK * texture ) {Texture = texture; }
 
     GRAPHIC_SHADER_EFFECT * GetEffect() {return Effect; }
-    void SetEffect( GRAPHIC_SHADER_EFFECT * effect ) {Effect = effect; }
+    inline void SetEffect( GRAPHIC_SHADER_EFFECT * effect ) {Effect = effect; }
+    inline const CORE_HELPERS_COLOR & GetColor() { return Color; }
+    inline void SetColor( const CORE_HELPERS_COLOR & color ) { Color = color; }
 
 private:
 
-GRAPHIC_TEXTURE_BLOCK * Texture;
-GRAPHIC_SHADER_EFFECT * Effect;
+    GRAPHIC_TEXTURE_BLOCK
+        * Texture;
+    GRAPHIC_SHADER_EFFECT
+        * Effect;
+    CORE_HELPERS_COLOR
+        Color;
 
 XS_CLASS_END
 

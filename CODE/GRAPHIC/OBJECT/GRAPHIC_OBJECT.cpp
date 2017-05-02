@@ -131,10 +131,18 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer ) {
         GRAPHIC_SHADER_ATTRIBUTE * normal_texture = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::NormalTexture );
         GRAPHIC_SHADER_ATTRIBUTE * geometry_color = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
         
-        GFX_CHECK( glUniform4fv(
-                                geometry_color->AttributeIndex,
-                                1,
-                                (const GLfloat * ) &Color[0] ); )
+        if ( renderer.IsColorEnabled() ) {
+            GFX_CHECK( glUniform4fv(
+                                    geometry_color->AttributeIndex,
+                                    1,
+                                    (const GLfloat * ) &Color[0] ); )
+        }
+        else{
+            GFX_CHECK( glUniform4fv(
+                                    geometry_color->AttributeIndex,
+                                    1,
+                                    (const GLfloat * ) &CORE_MATH_VECTOR::One[0] ); )
+        }
         
         if ( MeshTable[i]->GetTexture() != NULL  ) {
             
@@ -164,7 +172,6 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer ) {
         
         object_matrix.Scale( ScaleFactor[0], ScaleFactor[1], ScaleFactor[2] );
         object_matrix *= orientation_mat;
-        
         
         result = renderer.GetCamera().GetProjectionMatrix();
         result *= renderer.GetCamera().GetViewMatrix();

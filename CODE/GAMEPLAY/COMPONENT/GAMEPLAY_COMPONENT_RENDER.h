@@ -17,6 +17,7 @@
 #include "GRAPHIC_OBJECT.h"
 #include "CORE_MATH_SHAPE.h"
 #include "GAMEPLAY_COMPONENT_POSITION.h"
+#include "GRAPHIC_MATERIAL.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
@@ -37,10 +38,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
     void SetObject( GRAPHIC_OBJECT * object ) { Object = object; }
     GRAPHIC_OBJECT * GetObject() { return Object; }
-    void SetColor( const CORE_HELPERS_COLOR & color ) { Color = color; }
-    void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
-    void SetProgram( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR program) { Program = program; }
-    GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR GetProgram() { return Program; }
+    inline void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
+    inline void SetMaterial( GRAPHIC_MATERIAL * material ) { Material = material; }
+    inline const GRAPHIC_MATERIAL * GetMaterial() { return Material; }
 
 private :
 
@@ -48,10 +48,8 @@ private :
         * Object;
     CORE_MATH_SHAPE
         * BoundingObject;
-    GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR
-        Program;
-    CORE_HELPERS_COLOR
-        Color;
+    GRAPHIC_MATERIAL
+        * Material;
     float
         ScaleFactor;
 

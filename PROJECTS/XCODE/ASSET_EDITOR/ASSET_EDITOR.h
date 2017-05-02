@@ -17,6 +17,9 @@
 #include "ASSET_SCREEN.h"
 #include "CORE_DATA_TYPES.h"
 #include "CORE_HELPERS_COLOR.h"
+#include "GRAPHIC_UI_TEXT.h"
+#include "GRAPHIC_MESH_MANAGER.h"
+#include "VIEWER3D.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(ASSET_EDITOR, CORE_APPLICATION)
 
@@ -29,24 +32,29 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(ASSET_EDITOR, CORE_APPLICATION)
     virtual void Update( float time_step ) override;
     virtual void Render() override;
 
-    GRAPHIC_UI_ELEMENT * CreateItem( const char * item_name, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor );
-    GRAPHIC_UI_FRAME * CreateFrame( const char * item_name, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor );
+    GRAPHIC_UI_ELEMENT * CreateUIText( const char * item_name, const char * text_value, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor, GRAPHIC_UI_FRAME * parent = NULL );
+    GRAPHIC_UI_ELEMENT * CreateUIItem( const char * item_name, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor, GRAPHIC_UI_FRAME * parent = NULL );
+    GRAPHIC_UI_FRAME * CreateUIFrame( const char * item_name, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor, GRAPHIC_UI_FRAME * parent = NULL );
 
     GRAPHIC_UI_RENDER_STYLE * SetStyleForItem( int state, GRAPHIC_UI_ELEMENT * item, const char * texture_name, const CORE_HELPERS_COLOR & color );
 
-    ASSET_SCREEN & GetGUIView() { return BaseUiScreen; }
+    void Create3dObject(const char * path);
+
+    ASSET_SCREEN & GetGUIView() { return BaseUiScreen; }
+
+    void OnDraggedPath( const char * );
 
 private:
 
     void OnScreenResized( int, int );
 
-
-    CORE_FILESYSTEM
-        DefaultFileystem;
     GRAPHIC_CAMERA_ORTHOGONAL
         * InterfaceCamera;
     ASSET_SCREEN
         BaseUiScreen;
+    VIEWER3D
+        Viewer3d;
+    
 
 XS_CLASS_END
 

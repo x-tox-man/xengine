@@ -33,11 +33,16 @@
 #include "FONT_EDITOR.h"
 
 @interface AppDelegate () {
-    CORE_FILESYSTEM file_system;
-    RESOURCE_IMAGE_PNG_LOADER loader;
-    RESOURCE_IMAGE_PNG_WRITER writer;
-    RESOURCE_IMAGE_ATLAS_COMPILER atlas_compiler;
-    std::vector< RESOURCE_IMAGE *> images;
+    RESOURCE_IMAGE_PNG_LOADER
+        loader;
+    RESOURCE_IMAGE_PNG_WRITER
+        writer;
+    RESOURCE_IMAGE_ATLAS_COMPILER
+        atlas_compiler;
+    std::vector< RESOURCE_IMAGE *>
+        images;
+    CORE_FILESYSTEM
+        DefaultFileystem;
 }
 
 - (IBAction)saveAction:(id)sender;
@@ -47,6 +52,43 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    
+#if PLATFORM_OSX
+    
+    // Create the File Open Dialog class.
+    NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+    
+    // Enable the selection of files in the dialog.
+    [openDlg setTitle:@"Select your starting resource directectory"];
+    [openDlg setCanChooseFiles:NO];
+    
+    
+    // Enable the selection of directories in the dialog.
+    [openDlg setCanChooseDirectories:YES];
+    NSString * DirectoryPath = @"";
+    
+    // Display the dialog.  If the OK button was pressed,
+    // process the files.
+    if ( [openDlg runModalForDirectory:nil file:nil] == NSModalResponseOK )
+    {
+        // Get an array containing the full filenames of all
+        // files and directories selected.
+        NSArray* files = [openDlg filenames];
+        DirectoryPath =[files objectAtIndex:0];
+    }
+    
+    DirectoryPath = [DirectoryPath stringByAppendingString:@"/"];
+    
+    DefaultFileystem.Initialize( [DirectoryPath cStringUsingEncoding:NSASCIIStringEncoding] );
+#elif PLATFORM_IOS
+    DefaultFileystem.Initialize( "None" );
+#elif PLATFORM_ANDROID
+    //DefaultFileystem.Initialize( "None" );
+#elif PLATFORM_WINDOWS
+    DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\game-engine-clean\\RESOURCES\\" );
+#endif
+    
+    CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );
     
 }
 

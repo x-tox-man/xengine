@@ -10,24 +10,13 @@
 #include "GRAPHIC_RENDERER.h"
 #include "GRAPHIC_UI_SYSTEM.h"
 #include "CORE_HELPERS_CALLBACK.h"
+#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 
 ASSET_EDITOR::ASSET_EDITOR() :
     CORE_APPLICATION(),
-    DefaultFileystem(),
-    InterfaceCamera(),
-    BaseUiScreen() {
-    
-#if PLATFORM_OSX
-        DefaultFileystem.Initialize( "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/" );
-#elif PLATFORM_IOS
-        DefaultFileystem.Initialize( "None" );
-#elif PLATFORM_ANDROID
-        //DefaultFileystem.Initialize( "None" );
-#elif PLATFORM_WINDOWS
-        DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\game-engine-clean\\RESOURCES\\" );
-#endif
-        
-        CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );
+    InterfaceCamera( NULL ),
+    BaseUiScreen(),
+    Viewer3d() {
         
     SetApplicationInstance( *this );
 }
@@ -59,6 +48,8 @@ void ASSET_EDITOR::Initialize() {
     
     GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() ) );
     GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(&BaseUiScreen, "BaseView" );
+    
+    Viewer3d.Initialize();
 }
 
 void ASSET_EDITOR::Finalize() {
@@ -67,17 +58,52 @@ void ASSET_EDITOR::Finalize() {
 
 void ASSET_EDITOR::Update( float time_step ) {
     
+    Viewer3d.Update( time_step );
     GRAPHIC_UI_SYSTEM::GetInstance().Update(time_step);
 }
 
 void ASSET_EDITOR::Render() {
+    
+    Viewer3d.Render();
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( InterfaceCamera );
     
     GRAPHIC_UI_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
 }
 
-GRAPHIC_UI_ELEMENT * ASSET_EDITOR::CreateItem( const char * item_name, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor ) {
+GRAPHIC_UI_ELEMENT * ASSET_EDITOR::CreateUIText( const char * item_name, const char * text_value, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor, GRAPHIC_UI_FRAME * parent ) {
+    
+    GRAPHIC_UI_TEXT * element = new GRAPHIC_UI_TEXT;
+    
+    element->SetSize(12);
+    element->SetText( text_value );
+    element->SetSize( 1.0f );
+    element->SetColor( CORE_COLOR_Red );
+    element->SetFont( &BaseUiScreen.GetFont() );
+    
+    element->GetPlacement().Initialize( &BaseUiScreen.GetPlacement(),
+                                       position,
+                                       CORE_MATH_VECTOR::One,
+                                           anchor );
+    
+    element->Initialize();
+    
+    if ( parent == NULL ) {
+        
+        BaseUiScreen.AddObject( element );
+    
+        BaseUiScreen.OnPlacementPropertyChanged();
+    }
+    else {
+        parent->AddObject( element );
+        
+        parent->OnPlacementPropertyChanged();
+    }
+    
+    return element;
+}
+
+GRAPHIC_UI_ELEMENT * ASSET_EDITOR::CreateUIItem( const char * item_name, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor, GRAPHIC_UI_FRAME * parent ) {
     
     GRAPHIC_UI_ELEMENT * element = new GRAPHIC_UI_ELEMENT;
     
@@ -85,18 +111,39 @@ GRAPHIC_UI_ELEMENT * ASSET_EDITOR::CreateItem( const char * item_name, const COR
     element->GetPlacement().Initialize(&BaseUiScreen.GetPlacement(), position, size, anchor);
     
     element->Initialize();
-    BaseUiScreen.AddObject( element );
+    
+    if ( parent == NULL ) {
+        
+        BaseUiScreen.AddObject( element );
+        BaseUiScreen.OnPlacementPropertyChanged();
+    }
+    else {
+        parent->AddObject( element );
+        parent->OnPlacementPropertyChanged();
+    }
     
     return element;
 }
 
-GRAPHIC_UI_FRAME * ASSET_EDITOR::CreateFrame( const char * item_name, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor ) {
+GRAPHIC_UI_FRAME * ASSET_EDITOR::CreateUIFrame( const char * item_name, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor, GRAPHIC_UI_FRAME * parent ) {
     
     GRAPHIC_UI_FRAME * frame = new GRAPHIC_UI_FRAME;
     
     frame->SetIdentifier( CORE_HELPERS_IDENTIFIER( item_name ) );
     frame->SetPosition( position );
     frame->GetPlacement().SetSize( size );
+    
+    frame->Initialize();
+    
+    if ( parent == NULL ) {
+        
+        BaseUiScreen.AddObject( frame );
+        BaseUiScreen.OnPlacementPropertyChanged();
+    }
+    else {
+        parent->AddObject( frame );
+        parent->OnPlacementPropertyChanged();
+    }
     
     return frame;
 }
@@ -119,4 +166,9 @@ void ASSET_EDITOR::OnScreenResized( int width, int height ) {
     
     delete InterfaceCamera;
     InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, width, height, CORE_MATH_VECTOR(0.0f, 0.0f), interface_lookat );
+}
+
+void ASSET_EDITOR::OnDraggedPath( const char * path ) {
+    
+    Viewer3d.Load( path );
 }

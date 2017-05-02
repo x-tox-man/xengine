@@ -11,7 +11,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface LeftPaneViewController : NSViewController<NSMenuDelegate, NSTableViewDelegate, NSTableViewDataSource>
+@interface LeftPaneViewController : NSViewController<NSMenuDelegate, NSOutlineViewDelegate,NSOutlineViewDataSource>
 
 - (IBAction)CreateItemButtonClicked:(id)sender;
 - (IBAction)DeleteItemButtonClicked:(id)sender;
@@ -21,7 +21,7 @@
 
 @property (weak) IBOutlet NSMenu *Menu;
 @property (weak) IBOutlet NSPopUpButtonCell *PopupButton;
-@property (weak) IBOutlet NSTableView *TableView;
+@property (weak) IBOutlet NSOutlineView *OutlineView;
 
 @end
 

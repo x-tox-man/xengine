@@ -21,4 +21,3 @@ void main()
     
     colorOut = o_normal + colorVarying* 0.005f + diffuse*0.1f;
 }
-

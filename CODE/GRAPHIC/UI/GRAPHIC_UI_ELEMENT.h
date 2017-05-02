@@ -42,6 +42,8 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
     virtual void Hover( const CORE_MATH_VECTOR & cursor_position );
     virtual void Hover( const bool force_hover );
 
+    virtual int GetChildCount() { return -1; }
+
     virtual GRAPHIC_UI_ELEMENT * Contains( const CORE_MATH_VECTOR & cursor_position );
     virtual GRAPHIC_UI_ELEMENT * GetObjectForIdentifier( const CORE_HELPERS_IDENTIFIER & );
 

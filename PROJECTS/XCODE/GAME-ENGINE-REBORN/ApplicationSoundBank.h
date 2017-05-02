@@ -18,16 +18,16 @@ XS_CLASS_BEGIN( ApplicationSoundBank )
 
 CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( ApplicationSoundBank );
 
-ApplicationSoundBank();
-~ApplicationSoundBank();
+    ApplicationSoundBank();
+    ~ApplicationSoundBank();
 
-const CORE_HELPERS_IDENTIFIER & GetSoundIdentifier( int sound_id );
+    const CORE_HELPERS_IDENTIFIER & GetSoundIdentifier( int sound_id );
 
-const static CORE_HELPERS_IDENTIFIER
-    BellSound,
-    BubbleSound,
-    ElectricSound,
-    RammsteinSound;
+    const static CORE_HELPERS_IDENTIFIER
+        BellSound,
+        BubbleSound,
+        ElectricSound,
+        RammsteinSound;
 
 XS_CLASS_END
 

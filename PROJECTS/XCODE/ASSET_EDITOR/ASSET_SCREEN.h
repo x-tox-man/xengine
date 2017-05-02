@@ -13,6 +13,8 @@
 #include "GRAPHIC_UI_ELEMENT.h"
 #include "GRAPHIC_UI_FRAME.h"
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
+#include "GRAPHIC_TEXTURE_ATLAS.h"
+#include "GRAPHIC_FONT.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(ASSET_SCREEN, GRAPHIC_UI_FRAME)
 
@@ -20,9 +22,22 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(ASSET_SCREEN, GRAPHIC_UI_FRAME)
     virtual ~ASSET_SCREEN();
 
     virtual void Initialize() override;
+    void LoadAtlas( const char *, const char * );
 
     static GRAPHIC_TEXTURE * CreateTextureFromImagePath(const char * image_path);
     static GRAPHIC_OBJECT_SHAPE_PLAN * CreateUIPlanShape( GRAPHIC_SHADER_EFFECT * effect );
+
+    void LoadFont(const char * font_path, const char * font_image_path );
+    GRAPHIC_FONT & GetFont() { return Font; }
+
+    GRAPHIC_TEXTURE_ATLAS & GetAtlas() { return Atlas; }
+
+private :
+    GRAPHIC_TEXTURE_ATLAS
+        Atlas;
+    GRAPHIC_FONT
+        Font;
+
 
 XS_CLASS_END
 
