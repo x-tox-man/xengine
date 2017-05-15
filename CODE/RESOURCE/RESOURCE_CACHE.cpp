@@ -10,6 +10,7 @@
 #include "RESOURCE.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 
 #if PLATFORM_OSX && DEBUG
 template<>

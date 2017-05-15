@@ -16,9 +16,32 @@
 #include "CORE_FILESYSTEM_PATH.h"
 #include "RESOURCE_CACHE.h"
 #include "CORE_FILESYSTEM_FILE_WATCHER.h"
+#include "CORE_HELPERS_FACTORY.h"
+
+class BASE_RESOURCE {
+    
+public:
+    
+    BASE_RESOURCE() {
+        
+    }
+    
+    virtual ~BASE_RESOURCE() {
+        
+    }
+    
+    virtual void Load( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {}
+    
+    CORE_HELPERS_FACTORY_Define( BASE_RESOURCE, RESOURCE_TYPE );
+    
+protected :
+    
+    CORE_HELPERS_UNIQUE_IDENTIFIER
+        Identifier;
+};
 
 template <typename __CHILD_RESOURCE_TYPE__, typename __CHILD_RESOURCE_LOADER_TYPE__ >
-class RESOURCE {
+class RESOURCE : BASE_RESOURCE {
 
 public:
     
@@ -28,6 +51,11 @@ public:
     
     virtual ~RESOURCE() {
         
+    }
+    
+    virtual void Load( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) override {
+        
+        ResourceCache->LoadResourceFromStream( identifier, stream );
     }
     
     inline const CORE_HELPERS_UNIQUE_IDENTIFIER & GetIdentifier() const { return Identifier; }
@@ -47,6 +75,11 @@ public:
         return ResourceCache->GetResourceForIdentifier( identifier );
     }
     
+    void LoadResource( CORE_DATA_STREAM & stream ) {
+        
+        __CHILD_RESOURCE_TYPE__::LoadResource( stream );
+    }
+    
     static void FlushCache() {
         
         ResourceCache->FlushCache();
@@ -58,6 +91,7 @@ public:
     }
     
 public :
+    
     #if DEBUG
     
         CORE_FILESYSTEM_FILE_WATCHER Watcher;
@@ -67,11 +101,6 @@ public :
             ResourceCache->ReloadResourceForKey( Identifier );
         }
     #endif
-    
-private :
-    
-    CORE_HELPERS_UNIQUE_IDENTIFIER Identifier;
-    
 };
 
 template <typename __CHILD_RESOURCE_TYPE__, typename __CHILD_RESOURCE_LOADER_TYPE__ >

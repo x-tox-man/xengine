@@ -12,6 +12,7 @@
 #include "CORE_APPLICATION.h"
 #include "GRAPHIC_RENDERER.h"
 #include "GRAPHIC_OBJECT.h"
+#include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 #include "GRAPHIC_MESH.h"
 #include "GRAPHIC_MESH_MANAGER.h"
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"

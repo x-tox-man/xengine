@@ -14,6 +14,7 @@
 #include "CORE_HELPERS_UNIQUE_IDENTIFIER.h"
 #include "CORE_FILESYSTEM_PATH.h"
 #include "CORE_HELPERS_CALLBACK.h"
+#include "CORE_DATA_STREAM.h"
 
 template < typename __RESOURCE_TYPE__, typename __RESOURCE_LOADER__ >
 class RESOURCE_CACHE {
@@ -54,6 +55,17 @@ public:
         if ( ItemMap.find( identifier ) == ItemMap.end() ) {
             
             ItemMap[ identifier ] = (__RESOURCE_TYPE__ *) loader.Load( path, identifier );
+            ItemMap[ identifier ]->SetIdentifier( identifier );
+        }
+        
+        return ItemMap[ identifier ];
+    }
+    
+    __RESOURCE_TYPE__ * LoadResourceFromStream( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {
+        
+        if ( ItemMap.find( identifier ) == ItemMap.end() ) {
+            
+            ItemMap[ identifier ] = (__RESOURCE_TYPE__ *) loader.Load( stream, identifier );
             ItemMap[ identifier ]->SetIdentifier( identifier );
         }
         

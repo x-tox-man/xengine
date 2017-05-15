@@ -9,6 +9,7 @@
 #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 #include "GRAPHIC_OBJECT.h"
 #include "GRAPHIC_MESH_LOADER_COLLADA.h"
+#include "CORE_DATA_STREAM.h"
 
 GRAPHIC_OBJECT_RESOURCE_LOADER::GRAPHIC_OBJECT_RESOURCE_LOADER() :
     RESOURCE_LOADER() {
@@ -60,21 +61,14 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( const CORE_FILESYSTEM_PAT
     return object;
 }
 
-GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( const void * memory, unsigned int size, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( CORE_DATA_STREAM & stream, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     GRAPHIC_OBJECT
         * object = new GRAPHIC_OBJECT;
     
-    CORE_DATA_STREAM stream( (const char * ) memory, (int) size );
-    
-    stream.Open();
-    stream.ResetOffset();
-    
     SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
     
     XS_CLASS_SERIALIZER< GRAPHIC_OBJECT >::Serialize<std::false_type>( *object, stream );
-    
-    stream.Close();
     
     return object;
 }

@@ -101,9 +101,24 @@ void GRAPHIC_UI_ELEMENT::Update( const float time_step ) {
 
 void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
     
-    if ( IsVisible() && RenderStyleTable[ (unsigned int) CurrentState ] ) {
+    if ( IsVisible() ) {
         
-        RenderStyleTable[ CurrentState ]->Apply( renderer, Placement, Opacity );
+        if (  RenderStyleTable[ (unsigned int) CurrentState ] ) {
+            
+            RenderStyleTable[ CurrentState ]->Apply( renderer, Placement, Opacity );
+        }
+        else {
+            
+            for (int i = 0; i< RenderStyleTable.size(); i++) {
+                
+                if ( RenderStyleTable[ CurrentState ] != NULL ) {
+                    
+                    RenderStyleTable[ i ]->Apply( renderer, Placement, Opacity );
+                    
+                    break;
+                }
+            }
+        }
     }
 }
 

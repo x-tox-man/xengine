@@ -55,6 +55,41 @@ public:
         return true;
     }
     
+    static bool Load( __TYPE_TO_SERIALIZE__ * object, const CORE_FILESYSTEM_PATH & path, CORE_DATA_STREAM & stream ) {
+        
+        CORE_FILESYSTEM_FILE
+            file( path );
+        
+        if ( !file.OpenOutput() ) {
+            
+            return false;
+        }
+        
+        int file_size = file.GetSize();
+        
+        stream.InitializeWithSize( file_size );
+        
+        int bytes_read = file.OutputBytes(stream.GetMemoryBuffer(), file_size );
+        
+        if ( bytes_read != file_size ) {
+            
+            file.Close();
+            
+            return false;
+        }
+        
+        file.Close();
+        
+        stream.Open();
+        stream.ResetOffset();
+        
+        SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
+        
+        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__ >::template Serialize<std::false_type>( *object, stream );
+        
+        return true;
+    }
+    
     static bool Save( __TYPE_TO_SERIALIZE__ * object, const CORE_FILESYSTEM_PATH & path ) {
         
         CORE_DATA_STREAM

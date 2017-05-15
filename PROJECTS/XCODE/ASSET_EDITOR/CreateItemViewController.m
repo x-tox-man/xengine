@@ -22,6 +22,15 @@
     
     self.TableView.delegate  = self;
     self.TableView.dataSource = self;
+    
+    [[NSColorPanel sharedColorPanel] setShowsAlpha:YES];
+    
+    [NSColor setIgnoresAlpha:NO];
+}
+
+-(void)viewWillAppear {
+    [self.ColorWell setColor:[NSColor whiteColor]];
+    [self.ColorWell setAlphaValue:1.0f];
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -232,6 +241,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@CREATE_OBJECT_NOTIFICATION object:nil];
 }
+
 - (IBAction)OnMenuItemChanged:(id)sender {
     
 }

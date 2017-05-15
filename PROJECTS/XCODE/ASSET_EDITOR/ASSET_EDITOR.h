@@ -20,11 +20,15 @@
 #include "GRAPHIC_UI_TEXT.h"
 #include "GRAPHIC_MESH_MANAGER.h"
 #include "VIEWER3D.h"
+#include "RESOURCE_CONTAINER.h"
+#include "ASSET.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(ASSET_EDITOR, CORE_APPLICATION)
 
     ASSET_EDITOR();
     virtual ~ASSET_EDITOR();
+
+    XS_DEFINE_SERIALIZABLE
 
     virtual void Initialize() override;
     virtual void Finalize() override;
@@ -38,23 +42,46 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(ASSET_EDITOR, CORE_APPLICATION)
 
     GRAPHIC_UI_RENDER_STYLE * SetStyleForItem( int state, GRAPHIC_UI_ELEMENT * item, const char * texture_name, const CORE_HELPERS_COLOR & color );
 
+    inline CORE_FILESYSTEM_PATH * GetProjectPath() { return ProjectPath; }
+    void SetProjectPath( const CORE_FILESYSTEM_PATH & path ) {
+        if ( ProjectPath ) {
+            delete ProjectPath;
+        }
+        
+        ProjectPath = new CORE_FILESYSTEM_PATH( path );
+    }
+
     void Create3dObject(const char * path);
 
     ASSET_SCREEN & GetGUIView() { return BaseUiScreen; }
 
     void OnDraggedPath( const char * );
 
+    void Load( const CORE_FILESYSTEM_PATH & path );
+    void Save( const CORE_FILESYSTEM_PATH & path );
+
+    void SaveAssets();
+    void SaveResources();
+    void SaveScene();
+    void SaveUI();
+    void Close();
+
 private:
 
     void OnScreenResized( int, int );
 
+    CORE_FILESYSTEM_PATH
+        * ProjectPath;
     GRAPHIC_CAMERA_ORTHOGONAL
         * InterfaceCamera;
     ASSET_SCREEN
         BaseUiScreen;
     VIEWER3D
         Viewer3d;
-    
+    RESOURCE_CONTAINER
+        ResourceContainer;
+    std::map<CORE_FILESYSTEM_PATH, ASSET>
+        AssetTable;
 
 XS_CLASS_END
 

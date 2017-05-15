@@ -28,7 +28,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(RESOURCE_IMAGE_PNG_LOADER, RESOURCE_LOADER_TYPE )
 
     virtual RESOURCE_IMAGE * Load( const CORE_FILESYSTEM_PATH & file,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty );
 
-    virtual RESOURCE_IMAGE * Load( const void * memory, unsigned int size,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty);
+    virtual RESOURCE_IMAGE * Load( CORE_DATA_STREAM & stream,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty);
 
     virtual void ReloadResource( RESOURCE_IMAGE * resource_to_reload );
 

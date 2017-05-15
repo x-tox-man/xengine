@@ -26,7 +26,14 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_ENTITY )
         Components[ component_index ] = component;
     }
 
+    inline void SetChild( GAMEPLAY_COMPONENT_ENTITY * entity, int index ) {
+        
+        ChildEntities[ index ] = entity;
+    }
+
     inline GAMEPLAY_COMPONENT * GetComponent( int component_index ) { return Components[ component_index ]; }
+
+    inline GAMEPLAY_COMPONENT_ENTITY * GetChild( int child_index ) { return ChildEntities[ child_index ]; }
 
     void SetPosition( const CORE_MATH_VECTOR & position );
 
@@ -37,6 +44,7 @@ private:
 GAMEPLAY_COMPONENT
     * Components[ GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS ];
 GAMEPLAY_COMPONENT_ENTITY
+    * Parent,
     * ChildEntities[ GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS ];
 
 XS_CLASS_END

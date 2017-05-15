@@ -23,8 +23,9 @@ CORE_DATA_STREAM( const char * pointer, int size );
 
 void Open();
 void Close();
-
 void Reset();
+
+    void InitializeWithSize( int size );
 
 void ResetOffset();
 int GetSize() const { return Size; }

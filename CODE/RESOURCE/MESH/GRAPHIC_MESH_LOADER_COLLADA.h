@@ -12,6 +12,7 @@
 #if __COMPILE_WITH__COLLADA__
     #include "CORE_HELPERS_CLASS.h"
     #include "GRAPHIC_OBJECT.h"
+    #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
     #include "GRAPHIC_MESH.h"
     #include "CORE_HELPERS_IDENTIFIER.h"
     #include "COLLADASaxFWLIErrorHandler.h"

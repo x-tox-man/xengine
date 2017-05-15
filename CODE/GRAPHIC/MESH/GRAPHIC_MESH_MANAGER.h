@@ -14,7 +14,8 @@
 #include "GRAPHIC_MESH.h"
 #include "GRAPHIC_OBJECT.h"
 #include "CORE_FILESYSTEM.h"
-#include "GRAPHIC_OBJECT_ANIMATED.h"
+
+class GRAPHIC_OBJECT_ANIMATED;
 
 enum GRAPHIC_MESH_TYPE {
     GRAPHIC_MESH_TYPE_None = 0,

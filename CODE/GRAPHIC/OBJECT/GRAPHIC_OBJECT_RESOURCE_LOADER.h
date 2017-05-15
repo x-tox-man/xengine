@@ -30,7 +30,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_RESOURCE_LOADER, GRAPHIC_OBJECT_ANCE
     virtual GRAPHIC_OBJECT * Load( const CORE_FILESYSTEM_PATH & file,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty );
 
 
-    virtual GRAPHIC_OBJECT * Load( const void * memory, unsigned int size ,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty);
+    virtual GRAPHIC_OBJECT * Load( CORE_DATA_STREAM & stream ,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty);
 
     virtual void ReloadResource( GRAPHIC_OBJECT * resource_to_reload );
 

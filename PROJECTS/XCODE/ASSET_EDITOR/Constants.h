@@ -10,8 +10,9 @@
 #define Constants_h
 
 #define CREATE_OBJECT_NOTIFICATION "NotificationCreated"
-#define ATLAS_CREATION_SEGUE "AtlasCreationSegue"
-#define ALTAS_SHOW_IMAGE_SEGUE "ShowResultImage"
-#define SHOW_RESOURCES_SEGUE "ShowResourcesSeque"
+#define ATLAS_CREATION_SEGUE    "AtlasCreationSegue"
+#define ALTAS_SHOW_IMAGE_SEGUE  "ShowResultImage"
+#define SHOW_RESOURCES_SEGUE    "ShowResourcesSeque"
+#define SHOW_ASSETS_SEGUE       "ShowAssetsSeque"
 
 #endif /* Constants_h */

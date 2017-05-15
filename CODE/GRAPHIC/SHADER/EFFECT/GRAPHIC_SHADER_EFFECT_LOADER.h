@@ -26,7 +26,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_SHADER_EFFECT_LOADER, EFFECT_RESOURCE_LOADE
 
     virtual GRAPHIC_SHADER_EFFECT * Load( const CORE_FILESYSTEM_PATH & file,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty ) override;
 
-    virtual GRAPHIC_SHADER_EFFECT * Load( const void * memory, unsigned int size, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty) override;
+    virtual GRAPHIC_SHADER_EFFECT * Load( CORE_DATA_STREAM & stream, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty) override;
 
     virtual void ReloadResource( GRAPHIC_SHADER_EFFECT * resource_to_reload ) override;
 

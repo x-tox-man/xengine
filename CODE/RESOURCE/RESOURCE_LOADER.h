@@ -29,7 +29,7 @@ public:
     
     virtual __RESOURCE_TYPE__ * Load( const CORE_FILESYSTEM_PATH & file ,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty ) { return NULL; }
     
-    virtual __RESOURCE_TYPE__ * Load( const void * memory, unsigned int size, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty) { return NULL; }
+    virtual __RESOURCE_TYPE__ * Load( CORE_DATA_STREAM & stream, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier = CORE_HELPERS_UNIQUE_IDENTIFIER::Empty) { return NULL; }
     
     virtual void ReloadResource( __RESOURCE_TYPE__ * resource_to_reload ) {};
     

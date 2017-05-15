@@ -30,7 +30,7 @@ void * GAMEPLAY_COMPONENT_RENDER::operator new( size_t size ) {
     return ( void *) &( (*InternalVector)[ 0 ].MemoryArray[ ++(( *InternalVector)[ 0 ].LastIndex) ] );
 }
 
-void GAMEPLAY_COMPONENT_RENDER::operator delete  ( void* ptr ) {
+void GAMEPLAY_COMPONENT_RENDER::operator delete ( void* ptr ) {
     
 }
 

@@ -95,7 +95,7 @@ RESOURCE_SOUND * RESOURCE_SOUND_MP3_LOADER::Load( const CORE_FILESYSTEM_PATH & p
     return ptr;
 }
 
-RESOURCE_SOUND * RESOURCE_SOUND_MP3_LOADER::Load( const void * memory, unsigned int size,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+RESOURCE_SOUND * RESOURCE_SOUND_MP3_LOADER::Load( CORE_DATA_STREAM & stream, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     auto ptr = new RESOURCE_SOUND;
     return ptr;

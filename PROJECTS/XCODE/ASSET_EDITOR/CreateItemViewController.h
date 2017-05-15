@@ -23,5 +23,6 @@
 
 @property (weak) IBOutlet NSPopUpButtonCell *PopupMenu;
 - (IBAction)CreateContainerAction:(id)sender;
+@property (weak) IBOutlet NSColorWell *ColorWell;
 
 @end

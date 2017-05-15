@@ -11,13 +11,22 @@
 #include "GRAPHIC_UI_SYSTEM.h"
 #include "CORE_HELPERS_CALLBACK.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "CORE_DATA_LOADER.h"
+
+typedef std::map<CORE_FILESYSTEM_PATH, ASSET> ASSET_TYPE_TABLE;
+
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( ASSET_EDITOR )
+    XS_DEFINE_ClassMember(ASSET_TYPE_TABLE, AssetTable)
+XS_END_INTERNAL_MEMORY_LAYOUT
 
 ASSET_EDITOR::ASSET_EDITOR() :
     CORE_APPLICATION(),
+    ProjectPath( NULL ),
     InterfaceCamera( NULL ),
     BaseUiScreen(),
-    Viewer3d() {
-        
+    Viewer3d(),
+    ResourceContainer() {
+    
     SetApplicationInstance( *this );
 }
 
@@ -171,4 +180,39 @@ void ASSET_EDITOR::OnScreenResized( int width, int height ) {
 void ASSET_EDITOR::OnDraggedPath( const char * path ) {
     
     Viewer3d.Load( path );
+}
+
+void ASSET_EDITOR::Save ( const CORE_FILESYSTEM_PATH & path ) {
+    
+    CORE_DATA_LOADER< ASSET_EDITOR >::Save( this, path );
+}
+
+void ASSET_EDITOR::Load( const CORE_FILESYSTEM_PATH & path) {
+    
+    ProjectPath = new CORE_FILESYSTEM_PATH( path );
+    
+    CORE_DATA_LOADER< ASSET_EDITOR >::Load( this, path );
+}
+
+void ASSET_EDITOR::SaveAssets() {
+    
+}
+
+void ASSET_EDITOR::SaveResources() {
+    
+}
+
+void ASSET_EDITOR::SaveScene() {
+    
+}
+
+void ASSET_EDITOR::SaveUI() {
+    
+}
+
+void ASSET_EDITOR::Close() {
+    
+    delete ProjectPath;
+    
+    ProjectPath = NULL;
 }

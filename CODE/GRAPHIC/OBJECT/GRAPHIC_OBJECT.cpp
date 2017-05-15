@@ -9,13 +9,14 @@
 #include <math.h>
 
 #include "GRAPHIC_OBJECT.h"
+#include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 #include "GRAPHIC_MESH.h"
 #include "GRAPHIC_SHADER_PROGRAM.h"
 #include "CORE_MATH_MATRIX.h"
 #include "CORE_HELPERS_SCALAR.h"
 #include "CORE_MATH_MATRIX.h"
-#include "CORE_DATA_STREAM.h"
 #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
+#include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_OBJECT )
     XS_DEFINE_ClassMember( std::vector< GRAPHIC_MESH * > , MeshTable )

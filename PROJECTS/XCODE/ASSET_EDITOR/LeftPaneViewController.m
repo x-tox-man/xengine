@@ -314,4 +314,10 @@
         selectedItem = [self.OutlineView itemAtRow:[self.OutlineView selectedRow]];
     }
 }
+
+- (IBAction)ViewAssets:(id)sender {
+    
+    [self performSegueWithIdentifier:@SHOW_ASSETS_SEGUE sender:self];
+}
+
 @end

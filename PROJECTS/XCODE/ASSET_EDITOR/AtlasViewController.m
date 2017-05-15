@@ -122,7 +122,7 @@
     
     // Display the dialog.  If the OK button was pressed,
     // process the files.
-    if ( [openDlg runModalForDirectory:nil file:nil] == NSModalResponseOK )
+    if ( [openDlg runModal] == NSModalResponseOK )
     {
         // Get an array containing the full filenames of all
         // files and directories selected.

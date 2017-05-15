@@ -12,6 +12,7 @@
 
 GAMEPLAY_COMPONENT_ENTITY::GAMEPLAY_COMPONENT_ENTITY() :
     Components(),
+    Parent( NULL ),
     ChildEntities(),
     Index( -1 ) {
     

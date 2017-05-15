@@ -27,6 +27,10 @@ GAMEPLAY_COMPONENT_ENTITY * CreateEntity();
 
 inline GAMEPLAY_COMPONENT_ENTITY * GetEntity( int index ) {
     
+    if ( index > InternalVector[ 0 ].LastIndex ) {
+        return NULL;
+    }
+    
     return &InternalVector[0].MemoryArray[ index ];
 }
 

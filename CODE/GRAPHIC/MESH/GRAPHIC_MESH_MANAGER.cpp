@@ -8,6 +8,7 @@
 
 #include "GRAPHIC_MESH_MANAGER.h"
 #include "GRAPHIC_MESH_LOADER_COLLADA.h"
+#include "GRAPHIC_OBJECT_ANIMATED.h"
 #include "CORE_DATA_STREAM.h"
 #include "CORE_DATA_LOADER.h"
 

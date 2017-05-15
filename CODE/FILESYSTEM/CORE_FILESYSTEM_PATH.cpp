@@ -10,6 +10,10 @@
 #include "CORE_FILESYSTEM.h"
 #include "SERVICE_LOGGER.h"
 
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_FILESYSTEM_PATH )
+    XS_DEFINE_ClassMemberArray( char, Path, (size_t) FILE_PATH_MAX_LENGHT )
+XS_END_INTERNAL_MEMORY_LAYOUT
+
 CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH() :
     Path() {
     
@@ -81,3 +85,8 @@ const char * CORE_FILESYSTEM_PATH::GetFileName() const {
 }
 
 CORE_FILESYSTEM_PATH CORE_FILESYSTEM_PATH::NotExisting( "" );
+
+bool operator < (const CORE_FILESYSTEM_PATH & first, const CORE_FILESYSTEM_PATH & second ) {
+    
+    return strcmp(first.GetPath(), second.GetPath());
+}

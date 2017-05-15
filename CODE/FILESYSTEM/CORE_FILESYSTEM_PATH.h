@@ -20,6 +20,8 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_FILESYSTEM_PATH )
     CORE_FILESYSTEM_PATH( const char * path );
     ~CORE_FILESYSTEM_PATH();
 
+    XS_DEFINE_SERIALIZABLE
+
     CORE_FILESYSTEM_PATH & operator = ( const CORE_FILESYSTEM_PATH & other ) {
 
         CORE_DATA_COPY_STRING(Path, other.Path );
@@ -52,11 +54,15 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_FILESYSTEM_PATH )
 
     static CORE_FILESYSTEM_PATH NotExisting;
 
+    friend bool operator < (const CORE_FILESYSTEM_PATH & first, const CORE_FILESYSTEM_PATH & second );
+
 private :
 
     char
         Path[ FILE_PATH_MAX_LENGHT ];
 
 XS_CLASS_END
+
+bool operator < (const CORE_FILESYSTEM_PATH & first, const CORE_FILESYSTEM_PATH & second );
 
 #endif /* defined(__GAME_ENGINE_REBORN__CORE_FILESYSTEM_PATH__) */

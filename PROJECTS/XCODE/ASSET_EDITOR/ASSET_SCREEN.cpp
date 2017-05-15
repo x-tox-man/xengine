@@ -24,6 +24,7 @@ ASSET_SCREEN::~ASSET_SCREEN() {
 
 void ASSET_SCREEN::Initialize() {
     
+    SetIdentifier(CORE_HELPERS_IDENTIFIER( "BaseScreen" ) );
 }
 
 void ASSET_SCREEN::LoadAtlas( const char * atlas_path, const char * image_path) {

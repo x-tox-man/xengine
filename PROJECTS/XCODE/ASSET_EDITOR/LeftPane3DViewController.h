@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface LeftPane3DViewController : NSViewController
+@interface LeftPane3DViewController : NSViewController<NSOutlineViewDelegate,NSOutlineViewDataSource>
+
+@property (weak) IBOutlet NSOutlineView *OutlineView;
 
 @end

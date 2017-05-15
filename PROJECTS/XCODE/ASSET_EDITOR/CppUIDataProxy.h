@@ -13,4 +13,5 @@
 
 @property GRAPHIC_UI_ELEMENT * Element;
 @property GRAPHIC_UI_PLACEMENT * Placement;
+
 @end
