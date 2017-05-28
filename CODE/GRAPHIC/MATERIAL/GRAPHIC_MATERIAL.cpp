@@ -7,43 +7,117 @@
 //
 
 #include "GRAPHIC_MATERIAL.h"
-#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "GRAPHIC_MATERIAL_RESOURCE_LOADER.h"
 #include "CORE_DATA_STREAM.h"
 #include "RESOURCE_IMAGE_PNG_LOADER.h"
 #include "RESOURCE_IMAGE.h"
+#include "GRAPHIC_SHADER_PROGRAM_DATA_PROXY.h"
 
-GRAPHIC_MATERIAL::GRAPHIC_MATERIAL() {
+typedef std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * > TEX_TAB_TYPE;
+
+XS_IMPLEMENT_INTERNAL_STL_MAP_MEMORY_LAYOUT(GRAPHIC_TEXTURE_BLOCK *, CORE_HELPERS_IDENTIFIER)
+
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MATERIAL )
+    XS_DEFINE_ClassMember( std::string, Name )
+    XS_DEFINE_ClassMember( CORE_HELPERS_COLOR, Diffuse )
+    XS_DEFINE_ClassMember( TEX_TAB_TYPE, TextureTable )
+XS_END_INTERNAL_MEMORY_LAYOUT
+
+GRAPHIC_MATERIAL::GRAPHIC_MATERIAL() :
+    Name(),
+    Diffuse( CORE_COLOR_White ),
+    TextureTable() {
     
 }
 
-GRAPHIC_MATERIAL::GRAPHIC_MATERIAL(const char * image_path, const char * effect_name, const GRAPHIC_SHADER_BIND bind ) {
+GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const char * image_path ) :
+    Name( image_path ),
+    Diffuse( CORE_COLOR_White ),
+    TextureTable() {
     
-    Effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::EffectNameToChange"), CORE_FILESYSTEM_PATH::FindFilePath( effect_name , "vsh", "OPENGL2" ) );
-    
-    Effect->Initialize(bind);
-    
-    RESOURCE_IMAGE_PNG_LOADER loader;
-    
-    Texture = new GRAPHIC_TEXTURE_BLOCK();
-    
-    auto img = loader.Load(CORE_FILESYSTEM_PATH::FindFilePath( image_path , "png", "IMAGES" ));
-    
-    Texture->SetTexture( img->CreateTextureObject( false ) );
-    
-    delete img;
+    TryAndFillFor( image_path, ".png", GRAPHIC_SHADER_PROGRAM::ColorTexture );
+    TryAndFillFor( image_path, "1.png", GRAPHIC_SHADER_PROGRAM::ColorTexture1 );
+    TryAndFillFor( image_path, "2.png", GRAPHIC_SHADER_PROGRAM::ColorTexture2 );
+    TryAndFillFor( image_path, "-normal.png", GRAPHIC_SHADER_PROGRAM::NormalTexture );
+        
+    //TODO : other images
 }
 
 GRAPHIC_MATERIAL::~GRAPHIC_MATERIAL() {
     
 }
 
-void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer ) {
-    Effect->Apply();
-    int texture_index = Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ColorTexture ).AttributeIndex;
-
-    Texture->Apply(0, texture_index);
+void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader ) {
+    
+    std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * >::iterator it = TextureTable.begin();
+    
+    int texture_index = 0;
+    
+    GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
+    
+    if ( renderer.IsColorEnabled() ) {
+        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1, (const GLfloat * ) &Diffuse[0] )
+    }
+    else{
+        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1, (const GLfloat * ) &CORE_MATH_VECTOR::One[0] );
+    }
+    
+    while (it != TextureTable.end()) {
+        
+        GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( it->first );
+        
+        it->second->Apply(texture_index, attribute.AttributeIndex );
+        it++;
+    }
+    
+    GRAPHIC_SYSTEM::ApplyLightDirectional( renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
+    
+    GRAPHIC_SYSTEM::ApplyLightPoint( renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
+    GRAPHIC_SYSTEM::ApplyLightPoint( renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
+    
+    GRAPHIC_SYSTEM::ApplyLightSpot( renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
+    GRAPHIC_SYSTEM::ApplyLightSpot( renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
+    
+    GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
+    
+    if ( camera_world_position_attribute.AttributeIndex != 0 ) {
+        
+        GRAPHIC_SYSTEM::ApplyShaderAttributeVector( &renderer.GetCamera().GetPosition()[0], camera_world_position_attribute );
+    }
+    
+    GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::LightSpecularPower );
+    
+    if ( attribute.AttributeIndex != 0 ) {
+        
+        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.99f, attribute );
+        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.9f, shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity ) );
+    }
 }
 
 void GRAPHIC_MATERIAL::Discard( GRAPHIC_RENDERER & renderer ) {
     
+}
+
+void GRAPHIC_MATERIAL::TryAndFillFor( const char * file_path, const char * extension, const CORE_HELPERS_IDENTIFIER & identifier ) {
+    
+    CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath(file_path, extension, "TEXTURES");
+    CORE_FILESYSTEM_FILE file( path );
+    
+    if ( file.OpenOutput() ) {
+        
+        file.Close();
+        
+#if DEBUG
+        assert( strlen(file_path) + strlen(extension) < 32 );
+#endif
+        
+        char * id = ( char * ) malloc( strlen(file_path) + strlen(extension));
+        strcpy(id, file_path );
+        id[strlen(file_path)] = 0;
+        strcat(id, extension );
+        
+        GRAPHIC_TEXTURE_BLOCK * tb = new GRAPHIC_TEXTURE_BLOCK( GRAPHIC_TEXTURE::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER(), path ));
+
+        SetTexture( identifier, tb );
+    }
 }

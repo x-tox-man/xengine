@@ -41,5 +41,5 @@ GAMEPLAY_COMPONENT_ENTITY * GAMEPLAY_COMPONENT_MANAGER::CreateEntity() {
         InternalVector[0].LastIndex = -1;
     }
     
-    return ( GAMEPLAY_COMPONENT_ENTITY *) ( InternalVector[ 0 ].MemoryArray + ++( InternalVector[ 0 ].LastIndex ) );
+    return new (InternalVector[ 0 ].MemoryArray + ( ++InternalVector[ 0 ].LastIndex ) ) GAMEPLAY_COMPONENT_ENTITY();
 }

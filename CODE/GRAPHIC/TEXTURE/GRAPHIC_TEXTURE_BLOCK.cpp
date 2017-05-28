@@ -8,6 +8,7 @@
 
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "CORE_DATA_STREAM.h"
+#include "GRAPHIC_TEXTURE_LOADER.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_TEXTURE_BLOCK )
     XS_DEFINE_ClassMember( CORE_MATH_VECTOR , Offset )
@@ -19,6 +20,22 @@ GRAPHIC_TEXTURE_BLOCK::GRAPHIC_TEXTURE_BLOCK() :
     Offset( CORE_MATH_VECTOR::Zero ),
     Size( CORE_MATH_VECTOR::One ) {
     
+}
+
+GRAPHIC_TEXTURE_BLOCK::GRAPHIC_TEXTURE_BLOCK( GRAPHIC_TEXTURE * texture ) :
+    Texture( texture ),
+    Offset( CORE_MATH_VECTOR::Zero ),
+    Size( CORE_MATH_VECTOR::One ){
+    
+}
+
+GRAPHIC_TEXTURE_BLOCK::GRAPHIC_TEXTURE_BLOCK( const char * texture_name ) :
+    Texture(),
+    Offset( CORE_MATH_VECTOR::Zero ),
+    Size( CORE_MATH_VECTOR::One ){
+    
+    CORE_HELPERS_UNIQUE_IDENTIFIER id(texture_name );
+    Texture = GRAPHIC_TEXTURE::LoadResourceForPath(texture_name, CORE_FILESYSTEM_PATH::FindFilePath(texture_name, ".png", "TEXTURE"));
 }
 
 GRAPHIC_TEXTURE_BLOCK::~GRAPHIC_TEXTURE_BLOCK() {

@@ -16,6 +16,15 @@ GAMEPLAY_COMPONENT_ENTITY::GAMEPLAY_COMPONENT_ENTITY() :
     ChildEntities(),
     Index( -1 ) {
     
+    for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS; i++ ) {
+        
+        Components[ i ] = NULL;
+    }
+    
+    for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
+        
+        ChildEntities[ i ] = NULL;
+    }
 }
 
 GAMEPLAY_COMPONENT_ENTITY::~GAMEPLAY_COMPONENT_ENTITY() {

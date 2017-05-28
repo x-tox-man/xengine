@@ -9,7 +9,9 @@
 #include "GRAPHIC_OBJECT_ANIMATED.h"
 #include "GRAPHIC_MESH.h"
 
-GRAPHIC_OBJECT_ANIMATED::GRAPHIC_OBJECT_ANIMATED() {
+GRAPHIC_OBJECT_ANIMATED::GRAPHIC_OBJECT_ANIMATED() :
+    GRAPHIC_OBJECT(),
+    AnimationController( NULL ) {
 
 
 }
@@ -18,83 +20,25 @@ GRAPHIC_OBJECT_ANIMATED::~GRAPHIC_OBJECT_ANIMATED() {
 
 }
 
-void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
-    if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
-        
-        return;
-    }
-    
-    GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader = ShaderTable[ renderer.GetPassIndex() ];
+    effect->Apply( renderer );
     
     for ( int i = 0; i < MeshTable.size(); i++ ) {
         
         CORE_MATH_MATRIX
-            object_matrix, result;
+            result;
         
-        shader->Enable();
-        
-        // TODO: refactor :
-        if ( renderer.GetPassIndex() == 0 ) {
-            GRAPHIC_SYSTEM::ApplyLightDirectional( renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
-            
-            GRAPHIC_SYSTEM::ApplyLightPoint( renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
-            GRAPHIC_SYSTEM::ApplyLightPoint( renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
-            
-            GRAPHIC_SYSTEM::ApplyLightSpot( renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
-            GRAPHIC_SYSTEM::ApplyLightSpot( renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
-        }
-        
-        GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
-        
-        if ( camera_world_position_attribute.AttributeIndex != 0 ) {
-            
-            GRAPHIC_SYSTEM::ApplyShaderAttributeVector( &renderer.GetCamera().GetPosition()[0], camera_world_position_attribute );
-        }
-        
-        GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::LightSpecularPower );
-        
-        if ( attribute.AttributeIndex != 0 ) {
-            
-            GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.99f, attribute );
-            GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.9f, shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity ) );
-        }
-        
-        GRAPHIC_SHADER_ATTRIBUTE * attr = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE * attrModel = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelViewMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE * attrSkinningMatrixTable = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SkinningMatrixTable );
-        GRAPHIC_SHADER_ATTRIBUTE * attrBindShapeMatrix = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::AttrBindShapeMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE * texture = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ColorTexture );
-        GRAPHIC_SHADER_ATTRIBUTE * normal_texture = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::NormalTexture );
-        
-        if ( MeshTable[i]->GetTexture() != NULL && renderer.GetPassIndex() == 0 ) {
-            
-            MeshTable[i]->GetTexture()->Apply( 0, texture->AttributeIndex );
-        }
-        
-        if ( MeshTable[i]->GetNormalTexture() != NULL && renderer.GetPassIndex() == 0 ) {
-            
-            MeshTable[i]->GetNormalTexture()->Apply( 1, normal_texture->AttributeIndex );
-        }
-        
-        GLOBAL_IDENTITY_MATRIX(attr->AttributeValue.Value.FloatMatrix4x4);
-        
-        object_matrix.Translate( Position );
-        
+        GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE * attrModel = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelViewMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE * attrSkinningMatrixTable = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SkinningMatrixTable );
+        GRAPHIC_SHADER_ATTRIBUTE * attrBindShapeMatrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::AttrBindShapeMatrix );
         
         GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
         
-        if ( !MeshTable[i]->GetTransform().IsIdentity() ) {
-            
-            object_matrix *= MeshTable[i]->GetTransform();
-        }
+        CompteModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result );
         
-        result = renderer.GetCamera().GetProjectionMatrix();
-        result *= renderer.GetCamera().GetViewMatrix();
-        result *= object_matrix;
-        
-        GRAPHIC_SYSTEM_ApplyMatrix(attr->AttributeIndex, 1, 0, &result[0])
-        GRAPHIC_SYSTEM_ApplyMatrix(attrModel->AttributeIndex, 1, 0, &object_matrix[0])
+        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
         
         {
             float * float_matrix_array = AnimationController->GetCurrentSkinningForAnimation( i );
@@ -126,16 +70,6 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer ) {
         
         MeshTable[ i ]->ApplyBuffers();
         
-        shader->Disable();
-        
-        if ( MeshTable[i]->GetTexture() != NULL && renderer.GetPassIndex() == 0 ) {
-            
-            MeshTable[i]->GetTexture()->Discard();
-        }
-        
-        if ( MeshTable[i]->GetNormalTexture() != NULL && renderer.GetPassIndex() == 0 ) {
-            
-            MeshTable[i]->GetNormalTexture()->Discard();
-        }
+        effect->Discard();
     }
 }

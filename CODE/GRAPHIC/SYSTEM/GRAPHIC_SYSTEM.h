@@ -77,9 +77,12 @@ static void CreateVertexBuffer( GRAPHIC_MESH & mesh );
 static void CreateIndexBuffer( GRAPHIC_MESH & mesh );
 static void ReleaseBuffers(GRAPHIC_MESH &mesh);
 static void ApplyBuffers(GRAPHIC_MESH &mesh);
+static const char * GetShaderDirectoryPath() { return ShaderDirectoryPath; }
 
 static CORE_PARALLEL_LOCK_MUTEX
     GraphicSystemLock;
+static const char *
+    ShaderDirectoryPath;
 
 XS_CLASS_END
 

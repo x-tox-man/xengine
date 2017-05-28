@@ -14,6 +14,7 @@
 #include "RESOURCE_TYPE.h"
 #include "GRAPHIC_TEXTURE_INFO.h"
 #include "GRAPHIC_TEXTURE.h"
+#include "GRAPHIC_TEXTURE_LOADER.h"
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "RESOURCE_IMAGE_PNG_LOADER.h"
 

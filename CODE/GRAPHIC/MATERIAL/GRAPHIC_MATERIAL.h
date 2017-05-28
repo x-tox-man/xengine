@@ -12,36 +12,43 @@
 #include "CORE_HELPERS_CLASS.h"
 #include "GRAPHIC_RENDERER.h"
 #include "GRAPHIC_TEXTURE_BLOCK.h"
-#include "GRAPHIC_SHADER_EFFECT.h"
-#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "CORE_HELPERS_COLOR.h"
+#include "CORE_HELPERS_IDENTIFIER.h"
+#include "RESOURCE.h"
 
-XS_CLASS_BEGIN( GRAPHIC_MATERIAL )
+class GRAPHIC_MATERIAL_RESOURCE_LOADER;
+class GRAPHIC_MATERIAL;
+class GRAPHIC_SHADER_PROGRAM_DATA_PROXY;
+
+typedef RESOURCE< GRAPHIC_MATERIAL, GRAPHIC_MATERIAL_RESOURCE_LOADER > GR_M_ANCESTOR_TYPE;
+
+XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
+
+    XS_DEFINE_SERIALIZABLE
 
     GRAPHIC_MATERIAL();
+    GRAPHIC_MATERIAL( const char * image_path );
     ~GRAPHIC_MATERIAL();
 
-    GRAPHIC_MATERIAL(const char * image_path, const char * effect_name, const GRAPHIC_SHADER_BIND bind);
-
-    void Apply( GRAPHIC_RENDERER & renderer );
+    void Apply( GRAPHIC_RENDERER &, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * );
     void Discard( GRAPHIC_RENDERER & renderer );
 
-    GRAPHIC_TEXTURE_BLOCK * GetTexture() {return Texture; }
-    void SetTexture( GRAPHIC_TEXTURE_BLOCK * texture ) {Texture = texture; }
+    inline GRAPHIC_TEXTURE_BLOCK * GetTexture(const CORE_HELPERS_IDENTIFIER & identifier) {return TextureTable[identifier];  }
+    inline void SetTexture( const CORE_HELPERS_IDENTIFIER & identifier, GRAPHIC_TEXTURE_BLOCK * texture ) { TextureTable[identifier] = texture; }
 
-    GRAPHIC_SHADER_EFFECT * GetEffect() {return Effect; }
-    inline void SetEffect( GRAPHIC_SHADER_EFFECT * effect ) {Effect = effect; }
-    inline const CORE_HELPERS_COLOR & GetColor() { return Color; }
-    inline void SetColor( const CORE_HELPERS_COLOR & color ) { Color = color; }
+    inline const CORE_HELPERS_COLOR & GetDiffuse() { return Diffuse; }
+    inline void SetDiffuse( const CORE_HELPERS_COLOR & diffuse ) { Diffuse = diffuse; }
 
 private:
 
-    GRAPHIC_TEXTURE_BLOCK
-        * Texture;
-    GRAPHIC_SHADER_EFFECT
-        * Effect;
+    void TryAndFillFor( const char * path, const char * extension, const CORE_HELPERS_IDENTIFIER & identifier );
+
+    std::string
+        Name;
     CORE_HELPERS_COLOR
-        Color;
+        Diffuse;
+    std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * >
+        TextureTable;
 
 XS_CLASS_END
 

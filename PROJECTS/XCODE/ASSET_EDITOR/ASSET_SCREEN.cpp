@@ -24,7 +24,7 @@ ASSET_SCREEN::~ASSET_SCREEN() {
 
 void ASSET_SCREEN::Initialize() {
     
-    SetIdentifier(CORE_HELPERS_IDENTIFIER( "BaseScreen" ) );
+    SetIdentifier( CORE_HELPERS_IDENTIFIER( "BaseScreen" ) );
 }
 
 void ASSET_SCREEN::LoadAtlas( const char * atlas_path, const char * image_path) {
@@ -42,15 +42,13 @@ void ASSET_SCREEN::LoadAtlas( const char * atlas_path, const char * image_path) 
 
 GRAPHIC_TEXTURE * ASSET_SCREEN::CreateTextureFromImagePath( const char * image_path ) {
 
-    auto image = RESOURCE_IMAGE::LoadResourceForPath( image_path, CORE_FILESYSTEM_PATH::FindFilePath( image_path, "png", "IMAGES" ) );
-
-    return image->CreateTextureObject( false );
+    return GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( image_path ), CORE_FILESYSTEM_PATH::FindFilePath( image_path, "png", "TEXTURES" ) );
 }
 
 GRAPHIC_OBJECT_SHAPE_PLAN * ASSET_SCREEN::CreateUIPlanShape( GRAPHIC_SHADER_EFFECT * effect ) {
     
     GRAPHIC_OBJECT_SHAPE_PLAN::PTR shape = new GRAPHIC_OBJECT_SHAPE_PLAN();
-    shape->InitializeShape( &effect->GetProgram() );
+    shape->InitializeShape();
     
     return shape;
 }

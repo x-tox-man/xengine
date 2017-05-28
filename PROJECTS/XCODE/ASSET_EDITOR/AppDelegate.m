@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "Constants.h"
-#import "CustomApplication.h"
 
 #include "CORE_MATH_QUATERNION.h"
 #include "CORE_MATH_MATRIX.h"
@@ -103,13 +102,6 @@
     }
     
     CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );
-    
-    NSMenuItem * file = [[[NSApplication sharedApplication] mainMenu] itemWithTitle:@"File"];
-    
-    NSMenuItem * open = [[file submenu] itemWithTitle:@"Open"];
-    [[file submenu] setAutoenablesItems:NO];
-    
-    [open setEnabled:YES];
 }
 
 

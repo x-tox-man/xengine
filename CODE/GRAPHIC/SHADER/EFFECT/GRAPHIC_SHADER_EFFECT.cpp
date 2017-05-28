@@ -10,9 +10,19 @@
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "GRAPHIC_MATERIAL.h"
+#include "GRAPHIC_SYSTEM.h"
+
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_SHADER_EFFECT )
+    XS_DEFINE_ClassMember( GRAPHIC_SHADER_BIND, Bind )
+    XS_DEFINE_ClassMember( GRAPHIC_MATERIAL::PTR, Material )
+XS_END_INTERNAL_MEMORY_LAYOUT
+
 
 GRAPHIC_SHADER_EFFECT::GRAPHIC_SHADER_EFFECT() :
-    Program() {
+    Program(),
+    Bind(),
+    Material( NULL ) {
     
 }
 
@@ -41,17 +51,23 @@ void GRAPHIC_SHADER_EFFECT::BindAttributes() {
 
 }
 
-void GRAPHIC_SHADER_EFFECT::Apply() {
+void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer ) {
     
     GetProgram().Enable();
+    Material->Apply(renderer, &GetProgram() );
+}
+
+void GRAPHIC_SHADER_EFFECT::Discard() {
+    
+    GetProgram().Disable();
 }
 
 void GRAPHIC_SHADER_EFFECT::Release() {
     
+    abort();
 }
 
 GRAPHIC_SHADER_EFFECT::PTR GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmentPath( const CORE_FILESYSTEM_PATH & vertex_path, const CORE_FILESYSTEM_PATH & fragment_path, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
-    
     
     GRAPHIC_SHADER_EFFECT::PTR effect = new GRAPHIC_SHADER_EFFECT;
     
@@ -59,18 +75,21 @@ GRAPHIC_SHADER_EFFECT::PTR GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmen
     
     effect->GetProgram().GetProgram()->Initialize();
     
-#if OPENGLES2
-    effect->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( vertex_path.GetFileName(), "vsh", "OPENGLES2" ), GRAPHIC_SHADER_Vertex );
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT_LOADER loading 3");
-    effect->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( fragment_path.GetFileName(), "fsh", "OPENGLES2" ), GRAPHIC_SHADER_Pixel );
-#elif OPENGL2PLUS
-    effect->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( vertex_path.GetFileName(), "", "OPENGL2" ), GRAPHIC_SHADER_Vertex );
-    effect->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( fragment_path.GetFileName(), "", "OPENGL2" ), GRAPHIC_SHADER_Pixel );
-#else
-    CORE_RUNTIME_Abort();
-#endif
+    effect->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( vertex_path.GetFileName(), "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ), GRAPHIC_SHADER_Vertex );
+    effect->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( fragment_path.GetFileName(), "fsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ), GRAPHIC_SHADER_Pixel );
     
     SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT_LOADER loaded");
+    
+    return effect;
+}
+
+GRAPHIC_SHADER_EFFECT::PTR GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmentPathAndMaterial( const CORE_FILESYSTEM_PATH & vertex_path, const CORE_FILESYSTEM_PATH & fragment_path, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const char * material_name ) {
+    
+    GRAPHIC_SHADER_EFFECT::PTR effect = LoadEffectWithVertexAndFragmentPath( vertex_path, fragment_path, identifier );
+    
+    GRAPHIC_MATERIAL::PTR material = new GRAPHIC_MATERIAL( material_name );
+    
+    effect->SetMaterial( material );
     
     return effect;
 }

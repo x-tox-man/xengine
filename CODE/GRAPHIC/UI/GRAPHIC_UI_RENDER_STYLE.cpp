@@ -9,22 +9,22 @@
 #include "GRAPHIC_UI_RENDER_STYLE.h"
 #include "GRAPHIC_SHADER_PROGRAM.h"
 #include "GRAPHIC_SHADER_ATTRIBUTE.h"
+#include "GRAPHIC_OBJECT_RENDER_OPTIONS.h"
 
 GRAPHIC_UI_RENDER_STYLE::GRAPHIC_UI_RENDER_STYLE() :
-    Color( 0.0f, 0.0f, 0.0f, 1.0f),
+    Color( CORE_COLOR_White ),
+    Effect( NULL ),
+    DecoratingEffect( NULL ),
     Shape( NULL ),
-    DecoratingShape( NULL ),
-    TextureBlock( NULL ),
-    DecoratingTextureBlock( NULL ) {
+    DecoratingShape( NULL ) {
     
 }
 
-GRAPHIC_UI_RENDER_STYLE::GRAPHIC_UI_RENDER_STYLE( GRAPHIC_OBJECT_SHAPE * shape, GRAPHIC_TEXTURE_BLOCK * texture_block, const CORE_HELPERS_COLOR & color, GRAPHIC_OBJECT_SHAPE * decorating_shape, GRAPHIC_TEXTURE_BLOCK * decorating_texture_block ) :
-    Color( color ),
+GRAPHIC_UI_RENDER_STYLE::GRAPHIC_UI_RENDER_STYLE( GRAPHIC_OBJECT_SHAPE * shape, GRAPHIC_SHADER_EFFECT * effect, const CORE_HELPERS_COLOR & color, GRAPHIC_OBJECT_SHAPE * decorating_shape, GRAPHIC_SHADER_EFFECT * decorating_effect ) :
+    Effect( effect ),
+    DecoratingEffect( decorating_effect ),
     Shape( shape ),
-    DecoratingShape( decorating_shape ),
-    TextureBlock( texture_block ),
-    DecoratingTextureBlock( decorating_texture_block ) {
+    DecoratingShape( decorating_shape ) {
 
 }
 
@@ -34,39 +34,28 @@ GRAPHIC_UI_RENDER_STYLE::~GRAPHIC_UI_RENDER_STYLE() {
 
 void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity ) {
     
-    if ( Shape ) {
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        option;
+    
+    if ( Shape && Effect ) {
         
-        Shape->SetPosition( placement.GetAbsolutePosition() );
-        Shape->SetScaleFactor( placement.GetSize() );
+        option.SetPosition( placement.GetAbsolutePosition() );
+        option.SetScaleFactor( placement.GetSize() );
+        Effect->SetDiffuse( Color * opacity );
         
-        if ( TextureBlock ) {
-            
-            Shape->SetTextureBlock( TextureBlock );
-        }
-        
-        GRAPHIC_SHADER_ATTRIBUTE & color_attribute = Shape->GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
-        
-        color_attribute.AttributeValue.Value.FloatArray4[0] = Color[0] * opacity;
-        color_attribute.AttributeValue.Value.FloatArray4[1] = Color[1] * opacity;
-        color_attribute.AttributeValue.Value.FloatArray4[2] = Color[2] * opacity;
-        color_attribute.AttributeValue.Value.FloatArray4[3] = Color[3] * opacity;
+        //TODO: fix colors via material
         renderer.EnableColor( true );
-        Shape->Render( renderer );
+        Shape->Render( renderer, option, Effect );
         renderer.EnableColor( false );
     }
     
-    if ( DecoratingShape && DecoratingTextureBlock) {
+    if ( DecoratingShape && DecoratingEffect) {
         
-        DecoratingShape->SetPosition( placement.GetAbsolutePosition() );
-        DecoratingShape->SetScaleFactor( placement.GetSize() );
-        DecoratingShape->SetTextureBlock( DecoratingTextureBlock );
-        GRAPHIC_SHADER_ATTRIBUTE & color_attribute = DecoratingShape->GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
+        option.SetPosition( placement.GetAbsolutePosition() );
+        option.SetScaleFactor( placement.GetSize() );
         
-        color_attribute.AttributeValue.Value.FloatArray4[0] = Color[0];
-        color_attribute.AttributeValue.Value.FloatArray4[1] = Color[1];
-        color_attribute.AttributeValue.Value.FloatArray4[2] = Color[2];
-        color_attribute.AttributeValue.Value.FloatArray4[3] = Color[3];
+        DecoratingEffect->SetDiffuse( Color * opacity );
         
-        DecoratingShape->Render( renderer );
+        DecoratingShape->Render( renderer, option, DecoratingEffect );
     }
 }

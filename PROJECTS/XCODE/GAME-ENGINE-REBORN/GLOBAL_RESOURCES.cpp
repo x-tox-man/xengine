@@ -25,8 +25,8 @@ GLOBAL_RESOURCES::~GLOBAL_RESOURCES() {
 void GLOBAL_RESOURCES::Initialize( GAMEPLAY_SCENE * scene ) {
     
     UITextureAtlas.Load(
-        CORE_FILESYSTEM_PATH::FindFilePath( "atlas_test", "iax", "IMAGES" ),
-        CORE_FILESYSTEM_PATH::FindFilePath( "atlas_test", "png", "IMAGES" ));
+        CORE_FILESYSTEM_PATH::FindFilePath( "atlas_test", "iax", "TEXTURES" ),
+        CORE_FILESYSTEM_PATH::FindFilePath( "atlas_test", "png", "TEXTURES" ));
     GRAPHIC_SHADER_EFFECT::PTR
         ui_textured_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShader"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", "OPENGL2" ) ),
         ui_colored_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderColored"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderColored" , "vsh", "OPENGL2" ) );
@@ -383,7 +383,7 @@ void GLOBAL_RESOURCES::Finalize() {
 
 GRAPHIC_TEXTURE * GLOBAL_RESOURCES::CreateTextureFromImagePath(const char * image_path) {
     
-    auto image = RESOURCE_IMAGE::LoadResourceForPath( image_path, CORE_FILESYSTEM_PATH::FindFilePath( image_path, "png", "IMAGES" ) );
+    auto image = RESOURCE_IMAGE::LoadResourceForPath( image_path, CORE_FILESYSTEM_PATH::FindFilePath( image_path, "png", "TEXTURES" ) );
     
     return image->CreateTextureObject( false );
 }

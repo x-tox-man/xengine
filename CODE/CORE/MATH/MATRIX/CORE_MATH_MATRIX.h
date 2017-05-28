@@ -58,7 +58,7 @@ XS_DEFINE_SERIALIZABLE
         Value[15] = v33;
     }
 
-    bool IsIdentity() {
+    bool IsIdentity() const {
         
         return Value[0] == 1.0f && Value[15] == 1.0f && Value[5] == 1.0f && Value[10] == 1.0f &&
             Value[1] == 0.0f && Value[2] == 0.0f && Value[3] == 0.0f && Value[4] == 0.0f
@@ -89,6 +89,8 @@ XS_DEFINE_SERIALIZABLE
     void YRotate( const float angle );
 
     void ZRotate( const float angle );
+
+    void Scale( const CORE_MATH_VECTOR & scale_vector );
 
     void Scale( const float scale_x, const float scale_y, const float scale_z );
 

@@ -43,6 +43,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(ASSET_EDITOR, CORE_APPLICATION)
     GRAPHIC_UI_RENDER_STYLE * SetStyleForItem( int state, GRAPHIC_UI_ELEMENT * item, const char * texture_name, const CORE_HELPERS_COLOR & color );
 
     inline CORE_FILESYSTEM_PATH * GetProjectPath() { return ProjectPath; }
+    inline RESOURCE_CONTAINER & GetResourceContainer() { return ResourceContainer; }
     void SetProjectPath( const CORE_FILESYSTEM_PATH & path ) {
         if ( ProjectPath ) {
             delete ProjectPath;

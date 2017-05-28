@@ -19,6 +19,7 @@
 #include "CORE_MATH_SHAPE.h"
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GRAPHIC_MATERIAL.h"
+#include "RESOURCE_PROXY.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
@@ -37,20 +38,21 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
         GAMEPLAY_COMPONENT_RENDER * MemoryArray;
     };
 
-    void SetObject( GRAPHIC_OBJECT * object ) { Object = object; }
-    GRAPHIC_OBJECT * GetObject() { return Object; }
+    void SetObject( RESOURCE_PROXY * object ) { ObjectProxy = object; }
+    void SetEffect( RESOURCE_PROXY * effect ) { EffectProxy = effect; }
+
+    RESOURCE_PROXY * GetObject() { return ObjectProxy; }
+    RESOURCE_PROXY * GetEffect() { return EffectProxy; }
+
     inline void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
-    inline void SetMaterial( GRAPHIC_MATERIAL * material ) { Material = material; }
-    inline const GRAPHIC_MATERIAL * GetMaterial() { return Material; }
 
 private :
 
-    GRAPHIC_OBJECT
-        * Object;
+    RESOURCE_PROXY
+        * ObjectProxy,
+        * EffectProxy;
     CORE_MATH_SHAPE
         * BoundingObject;
-    GRAPHIC_MATERIAL
-        * Material;
     float
         ScaleFactor;
 

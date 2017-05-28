@@ -7,10 +7,13 @@
 //
 
 #include "GRAPHIC_TEXTURE.h"
+#include "GRAPHIC_TEXTURE_LOADER.h"
 #include "GRAPHIC_SYSTEM.h"
 #include "RESOURCE_IMAGE_PNG_WRITER.h"
+#include "GRAPHIC_TEXTURE_LOADER.h"
 
 GRAPHIC_TEXTURE::GRAPHIC_TEXTURE() :
+    GR_T_ANCESTOR_TYPE(),
     TextureInfo()
 #if OPENGL2PLUS || OPENGLES2
     ,TextureHandle( 0 )

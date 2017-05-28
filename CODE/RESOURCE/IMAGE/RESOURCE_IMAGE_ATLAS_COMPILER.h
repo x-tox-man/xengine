@@ -14,6 +14,7 @@
 #include "RESOURCE_TYPE.h"
 #include "GRAPHIC_TEXTURE_INFO.h"
 #include "GRAPHIC_TEXTURE.h"
+#include "GRAPHIC_TEXTURE_LOADER.h"
 #include "RESOURCE_TYPE.h"
 #include "RESOURCE_IMAGE.h"
 #include "CORE_MATH_SHAPE_RECTANGLE.h"

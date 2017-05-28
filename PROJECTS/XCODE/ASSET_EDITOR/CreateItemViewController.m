@@ -198,37 +198,37 @@
     
     
         ui_textured_shader_effect->Initialize(GRAPHIC_SHADER_BIND_PositionNormalTexture);
-        
-        
-        //tb->SetTexture( ASSET_SCREEN::CreateTextureFromImagePath("fireButton") );
-        //tb->Initialize();
     
-    
-            auto editor = ((ASSET_EDITOR*) &CORE_APPLICATION::GetApplicationInstance());
+        auto editor = ((ASSET_EDITOR*) &CORE_APPLICATION::GetApplicationInstance());
+        
+        if ( editor != NULL ) {
+            auto screen = &editor->GetGUIView();
             
-            if ( editor != NULL ) {
-                auto screen = &editor->GetGUIView();
+            auto tb_table = &screen->GetAtlas().GetTextureBlockTable();
+            
+            std::map< CORE_HELPERS_UNIQUE_IDENTIFIER , GRAPHIC_TEXTURE_BLOCK >::iterator it = tb_table->begin();
+            
+            int i = 0;
+            while (it != tb_table->end() ) {
                 
-                auto tb_table = &screen->GetAtlas().GetTextureBlockTable();
-                
-                std::map< CORE_HELPERS_UNIQUE_IDENTIFIER , GRAPHIC_TEXTURE_BLOCK >::iterator it = tb_table->begin();
-                
-                int i = 0;
-                while (it != tb_table->end() ) {
+                if ( i == [self.TableView selectedRow] ) {
                     
-                    if ( i == [self.TableView selectedRow] ) {
-                        
-                        tb = &it->second;
-                        break;
-                    }
-                    i++;
-                    it++;
+                    tb = &it->second;
+                    break;
                 }
+                i++;
+                it++;
             }
+        }
         
+    
+        GRAPHIC_MATERIAL * material = new GRAPHIC_MATERIAL;
+        material->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, tb);
+    
+        ui_textured_shader_effect->SetMaterial( material );
     
         render_style->SetShape( ASSET_SCREEN::CreateUIPlanShape( ui_textured_shader_effect ) );
-        render_style->SetTextureBlock( tb );
+        render_style->SetEffect( ui_textured_shader_effect );
         render_style->SetColor( CORE_COLOR_White );
         
         item->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, render_style );

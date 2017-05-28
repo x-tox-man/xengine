@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="DefaultAssetViewItem">
             <connections>
-                <outlet property="itemPath" destination="b4S-cQ-Wg0" id="fBe-Ce-Hd9"/>
                 <outlet property="view" destination="wpy-WY-FlJ" id="5gR-o9-1A6"/>
             </connections>
         </customObject>
@@ -18,9 +17,14 @@
             <rect key="frame" x="0.0" y="0.0" width="63" height="63"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4S-cQ-Wg0">
-                    <rect key="frame" x="13" y="20" width="37" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="jf1-dK-FQq">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b4k-8U-hfp">
+                    <rect key="frame" x="0.0" y="0.0" width="63" height="63"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="3H6-Ed-EGj"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXa-wN-10P">
+                    <rect key="frame" x="13" y="0.0" width="37" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="R5o-el-cCQ">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -28,11 +32,10 @@
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstItem="b4S-cQ-Wg0" firstAttribute="leading" secondItem="wpy-WY-FlJ" secondAttribute="leading" constant="15" id="7g1-Zs-FEl"/>
-                <constraint firstAttribute="trailing" secondItem="b4S-cQ-Wg0" secondAttribute="trailing" constant="15" id="Dsj-zC-l72"/>
-                <constraint firstItem="b4S-cQ-Wg0" firstAttribute="top" secondItem="wpy-WY-FlJ" secondAttribute="top" constant="26" id="M7F-Wn-dSI"/>
-                <constraint firstItem="b4S-cQ-Wg0" firstAttribute="centerX" secondItem="wpy-WY-FlJ" secondAttribute="centerX" id="gOJ-WS-RU6"/>
-                <constraint firstAttribute="bottom" secondItem="b4S-cQ-Wg0" secondAttribute="bottom" constant="20" id="gfl-BA-bV9"/>
+                <constraint firstAttribute="trailing" secondItem="b4k-8U-hfp" secondAttribute="trailing" id="I2Z-Ee-SZq"/>
+                <constraint firstAttribute="bottom" secondItem="b4k-8U-hfp" secondAttribute="bottom" id="egZ-kN-cbC"/>
+                <constraint firstItem="b4k-8U-hfp" firstAttribute="leading" secondItem="wpy-WY-FlJ" secondAttribute="leading" id="lNr-LJ-wUv"/>
+                <constraint firstItem="b4k-8U-hfp" firstAttribute="top" secondItem="wpy-WY-FlJ" secondAttribute="top" id="rig-iM-fVv"/>
             </constraints>
             <point key="canvasLocation" x="67.5" y="151.5"/>
         </customView>

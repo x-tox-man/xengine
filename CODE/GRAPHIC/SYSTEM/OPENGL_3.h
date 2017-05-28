@@ -62,4 +62,10 @@ GLenum OPENGL_3_GetFillMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE mode );
         transpose, \
         (const GLfloat * )array); )
 
+#define GRAPHIC_SYSTEM_ApplyVector(index, size, array) \
+    GFX_CHECK( glUniform4fv( \
+        index, \
+        size, \
+        (const GLfloat * )array); )
+
 #endif /* defined(__GAME_ENGINE_REBORN__OPENGL_2__) */

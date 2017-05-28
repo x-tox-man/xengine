@@ -46,8 +46,6 @@ void GRAPHIC_TEXT::Initialize( const char * text, GRAPHIC_FONT & font, float siz
     
     AddNewMesh( mesh );
     
-    SetShaderForMesh( mesh, shader );
-    
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Texcoord0);
@@ -75,8 +73,6 @@ void GRAPHIC_TEXT::Initialize( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
     
     AddNewMesh( mesh );
     
-    SetShaderForMesh( mesh, shader );
-    
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Texcoord0);
@@ -84,8 +80,10 @@ void GRAPHIC_TEXT::Initialize( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
     UpdateText( Text, TextSize );
 }
 
-void GRAPHIC_TEXT::Render( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_TEXT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
+    abort();
+    /*
     CORE_MATH_MATRIX
         object_matrix, result;
     
@@ -127,7 +125,7 @@ void GRAPHIC_TEXT::Render( GRAPHIC_RENDERER & renderer ) {
     
     GetShaderTable()[ 0 ]->Disable();
     
-    GRAPHIC_SYSTEM::DisableBlend();
+    GRAPHIC_SYSTEM::DisableBlend();*/
 }
 
 void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_to_right ) {

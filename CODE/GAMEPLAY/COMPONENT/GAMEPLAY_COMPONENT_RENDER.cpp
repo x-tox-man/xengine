@@ -12,9 +12,8 @@
 
 GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     GAMEPLAY_COMPONENT(),
-    Object(),
+    ObjectProxy( NULL ),
     BoundingObject(),
-    Material( NULL ),
     ScaleFactor( 1.0f ) {
     
 }
@@ -36,12 +35,17 @@ void GAMEPLAY_COMPONENT_RENDER::operator delete ( void* ptr ) {
 
 void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_COMPONENT_POSITION * component ) {
     
+    GRAPHIC_OBJECT
+        * object = ObjectProxy->GetResource< GRAPHIC_OBJECT >();
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        options;
+    
+    options.SetPosition( component->GetPosition() );
+    options.SetOrientation(component->GetOrientation() );
+    options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
     renderer.EnableColor(true);
-    Object->SetPosition( component->GetPosition() );
-    Object->SetOrientation(component->GetOrientation() );
-    Object->SetColor( Material->GetColor() );
-    Object->SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
-    Object->GetShaderTable()[0] = &Material->GetEffect()->GetProgram();
-    Object->Render( renderer );
+    
+    object->Render( renderer, options, EffectProxy->GetResource< GRAPHIC_SHADER_EFFECT >() );
+    
     renderer.EnableColor(false);
 }

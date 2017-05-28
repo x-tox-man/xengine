@@ -14,6 +14,7 @@
 #include "GRAPHIC_GLYPH.h"
 #include "CORE_FILESYSTEM.h"
 #include "GRAPHIC_TEXTURE.h"
+#include "GRAPHIC_TEXTURE_LOADER.h"
 
 typedef std::map< char, GRAPHIC_GLYPH > GLYPH_TABLE;
 

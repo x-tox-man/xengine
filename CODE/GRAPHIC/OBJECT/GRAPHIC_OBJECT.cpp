@@ -24,23 +24,15 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_OBJECT )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_OBJECT::GRAPHIC_OBJECT() :
+    GR_O_ANCESTOR_TYPE(),
     MeshTable(),
-    ShaderTable(),
-    JointTable(),
-    Position(),
-    ScaleFactor( CORE_MATH_VECTOR::One),
-    Color( CORE_MATH_VECTOR::One),
-    Orientation()
+    JointTable()
 #if __COMPILE_WITH__COLLADA__
     ,AnimationTable()
 #endif
 {
     
     JointTable.resize(0);
-        
-    Position[0] = 0.0f;
-    Position[1] = -10.0f;
-    Position[2] = 15.0f;
 }
 
 GRAPHIC_OBJECT::~GRAPHIC_OBJECT() {
@@ -70,133 +62,55 @@ void GRAPHIC_OBJECT::AddNewMesh( GRAPHIC_MESH * mesh ) {
     MeshTable.push_back(mesh);
 }
 
-void GRAPHIC_OBJECT::SetShaderForMesh( GRAPHIC_MESH * meshToBind, GRAPHIC_SHADER_PROGRAM::PTR shader ) {
-    
-    GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader_proxy = new GRAPHIC_SHADER_PROGRAM_DATA_PROXY;
-    
-    shader_proxy->Initialize( shader );
-    
-    ShaderTable.push_back( shader_proxy );
-}
-
-void GRAPHIC_OBJECT::SetShaderForMesh( GRAPHIC_MESH * meshToBind, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
-    
-    ShaderTable.push_back( shader );
-}
-
-void GRAPHIC_OBJECT::BindShader() {
-    
-}
-
-void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer ) {
-    
-    if( renderer.GetPassIndex() >= ShaderTable.size() )
-        return;
-    
-    GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader = ShaderTable[ renderer.GetPassIndex() ];
+void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
 
     for ( int i = 0; i < MeshTable.size(); i++ ) {
         
         CORE_MATH_MATRIX
-            object_matrix,
-            scaling_matrix,
             result;
-
-        shader->Enable();
         
-        GRAPHIC_SYSTEM::ApplyLightDirectional( renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
+        effect->Apply( renderer );
         
-        GRAPHIC_SYSTEM::ApplyLightPoint( renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
-        GRAPHIC_SYSTEM::ApplyLightPoint( renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
-        
-        GRAPHIC_SYSTEM::ApplyLightSpot( renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
-        GRAPHIC_SYSTEM::ApplyLightSpot( renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
-
-        GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
-        
-        if ( camera_world_position_attribute.AttributeIndex != 0 ) {
-            
-            GRAPHIC_SYSTEM::ApplyShaderAttributeVector( &renderer.GetCamera().GetPosition()[0], camera_world_position_attribute );
-        }
-        
-        GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::LightSpecularPower );
-        
-        if ( attribute.AttributeIndex != 0 ) {
-            
-            GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.99f, attribute );
-            GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.9f, shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity ) );
-        }
-        
-        GRAPHIC_SHADER_ATTRIBUTE * attr = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE * texture = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ColorTexture );
-        GRAPHIC_SHADER_ATTRIBUTE * normal_texture = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::NormalTexture );
-        GRAPHIC_SHADER_ATTRIBUTE * geometry_color = &shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
-        
-        if ( renderer.IsColorEnabled() ) {
-            GFX_CHECK( glUniform4fv(
-                                    geometry_color->AttributeIndex,
-                                    1,
-                                    (const GLfloat * ) &Color[0] ); )
-        }
-        else{
-            GFX_CHECK( glUniform4fv(
-                                    geometry_color->AttributeIndex,
-                                    1,
-                                    (const GLfloat * ) &CORE_MATH_VECTOR::One[0] ); )
-        }
-        
-        if ( MeshTable[i]->GetTexture() != NULL  ) {
-            
-            MeshTable[i]->GetTexture()->Apply( 0, texture->AttributeIndex );
-        }
-        
-        if ( MeshTable[i]->GetNormalTexture() != NULL  ) {
-            
-            MeshTable[i]->GetNormalTexture()->Apply( 1, normal_texture->AttributeIndex );
-        }
-        
-        GLOBAL_IDENTITY_MATRIX(attr->AttributeValue.Value.FloatMatrix4x4);
-        
-        object_matrix.Translate( Position );
+        GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         
         GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
         
-        if ( !MeshTable[i]->GetTransform().IsIdentity() ) {
-            
-            object_matrix *= MeshTable[i]->GetTransform();
-        }
+        CompteModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result );
         
-        CORE_MATH_MATRIX
-            orientation_mat;
-        
-        GetOrientation().ToMatrix( &orientation_mat[0] );
-        
-        object_matrix.Scale( ScaleFactor[0], ScaleFactor[1], ScaleFactor[2] );
-        object_matrix *= orientation_mat;
-        
-        result = renderer.GetCamera().GetProjectionMatrix();
-        result *= renderer.GetCamera().GetViewMatrix();
-        result *= object_matrix;
-        
-        //---------------
-        //MVPmatrix = projection * view * model; // Remember : inverted !
-        
-        GRAPHIC_SYSTEM_ApplyMatrix(attr->AttributeIndex, 1, 0, &result[0])
+        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
         
         MeshTable[ i ]->ApplyBuffers();
         
-        shader->Disable();
-        
-        if ( MeshTable[i]->GetTexture() != NULL  ) {
-         
-            MeshTable[i]->GetTexture()->Discard();
-        }
-        
-        if ( MeshTable[i]->GetNormalTexture() != NULL  ) {
-            
-            MeshTable[i]->GetNormalTexture()->Discard();
-        }
+        effect->Discard();
     }
+}
+
+void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTIONS & options, const CORE_MATH_MATRIX & transform, GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp ) {
+    
+    CORE_MATH_MATRIX
+        object_matrix,
+        scaling_matrix;
+    
+    if ( !transform.IsIdentity() ) {
+        
+        object_matrix *= transform;
+    }
+    
+    CORE_MATH_MATRIX
+        orientation_mat;
+    
+    options.GetOrientation().ToMatrix( &orientation_mat[0] );
+    
+    object_matrix.Scale( options.GetScaleFactor() );
+    object_matrix *= orientation_mat;
+    object_matrix.Translate( options.GetPosition() );
+    
+    //---------------
+    //MVPmatrix = projection * view * model; // Remember : inverted !
+    
+    mvp = renderer.GetCamera().GetProjectionMatrix();
+    mvp *= renderer.GetCamera().GetViewMatrix();
+    mvp *= object_matrix;
 }
 
 void GRAPHIC_OBJECT::Release() {

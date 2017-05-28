@@ -17,7 +17,7 @@ GRAPHIC_SHADER_EFFECT_SPEEDBLUR::~GRAPHIC_SHADER_EFFECT_SPEEDBLUR() {
 
 }
 
-void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply() {
+void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply( GRAPHIC_RENDERER & ) {
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_view_ray = Program.getShaderAttribute( ViewRayIdentifier );
     GRAPHIC_SHADER_ATTRIBUTE & attr_previous_view_mat = Program.getShaderAttribute( PreviousModelViewProjectionIdentifier );

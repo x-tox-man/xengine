@@ -21,6 +21,13 @@ RESOURCE_PROXY::RESOURCE_PROXY()  :
     
 }
 
+RESOURCE_PROXY::RESOURCE_PROXY(BASE_RESOURCE * Resource) :
+    Identifier(),
+    Resource( Resource ),
+    ItShouldLoad( true ) {
+    
+}
+
 RESOURCE_PROXY::~RESOURCE_PROXY() {
     
 }

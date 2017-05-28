@@ -15,18 +15,23 @@
 #include "GRAPHIC_SHADER_BIND.h"
 #include "CORE_DATA_STREAM.h"
 #include "RESOURCE.h"
+#include "GRAPHIC_MATERIAL.h"
 
 class GRAPHIC_SHADER_EFFECT;
+class GRAPHIC_MATERIAL;
 class GRAPHIC_SHADER_EFFECT_LOADER;
 
 typedef RESOURCE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER> GRAPHIC_SHADER_EFFECT_RESOURCE_ANCESTOR;
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_RESOURCE_ANCESTOR )
 
+    XS_DEFINE_SERIALIZABLE
+
     GRAPHIC_SHADER_EFFECT();
     virtual ~GRAPHIC_SHADER_EFFECT();
 
     static GRAPHIC_SHADER_EFFECT::PTR LoadEffectWithVertexAndFragmentPath( const CORE_FILESYSTEM_PATH & vertex_path, const CORE_FILESYSTEM_PATH & fragment_path, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
+    static GRAPHIC_SHADER_EFFECT::PTR LoadEffectWithVertexAndFragmentPathAndMaterial( const CORE_FILESYSTEM_PATH & vertex_path, const CORE_FILESYSTEM_PATH & fragment_path, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const char * material_name );
 
     void Initialize( const GRAPHIC_SHADER_BIND & bind );
     void Release();
@@ -34,7 +39,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_RESOU
     inline GRAPHIC_SHADER_PROGRAM_DATA_PROXY & GetProgram() { return Program; }
     inline const GRAPHIC_SHADER_BIND & GetSahderBind() { return Bind; }
 
-    virtual void Apply();
+    inline void SetMaterial( GRAPHIC_MATERIAL::PTR material ){ Material = material; }
+    inline GRAPHIC_MATERIAL::PTR GetMaterial() { return Material; }
+
+    inline void SetDiffuse( const CORE_HELPERS_COLOR & color ) { Material->SetDiffuse( color ); }
+
+    virtual void Apply( GRAPHIC_RENDERER & renderer );
+    virtual void Discard();
     virtual void BindAttributes();
 
     protected :
@@ -43,6 +54,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_RESOU
         Program;
     GRAPHIC_SHADER_BIND
         Bind;
+    GRAPHIC_MATERIAL::PTR
+        Material;
 
 XS_CLASS_END
 

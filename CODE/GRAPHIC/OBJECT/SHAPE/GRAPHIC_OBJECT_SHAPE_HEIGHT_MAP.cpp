@@ -36,7 +36,7 @@ GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::~GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP() {
     
 } 
 
-void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
+void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape() {
     
     float *vertex_data = (float *) CORE_MEMORY_ALLOCATOR_Allocate( 8 * sizeof( float ) * XWidth * YWidth );
     int * index_data = (int *) CORE_MEMORY_ALLOCATOR_Allocate( 6 * sizeof(int)* (XWidth-1) * (YWidth-1));
@@ -119,16 +119,16 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape( GRAPHIC_SHADER_PROGRAM_DA
     mesh->CreateBuffers();
     
     AddNewMesh( mesh );
-    
-    SetShaderForMesh( mesh, shader );
 }
 
-void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::Render( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
 
     CORE_MATH_MATRIX
         object_matrix,
         depthBias;
     
+    abort();
+    /*
     if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         
         return;
@@ -197,5 +197,5 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::Render( GRAPHIC_RENDERER & renderer ) {
         (const GLfloat * )&result[0]);    
 
     GetMeshTable()[ 0 ]->ApplyBuffers();
-    GetShaderTable()[ 0 ]->Disable();
+    GetShaderTable()[ 0 ]->Disable();*/
 }

@@ -24,7 +24,7 @@ GRAPHIC_OBJECT_SHAPE_AXIS::~GRAPHIC_OBJECT_SHAPE_AXIS() {
 
 }
 
-void GRAPHIC_OBJECT_SHAPE_AXIS::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
+void GRAPHIC_OBJECT_SHAPE_AXIS::InitializeShape() {
     
     static unsigned int index_data[] = { 0, 1, 0, 2, 0, 3 };
     
@@ -52,13 +52,12 @@ void GRAPHIC_OBJECT_SHAPE_AXIS::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
     mesh->CreateBuffers();
     
     AddNewMesh( mesh );
-    
-    SetShaderForMesh( mesh, shader );
 }
 
-void GRAPHIC_OBJECT_SHAPE_AXIS::Render( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_AXIS::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
-    if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
+    abort();
+    /*if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         
         return;
     }
@@ -154,7 +153,7 @@ void GRAPHIC_OBJECT_SHAPE_AXIS::Render( GRAPHIC_RENDERER & renderer ) {
     
     
     GetMeshTable()[ 0 ]->ApplyBuffers();
-    GetShaderTable()[ 0 ]->Disable();
+    GetShaderTable()[ 0 ]->Disable();*/
 }
 
 #undef AXIS_UNIT

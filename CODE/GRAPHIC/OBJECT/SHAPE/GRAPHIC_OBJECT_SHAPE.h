@@ -21,26 +21,14 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE, GRAPHIC_OBJECT)
     GRAPHIC_OBJECT_SHAPE();
     virtual ~GRAPHIC_OBJECT_SHAPE();
 
-    virtual void InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader);
-    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
+    virtual void InitializeShape();
+    virtual void Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) override;
 
     void BindShaderColorAttribute();
 
-    inline void SetTextureBlock( GRAPHIC_TEXTURE_BLOCK * block ) { TextureBlock = block; }
-    inline void SetSecondTextureBlock( GRAPHIC_TEXTURE_BLOCK * block ) { SecondTextureBlock = block; }
-    inline void SetThirdTextureBlock( GRAPHIC_TEXTURE_BLOCK * block ) { ThirdTextureBlock = block; }
-
-    inline void SetEffect( GRAPHIC_SHADER_EFFECT * effect ) { Effect = effect; }
-
 protected :
 
-    //Texture blocks must not be used here
-    GRAPHIC_TEXTURE_BLOCK
-        * TextureBlock,
-        * SecondTextureBlock,
-        * ThirdTextureBlock;
-    GRAPHIC_SHADER_EFFECT
-        * Effect;
+    //TODO : Change to Material
 
 XS_CLASS_END
 

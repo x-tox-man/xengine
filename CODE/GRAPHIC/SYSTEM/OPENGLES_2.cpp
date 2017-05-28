@@ -8,6 +8,7 @@
 
 #include "OPENGLES_2.h"
 #include "GRAPHIC_TEXTURE.h"
+#include "GRAPHIC_TEXTURE_LOADER.h"
 #include "GRAPHIC_RENDER_TARGET.h"
 #include "GRAPHIC_SHADER_ATTRIBUTE.h"
 #include "GRAPHIC_SHADER_PROGRAM.h"
@@ -17,6 +18,7 @@
 #if OPENGLES2
 
 CORE_PARALLEL_LOCK_MUTEX GRAPHIC_SYSTEM::GraphicSystemLock;
+const char * GRAPHIC_SYSTEM::ShaderDirectoryPath = "OPENGLES2";
 
 GRAPHIC_SYSTEM::~GRAPHIC_SYSTEM() {
 

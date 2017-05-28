@@ -90,6 +90,13 @@ public:
         return true;
     }
     
+    static bool Load( __TYPE_TO_SERIALIZE__ * object, CORE_DATA_STREAM & stream ) {
+        
+        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__ >::template Serialize<std::false_type>( *object, stream );
+        
+        return true;
+    }
+    
     static bool Save( __TYPE_TO_SERIALIZE__ * object, const CORE_FILESYSTEM_PATH & path ) {
         
         CORE_DATA_STREAM

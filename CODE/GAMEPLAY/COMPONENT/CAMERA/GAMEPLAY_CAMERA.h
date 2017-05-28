@@ -19,6 +19,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GAMEPLAY_CAMERA, GAMEPLAY_COMPONENT_ENTITY)
 
     void Initialize( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
 
+    inline const CORE_MATH_VECTOR & GetPosition() { return Camera->GetPosition(); }
+    void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & rotation_quat );
+
     inline GRAPHIC_CAMERA * GetCamera() { return Camera; }
 
 private:

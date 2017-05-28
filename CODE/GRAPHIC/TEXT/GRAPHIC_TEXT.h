@@ -27,7 +27,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_TEXT, GRAPHIC_OBJECT_SHAPE )
     virtual ~GRAPHIC_TEXT();
 
     void Initialize( const char * text, GRAPHIC_FONT & font, float size_factor, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, bool left_to_right = true);
-    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
+    virtual void Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) override;
 
     inline void SetTextSize(float size ) { TextSize = size; }
     inline float GetTextSize() { return TextSize; }

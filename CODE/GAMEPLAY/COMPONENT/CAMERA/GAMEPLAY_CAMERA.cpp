@@ -29,3 +29,14 @@ void GAMEPLAY_CAMERA::Initialize(float near_plane, float far_plane, float width,
     
     Camera = new GRAPHIC_CAMERA( near_plane, far_plane, width, height, position, lookat );
 }
+
+
+void GAMEPLAY_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & rotation_quat ) {
+    
+    auto position_component = ( GAMEPLAY_COMPONENT_POSITION * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    
+    position_component->SetPosition( position );
+    position_component->SetOrientation( rotation_quat );
+    
+    GetCamera()->UpdateCamera(position, rotation_quat );
+}

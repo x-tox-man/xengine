@@ -1347,7 +1347,6 @@
 		3253DB391EBDC2B800DF1797 /* DefaultAssetViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3253DB381EBDC2B800DF1797 /* DefaultAssetViewItem.xib */; };
 		3253DB3C1EBDF51500DF1797 /* ASSET.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3253DB3A1EBDF51500DF1797 /* ASSET.cpp */; };
 		3253DB3F1EBDFF8900DF1797 /* ASSET_TYPE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3253DB3E1EBDFF8900DF1797 /* ASSET_TYPE.cpp */; };
-		3253DB421EBE197000DF1797 /* CustomApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253DB411EBE197000DF1797 /* CustomApplication.m */; };
 		3253DB451EBE45A100DF1797 /* ProgramDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253DB441EBE45A100DF1797 /* ProgramDocument.m */; };
 		3253DB481EBE697D00DF1797 /* GRAPHIC_UI_SCREEN_REFERENCE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3253DB461EBE697D00DF1797 /* GRAPHIC_UI_SCREEN_REFERENCE.cpp */; };
 		3253DB4A1EBF5EFC00DF1797 /* RESOURCE_TYPE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3253DB491EBF5EFC00DF1797 /* RESOURCE_TYPE.cpp */; };
@@ -1626,13 +1625,10 @@
 		329FABCE1B6829DB004396A7 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329FABCD1B6829DB004396A7 /* CoreFoundation.framework */; };
 		329FABD01B6829E6004396A7 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329FABCF1B6829E6004396A7 /* GLKit.framework */; };
 		329FAD0C1B69378A004396A7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 329FAD0B1B69378A004396A7 /* libz.dylib */; };
-		32A672C91EB21BB8007B0E3E /* ResourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A672C71EB21BB8007B0E3E /* ResourceList.m */; };
-		32A672CA1EB21BB8007B0E3E /* ResourceList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A672C81EB21BB8007B0E3E /* ResourceList.xib */; };
 		32ADAB2C1B128C60000038F5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32ADAB2B1B128C60000038F5 /* AudioToolbox.framework */; };
 		32ADAB2E1B13CFAE000038F5 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32ADAB2D1B13CFAE000038F5 /* CoreAudio.framework */; };
 		32ADFE7D1E92DC4B0039E893 /* CreateItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32ADFE7C1E92DC4B0039E893 /* CreateItemViewController.m */; };
 		32AFECED1EB731B8006664AB /* CppUIDataProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AFECEC1EB731B8006664AB /* CppUIDataProxy.m */; };
-		32AFECF91EB902AE006664AB /* RESOURCE_CONTAINER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32AFECF81EB902AE006664AB /* RESOURCE_CONTAINER.cpp */; };
 		32AFECFB1EB902C4006664AB /* RESOURCE_CONTAINER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32AFECFA1EB902C4006664AB /* RESOURCE_CONTAINER.cpp */; };
 		32AFECFE1EB90408006664AB /* RESOURCE_PROXY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32AFECFC1EB90408006664AB /* RESOURCE_PROXY.cpp */; };
 		32AFED011EB919EE006664AB /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AFED001EB919EE006664AB /* MainSplitViewController.m */; };
@@ -1752,6 +1748,29 @@
 		32EB474D19EFCFF100123D8C /* libbuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32EB473E19EFCFF100123D8C /* libbuffer.a */; };
 		32EFD5231AF8219D0071A5A3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32EFD5221AF8219D0071A5A3 /* Carbon.framework */; };
 		32F24BA61EA6C6AF00D19613 /* VIEWER3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F24BA41EA6C6AF00D19613 /* VIEWER3D.cpp */; };
+		5F5661D81ED2E57500C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */; };
+		5F5661DE1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */; };
+		5F5661DF1ED9B63C00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */; };
+		5F5661E01ED9B63D00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */; };
+		5F5661E11ED9B63E00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */; };
+		5F5661E21ED9B63E00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */; };
+		5F5661E51ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661E31ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp */; };
+		5F5661E61ED9C8E900C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */; };
+		5F5661E71ED9C8EA00C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */; };
+		5F5661E81ED9C8EA00C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */; };
+		5F5661E91ED9C8ED00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661E31ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp */; };
+		5F5661EA1ED9C8EE00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661E31ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp */; };
+		5F5661EB1ED9C8EE00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661E31ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp */; };
+		5F5661EC1ED9C8EF00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661E31ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp */; };
+		5F9633751ECB12B0006DF196 /* Custom3dTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F9633741ECB12B0006DF196 /* Custom3dTableViewDelegate.m */; };
+		5FACEEC81ECB1D75000DEB7C /* PositionComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACEEC71ECB1D75000DEB7C /* PositionComponent.xib */; };
+		5FACEECA1ECB1D7F000DEB7C /* RenderComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACEEC91ECB1D7F000DEB7C /* RenderComponent.xib */; };
+		5FACEECC1ECB1D88000DEB7C /* PhysicsComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACEECB1ECB1D88000DEB7C /* PhysicsComponent.xib */; };
+		5FACEECE1ECB1D93000DEB7C /* ScriptComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACEECD1ECB1D93000DEB7C /* ScriptComponent.xib */; };
+		5FAE70E31ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */; };
+		5FECE0411ECEF509009B55C2 /* Zerode-Plump-Filetype-png.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FECE0401ECEF509009B55C2 /* Zerode-Plump-Filetype-png.png */; };
+		5FECE0781ECEFFAC009B55C2 /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECE0761ECEFFAC009B55C2 /* ResourceManager.m */; };
+		5FECE0791ECEFFAC009B55C2 /* ResourceManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FECE0771ECEFFAC009B55C2 /* ResourceManager.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -2501,8 +2520,6 @@
 		3253DB3B1EBDF51500DF1797 /* ASSET.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASSET.h; sourceTree = "<group>"; };
 		3253DB3D1EBDFABB00DF1797 /* ASSET_TYPE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASSET_TYPE.h; sourceTree = "<group>"; };
 		3253DB3E1EBDFF8900DF1797 /* ASSET_TYPE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ASSET_TYPE.cpp; sourceTree = "<group>"; };
-		3253DB401EBE197000DF1797 /* CustomApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomApplication.h; sourceTree = "<group>"; };
-		3253DB411EBE197000DF1797 /* CustomApplication.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CustomApplication.m; sourceTree = "<group>"; };
 		3253DB431EBE45A100DF1797 /* ProgramDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramDocument.h; sourceTree = "<group>"; };
 		3253DB441EBE45A100DF1797 /* ProgramDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramDocument.m; sourceTree = "<group>"; };
 		3253DB461EBE697D00DF1797 /* GRAPHIC_UI_SCREEN_REFERENCE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_UI_SCREEN_REFERENCE.cpp; sourceTree = "<group>"; };
@@ -2629,9 +2646,6 @@
 		329FABCD1B6829DB004396A7 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		329FABCF1B6829E6004396A7 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
 		329FAD0B1B69378A004396A7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
-		32A672C61EB21BB8007B0E3E /* ResourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourceList.h; path = ../ResourceList.h; sourceTree = "<group>"; };
-		32A672C71EB21BB8007B0E3E /* ResourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResourceList.m; path = ../ResourceList.m; sourceTree = "<group>"; };
-		32A672C81EB21BB8007B0E3E /* ResourceList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ResourceList.xib; path = ../ResourceList.xib; sourceTree = "<group>"; };
 		32ADAB2B1B128C60000038F5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		32ADAB2D1B13CFAE000038F5 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		32ADFE7C1E92DC4B0039E893 /* CreateItemViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CreateItemViewController.m; sourceTree = "<group>"; };
@@ -2639,7 +2653,6 @@
 		32AFECEB1EB731B8006664AB /* CppUIDataProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CppUIDataProxy.h; sourceTree = "<group>"; };
 		32AFECEC1EB731B8006664AB /* CppUIDataProxy.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CppUIDataProxy.m; sourceTree = "<group>"; };
 		32AFECF61EB8D95E006664AB /* RESOURCE_CONTAINER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESOURCE_CONTAINER.h; sourceTree = "<group>"; };
-		32AFECF81EB902AE006664AB /* RESOURCE_CONTAINER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RESOURCE_CONTAINER.cpp; path = ../RESOURCE_CONTAINER.cpp; sourceTree = "<group>"; };
 		32AFECFA1EB902C4006664AB /* RESOURCE_CONTAINER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RESOURCE_CONTAINER.cpp; sourceTree = "<group>"; };
 		32AFECFC1EB90408006664AB /* RESOURCE_PROXY.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RESOURCE_PROXY.cpp; sourceTree = "<group>"; };
 		32AFECFD1EB90408006664AB /* RESOURCE_PROXY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESOURCE_PROXY.h; sourceTree = "<group>"; };
@@ -2728,6 +2741,22 @@
 		32EFD5221AF8219D0071A5A3 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		32F24BA41EA6C6AF00D19613 /* VIEWER3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VIEWER3D.cpp; sourceTree = "<group>"; };
 		32F24BA51EA6C6AF00D19613 /* VIEWER3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIEWER3D.h; sourceTree = "<group>"; };
+		5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_OBJECT_RENDER_OPTIONS.cpp; sourceTree = "<group>"; };
+		5F5661DD1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_OBJECT_RENDER_OPTIONS.h; sourceTree = "<group>"; };
+		5F5661E31ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_TEXTURE_LOADER.cpp; sourceTree = "<group>"; };
+		5F5661E41ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_TEXTURE_LOADER.h; sourceTree = "<group>"; };
+		5F9633731ECB12B0006DF196 /* Custom3dTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Custom3dTableViewDelegate.h; sourceTree = "<group>"; };
+		5F9633741ECB12B0006DF196 /* Custom3dTableViewDelegate.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Custom3dTableViewDelegate.m; sourceTree = "<group>"; };
+		5FACEEC71ECB1D75000DEB7C /* PositionComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PositionComponent.xib; sourceTree = "<group>"; };
+		5FACEEC91ECB1D7F000DEB7C /* RenderComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RenderComponent.xib; sourceTree = "<group>"; };
+		5FACEECB1ECB1D88000DEB7C /* PhysicsComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhysicsComponent.xib; sourceTree = "<group>"; };
+		5FACEECD1ECB1D93000DEB7C /* ScriptComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScriptComponent.xib; sourceTree = "<group>"; };
+		5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp; sourceTree = "<group>"; };
+		5FAE70E21ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_MATERIAL_RESOURCE_LOADER.h; sourceTree = "<group>"; };
+		5FECE0401ECEF509009B55C2 /* Zerode-Plump-Filetype-png.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Zerode-Plump-Filetype-png.png"; path = "ASSET_EDITOR/RESOURCE_MANAGER/Zerode-Plump-Filetype-png.png"; sourceTree = SOURCE_ROOT; };
+		5FECE0751ECEFFAC009B55C2 /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
+		5FECE0761ECEFFAC009B55C2 /* ResourceManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ResourceManager.m; sourceTree = "<group>"; };
+		5FECE0771ECEFFAC009B55C2 /* ResourceManager.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResourceManager.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2972,13 +3001,12 @@
 		321911E01E5331B300CF29A2 /* ASSET_EDITOR */ = {
 			isa = PBXGroup;
 			children = (
+				5F96336A1ECB1102006DF196 /* Components */,
 				32BFC8201E9A428C0080BF8E /* Constants.h */,
 				3253DB431EBE45A100DF1797 /* ProgramDocument.h */,
 				3253DB441EBE45A100DF1797 /* ProgramDocument.m */,
 				3261CEEF1E91229E000872F4 /* AppDelegate.h */,
 				3261CEF01E91229E000872F4 /* AppDelegate.m */,
-				3253DB401EBE197000DF1797 /* CustomApplication.h */,
-				3253DB411EBE197000DF1797 /* CustomApplication.m */,
 				32A672C51EB21BA2007B0E3E /* RESOURCE_MANAGER */,
 				327F84A71EA18D9100F1334F /* Font */,
 				32E0A1A21E9CF59B00B14365 /* ImageView */,
@@ -3789,6 +3817,8 @@
 		3238F4621E90E80400838C62 /* MATERIAL */ = {
 			isa = PBXGroup;
 			children = (
+				5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */,
+				5FAE70E21ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.h */,
 				3238F4631E90E80400838C62 /* GRAPHIC_MATERIAL.cpp */,
 				3238F4641E90E80400838C62 /* GRAPHIC_MATERIAL.h */,
 			);
@@ -3841,6 +3871,8 @@
 				3238F4811E90E80400838C62 /* GRAPHIC_OBJECT.h */,
 				3238F4821E90E80400838C62 /* GRAPHIC_OBJECT_ANIMATED.cpp */,
 				3238F4831E90E80400838C62 /* GRAPHIC_OBJECT_ANIMATED.h */,
+				5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */,
+				5F5661DD1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.h */,
 				3238F4841E90E80400838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.cpp */,
 				3238F4851E90E80400838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.h */,
 				3238F4861E90E80400838C62 /* SHAPE */,
@@ -4054,6 +4086,8 @@
 		3238F4F61E90E80400838C62 /* TEXTURE */ = {
 			isa = PBXGroup;
 			children = (
+				5F5661E31ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp */,
+				5F5661E41ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.h */,
 				3238F4F71E90E80400838C62 /* GRAPHIC_TEXTURE.cpp */,
 				3238F4F81E90E80400838C62 /* GRAPHIC_TEXTURE.h */,
 				3238F4F91E90E80400838C62 /* GRAPHIC_TEXTURE_ATLAS.cpp */,
@@ -4310,7 +4344,6 @@
 		3238F55B1E90E80400838C62 /* MESH */ = {
 			isa = PBXGroup;
 			children = (
-				32AFECF81EB902AE006664AB /* RESOURCE_CONTAINER.cpp */,
 				3238F55C1E90E80400838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp */,
 				3238F55D1E90E80400838C62 /* GRAPHIC_MESH_LOADER_COLLADA.h */,
 			);
@@ -4412,7 +4445,6 @@
 			children = (
 				3238F5841E90E80400838C62 /* ASSET_COMPILER */,
 				3238F5871E90E80400838C62 /* FONT_EDITOR */,
-				3238F58B1E90E80400838C62 /* LEVEL_EDITOR */,
 				3238F58C1E90E80400838C62 /* MATH_TOOLBOX */,
 				3238F5B01E90E80400838C62 /* RUNTIME_SPIKE_DETECTOR */,
 			);
@@ -4437,13 +4469,6 @@
 				3238F58A1E90E80400838C62 /* FONT_EDITOR.h */,
 			);
 			path = FONT_EDITOR;
-			sourceTree = "<group>";
-		};
-		3238F58B1E90E80400838C62 /* LEVEL_EDITOR */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LEVEL_EDITOR;
 			sourceTree = "<group>";
 		};
 		3238F58C1E90E80400838C62 /* MATH_TOOLBOX */ = {
@@ -4630,6 +4655,8 @@
 				321F89321EA79C1E001A7E78 /* LeftPane3DViewController.m */,
 				328ABFFA1EC1199300C501A8 /* Cpp3dDataProxy.h */,
 				328ABFFB1EC1199300C501A8 /* Cpp3dDataProxy.m */,
+				5F9633731ECB12B0006DF196 /* Custom3dTableViewDelegate.h */,
+				5F9633741ECB12B0006DF196 /* Custom3dTableViewDelegate.m */,
 			);
 			name = LeftPane;
 			sourceTree = "<group>";
@@ -5012,8 +5039,8 @@
 		32A672C51EB21BA2007B0E3E /* RESOURCE_MANAGER */ = {
 			isa = PBXGroup;
 			children = (
+				5FECE0741ECEFFAC009B55C2 /* RESOURCE */,
 				32AFECF31EB8D720006664AB /* ASSET */,
-				32AFECF41EB8D720006664AB /* RESOURCE */,
 			);
 			path = RESOURCE_MANAGER;
 			sourceTree = "<group>";
@@ -5067,6 +5094,7 @@
 		32AFECF31EB8D720006664AB /* ASSET */ = {
 			isa = PBXGroup;
 			children = (
+				5FECE0401ECEF509009B55C2 /* Zerode-Plump-Filetype-png.png */,
 				3253DB381EBDC2B800DF1797 /* DefaultAssetViewItem.xib */,
 				32AFED051EBBB35C006664AB /* AssetList.xib */,
 				32AFED021EBBB34E006664AB /* AssetList.h */,
@@ -5083,16 +5111,6 @@
 				3253DB3E1EBDFF8900DF1797 /* ASSET_TYPE.cpp */,
 			);
 			path = ASSET;
-			sourceTree = "<group>";
-		};
-		32AFECF41EB8D720006664AB /* RESOURCE */ = {
-			isa = PBXGroup;
-			children = (
-				32A672C61EB21BB8007B0E3E /* ResourceList.h */,
-				32A672C71EB21BB8007B0E3E /* ResourceList.m */,
-				32A672C81EB21BB8007B0E3E /* ResourceList.xib */,
-			);
-			path = RESOURCE;
 			sourceTree = "<group>";
 		};
 		32B303AB1DC6B758002EF7FF /* NAVIGATION */ = {
@@ -5337,6 +5355,27 @@
 			path = OPENGL2;
 			sourceTree = "<group>";
 		};
+		5F96336A1ECB1102006DF196 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				5FACEEC71ECB1D75000DEB7C /* PositionComponent.xib */,
+				5FACEEC91ECB1D7F000DEB7C /* RenderComponent.xib */,
+				5FACEECB1ECB1D88000DEB7C /* PhysicsComponent.xib */,
+				5FACEECD1ECB1D93000DEB7C /* ScriptComponent.xib */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		5FECE0741ECEFFAC009B55C2 /* RESOURCE */ = {
+			isa = PBXGroup;
+			children = (
+				5FECE0751ECEFFAC009B55C2 /* ResourceManager.h */,
+				5FECE0761ECEFFAC009B55C2 /* ResourceManager.m */,
+				5FECE0771ECEFFAC009B55C2 /* ResourceManager.xib */,
+			);
+			path = RESOURCE;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5480,14 +5519,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FECE0791ECEFFAC009B55C2 /* ResourceManager.xib in Resources */,
 				3261CEFF1E9122B3000872F4 /* Main.storyboard in Resources */,
-				32A672CA1EB21BB8007B0E3E /* ResourceList.xib in Resources */,
+				5FECE0411ECEF509009B55C2 /* Zerode-Plump-Filetype-png.png in Resources */,
 				3261CEF91E91229E000872F4 /* LeftPaneViewController.xib in Resources */,
+				5FACEECA1ECB1D7F000DEB7C /* RenderComponent.xib in Resources */,
 				328ABFF91EC0C69A00C501A8 /* Create3dItem.xib in Resources */,
 				321F89351EA79C1E001A7E78 /* LeftPane3DViewController.xib in Resources */,
 				32AFED061EBBB35C006664AB /* AssetList.xib in Resources */,
 				321911EE1E5331B300CF29A2 /* Assets.xcassets in Resources */,
+				5FACEECE1ECB1D93000DEB7C /* ScriptComponent.xib in Resources */,
+				5FACEEC81ECB1D75000DEB7C /* PositionComponent.xib in Resources */,
 				3253DB391EBDC2B800DF1797 /* DefaultAssetViewItem.xib in Resources */,
+				5FACEECC1ECB1D88000DEB7C /* PhysicsComponent.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5754,6 +5798,7 @@
 				3238F6AA1E90E80500838C62 /* CORE_MATH_SHAPE_RECTANGLE.cpp in Sources */,
 				3238FA4C1E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
 				3238F9071E90E80600838C62 /* GRAPHIC_UI_ELEMENT.cpp in Sources */,
+				5FECE0781ECEFFAC009B55C2 /* ResourceManager.m in Sources */,
 				3238F7361E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT.cpp in Sources */,
 				3238F6821E90E80500838C62 /* CORE_HELPERS_STATIC.cpp in Sources */,
 				3238F9C01E90E80700838C62 /* SERVICE_NETWORK_LOBBY.cpp in Sources */,
@@ -5789,6 +5834,7 @@
 				3238F8761E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
 				3238F7131E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F9021E90E80600838C62 /* GRAPHIC_UI_ANIMATION.cpp in Sources */,
+				5F5661EC1ED9C8EF00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
 				3238FA291E90E80700838C62 /* GteLogToStringArray.cpp in Sources */,
 				3238F96B1E90E80600838C62 /* PERIPHERIC_INTERACTION_SYSTEM.cpp in Sources */,
 				3238F8991E90E80600838C62 /* GRAPHIC_SHADER_OPENGL.cpp in Sources */,
@@ -5849,7 +5895,9 @@
 				3238F63C1E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS_CALLBACK_UI.cpp in Sources */,
 				3238F89E1E90E80600838C62 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
 				3238F74A1E90E80500838C62 /* GAMEPLAY_ACTION.cpp in Sources */,
+				5F5661DF1ED9B63C00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */,
 				3238F5F61E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp in Sources */,
+				5F5661D81ED2E57500C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				3238F68C1E90E80500838C62 /* CORE_MATH_MATRIX.cpp in Sources */,
 				32AFED111EBBD365006664AB /* CustomDragView.m in Sources */,
 				3238F6F51E90E80500838C62 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
@@ -5895,6 +5943,7 @@
 				3238F8D01E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
 				3238F8081E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
 				3238F9981E90E80700838C62 /* RESOURCE.cpp in Sources */,
+				5F9633751ECB12B0006DF196 /* Custom3dTableViewDelegate.m in Sources */,
 				3238F5F11E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */,
 				3238F8CB1E90E80600838C62 /* GRAPHIC_GLYPH.cpp in Sources */,
 				3238F6E61E90E80500838C62 /* CORE_PARALLEL_THREAD.cpp in Sources */,
@@ -5902,7 +5951,6 @@
 				3238F6FA1E90E80500838C62 /* CORE_TIMELINE.cpp in Sources */,
 				3238F6A51E90E80500838C62 /* CORE_MATH_SHAPE_BOX.cpp in Sources */,
 				3238F8A81E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
-				3253DB421EBE197000DF1797 /* CustomApplication.m in Sources */,
 				3238F6961E90E80500838C62 /* CORE_MATH_QUATERNION.cpp in Sources */,
 				3238F5EC1E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */,
 				3238FA5B1E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */,
@@ -5984,7 +6032,6 @@
 				3238F6321E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA.cpp in Sources */,
 				3238F83A1E90E80600838C62 /* GRAPHIC_PARTICLE_SYSTEM.cpp in Sources */,
 				3238FA421E90E80700838C62 /* GteEdgeKey.cpp in Sources */,
-				32A672C91EB21BB8007B0E3E /* ResourceList.m in Sources */,
 				3238F9CF1E90E80700838C62 /* SERVICE_NETWORK_CONNECTION_INFO.cpp in Sources */,
 				3238F67D1E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
 				32AFED0C1EBBB923006664AB /* DefaultAssetViewItem.m in Sources */,
@@ -6016,6 +6063,7 @@
 				3238FA371E90E80700838C62 /* GteBitHacks.cpp in Sources */,
 				3238F6B31E90E80500838C62 /* CORE_MATH_SHAPE_TYPE.cpp in Sources */,
 				3238F82A1E90E80600838C62 /* GRAPHIC_PARTICLE.cpp in Sources */,
+				5F5661E81ED9C8EA00C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				3238F90B1E90E80600838C62 /* GRAPHIC_UI_FRAME.cpp in Sources */,
 				325A737F1E522F520046520B /* GAME_PLAYER.cpp in Sources */,
 				3238F8B11E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */,
@@ -6035,6 +6083,7 @@
 				325A73851E522F530046520B /* NETWORK_SERVER_INFO.cpp in Sources */,
 				3238F6FE1E90E80500838C62 /* CORE_TIMELINE_EVENT.cpp in Sources */,
 				3238F7801E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.cpp in Sources */,
+				5F5661E11ED9B63E00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */,
 				3238F9511E90E80600838C62 /* NETWORK_CLIENT.cpp in Sources */,
 				3238F6091E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp in Sources */,
 				3238F9601E90E80600838C62 /* PERIPHERIC_INTERACTION_KEYBOARD.cpp in Sources */,
@@ -6148,6 +6197,7 @@
 				325A73941E522F530046520B /* APPLICATION_COMMAND.cpp in Sources */,
 				325A73951E522F530046520B /* APPLICATION_COMMAND_MANAGER.cpp in Sources */,
 				3238F8C51E90E80600838C62 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
+				5F5661EB1ED9C8EE00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
 				3238F8391E90E80600838C62 /* GRAPHIC_PARTICLE_SYSTEM.cpp in Sources */,
 				3238F7F81E90E80600838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.cpp in Sources */,
 				3238F99C1E90E80700838C62 /* RESOURCE_CACHE.cpp in Sources */,
@@ -6483,6 +6533,7 @@
 				3238F8011E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
 				3238F7891E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
 				323FD8C51E13B6D8009EBB6A /* APPLICATION_MAIN_WINDOW.cpp in Sources */,
+				5F5661E61ED9C8E900C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				322573F01DF7505A00CF40E3 /* GLOBAL_RESOURCES.cpp in Sources */,
 				3253DB331EBDA2A600DF1797 /* RESOURCE_PROXY.cpp in Sources */,
 				3238F68F1E90E80500838C62 /* CORE_MATH_POSE.cpp in Sources */,
@@ -6513,6 +6564,7 @@
 				3238F99B1E90E80700838C62 /* RESOURCE_CACHE.cpp in Sources */,
 				3238F7A71E90E80500838C62 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
 				3238F7201E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
+				5F5661E21ED9B63E00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */,
 				3238F81F1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
 				3238F7F71E90E80600838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.cpp in Sources */,
 				3238F7FC1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
@@ -6549,6 +6601,7 @@
 				3238F6991E90E80500838C62 /* CORE_MATH_RAY.cpp in Sources */,
 				3238FA591E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */,
 				3238F6761E90E80500838C62 /* CORE_HELPERS_UNIQUE_IDENTIFIER.cpp in Sources */,
+				5F5661E91ED9C8ED00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
 				3238F8D31E90E80600838C62 /* GRAPHIC_TEXTURE.cpp in Sources */,
 				323FD8DB1E13B6E1009EBB6A /* APPLICATION_NETWORK_COMMAND_CLIENT_QUIT.cpp in Sources */,
 				3238FA181E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */,
@@ -6711,7 +6764,6 @@
 				3238F5E81E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */,
 				327217611DC6609600777CD8 /* APPLICATION_GAMEPLAY_COMMAND_ORDER_ATTACK.cpp in Sources */,
 				3238F6061E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp in Sources */,
-				32AFECF91EB902AE006664AB /* RESOURCE_CONTAINER.cpp in Sources */,
 				3238F73C1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.cpp in Sources */,
 				3238F9A31E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
 				32B303A31DC6959F002EF7FF /* APPLICATION_NETWORK_BROWSER.cpp in Sources */,
@@ -6759,6 +6811,7 @@
 				323FD8FD1E158587009EBB6A /* APPLICATION_GAME_HUD.cpp in Sources */,
 				3238F7001E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F8E01E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
+				5FAE70E31ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				3238F7C81E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
 				3238F8B31E90E80600838C62 /* OPENGL_3.cpp in Sources */,
 				3238F9BC1E90E80700838C62 /* SERVICE_NETWORK_LOBBY.cpp in Sources */,
@@ -6858,6 +6911,8 @@
 				3238FA391E90E80700838C62 /* GteBSPrecision.cpp in Sources */,
 				3238F6A11E90E80500838C62 /* CORE_MATH_SHAPE_BOX.cpp in Sources */,
 				32E8D6E81DC94C4E009FC331 /* APPLICATION_COMMAND.cpp in Sources */,
+				5F5661DE1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */,
+				5F5661E51ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6897,6 +6952,7 @@
 				3238F6891E90E80500838C62 /* CORE_MATH_MATRIX.cpp in Sources */,
 				3238F7CE1E90E80500838C62 /* GRAPHIC_MESH_SUB_SKELETON.cpp in Sources */,
 				3238F9A91E90E80700838C62 /* RESOURCE_SOUND_MP3_LOADER.cpp in Sources */,
+				5F5661E01ED9B63D00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */,
 				3238F64D1E90E80500838C62 /* CORE_DATA_BUFFER.cpp in Sources */,
 				3238F6521E90E80500838C62 /* CORE_DATA_MODEL.cpp in Sources */,
 				3238F6C51E90E80500838C62 /* CORE_HELPERS_OBSERVABLE.cpp in Sources */,
@@ -6999,6 +7055,7 @@
 				3238F8E11E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
 				3238F7C91E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
 				3238F8B41E90E80600838C62 /* OPENGL_3.cpp in Sources */,
+				5F5661EA1ED9C8EE00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
 				3238F9BD1E90E80700838C62 /* SERVICE_NETWORK_LOBBY.cpp in Sources */,
 				3238F7EC1E90E80500838C62 /* GRAPHIC_OBJECT.cpp in Sources */,
 				3238F9221E90E80600838C62 /* GRAPHIC_UI_PRESENTER.cpp in Sources */,
@@ -7054,6 +7111,7 @@
 				3238F8DC1E90E80600838C62 /* GRAPHIC_TEXTURE_BLOCK.cpp in Sources */,
 				3238F8691E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
 				3238F67F1E90E80500838C62 /* CORE_HELPERS_STATIC.cpp in Sources */,
+				5F5661E71ED9C8EA00C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				3238F9901E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				3238F7971E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
 				3238F90E1E90E80600838C62 /* GRAPHIC_UI_HELPER.cpp in Sources */,
@@ -7172,29 +7230,29 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
-					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
-					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = ASSET_EDITOR/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/CBE/DevelopStatic/COMPILED_LIBS_OSX,
-					/Users/CBE/DevelopStatic/COMPILED_LIBS_OSX/lib,
+					/Users/christophebernard/Develop/Static/COMPILED_LIBS_OSX,
+					/Users/christophebernard/Develop/Static/COMPILED_LIBS_OSX/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "cbe.ASSET-EDITOR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = "/Users/CBE/DevelopStatic/bullet3/src/**";
+				USER_HEADER_SEARCH_PATHS = "/Users/christophebernard/Develop/Static/bullet3/src/**";
 			};
 			name = Debug;
 		};
@@ -7222,29 +7280,29 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
-					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
-					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = ASSET_EDITOR/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/CBE/DevelopStatic/COMPILED_LIBS_OSX,
-					/Users/CBE/DevelopStatic/COMPILED_LIBS_OSX/lib,
+					/Users/christophebernard/Develop/Static/COMPILED_LIBS_OSX,
+					/Users/christophebernard/Develop/Static/COMPILED_LIBS_OSX/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "cbe.ASSET-EDITOR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = "/Users/CBE/DevelopStatic/bullet3/src/**";
+				USER_HEADER_SEARCH_PATHS = "/Users/christophebernard/Develop/Static/bullet3/src/**";
 			};
 			name = Release;
 		};
@@ -7271,15 +7329,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
-					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
-					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework/include\"",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7314,15 +7373,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
-					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
-					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework/include\"",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7361,14 +7421,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include/generated15,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/Downloads/libuv-1.7.1/include",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = gamePOC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -7404,14 +7466,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include,
-					/Users/CBE/DevelopStatic/OpenCOLLADA/COLLADASaxFrameworkLoader/include/generated15,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/Downloads/libuv-1.7.1/include",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = gamePOC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -7559,16 +7623,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
-					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
-					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORN/GAME-ENGINE-REBORN-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -7607,16 +7671,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/CBE/DevelopStatic/boost_1_54_0/,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
-					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
-					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORN/GAME-ENGINE-REBORN-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -7655,16 +7719,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
-					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
-					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADASaxFrameworkLoader/include\"",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORNTests/GAME-ENGINE-REBORNTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -7704,16 +7768,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/CBE/DevelopStatic/lua-5.2.2/src",
-					/Users/CBE/DevelopStatic/libpng/made,
-					/Users/CBE/DevelopStatic/libpng,
-					"/Users/CBE/DevelopStatic/zlib-1.2.8",
-					"/Users/CBE/DevelopStatic/libuv-1.10.1/include",
-					/Users/CBE/DevelopStatic/GeometricTools/GTEngine/Include,
-					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine-clean/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADASaxFrameworkLoader/include\"",
+					/Users/christophebernard/Develop/Static/boost_1_54_0/,
+					"/Users/christophebernard/Develop/Static/lua-5.2.2/src",
+					/Users/christophebernard/Develop/Static/libpng/made,
+					/Users/christophebernard/Develop/Static/libpng,
+					"/Users/christophebernard/Develop/Static/zlib-1.2.8",
+					"/Users/christophebernard/Develop/Static/libuv-1.10.1/include",
+					/Users/christophebernard/Develop/Static/GeometricTools/GTEngine/Include,
+					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-REBORNTests/GAME-ENGINE-REBORNTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (

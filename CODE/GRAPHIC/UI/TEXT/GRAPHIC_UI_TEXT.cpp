@@ -32,17 +32,19 @@ void GRAPHIC_UI_TEXT::Initialize() {
     
     SetAdapter( new GRAPHIC_UI_TEXT_ADAPTER );
     
-    RenderStyle = new GRAPHIC_UI_RENDER_STYLE;
-    RenderStyle->SetTextureBlock( new GRAPHIC_TEXTURE_BLOCK );
-    
-    auto text_texture_block = RenderStyle->GetTextureBlock();
-    
+    GRAPHIC_TEXTURE_BLOCK::PTR text_texture_block = new GRAPHIC_TEXTURE_BLOCK();
     text_texture_block->SetTexture( Text.GetFont()->GetTexture() );
+    
+    GRAPHIC_MATERIAL * material = new GRAPHIC_MATERIAL();
+    material->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, text_texture_block);
+    
+    RenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     RenderStyle->SetColor( Color );
     RenderStyle->SetShape( &Text );
     
-    GRAPHIC_SHADER_EFFECT::PTR ui_textured_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderText"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", "OPENGL2" ) );
+    GRAPHIC_SHADER_EFFECT::PTR ui_textured_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderText"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
+    ui_textured_shader_effect->SetMaterial( material );
     ui_textured_shader_effect->Initialize(GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
     Text.Initialize( &ui_textured_shader_effect->GetProgram() );

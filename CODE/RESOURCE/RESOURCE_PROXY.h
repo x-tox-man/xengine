@@ -18,6 +18,8 @@
 XS_CLASS_BEGIN_WITH_COPY(RESOURCE_PROXY)
 
     RESOURCE_PROXY();
+    RESOURCE_PROXY( BASE_RESOURCE * Resource );
+
     virtual ~RESOURCE_PROXY();
 
     XS_DEFINE_SERIALIZABLE
@@ -25,13 +27,18 @@ XS_CLASS_BEGIN_WITH_COPY(RESOURCE_PROXY)
     inline void SetIdentifier( const CORE_HELPERS_IDENTIFIER & identifier ) { Identifier = identifier; }
     inline void SetResource( BASE_RESOURCE * resource ) { Resource = resource; }
     inline bool ShouldLoad() { return ItShouldLoad; }
-    inline void SetItShouldLoasd( bool should_load ) { ItShouldLoad = should_load; }
+    inline void SetItShouldLoad( bool should_load ) { ItShouldLoad = should_load; }
     inline RESOURCE_TYPE GetType() { return Type; }
 
     void operator = ( const RESOURCE_PROXY & other ) {
         
         Identifier = other.Identifier;
         Resource = other.Resource;
+    }
+
+    template <typename __RESOURCE_TYPE_>
+    __RESOURCE_TYPE_ * GetResource() {
+        return static_cast<__RESOURCE_TYPE_ *>(Resource);
     }
 
 private:

@@ -43,7 +43,7 @@ GRAPHIC_OBJECT_SHAPE_LINE::~GRAPHIC_OBJECT_SHAPE_LINE() {
     CORE_MEMORY_ObjectSafeDeallocation( ShaderPositions );
 }
 
-void GRAPHIC_OBJECT_SHAPE_LINE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
+void GRAPHIC_OBJECT_SHAPE_LINE::InitializeShape() {
     
     static unsigned int index_data[] = { 0, 1 };
     
@@ -65,13 +65,13 @@ void GRAPHIC_OBJECT_SHAPE_LINE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
     mesh->SetPolygonRenderMode( GRAPHIC_MESH_POLYGON_RENDER_MODE_Line );
     
     AddNewMesh( mesh );
-    
-    SetShaderForMesh( mesh, shader );
-    
-    GetShaderTable()[0]->GetProgram()->BindAttribute(*ShaderPositions, ShaderLineGeometry );
 }
 
-void GRAPHIC_OBJECT_SHAPE_LINE::Render( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_LINE::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
+    
+    //Ow crap! TODO :
+    /*
+    GetShaderTable()[0]->GetProgram()->BindAttribute(*ShaderPositions, ShaderLineGeometry );
     
     if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         
@@ -122,7 +122,7 @@ void GRAPHIC_OBJECT_SHAPE_LINE::Render( GRAPHIC_RENDERER & renderer ) {
     GetMeshTable()[ 0 ]->ApplyBuffers();
     GetShaderTable()[ 0 ]->Disable();
     
-    glDisable(GL_BLEND);
+    glDisable(GL_BLEND);*/
 }
 
 CORE_HELPERS_IDENTIFIER GRAPHIC_OBJECT_SHAPE_LINE::ShaderLineGeometry( "geometryPosition" );

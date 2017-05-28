@@ -41,7 +41,7 @@ protected :
 };
 
 template <typename __CHILD_RESOURCE_TYPE__, typename __CHILD_RESOURCE_LOADER_TYPE__ >
-class RESOURCE : BASE_RESOURCE {
+class RESOURCE : public BASE_RESOURCE {
 
 public:
     

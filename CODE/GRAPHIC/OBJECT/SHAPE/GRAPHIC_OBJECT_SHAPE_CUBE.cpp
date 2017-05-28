@@ -29,7 +29,7 @@ GRAPHIC_OBJECT_SHAPE_CUBE::~GRAPHIC_OBJECT_SHAPE_CUBE() {
 
 }
 
-void GRAPHIC_OBJECT_SHAPE_CUBE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
+void GRAPHIC_OBJECT_SHAPE_CUBE::InitializeShape() {
     
     static unsigned int index_data[] = {
         0, 3, 2, 2, 1, 0,
@@ -69,59 +69,26 @@ void GRAPHIC_OBJECT_SHAPE_CUBE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
     mesh->CreateBuffers();
     
     AddNewMesh( mesh );
-    
-    SetShaderForMesh( mesh, shader );
 }
 
-void GRAPHIC_OBJECT_SHAPE_CUBE::Render( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_CUBE::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
-    if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
-        
-        return;
-    }
+    effect->Apply( renderer );
     
     CORE_MATH_MATRIX
-        object_matrix,result,temp;
+        result;
     
-    GetShaderTable()[ 0 ]->Enable();
+    effect->Apply( renderer );
+    
+    GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         
-    GRAPHIC_SHADER_ATTRIBUTE * attr = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        
-    GLOBAL_IDENTITY_MATRIX(attr->AttributeValue.Value.FloatMatrix4x4);
-    
-    //object_matrix.Scale( ScaleFactor.X(),ScaleFactor.X(), ScaleFactor.X() );
-    
-    
-    
-    Orientation.ToMatrix( temp.GetRow(0) );
-    
-    object_matrix *= temp;
-    object_matrix.Translate( Position );
-    
-    if ( !MeshTable[0]->GetTransform().FastyIsIdentity() ) {
-        
-        object_matrix = object_matrix * MeshTable[0]->GetTransform();
-    }
-    
-    result = renderer.GetCamera().GetProjectionMatrix();
-    result *= renderer.GetCamera().GetViewMatrix();
-    result *= object_matrix;
+    CompteModelViewProjection( options, MeshTable[0]->GetTransform(), renderer, result );
     
     GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
-    
-    //LOCAL_MULTIPLY_MATRIX( attr->AttributeValue.Value.FloatMatrix4x4 , translation );
-    
-    //---------------
-    //MVPmatrix = projection * view * model; // Remember : inverted !
-    
-    GRAPHIC_SYSTEM_ApplyMatrix(
-        attr->AttributeIndex,
-        1,
-        0,
-        (const GLfloat * )&result[0]);
 
     GetMeshTable()[ 0 ]->ApplyBuffers();
-    GetShaderTable()[ 0 ]->Disable();
+    
+    effect->Discard();
     
     GRAPHIC_SYSTEM::DisableBlend();
 }

@@ -42,7 +42,8 @@ void VIEWER3D::Initialize() {
     
     lookat.Normalize();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 10000.0f, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), position, lookat );
+    Camera = new GAMEPLAY_CAMERA();
+    Camera->Initialize( 1.0f, 10000.0f, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), position, lookat );
     
     DirectionalLight = new GRAPHIC_SHADER_LIGHT;
     
@@ -80,7 +81,7 @@ void VIEWER3D::Initialize() {
     
     InitializeScene();
     
-    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera->GetCamera() );
 }
 
 void VIEWER3D::Update( const float time_step ) {
@@ -203,7 +204,7 @@ void VIEWER3D::Update( const float time_step ) {
 
 void VIEWER3D::Render() {
     
-    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera->GetCamera() );
     
     GRAPHIC_RENDERER::GetInstance().EnableColor( false );
     Scene->Render();
@@ -213,8 +214,9 @@ void VIEWER3D::Render() {
 void VIEWER3D::Load( const char * path ) {
     
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
+    
         auto program = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderPoNoUVTaBi"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", "OPENGL2" ) );
-        
+    
         program->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
         
         auto mesh = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH( path ), 0, GRAPHIC_MESH_TYPE_ModelResource );
@@ -223,8 +225,6 @@ void VIEWER3D::Load( const char * path ) {
             
             mesh->GetMeshTable()[ i ]->CreateBuffers();
         }
-    
-        mesh->GetShaderTable().resize( 1 );
     
         CreateMesh( mesh, program );
     
@@ -250,9 +250,11 @@ void VIEWER3D::InitializeScene() {
 void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect ) {
     
     static int component_index = 0;
+    
     GRAPHIC_MATERIAL * material = new GRAPHIC_MATERIAL;
-    material->SetEffect( effect );
-    material->SetColor( CORE_COLOR_White );
+    material->SetDiffuse( CORE_COLOR_White );
+    
+    effect->SetMaterial( material );
     
     GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
     component_entity->SetIndex( component_index++ );
@@ -261,8 +263,11 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Render ), GAMEPLAY_COMPONENT_TYPE_Render );
     component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Physics ), GAMEPLAY_COMPONENT_TYPE_Physics );
     
-    ( ( GAMEPLAY_COMPONENT_RENDER *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetObject(  mesh );
-    ( ( GAMEPLAY_COMPONENT_RENDER *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetMaterial( material );
+    RESOURCE_PROXY * proxy_object = new RESOURCE_PROXY( mesh );
+    RESOURCE_PROXY * proxy_effect = new RESOURCE_PROXY( effect );
+    
+    ( ( GAMEPLAY_COMPONENT_RENDER *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetObject(  proxy_object );
+    ( ( GAMEPLAY_COMPONENT_RENDER *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetEffect( proxy_effect );
     
     GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) Scene->GetRenderableSystemTable()[0];
     

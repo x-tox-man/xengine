@@ -43,7 +43,7 @@ GRAPHIC_OBJECT_SHAPE_PLAN::~GRAPHIC_OBJECT_SHAPE_PLAN() {
     }
 }
 
-void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
+void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape() {
     
     static unsigned int index_data[] = { 0, 1, 2, 2, 3, 0 };
     
@@ -70,23 +70,16 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PRO
     mesh->CreateBuffers();
     
     AddNewMesh( mesh );
-    
-    SetShaderForMesh( mesh, shader );
-    
+
     CORE_MEMORY_ALLOCATOR_Free( temp_ptr );
 }
 
-void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
     CORE_MATH_MATRIX
-        object_matrix,
-        orientation_matrix,
         result;
     
-    if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
-        
-        return;
-    }
+    effect->Apply( renderer );
     
     if( TextureBlock ) {
         
@@ -101,8 +94,6 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
     GetShaderTable()[ 0 ]->Enable();
 
     GRAPHIC_SHADER_ATTRIBUTE * attr = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-    GRAPHIC_SHADER_ATTRIBUTE * texture = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ColorTexture );
-    GRAPHIC_SHADER_ATTRIBUTE * depth = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
 
     GLOBAL_IDENTITY_MATRIX( attr->AttributeValue.Value.FloatMatrix4x4 );
     
@@ -126,72 +117,16 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer ) {
     
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
-    int texture_index = 0;
-    
-    if( TextureBlock ) {
-        
-        TextureBlock->Apply( texture_index++, texture->AttributeIndex );
-    }
-    
-    if ( SecondTextureBlock ) {
-        
-        GRAPHIC_SHADER_ATTRIBUTE * texture_2 = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ColorTexture1 );
-        
-        SecondTextureBlock->Apply( texture_index++, texture_2->AttributeIndex );
-    }
-    
-    if ( ThirdTextureBlock ) {
-        
-        GRAPHIC_SHADER_ATTRIBUTE * texture_3 = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ColorTexture2 );
-        
-        SecondTextureBlock->Apply( texture_index++, texture_3->AttributeIndex );
-    }
-    
-    if ( TextureBlock && depth->AttributeIndex > 0 ) {
-        
-        TextureBlock->ApplyDepth( texture_index++, depth->AttributeIndex );
-    }
-    
-    GRAPHIC_SHADER_ATTRIBUTE & color = GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
-    
-    if ( renderer.IsColorEnabled() ) {
-        GFX_CHECK( glUniform4fv(
-                  color.AttributeIndex,
-                  1,
-                  (const GLfloat * )&Color[0] ); )
-    }
-    else {
-        color.AttributeValue.Value.FloatArray4[0] = 1.0f;
-        color.AttributeValue.Value.FloatArray4[1] = 1.0f;
-        color.AttributeValue.Value.FloatArray4[2] = 1.0f;
-        color.AttributeValue.Value.FloatArray4[3] = 1.0f;
-        
-        GFX_CHECK( glUniform4fv(
-                                color.AttributeIndex,
-                                1,
-                                (const GLfloat * )&color.AttributeValue.Value.FloatArray4 ); )
-    }
     
     GRAPHIC_SYSTEM_ApplyMatrix(
         attr->AttributeIndex,
         1,
         0,
         (const GLfloat * )&result[0]);
-    
-    // TODO : improve efficiency with uniform shader attribute handling
-    if ( Effect ) {
-        
-        Effect->Apply();
-    }
 
     GetMeshTable()[ 0 ]->ApplyBuffers();
     
-    if( TextureBlock ) {
-        
-        TextureBlock->Discard();
-    }
-    
-    GetShaderTable()[ 0 ]->Disable();
+    effect->Discard();
     
     GRAPHIC_SYSTEM::DisableBlend();
 }

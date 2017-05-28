@@ -18,7 +18,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR, GR
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR();
     virtual ~GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR();
 
-    virtual void Apply() override;
+    virtual void Apply( GRAPHIC_RENDERER & ) override;
     virtual void BindAttributes() override;
 
     static CORE_HELPERS_IDENTIFIER

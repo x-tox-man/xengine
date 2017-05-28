@@ -70,7 +70,7 @@ GRAPHIC_UI_ELEMENT * GRAPHIC_UI_HELPER::CreateTextElement( const CORE_HELPERS_ID
     
     GRAPHIC_UI_RENDER_STYLE * style = GRAPHIC_UI_HELPER::CreateTextRenderStyle( DefaultFont, text_shape );
     
-    text_shape->Initialize( text, *DefaultFont, 1.0f, text_shape->GetShaderTable()[0] );
+    text_shape->Initialize( text, *DefaultFont, 1.0f, &style->GetEffect()->GetProgram() );
     
     element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, style );
     element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Disabled, style );
@@ -95,24 +95,33 @@ void GRAPHIC_UI_HELPER::AddElementToFrame( GRAPHIC_UI_ELEMENT * element, GRAPHIC
 GRAPHIC_UI_RENDER_STYLE * GRAPHIC_UI_HELPER::CreateDefaultRenderStyle( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     GRAPHIC_UI_RENDER_STYLE * render_style = new GRAPHIC_UI_RENDER_STYLE;
+    GRAPHIC_SHADER_EFFECT * effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderText"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    
+    GRAPHIC_MATERIAL * material = new GRAPHIC_MATERIAL();
+    material->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, &TextureAtlas->GetTextureBlock( identifier ));
+    
+    effect->SetMaterial( material );
     
     render_style->SetColor( CORE_MATH_VECTOR( 1.0f, 0.0f, 0.0f, 1.0f ) );
     render_style->SetShape( DefaultPlanShape );
-    render_style->SetTextureBlock( &TextureAtlas->GetTextureBlock( identifier ) );
+    render_style->SetEffect( effect );
     
     return render_style;
 }
 
-GRAPHIC_UI_RENDER_STYLE * GRAPHIC_UI_HELPER::CreateTextRenderStyle( GRAPHIC_FONT * DefaultFont, GRAPHIC_TEXT *text_shape ) {
+GRAPHIC_UI_RENDER_STYLE * GRAPHIC_UI_HELPER::CreateTextRenderStyle( GRAPHIC_FONT * font, GRAPHIC_TEXT *text_shape ) {
     
     GRAPHIC_UI_RENDER_STYLE * render_style = new GRAPHIC_UI_RENDER_STYLE;
-    GRAPHIC_TEXTURE_BLOCK * text_texture_block = new GRAPHIC_TEXTURE_BLOCK;
+    GRAPHIC_SHADER_EFFECT * effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderText"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
-    text_texture_block->SetTexture( DefaultFont->GetTexture() );
+    GRAPHIC_MATERIAL * material = new GRAPHIC_MATERIAL();
+    material->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( font->GetTexture() ) );
+    
+    effect->SetMaterial( material );
     
     render_style->SetColor( CORE_MATH_VECTOR( 1.0f, 0.0f, 0.0f, 1.0f ) );
     render_style->SetShape( text_shape );
-    render_style->SetTextureBlock( text_texture_block );
+    render_style->SetEffect( effect );
     
     return render_style;
 }

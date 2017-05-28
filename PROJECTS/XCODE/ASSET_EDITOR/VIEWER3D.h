@@ -20,6 +20,7 @@
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 #include "GAMEPLAY_SCENE.h"
 #include "GRAPHIC_MATERIAL.h"
+#include "GAMEPLAY_CAMERA.h"
 
 XS_CLASS_BEGIN( VIEWER3D )
 
@@ -40,7 +41,7 @@ private :
 
     GAMEPLAY_SCENE
         * Scene;
-    GRAPHIC_CAMERA
+    GAMEPLAY_CAMERA
         * Camera;
     GRAPHIC_SHADER_LIGHT
         * DirectionalLight,

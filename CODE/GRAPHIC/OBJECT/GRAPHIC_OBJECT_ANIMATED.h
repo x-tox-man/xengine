@@ -18,7 +18,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_OBJECT_ANIMATED, GRAPHIC_OBJECT )
     GRAPHIC_OBJECT_ANIMATED();
     virtual ~GRAPHIC_OBJECT_ANIMATED();
 
-    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
+    virtual void Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) override;
 
     inline GRAPHIC_MESH_ANIMATION_CONTROLLER * GetAnimationController() { return AnimationController; };
     inline void SetAnimationController( GRAPHIC_MESH_ANIMATION_CONTROLLER * animation ) { AnimationController = animation; };

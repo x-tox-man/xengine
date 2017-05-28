@@ -36,7 +36,7 @@ GRAPHIC_OBJECT_SHAPE_SPHERE::~GRAPHIC_OBJECT_SHAPE_SPHERE() {
 
 }
 
-void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
+void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape() {
     
     unsigned int * index_data = ( unsigned int * ) CORE_MEMORY_ALLOCATOR::Allocate( sizeof( unsigned int ) * ring_c * ring_c * 6 );
     
@@ -94,22 +94,22 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_P
     mesh->CreateBuffers();
     
     AddNewMesh( mesh );
-    
-    SetShaderForMesh( mesh, shader );
 }
 
-void GRAPHIC_OBJECT_SHAPE_SPHERE::Render( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_SPHERE::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
     CORE_MATH_MATRIX result,object_matrix;
     
-    if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
+    abort();
+    //TODO:
+    
+    /*if ( !material->Apply( renderer ) ) {
         
         return;
     }
     
-    GetShaderTable()[ 0 ]->Enable();
-        
-    GRAPHIC_SHADER_ATTRIBUTE * attr = &GetShaderTable()[0]->getShaderAttribute(GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+    
+    GRAPHIC_SHADER_ATTRIBUTE * attr = &GetMaterialTable()[0]->GetPass( renderer.GetPassIndex() )->getShaderAttribute(GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         
     GLOBAL_IDENTITY_MATRIX(attr->AttributeValue.Value.FloatMatrix4x4);
     
@@ -144,7 +144,7 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::Render( GRAPHIC_RENDERER & renderer ) {
     GetMeshTable()[ 0 ]->ApplyBuffers();
     GetShaderTable()[ 0 ]->Disable();
     
-    GRAPHIC_SYSTEM::DisableBlend();
+    GRAPHIC_SYSTEM::DisableBlend();*/
 }
 
 void GRAPHIC_OBJECT_SHAPE_SPHERE::computePoint( float * data_pointer, float longi_ratio, float lati_ratio, int point_index ) {

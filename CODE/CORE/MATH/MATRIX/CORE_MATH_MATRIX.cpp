@@ -114,6 +114,17 @@ void CORE_MATH_MATRIX::ZRotate( const float angle ) {
     *this *= rotation;
 }
 
+void CORE_MATH_MATRIX::Scale( const CORE_MATH_VECTOR & scale_vector ) {
+    
+    CORE_MATH_MATRIX scaling( Identity );
+    
+    scaling[0] = scale_vector[0];
+    scaling[5] = scale_vector[1];
+    scaling[10] = scale_vector[2];
+    
+    *this *= scaling;
+}
+
 void CORE_MATH_MATRIX::Scale( const float scale_x, const float scale_y, const float scale_z ) {
     
     CORE_MATH_MATRIX scaling( Identity );

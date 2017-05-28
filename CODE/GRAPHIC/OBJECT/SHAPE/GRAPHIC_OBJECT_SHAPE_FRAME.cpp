@@ -65,7 +65,7 @@ GRAPHIC_OBJECT_SHAPE_FRAME::~GRAPHIC_OBJECT_SHAPE_FRAME() {
     }
 }
 
-void GRAPHIC_OBJECT_SHAPE_FRAME::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
+void GRAPHIC_OBJECT_SHAPE_FRAME::InitializeShape() {
     
     GRAPHIC_MESH * mesh = new GRAPHIC_MESH();
     
@@ -91,14 +91,14 @@ void GRAPHIC_OBJECT_SHAPE_FRAME::InitializeShape( GRAPHIC_SHADER_PROGRAM_DATA_PR
     
     AddNewMesh( mesh );
     
-    SetShaderForMesh( mesh, shader );
-    
     CORE_MEMORY_ALLOCATOR_Free(temp_ptr);
 }
 
-void GRAPHIC_OBJECT_SHAPE_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_OBJECT_SHAPE_FRAME::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
-    if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
+    abort();
+    
+    /*if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         
         return;
     }
@@ -188,7 +188,7 @@ void GRAPHIC_OBJECT_SHAPE_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
     
     GetShaderTable()[ 0 ]->Disable();
     
-    GRAPHIC_SYSTEM::DisableBlend();
+    GRAPHIC_SYSTEM::DisableBlend();*/
 }
 
 void GRAPHIC_OBJECT_SHAPE_FRAME::UpdateFrameVertexData( float * plan_vertex_data, const GRAPHIC_TEXTURE_BLOCK & block ) {

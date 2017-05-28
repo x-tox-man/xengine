@@ -18,7 +18,7 @@ GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::~GRAPHIC_SHADER_EFFECT_FULLSCREE
 
 }
 
-void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply() {
+void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply( GRAPHIC_RENDERER & ) {
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_bloom_intensity = Program.getShaderAttribute( BloomIntensityIdentifier );
     GRAPHIC_SHADER_ATTRIBUTE & attr_base_intensity = Program.getShaderAttribute( BaseIntensityIdentifier );

@@ -25,8 +25,9 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
      PlanObject.SetScaleFactor(CORE_MATH_VECTOR(1.0f,1.0f,0.0f,1.0f) );
      PlanObject.Render(renderer);
      }*/
-    
-    VertexBuffer->InitializeWithMemory( 10 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
+    abort();
+    //TODO:
+    /*VertexBuffer->InitializeWithMemory( 10 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
     GRAPHIC_SYSTEM::UpdateVertexBuffer(&Mesh, *VertexBuffer);
     
     material.Apply(renderer);
@@ -36,7 +37,7 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     CORE_MATH_MATRIX result = renderer.GetCamera().GetProjectionMatrix();
     result *= renderer.GetCamera().GetViewMatrix();
     
-    GRAPHIC_SHADER_ATTRIBUTE * attr = &material.GetEffect()->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE * attr = &material.GetPass( renderer.GetPassIndex() )->GetEffect()->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
     
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
@@ -73,7 +74,7 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     GFX_CHECK( glBindVertexArray(Mesh.GetVertexArrays() ); )
     GFX_CHECK( glDrawArrays(GL_POINTS, 0, __ARRAY_SIZE__); )
     
-    material.Discard(renderer);
+    material.Discard(renderer);*/
 }
 
 private :
@@ -85,8 +86,10 @@ CORE_DATA_BUFFER * VertexBuffer = new CORE_DATA_BUFFER;
 
 void InternalInitialize( GRAPHIC_MATERIAL & material ) {
     
-    PlanObject.InitializeShape(&material.GetEffect()->GetProgram());
-    PlanObject.SetShaderForMesh(nullptr, material.GetEffect()->GetProgram().GetProgram());
+    abort();
+    //TODO : crappy way to do bad things
+    /*PlanObject.InitializeShape(&material.GetPass(0)->GetEffect()->GetProgram());
+    PlanObject.SetMaterial( material );
     
     //TODO : refactor
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
@@ -99,6 +102,7 @@ void InternalInitialize( GRAPHIC_MATERIAL & material ) {
     
     Mesh.CreateBuffers();
     //GRAPHIC_SYSTEM::
+     */
 }
 
 #endif /* GRAPHIC_PARTICLE_RENDERER_OPENGL_h */

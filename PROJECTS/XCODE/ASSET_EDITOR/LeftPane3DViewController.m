@@ -20,6 +20,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    
+    self.custom3dTableViewDelegate = [[Custom3dTableViewDelegate alloc] init];
+    
+    [self.ComponentsTableView registerNib:[[NSNib alloc] initWithNibNamed:@"PositionComponent" bundle:[NSBundle mainBundle]] forIdentifier:@"PositionComponent"];
+    [self.ComponentsTableView registerNib:[[NSNib alloc] initWithNibNamed:@"RenderComponent" bundle:[NSBundle mainBundle]] forIdentifier:@"RenderComponent"];
+    [self.ComponentsTableView registerNib:[[NSNib alloc] initWithNibNamed:@"PhysicsComponent" bundle:[NSBundle mainBundle]] forIdentifier:@"PhysicsComponent"];
+    [self.ComponentsTableView registerNib:[[NSNib alloc] initWithNibNamed:@"ScriptComponent" bundle:[NSBundle mainBundle]] forIdentifier:@"ScriptComponent"];
+    
+    self.ComponentsTableView.delegate = self.custom3dTableViewDelegate;
+    self.ComponentsTableView.dataSource = self.custom3dTableViewDelegate;
 }
 
 - (IBAction)CreateItem:(id)sender {
@@ -35,7 +45,9 @@
 
 -(void)outlineViewSelectionDidChange:(NSNotification *)notification {
     
+    self.custom3dTableViewDelegate.Entity = [self.OutlineView itemAtRow:[self.OutlineView selectedRow]];
     
+    [self.ComponentsTableView reloadData];
 }
 
 -(BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
@@ -151,16 +163,7 @@
     
     Cpp3dDataProxy * proxy = [[Cpp3dDataProxy alloc] init];
     
-    proxy.Entity = NULL;
-    
-    if ( item == nil ) {
-        
-        
-    }
-    else {
-        
-        
-    }
+    proxy.Entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity(index);
     
     return proxy;
 }

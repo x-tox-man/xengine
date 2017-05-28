@@ -20,33 +20,35 @@
 XS_CLASS_BEGIN( GRAPHIC_UI_RENDER_STYLE )
 
     GRAPHIC_UI_RENDER_STYLE();
-    GRAPHIC_UI_RENDER_STYLE( GRAPHIC_OBJECT_SHAPE * shape, GRAPHIC_TEXTURE_BLOCK * texture_block, const CORE_HELPERS_COLOR & color = CORE_COLOR_White, GRAPHIC_OBJECT_SHAPE * decorating_shape = NULL, GRAPHIC_TEXTURE_BLOCK * decorating_texture_block = NULL );
+    GRAPHIC_UI_RENDER_STYLE( GRAPHIC_OBJECT_SHAPE * shape, GRAPHIC_SHADER_EFFECT * effect, const CORE_HELPERS_COLOR & color, GRAPHIC_OBJECT_SHAPE * decorating_shape = NULL, GRAPHIC_SHADER_EFFECT * decorating_effect = NULL );
     ~GRAPHIC_UI_RENDER_STYLE();
 
     void Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity );
 
-    void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
+    inline void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
+    inline void SetDecoratingShape( GRAPHIC_OBJECT_SHAPE * shape ) { DecoratingShape = shape; }
+
+    inline void SetEffect( GRAPHIC_SHADER_EFFECT * effect ) { Effect = effect; }
+    inline void SetDecoratingEffect( GRAPHIC_SHADER_EFFECT * effect ) { DecoratingEffect = effect; }
+
     void SetColor( const CORE_HELPERS_COLOR & color ) { Color = color; }
-    void SetTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { TextureBlock = texture_block; }
 
-    void SetDecoratingShape( GRAPHIC_OBJECT_SHAPE * shape ) { DecoratingShape = shape; }
-    void SetDecoratingTextureBlock( GRAPHIC_TEXTURE_BLOCK * texture_block ) { DecoratingTextureBlock = texture_block; }
+    inline GRAPHIC_OBJECT * GetShape() { return Shape; }
+    inline GRAPHIC_OBJECT * GetDecoratingShape() { return DecoratingShape; }
 
-    GRAPHIC_OBJECT * GetShape() { return Shape; }
-    const CORE_MATH_VECTOR & GetColor() { return Color; }
-    GRAPHIC_TEXTURE_BLOCK * GetTextureBlock() { return TextureBlock; }
-    const GRAPHIC_TEXTURE_BLOCK * GetTextureBlock() const { return TextureBlock; }
+    inline GRAPHIC_SHADER_EFFECT * GetEffect() { return Effect; }
+    inline GRAPHIC_SHADER_EFFECT * GetDecoratingEffect() { return DecoratingEffect; }
 
 private :
 
-    CORE_MATH_VECTOR
+    CORE_HELPERS_COLOR
         Color;
+    GRAPHIC_SHADER_EFFECT
+        * Effect,
+        * DecoratingEffect;
     GRAPHIC_OBJECT_SHAPE
         * Shape,
         * DecoratingShape;
-    GRAPHIC_TEXTURE_BLOCK
-        * TextureBlock,
-        * DecoratingTextureBlock;
 
 XS_CLASS_END
 
