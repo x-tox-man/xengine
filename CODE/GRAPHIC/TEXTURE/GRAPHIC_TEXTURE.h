@@ -27,6 +27,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_TEXTURE, GR_T_ANCESTOR_TYPE )
     GRAPHIC_TEXTURE();
     virtual ~GRAPHIC_TEXTURE();
 
+    XS_DEFINE_SERIALIZABLE
+
     #if OPENGL2PLUS || OPENGLES2
         GLuint & GetTextureHandle() { return TextureHandle; }
         GLuint & GetDepthTextureHandle() { return DepthTextureHandle; }

@@ -96,57 +96,6 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape() {
     AddNewMesh( mesh );
 }
 
-void GRAPHIC_OBJECT_SHAPE_SPHERE::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
-    
-    CORE_MATH_MATRIX result,object_matrix;
-    
-    abort();
-    //TODO:
-    
-    /*if ( !material->Apply( renderer ) ) {
-        
-        return;
-    }
-    
-    
-    GRAPHIC_SHADER_ATTRIBUTE * attr = &GetMaterialTable()[0]->GetPass( renderer.GetPassIndex() )->getShaderAttribute(GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        
-    GLOBAL_IDENTITY_MATRIX(attr->AttributeValue.Value.FloatMatrix4x4);
-    
-    static float angle = M_PI;
-    
-    angle += 0.090f;
-    
-    static float depth = 0.0f;
-    
-    depth += 1.15f;
-    
-    object_matrix.YRotate(angle);
-    object_matrix.Translate(CORE_MATH_VECTOR(0.0f,0.0f,10.0f,0.0f));
-    
-    result = renderer.GetCamera().GetProjectionMatrix();
-    result *= renderer.GetCamera().GetViewMatrix();
-    result *= object_matrix;
-
-    GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
-    
-    //LOCAL_MULTIPLY_MATRIX( attr->AttributeValue.Value.FloatMatrix4x4 , translation );
-    
-    //---------------
-    //MVPmatrix = projection * view * model; // Remember : inverted !
-    
-    GRAPHIC_SYSTEM_ApplyMatrix(
-        attr->AttributeIndex,
-        1,
-        0,
-        (const GLfloat * )&result[0]);
-
-    GetMeshTable()[ 0 ]->ApplyBuffers();
-    GetShaderTable()[ 0 ]->Disable();
-    
-    GRAPHIC_SYSTEM::DisableBlend();*/
-}
-
 void GRAPHIC_OBJECT_SHAPE_SPHERE::computePoint( float * data_pointer, float longi_ratio, float lati_ratio, int point_index ) {
     
     static float base_vector[4] = { 0.0f, 1.0f, 0.0f, 1.0f };

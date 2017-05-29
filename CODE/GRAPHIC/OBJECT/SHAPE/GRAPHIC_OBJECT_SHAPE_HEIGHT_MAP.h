@@ -20,7 +20,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP, GRAPHIC_OBJECT_SHA
     virtual ~GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP();
 
     virtual void InitializeShape() override;
-    virtual void Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) override;
 
 private :
 

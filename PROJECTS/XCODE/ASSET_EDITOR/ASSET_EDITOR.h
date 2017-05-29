@@ -44,6 +44,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(ASSET_EDITOR, CORE_APPLICATION)
 
     inline CORE_FILESYSTEM_PATH * GetProjectPath() { return ProjectPath; }
     inline RESOURCE_CONTAINER & GetResourceContainer() { return ResourceContainer; }
+    inline VIEWER3D * Get3dViewer() { return &Viewer3d; }
+
     void SetProjectPath( const CORE_FILESYSTEM_PATH & path ) {
         if ( ProjectPath ) {
             delete ProjectPath;

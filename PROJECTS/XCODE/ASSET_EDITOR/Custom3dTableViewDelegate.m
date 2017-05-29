@@ -125,8 +125,15 @@
     
     auto pos = (GAMEPLAY_COMPONENT_POSITION *) ((GAMEPLAY_COMPONENT_ENTITY *) self.Entity.Entity)->GetComponent( 0 );
     CORE_MATH_QUATERNION rotation = pos->GetOrientation();
+    
+    
     rotation.X( [tf floatValue] );
+    rotation.Normalize();
+    
     pos->SetOrientation(rotation);
+    
+    [tf setFloatValue:rotation.X()];
+    
 }
 
 - (IBAction)SetYRot:(id)sender {
@@ -135,7 +142,11 @@
     auto pos = (GAMEPLAY_COMPONENT_POSITION *) ((GAMEPLAY_COMPONENT_ENTITY *) self.Entity.Entity)->GetComponent( 0 );
     CORE_MATH_QUATERNION rotation = pos->GetOrientation();
     rotation.Y( [tf floatValue] );
+    rotation.Normalize();
+    
     pos->SetOrientation(rotation);
+    
+    [tf setFloatValue:rotation.Y()];
 }
 
 - (IBAction)SetZRot:(id)sender {
@@ -144,7 +155,11 @@
     auto pos = (GAMEPLAY_COMPONENT_POSITION *) ((GAMEPLAY_COMPONENT_ENTITY *) self.Entity.Entity)->GetComponent( 0 );
     CORE_MATH_QUATERNION rotation = pos->GetOrientation();
     rotation.Z( [tf floatValue] );
+    rotation.Normalize();
+    
     pos->SetOrientation(rotation);
+    
+    [tf setFloatValue:rotation.Z()];
 }
 
 - (IBAction)SetWRot:(id)sender {
@@ -153,7 +168,11 @@
     auto pos = (GAMEPLAY_COMPONENT_POSITION *) ((GAMEPLAY_COMPONENT_ENTITY *) self.Entity.Entity)->GetComponent( 0 );
     CORE_MATH_QUATERNION rotation = pos->GetOrientation();
     rotation.W( [tf floatValue] );
+    rotation.Normalize();
+    
     pos->SetOrientation(rotation);
+    
+    [tf setFloatValue:rotation.W()];
 }
 
 @end

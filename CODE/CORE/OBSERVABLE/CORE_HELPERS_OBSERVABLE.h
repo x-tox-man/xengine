@@ -52,6 +52,8 @@ public:
                 
                 break;
             }
+            
+            it++;
         }
     }
     
@@ -60,7 +62,10 @@ public:
         typename std::vector<CORE_HELPERS_CALLBACK_1< __OBSERVABLE_CLASS__ *> * >::iterator it = InnerCallbackTable.begin();
         
         while (it != InnerCallbackTable.end() ) {
+            
             (*it)->operator()(ObservableInstance);
+            
+            it++;
         }
     }
     

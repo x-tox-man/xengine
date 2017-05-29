@@ -24,6 +24,8 @@ class RESOURCE_IMAGE : public RESOURCE< RESOURCE_IMAGE, RESOURCE_IMAGE_PNG_LOADE
 
     RESOURCE_IMAGE();
     virtual ~RESOURCE_IMAGE();
+    
+    XS_DEFINE_SERIALIZABLE
 
     inline GRAPHIC_TEXTURE_INFO & GetImageInfo() { return TextureInfo; }
     inline const GRAPHIC_TEXTURE_INFO & GetImageInfo() const { return TextureInfo; }

@@ -71,28 +71,6 @@ void GRAPHIC_OBJECT_SHAPE_CUBE::InitializeShape() {
     AddNewMesh( mesh );
 }
 
-void GRAPHIC_OBJECT_SHAPE_CUBE::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
-    
-    effect->Apply( renderer );
-    
-    CORE_MATH_MATRIX
-        result;
-    
-    effect->Apply( renderer );
-    
-    GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        
-    CompteModelViewProjection( options, MeshTable[0]->GetTransform(), renderer, result );
-    
-    GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
-
-    GetMeshTable()[ 0 ]->ApplyBuffers();
-    
-    effect->Discard();
-    
-    GRAPHIC_SYSTEM::DisableBlend();
-}
-
 void GRAPHIC_OBJECT_SHAPE_CUBE::UpdateGeometry( const CORE_MATH_VECTOR & center, const CORE_MATH_VECTOR & extent ) {
     
     float vertex_data[] = {

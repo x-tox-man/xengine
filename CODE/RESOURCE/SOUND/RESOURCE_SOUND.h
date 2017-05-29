@@ -21,6 +21,8 @@ class RESOURCE_SOUND : public RESOURCE< RESOURCE_SOUND, RESOURCE_SOUND_MP3_LOADE
     
     public :
     
+    XS_DEFINE_SERIALIZABLE
+    
     RESOURCE_SOUND();
     virtual ~RESOURCE_SOUND();
     

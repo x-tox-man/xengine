@@ -43,10 +43,7 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_
         option.SetScaleFactor( placement.GetSize() );
         Effect->SetDiffuse( Color * opacity );
         
-        //TODO: fix colors via material
-        renderer.EnableColor( true );
         Shape->Render( renderer, option, Effect );
-        renderer.EnableColor( false );
     }
     
     if ( DecoratingShape && DecoratingEffect) {

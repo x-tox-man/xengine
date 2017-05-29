@@ -19,7 +19,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_PLAN, GRAPHIC_OBJECT_SHAPE)
     virtual ~GRAPHIC_OBJECT_SHAPE_PLAN();
 
     virtual void InitializeShape() override;
-    virtual void Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) override;
 
 private :
 

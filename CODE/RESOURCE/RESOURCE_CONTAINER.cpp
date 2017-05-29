@@ -28,6 +28,31 @@ RESOURCE_CONTAINER::~RESOURCE_CONTAINER() {
     
 }
 
+void RESOURCE_CONTAINER::Save( const CORE_FILESYSTEM_PATH & path ) {
+    
+    CORE_DATA_STREAM
+        stream;
+    
+    stream.Open();
+    
+    XS_CLASS_SERIALIZER< RESOURCE_CONTAINER >::Serialize< std::true_type >( *this, stream );
+    
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, RESOURCE_PROXY * >::iterator it = ResourceMap.begin();
+    
+    while (it != ResourceMap.end() ) {
+        
+        auto resource = BASE_RESOURCE::FactoryCreate( it->second->GetType() );
+        
+        resource->Save( it->first, stream );
+        
+        it++;
+    }
+    
+    stream.Close();
+    
+    CORE_DATA_LOADER< RESOURCE_CONTAINER >::Save(stream, path );
+}
+
 void RESOURCE_CONTAINER::Load( const CORE_FILESYSTEM_PATH & path ) {
     
     CORE_DATA_STREAM
@@ -40,6 +65,7 @@ void RESOURCE_CONTAINER::Load( const CORE_FILESYSTEM_PATH & path ) {
         while (it != ResourceMap.end() ) {
             
             auto resource = BASE_RESOURCE::FactoryCreate( it->second->GetType() );
+            abort(); //TODO : does not work
             resource->Load( it->first, stream );
             
             it++;
@@ -52,6 +78,7 @@ void RESOURCE_CONTAINER::Load( const CORE_FILESYSTEM_PATH & path ) {
 void RESOURCE_CONTAINER::AddResource(RESOURCE_PROXY * resource, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier) {
     
     ResourceMap[ identifier ] = resource;
+    ResourceMap[ identifier ]->SetIdentifier( identifier );
 }
 
 void RESOURCE_CONTAINER::RemoveResource(const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier) {

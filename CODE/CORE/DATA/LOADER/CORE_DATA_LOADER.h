@@ -126,6 +126,29 @@ public:
         
         return true;
     }
+    
+    static bool Save( CORE_DATA_STREAM & stream, const CORE_FILESYSTEM_PATH & path ) {
+        
+        CORE_FILESYSTEM_FILE
+            file( path );
+        
+        if ( !file.OpenInput() ) {
+            
+            return false;
+        }
+        
+        int bytes_written = file.InputBytes( stream.GetMemoryBuffer(), stream.GetOffset() );
+        
+        file.Close();
+        
+        if ( bytes_written != stream.GetOffset() ) {
+            
+            return false;
+        }
+
+        
+        return true;
+    }
 };
 
 #endif /* CORE_DATA_LOADER_h */

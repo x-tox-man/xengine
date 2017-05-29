@@ -44,8 +44,13 @@ CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const CORE_FILESYSTEM_PATH & other )
             file_path;
         
         strcpy( path_buffer, CORE_FILESYSTEM::GetDefaultFilesystem().GetBaseDirectoryPath() );
-        strcat( path_buffer, directory );
-        strcat( path_buffer, CORE_FILESYSTEM::GetDirectorySeparator() );
+        
+        if ( strlen(directory ) ) {
+            
+            strcat( path_buffer, directory );
+            strcat( path_buffer, CORE_FILESYSTEM::GetDirectorySeparator() );
+        }
+        
         strcat( path_buffer, path );
         
         // Need to check if extension is already present in path

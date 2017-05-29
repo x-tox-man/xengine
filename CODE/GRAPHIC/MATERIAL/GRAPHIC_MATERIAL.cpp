@@ -21,19 +21,26 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MATERIAL )
     XS_DEFINE_ClassMember( std::string, Name )
     XS_DEFINE_ClassMember( CORE_HELPERS_COLOR, Diffuse )
     XS_DEFINE_ClassMember( TEX_TAB_TYPE, TextureTable )
+    XS_DEFINE_ClassMember( bool, DepthIsEnabled )
+    XS_DEFINE_ClassMember( bool, CubeMapIsEnabled )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_MATERIAL::GRAPHIC_MATERIAL() :
     Name(),
     Diffuse( CORE_COLOR_White ),
-    TextureTable() {
+    TextureTable(),
+    DepthIsEnabled( false ),
+    CubeMapIsEnabled( false )
+{
     
 }
 
 GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const char * image_path ) :
     Name( image_path ),
     Diffuse( CORE_COLOR_White ),
-    TextureTable() {
+    TextureTable(),
+    DepthIsEnabled( false ),
+    CubeMapIsEnabled( false ) {
     
     TryAndFillFor( image_path, ".png", GRAPHIC_SHADER_PROGRAM::ColorTexture );
     TryAndFillFor( image_path, "1.png", GRAPHIC_SHADER_PROGRAM::ColorTexture1 );

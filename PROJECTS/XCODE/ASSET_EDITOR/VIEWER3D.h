@@ -21,6 +21,7 @@
 #include "GAMEPLAY_SCENE.h"
 #include "GRAPHIC_MATERIAL.h"
 #include "GAMEPLAY_CAMERA.h"
+#include "GRAPHIC_OBJECT_SHAPE_CUBE.h"
 
 XS_CLASS_BEGIN( VIEWER3D )
 
@@ -33,16 +34,24 @@ XS_CLASS_BEGIN( VIEWER3D )
     void Update( const float time_step );
 
     void Load( const char *);
+    void SetSelectedEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) { SelectedEntity = entity; }
 
 private :
 
     void InitializeScene();
     void CreateMesh( GRAPHIC_OBJECT *, GRAPHIC_SHADER_EFFECT * );
+    void RenderSelectedObjectBox();
 
     GAMEPLAY_SCENE
         * Scene;
     GAMEPLAY_CAMERA
         * Camera;
+    GAMEPLAY_COMPONENT_ENTITY
+        * SelectedEntity;
+    GRAPHIC_OBJECT_SHAPE_CUBE
+        * CubeObject;
+    GRAPHIC_SHADER_EFFECT::PTR
+        CubeEffect;
     GRAPHIC_SHADER_LIGHT
         * DirectionalLight,
         * PointLightOne,

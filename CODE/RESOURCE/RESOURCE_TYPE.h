@@ -17,6 +17,8 @@ enum RESOURCE_TYPE {
     RESOURCE_TYPE_ModelResource,
     RESOURCE_TYPE_ModelDaeAnimation,
     RESOURCE_TYPE_ModelDaeModel,
+    RESOURCE_TYPE_Effect,
+    RESOURCE_TYPE_Material,
     RESOURCE_TYPE_Count,
     RESOURCE_TYPE_None
 };

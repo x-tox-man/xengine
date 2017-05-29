@@ -17,6 +17,7 @@
 #include "CORE_MATH_VECTOR.h"
 #include "CORE_MATH_QUATERNION.h"
 #include "CORE_MATH_RAY.h"
+#include "CORE_HELPERS_OBSERVABLE.h"
 
 class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
 
@@ -24,6 +25,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
 
     GAMEPLAY_COMPONENT_POSITION();
     virtual ~GAMEPLAY_COMPONENT_POSITION();
+
+    XS_DEFINE_OBSERVABLE(GAMEPLAY_COMPONENT_POSITION)
 
     friend class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
 
@@ -46,8 +49,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
     inline CORE_MATH_VECTOR & GetVelocity() { return Velocity; }
     inline CORE_MATH_QUATERNION & GetSpin() { return Spin; }
 
-    inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
-    inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation; }
+    inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; NotifyObservers(); }
+    inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation;NotifyObservers(); }
 
     bool Intersects( const CORE_MATH_RAY & ray );
 

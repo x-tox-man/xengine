@@ -10,6 +10,7 @@
 #import "Cpp3dDataProxy.h"
 #import "GAMEPLAY_COMPONENT_ENTITY.h"
 #import "GAMEPLAY_COMPONENT_MANAGER.h"
+#import "ASSET_EDITOR.h"
 
 @interface LeftPane3DViewController ()
 
@@ -48,6 +49,9 @@
     self.custom3dTableViewDelegate.Entity = [self.OutlineView itemAtRow:[self.OutlineView selectedRow]];
     
     [self.ComponentsTableView reloadData];
+    
+    auto viewer = ( (ASSET_EDITOR*) &ASSET_EDITOR::GetApplicationInstance())->Get3dViewer();
+    viewer->SetSelectedEntity( self.custom3dTableViewDelegate.Entity.Entity );
 }
 
 -(BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {

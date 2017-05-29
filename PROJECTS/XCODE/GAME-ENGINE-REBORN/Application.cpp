@@ -72,7 +72,7 @@ MyTestApp::MyTestApp() :
     SERVICE_LOGGER_Error( "ALL APP create 1" );
         
     #if PLATFORM_OSX
-        DefaultFileystem.Initialize( "/Users/CBE/DevelopProjects/game-engine-clean/RESOURCES/" );
+        DefaultFileystem.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
     #elif PLATFORM_IOS
         DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_ANDROID

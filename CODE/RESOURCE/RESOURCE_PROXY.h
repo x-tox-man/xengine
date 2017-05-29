@@ -24,11 +24,12 @@ XS_CLASS_BEGIN_WITH_COPY(RESOURCE_PROXY)
 
     XS_DEFINE_SERIALIZABLE
 
-    inline void SetIdentifier( const CORE_HELPERS_IDENTIFIER & identifier ) { Identifier = identifier; }
+    inline void SetIdentifier( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) { Identifier = identifier; }
     inline void SetResource( BASE_RESOURCE * resource ) { Resource = resource; }
     inline bool ShouldLoad() { return ItShouldLoad; }
     inline void SetItShouldLoad( bool should_load ) { ItShouldLoad = should_load; }
     inline RESOURCE_TYPE GetType() { return Type; }
+    inline const CORE_HELPERS_UNIQUE_IDENTIFIER & GetIdentifier() { return Identifier; }
 
     void operator = ( const RESOURCE_PROXY & other ) {
         
@@ -43,14 +44,14 @@ XS_CLASS_BEGIN_WITH_COPY(RESOURCE_PROXY)
 
 private:
 
-    CORE_HELPERS_IDENTIFIER
+    CORE_HELPERS_UNIQUE_IDENTIFIER
         Identifier;
+    BASE_RESOURCE
+        * Resource;
     RESOURCE_TYPE
         Type;
     bool
         ItShouldLoad;
-    BASE_RESOURCE
-        * Resource;
 
 XS_CLASS_END
 

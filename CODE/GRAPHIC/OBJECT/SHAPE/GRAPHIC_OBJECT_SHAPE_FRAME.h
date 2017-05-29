@@ -19,7 +19,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_FRAME, GRAPHIC_OBJECT_SHAPE)
     virtual ~GRAPHIC_OBJECT_SHAPE_FRAME();
 
     virtual void InitializeShape() override;
-    virtual void Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) override;
 
     void SetBorderSize( const float boder_width, const float boder_height ) {
         BorderWidth = boder_width;

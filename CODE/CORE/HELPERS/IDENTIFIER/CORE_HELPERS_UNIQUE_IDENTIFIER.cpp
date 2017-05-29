@@ -8,6 +8,7 @@
 
 #include "CORE_HELPERS_UNIQUE_IDENTIFIER.h"
 #include "CORE_MEMORY.h"
+#include "SERVICE_LOGGER.h"
 
 #define A_PRIME 54059 /* a prime */
 #define B_PRIME 76963 /* another prime */
@@ -47,8 +48,12 @@ CORE_HELPERS_UNIQUE_IDENTIFIER::~CORE_HELPERS_UNIQUE_IDENTIFIER() {
 
 void CORE_HELPERS_UNIQUE_IDENTIFIER::Generate( const char * value ) {
     
-    assert( strlen( value ) < 32 );
-
+    #if DEBUG
+    if ( strlen( value ) > 31 ) {
+        
+        SERVICE_LOGGER_Info( "CORE_HELPERS_UNIQUE_IDENTIFIER::Generate too long %s\n", value );
+    }
+    #endif
     strncpy( Identifier, value, 31 );
     
     CheckSum = 31;

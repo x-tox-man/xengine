@@ -278,7 +278,7 @@ CORE_MATH_POSE operator * ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & r
     
     q = lhs.GetOrientation() * rhs.GetOrientation();
     
-    pose.SetOrientation( q);
+    pose.SetOrientation( q );
     
     return pose;
 }

@@ -43,9 +43,6 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     options.SetPosition( component->GetPosition() );
     options.SetOrientation(component->GetOrientation() );
     options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
-    renderer.EnableColor(true);
-    
+
     object->Render( renderer, options, EffectProxy->GetResource< GRAPHIC_SHADER_EFFECT >() );
-    
-    renderer.EnableColor(false);
 }

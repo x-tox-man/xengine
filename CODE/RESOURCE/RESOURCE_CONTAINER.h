@@ -26,6 +26,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(RESOURCE_CONTAINER, RESOURCE_PROXY)
     void AddResource(RESOURCE_PROXY * resource, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier);
     void RemoveResource(const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier);
 
+    void Save( const CORE_FILESYSTEM_PATH & path );
     void Load( const CORE_FILESYSTEM_PATH & path );
 
     void Reload();

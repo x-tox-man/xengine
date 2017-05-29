@@ -17,31 +17,31 @@
 
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
 
-XS_DEFINE_UNIQUE( GAMEPLAY_COMPONENT_MANAGER )
+    XS_DEFINE_UNIQUE( GAMEPLAY_COMPONENT_MANAGER )
 
-~GAMEPLAY_COMPONENT_MANAGER();
+    ~GAMEPLAY_COMPONENT_MANAGER();
 
-void Initialize();
+    void Initialize();
 
-GAMEPLAY_COMPONENT_ENTITY * CreateEntity();
+    GAMEPLAY_COMPONENT_ENTITY * CreateEntity();
 
-inline GAMEPLAY_COMPONENT_ENTITY * GetEntity( int index ) {
-    
-    if ( index > InternalVector[ 0 ].LastIndex ) {
-        return NULL;
+    inline GAMEPLAY_COMPONENT_ENTITY * GetEntity( int index ) {
+        
+        if ( index > InternalVector[ 0 ].LastIndex ) {
+            return NULL;
+        }
+        
+        return &InternalVector[0].MemoryArray[ index ];
     }
-    
-    return &InternalVector[0].MemoryArray[ index ];
-}
 
 private :
 
-struct INTERNAL_ARRAY{
-    int LastIndex;
-    GAMEPLAY_COMPONENT_ENTITY * MemoryArray;
-};
+    struct INTERNAL_ARRAY{
+        int LastIndex;
+        GAMEPLAY_COMPONENT_ENTITY * MemoryArray;
+    };
 
-std::vector< INTERNAL_ARRAY > InternalVector;
+    std::vector< INTERNAL_ARRAY > InternalVector;
 
 XS_CLASS_END
 

@@ -22,7 +22,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE, GRAPHIC_OBJECT)
     virtual ~GRAPHIC_OBJECT_SHAPE();
 
     virtual void InitializeShape();
-    virtual void Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) override;
 
     void BindShaderColorAttribute();
 

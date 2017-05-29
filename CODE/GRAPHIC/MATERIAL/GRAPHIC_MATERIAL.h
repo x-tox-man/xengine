@@ -26,6 +26,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
 
     XS_DEFINE_SERIALIZABLE
 
+    CORE_HELPERS_FACTORY_Element( GRAPHIC_MATERIAL, BASE_RESOURCE, RESOURCE_TYPE, RESOURCE_TYPE_Material )
+
     GRAPHIC_MATERIAL();
     GRAPHIC_MATERIAL( const char * image_path );
     ~GRAPHIC_MATERIAL();
@@ -49,6 +51,9 @@ private:
         Diffuse;
     std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * >
         TextureTable;
+    bool
+        DepthIsEnabled,
+        CubeMapIsEnabled;
 
 XS_CLASS_END
 

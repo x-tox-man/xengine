@@ -62,6 +62,8 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
         FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalRegisterFactoryClass(classType, creatable); \
     } \
 \
+    virtual int FactoryGetType() { return -1; } \
+\
     static __FACTORY_TYPE__ * FactoryCreate( const __FACTORY_TYPE_ENUM__ factoryType) { \
         return FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalCreateObject( factoryType ); \
     }\
@@ -94,6 +96,7 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
         __FACTORY_TYPE__::RegisterFactoryClass(__FACTORY_TYPE_ENUMERATED__, FACTORY_ELEMENT<__CLASS_TYPE__>::__InnerElement); \
     \
         return FACTORY_ELEMENT<__CLASS_TYPE__>::__InnerElement; \
-    }
+    } \
+    virtual int FactoryGetType() override { return (int) __FACTORY_TYPE_ENUMERATED__; }
 
 #endif /* defined(__GAME_ENGINE_REBORN__CORE_HELPERS_FACTORY__) */

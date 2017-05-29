@@ -31,6 +31,10 @@ public:
     }
     
     virtual void Load( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {}
+    virtual void Save( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {}
+    
+    inline const CORE_HELPERS_UNIQUE_IDENTIFIER & GetIdentifier() const { return Identifier; }
+    inline void SetIdentifier( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) { Identifier = identifier; }
     
     CORE_HELPERS_FACTORY_Define( BASE_RESOURCE, RESOURCE_TYPE );
     
@@ -58,8 +62,10 @@ public:
         ResourceCache->LoadResourceFromStream( identifier, stream );
     }
     
-    inline const CORE_HELPERS_UNIQUE_IDENTIFIER & GetIdentifier() const { return Identifier; }
-    inline void SetIdentifier( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) { Identifier = identifier; }
+    virtual void Save( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) override {
+    
+        ResourceCache->SaveResourceFromStream( identifier, stream );
+    }
     
     DEFINE_SGet( CORE_FILESYSTEM_PATH, Path );
     

@@ -210,10 +210,14 @@ XS_CLASS_END
 inline bool operator == ( const CORE_MATH_QUATERNION & lhs, const CORE_MATH_QUATERNION & rhs ) {
     
     return
-        ( lhs[0] - rhs[0] < QUATERNION_TOLERANCE ) &&
+        (( lhs[0] - rhs[0] < QUATERNION_TOLERANCE ) &&
         ( lhs[1] - rhs[1] < QUATERNION_TOLERANCE ) &&
         ( lhs[2] - rhs[2] < QUATERNION_TOLERANCE ) &&
-        ( lhs[3] - rhs[3] < QUATERNION_TOLERANCE );
+        ( lhs[3] - rhs[3] < QUATERNION_TOLERANCE ) ) ||
+        (( lhs[0] + rhs[0] < QUATERNION_TOLERANCE ) &&
+         ( lhs[1] + rhs[1] < QUATERNION_TOLERANCE ) &&
+         ( lhs[2] + rhs[2] < QUATERNION_TOLERANCE ) &&
+         ( lhs[3] + rhs[3] < QUATERNION_TOLERANCE ) );
 }
 
 CORE_MATH_QUATERNION operator * ( const CORE_MATH_QUATERNION & q1, const CORE_MATH_QUATERNION & q2 );

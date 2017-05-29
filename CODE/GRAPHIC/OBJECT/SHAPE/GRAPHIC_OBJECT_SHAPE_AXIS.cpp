@@ -54,10 +54,9 @@ void GRAPHIC_OBJECT_SHAPE_AXIS::InitializeShape() {
     AddNewMesh( mesh );
 }
 
-void GRAPHIC_OBJECT_SHAPE_AXIS::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
+/*void GRAPHIC_OBJECT_SHAPE_AXIS::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
-    abort();
-    /*if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
+    if ( renderer.GetPassIndex() >= ShaderTable.size() ) {
         
         return;
     }
@@ -153,7 +152,7 @@ void GRAPHIC_OBJECT_SHAPE_AXIS::Render( GRAPHIC_RENDERER & renderer, const GRAPH
     
     
     GetMeshTable()[ 0 ]->ApplyBuffers();
-    GetShaderTable()[ 0 ]->Disable();*/
-}
+    GetShaderTable()[ 0 ]->Disable();
+}*/
 
 #undef AXIS_UNIT

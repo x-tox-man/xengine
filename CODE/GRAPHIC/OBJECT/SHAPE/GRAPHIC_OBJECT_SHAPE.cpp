@@ -23,7 +23,3 @@ void GRAPHIC_OBJECT_SHAPE::InitializeShape() {
     
 }
 
-void GRAPHIC_OBJECT_SHAPE::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
-    
-}
-

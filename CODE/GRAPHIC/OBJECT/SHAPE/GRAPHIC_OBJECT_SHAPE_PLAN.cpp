@@ -74,63 +74,6 @@ void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape() {
     CORE_MEMORY_ALLOCATOR_Free( temp_ptr );
 }
 
-void GRAPHIC_OBJECT_SHAPE_PLAN::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
-    
-    CORE_MATH_MATRIX
-        result;
-    
-    effect->Apply( renderer );
-    
-    if( TextureBlock ) {
-        
-        //TODO: seulement si TextureBlock offset est différent!
-        UpdateVertexData( PlanVertexData, *TextureBlock );
-    }
-    
-    GetMeshTable()[ 0 ]->GetVertexCoreBuffer()->InitializeWithMemory( 4 * 10 * sizeof( float ), 0, ( void * ) PlanVertexData );
-    
-    GRAPHIC_SYSTEM::UpdateVertexBuffer( GetMeshTable()[0], *GetMeshTable()[ 0 ]->GetVertexCoreBuffer() );
-    
-    GetShaderTable()[ 0 ]->Enable();
-
-    GRAPHIC_SHADER_ATTRIBUTE * attr = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-
-    GLOBAL_IDENTITY_MATRIX( attr->AttributeValue.Value.FloatMatrix4x4 );
-    
-    static float angle = M_PI;
-    
-    Orientation.ToMatrix(&orientation_matrix[0]);
-    
-    object_matrix.Scale( ScaleFactor[0], ScaleFactor[1], ScaleFactor[2] );
-    object_matrix.XRotate( angle );
-    object_matrix.ZRotate( Orientation.Z() );
-    
-    object_matrix.Translate( GetPosition() );
-    
-    result = renderer.GetCamera().GetProjectionMatrix();
-    result *= renderer.GetCamera().GetViewMatrix();
-    result *= object_matrix;
-    
-    GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
-    
-    //LOCAL_MULTIPLY_MATRIX( attr->AttributeValue.Value.FloatMatrix4x4 , translation );
-    
-    //---------------
-    //MVPmatrix = projection * view * model; // Remember : inverted !
-    
-    GRAPHIC_SYSTEM_ApplyMatrix(
-        attr->AttributeIndex,
-        1,
-        0,
-        (const GLfloat * )&result[0]);
-
-    GetMeshTable()[ 0 ]->ApplyBuffers();
-    
-    effect->Discard();
-    
-    GRAPHIC_SYSTEM::DisableBlend();
-}
-
 void GRAPHIC_OBJECT_SHAPE_PLAN::UpdateVertexData( float * PlanVertexData, const GRAPHIC_TEXTURE_BLOCK & block ) {
     
     PlanVertexData[8] = block.GetOffset()[0];

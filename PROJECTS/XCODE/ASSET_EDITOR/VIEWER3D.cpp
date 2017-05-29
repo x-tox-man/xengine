@@ -22,7 +22,9 @@ VIEWER3D::VIEWER3D() :
     PointLightTwo(NULL),
     SpotLightOne(NULL),
     SpotLightTwo(NULL),
-    Camera( NULL ) {
+    Camera( NULL ),
+    SelectedEntity( NULL ),
+    CubeObject( NULL ) {
     
 }
 
@@ -206,9 +208,8 @@ void VIEWER3D::Render() {
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera->GetCamera() );
     
-    GRAPHIC_RENDERER::GetInstance().EnableColor( false );
     Scene->Render();
-    GRAPHIC_RENDERER::GetInstance().EnableColor( true );
+    RenderSelectedObjectBox();
 }
 
 void VIEWER3D::Load( const char * path ) {
@@ -218,8 +219,8 @@ void VIEWER3D::Load( const char * path ) {
         auto program = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderPoNoUVTaBi"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", "OPENGL2" ) );
     
         program->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
-        
-        auto mesh = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH( path ), 0, GRAPHIC_MESH_TYPE_ModelResource );
+    
+        auto mesh = GRAPHIC_OBJECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( path ), CORE_FILESYSTEM_PATH( path ));
         
         for ( int i = 0; i < mesh->GetMeshTable().size(); i++ ) {
             
@@ -248,6 +249,19 @@ void VIEWER3D::InitializeScene() {
 }
 
 void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect ) {
+    
+    if ( CubeObject == NULL ) {
+        CubeObject = new GRAPHIC_OBJECT_SHAPE_CUBE;
+        
+        CubeEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+        
+        CubeEffect->Initialize( CubeObject->GetShaderBindParameter() );
+        
+        CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
+        SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 57" );
+        
+        CubeObject->InitializeShape();
+    }
     
     static int component_index = 0;
     
@@ -279,6 +293,47 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     //( ( GAMEPLAY_COMPONENT_PHYSICS *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics))->ConfigureShapePlane( position );
     
     bullet_system->AddEntity(component_entity);
+}
+
+void VIEWER3D::RenderSelectedObjectBox() {
     
-    //component_entity->SetPosition( position );
+    if ( SelectedEntity == NULL ) {
+        return;
+    }
+    
+    GAMEPLAY_COMPONENT_POSITION
+        * component;
+    GAMEPLAY_COMPONENT_RENDER
+        * component_grap;
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        options;
+
+    GRAPHIC_SYSTEM::SetPolygonMode( GRAPHIC_SYSTEM_POLYGON_FILL_MODE_Line );
+    
+    component = ( GAMEPLAY_COMPONENT_POSITION * ) SelectedEntity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    component_grap = ( GAMEPLAY_COMPONENT_RENDER * ) SelectedEntity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    if ( component_grap == NULL ) {
+        
+        return;
+    }
+
+    CORE_MATH_MATRIX
+        mat;
+    
+    options.SetPosition( component->GetPosition() );
+    options.SetOrientation( component->GetOrientation() );
+    options.SetScaleFactor( CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    auto obj = component_grap->GetObject()->GetResource<GRAPHIC_OBJECT>();
+
+    obj->GetMeshTable()[0]->GetBoundingShape().GetOrientation().ToMatrix( mat.GetRow(0) );
+
+    CubeObject->GetMeshTable()[0]->SetTransform( obj->GetMeshTable()[0]->GetTransform() * mat );
+
+    CubeObject->UpdateGeometry( obj->GetMeshTable()[0]->GetBoundingShape().GetPosition(), obj->GetMeshTable()[0]->GetBoundingShape().GetHalfDiagonal() + CORE_MATH_VECTOR(100.0f,100.0f,100.0f,1.f) );
+
+    CubeObject->Render(GRAPHIC_RENDERER::GetInstance(), options, CubeEffect );
+
+    GRAPHIC_SYSTEM::SetPolygonMode( GRAPHIC_SYSTEM_POLYGON_FILL_MODE_Full );
 }

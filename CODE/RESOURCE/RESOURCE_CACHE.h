@@ -52,6 +52,9 @@ public:
     
     __RESOURCE_TYPE__ * LoadResourceForPath( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_FILESYSTEM_PATH & path ) {
         
+#if DEBUG
+        assert( identifier != CORE_HELPERS_UNIQUE_IDENTIFIER::Empty );
+#endif
         if ( ItemMap.find( identifier ) == ItemMap.end() ) {
             
             ItemMap[ identifier ] = (__RESOURCE_TYPE__ *) loader.Load( path, identifier );
@@ -70,6 +73,12 @@ public:
         }
         
         return ItemMap[ identifier ];
+    }
+    
+    void SaveResourceFromStream( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {
+        auto rs = ItemMap[ identifier ];
+        
+        XS_CLASS_SERIALIZER< __RESOURCE_TYPE__ >::template Serialize<std::true_type>( rs, stream );
     }
     
     void FlushCache( ) {
