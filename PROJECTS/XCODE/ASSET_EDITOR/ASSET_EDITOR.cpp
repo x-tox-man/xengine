@@ -12,6 +12,8 @@
 #include "CORE_HELPERS_CALLBACK.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "CORE_DATA_LOADER.h"
+#include "CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.h"
+#include "CORE_ABSTRACT_RUNTIME_LUA.h"
 
 typedef std::map<CORE_FILESYSTEM_PATH, ASSET> ASSET_TYPE_TABLE;
 
@@ -59,6 +61,11 @@ void ASSET_EDITOR::Initialize() {
     GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(&BaseUiScreen, "BaseView" );
     
     Viewer3d.Initialize();
+    
+    CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
+    CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
+    
+    CORE_ABSTRACT_PROGRAM_BINDER::GetInstance().BindRuntime<CORE_ABSTRACT_RUNTIME_LUA>( *runtime );
 }
 
 void ASSET_EDITOR::Finalize() {

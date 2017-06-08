@@ -128,6 +128,11 @@ void CORE_FILESYSTEM_FILE::Rewind() {
     fseek( FilePointer, 0, SEEK_SET );
 }
 
+void CORE_FILESYSTEM_FILE::Seek( long position ) {
+    
+    fseek( FilePointer, position, SEEK_SET );
+}
+
 int CORE_FILESYSTEM_FILE::GetSize() {
     
     int

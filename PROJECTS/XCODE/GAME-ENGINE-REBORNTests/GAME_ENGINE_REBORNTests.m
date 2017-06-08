@@ -170,9 +170,9 @@ CORE_FILESYSTEM file_system;
     if ( [fonts count] > 0 ) {
         
         FONT_EDITOR
-        editor;
+            editor;
         FONT_DESCRIPTOR
-        descriptor;
+            descriptor;
         
         CORE_FILESYSTEM_PATH
         image_target_path( CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_20", "png", "FONTS" ) ),

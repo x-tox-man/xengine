@@ -17,19 +17,20 @@
 
 XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
 
-GRAPHIC_RENDER_TARGET();
-~GRAPHIC_RENDER_TARGET();
+    GRAPHIC_RENDER_TARGET();
+    ~GRAPHIC_RENDER_TARGET();
 
-bool Initialize( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool generates_separate_depth_texture, int attachment );
-bool InitializeDepthTexture( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
-void Finalize();
-void Apply();
-void Discard();
+    bool Initialize( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool generates_separate_depth_texture, int attachment );
+    bool InitializeDepthTexture( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
+    void Finalize();
+    void Apply();
+    void Discard();
 
-GRAPHIC_TEXTURE
-    * TargetTexture;
-bool
-    ItUsesDepth;
+    inline GRAPHIC_TEXTURE * GetTargetTexture() { return TargetTexture; }
+    inline bool UsesDepth() { return ItUsesDepth; }
+
+    inline void SetTargetTexture( GRAPHIC_TEXTURE * texture ) { TargetTexture= texture; }
+    inline void SetItUsesDepth( bool uses ) { ItUsesDepth = uses; }
 
 #if OPENGL2PLUS
     #include "GRAPHIC_RENDER_TARGET_OPENGL.hpp"
@@ -38,6 +39,13 @@ bool
 #else
     #error "Must implement graphic system"
 #endif
+
+private:
+
+    GRAPHIC_TEXTURE
+        * TargetTexture;
+    bool
+        ItUsesDepth;
 
 XS_CLASS_END
 

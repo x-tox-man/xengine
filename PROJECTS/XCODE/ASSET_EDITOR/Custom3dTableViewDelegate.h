@@ -8,10 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Cpp3dDataProxy.h"
+#import "ParentVCDelegate.h"
 
 @interface Custom3dTableViewDelegate : NSObject< NSTableViewDelegate, NSTableViewDataSource >
 
 @property Cpp3dDataProxy * Entity;
+@property NSObject<ParentVCDelegate> * ParentVCDelegate;
 
 @property (weak) IBOutlet NSTextField *XposTextField;
 @property (weak) IBOutlet NSTextField *YposTextField;
@@ -22,9 +24,5 @@
 @property (weak) IBOutlet NSTextField *YRotTextField;
 @property (weak) IBOutlet NSTextField *ZRotTextField;
 @property (weak) IBOutlet NSTextField *WRotTextField;
-
-
-
-
 
 @end

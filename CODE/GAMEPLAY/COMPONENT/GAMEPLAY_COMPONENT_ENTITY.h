@@ -21,12 +21,14 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_ENTITY )
     GAMEPLAY_COMPONENT_ENTITY();
     ~GAMEPLAY_COMPONENT_ENTITY();
 
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT_ENTITY );
+
     inline void SetCompononent( GAMEPLAY_COMPONENT * component, int component_index ) {
         
         Components[ component_index ] = component;
     }
 
-    inline void SetChild( GAMEPLAY_COMPONENT_ENTITY * entity, int index ) {
+    inline void SetsChild( GAMEPLAY_COMPONENT_ENTITY * entity, int index ) {
         
         ChildEntities[ index ] = entity;
     }

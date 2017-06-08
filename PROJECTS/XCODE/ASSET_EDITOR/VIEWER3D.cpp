@@ -13,9 +13,11 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.h"
 #include "GAMEPLAY_COMPONENT_PHYSICS.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
+#include "GRAPHIC_RENDER_TARGET.h"
 
 VIEWER3D::VIEWER3D() :
     PointLightOne(NULL),
@@ -24,7 +26,8 @@ VIEWER3D::VIEWER3D() :
     SpotLightTwo(NULL),
     Camera( NULL ),
     SelectedEntity( NULL ),
-    CubeObject( NULL ) {
+    CubeObject( NULL ),
+    TrigerScreenshot( false ) {
     
 }
 
@@ -96,7 +99,12 @@ void VIEWER3D::Update( const float time_step ) {
         inverse,
         rotation_mat( CORE_MATH_MATRIX::Identity );
     
-    rotation_mat.Translate(CORE_MATH_VECTOR(1.0f, 0.0f, 0.0f, 0.0f ));
+    if (  PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_P ) ) {
+        
+        TrigerScreenshot = true;
+    }
+    
+    rotation_mat.Translate(CORE_MATH_VECTOR(0.0f, 0.0f, 0.0f, 0.0f ));
     rotation_mat.XRotate(M_PI_2);
     
     /*rotation_quat.X( 0.0f );
@@ -210,6 +218,12 @@ void VIEWER3D::Render() {
     
     Scene->Render();
     RenderSelectedObjectBox();
+    
+    if ( TrigerScreenshot ) {
+        Screenshot();
+        
+        TrigerScreenshot = false;
+    }
 }
 
 void VIEWER3D::Load( const char * path ) {
@@ -221,15 +235,27 @@ void VIEWER3D::Load( const char * path ) {
         program->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     
         auto mesh = GRAPHIC_OBJECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( path ), CORE_FILESYSTEM_PATH( path ));
-        
-        for ( int i = 0; i < mesh->GetMeshTable().size(); i++ ) {
-            
-            mesh->GetMeshTable()[ i ]->CreateBuffers();
-        }
     
         CreateMesh( mesh, program );
     
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
+}
+
+void VIEWER3D::Screenshot() {
+    
+    GRAPHIC_RENDER_TARGET
+        RenderTarget;
+    
+    RenderTarget.Initialize( CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    
+    RenderTarget.Apply();
+    
+    Scene->Render();
+    
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderCubeAt00" , "png", "" ) );
+    
+    RenderTarget.Discard();
 }
 
 void VIEWER3D::InitializeScene() {
@@ -243,6 +269,7 @@ void VIEWER3D::InitializeScene() {
     Scene->InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION );
     Scene->InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_ANIMATING );
     Scene->InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_PICKING );
+    Scene->InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT );
     Scene->InsertUpdatableSystem( bullet_system );
     
     Scene->InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
@@ -288,16 +315,16 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     render_system->AddEntity( component_entity );
     render_system->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
-    GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * bullet_system = ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) Scene->GetUpdatableSystemTable()[3];
+    GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * bullet_system = ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) Scene->GetUpdatableSystemTable()[4];
     
     //( ( GAMEPLAY_COMPONENT_PHYSICS *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics))->ConfigureShapePlane( position );
     
-    bullet_system->AddEntity(component_entity);
+    //bullet_system->AddEntity(component_entity);
 }
 
 void VIEWER3D::RenderSelectedObjectBox() {
     
-    if ( SelectedEntity == NULL ) {
+    if ( SelectedEntity == NULL || CubeObject == NULL) {
         return;
     }
     
@@ -324,6 +351,11 @@ void VIEWER3D::RenderSelectedObjectBox() {
     options.SetPosition( component->GetPosition() );
     options.SetOrientation( component->GetOrientation() );
     options.SetScaleFactor( CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    if ( component_grap->GetEffect() == NULL || component_grap->GetObject() == NULL ) {
+        
+        return;
+    }
     
     auto obj = component_grap->GetObject()->GetResource<GRAPHIC_OBJECT>();
 

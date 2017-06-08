@@ -35,12 +35,14 @@ XS_CLASS_BEGIN( VIEWER3D )
 
     void Load( const char *);
     void SetSelectedEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) { SelectedEntity = entity; }
+    inline GAMEPLAY_SCENE * GetScene() { return Scene; }
 
 private :
 
     void InitializeScene();
     void CreateMesh( GRAPHIC_OBJECT *, GRAPHIC_SHADER_EFFECT * );
     void RenderSelectedObjectBox();
+    void Screenshot();
 
     GAMEPLAY_SCENE
         * Scene;
@@ -58,6 +60,8 @@ private :
         * PointLightTwo,
         * SpotLightOne,
         * SpotLightTwo;
+    bool
+        TrigerScreenshot;
 
 XS_CLASS_END
 

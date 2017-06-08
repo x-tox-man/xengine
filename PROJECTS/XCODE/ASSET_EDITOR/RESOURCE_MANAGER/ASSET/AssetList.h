@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CustomDragView.h"
+#import "GRAPHIC_SHADER_EFFECT_LOADER.h"
 
 @interface AssetList : NSViewController<NSCollectionViewDelegate, NSCollectionViewDataSource, NSWindowDelegate, CustomDragViewDragProtocol>
 

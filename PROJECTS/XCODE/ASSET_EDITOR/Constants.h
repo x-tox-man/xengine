@@ -14,5 +14,6 @@
 #define ALTAS_SHOW_IMAGE_SEGUE  "ShowResultImage"
 #define SHOW_RESOURCES_SEGUE    "ShowResourcesSeque"
 #define SHOW_ASSETS_SEGUE       "ShowAssetsSeque"
-
+#define CREATE_3D_ITEM_SEGUE    "Create3dItemSegue"
+#define CHOOSE_RESOURCE_SEGUE   "ChooseResourceSegue"
 #endif /* Constants_h */

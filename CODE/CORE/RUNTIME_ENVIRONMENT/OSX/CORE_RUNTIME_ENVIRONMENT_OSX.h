@@ -8,8 +8,8 @@
 #ifndef __CORE__
 #define __CORE__
 
-#include <string>
 #include <array>
+#include <string>
 #include <vector>
 
 #include <cstddef>
@@ -17,7 +17,6 @@
 #include <list>
 #include <map>
 
-#include <map>
 #include <stdlib.h>
 #include <assert.h>
 

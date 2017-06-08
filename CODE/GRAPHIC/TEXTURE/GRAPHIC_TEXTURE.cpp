@@ -73,7 +73,7 @@ void GRAPHIC_TEXTURE::Discard() {
     GRAPHIC_SYSTEM::DiscardTexture( this );
 }
 
-void GRAPHIC_TEXTURE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
+void GRAPHIC_TEXTURE::SaveDepthTo( const CORE_FILESYSTEM_PATH & path ) {
     
     RESOURCE_IMAGE_PNG_WRITER writer;
     
@@ -91,6 +91,32 @@ void GRAPHIC_TEXTURE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
     img.GetImageInfo().PixelSize = 4;
     
     writer.Write(path, &img);
+    
+    delete[] pixels;
+    
+    img.SetImageRawData( NULL );
+}
+
+void GRAPHIC_TEXTURE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
+    
+    RESOURCE_IMAGE_PNG_WRITER writer;
+    
+    RESOURCE_IMAGE img;
+    
+    int size = GetTextureInfo().Width * GetTextureInfo().Height * 4;
+    float * pixels = new GLfloat [size];
+    
+    GFX_CHECK( glReadPixels(0, 0, GetTextureInfo().Width, GetTextureInfo().Height, GL_RGBA, GL_UNSIGNED_BYTE, pixels); )
+    
+    img.SetImageRawData(pixels);
+    
+    img.GetImageInfo().Height = GetTextureInfo().Height;
+    img.GetImageInfo().Width = GetTextureInfo().Width;
+    img.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;
+    img.GetImageInfo().PixelSize = 0;
+    img.GetImageInfo().ColorChannelWidth = 0;
+    
+    writer.Write( path, &img );
     
     delete[] pixels;
     

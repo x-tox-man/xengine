@@ -372,36 +372,6 @@
 		3238F6FD1E90E80500838C62 /* CORE_TIMELINE_EVENT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F40F1E90E80400838C62 /* CORE_TIMELINE_EVENT.cpp */; };
 		3238F6FE1E90E80500838C62 /* CORE_TIMELINE_EVENT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F40F1E90E80400838C62 /* CORE_TIMELINE_EVENT.cpp */; };
 		3238F6FF1E90E80500838C62 /* CORE_TIMELINE_EVENT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F40F1E90E80400838C62 /* CORE_TIMELINE_EVENT.cpp */; };
-		3238F7001E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4121E90E80400838C62 /* CORE_FILESYSTEM.cpp */; };
-		3238F7011E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4121E90E80400838C62 /* CORE_FILESYSTEM.cpp */; };
-		3238F7021E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4121E90E80400838C62 /* CORE_FILESYSTEM.cpp */; };
-		3238F7031E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4121E90E80400838C62 /* CORE_FILESYSTEM.cpp */; };
-		3238F7041E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4121E90E80400838C62 /* CORE_FILESYSTEM.cpp */; };
-		3238F7051E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4151E90E80400838C62 /* CORE_FILESYSTEM_FILE.cpp */; };
-		3238F7061E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4151E90E80400838C62 /* CORE_FILESYSTEM_FILE.cpp */; };
-		3238F7071E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4151E90E80400838C62 /* CORE_FILESYSTEM_FILE.cpp */; };
-		3238F7081E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4151E90E80400838C62 /* CORE_FILESYSTEM_FILE.cpp */; };
-		3238F7091E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4151E90E80400838C62 /* CORE_FILESYSTEM_FILE.cpp */; };
-		3238F70C1E90E80500838C62 /* CORE_FILESYSTEM_FILE_ANDROID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4171E90E80400838C62 /* CORE_FILESYSTEM_FILE_ANDROID.cpp */; };
-		3238F70D1E90E80500838C62 /* CORE_FILESYSTEM_FILE_ANDROID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4171E90E80400838C62 /* CORE_FILESYSTEM_FILE_ANDROID.cpp */; };
-		3238F70F1E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4191E90E80400838C62 /* CORE_FILESYSTEM_PATH.cpp */; };
-		3238F7101E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4191E90E80400838C62 /* CORE_FILESYSTEM_PATH.cpp */; };
-		3238F7111E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4191E90E80400838C62 /* CORE_FILESYSTEM_PATH.cpp */; };
-		3238F7121E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4191E90E80400838C62 /* CORE_FILESYSTEM_PATH.cpp */; };
-		3238F7131E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4191E90E80400838C62 /* CORE_FILESYSTEM_PATH.cpp */; };
-		3238F7161E90E80500838C62 /* CORE_FILESYSTEM_PATH_ANDROID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F41B1E90E80400838C62 /* CORE_FILESYSTEM_PATH_ANDROID.cpp */; };
-		3238F7171E90E80500838C62 /* CORE_FILESYSTEM_PATH_ANDROID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F41B1E90E80400838C62 /* CORE_FILESYSTEM_PATH_ANDROID.cpp */; };
-		3238F71C1E90E80500838C62 /* CORE_FILESYSTEM_PATH_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3238F41C1E90E80400838C62 /* CORE_FILESYSTEM_PATH_IOS.mm */; };
-		3238F71E1E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F41E1E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
-		3238F71F1E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F41E1E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
-		3238F7201E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F41E1E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
-		3238F7211E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F41E1E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
-		3238F7221E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F41E1E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
-		3238F7231E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4211E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
-		3238F7241E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4211E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
-		3238F7251E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4211E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
-		3238F7261E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4211E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
-		3238F7271E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4211E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
 		3238F7281E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4251E90E80400838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp */; };
 		3238F7291E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4251E90E80400838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp */; };
 		3238F72A1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4251E90E80400838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp */; };
@@ -1748,7 +1718,12 @@
 		32EB474D19EFCFF100123D8C /* libbuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32EB473E19EFCFF100123D8C /* libbuffer.a */; };
 		32EFD5231AF8219D0071A5A3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32EFD5221AF8219D0071A5A3 /* Carbon.framework */; };
 		32F24BA61EA6C6AF00D19613 /* VIEWER3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F24BA41EA6C6AF00D19613 /* VIEWER3D.cpp */; };
+		5F3BC84B1EE48FA50031CEF7 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
+		5F3BC84E1EE4AABB0031CEF7 /* ResourceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3BC84D1EE4AABB0031CEF7 /* ResourceProxy.m */; };
+		5F3BC8531EE568E50031CEF7 /* EmptyComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F3BC8521EE568E50031CEF7 /* EmptyComponent.xib */; };
 		5F41B36E1EDCBBCF00D93AEE /* RESOURCE_TEST.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F41B36D1EDCBBCF00D93AEE /* RESOURCE_TEST.m */; };
+		5F41B3731EDD5FE600D93AEE /* GRAPHIC_WINDOW_OSX_TEST.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F41B3721EDD5FE600D93AEE /* GRAPHIC_WINDOW_OSX_TEST.m */; };
+		5F41B3761EDD6B4000D93AEE /* GRAPHICS_OPERATIONS.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F41B3751EDD6B4000D93AEE /* GRAPHICS_OPERATIONS.m */; };
 		5F5661D81ED2E57500C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */; };
 		5F5661DE1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */; };
 		5F5661DF1ED9B63C00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */; };
@@ -1782,6 +1757,32 @@
 		5FACEECC1ECB1D88000DEB7C /* PhysicsComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACEECB1ECB1D88000DEB7C /* PhysicsComponent.xib */; };
 		5FACEECE1ECB1D93000DEB7C /* ScriptComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FACEECD1ECB1D93000DEB7C /* ScriptComponent.xib */; };
 		5FAE70E31ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */; };
+		5FC19B5C1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B5A1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.cpp */; };
+		5FC19B6E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */; };
+		5FC19B6F1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */; };
+		5FC19B701EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */; };
+		5FC19B711EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */; };
+		5FC19B721EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */; };
+		5FC19B731EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B611EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp */; };
+		5FC19B741EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B611EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp */; };
+		5FC19B751EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B611EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp */; };
+		5FC19B761EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B611EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp */; };
+		5FC19B771EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B611EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp */; };
+		5FC19B7D1EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B651EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp */; };
+		5FC19B7E1EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B651EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp */; };
+		5FC19B7F1EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B651EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp */; };
+		5FC19B801EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B651EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp */; };
+		5FC19B811EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B651EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp */; };
+		5FC19B881EDF6335003E53D5 /* CORE_FILESYSTEM_PATH_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B681EDF6335003E53D5 /* CORE_FILESYSTEM_PATH_IOS.mm */; };
+		5FC19B8C1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6A1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
+		5FC19B8D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6A1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
+		5FC19B8E1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6A1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
+		5FC19B8F1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6A1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
+		5FC19B901EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6A1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */; };
+		5FC19B911EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
+		5FC19B941EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
+		5FC19B951EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
+		5FC19B9A1EE0359B003E53D5 /* TIMELINE_TEST.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B961EE0359B003E53D5 /* TIMELINE_TEST.m */; };
 		5FECE0411ECEF509009B55C2 /* Zerode-Plump-Filetype-png.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FECE0401ECEF509009B55C2 /* Zerode-Plump-Filetype-png.png */; };
 		5FECE0781ECEFFAC009B55C2 /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECE0761ECEFFAC009B55C2 /* ResourceManager.m */; };
 		5FECE0791ECEFFAC009B55C2 /* ResourceManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FECE0771ECEFFAC009B55C2 /* ResourceManager.xib */; };
@@ -2003,21 +2004,6 @@
 		3238F40D1E90E80400838C62 /* CORE_TIMELINE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_TIMELINE.h; sourceTree = "<group>"; };
 		3238F40F1E90E80400838C62 /* CORE_TIMELINE_EVENT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_TIMELINE_EVENT.cpp; sourceTree = "<group>"; };
 		3238F4101E90E80400838C62 /* CORE_TIMELINE_EVENT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_TIMELINE_EVENT.h; sourceTree = "<group>"; };
-		3238F4121E90E80400838C62 /* CORE_FILESYSTEM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM.cpp; sourceTree = "<group>"; };
-		3238F4131E90E80400838C62 /* CORE_FILESYSTEM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM.h; sourceTree = "<group>"; };
-		3238F4141E90E80400838C62 /* CORE_FILESYSTEM_ANDROID.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CORE_FILESYSTEM_ANDROID.hpp; sourceTree = "<group>"; };
-		3238F4151E90E80400838C62 /* CORE_FILESYSTEM_FILE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM_FILE.cpp; sourceTree = "<group>"; };
-		3238F4161E90E80400838C62 /* CORE_FILESYSTEM_FILE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM_FILE.h; sourceTree = "<group>"; };
-		3238F4171E90E80400838C62 /* CORE_FILESYSTEM_FILE_ANDROID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM_FILE_ANDROID.cpp; sourceTree = "<group>"; };
-		3238F4181E90E80400838C62 /* CORE_FILESYSTEM_FILE_ANDROID.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CORE_FILESYSTEM_FILE_ANDROID.hpp; sourceTree = "<group>"; };
-		3238F4191E90E80400838C62 /* CORE_FILESYSTEM_PATH.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM_PATH.cpp; sourceTree = "<group>"; };
-		3238F41A1E90E80400838C62 /* CORE_FILESYSTEM_PATH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM_PATH.h; sourceTree = "<group>"; };
-		3238F41B1E90E80400838C62 /* CORE_FILESYSTEM_PATH_ANDROID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM_PATH_ANDROID.cpp; sourceTree = "<group>"; };
-		3238F41C1E90E80400838C62 /* CORE_FILESYSTEM_PATH_IOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CORE_FILESYSTEM_PATH_IOS.mm; sourceTree = "<group>"; };
-		3238F41E1E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CORE_FILESYSTEM_FILE_WATCHER.cpp; sourceTree = "<group>"; };
-		3238F41F1E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM_FILE_WATCHER.h; sourceTree = "<group>"; };
-		3238F4201E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM_FILE_WATCHER_OSX.h; sourceTree = "<group>"; };
-		3238F4211E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CORE_FILESYSTEM_FILE_WATCHER_OSX.m; sourceTree = "<group>"; };
 		3238F4251E90E80400838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp; sourceTree = "<group>"; };
 		3238F4261E90E80400838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.h; sourceTree = "<group>"; };
 		3238F4271E90E80400838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.cpp; sourceTree = "<group>"; };
@@ -2646,7 +2632,7 @@
 		32899C1E180D3DC8002AA472 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32899C20180D3DC8002AA472 /* GAME_ENGINE_REBORNTests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = GAME_ENGINE_REBORNTests.m; sourceTree = "<group>"; };
 		328ABFF51EC0C69A00C501A8 /* Create3dItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Create3dItem.h; sourceTree = "<group>"; };
-		328ABFF61EC0C69A00C501A8 /* Create3dItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Create3dItem.m; sourceTree = "<group>"; };
+		328ABFF61EC0C69A00C501A8 /* Create3dItem.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Create3dItem.m; sourceTree = "<group>"; };
 		328ABFF71EC0C69A00C501A8 /* Create3dItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Create3dItem.xib; sourceTree = "<group>"; };
 		328ABFFA1EC1199300C501A8 /* Cpp3dDataProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cpp3dDataProxy.h; sourceTree = "<group>"; };
 		328ABFFB1EC1199300C501A8 /* Cpp3dDataProxy.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Cpp3dDataProxy.m; sourceTree = "<group>"; };
@@ -2673,7 +2659,7 @@
 		32AFECFF1EB919EE006664AB /* MainSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
 		32AFED001EB919EE006664AB /* MainSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
 		32AFED021EBBB34E006664AB /* AssetList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetList.h; sourceTree = "<group>"; };
-		32AFED031EBBB34E006664AB /* AssetList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetList.m; sourceTree = "<group>"; };
+		32AFED031EBBB34E006664AB /* AssetList.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AssetList.m; sourceTree = "<group>"; };
 		32AFED051EBBB35C006664AB /* AssetList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetList.xib; sourceTree = "<group>"; };
 		32AFED071EBBB512006664AB /* AssetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetView.h; sourceTree = "<group>"; };
 		32AFED081EBBB512006664AB /* AssetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetView.m; sourceTree = "<group>"; };
@@ -2755,7 +2741,16 @@
 		32EFD5221AF8219D0071A5A3 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		32F24BA41EA6C6AF00D19613 /* VIEWER3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VIEWER3D.cpp; sourceTree = "<group>"; };
 		32F24BA51EA6C6AF00D19613 /* VIEWER3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIEWER3D.h; sourceTree = "<group>"; };
+		5F3BC84C1EE4AABB0031CEF7 /* ResourceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceProxy.h; sourceTree = "<group>"; };
+		5F3BC84D1EE4AABB0031CEF7 /* ResourceProxy.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ResourceProxy.m; sourceTree = "<group>"; };
+		5F3BC84F1EE55F670031CEF7 /* ResourceSelectedDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceSelectedDelegate.h; sourceTree = "<group>"; };
+		5F3BC8521EE568E50031CEF7 /* EmptyComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyComponent.xib; sourceTree = "<group>"; };
+		5F3BC8541EE56ED80031CEF7 /* ParentVCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentVCDelegate.h; sourceTree = "<group>"; };
+		5F3BC8551EE60F4F0031CEF7 /* ModalBackDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModalBackDelegate.h; sourceTree = "<group>"; };
 		5F41B36D1EDCBBCF00D93AEE /* RESOURCE_TEST.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = RESOURCE_TEST.m; sourceTree = "<group>"; };
+		5F41B3721EDD5FE600D93AEE /* GRAPHIC_WINDOW_OSX_TEST.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = GRAPHIC_WINDOW_OSX_TEST.m; sourceTree = "<group>"; };
+		5F41B3741EDD5FEC00D93AEE /* GRAPHIC_WINDOW_OSX_TEST.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_WINDOW_OSX_TEST.h; sourceTree = "<group>"; };
+		5F41B3751EDD6B4000D93AEE /* GRAPHICS_OPERATIONS.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = GRAPHICS_OPERATIONS.m; sourceTree = "<group>"; };
 		5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_OBJECT_RENDER_OPTIONS.cpp; sourceTree = "<group>"; };
 		5F5661DD1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_OBJECT_RENDER_OPTIONS.h; sourceTree = "<group>"; };
 		5F5661E31ED9C74300C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_TEXTURE_LOADER.cpp; sourceTree = "<group>"; };
@@ -2772,6 +2767,24 @@
 		5FACEECD1ECB1D93000DEB7C /* ScriptComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScriptComponent.xib; sourceTree = "<group>"; };
 		5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp; sourceTree = "<group>"; };
 		5FAE70E21ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_MATERIAL_RESOURCE_LOADER.h; sourceTree = "<group>"; };
+		5FC19B5A1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RESOURCE_REPRESENTATION.cpp; sourceTree = "<group>"; };
+		5FC19B5B1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESOURCE_REPRESENTATION.h; sourceTree = "<group>"; };
+		5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM.cpp; sourceTree = "<group>"; };
+		5FC19B5F1EDF6335003E53D5 /* CORE_FILESYSTEM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM.h; sourceTree = "<group>"; };
+		5FC19B601EDF6335003E53D5 /* CORE_FILESYSTEM_ANDROID.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CORE_FILESYSTEM_ANDROID.hpp; sourceTree = "<group>"; };
+		5FC19B611EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM_FILE.cpp; sourceTree = "<group>"; };
+		5FC19B621EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM_FILE.h; sourceTree = "<group>"; };
+		5FC19B631EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_ANDROID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM_FILE_ANDROID.cpp; sourceTree = "<group>"; };
+		5FC19B641EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_ANDROID.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CORE_FILESYSTEM_FILE_ANDROID.hpp; sourceTree = "<group>"; };
+		5FC19B651EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM_PATH.cpp; sourceTree = "<group>"; };
+		5FC19B661EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM_PATH.h; sourceTree = "<group>"; };
+		5FC19B671EDF6335003E53D5 /* CORE_FILESYSTEM_PATH_ANDROID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM_PATH_ANDROID.cpp; sourceTree = "<group>"; };
+		5FC19B681EDF6335003E53D5 /* CORE_FILESYSTEM_PATH_IOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CORE_FILESYSTEM_PATH_IOS.mm; sourceTree = "<group>"; };
+		5FC19B6A1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CORE_FILESYSTEM_FILE_WATCHER.cpp; sourceTree = "<group>"; };
+		5FC19B6B1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM_FILE_WATCHER.h; sourceTree = "<group>"; };
+		5FC19B6C1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_FILESYSTEM_FILE_WATCHER_OSX.h; sourceTree = "<group>"; };
+		5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CORE_FILESYSTEM_FILE_WATCHER_OSX.m; sourceTree = "<group>"; };
+		5FC19B961EE0359B003E53D5 /* TIMELINE_TEST.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TIMELINE_TEST.m; sourceTree = "<group>"; };
 		5FECE0401ECEF509009B55C2 /* Zerode-Plump-Filetype-png.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Zerode-Plump-Filetype-png.png"; path = "ASSET_EDITOR/RESOURCE_MANAGER/Zerode-Plump-Filetype-png.png"; sourceTree = SOURCE_ROOT; };
 		5FECE0751ECEFFAC009B55C2 /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		5FECE0761ECEFFAC009B55C2 /* ResourceManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ResourceManager.m; sourceTree = "<group>"; };
@@ -3020,12 +3033,12 @@
 		321911E01E5331B300CF29A2 /* ASSET_EDITOR */ = {
 			isa = PBXGroup;
 			children = (
-				5F96336A1ECB1102006DF196 /* Components */,
 				32BFC8201E9A428C0080BF8E /* Constants.h */,
 				3253DB431EBE45A100DF1797 /* ProgramDocument.h */,
 				3253DB441EBE45A100DF1797 /* ProgramDocument.m */,
 				3261CEEF1E91229E000872F4 /* AppDelegate.h */,
 				3261CEF01E91229E000872F4 /* AppDelegate.m */,
+				5F96336A1ECB1102006DF196 /* Components */,
 				32A672C51EB21BA2007B0E3E /* RESOURCE_MANAGER */,
 				327F84A71EA18D9100F1334F /* Font */,
 				32E0A1A21E9CF59B00B14365 /* ImageView */,
@@ -3166,6 +3179,7 @@
 		3238F3681E90E80400838C62 /* CORE */ = {
 			isa = PBXGroup;
 			children = (
+				5FC19B5D1EDF6335003E53D5 /* FILESYSTEM */,
 				3238F3691E90E80400838C62 /* ABSTRACT */,
 				3238F38C1E90E80400838C62 /* APPLICATION */,
 				3238F38F1E90E80400838C62 /* DATA */,
@@ -3666,37 +3680,6 @@
 				3238F4101E90E80400838C62 /* CORE_TIMELINE_EVENT.h */,
 			);
 			path = EVENT;
-			sourceTree = "<group>";
-		};
-		3238F4111E90E80400838C62 /* FILESYSTEM */ = {
-			isa = PBXGroup;
-			children = (
-				3238F4121E90E80400838C62 /* CORE_FILESYSTEM.cpp */,
-				3238F4131E90E80400838C62 /* CORE_FILESYSTEM.h */,
-				3238F4141E90E80400838C62 /* CORE_FILESYSTEM_ANDROID.hpp */,
-				3238F4151E90E80400838C62 /* CORE_FILESYSTEM_FILE.cpp */,
-				3238F4161E90E80400838C62 /* CORE_FILESYSTEM_FILE.h */,
-				3238F4171E90E80400838C62 /* CORE_FILESYSTEM_FILE_ANDROID.cpp */,
-				3238F4181E90E80400838C62 /* CORE_FILESYSTEM_FILE_ANDROID.hpp */,
-				3238F4191E90E80400838C62 /* CORE_FILESYSTEM_PATH.cpp */,
-				3238F41A1E90E80400838C62 /* CORE_FILESYSTEM_PATH.h */,
-				3238F41B1E90E80400838C62 /* CORE_FILESYSTEM_PATH_ANDROID.cpp */,
-				3238F41C1E90E80400838C62 /* CORE_FILESYSTEM_PATH_IOS.mm */,
-				3238F41D1E90E80400838C62 /* WATCHER */,
-			);
-			name = FILESYSTEM;
-			path = ../../CODE/FILESYSTEM;
-			sourceTree = "<group>";
-		};
-		3238F41D1E90E80400838C62 /* WATCHER */ = {
-			isa = PBXGroup;
-			children = (
-				3238F41E1E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */,
-				3238F41F1E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER.h */,
-				3238F4201E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.h */,
-				3238F4211E90E80400838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */,
-			);
-			path = WATCHER;
 			sourceTree = "<group>";
 		};
 		3238F4221E90E80400838C62 /* GAMEPLAY */ = {
@@ -4327,6 +4310,8 @@
 				3238F5651E90E80400838C62 /* RESOURCE_LOADER.h */,
 				3238F5661E90E80400838C62 /* RESOURCE_TYPE.h */,
 				3253DB491EBF5EFC00DF1797 /* RESOURCE_TYPE.cpp */,
+				5FC19B5A1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.cpp */,
+				5FC19B5B1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.h */,
 				3238F5671E90E80400838C62 /* SOUND */,
 			);
 			name = RESOURCE;
@@ -4390,14 +4375,6 @@
 				3238F56A1E90E80400838C62 /* RESOURCE_SOUND_MP3_LOADER.h */,
 			);
 			path = MP3;
-			sourceTree = "<group>";
-		};
-		3238F56D1E90E80400838C62 /* SCRIPT */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = SCRIPT;
-			path = ../../CODE/SCRIPT;
 			sourceTree = "<group>";
 		};
 		3238F56E1E90E80400838C62 /* SERVICE */ = {
@@ -4680,6 +4657,8 @@
 				328ABFFB1EC1199300C501A8 /* Cpp3dDataProxy.m */,
 				5F9633731ECB12B0006DF196 /* Custom3dTableViewDelegate.h */,
 				5F9633741ECB12B0006DF196 /* Custom3dTableViewDelegate.m */,
+				5F3BC8541EE56ED80031CEF7 /* ParentVCDelegate.h */,
+				5F3BC8551EE60F4F0031CEF7 /* ModalBackDelegate.h */,
 			);
 			name = LeftPane;
 			sourceTree = "<group>";
@@ -4718,7 +4697,6 @@
 			children = (
 				3238F3421E90E80400838C62 /* AUDIO */,
 				3238F3681E90E80400838C62 /* CORE */,
-				3238F4111E90E80400838C62 /* FILESYSTEM */,
 				3238F4221E90E80400838C62 /* GAMEPLAY */,
 				3238F45A1E90E80400838C62 /* GRAPHIC */,
 				3238F5321E90E80400838C62 /* NETWORK */,
@@ -4726,7 +4704,6 @@
 				3238F54B1E90E80400838C62 /* PHYSIC */,
 				3238F54C1E90E80400838C62 /* PLUGGIN */,
 				3238F54F1E90E80400838C62 /* RESOURCE */,
-				3238F56D1E90E80400838C62 /* SCRIPT */,
 				3238F56E1E90E80400838C62 /* SERVICE */,
 				3238F5831E90E80400838C62 /* TOOLS */,
 			);
@@ -4998,7 +4975,11 @@
 				324602221D1E834600A7D8AD /* MATH.m */,
 				5F41B36D1EDCBBCF00D93AEE /* RESOURCE_TEST.m */,
 				32899C20180D3DC8002AA472 /* GAME_ENGINE_REBORNTests.m */,
+				5F41B3751EDD6B4000D93AEE /* GRAPHICS_OPERATIONS.m */,
+				5FC19B961EE0359B003E53D5 /* TIMELINE_TEST.m */,
 				32899C1B180D3DC8002AA472 /* Supporting Files */,
+				5F41B3721EDD5FE600D93AEE /* GRAPHIC_WINDOW_OSX_TEST.m */,
+				5F41B3741EDD5FEC00D93AEE /* GRAPHIC_WINDOW_OSX_TEST.h */,
 			);
 			path = "GAME-ENGINE-REBORNTests";
 			sourceTree = "<group>";
@@ -5386,8 +5367,39 @@
 				5FACEEC91ECB1D7F000DEB7C /* RenderComponent.xib */,
 				5FACEECB1ECB1D88000DEB7C /* PhysicsComponent.xib */,
 				5FACEECD1ECB1D93000DEB7C /* ScriptComponent.xib */,
+				5F3BC8521EE568E50031CEF7 /* EmptyComponent.xib */,
 			);
 			name = Components;
+			sourceTree = "<group>";
+		};
+		5FC19B5D1EDF6335003E53D5 /* FILESYSTEM */ = {
+			isa = PBXGroup;
+			children = (
+				5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */,
+				5FC19B5F1EDF6335003E53D5 /* CORE_FILESYSTEM.h */,
+				5FC19B601EDF6335003E53D5 /* CORE_FILESYSTEM_ANDROID.hpp */,
+				5FC19B611EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp */,
+				5FC19B621EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.h */,
+				5FC19B631EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_ANDROID.cpp */,
+				5FC19B641EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_ANDROID.hpp */,
+				5FC19B651EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp */,
+				5FC19B661EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.h */,
+				5FC19B671EDF6335003E53D5 /* CORE_FILESYSTEM_PATH_ANDROID.cpp */,
+				5FC19B681EDF6335003E53D5 /* CORE_FILESYSTEM_PATH_IOS.mm */,
+				5FC19B691EDF6335003E53D5 /* WATCHER */,
+			);
+			path = FILESYSTEM;
+			sourceTree = "<group>";
+		};
+		5FC19B691EDF6335003E53D5 /* WATCHER */ = {
+			isa = PBXGroup;
+			children = (
+				5FC19B6A1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp */,
+				5FC19B6B1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.h */,
+				5FC19B6C1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.h */,
+				5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */,
+			);
+			path = WATCHER;
 			sourceTree = "<group>";
 		};
 		5FECE0741ECEFFAC009B55C2 /* RESOURCE */ = {
@@ -5396,6 +5408,9 @@
 				5FECE0751ECEFFAC009B55C2 /* ResourceManager.h */,
 				5FECE0761ECEFFAC009B55C2 /* ResourceManager.m */,
 				5FECE0771ECEFFAC009B55C2 /* ResourceManager.xib */,
+				5F3BC84C1EE4AABB0031CEF7 /* ResourceProxy.h */,
+				5F3BC84D1EE4AABB0031CEF7 /* ResourceProxy.m */,
+				5F3BC84F1EE55F670031CEF7 /* ResourceSelectedDelegate.h */,
 			);
 			path = RESOURCE;
 			sourceTree = "<group>";
@@ -5554,6 +5569,7 @@
 				321911EE1E5331B300CF29A2 /* Assets.xcassets in Resources */,
 				5FACEECE1ECB1D93000DEB7C /* ScriptComponent.xib in Resources */,
 				5FACEEC81ECB1D75000DEB7C /* PositionComponent.xib in Resources */,
+				5F3BC8531EE568E50031CEF7 /* EmptyComponent.xib in Resources */,
 				3253DB391EBDC2B800DF1797 /* DefaultAssetViewItem.xib in Resources */,
 				5FACEECC1ECB1D88000DEB7C /* PhysicsComponent.xib in Resources */,
 			);
@@ -5837,11 +5853,13 @@
 				3238F85D1E90E80600838C62 /* GRAPHIC_RENDERER.cpp in Sources */,
 				3238F7FE1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
 				3238F6231E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_STATE.cpp in Sources */,
+				5FC19B951EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238F8671E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.cpp in Sources */,
 				3238FA6A1E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */,
 				3238F9521E90E80600838C62 /* NETWORK_CLIENT.cpp in Sources */,
 				3238F8C61E90E80600838C62 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
 				321F89341EA79C1E001A7E78 /* LeftPane3DViewController.m in Sources */,
+				5FC19B721EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238FA101E90E80700838C62 /* GteLogReporter.cpp in Sources */,
 				3238F6911E90E80500838C62 /* CORE_MATH_POSE.cpp in Sources */,
 				3238F7771E90E80500838C62 /* GAMEPLAY_COMPONENT_RENDER.cpp in Sources */,
@@ -5856,7 +5874,6 @@
 				3238F6141E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_MANAGER.cpp in Sources */,
 				3238F8F81E90E80600838C62 /* GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.cpp in Sources */,
 				3238F8761E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
-				3238F7131E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F9021E90E80600838C62 /* GRAPHIC_UI_ANIMATION.cpp in Sources */,
 				5F5661EC1ED9C8EF00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
 				3238FA291E90E80700838C62 /* GteLogToStringArray.cpp in Sources */,
@@ -5883,6 +5900,7 @@
 				3238F92A1E90E80600838C62 /* GRAPHIC_UI_ELEMENT_SCRIPTED.cpp in Sources */,
 				3238F86C1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
 				3261CEF81E91229E000872F4 /* AppDelegate.m in Sources */,
+				5F3BC84E1EE4AABB0031CEF7 /* ResourceProxy.m in Sources */,
 				3238F7631E90E80500838C62 /* GAMEPLAY_COMPONENT_ENTITY.cpp in Sources */,
 				3238F6B41E90E80500838C62 /* CORE_MATH_SHAPE_TYPE.cpp in Sources */,
 				3238F9931E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
@@ -5926,7 +5944,6 @@
 				3238F68C1E90E80500838C62 /* CORE_MATH_MATRIX.cpp in Sources */,
 				32AFED111EBBD365006664AB /* CustomDragView.m in Sources */,
 				3238F6F51E90E80500838C62 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
-				3238F7041E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238FA151E90E80700838C62 /* GteLogToFile.cpp in Sources */,
 				3238F83F1E90E80600838C62 /* GRAPHIC_PARTICLE_MODIFIER_GRAVITY.cpp in Sources */,
 				3238F7D61E90E80500838C62 /* GRAPHIC_MESH.cpp in Sources */,
@@ -5938,6 +5955,7 @@
 				3238F74F1E90E80500838C62 /* GAMEPLAY_ACTION_SYSTEM.cpp in Sources */,
 				3238F87B1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_LOADER.cpp in Sources */,
 				3238F8E41E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
+				5FC19B771EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F6D71E90E80500838C62 /* CORE_PARALLEL_LOCK_POSIX.cpp in Sources */,
 				3238FA381E90E80700838C62 /* GteBitHacks.cpp in Sources */,
 				3238FA511E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */,
@@ -5954,6 +5972,7 @@
 				3238F5BA1E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */,
 				3238F98E1E90E80700838C62 /* RESOURCE_IMAGE_ATLAS_COMPILER.cpp in Sources */,
 				3238F6C81E90E80500838C62 /* CORE_HELPERS_OBSERVABLE.cpp in Sources */,
+				5FC19B901EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				3238F66E1E90E80500838C62 /* CORE_HELPERS_IDENTIFIER.cpp in Sources */,
 				3238F88F1E90E80600838C62 /* GRAPHIC_SHADER_BIND.cpp in Sources */,
 				3238F8851E90E80600838C62 /* GRAPHIC_SHADER.cpp in Sources */,
@@ -6002,10 +6021,10 @@
 				3238F9B61E90E80700838C62 /* SERVICE_LOGGER.cpp in Sources */,
 				32AFED041EBBB34E006664AB /* AssetList.m in Sources */,
 				3253DB301EBDA26B00DF1797 /* RESOURCE_CONTAINER.cpp in Sources */,
+				5FC19B811EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F80D1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_FRAME.cpp in Sources */,
 				3238F7811E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.cpp in Sources */,
 				3238F8301E90E80600838C62 /* GRAPHIC_PARTICLE_EMITER.cpp in Sources */,
-				3238F7091E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F79A1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
 				5F6CD8FA1EDB3E0200631D59 /* GAMEPLAY_COMPONENT_SCRIPT.cpp in Sources */,
 				3238F8351E90E80600838C62 /* GRAPHIC_PARTICLE_MANAGER.cpp in Sources */,
@@ -6027,7 +6046,6 @@
 				3238F9341E90E80600838C62 /* GRAPHIC_WINDOW.cpp in Sources */,
 				3238F9201E90E80600838C62 /* GRAPHIC_UI_SYSTEM.cpp in Sources */,
 				3253DB3C1EBDF51500DF1797 /* ASSET.cpp in Sources */,
-				3238F7221E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				3238F7A41E90E80500838C62 /* GRAPHIC_CAMERA.cpp in Sources */,
 				3238FA651E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */,
 				3238FA1A1E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */,
@@ -6043,7 +6061,6 @@
 				3238F5E21E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				3238F84E1E90E80600838C62 /* GRAPHIC_PARTICLE_RENDERER_OPENGL.cpp in Sources */,
 				3238F73B1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_READY.cpp in Sources */,
-				3238F7271E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238F9891E90E80700838C62 /* RESOURCE_IMAGE.cpp in Sources */,
 				3238F9ED1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */,
 				3238F6281E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_V8.cpp in Sources */,
@@ -6097,6 +6114,7 @@
 				325A73801E522F530046520B /* GAME.cpp in Sources */,
 				3238F7E91E90E80500838C62 /* GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp in Sources */,
 				3238F7DF1E90E80500838C62 /* GRAPHIC_MESH_OPENGL.cpp in Sources */,
+				5FC19B701EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F9BA1E90E80700838C62 /* SERVICE_NETWORK_CLIENT.cpp in Sources */,
 				3238F6861E90E80500838C62 /* CORE_HELPERS_UNIQUE.cpp in Sources */,
 				325A73841E522F530046520B /* GLOBAL_RESOURCES.cpp in Sources */,
@@ -6117,7 +6135,6 @@
 				3238F60E1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_FACTORY.cpp in Sources */,
 				3238F9921E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				3238F9A61E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
-				3238F7081E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				325A73861E522F530046520B /* NETWORK_GAME_INFO.cpp in Sources */,
 				3238FA231E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
 				325A73871E522F530046520B /* APPLICATION_GAMEPLAY_COMMAND_LOAD_GAME.cpp in Sources */,
@@ -6135,15 +6152,14 @@
 				3238F65E1E90E80500838C62 /* CORE_DATA_STREAM.cpp in Sources */,
 				3238F9381E90E80600838C62 /* GRAPHIC_WINDOW_ANDROID.cpp in Sources */,
 				3238F81B1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_LINE.cpp in Sources */,
-				3238F7171E90E80500838C62 /* CORE_FILESYSTEM_PATH_ANDROID.cpp in Sources */,
 				3238F7EE1E90E80500838C62 /* GRAPHIC_OBJECT.cpp in Sources */,
+				5FC19B8E1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				325A738B1E522F530046520B /* APPLICATION_GAMEPLAY_COMMAND_ORDER_ATTACK.cpp in Sources */,
 				3238F8751E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
 				3238FA001E90E80700838C62 /* GteWindow3.cpp in Sources */,
 				3238F82F1E90E80600838C62 /* GRAPHIC_PARTICLE_EMITER.cpp in Sources */,
 				325A738C1E522F530046520B /* APPLICATION_GAMEPLAY_COMMAND_ORDER_BUILD.cpp in Sources */,
 				3238F8701E90E80600838C62 /* GRAPHIC_SHADER_EFFECT.cpp in Sources */,
-				3238F7031E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F8071E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
 				3238F8E81E90E80600838C62 /* GRAPHIC_UI_BASE_ADAPTER.cpp in Sources */,
 				325A738D1E522F530046520B /* APPLICATION_GAMEPLAY_COMMAND_ORDER_MOVE.cpp in Sources */,
@@ -6219,6 +6235,7 @@
 				3238F8C01E90E80600838C62 /* GRAPHIC_FONT.cpp in Sources */,
 				3238F9331E90E80600838C62 /* GRAPHIC_WINDOW.cpp in Sources */,
 				3238F7B71E90E80500838C62 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
+				5FC19B751EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F8FC1E90E80600838C62 /* GRAPHIC_UI_TEXT_ADAPTER.cpp in Sources */,
 				3238F7851E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
 				325A73941E522F530046520B /* APPLICATION_COMMAND.cpp in Sources */,
@@ -6245,6 +6262,7 @@
 				3238F6EF1E90E80500838C62 /* CORE_PARALLEL_THREAD_WINDOWS.cpp in Sources */,
 				3238F8111E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_GRID.cpp in Sources */,
 				3238F7F31E90E80500838C62 /* GRAPHIC_OBJECT_ANIMATED.cpp in Sources */,
+				5FC19B7F1EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F9FB1E90E80700838C62 /* GteWindow2.cpp in Sources */,
 				3238F87F1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_SPEEDBLUR.cpp in Sources */,
 				325A73981E522F530046520B /* APPLICATION_SERVER_PRESENTER.cpp in Sources */,
@@ -6258,14 +6276,12 @@
 				3238F69A1E90E80500838C62 /* CORE_MATH_RAY.cpp in Sources */,
 				3238F9421E90E80600838C62 /* GRAPHIC_WINDOW_OSX.mm in Sources */,
 				3238F9011E90E80600838C62 /* GRAPHIC_UI_ANIMATION.cpp in Sources */,
-				3238F7121E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F6F91E90E80500838C62 /* CORE_TIMELINE.cpp in Sources */,
 				3238F9561E90E80600838C62 /* NETWORK_PLAYER.cpp in Sources */,
 				3238F69F1E90E80500838C62 /* CORE_MATH_SHAPE.cpp in Sources */,
 				325A739A1E522F530046520B /* APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER.cpp in Sources */,
 				3238F7CB1E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
 				3238F67C1E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
-				3238F70D1E90E80500838C62 /* CORE_FILESYSTEM_FILE_ANDROID.cpp in Sources */,
 				3238F5D21E90E80400838C62 /* AUDIO_SYSTEM.cpp in Sources */,
 				3238F8D91E90E80600838C62 /* GRAPHIC_TEXTURE_ATLAS.cpp in Sources */,
 				325A739B1E522F530046520B /* APPLICATION_MULTIPLAYER_HUD_PRESENTER.cpp in Sources */,
@@ -6286,7 +6302,6 @@
 				325A739D1E522F530046520B /* APPLICATION_HUD_PRESENTER.cpp in Sources */,
 				325A739E1E522F530046520B /* NETWORK_PLAYER_LOBBY_CELL.cpp in Sources */,
 				3238F78A1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
-				3238F71C1E90E80500838C62 /* CORE_FILESYSTEM_PATH_IOS.mm in Sources */,
 				3238F9101E90E80600838C62 /* GRAPHIC_UI_HELPER.cpp in Sources */,
 				3238F6361E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS.cpp in Sources */,
 				325A739F1E522F530046520B /* NETWORK_BROWSER_LIST_ADAPTER.cpp in Sources */,
@@ -6326,7 +6341,6 @@
 				3238F8AC1E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_OES2.cpp in Sources */,
 				3238FA321E90E80700838C62 /* GteWrapper.cpp in Sources */,
 				3238F7621E90E80500838C62 /* GAMEPLAY_COMPONENT_ENTITY.cpp in Sources */,
-				3238F7211E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				325A73A91E522F530046520B /* APPLICATION_LOADER_SCREEN.cpp in Sources */,
 				3238F8F21E90E80600838C62 /* GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp in Sources */,
 				3238F5FF1E90E80400838C62 /* CORE_ABSTRACT_FUNCTION.cpp in Sources */,
@@ -6338,6 +6352,7 @@
 				3238F72B1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */,
 				325A73AB1E522F530046520B /* ScriptEntity.cpp in Sources */,
 				3238F6631E90E80500838C62 /* CORE_HELPERS_CALLBACK.cpp in Sources */,
+				5F3BC84B1EE48FA50031CEF7 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238F5D71E90E80400838C62 /* AUDIO_BANK.cpp in Sources */,
 				3238FA731E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */,
 				3238F8BB1E90E80600838C62 /* OPENGLES_2.cpp in Sources */,
@@ -6368,7 +6383,6 @@
 				3238F6221E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_STATE.cpp in Sources */,
 				3238FA5F1E90E80700838C62 /* GteTriangleKey.cpp in Sources */,
 				3238F9E71E90E80700838C62 /* GteEnvironment.cpp in Sources */,
-				3238F7261E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238F89D1E90E80600838C62 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
 				3238FA551E90E80700838C62 /* GteIntelSSE.cpp in Sources */,
 				3238F9DD1E90E80700838C62 /* FONT_EDITOR.cpp in Sources */,
@@ -6381,6 +6395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3238F9AA1E90E80700838C62 /* RESOURCE_SOUND_MP3_LOADER.cpp in Sources */,
+				5FC19B6F1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F7611E90E80500838C62 /* GAMEPLAY_COMPONENT_ENTITY.cpp in Sources */,
 				3238F6711E90E80500838C62 /* CORE_HELPERS_IDENTIFIER_SYSTEM.cpp in Sources */,
 				3238F9A51E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
@@ -6429,7 +6444,9 @@
 				3238F7ED1E90E80500838C62 /* GRAPHIC_OBJECT.cpp in Sources */,
 				3238F86A1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
 				3229D96F1E22F2CA00D7911E /* MULTIPLAYER_GAME_LAUNCH_VALIDATOR.cpp in Sources */,
+				5FC19B881EDF6335003E53D5 /* CORE_FILESYSTEM_PATH_IOS.mm in Sources */,
 				3238F63F1E90E80500838C62 /* CORE_ABSTRACT_RUNTIME_LUA.cpp in Sources */,
+				5FC19B741EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F9FA1E90E80700838C62 /* GteWindow2.cpp in Sources */,
 				3238F6851E90E80500838C62 /* CORE_HELPERS_UNIQUE.cpp in Sources */,
 				3238F7661E90E80500838C62 /* GAMEPLAY_COMPONENT_MANAGER.cpp in Sources */,
@@ -6467,6 +6484,7 @@
 				3238F9911E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				3238F9551E90E80600838C62 /* NETWORK_PLAYER.cpp in Sources */,
 				3238F9F51E90E80700838C62 /* GteWindow.cpp in Sources */,
+				5FC19B8D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				3238F9371E90E80600838C62 /* GRAPHIC_WINDOW_ANDROID.cpp in Sources */,
 				32840AE219E472A10005FEB1 /* main.m in Sources */,
 				3238F6491E90E80500838C62 /* CORE_DATA_FAST_ARRAY.cpp in Sources */,
@@ -6534,7 +6552,6 @@
 				3238F6171E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_RUNTIME.cpp in Sources */,
 				3238F8CE1E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
 				3238F9321E90E80600838C62 /* GRAPHIC_WINDOW.cpp in Sources */,
-				3238F7251E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238F6A81E90E80500838C62 /* CORE_MATH_SHAPE_RECTANGLE.cpp in Sources */,
 				3229D9641E22A59400D7911E /* APPLICATION_CLIENT_PRESENTER.cpp in Sources */,
 				3238F7571E90E80500838C62 /* GAMEPLAY_COMPONENT_ACTION.cpp in Sources */,
@@ -6548,7 +6565,6 @@
 				3238F6AD1E90E80500838C62 /* CORE_MATH_SHAPE_SPHERE.cpp in Sources */,
 				323FD8C01E13B6D3009EBB6A /* NETWORK_BROWSER_LIST_ADAPTER.cpp in Sources */,
 				3238F5FE1E90E80400838C62 /* CORE_ABSTRACT_FUNCTION.cpp in Sources */,
-				3238F7021E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F6081E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp in Sources */,
 				3238F77A1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM.cpp in Sources */,
 				3238F9231E90E80600838C62 /* GRAPHIC_UI_PRESENTER.cpp in Sources */,
@@ -6560,7 +6576,6 @@
 				3238F5EF1E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */,
 				32E4CBFA1E34B85D00E79F0D /* NETWORK_GAME_PLAYER.cpp in Sources */,
 				3238F8A61E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
-				3238F7111E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F8921E90E80600838C62 /* GRAPHIC_SHADER_OES2.cpp in Sources */,
 				3238F8011E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
 				3238F7891E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
@@ -6595,19 +6610,18 @@
 				3238F9AF1E90E80700838C62 /* RESOURCE_SOUND.cpp in Sources */,
 				3238F99B1E90E80700838C62 /* RESOURCE_CACHE.cpp in Sources */,
 				3238F7A71E90E80500838C62 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
-				3238F7201E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				5F5661E21ED9B63E00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */,
 				3238F81F1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
 				3238F7F71E90E80600838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.cpp in Sources */,
 				3238F7FC1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
 				3238F6CB1E90E80500838C62 /* CORE_PARALLEL_LOCK.cpp in Sources */,
 				3238FA221E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
+				5FC19B7E1EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F9DC1E90E80700838C62 /* FONT_EDITOR.cpp in Sources */,
 				3238AEEA1BF37DC4002A0AAE /* ApplicationSoundBank.cpp in Sources */,
 				32E4CBEF1E34B82600E79F0D /* NETWORK_GAME.cpp in Sources */,
 				3238F79D1E90E80500838C62 /* GAMEPLAY_SCENE.cpp in Sources */,
 				3238F75C1E90E80500838C62 /* GAMEPLAY_COMPONENT_ANIMATION.cpp in Sources */,
-				3238F70C1E90E80500838C62 /* CORE_FILESYSTEM_FILE_ANDROID.cpp in Sources */,
 				3238F8151E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.cpp in Sources */,
 				3238F9141E90E80600838C62 /* GRAPHIC_UI_PLACEMENT.cpp in Sources */,
 				3238F9FF1E90E80700838C62 /* GteWindow3.cpp in Sources */,
@@ -6623,7 +6637,6 @@
 				3238F9731E90E80600838C62 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp in Sources */,
 				3238F7841E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
 				3238F69E1E90E80500838C62 /* CORE_MATH_SHAPE.cpp in Sources */,
-				3238F7161E90E80500838C62 /* CORE_FILESYSTEM_PATH_ANDROID.cpp in Sources */,
 				3238FA5E1E90E80700838C62 /* GteTriangleKey.cpp in Sources */,
 				3238F6DF1E90E80500838C62 /* CORE_PARALLEL_TASK.cpp in Sources */,
 				3238F5D11E90E80400838C62 /* AUDIO_SYSTEM.cpp in Sources */,
@@ -6662,7 +6675,6 @@
 				3238FA6D1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */,
 				3238F7F21E90E80500838C62 /* GRAPHIC_OBJECT_ANIMATED.cpp in Sources */,
 				3238F9501E90E80600838C62 /* NETWORK_CLIENT.cpp in Sources */,
-				3238F7071E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F9B91E90E80700838C62 /* SERVICE_NETWORK_CLIENT.cpp in Sources */,
 				3238FA091E90E80700838C62 /* GteLogger.cpp in Sources */,
 				3238F9F01E90E80700838C62 /* GteWICFileIO.cpp in Sources */,
@@ -6675,12 +6687,14 @@
 			files = (
 				3238F7551E90E80500838C62 /* GAMEPLAY_COMPONENT_ACTION.cpp in Sources */,
 				3238F9C61E90E80700838C62 /* SERVICE_NETWORK_CONNECTION.cpp in Sources */,
+				5FC19B7D1EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F7F51E90E80600838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.cpp in Sources */,
 				3238F86D1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT.cpp in Sources */,
 				3238F9121E90E80600838C62 /* GRAPHIC_UI_PLACEMENT.cpp in Sources */,
 				3238F92B1E90E80600838C62 /* GRAPHIC_UI_TEXT.cpp in Sources */,
 				3229D9671E22AA0C00D7911E /* APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER.cpp in Sources */,
 				3238F8C21E90E80600838C62 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
+				5FC19B6E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238FA481E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
 				3238F60B1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_FACTORY.cpp in Sources */,
 				3238F98A1E90E80700838C62 /* RESOURCE_IMAGE_ATLAS_COMPILER.cpp in Sources */,
@@ -6757,6 +6771,7 @@
 				3238F8541E90E80600838C62 /* GRAPHIC_RENDER_TARGET_OPENGL.cpp in Sources */,
 				3238F6F11E90E80500838C62 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
 				3238F89A1E90E80600838C62 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
+				5FC19B8C1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				3238F6151E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_RUNTIME.cpp in Sources */,
 				3238F9171E90E80600838C62 /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
 				3238FA161E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */,
@@ -6767,7 +6782,6 @@
 				3238F9AD1E90E80700838C62 /* RESOURCE_SOUND.cpp in Sources */,
 				5F6CD8FD1EDB52C500631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp in Sources */,
 				327217631DC6609600777CD8 /* APPLICATION_GAMEPLAY_COMMAND_ORDER_MOVE.cpp in Sources */,
-				3238F7051E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F5CA1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */,
 				3272175E1DC6609600777CD8 /* APPLICATION_GAMEPLAY_COMMAND_ACTION_FIRE.cpp in Sources */,
 				3238F8041E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
@@ -6813,6 +6827,7 @@
 				3238F8311E90E80600838C62 /* GRAPHIC_PARTICLE_MANAGER.cpp in Sources */,
 				3238F5F71E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
 				3238F8CC1E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
+				5FC19B911EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				32AFECFB1EB902C4006664AB /* RESOURCE_CONTAINER.cpp in Sources */,
 				3238F9301E90E80600838C62 /* GRAPHIC_WINDOW.cpp in Sources */,
 				3238F83B1E90E80600838C62 /* GRAPHIC_PARTICLE_MODIFIER_GRAVITY.cpp in Sources */,
@@ -6822,7 +6837,6 @@
 				3238F7821E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
 				3238F80E1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_GRID.cpp in Sources */,
 				3238F8F41E90E80600838C62 /* GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.cpp in Sources */,
-				3238F71E1E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				3238F9B71E90E80700838C62 /* SERVICE_NETWORK_CLIENT.cpp in Sources */,
 				32E4CBE61E34B5C200E79F0D /* GAME.cpp in Sources */,
 				3238F7731E90E80500838C62 /* GAMEPLAY_COMPONENT_RENDER.cpp in Sources */,
@@ -6835,7 +6849,6 @@
 				3229D93D1E1FA57900D7911E /* NETWORK_GAME_PLAYER_LIST_ADAPTER.cpp in Sources */,
 				32E4CBED1E34B82600E79F0D /* NETWORK_GAME.cpp in Sources */,
 				32C9AD3E1DF480B9003AB9F9 /* NETWORK_GAME_INFO.cpp in Sources */,
-				3238F70F1E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F7411E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */,
 				3238F6AB1E90E80500838C62 /* CORE_MATH_SHAPE_SPHERE.cpp in Sources */,
 				3238FA111E90E80700838C62 /* GteLogToFile.cpp in Sources */,
@@ -6843,7 +6856,6 @@
 				32E1ACB31DEB1B0100A8DF20 /* NETWORK_PLAYER_LOBBY_CELL.cpp in Sources */,
 				3238F7FF1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
 				323FD8FD1E158587009EBB6A /* APPLICATION_GAME_HUD.cpp in Sources */,
-				3238F7001E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F8E01E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
 				5FAE70E31ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				3238F7C81E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
@@ -6853,6 +6865,7 @@
 				3238F9211E90E80600838C62 /* GRAPHIC_UI_PRESENTER.cpp in Sources */,
 				3238F7E11E90E80500838C62 /* GRAPHIC_MESH_POLYGON_RENDER_MODE.cpp in Sources */,
 				3238F6651E90E80500838C62 /* CORE_HELPERS_CLASS.cpp in Sources */,
+				5FC19B5C1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.cpp in Sources */,
 				3238F5ED1E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */,
 				3238F85E1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp in Sources */,
 				3238F5B61E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */,
@@ -6889,7 +6902,6 @@
 				3238F6BF1E90E80500838C62 /* CORE_MEMORY_ALLOCATOR.cpp in Sources */,
 				3238F7FA1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
 				327217621DC6609600777CD8 /* APPLICATION_GAMEPLAY_COMMAND_ORDER_BUILD.cpp in Sources */,
-				3238F7231E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238F72D1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.cpp in Sources */,
 				3238F6011E90E80400838C62 /* CORE_ABSTRACT_FUNCTION_PARAMETER.cpp in Sources */,
 				3238F9581E90E80600838C62 /* NETWORK_SERVER.cpp in Sources */,
@@ -6921,6 +6933,7 @@
 				3238F8631E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.cpp in Sources */,
 				327217691DC6609600777CD8 /* APPLICATION_OPTION_WINDOW.cpp in Sources */,
 				3238F77D1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.cpp in Sources */,
+				5FC19B731EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238FA5C1E90E80700838C62 /* GteTriangleKey.cpp in Sources */,
 				3238F7C31E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
 				3238F7E61E90E80500838C62 /* GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp in Sources */,
@@ -6978,6 +6991,7 @@
 				3238F7B51E90E80500838C62 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
 				3238F6481E90E80500838C62 /* CORE_DATA_FAST_ARRAY.cpp in Sources */,
 				5F41B36E1EDCBBCF00D93AEE /* RESOURCE_TEST.m in Sources */,
+				5FC19B711EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F9541E90E80600838C62 /* NETWORK_PLAYER.cpp in Sources */,
 				3238F9D61E90E80700838C62 /* TOOL_ASSET_COMPILER.cpp in Sources */,
 				3238F62A1E90E80500838C62 /* CORE_ABSTRACT_RUNTIME_V8.cpp in Sources */,
@@ -7031,8 +7045,8 @@
 				3238F75B1E90E80500838C62 /* GAMEPLAY_COMPONENT_ANIMATION.cpp in Sources */,
 				3238F9AE1E90E80700838C62 /* RESOURCE_SOUND.cpp in Sources */,
 				324602231D1E834600A7D8AD /* MATH.m in Sources */,
-				3238F7061E90E80500838C62 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F8051E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
+				5FC19B801EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F6B61E90E80500838C62 /* CORE_MATH_VECTOR.cpp in Sources */,
 				32899C21180D3DC8002AA472 /* GAME_ENGINE_REBORNTests.m in Sources */,
 				3238F79C1E90E80500838C62 /* GAMEPLAY_SCENE.cpp in Sources */,
@@ -7064,6 +7078,7 @@
 				3238F8411E90E80600838C62 /* GRAPHIC_PARTICLE_RENDERER.cpp in Sources */,
 				3238F8BE1E90E80600838C62 /* GRAPHIC_FONT.cpp in Sources */,
 				3238F78D1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp in Sources */,
+				5FC19B8F1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				3238F8321E90E80600838C62 /* GRAPHIC_PARTICLE_MANAGER.cpp in Sources */,
 				3238F5F81E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
 				3238F8CD1E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
@@ -7075,7 +7090,6 @@
 				3238F7831E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
 				3238F80F1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_GRID.cpp in Sources */,
 				3238F8F51E90E80600838C62 /* GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.cpp in Sources */,
-				3238F71F1E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				3238F9B81E90E80700838C62 /* SERVICE_NETWORK_CLIENT.cpp in Sources */,
 				3238F7741E90E80500838C62 /* GAMEPLAY_COMPONENT_RENDER.cpp in Sources */,
 				3238F8281E90E80600838C62 /* GRAPHIC_PARTICLE.cpp in Sources */,
@@ -7084,11 +7098,9 @@
 				3238F6DE1E90E80500838C62 /* CORE_PARALLEL_TASK.cpp in Sources */,
 				3238FA0D1E90E80700838C62 /* GteLogReporter.cpp in Sources */,
 				3238F9EA1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */,
-				3238F7101E90E80500838C62 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
 				3238F6AC1E90E80500838C62 /* CORE_MATH_SHAPE_SPHERE.cpp in Sources */,
 				3238FA121E90E80700838C62 /* GteLogToFile.cpp in Sources */,
 				3238F8001E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
-				3238F7011E90E80500838C62 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F8E11E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
 				3238F7C91E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
 				3238F8B41E90E80600838C62 /* OPENGL_3.cpp in Sources */,
@@ -7121,15 +7133,16 @@
 				3238FA671E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */,
 				3238F7881E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
 				3238F95E1E90E80600838C62 /* PERIPHERIC_INTERACTION_KEYBOARD.cpp in Sources */,
+				5F41B3731EDD5FE600D93AEE /* GRAPHIC_WINDOW_OSX_TEST.m in Sources */,
 				3238F7A11E90E80500838C62 /* GRAPHIC_CAMERA.cpp in Sources */,
 				3238F61B1E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.cpp in Sources */,
 				3238F9451E90E80600838C62 /* GRAPHIC_WINDOW_OSX_VIEW.cpp in Sources */,
 				3238FA211E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
 				32E0A1AE1E9D4AC400B14365 /* ScriptEntity.cpp in Sources */,
 				3238F7D31E90E80500838C62 /* GRAPHIC_MESH.cpp in Sources */,
+				5FC19B941EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238F6C01E90E80500838C62 /* CORE_MEMORY_ALLOCATOR.cpp in Sources */,
 				3238F7FB1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
-				3238F7241E90E80500838C62 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238F72E1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.cpp in Sources */,
 				3238F6021E90E80400838C62 /* CORE_ABSTRACT_FUNCTION_PARAMETER.cpp in Sources */,
 				3238F9591E90E80600838C62 /* NETWORK_SERVER.cpp in Sources */,
@@ -7150,6 +7163,7 @@
 				3238F8691E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
 				3238F67F1E90E80500838C62 /* CORE_HELPERS_STATIC.cpp in Sources */,
 				5F5661E71ED9C8EA00C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
+				5FC19B9A1EE0359B003E53D5 /* TIMELINE_TEST.m in Sources */,
 				3238F9901E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				3238F7971E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
 				3238F90E1E90E80600838C62 /* GRAPHIC_UI_HELPER.cpp in Sources */,
@@ -7168,7 +7182,9 @@
 				32E0A1AC1E9D4AC000B14365 /* TestClass2.cpp in Sources */,
 				3238F9DB1E90E80700838C62 /* FONT_EDITOR.cpp in Sources */,
 				3253DB341EBDA2A600DF1797 /* RESOURCE_PROXY.cpp in Sources */,
+				5F41B3761EDD6B4000D93AEE /* GRAPHICS_OPERATIONS.m in Sources */,
 				3238F9B31E90E80700838C62 /* SERVICE_LOGGER.cpp in Sources */,
+				5FC19B761EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F6BB1E90E80500838C62 /* CORE_MEMORY.cpp in Sources */,
 				3238FA3F1E90E80700838C62 /* GteEdgeKey.cpp in Sources */,
 				3238F7A61E90E80500838C62 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,

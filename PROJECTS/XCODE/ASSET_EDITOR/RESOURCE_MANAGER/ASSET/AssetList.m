@@ -8,6 +8,12 @@
 
 #import "AssetList.h"
 #import "DefaultAssetViewItem.h"
+#import "GRAPHIC_SHADER_EFFECT.h"
+#import "GRAPHIC_OBJECT.h"
+#import "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
+#import "CORE_APPLICATION.h"
+#import "CORE_PARALLEL.h"
+#import "CORE_PARALLEL_TASK.h"
 
 @interface AssetList ()
 
@@ -81,10 +87,40 @@
     
     NSString * ext = [path pathExtension];
     
+    
     // Contains all assets types
     if ( [self.assetTypeList containsObject:ext] ) {
         
         [self.assetlist addObject:path];
+        
+        //TODO : Temporary
+        if ( [ext isEqualToString:@"vsh"] ) {
+            
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
+                    NSString * filename = [NSString stringWithFormat:@"EFFECT:%@", [path lastPathComponent] ];
+                    
+                    CORE_HELPERS_UNIQUE_IDENTIFIER identifier( [filename cStringUsingEncoding:NSASCIIStringEncoding] );
+                    
+                    GRAPHIC_SHADER_EFFECT::LoadResourceForPath( identifier, CORE_FILESYSTEM_PATH([path cStringUsingEncoding:NSASCIIStringEncoding]) );
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+        }
+        else if ( [ext isEqualToString:@"smx"] ) {
+            
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
+                    NSString * filename = [NSString stringWithFormat:@"MODEL:%@", [path lastPathComponent] ];
+
+                    CORE_HELPERS_UNIQUE_IDENTIFIER identifier( [filename cStringUsingEncoding:NSASCIIStringEncoding] );
+                    
+                    GRAPHIC_OBJECT::LoadResourceForPath( identifier, CORE_FILESYSTEM_PATH([path cStringUsingEncoding:NSASCIIStringEncoding]) );
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+        }
+        else if ( [ext isEqualToString:@"png"] ) {
+            
+        }
         
         [self.CollectionView reloadData];
     }

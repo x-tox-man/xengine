@@ -31,6 +31,8 @@ public:
         
     }
     
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, __RESOURCE_TYPE__ * > & GetItemMap() { return ItemMap; }
+    
     typedef RESOURCE_CACHE< __RESOURCE_TYPE__, __RESOURCE_LOADER__ > LOCAL_RESOURCE_CACHETYPE;
     
     __RESOURCE_TYPE__ * ReloadResourceForKey( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {

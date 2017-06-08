@@ -30,15 +30,18 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_FILESYSTEM_FILE )
     int InputBytes( const void * bytes, int size );
     int OutputBytes( void * bytes, int size );
     void Rewind();
+    void Seek( long position );
+
     FILE * GetFilePointer();
-    CORE_FILESYSTEM_PATH GetPath() { return Path; }
+    inline const CORE_FILESYSTEM_PATH & GetPath() const { return Path; }
+    inline CORE_FILESYSTEM_PATH & GetPath() { return Path; }
     int GetSize();
 
     void Close();
 
-    bool IsOpen() { return ItIsOpen; }
-    bool IsOpenInput() { return ItIsOpenInput; }
-    bool IsOpenOutput() { return ItIsOpenOutput; }
+    inline bool IsOpen() { return ItIsOpen; }
+    inline bool IsOpenInput() { return ItIsOpenInput; }
+    inline bool IsOpenOutput() { return ItIsOpenOutput; }
 
     static CORE_FILESYSTEM_FILE NotFound;
 
@@ -49,10 +52,8 @@ private :
     FILE
         * FilePointer;
     bool
-        ItIsOpen;
-    bool
-        ItIsOpenInput;
-    bool
+        ItIsOpen,
+        ItIsOpenInput,
         ItIsOpenOutput;
 
 #if PLATFORM_ANDROID

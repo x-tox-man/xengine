@@ -52,9 +52,9 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline void SetDirectionalLight( GRAPHIC_SHADER_LIGHT * light ) { DirectionalLight = light; }
     inline void SetPointLight( GRAPHIC_SHADER_LIGHT * light, int light_index ) { PointLightTable[ light_index ] = light; }
     inline void SetSpotLight( GRAPHIC_SHADER_LIGHT * light, int light_index ) { SpotLightTable[ light_index ] = light; }
-    inline const GRAPHIC_SHADER_LIGHT & GetDirectionalLight() const { return *DirectionalLight; }
-    inline const GRAPHIC_SHADER_LIGHT & GetPointLight( int index ) const { return *PointLightTable[ index ]; }
-    inline const GRAPHIC_SHADER_LIGHT & GetSpotLight( int index ) const { return *SpotLightTable[ index ]; }
+    inline const GRAPHIC_SHADER_LIGHT * GetDirectionalLight() const { return DirectionalLight; }
+    inline const GRAPHIC_SHADER_LIGHT * GetPointLight( int index ) const { return PointLightTable[ index ]; }
+    inline const GRAPHIC_SHADER_LIGHT * GetSpotLight( int index ) const { return SpotLightTable[ index ]; }
     inline int GetPassIndex() const { return PassIndex; }
     inline void SetPassIndex(int pass) { PassIndex = pass; }
     inline void SetDepthTexture( GRAPHIC_TEXTURE * depth ) { DepthTexture = depth;}

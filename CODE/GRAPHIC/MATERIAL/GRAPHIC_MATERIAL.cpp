@@ -77,27 +77,29 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
         it++;
     }
     
-    GRAPHIC_SYSTEM::ApplyLightDirectional( renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
-    
-    GRAPHIC_SYSTEM::ApplyLightPoint( renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
-    GRAPHIC_SYSTEM::ApplyLightPoint( renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
-    
-    GRAPHIC_SYSTEM::ApplyLightSpot( renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
-    GRAPHIC_SYSTEM::ApplyLightSpot( renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
-    
-    GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
-    
-    if ( camera_world_position_attribute.AttributeIndex != 0 ) {
+    if ( renderer.GetDirectionalLight() != NULL ) {
+        GRAPHIC_SYSTEM::ApplyLightDirectional( *renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
         
-        GRAPHIC_SYSTEM::ApplyShaderAttributeVector( &renderer.GetCamera().GetPosition()[0], camera_world_position_attribute );
-    }
-    
-    GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::LightSpecularPower );
-    
-    if ( attribute.AttributeIndex != 0 ) {
+        GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
+        GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
         
-        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.99f, attribute );
-        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.9f, shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity ) );
+        GRAPHIC_SYSTEM::ApplyLightSpot( *renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
+        GRAPHIC_SYSTEM::ApplyLightSpot( *renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
+        
+        GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
+        
+        if ( camera_world_position_attribute.AttributeIndex != 0 ) {
+            
+            GRAPHIC_SYSTEM::ApplyShaderAttributeVector( &renderer.GetCamera().GetPosition()[0], camera_world_position_attribute );
+        }
+        
+        GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::LightSpecularPower );
+        
+        if ( attribute.AttributeIndex != 0 ) {
+            
+            GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.99f, attribute );
+            GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.9f, shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity ) );
+        }
     }
 }
 

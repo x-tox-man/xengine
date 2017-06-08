@@ -102,26 +102,6 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     basic_geometry_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     BasicEffectShadowMap->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     
-    for ( int par = 0; par < NakedGirlObject->GetMeshTable().size(); par++  ) {
-        
-        NakedGirlObject->GetMeshTable()[par]->CreateBuffers();
-    }
-    
-    for ( int par = 0; par < ChrisObject->GetMeshTable().size(); par++  ) {
-        
-        ChrisObject->GetMeshTable()[par]->CreateBuffers();
-    }
-    
-    /*for ( int par = 0; par < AstroBoy->GetMeshTable().size(); par++  ) {
-     
-     AstroBoy->GetMeshTable()[par]->CreateBuffers();
-     }*/
-    
-    for ( int par = 0; par < Moulin->GetMeshTable().size(); par++  ) {
-        
-        Moulin->GetMeshTable()[par]->CreateBuffers();
-    }
-    
     RESOURCE_IMAGE * image = NULL;
     
     image = RESOURCE_IMAGE::LoadResourceForPath( "HANDS_DE_GL_N_00", CORE_FILESYSTEM_PATH::FindFilePath( "HANDS_DE_GL_N_00", "png", "MODEL_TEXTURES" ) );
@@ -534,11 +514,6 @@ GAMEPLAY_COMPONENT_ENTITY * GLOBAL_RESOURCES::CreateMesh( const CORE_FILESYSTEM_
     //should not be done like this
     
     GRAPHIC_OBJECT * object = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( path, 0, GRAPHIC_MESH_TYPE_ModelResource );
-    
-    for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
-        
-        object->GetMeshTable()[ i ]->CreateBuffers();
-    }
     
     object->GetShaderTable().resize( 1 );
     object->GetShaderTable()[ 0 ] = program;

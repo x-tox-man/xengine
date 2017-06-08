@@ -58,6 +58,11 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( const CORE_FILESYSTEM_PAT
     
     stream.Close();
     
+    for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+        
+        object->GetMeshTable()[ i ]->CreateBuffers();
+    }
+    
     return object;
 }
 
@@ -69,6 +74,11 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( CORE_DATA_STREAM & stream
     SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
     
     XS_CLASS_SERIALIZER< GRAPHIC_OBJECT >::Serialize<std::false_type>( *object, stream );
+    
+    for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+        
+        object->GetMeshTable()[ i ]->CreateBuffers();
+    }
     
     return object;
 }
@@ -245,6 +255,11 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::LoadObject( const CORE_FILESYST
             XS_CLASS_SERIALIZER< GRAPHIC_OBJECT >::Serialize<std::false_type>( *object, stream );
             
             stream.Close();
+            
+            for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+                
+                object->GetMeshTable()[ i ]->CreateBuffers();
+            }
             
             break;
         }

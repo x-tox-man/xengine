@@ -11,12 +11,25 @@
 #import "GAMEPLAY_COMPONENT_ENTITY.h"
 #import "GAMEPLAY_COMPONENT_MANAGER.h"
 #import "ASSET_EDITOR.h"
+#import "Constants.h"
+#import "Create3dItem.h"
+#import "GAMEPLAY_COMPONENT_POSITION.h"
+#import "GAMEPLAY_COMPONENT_RENDER.h"
+#import "GAMEPLAY_COMPONENT_PHYSICS.h"
+#import "GAMEPLAY_COMPONENT_SCRIPT.h"
+#import "GAMEPLAY_COMPONENT_ANIMATION.h"
+#import "ResourceManager.h"
+#import "CORE_ABSTRACT_PROGRAM_LUA.h"
+#import "CORE_ABSTRACT_RUNTIME_LUA.h"
+#import "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.h"
 
 @interface LeftPane3DViewController ()
 
 @end
 
-@implementation LeftPane3DViewController
+@implementation LeftPane3DViewController {
+    NSString * ResourceType;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,18 +41,47 @@
     [self.ComponentsTableView registerNib:[[NSNib alloc] initWithNibNamed:@"RenderComponent" bundle:[NSBundle mainBundle]] forIdentifier:@"RenderComponent"];
     [self.ComponentsTableView registerNib:[[NSNib alloc] initWithNibNamed:@"PhysicsComponent" bundle:[NSBundle mainBundle]] forIdentifier:@"PhysicsComponent"];
     [self.ComponentsTableView registerNib:[[NSNib alloc] initWithNibNamed:@"ScriptComponent" bundle:[NSBundle mainBundle]] forIdentifier:@"ScriptComponent"];
+    [self.ComponentsTableView registerNib:[[NSNib alloc] initWithNibNamed:@"EmptyComponent" bundle:[NSBundle mainBundle]] forIdentifier:@"EmptyComponent"];
     
     self.ComponentsTableView.delegate = self.custom3dTableViewDelegate;
     self.ComponentsTableView.dataSource = self.custom3dTableViewDelegate;
+    self.custom3dTableViewDelegate.ParentVCDelegate = self;
+}
+
+-(void)viewDidAppear {
+    [self.ComponentsTableView reloadData];
 }
 
 - (IBAction)CreateItem:(id)sender {
     
-    static int c_index = 0;
-    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
-    component_entity->SetIndex( c_index++ );
+    [self performSegueWithIdentifier:@CREATE_3D_ITEM_SEGUE sender:self];
+}
+
+- (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
     
-    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Position ), GAMEPLAY_COMPONENT_TYPE_Position );
+    if( [[segue identifier] isEqualToString:@CREATE_3D_ITEM_SEGUE] ) {
+        Create3dItem * ci = [segue destinationController];
+        
+        ci.BackDelegate = self;
+    }
+    else if( [[segue identifier] isEqualToString:@CHOOSE_RESOURCE_SEGUE] ) {
+        ResourceManager * rma = segue.destinationController;
+        
+        rma.ResourceDelegate = self;
+        
+        rma.ResourceType = ResourceType;
+    }
+    else {
+        abort();
+    }
+}
+
+-(void) OnBack {
+    
+    [self.OutlineView reloadData];
+}
+
+-(void) onItemCollectionChanged {
     
     [self.OutlineView reloadData];
 }
@@ -119,7 +161,6 @@
                 break;
             }
         }
-        
         
         return count;
     }
@@ -203,6 +244,129 @@
     }*/
     
     return @"2";
+}
+
+-(void) CreateComponent:(NSView *) row {
+    
+    int r = [self.ComponentsTableView rowForView:row];
+    
+    if( r == (int) GAMEPLAY_COMPONENT_TYPE_Position ) {
+        
+        auto comp = new GAMEPLAY_COMPONENT_POSITION();
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Position);
+    }
+    else if( r == (int) GAMEPLAY_COMPONENT_TYPE_Render ) {
+        
+        auto comp = new GAMEPLAY_COMPONENT_RENDER();
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Render);
+    }
+    else if( r == (int) GAMEPLAY_COMPONENT_TYPE_Animation ) {
+        
+        auto comp = new GAMEPLAY_COMPONENT_ANIMATION();
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Animation);
+    }
+    else if( r == (int) GAMEPLAY_COMPONENT_TYPE_Script ) {
+        
+        auto comp = new GAMEPLAY_COMPONENT_SCRIPT();
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Script);
+    }
+    else if( r == (int) GAMEPLAY_COMPONENT_TYPE_Physics ) {
+        
+        auto comp = new GAMEPLAY_COMPONENT_PHYSICS();
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Physics);
+    }
+    else {
+        abort();
+    }
+    
+    [self.ComponentsTableView reloadData];
+}
+
+-(void) SelectObject3d {
+    
+    ResourceType = @"Model";
+    
+    [self performSegueWithIdentifier:@CHOOSE_RESOURCE_SEGUE sender:self];
+}
+
+-(void) SelectEffect {
+    
+    ResourceType = @"Effect";
+    [self performSegueWithIdentifier:@CHOOSE_RESOURCE_SEGUE sender:self];
+}
+
+-(void) SelectScript {
+    
+    // Create the File Open Dialog class.
+    NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+    
+    // Enable the selection of files in the dialog.
+    [openDlg setCanChooseFiles:YES];
+    [openDlg setTitle:@"Select your script file"];
+    
+    // Enable the selection of directories in the dialog.
+    [openDlg setCanChooseDirectories:NO];
+    
+    // Display the dialog.  If the OK button was pressed,
+    // process the files.
+    if ( [openDlg runModal] == NSModalResponseOK )
+    {
+        // Get an array containing the full filenames of all
+        // files and directories selected.
+        NSArray* files = [openDlg filenames];
+        NSString * script_path =[files objectAtIndex:0];
+        
+        CORE_ABSTRACT_PROGRAM_LUA * program = new CORE_ABSTRACT_PROGRAM_LUA();
+        CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
+        
+        program->Load([script_path cStringUsingEncoding:NSASCIIStringEncoding], *runtime );
+        program->Execute();
+        
+        auto cmp = (GAMEPLAY_COMPONENT_SCRIPT *) [self.custom3dTableViewDelegate.Entity Entity]->GetComponent( GAMEPLAY_COMPONENT_TYPE_Script );
+        
+        if ( cmp == NULL ) {
+            
+            cmp = (GAMEPLAY_COMPONENT_SCRIPT *) GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Script );
+            
+            [self.custom3dTableViewDelegate.Entity Entity]->SetCompononent(cmp, GAMEPLAY_COMPONENT_TYPE_Script );
+        }
+        
+        auto app = (ASSET_EDITOR *) (&CORE_APPLICATION::GetApplicationInstance());
+        
+        cmp->SetScript( program );
+        
+        ( ( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT * ) app->Get3dViewer()->GetScene()->GetUpdatableSystemTable()[3] )->AddEntity( [self.custom3dTableViewDelegate.Entity Entity] );
+    }
+    
+    //TODO:
+    //ResourceType = @"Script";
+    //[self performSegueWithIdentifier:@CHOOSE_RESOURCE_SEGUE sender:self];
+}
+
+-(void) OnResourceSelected:(ResourceProxy *)Resource {
+    
+    if ( [ResourceType isEqualToString:@"Model"]) {
+        
+        auto cmp = (GAMEPLAY_COMPONENT_RENDER* ) [[self.custom3dTableViewDelegate Entity] Entity]->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render);
+        
+        auto proxy = new RESOURCE_PROXY;
+        proxy->SetResource( Resource.Object3d );
+        cmp->SetObject( proxy );
+    } else if ( [ResourceType isEqualToString:@"Effect"] ) {
+        
+        auto cmp = (GAMEPLAY_COMPONENT_RENDER* ) [[self.custom3dTableViewDelegate Entity] Entity]->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render);
+        
+        auto proxy = new RESOURCE_PROXY;
+        proxy->SetResource( Resource.Effect );
+        cmp->SetEffect( proxy );
+    }
+    
+    ResourceType = @"";
 }
 
 @end
