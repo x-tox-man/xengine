@@ -14,6 +14,7 @@
 #include "CORE_DATA_STREAM.h"
 #include "CORE_ABSTRACT_PROGRAM_MANAGER.h"
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
+#include "CORE_FILESYSTEM_PATH.h"
 
 XS_CLASS_BEGIN( GAMEPLAY_SCENE )
 
@@ -27,11 +28,18 @@ XS_CLASS_BEGIN( GAMEPLAY_SCENE )
     void Update( float time_step );
     void Render();
 
-    std::vector< GAMEPLAY_COMPONENT_SYSTEM * > & GetUpdatableSystemTable() { return UpdatableSystemTable; };
-    std::vector< GAMEPLAY_COMPONENT_SYSTEM * > & GetRenderableSystemTable() { return RenderableSystemTable; };
+    void SaveTo( const CORE_FILESYSTEM_PATH & path );
+    void LoadFrom( const CORE_FILESYSTEM_PATH & path );
+
+    inline std::vector< GAMEPLAY_COMPONENT_SYSTEM * > & GetUpdatableSystemTable() { return UpdatableSystemTable; };
+    inline std::vector< GAMEPLAY_COMPONENT_SYSTEM * > & GetRenderableSystemTable() { return RenderableSystemTable; };
+
+    void Clear();
 
     void InsertUpdatableSystem( GAMEPLAY_COMPONENT_SYSTEM * system );
     void InsertRenderableSystem( GAMEPLAY_COMPONENT_SYSTEM * system );
+
+private:
 
     std::vector< GAMEPLAY_COMPONENT_SYSTEM * > UpdatableSystemTable;
     std::vector< GAMEPLAY_COMPONENT_SYSTEM * > RenderableSystemTable;

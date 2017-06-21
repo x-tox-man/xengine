@@ -24,11 +24,14 @@ void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Initialize() {
 
 void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Update( float time_step ) {
     
-    for ( int i = 0; i < EntitiesVector.size(); i++ ) {
+    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    
+    while (it != EntitiesTable.end() ) {
         
-        GAMEPLAY_COMPONENT_ANIMATION * animation = ( GAMEPLAY_COMPONENT_ANIMATION *) EntitiesVector[i]->GetComponent( GAMEPLAY_COMPONENT_TYPE_Animation );
+        GAMEPLAY_COMPONENT_ANIMATION * animation = ( GAMEPLAY_COMPONENT_ANIMATION *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Animation );
         
         animation->UpdateAnimation( time_step );
+        it++;
     }
 }
 

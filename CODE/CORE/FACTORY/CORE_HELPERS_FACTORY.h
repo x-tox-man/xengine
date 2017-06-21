@@ -35,6 +35,19 @@ public:
         return (*__InnerMap)[classType];
     }
     
+    static const __FACTORY_TYPE_ENUM__ __InternalGetIndex( __NAMED_CLASS__ * element_class ) {
+        
+        typename std::map< __FACTORY_TYPE_ENUM__, const __NAMED_CLASS__ * >::iterator it = __InnerMap->begin();
+        
+        while (it != __InnerMap->end() ) {
+            if ( it->second == element_class ) {
+                return it->first;
+            }
+            it++;
+        }
+        return __FACTORY_TYPE_ENUM__();
+    }
+    
     static void Finalize() {
         
         typename std::map< __FACTORY_TYPE_ENUM__, const __NAMED_CLASS__ * >::iterator it = (*__InnerMap).begin();
@@ -72,6 +85,10 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
         return FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalGetObject( factoryType ); \
     }\
 \
+    static const __FACTORY_TYPE_ENUM__ FactoryGetTemplateIndex( __FACTORY_TYPE__ * element) { \
+        return FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalGetIndex( element ); \
+    }\
+\
     private : \
     virtual __FACTORY_TYPE__ * __InnerCreate() const { \
         CORE_RUNTIME_Abort();\
@@ -90,6 +107,9 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
     \
     static int GetFactoryType() { \
         return __FACTORY_TYPE_ENUMERATED__; \
+    }\
+    static __CLASS_TYPE__ * GetFactoryElement() { \
+        return FACTORY_ELEMENT<__CLASS_TYPE__>::__InnerElement; \
     }\
     static __CLASS_TYPE__ * __InnerCreateElement() { \
         FACTORY_ELEMENT<__CLASS_TYPE__>::__InnerElement = new __CLASS_TYPE__(); \

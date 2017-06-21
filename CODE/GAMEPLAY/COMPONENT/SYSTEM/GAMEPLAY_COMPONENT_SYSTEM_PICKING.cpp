@@ -33,21 +33,24 @@ void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Initialize() {
 void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Update( float time_step ) {
     
     ComputeRay( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetScreenCoordinates(), GRAPHIC_RENDERER::GetInstance().GetCamera() );
+    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     
-    for ( int i = 0; i < EntitiesVector.size(); i++ ) {
+    while (it != EntitiesTable.end() ) {
         
-        GAMEPLAY_COMPONENT_POSITION * position = (GAMEPLAY_COMPONENT_POSITION *) EntitiesVector[ i ]->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-        GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) EntitiesVector[ i ]->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+        GAMEPLAY_COMPONENT_POSITION * position = (GAMEPLAY_COMPONENT_POSITION *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+        GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
         
         physics->GetShape().SetHalfDiagonal( CORE_MATH_VECTOR(0.5f,0.5f,0.5f,1.0f) );
         physics->GetShape().SetPosition( position->GetPosition() );
         
         if ( physics->GetShape().GetIntersection( Ray ) && PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetLeftButtonClicked() ) {
             
-            GAMEPLAY_COMPONENT_ACTION * action = (GAMEPLAY_COMPONENT_ACTION *) EntitiesVector[ i ]->GetComponent( GAMEPLAY_COMPONENT_TYPE_Action );
+            GAMEPLAY_COMPONENT_ACTION * action = (GAMEPLAY_COMPONENT_ACTION *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Action );
             
-            action->operator()( EntitiesVector[ i ] );
+            action->operator()( it->second->GetEntity() );
         }
+        
+        it++;
     }
 }
 

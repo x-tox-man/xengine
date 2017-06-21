@@ -34,7 +34,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAM
         btDiscreteDynamicsWorld * GetDynamicsWorld() { return DynamicsWorld; }
     #endif
 
-    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) override;
+    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) override;
 
 private :
 

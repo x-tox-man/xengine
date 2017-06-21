@@ -13,7 +13,7 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH_SUB_SKELETON )
     XS_DEFINE_ClassMember( int, JointIndex )
     XS_DEFINE_ClassMember( CORE_SCALAR, Transform )
     XS_DEFINE_ClassMember( int, ChildCount )
-    XS_DEFINE_ClassMemberArray( GRAPHIC_MESH_SUB_SKELETON, SubSkelettonTable, ChildCount )
+    XS_DEFINE_ClassMemberArray( GRAPHIC_MESH_SUB_SKELETON, SubSkelettonTable, (int) ChildCount )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_MESH_SUB_SKELETON::GRAPHIC_MESH_SUB_SKELETON() :

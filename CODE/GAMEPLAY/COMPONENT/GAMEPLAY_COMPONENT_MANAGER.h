@@ -13,6 +13,7 @@
 #include "GAMEPLAY_COMPONENT.h"
 #include "GAMEPLAY_COMPONENT_TYPE.h"
 #include "GAMEPLAY_COMPONENT_ENTITY.h"
+#include "GAMEPLAY_COMPONENT_ENTITY_HANDLE.h"
 #include "CORE_HELPERS_UNIQUE.h"
 
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
@@ -34,6 +35,16 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
         return &InternalVector[0].MemoryArray[ index ];
     }
 
+    void Clear();
+
+    void SaveToStream( CORE_DATA_STREAM & stream );
+    void LoadFromStream( CORE_DATA_STREAM & stream );
+
+    GAMEPLAY_COMPONENT_ENTITY * FindEntity( const GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle ) {
+    
+        return &InternalVector[ handle.GetOffset() ].MemoryArray[ handle.GetIndex() -1 ]; //Fix this minus One that hangs around
+    }
+
 private :
 
     struct INTERNAL_ARRAY{
@@ -41,7 +52,8 @@ private :
         GAMEPLAY_COMPONENT_ENTITY * MemoryArray;
     };
 
-    std::vector< INTERNAL_ARRAY > InternalVector;
+    std::vector< INTERNAL_ARRAY >
+        InternalVector;
 
 XS_CLASS_END
 

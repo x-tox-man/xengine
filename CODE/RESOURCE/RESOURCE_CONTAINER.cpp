@@ -78,6 +78,7 @@ void RESOURCE_CONTAINER::Load( const CORE_FILESYSTEM_PATH & path ) {
 void RESOURCE_CONTAINER::AddResource(RESOURCE_PROXY * resource, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier) {
     
     ResourceMap[ identifier ] = resource;
+    resource->SetIdentifier( identifier );
     ResourceMap[ identifier ]->SetIdentifier( identifier );
 }
 

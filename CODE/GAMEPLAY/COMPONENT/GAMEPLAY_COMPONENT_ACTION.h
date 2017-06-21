@@ -32,10 +32,26 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ACTION, GAMEPLAY_COMPONENT )
         GAMEPLAY_COMPONENT_ACTION * MemoryArray;
     };
 
+    static void Clear();
+
+    static void SaveToStream( CORE_DATA_STREAM & stream );
+    static void LoadFromStream( CORE_DATA_STREAM & stream );
+
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+        
+        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
+    }
+
+    static int
+        LastIndex,
+        LastOffset;
+
 private :
 
     CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_ENTITY * >
         ActionCallback;
+    static std::vector< INTERNAL_ARRAY > *
+        InternalVector;
 
 XS_CLASS_END
 

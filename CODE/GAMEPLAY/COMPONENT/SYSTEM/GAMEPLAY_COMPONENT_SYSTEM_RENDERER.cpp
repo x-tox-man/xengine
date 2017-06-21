@@ -31,14 +31,18 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Update( float time_step ) {
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render() {
     
-    for ( int i = 0; i < EntitiesVector.size(); i++ ) {
+    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    
+    while (it != EntitiesTable.end() ) {
         
-        GAMEPLAY_COMPONENT_ENTITY * entity = EntitiesVector[ i ];
+        GAMEPLAY_COMPONENT_ENTITY * entity = it->second->GetEntity();
         
         GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
         GAMEPLAY_COMPONENT_POSITION * located = (GAMEPLAY_COMPONENT_POSITION * ) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
         
         renderable->Render( *Renderer, located );
+        
+        it++;
     }
 }
 

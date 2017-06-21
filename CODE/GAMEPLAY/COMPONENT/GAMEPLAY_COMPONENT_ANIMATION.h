@@ -31,10 +31,26 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
 
     void SetAnimation( GRAPHIC_MESH_ANIMATION_CONTROLLER * animation ) { Animation = animation; }
 
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+        
+        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
+    }
+
+    static void Clear();
+
+    static void SaveToStream( CORE_DATA_STREAM & stream );
+    static void LoadFromStream( CORE_DATA_STREAM & stream );
+
+    static int
+        LastIndex,
+        LastOffset;
+
 private :
 
     GRAPHIC_MESH_ANIMATION_CONTROLLER
         * Animation;
+    static std::vector< INTERNAL_ARRAY_A >
+        * InternalVector;
 
 XS_CLASS_END
 

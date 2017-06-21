@@ -15,7 +15,7 @@
 #include "CORE_HELPERS_IDENTIFIER.h"
 #include "RESOURCE.h"
 
-XS_CLASS_BEGIN_WITH_COPY(RESOURCE_PROXY)
+XS_CLASS_BEGIN_WITH_COPY( RESOURCE_PROXY )
 
     RESOURCE_PROXY();
     RESOURCE_PROXY( BASE_RESOURCE * Resource );
@@ -39,6 +39,9 @@ XS_CLASS_BEGIN_WITH_COPY(RESOURCE_PROXY)
 
     template <typename __RESOURCE_TYPE_>
     __RESOURCE_TYPE_ * GetResource() {
+        if ( Resource == NULL )
+            Resource = __RESOURCE_TYPE_::GetResourceForIdentifier( Identifier );
+        
         return static_cast<__RESOURCE_TYPE_ *>(Resource);
     }
 

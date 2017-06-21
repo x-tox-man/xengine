@@ -37,6 +37,7 @@
 #include "GRAPHIC_TEXTURE_ATLAS.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "GRAPHIC_WINDOW_OSX_TEST.h"
+#include "GRAPHIC_OBJECT_SHAPE_CUBE.h"
 
 @interface RESOURCE_TEST : XCTestCase
 
@@ -99,6 +100,22 @@
     XCTAssert( image );
 }
 
+-(void) testLoadMesh {
+    
+    auto object = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("cyl", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource );
+    
+    XCTAssert(object->GetMeshTable().size() > 0 );
+}
+
+-(void) testCreateCube {
+    
+    auto object = new GRAPHIC_OBJECT_SHAPE_CUBE;
+    
+    object->InitializeShape();
+
+    XCTAssert(object->GetMeshTable().size() > 0 );
+}
+
 -(void) testLoadTexture {
     
     auto texture = GRAPHIC_TEXTURE::LoadResourceForPath( "TEXTURE:test", CORE_FILESYSTEM_PATH::FindFilePath("flowers", "png", "TEXTURES" ) );
@@ -138,6 +155,17 @@
     }
     
     XCTAssert( success );
+}
+
+-(void) testRegisterGeometryAsResource {
+    
+    auto object = new GRAPHIC_OBJECT_SHAPE_CUBE;
+    
+    object->InitializeShape();
+    
+    RESOURCE_CONTAINER * container = new RESOURCE_CONTAINER();
+    
+    container->AddResource(new RESOURCE_PROXY( object ), CORE_HELPERS_UNIQUE_IDENTIFIER("GRAPHIC_OBJECT_SHAPE_CUBE" ) );
 }
 
 @end

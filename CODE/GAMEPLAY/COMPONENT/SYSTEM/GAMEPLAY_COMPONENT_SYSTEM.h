@@ -12,24 +12,37 @@
 #include "CORE_HELPERS_CLASS.h"
 #include "GAMEPLAY_COMPONENT.h"
 #include "GAMEPLAY_COMPONENT_TYPE.h"
+#include "GAMEPLAY_COMPONENT_ENTITY_HANDLE.h"
 #include "GAMEPLAY_COMPONENT_ENTITY.h"
+#include "GAMEPLAY_COMPONENT_ENTITY_PROXY.h"
 
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_SYSTEM )
 
-GAMEPLAY_COMPONENT_SYSTEM();
-virtual ~GAMEPLAY_COMPONENT_SYSTEM();
+    GAMEPLAY_COMPONENT_SYSTEM();
+    virtual ~GAMEPLAY_COMPONENT_SYSTEM();
 
-virtual void Initialize() = 0;
+    XS_DEFINE_SERIALIZABLE
 
-virtual void Update( float time_step ) = 0;
-virtual void Render() = 0;
+    virtual void Initialize();
 
-virtual void Finalize() = 0;
+    virtual void Update( float time_step );
+    virtual void Render();
 
-virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY * entity );
-virtual void RemoveEntity( GAMEPLAY_COMPONENT_ENTITY * entity );
+    virtual void Finalize();
 
-std::vector< GAMEPLAY_COMPONENT_ENTITY * > EntitiesVector;
+    void Clear() {
+        
+        EntitiesTable.clear();
+    }
+
+    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity );
+    virtual void RemoveEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity );
+
+    void SaveToStream( CORE_DATA_STREAM & stream );
+    void LoadFromStream( CORE_DATA_STREAM & stream );
+
+    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >
+        EntitiesTable;
 
 XS_CLASS_END
 

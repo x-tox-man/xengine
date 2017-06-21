@@ -6,8 +6,6 @@
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 #import <XCTest/XCTest.h>
 
 #include "CORE_MATH_QUATERNION.h"
@@ -42,11 +40,11 @@
 #include "GRAPHIC_RENDER_TARGET.h"
 #include "GRAPHIC_OBJECT_SHAPE_CUBE.h"
 
-@interface GRAPHICS_OPERATIONS : XCTestCase
+@interface TIMELINE_TEST : XCTestCase
 
 @end
 
-@implementation GRAPHICS_OPERATIONS {
+@implementation TIMELINE_TEST {
     CORE_FILESYSTEM file_system;
 }
 
@@ -66,10 +64,6 @@
 }
 
 -(void)testAction {
-    
-}
-
--(void)serializeTimeLine {
     
 }
 

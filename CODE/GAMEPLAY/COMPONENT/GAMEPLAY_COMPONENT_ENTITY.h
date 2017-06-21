@@ -15,15 +15,19 @@
 #include "CORE_HELPERS_CLASS.h"
 #include "GAMEPLAY_COMPONENT.h"
 #include "CORE_MATH_VECTOR.h"
+#include "GAMEPLAY_COMPONENT_HANDLE.h"
+#include "GAMEPLAY_COMPONENT_ENTITY_HANDLE.h"
 
-XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_ENTITY )
+XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY )
 
     GAMEPLAY_COMPONENT_ENTITY();
     ~GAMEPLAY_COMPONENT_ENTITY();
 
+    XS_DEFINE_SERIALIZABLE
+
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT_ENTITY );
 
-    inline void SetCompononent( GAMEPLAY_COMPONENT * component, int component_index ) {
+    void SetCompononent( GAMEPLAY_COMPONENT_HANDLE & component, int component_index ) {
         
         Components[ component_index ] = component;
     }
@@ -33,21 +37,27 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_ENTITY )
         ChildEntities[ index ] = entity;
     }
 
-    inline GAMEPLAY_COMPONENT * GetComponent( int component_index ) { return Components[ component_index ]; }
+    GAMEPLAY_COMPONENT * GetComponent( int component_index ) { return Components[ component_index ].GetComponent(); }
+
+    GAMEPLAY_COMPONENT_ENTITY_HANDLE & GetHandle() { return Handle; }
 
     inline GAMEPLAY_COMPONENT_ENTITY * GetChild( int child_index ) { return ChildEntities[ child_index ]; }
 
     void SetPosition( const CORE_MATH_VECTOR & position );
 
-    Scalar_SGet( int, Index )
+    inline GAMEPLAY_COMPONENT_ENTITY * GetParent() const { return Parent; }
+
+    void PatchMemory( int index, GAMEPLAY_COMPONENT * component );
 
 private:
 
-GAMEPLAY_COMPONENT
-    * Components[ GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS ];
-GAMEPLAY_COMPONENT_ENTITY
-    * Parent,
-    * ChildEntities[ GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS ];
+    GAMEPLAY_COMPONENT_HANDLE
+        Components[ GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS ];
+    GAMEPLAY_COMPONENT_ENTITY_HANDLE
+        Handle;
+    GAMEPLAY_COMPONENT_ENTITY
+        * Parent,
+        * ChildEntities[ GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS ];
 
 XS_CLASS_END
 

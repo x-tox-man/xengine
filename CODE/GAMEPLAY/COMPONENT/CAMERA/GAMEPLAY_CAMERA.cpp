@@ -25,14 +25,15 @@ void GAMEPLAY_CAMERA::Initialize(float near_plane, float far_plane, float width,
     Entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
     Camera = new GRAPHIC_CAMERA( near_plane, far_plane, width, height, position, lookat );
     
-    auto position_component = ( GAMEPLAY_COMPONENT_POSITION * ) GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Position );
-    Entity->SetCompononent( position_component, GAMEPLAY_COMPONENT_TYPE_Position );
-    position_component->InitializeObservable();
-
-    position_component->AddObserver( this );
+    GAMEPLAY_COMPONENT_HANDLE handle;
+    handle.Create<GAMEPLAY_COMPONENT_POSITION>( GAMEPLAY_COMPONENT_TYPE_Position );
     
-    position_component->SetPosition( position );
-    position_component->SetOrientation( lookat );
+    Entity->SetCompononent( handle, GAMEPLAY_COMPONENT_TYPE_Position );
+    
+    handle.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->InitializeObservable();
+    handle.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->AddObserver( this );
+    handle.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->SetPosition( position );
+    handle.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->SetOrientation( lookat );
 }
 
 void GAMEPLAY_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & rotation_quat ) {

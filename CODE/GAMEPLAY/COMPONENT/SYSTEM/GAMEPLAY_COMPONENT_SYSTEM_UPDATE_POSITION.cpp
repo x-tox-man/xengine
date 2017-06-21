@@ -24,9 +24,11 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Initialize() {
 
 void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Update( float time_step ) {
     
-    for (int i = 0; i < EntitiesVector.size(); i++) {
+    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    
+    while (it != EntitiesTable.end() ) {
         
-        GAMEPLAY_COMPONENT_POSITION * position = ( GAMEPLAY_COMPONENT_POSITION *) EntitiesVector[i]->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+        GAMEPLAY_COMPONENT_POSITION * position = ( GAMEPLAY_COMPONENT_POSITION *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
         
         position->Position[0] += position->Velocity[0] * time_step;
         position->Position[1] += position->Velocity[1] * time_step;
@@ -38,6 +40,8 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Update( float time_step ) {
         position->Orientation[2] += position->Spin[2] * time_step;
         
         position->Orientation.Normalize();
+        
+        it++;
     }
 }
 

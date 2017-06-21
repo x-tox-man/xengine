@@ -36,13 +36,13 @@
 
 #include <vector>
 
-CORE_FILESYSTEM file_system;
-
 @interface GAME_ENGINE_REBORNTests : XCTestCase
 
 @end
 
-@implementation GAME_ENGINE_REBORNTests
+@implementation GAME_ENGINE_REBORNTests {
+    CORE_FILESYSTEM file_system;
+}
 
 - (void)setUp
 {

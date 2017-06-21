@@ -9,20 +9,23 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM.h"
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_PHYSICS.h"
+#include "GAMEPLAY_COMPONENT_MANAGER.h"
+
+XS_IMPLEMENT_INTERNAL_STL_MAP_MEMORY_LAYOUT(GAMEPLAY_COMPONENT_ENTITY_PROXY *, GAMEPLAY_COMPONENT_ENTITY_HANDLE)
+
+typedef std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * > MGCEHH;
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_SYSTEM )
+    XS_DEFINE_ClassMember( MGCEHH , EntitiesTable )
+XS_END_INTERNAL_MEMORY_LAYOUT
 
 GAMEPLAY_COMPONENT_SYSTEM::GAMEPLAY_COMPONENT_SYSTEM() :
-    EntitiesVector() {
+    EntitiesTable() {
     
 }
 
 GAMEPLAY_COMPONENT_SYSTEM::~GAMEPLAY_COMPONENT_SYSTEM() {
 
-    std::vector< GAMEPLAY_COMPONENT_ENTITY * >::iterator it = EntitiesVector.begin();
-    
-    while (it != EntitiesVector.end() ) {
-        
-        CORE_MEMORY_ObjectSafeDeallocation( *it );
-    }
+    EntitiesTable.clear();
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM::Initialize() {
@@ -58,22 +61,31 @@ void GAMEPLAY_COMPONENT_SYSTEM::Finalize() {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM::AddEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+void GAMEPLAY_COMPONENT_SYSTEM::AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) {
     
-    EntitiesVector.push_back( entity );
+    EntitiesTable[ handle ] = new GAMEPLAY_COMPONENT_ENTITY_PROXY( entity );
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM::RemoveEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+void GAMEPLAY_COMPONENT_SYSTEM::RemoveEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) {
     
-    std::vector< GAMEPLAY_COMPONENT_ENTITY * >::iterator it =  EntitiesVector.begin();
+    EntitiesTable.erase( handle );
+}
+
+void GAMEPLAY_COMPONENT_SYSTEM::SaveToStream( CORE_DATA_STREAM & stream ) {
     
-    while (it != EntitiesVector.end() ) {
+    XS_CLASS_SERIALIZER< GAMEPLAY_COMPONENT_SYSTEM >::Serialize< std::true_type >( *this, stream );
+}
+
+void GAMEPLAY_COMPONENT_SYSTEM::LoadFromStream( CORE_DATA_STREAM & stream ) {
+    
+    XS_CLASS_SERIALIZER< GAMEPLAY_COMPONENT_SYSTEM >::Serialize< std::false_type >( *this, stream );
+    
+    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    
+    while (it != EntitiesTable.end() ) {
         
-        if ( *it == entity ) {
-            
-            EntitiesVector.erase( it );
-            
-            break;
-        }
+        it->second->SetEntity( GAMEPLAY_COMPONENT_MANAGER::GetInstance().FindEntity( it->first ) );
+        
+        it++;
     }
 }

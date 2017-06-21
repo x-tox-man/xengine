@@ -26,6 +26,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
     GAMEPLAY_COMPONENT_RENDER();
     virtual ~GAMEPLAY_COMPONENT_RENDER();
 
+    XS_DEFINE_SERIALIZABLE
+
     void * operator new(size_t size);
     void operator delete  ( void* ptr );
 
@@ -38,23 +40,41 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
         GAMEPLAY_COMPONENT_RENDER * MemoryArray;
     };
 
-    void SetObject( RESOURCE_PROXY * object ) { ObjectProxy = object; }
-    void SetEffect( RESOURCE_PROXY * effect ) { EffectProxy = effect; }
+    void SetObject( RESOURCE_PROXY & object ) { ObjectProxy = object; }
+    void SetEffect( RESOURCE_PROXY & effect ) { EffectProxy = effect; }
 
-    RESOURCE_PROXY * GetObject() { return ObjectProxy; }
-    RESOURCE_PROXY * GetEffect() { return EffectProxy; }
+    RESOURCE_PROXY & GetObject() { return ObjectProxy; }
+    RESOURCE_PROXY & GetEffect() { return EffectProxy; }
 
     inline void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
+
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+#if DEBUG
+      auto ptr = &(*InternalVector)[index].MemoryArray[offset];
+        auto ptr2 = (*InternalVector)[0].MemoryArray;
+#endif
+        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
+    }
+
+    static void Clear();
+    static void SaveToStream( CORE_DATA_STREAM & stream );
+    static void LoadFromStream( CORE_DATA_STREAM & stream );
+
+    static int
+        LastIndex,
+        LastOffset;
 
 private :
 
     RESOURCE_PROXY
-        * ObjectProxy,
-        * EffectProxy;
+        ObjectProxy,
+        EffectProxy;
     CORE_MATH_SHAPE
-        * BoundingObject;
+        BoundingObject;
     float
         ScaleFactor;
+    static std::vector< INTERNAL_ARRAY_R >
+        * InternalVector;
 
 XS_CLASS_END
 

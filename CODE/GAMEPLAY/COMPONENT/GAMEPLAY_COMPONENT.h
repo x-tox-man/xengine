@@ -14,6 +14,8 @@
 #include "GAMEPLAY_COMPONENT_TYPE.h"
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
 
+#define GAMEPLAY_COMPONENT_BASE_COUNT 2048
+
 template <typename INTERNAL_ARRAY, typename _COMPONENT_TYPE_ >
 static std::vector< INTERNAL_ARRAY > * InitializeMemory() {
     
@@ -24,17 +26,30 @@ static std::vector< INTERNAL_ARRAY > * InitializeMemory() {
     if( index == 0) {
         
         internal_vector->resize(1);
-        (*internal_vector)[0].MemoryArray = (_COMPONENT_TYPE_ * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( _COMPONENT_TYPE_ ) );
+        (*internal_vector)[0].MemoryArray = (_COMPONENT_TYPE_ * ) CORE_MEMORY_ALLOCATOR::Allocate( GAMEPLAY_COMPONENT_BASE_COUNT * sizeof( _COMPONENT_TYPE_ ) );
         (*internal_vector)[0].LastIndex = -1;
     }
     
     return internal_vector;
 }
 
+template <typename INTERNAL_ARRAY, typename _COMPONENT_TYPE_ >
+static void InitializeMemory( std::vector< INTERNAL_ARRAY > & internal_vector, int index) {
+    
+    internal_vector[index].MemoryArray = (_COMPONENT_TYPE_ * ) CORE_MEMORY_ALLOCATOR::Allocate( GAMEPLAY_COMPONENT_BASE_COUNT * sizeof( _COMPONENT_TYPE_ ) );
+    internal_vector[index].LastIndex = -1;
+}
+
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT )
 
     GAMEPLAY_COMPONENT();
     virtual ~GAMEPLAY_COMPONENT();
+
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+        return NULL;
+    }
+
+    XS_DEFINE_SERIALIZABLE
 
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT );
 

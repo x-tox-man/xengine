@@ -36,10 +36,25 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SCRIPT, GAMEPLAY_COMPONENT )
 
     CORE_ABSTRACT_PROGRAM_FACTORY * GetScript() { return Script; }
 
+    static void Clear();
+    static void SaveToStream( CORE_DATA_STREAM & stream );
+    static void LoadFromStream( CORE_DATA_STREAM & stream );
+
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+        
+        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
+    }
+
+    static int
+        LastIndex,
+        LastOffset;
+
 private :
 
     CORE_ABSTRACT_PROGRAM_FACTORY
         * Script;
+    static std::vector< INTERNAL_ARRAY_S >
+        * InternalVector;
 
 XS_CLASS_END
 

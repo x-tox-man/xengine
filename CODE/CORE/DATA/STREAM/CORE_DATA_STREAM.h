@@ -203,7 +203,7 @@ void OutputBytes(__TYPE__ * & pointer, int size ) {
     
     pointer = ( __TYPE__ *) CORE_MEMORY_ALLOCATOR::Allocate( length * sizeof( __TYPE__ ) );
     
-    memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), length );
+    memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (unsigned int) length );
     
     Offset  += length;
 }
@@ -217,7 +217,7 @@ void OutputBytes(__TYPE__ * pointer, size_t size ) {
     memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
     Offset  += sizeof(unsigned int);
     
-    memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), length );
+    memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (unsigned int) length );
     
     Offset  += length;
 }

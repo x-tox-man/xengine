@@ -28,6 +28,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
 
     XS_DEFINE_OBSERVABLE(GAMEPLAY_COMPONENT_POSITION)
 
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT );
+
     friend class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
 
     void * operator new(size_t size);
@@ -54,6 +56,19 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
 
     bool Intersects( const CORE_MATH_RAY & ray );
 
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+        
+        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
+    }
+
+    static void Clear();
+    static void SaveToStream( CORE_DATA_STREAM & stream );
+    static void LoadFromStream( CORE_DATA_STREAM & stream );
+
+    static int
+        LastIndex,
+        LastOffset;
+
 private :
 
     CORE_MATH_VECTOR
@@ -64,6 +79,8 @@ private :
         Orientation;
     CORE_MATH_QUATERNION
         Spin;
+    static std::vector< INTERNAL_ARRAY >
+        * InternalVector;
 
 XS_CLASS_END
 

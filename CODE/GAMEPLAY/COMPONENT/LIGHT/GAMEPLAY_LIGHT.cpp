@@ -21,6 +21,8 @@ GAMEPLAY_LIGHT::~GAMEPLAY_LIGHT() {
 
 void GAMEPLAY_LIGHT::Initialize() {
     
-    auto position_component = ( GAMEPLAY_COMPONENT_POSITION * ) GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Position );
-    SetCompononent( position_component, GAMEPLAY_COMPONENT_TYPE_Position );
+    GAMEPLAY_COMPONENT_HANDLE handle;
+    handle.Create<GAMEPLAY_COMPONENT_POSITION>(GAMEPLAY_COMPONENT_TYPE_Position);
+    
+    SetCompononent( handle, GAMEPLAY_COMPONENT_TYPE_Position );
 }

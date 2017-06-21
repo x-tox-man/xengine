@@ -51,10 +51,26 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
 
     void ForcePosition( const CORE_MATH_VECTOR & position );
 
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+        
+        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
+    }
+
+    static void Clear();
+
+    static void SaveToStream( CORE_DATA_STREAM & stream );
+    static void LoadFromStream( CORE_DATA_STREAM & stream );
+
+    static int
+        LastIndex,
+        LastOffset;
+
 private:
 
     CORE_MATH_SHAPE
         Shape;
+    static std::vector< INTERNAL_ARRAY_P >
+        * InternalVector;
 
 #ifdef __BULLET_PHYSICS__
     btCollisionShape * BulletShape;
