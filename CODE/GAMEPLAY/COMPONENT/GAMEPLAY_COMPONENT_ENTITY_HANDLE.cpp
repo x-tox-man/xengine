@@ -36,5 +36,5 @@ GAMEPLAY_COMPONENT_ENTITY_HANDLE::~GAMEPLAY_COMPONENT_ENTITY_HANDLE() {
 }
 
 bool operator < (const GAMEPLAY_COMPONENT_ENTITY_HANDLE & first, const GAMEPLAY_COMPONENT_ENTITY_HANDLE & second ) {
-    return first.GetOffset() < second.GetOffset() && first.GetIndex() < second.GetIndex();
+    return first.GetOffset() < second.GetOffset() || first.GetIndex() < second.GetIndex();
 }

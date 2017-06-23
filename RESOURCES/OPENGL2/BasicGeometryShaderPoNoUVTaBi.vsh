@@ -27,8 +27,10 @@ uniform DirectionalLight directional_light;
 out vec4 colorVarying;
 out vec4 o_normal;
 out DirectionalLight directional_light_out;
+out vec4 ShadowCoord;
 
 uniform mat4 MVPMatrix;
+uniform mat4 ShadowMapMVP;
 uniform vec4 geometryColor;
 
 void main()
@@ -43,5 +45,6 @@ void main()
     
     colorVarying = position;
     
+    ShadowCoord = position * ShadowMapMVP;
     gl_Position = position * MVPMatrix;
 }

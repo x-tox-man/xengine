@@ -42,6 +42,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
     void SetObject( RESOURCE_PROXY & object ) { ObjectProxy = object; }
     void SetEffect( RESOURCE_PROXY & effect ) { EffectProxy = effect; }
+    void SetShadowmapEffect( RESOURCE_PROXY & effect ) { ShadowmapEffectProxy = effect; }
 
     RESOURCE_PROXY & GetObject() { return ObjectProxy; }
     RESOURCE_PROXY & GetEffect() { return EffectProxy; }
@@ -68,7 +69,8 @@ private :
 
     RESOURCE_PROXY
         ObjectProxy,
-        EffectProxy;
+        EffectProxy,
+        ShadowmapEffectProxy;
     CORE_MATH_SHAPE
         BoundingObject;
     float

@@ -16,6 +16,7 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     GAMEPLAY_COMPONENT(),
     ObjectProxy(),
     EffectProxy(),
+    ShadowmapEffectProxy(),
     BoundingObject(),
     ScaleFactor( 1.0f ) {
     
@@ -50,7 +51,14 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     options.SetOrientation(component->GetOrientation() );
     options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
 
-    object->Render( renderer, options, EffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >() );
+    if ( renderer.GetPassIndex() == 0 ) {
+        
+        object->Render( renderer, options, EffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >() );
+    }
+    else if ( renderer.GetPassIndex() == 1 ) {
+        
+        object->Render( renderer, options, ShadowmapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >() );
+    }
 }
 
 void GAMEPLAY_COMPONENT_RENDER::Clear() {
