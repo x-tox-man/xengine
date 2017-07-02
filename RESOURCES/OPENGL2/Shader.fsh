@@ -190,8 +190,8 @@ void main() {
         TotalLight += CalcSpotLight(spot_light_table[i], normal_p.xyz);
     }
     
-    colorOut.rgb = baseColor.rgb * TotalLight.rgb;
+    colorOut.rgb = vec3(1.0, 1.0, 1.0); //baseColor.rgb * TotalLight.rgb;
     
     
-    colorOut.a = baseColor.a;
+    colorOut.a = 1.0;//baseColor.a;
 }

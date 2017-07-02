@@ -80,7 +80,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_Texcoord1) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0, "tex1" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Texcoord1, "tex1" ); )
     }
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_SkinWeight ) {

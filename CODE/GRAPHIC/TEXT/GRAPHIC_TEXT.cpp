@@ -80,54 +80,6 @@ void GRAPHIC_TEXT::Initialize( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
     UpdateText( Text, TextSize );
 }
 
-void GRAPHIC_TEXT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
-    
-    abort();
-    /*
-    CORE_MATH_MATRIX
-        object_matrix, result;
-    
-    GetShaderTable()[ 0 ]->Enable();
-    
-    GRAPHIC_SHADER_ATTRIBUTE * attr = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-    GRAPHIC_SHADER_ATTRIBUTE * texture = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ColorTexture );
-    GRAPHIC_SHADER_ATTRIBUTE * color = &GetShaderTable()[0]->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
-    
-    object_matrix.Translate( GetPosition() );
-    object_matrix.Scale( ScaleFactor[0], ScaleFactor[1], ScaleFactor[2] );
-    
-    
-    result = renderer.GetCamera().GetProjectionMatrix();
-    result *= renderer.GetCamera().GetViewMatrix();
-    result *= object_matrix;
-    
-    GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
-    
-    //LOCAL_MULTIPLY_MATRIX( attr->AttributeValue.Value.FloatMatrix4x4 , translation );
-    
-    //---------------
-    //MVPmatrix = projection * view * model; // Remember : inverted !
-    
-    TextureBlock->Apply( 0, texture->AttributeIndex );
-    
-    GRAPHIC_SYSTEM_ApplyMatrix(attr->AttributeIndex, 1, 0, &result[0])
-    
-    renderer.EnableColor(true);
-    GFX_CHECK( glUniform4fv(
-                  color->AttributeIndex,
-                  1,
-                  (const GLfloat * )&color->AttributeValue.Value.FloatArray4); )
-    renderer.EnableColor(false);
-    
-    GetMeshTable()[ 0 ]->ApplyBuffers();
-    
-    TextureBlock->Discard();
-    
-    GetShaderTable()[ 0 ]->Disable();
-    
-    GRAPHIC_SYSTEM::DisableBlend();*/
-}
-
 void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_to_right ) {
     
     CORE_DATA_BUFFER * index_buffer = new CORE_DATA_BUFFER;

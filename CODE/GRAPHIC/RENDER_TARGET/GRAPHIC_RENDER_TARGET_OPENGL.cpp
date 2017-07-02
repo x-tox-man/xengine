@@ -107,7 +107,7 @@ void GRAPHIC_RENDER_TARGET::Apply() {
     
     // Activation du test de profondeur
     GFX_CHECK( glEnable( GL_DEPTH_TEST ); )
-    //GFX_CHECK( glDepthFunc( GL_LESS ); )
+    GFX_CHECK( glDepthFunc( GL_LESS ); )
     
     // Activation et binding la texture
     if ( TargetTexture->GetTextureHandle()) {

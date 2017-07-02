@@ -22,7 +22,7 @@ const CORE_HELPERS_IDENTIFIER
     GRAPHIC_SHADER_PROGRAM::ProjectionMatrix( "ProjectionMatrix" ),
     GRAPHIC_SHADER_PROGRAM::ModelViewMatrix( "modelViewMatrix" ) ,
     GRAPHIC_SHADER_PROGRAM::MVPMatrix( "MVPMatrix" ) ,
-    GRAPHIC_SHADER_PROGRAM::ShadowMapMVP( "ShadowMapMVP" ) ,
+    GRAPHIC_SHADER_PROGRAM::ShadowMapMVP( "ShadowMapMVP" ),
     GRAPHIC_SHADER_PROGRAM::NormalMatrix( "normalMatrix" ),
     GRAPHIC_SHADER_PROGRAM::ColorTexture( "c_texture" ),
     GRAPHIC_SHADER_PROGRAM::ColorTexture1( "c_texture_1" ),

@@ -10,6 +10,6 @@ out vec4 colorOut;
 
 void main() {
     
-    colorOut = texture( c_texture, textureCoordinates ) * colorVarying;
+    colorOut = texture( c_texture, textureCoordinates ) + colorVarying * 0.2;
 }
 

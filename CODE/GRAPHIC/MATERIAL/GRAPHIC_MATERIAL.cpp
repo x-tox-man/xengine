@@ -42,10 +42,18 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const char * image_path ) :
     DepthIsEnabled( false ),
     CubeMapIsEnabled( false ) {
     
-    TryAndFillFor( image_path, ".png", GRAPHIC_SHADER_PROGRAM::ColorTexture );
-    TryAndFillFor( image_path, "1.png", GRAPHIC_SHADER_PROGRAM::ColorTexture1 );
-    TryAndFillFor( image_path, "2.png", GRAPHIC_SHADER_PROGRAM::ColorTexture2 );
-    TryAndFillFor( image_path, "-normal.png", GRAPHIC_SHADER_PROGRAM::NormalTexture );
+#if DEBUG
+    assert( strlen( image_path ) < 256 - 11 );
+#endif
+        
+    char image_path_1[256], image_path_2[256], image_normal[256];
+    
+    sprintf(image_path_1, "%s1", image_path);
+        
+    TryAndFillFor( image_path, "png", GRAPHIC_SHADER_PROGRAM::ColorTexture );
+    TryAndFillFor( image_path_1, "png", GRAPHIC_SHADER_PROGRAM::ColorTexture1 );
+    TryAndFillFor( image_path_2, "png", GRAPHIC_SHADER_PROGRAM::ColorTexture2 );
+    TryAndFillFor( image_normal, "png", GRAPHIC_SHADER_PROGRAM::NormalTexture );
         
     //TODO : other images
 }
@@ -62,18 +70,15 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     
     GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
     
-    if ( renderer.IsColorEnabled() ) {
+    if ( renderer.IsColorEnabled() && Diffuse[3] > 0.0f ) {
         GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1, (const GLfloat * ) &Diffuse[0] )
-    }
-    else{
-        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1, (const GLfloat * ) &CORE_MATH_VECTOR::One[0] );
     }
     
     while (it != TextureTable.end()) {
         
         GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( it->first );
         
-        it->second->Apply(texture_index, attribute.AttributeIndex );
+        it->second->Apply(texture_index++, attribute.AttributeIndex );
         it++;
     }
     

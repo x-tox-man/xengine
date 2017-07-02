@@ -46,3 +46,7 @@ void GRAPHIC_RENDERER::Resize(int width, int height) {
     
     ResizeViewCallback( width, height );
 }
+
+void GRAPHIC_RENDERER::ResetDepth() {
+    
+}

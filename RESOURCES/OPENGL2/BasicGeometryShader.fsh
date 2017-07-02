@@ -30,10 +30,7 @@ void main()
         visibility = 0.4;
     }
     
-    colorOut.x = texture( d_texture, ShadowCoord.xy ).x;//texture( d_texture, ShadowCoord.xz ).x;//ShadowCoord.x;//texture( d_texture, ShadowCoord.xz ).x;
-    colorOut.y = 0.0;//texture( d_texture, ShadowCoord.xz ).x - ShadowCoord.y;//texture( d_texture, ShadowCoord.xz ).x;//ShadowCoord.y;//ShadowCoord.y;//0.0;//ShadowCoord.y;
-    colorOut.z = 0.0;//ShadowCoord.z;
-    //colorOut.xy = ShadowCoord.xz;
+    colorOut = colorVarying * visibility;
     colorOut.a = 1.0;
 }
 

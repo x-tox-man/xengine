@@ -20,6 +20,8 @@
 #include "GRAPHIC_SHADER_LIGHT_TYPE.h"
 #include "GRAPHIC_SHADER_PROGRAM.h"
 
+class GRAPHIC_RENDERER;
+
 struct GRAPHIC_SHADER_LIGHT_POINT {
     
     float Color[4];
@@ -103,6 +105,8 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_LIGHT )
                                CORE_MATH_VECTOR & direction,
                                float ambient_intensity,
                                float diffuse_intensity);
+
+    void ComputeModelViewProjection( GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp );
 
     void Apply( GRAPHIC_SHADER_PROGRAM & program );
 

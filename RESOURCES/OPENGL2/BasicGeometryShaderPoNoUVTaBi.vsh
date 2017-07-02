@@ -28,6 +28,7 @@ out vec4 colorVarying;
 out vec4 o_normal;
 out DirectionalLight directional_light_out;
 out vec4 ShadowCoord;
+out vec2 texCoord;
 
 uniform mat4 MVPMatrix;
 uniform mat4 ShadowMapMVP;
@@ -42,7 +43,7 @@ void main()
     directional_light_out = directional_light;
     
     o_normal = normal;
-    
+    texCoord = tex0;
     colorVarying = position;
     
     ShadowCoord = position * ShadowMapMVP;

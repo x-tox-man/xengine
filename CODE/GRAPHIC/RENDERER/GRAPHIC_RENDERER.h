@@ -69,7 +69,12 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline void EnableColor( bool enable ) { ColorEnabled = enable; }
     inline void SetResizeViewCallback(CORE_HELPERS_CALLBACK_2<int, int> & callback) {ResizeViewCallback = callback; }
 
+    inline void SetCurrentLightMatrix( const CORE_MATH_MATRIX & matrix ) { CurrentLightMatrix = matrix; }
+    inline const CORE_MATH_MATRIX & GetCurrentLightMatrix() { return CurrentLightMatrix; }
+
     void Resize(int width, int height);
+
+    void ResetDepth();
 
 private :
     
@@ -88,12 +93,16 @@ private :
         * DepthTexture;
     CORE_MATH_VECTOR
         ScissorRectangle;
+    CORE_MATH_MATRIX
+        CurrentLightMatrix;
     int
         LightCount,
         PassIndex;
     bool
         ScissorIsEnabled,
         ColorEnabled;
+    /*GAMEPLAY_SCENE_RENDER_OPTION
+        Option;*/
 
 XS_CLASS_END
 

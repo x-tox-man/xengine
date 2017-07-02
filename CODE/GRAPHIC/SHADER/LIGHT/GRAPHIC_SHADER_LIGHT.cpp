@@ -7,6 +7,7 @@
 //
 
 #include "GRAPHIC_SHADER_LIGHT.h"
+#include "GRAPHIC_RENDERER.h"
 
 GRAPHIC_SHADER_LIGHT::GRAPHIC_SHADER_LIGHT() :
     Type( GRAPHIC_SHADER_LIGHT_TYPE_None ),
@@ -147,3 +148,12 @@ void GRAPHIC_SHADER_LIGHT::Apply( GRAPHIC_SHADER_PROGRAM & program ) {
     }
 }
 
+void GRAPHIC_SHADER_LIGHT::ComputeModelViewProjection( GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp ) {
+    
+    //---------------
+    //MVPmatrix = projection * view * model; // Remember : inverted !
+    
+    mvp = renderer.GetCamera().GetProjectionMatrix();
+    mvp *= renderer.GetCamera().GetViewMatrix();
+    mvp *= CORE_MATH_MATRIX( CORE_MATH_MATRIX::Identity );
+}

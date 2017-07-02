@@ -76,8 +76,7 @@ void GRAPHIC_CAMERA::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position
     translation[7] = position[1];
     translation[11] = position[2];
     
-    //abort();//TODO
-    //lookat.ToMatrix( &rotation[0] );
+    lookat.ToMatrix( &rotation[0] );
     
     tmp =rotation;
     tmp *=translation;

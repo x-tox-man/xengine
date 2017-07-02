@@ -63,21 +63,51 @@ void GRAPHIC_OBJECT::AddNewMesh( GRAPHIC_MESH * mesh ) {
 }
 
 void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
-
-    effect->Apply( renderer );
     
     for ( int i = 0; i < MeshTable.size(); i++ ) {
         
         CORE_MATH_MATRIX
-            result;
+            result,
+            object;
+        
+        effect->Apply( renderer );
         
         GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         
         GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
         
-        CompteModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result );
+        CompteModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
         GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
+        
+        GRAPHIC_SHADER_ATTRIBUTE & depth = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
+        
+        if ( depth.AttributeIndex > 0 && renderer.GetDepthTexture() ) {
+            
+            CORE_MATH_MATRIX
+            depthMVP,
+            depthBias;
+            
+            assert( depth.AttributeIndex > 0 );
+            
+            GRAPHIC_SHADER_ATTRIBUTE * shadowmap_mvp = &effect->GetProgram().getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ShadowMapMVP );
+            
+            renderer.GetDepthTexture()->ApplyDepth(0, depth.AttributeIndex );
+            
+            CORE_MATH_MATRIX biasMatrix(0.5f, 0.0f, 0.0f, 0.5f,
+                                        0.0f, 0.5f, 0.0f, 0.5f,
+                                        0.0f, 0.0f, 0.5f, 0.5f,
+                                        0.0f, 0.0f, 0.0f, 1.0f
+                                        );
+            
+            depthMVP = renderer.GetShadowMapCamera().GetProjectionMatrix();
+            depthMVP *= renderer.GetShadowMapCamera().GetViewMatrix();
+            depthMVP *= object;
+            
+            depthBias = biasMatrix * depthMVP;
+            
+            GRAPHIC_SYSTEM_ApplyMatrix( shadowmap_mvp->AttributeIndex, 1, 0, &depthBias[0] )
+        }
         
         MeshTable[ i ]->ApplyBuffers();
     }
@@ -85,10 +115,9 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
     effect->Discard();
 }
 
-void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTIONS & options, const CORE_MATH_MATRIX & transform, GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp ) {
+void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTIONS & options, const CORE_MATH_MATRIX & transform, GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp, CORE_MATH_MATRIX & object_matrix ) {
     
     CORE_MATH_MATRIX
-        object_matrix,
         scaling_matrix;
     
     if ( !transform.IsIdentity() ) {
@@ -112,6 +141,7 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
     mvp *= renderer.GetCamera().GetViewMatrix();
     mvp *= object_matrix;
 }
+
 
 void GRAPHIC_OBJECT::Release() {
     

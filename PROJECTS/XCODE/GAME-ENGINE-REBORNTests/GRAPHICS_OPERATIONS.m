@@ -48,6 +48,14 @@
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
+#include "GRAPHIC_OBJECT_ANIMATED.h"
+#include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
+#include "GRAPHIC_TEXT.h"
+#include "GRAPHIC_FONT_MANAGER.h"
+#include "GRAPHIC_CAMERA_ORTHOGONAL.h"
+#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h"
+#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.h"
+#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h"
 
 @interface GRAPHICS_OPERATIONS : XCTestCase
 
@@ -80,7 +88,7 @@
     Window->SetWidth( 1024 );
     
     Window->Initialize();
-    //Window->EnableBackgroundContext( true );
+    Window->EnableBackgroundContext( true );
     
     CORE_MATH_QUATERNION lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     
@@ -138,6 +146,210 @@
     
     GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderCubeAt00-rs" , "png", "" ) );
+    
+    RenderTarget.Discard();
+    Window->EnableBackgroundContext( false );
+}
+
+-(void)testRenderTexturedQuad {
+    
+    auto CubeObject = new GRAPHIC_OBJECT_SHAPE_PLAN;
+    
+    auto CubeEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        options;
+    
+    CubeEffect->Initialize( CubeObject->GetShaderBindParameter() );
+    CubeEffect->SetMaterial( new GRAPHIC_MATERIAL( "Create_Server_button" ) );
+    
+    CubeObject->InitializeShape();
+    
+    CORE_MATH_MATRIX rotation_mat;
+    
+    rotation_mat.Translate(CORE_MATH_VECTOR(0.0f, 0.0f, 0.0f, 1.0f ));
+    
+    CORE_MATH_QUATERNION lookat;
+    
+    lookat.FromMatrix( &rotation_mat[0] );
+    lookat.Normalize();
+    
+    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), lookat );
+    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+    
+    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+    
+    RenderTarget.Apply();
+    
+    CubeObject->GetMeshTable()[0]->SetTransform( CORE_MATH_MATRIX() );
+    
+    options.SetPosition( CORE_MATH_VECTOR::Zero );
+    options.SetOrientation( CORE_MATH_QUATERNION() );
+    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    CubeObject->Render(GRAPHIC_RENDERER::GetInstance(), options, CubeEffect );
+    
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderTexturedQuad-rs" , "png", "" ) );
+    
+    RenderTarget.Discard();
+    Window->EnableBackgroundContext( false );
+}
+
+GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path ) {
+    
+    GRAPHIC_OBJECT_ANIMATED * animated_object = GRAPHIC_MESH_MANAGER::GetInstance().LoadObjectAnimated( object_path, 1337, GRAPHIC_MESH_TYPE_ModelResource );
+    
+    animated_object->SetAnimationController( new GRAPHIC_MESH_ANIMATION_CONTROLLER );
+    
+    for (int i = 0; i < animated_object->GetMeshTable().size(); i++ ) {
+        
+        char * temp_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate(strlen( animation_path.GetPath() ) + 2 );
+        
+        strcpy(temp_path, animation_path.GetPath() );
+        
+        char buff[2];
+        
+        sprintf(buff, "%d", i);
+        strcat( temp_path, buff );
+        
+        CORE_FILESYSTEM_PATH path( temp_path );
+        
+        animated_object->GetAnimationController()->Load( path );
+        
+        animated_object->GetAnimationController()->GetAnimation( i )->Initialize( animated_object->GetJointTable(), 0);
+        
+        CORE_MEMORY_ALLOCATOR_Free( temp_path );
+    }
+    
+    animated_object->GetAnimationController()->Initialize();
+    
+    return animated_object;
+}
+
+-(void) testRenderSimpleMesh {
+    
+    Window->EnableBackgroundContext( true );
+    
+    GRAPHIC_OBJECT::PTR AnimatedObject = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath( "Ironman" , "smx", "MODELS" ), 1337, GRAPHIC_MESH_TYPE_ModelResource );
+    
+    auto Effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BasicGeometryShader"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+    options;
+    
+    Effect->Initialize( AnimatedObject->GetShaderBindParameter() );
+    Effect->SetMaterial( new GRAPHIC_MATERIAL );
+    
+    CORE_MATH_QUATERNION lookat( 0.0f, 0.0f, 0.0f, 1.0f );
+    lookat.RotateX(45.0f);
+    lookat.Normalize();
+    
+    Camera = new GRAPHIC_CAMERA( 1.0f, 1000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+    
+    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+    
+    RenderTarget.Apply();
+    
+    options.SetPosition( CORE_MATH_VECTOR::Zero );
+    options.SetOrientation( CORE_MATH_QUATERNION() );
+    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    AnimatedObject->Render(GRAPHIC_RENDERER::GetInstance(), options, Effect );
+    
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderSimpleMesh-rs" , "png", "" ) );
+    
+    RenderTarget.Discard();
+}
+
+-(void) testRenderAnimatedMesh {
+    
+    auto AnimatedObject = new GRAPHIC_OBJECT_ANIMATED;
+    
+    Window->EnableBackgroundContext( true );
+    
+    auto Effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ObjectShader"), CORE_FILESYSTEM_PATH::FindFilePath( "Shader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        options;
+    
+    AnimatedObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ) );
+    
+    Effect->Initialize( AnimatedObject->GetShaderBindParameter() );
+    Effect->SetMaterial( new GRAPHIC_MATERIAL );
+    
+    CORE_MATH_QUATERNION lookat( 0.0f, 0.0f, 0.0f, 1.0f );
+    lookat.RotateX(45.0f);
+    lookat.Normalize();
+    
+    Camera = new GRAPHIC_CAMERA( 1.0f, 1000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+    
+    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+    
+    RenderTarget.Apply();
+    
+    //AnimatedObject->GetAnimationController()->Update( 0.033f );
+    
+    //AnimatedObject->GetMeshTable()[0]->SetTransform( CORE_MATH_MATRIX() );
+    
+    options.SetPosition( CORE_MATH_VECTOR::Zero );
+    //options.SetOrientation( CORE_MATH_QUATERNION() );
+    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    AnimatedObject->Render(GRAPHIC_RENDERER::GetInstance(), options, Effect );
+    
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderAnimatedMesh-rs" , "png", "" ) );
+    
+    RenderTarget.Discard();
+}
+
+-(void)testRenderText {
+    
+    GRAPHIC_TEXT * text_shape = new GRAPHIC_TEXT;
+    
+    GRAPHIC_FONT_MANAGER::GetInstance().LoadFont(
+                                                 CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ),
+                                                 CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "fxb", "FONTS/" ),
+                                                 CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "png", "FONTS/" ) );
+    
+    GRAPHIC_FONT * font = GRAPHIC_FONT_MANAGER::GetInstance().GetFont( CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ) );
+    
+    auto Effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderTextured"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+    options;
+    
+    Effect->Initialize( text_shape->GetShaderBindParameter() );
+    
+    text_shape->Initialize( "Hello", *font, 1.0f, &Effect->GetProgram() );
+    
+    text_shape->InitializeShape();
+    
+    CORE_MATH_MATRIX rotation_mat;
+    
+    CORE_MATH_QUATERNION lookat;
+    
+    lookat.FromMatrix( &rotation_mat[0] );
+    lookat.Normalize();
+    
+    //Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), lookat );
+    Camera = new GRAPHIC_CAMERA_ORTHOGONAL( 10.0f, -10.0f, 10.0f, 10.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat);
+    
+    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+    
+    RenderTarget.Apply();
+    
+    text_shape->GetMeshTable()[0]->SetTransform( CORE_MATH_MATRIX() );
+    Effect->SetMaterial( new GRAPHIC_MATERIAL );
+    
+    Effect->GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( font->GetTexture() ) );
+    
+    options.SetPosition( CORE_MATH_VECTOR::Zero );
+    options.SetOrientation( CORE_MATH_QUATERNION() );
+    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    text_shape->Render(GRAPHIC_RENDERER::GetInstance(), options, Effect );
+    
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderText-rs" , "png", "" ) );
     
     RenderTarget.Discard();
     Window->EnableBackgroundContext( false );
@@ -304,10 +516,174 @@
     scene->Render();
     
     GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
-    texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderSceneAfterSerializatrion" , "png", "" ) );
+    texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderSceneAfterSerialization" , "png", "" ) );
     
     RenderTarget.Discard();
     Window->EnableBackgroundContext( false );
+}
+
+-(void) testLighBlurEffect {
+    
+    GRAPHIC_OBJECT_SHAPE_PLAN
+        * PlanObject = new GRAPHIC_OBJECT_SHAPE_PLAN;
+    GRAPHIC_RENDER_TARGET
+        PrimaryRenderTarget,
+        FinalRenderTarget,
+        LightRenderTarget,
+        SpecularRenderTarget,
+        GaussianRenderTarget1,
+        GaussianRenderTarget2,
+        BloomRenderTarget;
+    GRAPHIC_TEXTURE_BLOCK
+        * TextureBlock = new GRAPHIC_TEXTURE_BLOCK,
+        * TextureBlock2 = new GRAPHIC_TEXTURE_BLOCK,
+        * TextureBlock3 = new GRAPHIC_TEXTURE_BLOCK;
+    
+    /*BlurEffect = (GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR ) GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SpeedBlur"), CORE_FILESYSTEM_PATH::FindFilePath( "FullScreenSpeedBlurShader" , "", "OPENGL2" ) );*/
+    
+    
+    GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::PTR BloomEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BloomShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenBloomPostProcess" , "", "OPENGL2" ) ) );
+    
+    GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::PTR HorizontalBlurEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::HZBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenGaussianHorrizontalBlurPostProcess" , "", "OPENGL2" ) ) );
+    
+    GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::PTR VerticalBlurEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::VBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenGaussianVerticalBlurPostProcess" , "", "OPENGL2" ) ) );
+    
+    GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::PTR CombineBloomEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::CombineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenCombinePostProcess" , "", "OPENGL2" ) ) );
+    
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        option;
+    
+    BloomEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    HorizontalBlurEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    VerticalBlurEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    CombineBloomEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+
+    
+    PrimaryRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    GaussianRenderTarget1.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    GaussianRenderTarget2.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    BloomRenderTarget.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    FinalRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    
+    PrimaryRenderTarget.Discard();
+    GaussianRenderTarget1.Discard();
+    GaussianRenderTarget2.Discard();
+    BloomRenderTarget.Discard();
+    FinalRenderTarget.Discard();
+    
+    auto CubeObject = new GRAPHIC_OBJECT_SHAPE_CUBE;
+    
+    auto CubeEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    
+    CORE_MATH_QUATERNION interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
+    
+    interface_lookat.Normalize();
+    
+    PlanObject->InitializeShape();
+    
+    auto RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, interface_lookat );
+    option.SetPosition( CORE_MATH_VECTOR::Zero );
+    option.SetOrientation( CORE_MATH_QUATERNION() );
+    option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    {
+        CubeEffect->Initialize( CubeObject->GetShaderBindParameter() );
+        CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
+        
+        CubeObject->InitializeShape();
+        
+        CORE_MATH_MATRIX rotation_mat;
+        
+        rotation_mat.Translate(CORE_MATH_VECTOR(0.0f, 0.0f, 0.0f, 0.0f ));
+        rotation_mat.XRotate(M_PI_2);
+        
+        CORE_MATH_QUATERNION lookat;
+        
+        lookat.FromMatrix( &rotation_mat[0] );
+        lookat.Normalize();
+        
+        Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+        
+        GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+        
+        PrimaryRenderTarget.Apply();
+        
+        CubeObject->GetMeshTable()[0]->SetTransform( CORE_MATH_MATRIX() );
+        
+        CubeObject->Render(GRAPHIC_RENDERER::GetInstance(), option, CubeEffect );
+        
+        GRAPHIC_TEXTURE * texture = PrimaryRenderTarget.GetTargetTexture();
+        texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-0" , "png", "" ) );
+        
+        PrimaryRenderTarget.Discard();
+    }
+    
+    GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
+    {
+        TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
+        
+        auto mat = new GRAPHIC_MATERIAL;
+        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
+        BloomEffect->SetMaterial( mat );
+        
+        BloomRenderTarget.Apply();
+        PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, BloomEffect );
+        
+        GRAPHIC_TEXTURE * texture = BloomRenderTarget.GetTargetTexture();
+        texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-1" , "png", "" ) );
+        
+        BloomRenderTarget.Discard();
+    }
+    
+    {
+        TextureBlock->SetTexture( BloomRenderTarget.GetTargetTexture() );
+        
+        auto mat = new GRAPHIC_MATERIAL;
+        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
+        HorizontalBlurEffect->SetMaterial( mat );
+        
+        GaussianRenderTarget1.Apply();
+        PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, HorizontalBlurEffect );
+        
+        GRAPHIC_TEXTURE * texture = GaussianRenderTarget1.GetTargetTexture();
+        texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-2" , "png", "" ) );
+        
+        GaussianRenderTarget1.Discard();
+    }
+    
+    {
+        TextureBlock->SetTexture( GaussianRenderTarget1.GetTargetTexture() );
+        
+        auto mat = new GRAPHIC_MATERIAL;
+        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
+        VerticalBlurEffect->SetMaterial( mat );
+        
+        GaussianRenderTarget2.Apply();
+        PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, VerticalBlurEffect );
+        
+        GRAPHIC_TEXTURE * texture = GaussianRenderTarget2.GetTargetTexture();
+        texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-3" , "png", "" ) );
+        
+        GaussianRenderTarget2.Discard();
+    }
+    
+    {
+        TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
+        TextureBlock2->SetTexture( GaussianRenderTarget2.GetTargetTexture() );
+        
+        auto mat = new GRAPHIC_MATERIAL;
+        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
+        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture1, TextureBlock2 );
+        CombineBloomEffect->SetMaterial( mat );
+         
+        FinalRenderTarget.Apply();
+        PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, CombineBloomEffect );
+        
+        GRAPHIC_TEXTURE * texture = FinalRenderTarget.GetTargetTexture();
+        texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-combined" , "png", "" ) );
+        
+        FinalRenderTarget.Discard();
+    }
 }
 
 @end

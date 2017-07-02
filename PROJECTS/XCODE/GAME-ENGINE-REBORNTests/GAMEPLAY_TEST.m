@@ -93,7 +93,7 @@
     scene->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath("scene-test", "scx", "") );
     
     scene->Clear();
-    scene->LoadFrom( CORE_FILESYSTEM_PATH::FindFilePath("scene-test", "scx", "") );
+    //scene->LoadFrom( CORE_FILESYSTEM_PATH::FindFilePath("scene-test", "scx", "") );
 }
 
 -(void)unserializeSceneAndCheckResult {

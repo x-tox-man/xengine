@@ -92,7 +92,7 @@
 
     void GRAPHIC_SYSTEM::EnableBackfaceCulling() {
         
-        GFX_CHECK( glDisable( GL_CULL_FACE ); )
+        //GFX_CHECK( glDisable( GL_CULL_FACE ); )
         //GFX_CHECK( glCullFace( GL_BACK ); )
         //GFX_CHECK( glFrontFace( GL_CW ); )
     }

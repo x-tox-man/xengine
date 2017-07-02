@@ -103,14 +103,62 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GAME-ENGINE-REBORNTests/GRAPHICS_OPERATIONS.m"
-            timestampString = "519695585.163246"
+            filePath = "GAME-ENGINE-REBORNTests/GAME_ENGINE_REBORNTests.m"
+            timestampString = "520331269.205661"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "-testRenderScene"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "-testTextureAtlas"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../CODE/GRAPHIC/SHADER/PROGRAM/GRAPHIC_SHADER_PROGRAM_OPENGL.cpp"
+            timestampString = "520726397.520283"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind )"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GRAPHIC_SHADER_PROGRAM::LinkTogether(GRAPHIC_SHADER_BIND)"
+                  moduleName = "GAME-ENGINE-REBORNTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/SHADER/PROGRAM/GRAPHIC_SHADER_PROGRAM_OPENGL.cpp"
+                  timestampString = "520726539.856936"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "695">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GRAPHIC_SHADER_PROGRAM::LinkTogether(GRAPHIC_SHADER_BIND)"
+                  moduleName = "GAME-ENGINE-REBORNTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/SHADER/PROGRAM/GRAPHIC_SHADER_PROGRAM_OPENGL.cpp"
+                  timestampString = "520726539.859685"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "710">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

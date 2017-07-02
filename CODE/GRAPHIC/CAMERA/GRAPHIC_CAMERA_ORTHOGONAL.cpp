@@ -61,10 +61,11 @@ void GRAPHIC_CAMERA_ORTHOGONAL::CalculateModelViewMatrix( const CORE_MATH_VECTOR
     translation[7] = position[1];
     translation[11] = position[2];
     
-    //lookat.ToMatrix( &rotation[0] );
+    lookat.ToMatrix( &rotation[0] );
 
     inverse = rotation;
-    inverse *= translation;
+    inverse *=translation;
+    
     
     inverse.GetInverse(ViewMatrix);
 }

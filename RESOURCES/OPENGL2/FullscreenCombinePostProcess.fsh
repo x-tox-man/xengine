@@ -26,18 +26,18 @@ void main() {
     
     // Look up the bloom and original base image colors.
     vec4 base = texture(c_texture, textureCoordinates);
-    vec4 bloom = texture(c_texture_1, textureCoordinates);
+    vec4 bloom1 = texture(c_texture_1, textureCoordinates);
     
     // Adjust color saturation and intensity.
     base = AdjustSaturation(base, BaseSaturation) * BaseIntensity;
-    bloom = AdjustSaturation(bloom, BloomSaturation) * BloomIntensity;
+    bloom1 = AdjustSaturation(bloom1, BloomSaturation) * BloomIntensity;
     
     // Darken down the base image in areas where there is a lot of bloom,
     // to prevent things looking excessively burned-out.
-    bloom *= (1 - clamp(bloom, 0.0, 1.0));
+    bloom1 *= (1 - clamp(bloom1, 0.0, 1.0));
     
     // Combine the two images.
-    colorOut = bloom + base;
+    colorOut = bloom1 + base;
     colorOut.a = 1;
 }
 

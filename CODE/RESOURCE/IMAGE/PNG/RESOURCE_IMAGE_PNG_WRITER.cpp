@@ -15,7 +15,7 @@
 
 void * xs_user_write_error_ptr;
 
-static int test = 0;
+//static int test = 0; // For debug purposes
 
 void xs_png_write_error_callback( png_struct * png_struct, const char *png_error ) {
     
@@ -27,8 +27,8 @@ void xs_user_write_warning_fn( png_struct * png_struct, const char *png_warning 
 
 void xs_write_row_callback( png_struct * png_ptr, png_uint_32 row, int pass ) {
     
-    test++;
-    printf( "%d\n", row );
+    //test++;
+    //printf( "%d\n", row );
     /* put your code here */
 }
 

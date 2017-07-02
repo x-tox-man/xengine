@@ -9,16 +9,22 @@
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h"
 #include "GRAPHIC_SYSTEM.h"
 
-GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM() :
+GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM( GRAPHIC_SHADER_EFFECT::PTR effect ) :
     GRAPHIC_SHADER_EFFECT() {
     
+    Program.SetProgram( effect->GetProgram().GetProgram() );
+    Program.CopyAttributes();
+    Bind = effect->GetSahderBind();
+    Material = effect->GetMaterial();
 }
 
 GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::~GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM() {
 
 }
 
-void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply( GRAPHIC_RENDERER & ) {
+void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply( GRAPHIC_RENDERER & renderer ) {
+    
+    GRAPHIC_SHADER_EFFECT::Apply( renderer );
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_bloom_intensity = Program.getShaderAttribute( BloomIntensityIdentifier );
     GRAPHIC_SHADER_ATTRIBUTE & attr_base_intensity = Program.getShaderAttribute( BaseIntensityIdentifier );
@@ -32,6 +38,8 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply( GRAPHIC_RENDERER & )
 }
 
 void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
+    
+    GRAPHIC_SHADER_EFFECT::BindAttributes();
     
     GRAPHIC_SHADER_ATTRIBUTE * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BloomIntensityIdentifier.GetTextValue() ); )
