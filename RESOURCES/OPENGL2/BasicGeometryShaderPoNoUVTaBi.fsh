@@ -34,7 +34,7 @@ void main()
     //colorOut.x = texture( d_texture, ShadowCoord.xy ).x;//texture( d_texture, ShadowCoord.xz ).x;//ShadowCoord.x;//texture( d_texture, ShadowCoord.xz ).x;
     //colorOut.y = 0.0;//texture( d_texture, ShadowCoord.xz ).x - ShadowCoord.y;//texture( d_texture, ShadowCoord.xz ).
     
-    colorOut.rgb = texture( c_texture, texCoord ).rgb + colorVarying.rgb * visibility;
+    colorOut.rgb = texture( c_texture, texCoord ).rgb * diffuse.rgb;
 
     colorOut.a = 1.0f;
 }

@@ -128,7 +128,7 @@ void InputBytes(__TYPE__ ** pointer, int size ) {
 }
 
 template < typename __TYPE__ >
-void OutputBytes(__TYPE__ ** pointer, int size ) {
+void OutputBytes(__TYPE__ ** pointer, int & size ) {
     
     int length;
     
@@ -140,6 +140,7 @@ void OutputBytes(__TYPE__ ** pointer, int size ) {
     memcpy( *pointer, ((( char* )MemoryBuffer) + Offset), length );
     
     Offset  += length;
+    size = length;
 }
 
 //Stupid fix with size_t
@@ -194,7 +195,7 @@ void InputBytes(__TYPE__ * & pointer, int size ) {
 }
 
 template < typename __TYPE__ >
-void OutputBytes(__TYPE__ * & pointer, int size ) {
+void OutputBytes(__TYPE__ * & pointer, int & size ) {
     
     int length;
     
@@ -206,11 +207,12 @@ void OutputBytes(__TYPE__ * & pointer, int size ) {
     memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (unsigned int) length );
     
     Offset  += length;
+    size = length;
 }
 
 //Stupid fix with size_t
 template < typename __TYPE__ >
-void OutputBytes(__TYPE__ * pointer, size_t size ) {
+void OutputBytes(__TYPE__ * pointer, size_t & size ) {
     
     int length;
     
@@ -220,6 +222,8 @@ void OutputBytes(__TYPE__ * pointer, size_t size ) {
     memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (unsigned int) length );
     
     Offset  += length;
+    
+    size = length;
 }
 
 private :

@@ -59,7 +59,13 @@ public:
 #endif
         if ( ItemMap.find( identifier ) == ItemMap.end() ) {
             
-            ItemMap[ identifier ] = (__RESOURCE_TYPE__ *) loader.Load( path, identifier );
+            __RESOURCE_TYPE__ * rs = (__RESOURCE_TYPE__ *) loader.Load( path, identifier );
+            
+            if ( rs == NULL ) {
+                return rs;
+            }
+            
+            ItemMap[ identifier ] = rs;
             ItemMap[ identifier ]->SetIdentifier( identifier );
         }
         

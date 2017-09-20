@@ -20,10 +20,10 @@
 #define unit_s 0.5f // -0.5 to  0.5 makes 1.0f lenght
 
 static float Static_PlanVertexData[] = {
-    -unit_s,  unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         0.0f, 0.0f,
-    unit_s,  unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         1.0f, 0.0f,
-    unit_s, -unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         1.0f, 1.0f,
-    -unit_s, -unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         0.0f, 1.0f,
+    -unit_s,  unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         0.0f, 1.0f,
+    unit_s,  unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         1.0f, 1.0f,
+    unit_s, -unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         1.0f, 0.0f,
+    -unit_s, -unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         0.0f, 0.0f,
 };
 
 GRAPHIC_OBJECT_SHAPE_PLAN::GRAPHIC_OBJECT_SHAPE_PLAN() :

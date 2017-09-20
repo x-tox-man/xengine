@@ -26,6 +26,11 @@ GRAPHIC_TEXTURE * GRAPHIC_TEXTURE_LOADER::Load( const CORE_FILESYSTEM_PATH & pat
         loader;
     RESOURCE_IMAGE * image = loader.Load( path, identifier );
     
+    if ( image == NULL ) {
+        
+        return NULL;
+    }
+    
     GRAPHIC_TEXTURE * texture = image->CreateTextureObject( false );
     
     delete image;
@@ -43,7 +48,7 @@ void GRAPHIC_TEXTURE_LOADER::ReloadResource( GRAPHIC_TEXTURE * resource_to_reloa
 }
 
 #if ASSET_COMPILER
-void GRAPHIC_TEXTURE_LOADER::GRAPHIC_TEXTURE_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH & source_file, const CORE_FILESYSTEM_PATH & destination_file ) {
+void GRAPHIC_TEXTURE_LOADER::GRAPHIC_TEXTURE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH & source_file, const CORE_FILESYSTEM_PATH & destination_file ) {
     
 }
 

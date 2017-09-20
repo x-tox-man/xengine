@@ -15,7 +15,7 @@
 #include "GRAPHIC_SHADER_BIND.h"
 #include "CORE_DATA_STREAM.h"
 #include "RESOURCE.h"
-#include "GRAPHIC_MATERIAL.h"
+#include "GRAPHIC_MATERIAL_COLLECTION.h"
 
 class GRAPHIC_SHADER_EFFECT;
 class GRAPHIC_MATERIAL;
@@ -41,12 +41,14 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_RESOU
     inline GRAPHIC_SHADER_PROGRAM_DATA_PROXY & GetProgram() { return Program; }
     inline const GRAPHIC_SHADER_BIND & GetSahderBind() { return Bind; }
 
-    inline void SetMaterial( GRAPHIC_MATERIAL::PTR material ){ Material = material; }
-    inline GRAPHIC_MATERIAL::PTR GetMaterial() { return Material; }
+    inline GRAPHIC_MATERIAL_COLLECTION::PTR GetMaterialCollection() { return MaterialCollection; }
+    inline void SetMaterial( GRAPHIC_MATERIAL::PTR material, const char * name = "DefaultMaterial" ) { MaterialCollection->SetMaterialForName( material, name ); }
+    inline GRAPHIC_MATERIAL::PTR GetMaterial( const char * name = "DefaultMaterial" ) { std::string mat_name( name ); return MaterialCollection->GetMaterialForName( mat_name ); }
 
-    inline void SetDiffuse( const CORE_HELPERS_COLOR & color ) { Material->SetDiffuse( color ); }
+    inline void SetDiffuse( const CORE_HELPERS_COLOR & color ) { MaterialCollection->SetDiffuse( color ); }
 
     virtual void Apply( GRAPHIC_RENDERER & renderer );
+    void SelectMaterial( std::string & material_name );
     virtual void Discard();
     virtual void BindAttributes();
 
@@ -56,8 +58,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_RESOU
         Program;
     GRAPHIC_SHADER_BIND
         Bind;
-    GRAPHIC_MATERIAL::PTR
-        Material;
+    GRAPHIC_MATERIAL_COLLECTION::PTR
+        MaterialCollection;
 
 XS_CLASS_END
 

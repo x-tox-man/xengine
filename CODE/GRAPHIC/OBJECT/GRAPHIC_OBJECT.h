@@ -48,7 +48,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_OBJECT, GR_O_ANCESTOR_TYPE )
 
     inline std::vector< GRAPHIC_MESH *> & GetMeshTable() { return MeshTable;}
     inline std::vector< GRAPHIC_MESH_ANIMATION_JOINT *> & GetJointTable() { return JointTable; }
-    inline GRAPHIC_SHADER_BIND & GetShaderBindParameter() { return ShaderBindParameter; }
+    GRAPHIC_SHADER_BIND & GetShaderBindParameter();
 
 
     #if __COMPILE_WITH__COLLADA__

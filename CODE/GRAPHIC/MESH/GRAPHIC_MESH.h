@@ -30,7 +30,7 @@ public:
     GRAPHIC_MESH();
     ~GRAPHIC_MESH();
 
-    inline CORE_DATA_BUFFER * GetVertexCoreBuffer() { return VertexCoreBuffer; }
+    inline CORE_DATA_BUFFER * GetVertexCoreBuffer() { if ( VertexCoreBuffer == NULL ) VertexCoreBuffer = new CORE_DATA_BUFFER(); return VertexCoreBuffer; }
     void SetVertexCoreBuffer( CORE_DATA_BUFFER * vertexCoreBuffer ) {
         
         if ( VertexCoreBuffer && VertexCoreBuffer != vertexCoreBuffer) {
@@ -42,7 +42,7 @@ public:
         VertexCoreBuffer = vertexCoreBuffer;
     }
 
-    inline CORE_DATA_BUFFER * GetIndexCoreBuffer() { return IndexCoreBuffer; }
+    inline CORE_DATA_BUFFER * GetIndexCoreBuffer() { if ( IndexCoreBuffer == NULL ) IndexCoreBuffer = new CORE_DATA_BUFFER(); return  IndexCoreBuffer; }
     void SetIndexCoreBuffer( CORE_DATA_BUFFER * indexCoreBuffer ) {
         
         if ( IndexCoreBuffer ) {
@@ -59,6 +59,7 @@ public:
     void ReleaseBuffers();
 
     void ActivateBufferComponent( GRAPHIC_SHADER_BIND attribute );
+    static int ComputeVertexStride(GRAPHIC_SHADER_BIND bind);
 
     inline void SetTexture( GRAPHIC_TEXTURE * texture) { Texture = texture; }
     inline void SetNormalTexture( GRAPHIC_TEXTURE * texture) { NormalTexture = texture; }
@@ -77,6 +78,9 @@ public:
     inline CORE_MATH_SHAPE & GetBoundingShape() { return BoundingShape; }
     inline int GetVertexStride() const { return VertexStride; }
     inline GRAPHIC_MESH_POLYGON_RENDER_MODE GetPolygonRenderMode() { return PolygonRenderMode; }
+
+    inline std::string & GetName() { return MeshName; }
+    inline void SetName ( const std::string & name ) { MeshName = name; }
 
     #if __COMPILE_WITH__COLLADA__
 
@@ -114,6 +118,8 @@ private :
         Transform;
     CORE_MATH_SHAPE
         BoundingShape;
+    std::string
+        MeshName;
 
     int VertexStride;
 

@@ -13,6 +13,36 @@ out vec4 colorOut;
 
 void main() {
     
+    // get current world space position:
+    vec4 current = ViewRay * texture(d_texture, textureCoordinates).r;
+    current = InverseCurrentModelView * current;
+    
+    // get previous screen space position:
+    vec4 previous = PreviousModelViewProjection * current;
+    previous.xyz /= previous.w;
+    previous.xy = previous.xy * 0.5 + 0.5;
+    
+    vec2 blurVec = previous.xy - textureCoordinates;
+    
+    int nSamples = 8;
+    
+    // perform blur:
+    vec4 result = texture(c_texture, textureCoordinates);
+    for (int i = 1; i < nSamples; ++i) {
+        // get offset in range [-0.5, 0.5]:
+        vec2 offset = blurVec * (float(i) / float(nSamples - 1) - 0.5);
+        
+        // sample & add to result:
+        result += texture(c_texture, textureCoordinates + offset);
+    }
+    
+    result /= float(nSamples);
+    colorOut = result;
+    
+    colorOut.a = 1;
+}
+
+/*
     // Get the depth buffer value at this pixel.
     float zOverW = texture( d_texture, textureCoordinates ).r;
     
@@ -53,33 +83,4 @@ void main() {
     
     // Average all of the samples to get the final blur color.
     colorOut = color / nSamples;
-    
-    // get current world space position:
-    /*vec4 current = ViewRay * texture(d_texture, textureCoordinates).r;
-    current = InverseCurrentModelView * current;
-    
-    // get previous screen space position:
-    vec4 previous = PreviousModelViewProjection * current;
-    previous.xyz /= previous.w;
-    previous.xy = previous.xy * 0.5 + 0.5;
-    
-    vec2 blurVec = previous.xy - textureCoordinates;
-    
-    int nSamples = 8;
-    
-    // perform blur:
-    vec4 result = texture(c_texture, textureCoordinates);
-    for (int i = 1; i < nSamples; ++i) {
-        // get offset in range [-0.5, 0.5]:
-        vec2 offset = blurVec * (float(i) / float(nSamples - 1) - 0.5);
-        
-        // sample & add to result:
-        result += texture(c_texture, textureCoordinates + offset);
-    }
-    
-    result /= float(nSamples);
-    colorOut = result;*/
-    
-    colorOut.a = 1;
-}
-
+*/

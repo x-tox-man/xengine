@@ -150,3 +150,8 @@ void GRAPHIC_OBJECT::Release() {
         MeshTable[i]->ReleaseBuffers();
     }
 }
+
+GRAPHIC_SHADER_BIND & GRAPHIC_OBJECT::GetShaderBindParameter() {
+    
+    return MeshTable[0]->GetVertexComponent();
+}

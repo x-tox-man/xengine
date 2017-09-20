@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ASSET_EDITOR/LeftPane3DViewController.m"
-            timestampString = "518526706.924918"
+            timestampString = "521726264.718404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "-SelectScript"
             landmarkType = "7">
          </BreakpointContent>
@@ -103,13 +103,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GAME-ENGINE-REBORNTests/GAME_ENGINE_REBORNTests.m"
-            timestampString = "520331269.205661"
+            filePath = "../../CODE/GAMEPLAY/COMPONENT/GAMEPLAY_COMPONENT_RENDER.cpp"
+            timestampString = "522065819.654614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "-testTextureAtlas"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER &amp; renderer, GAMEPLAY_COMPONENT_POSITION * component )"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -119,46 +119,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../CODE/GRAPHIC/SHADER/PROGRAM/GRAPHIC_SHADER_PROGRAM_OPENGL.cpp"
-            timestampString = "520726397.520283"
+            filePath = "../../CODE/GAMEPLAY/COMPONENT/SYSTEM/GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp"
+            timestampString = "522066389.178677"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind )"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Update( float time_step )"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GRAPHIC_SHADER_PROGRAM::LinkTogether(GRAPHIC_SHADER_BIND)"
-                  moduleName = "GAME-ENGINE-REBORNTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/SHADER/PROGRAM/GRAPHIC_SHADER_PROGRAM_OPENGL.cpp"
-                  timestampString = "520726539.856936"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "695">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GRAPHIC_SHADER_PROGRAM::LinkTogether(GRAPHIC_SHADER_BIND)"
-                  moduleName = "GAME-ENGINE-REBORNTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/SHADER/PROGRAM/GRAPHIC_SHADER_PROGRAM_OPENGL.cpp"
-                  timestampString = "520726539.859685"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "710">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

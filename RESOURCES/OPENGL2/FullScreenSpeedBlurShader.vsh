@@ -21,6 +21,8 @@ uniform vec4 geometryColor;
 void main()
 {
     textureCoordinates = tex0;
+
+    colorVarying = normal;
     
     gl_Position = position * MVPMatrix;
 }

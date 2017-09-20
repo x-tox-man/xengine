@@ -7,26 +7,24 @@
 //
 
 #include "RUN3D_APPLICATION.h"
-#include "APPLICATION_SCREENS_NAVIGATION.h"
-#include "SPLASH.h"
-#include "GLOBAL_RESOURCES.h"
-#include "GAME_PLAYER_MODEL.h"
-#include "MAIN_MENU_PAGE.h"
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
 #include "GRAPHIC_FONT_MANAGER.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
 #include "AUDIO_SYSTEM.h"
+#include "GRAPHIC_UI_SYSTEM.h"
+#include "R3D_RESOURCES.h"
+#include "btBulletDynamicsCommon.h"
+#include "PHYSICS_COLLISION_FILTER.h"
 
 RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
-    Lookat(),
     DefaultFileystem(),
-    Camera( NULL ),
-    InterfaceCamera( NULL ) {
+    GameRenderer(),
+    Game() {
     
     #if PLATFORM_OSX
-        DefaultFileystem.Initialize( "/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/RESOURCES/" );
+        DefaultFileystem.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
     #elif PLATFORM_IOS
         DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_ANDROID
@@ -55,15 +53,22 @@ void RUN3D_APPLICATION::Initialize() {
     
     InitializeGameConfiguration();
     
+    InitializePhysics();
+    
+    CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
+    CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
+    
+    CORE_ABSTRACT_PROGRAM_BINDER::GetInstance().BindRuntime<CORE_ABSTRACT_RUNTIME_LUA>( *runtime );
+    
+    Game.Initialize();
+    
     AUDIO_SYSTEM::GetInstance().GetBank().Load();
 }
 
 void RUN3D_APPLICATION::Finalize() {
     
-    CORE_MEMORY_ObjectSafeDeallocation( Camera );
-    CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );
+    Game.Finalize();
     
-    APPLICATION_SCREENS_NAVIGATION::RemoveInstance();
     AUDIO_SYSTEM::GetInstance().Finalize();
     AUDIO_SYSTEM::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
@@ -72,18 +77,14 @@ void RUN3D_APPLICATION::Finalize() {
     CORE_HELPERS_IDENTIFIER_SYSTEM::RemoveInstance();
     GAMEPLAY_COMPONENT_MANAGER::RemoveInstance();
     
-    GLOBAL_RESOURCES::GetInstance().Finalize();
-    GLOBAL_RESOURCES::RemoveInstance();
-    
     GRAPHIC_FONT_MANAGER::RemoveInstance();
     GRAPHIC_MESH_MANAGER::RemoveInstance();
     GRAPHIC_PARTICLE_SYSTEM::RemoveInstance();
     GRAPHIC_RENDERER::RemoveInstance();
-    GRAPHIC_UI_SYSTEM::RemoveInstance();
     PERIPHERIC_INTERACTION_SYSTEM::RemoveInstance();
     
-    SERVICE_NETWORK_SYSTEM::GetInstance().Finalize();
-    SERVICE_NETWORK_SYSTEM::RemoveInstance();
+    //SERVICE_NETWORK_SYSTEM::GetInstance().Finalize();
+    //SERVICE_NETWORK_SYSTEM::RemoveInstance();
     
     DefaultFileystem.Finalize();
 }
@@ -91,61 +92,39 @@ void RUN3D_APPLICATION::Finalize() {
 void RUN3D_APPLICATION::Update( float time_step ) {
     
     AUDIO_SYSTEM::GetInstance().Update( time_step );
+
+    Game.Update( time_step );
     
     GRAPHIC_UI_SYSTEM::GetInstance().Update( time_step );
 }
 
 void RUN3D_APPLICATION::Render() {
     
-    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
-    Game.Render();
-    
-    GRAPHIC_RENDERER::GetInstance().SetCamera( InterfaceCamera );
-    GRAPHIC_UI_SYSTEM::GetInstance().Render(GRAPHIC_RENDERER::GetInstance());
-    
-    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
-    
-    GLOBAL_RESOURCES::GetInstance().Line->SetPosition( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game.GetScene().GetUpdatableSystemTable()[2])->GetRay().GetOrigin() );
-    GLOBAL_RESOURCES::GetInstance().Line->SetTarget( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game.GetScene().GetUpdatableSystemTable()[2])->GetRay().GetDirection() );
-    GLOBAL_RESOURCES::GetInstance().Line->Render(GRAPHIC_RENDERER::GetInstance());
+    GameRenderer.Render( GRAPHIC_RENDERER::GetInstance() );
 }
-
 
 void RUN3D_APPLICATION::InitializeGraphics() {
     
-    CORE_MATH_VECTOR
-        position(4.0f, 5.0f, 19.0f, 1.0f);
-    
-    Lookat[0] = -1.0f;
-    Lookat[1] = 0.0f;
-    Lookat[2] = 0.0f;
-    Lookat[3] = 0.0f;
-    
-    Lookat.Normalize();
-    
-    Camera = new GRAPHIC_CAMERA( 1.0f, 10000.0f, ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight(), position, Lookat );
-    
     CORE_HELPERS_CALLBACK * myCallback = new CORE_HELPERS_CALLBACK( &Wrapper<CORE_APPLICATION, &CORE_APPLICATION::Render>, this );
     
-    CORE_MATH_QUATERNION interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
-    
-    GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() ) );
-    
-    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight(), CORE_MATH_VECTOR(0.0f, 0.0f), interface_lookat );
-    
-    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     GRAPHIC_RENDERER::GetInstance().Initialize();
     GRAPHIC_RENDERER::GetInstance().SetRenderCallback( myCallback );
     
-    GLOBAL_RESOURCES::GetInstance().Initialize();
-    GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( GLOBAL_RESOURCES::GetInstance().DirectionalLight );
-    GRAPHIC_RENDERER::GetInstance().SetPointLight( GLOBAL_RESOURCES::GetInstance().PointLightOne, 0 );
-    GRAPHIC_RENDERER::GetInstance().SetPointLight( GLOBAL_RESOURCES::GetInstance().PointLightTwo, 1 );
-    GRAPHIC_RENDERER::GetInstance().SetSpotLight( GLOBAL_RESOURCES::GetInstance().SpotLightOne, 0 );
-    GRAPHIC_RENDERER::GetInstance().SetSpotLight( GLOBAL_RESOURCES::GetInstance().SpotLightTwo, 1 );
+    R3D_RESOURCES::GetInstance().Initialize();
+    
+    GameRenderer.Initialize();
 }
 
 void RUN3D_APPLICATION::InitializeGameConfiguration() {
     
+}
+
+void RUN3D_APPLICATION::InitializePhysics() {
+
+}
+
+void RUN3D_APPLICATION::SetCamera( GRAPHIC_CAMERA::PTR camera ) {
+    
+    GameRenderer.SetCamera( camera );
 }
 

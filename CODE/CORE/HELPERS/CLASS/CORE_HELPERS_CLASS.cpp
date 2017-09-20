@@ -40,6 +40,7 @@ void XS_CLASS_SERIALIZER< std::string >::Serialize< std::false_type >( std::stri
     char * string;
     
     stream.OutputBytes( &string, size);
-    
+    string[size] = 0;
     type = std::string( string );
+    type.resize( size );
 }

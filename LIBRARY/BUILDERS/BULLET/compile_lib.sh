@@ -16,6 +16,13 @@ xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme Bullet3Common ONLY_A
 xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme Bullet3Collision ONLY_ACTIVE_ARCH=NO -configuration Release
 xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme Bullet3Dynamics ONLY_ACTIVE_ARCH=NO -configuration Release
 xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme Bullet3Geometry ONLY_ACTIVE_ARCH=NO -configuration Release
+xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme Bullexcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme BulletCollision ONLY_ACTIVE_ARCH=NO -configuration Releaset2FileLoader ONLY_ACTIVE_ARCH=NO -configuration Release
+xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme BulletCollision ONLY_ACTIVE_ARCH=NO -configuration Release
+xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme BulletDynamics ONLY_ACTIVE_ARCH=NO -configuration Release
+xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme BulletInverseDynamics ONLY_ACTIVE_ARCH=NO -configuration Release
+xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme BulletSoftBody ONLY_ACTIVE_ARCH=NO -configuration Release
+xcodebuild -workspace 0_Bullet3Solution.xcworkspace -scheme LinearMath ONLY_ACTIVE_ARCH=NO -configuration Release
+
 cd ..
 
 #./premake4_linux gmake

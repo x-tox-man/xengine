@@ -28,20 +28,28 @@
     return;
 #endif
     
-    self.Application = new MyTestApp();
-    self.Application->setApplicationName( "test" );
+    self.Application = new RUN3D_APPLICATION();
+    self.Application->setApplicationName( "3DRunner" );
     
     self.ApplicationMainScreen = new GRAPHIC_WINDOW_OSX;
     self.ApplicationMainScreen->SetHeight(768);
     self.ApplicationMainScreen->SetWidth(1024);
     self.ApplicationMainScreen->Initialize();
     
-    self.Application->SetApplicationWindow( *self.applicationMainScreen );
+    self.Application->SetApplicationWindow( *self.ApplicationMainScreen );
     self.Application->Initialize();
     
     self.ApplicationMainScreen->Display();
     
     [[self window] setDelegate: self];
+    
+    self.window = [[NSApplication sharedApplication] mainWindow];
+    
+    [self.window setFrame:CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f) display:YES];
+    [self.window.contentView setAcceptsTouchEvents:YES];
+    
+    [self.ApplicationMainScreen->GetGlView() setAcceptsTouchEvents:YES];
+    [self.window.contentView addSubview:self.ApplicationMainScreen->GetGlView()];
 }
 
 - (void) windowWillClose: (NSNotification *)notification {
@@ -55,13 +63,6 @@
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    self.window = [[NSApplication sharedApplication] mainWindow];
-    
-    [self.window setFrame:CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f) display:YES];
-    [self.window.contentView setAcceptsTouchEvents:YES];
-    [self.applicationMainScreen->GetGlView() setAcceptsTouchEvents:YES];
-    [self.window.contentView addSubview:self.applicationMainScreen->GetGlView()];
-    
     NSEventMask mask =
     NSEventMaskLeftMouseDown |
     NSEventMaskLeftMouseUp |
@@ -218,10 +219,10 @@
 
 -(void)applicationWillTerminate:(NSNotification *)notification {
     
-    _application->Finalize();
+    _Application->Finalize();
     
-    CORE_MEMORY_ObjectSafeDeallocation( _application );
-    CORE_MEMORY_ObjectSafeDeallocation( _applicationMainScreen );
+    CORE_MEMORY_ObjectSafeDeallocation( _Application );
+    CORE_MEMORY_ObjectSafeDeallocation( _ApplicationMainScreen );
 }
 
 - (void)touchesBeganWithEvent:(NSEvent *)event {

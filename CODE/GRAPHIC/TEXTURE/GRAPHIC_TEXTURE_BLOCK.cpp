@@ -52,14 +52,7 @@ void GRAPHIC_TEXTURE_BLOCK::Initialize() {
 
 void GRAPHIC_TEXTURE_BLOCK::Apply( int texture_index, int shader_texture_attribute_index ) {
     
-    //TODO : less dirty
-    if ( Texture->GetDepthTextureHandle() > 0 ) {
-        
-        Texture->ApplyDepth( texture_index, shader_texture_attribute_index );
-    }
-    else {
-        Texture->Apply( texture_index, shader_texture_attribute_index );
-    }
+    Texture->Apply( texture_index, shader_texture_attribute_index );
 }
 
 void GRAPHIC_TEXTURE_BLOCK::ApplyDepth( int texture_index, int shader_texture_attribute_index ) {

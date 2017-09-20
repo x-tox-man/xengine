@@ -64,23 +64,13 @@ GRAPHIC_MATERIAL::~GRAPHIC_MATERIAL() {
 
 void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader ) {
     
-    std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * >::iterator it = TextureTable.begin();
-    
-    int texture_index = 0;
-    
     GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
     
     if ( renderer.IsColorEnabled() && Diffuse[3] > 0.0f ) {
         GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1, (const GLfloat * ) &Diffuse[0] )
     }
     
-    while (it != TextureTable.end()) {
-        
-        GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( it->first );
-        
-        it->second->Apply(texture_index++, attribute.AttributeIndex );
-        it++;
-    }
+    ApplyTexture( shader );
     
     if ( renderer.GetDirectionalLight() != NULL ) {
         GRAPHIC_SYSTEM::ApplyLightDirectional( *renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
@@ -105,6 +95,28 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
             GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.99f, attribute );
             GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.9f, shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity ) );
         }
+    }
+}
+
+void GRAPHIC_MATERIAL::ApplyTexture( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader ) {
+    
+    std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * >::iterator it = TextureTable.begin();
+    
+    int texture_index = 0;
+    
+    while (it != TextureTable.end()) {
+        
+        GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( it->first );
+        
+        if ( it->first == GRAPHIC_SHADER_PROGRAM::DepthTexture ) {
+            it->second->ApplyDepth(texture_index++, attribute.AttributeIndex );
+        }
+        else {
+            
+            it->second->Apply(texture_index++, attribute.AttributeIndex );
+        }
+        
+        it++;
     }
 }
 

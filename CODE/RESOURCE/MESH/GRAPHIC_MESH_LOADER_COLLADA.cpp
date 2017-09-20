@@ -101,8 +101,6 @@
         std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> accumulatedVector;
         accumulatedVector.resize(256);
         
-        return true;
-        
         int * index_table = (int*) CORE_MEMORY_ALLOCATOR::Allocate( 256 * sizeof( int ) );
         
         for (int i = 0; i < 256; i++ ) {
@@ -369,18 +367,20 @@
                     for ( int poly_count = 0; poly_count < primitives->getCount(); poly_count++ ) {
                         
                         GRAPHIC_MESH *
-                        mesh = new GRAPHIC_MESH;
+                            mesh = new GRAPHIC_MESH;
                         CORE_DATA_BUFFER
-                        * index_buffer = new CORE_DATA_BUFFER();
+                            * index_buffer = new CORE_DATA_BUFFER();
                         CORE_DATA_BUFFER
-                        * vertex_buffer = new CORE_DATA_BUFFER();
+                            * vertex_buffer = new CORE_DATA_BUFFER();
                         bool
-                        hasPosition = ComputeBufferSizeForItem( buffer_size, section_count, data->getPositions() ),
-                        hasNormals = ComputeBufferSizeForItem( buffer_size, section_count, data->getNormals() ),
-                        hasUV = ComputeBufferSizeForItem( buffer_size, section_count, data->getUVCoords() ),
-                        hasColors = false;//calculateBufferSizeForItem( buffer_size, section_count, data->getColors() );
+                            hasPosition = ComputeBufferSizeForItem( buffer_size, section_count, data->getPositions() ),
+                            hasNormals = ComputeBufferSizeForItem( buffer_size, section_count, data->getNormals() ),
+                            hasUV = ComputeBufferSizeForItem( buffer_size, section_count, data->getUVCoords() ),
+                            hasColors = false;//calculateBufferSizeForItem( buffer_size, section_count, data->getColors() );
+                        
+                        mesh->SetName( mesh_name );
                         int
-                        vertex_size = 0;
+                            vertex_size = 0;
                         
                         {
                             //TODO : all vertices will have x-y-z components. when collada supports it, enable this
@@ -456,16 +456,15 @@
                         index_buffer->Initialize( (unsigned int) prim->getFaceCount() * 3 * 4 );
                         mesh->CurrenGeometrytTableSize = (int) (3 * prim->getFaceCount());
                         
+                        memcpy((void *)index_buffer->getpointerAtIndex( 0 ), (void *)prim->getPositionIndices().getData(), sizeof(unsigned int) * prim->getPositionIndices().getCount() );
+                        
                         for (int face = 0; face < prim->getFaceCount(); face++ ) {
-                            
                             
                             for ( int v_index = 0; v_index < prim->getGroupedVerticesVertexCount( face ); v_index++ ) {
                                 
-                                memcpy((void *)index_buffer->getpointerAtIndex( accumulated_index ), &accumulated_index, sizeof(unsigned int));
-                                
-                                mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData()+ pos_indices[ accumulated_index ] * 3 );
-                                mesh->CurrenGeometrytTable[ accumulated_index ].position[1] = *(data->getPositions().getFloatValues()->getData()+ pos_indices[ accumulated_index ] * 3 + 1);
-                                mesh->CurrenGeometrytTable[ accumulated_index ].position[2] = *(data->getPositions().getFloatValues()->getData()+ pos_indices[ accumulated_index ] * 3 + 2);
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 );
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[1] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 + 1);
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[2] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 + 2);
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[3] = 1.0f;
                                 
                                 mesh->CurrenGeometrytTable[ accumulated_index ].vertex_index = pos_indices[ accumulated_index ];
@@ -555,14 +554,14 @@
                                 
                             }
                             
-                            if( hasUV && hasNormals ) {
-                                
+                            /*if( hasUV && hasNormals ) {
+                                //WHY THIS????
                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].tangents[0]), 12 );
                                 offset+= 3;
                                 
                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].binormal[0]), 12 );
                                 offset+= 3;
-                            }
+                            }*/
                         }
                         
                         graphicObject->AddNewMesh( mesh );
@@ -592,6 +591,17 @@
      @return The writer should return true, if writing succeeded, false otherwise.*/
     bool COLLADA_LOADER_WRITER::writeMaterial( const COLLADAFW::Material* material )
     {
+        for (int i = 0; i < graphicObject->GetMeshTable().size(); i++) {
+            graphicObject->GetMeshTable()[i];
+            
+            if ( graphicObject->GetMeshTable()[i]->GetName() == material->getName() ) {
+                
+                
+            }
+        }
+        
+        
+        
         return true;
     }
 

@@ -252,33 +252,43 @@
     
     if( r == (int) GAMEPLAY_COMPONENT_TYPE_Position ) {
         
-        auto comp = new GAMEPLAY_COMPONENT_POSITION();
+        GAMEPLAY_COMPONENT_HANDLE handle;
         
-        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Position);
+        handle.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(handle, GAMEPLAY_COMPONENT_TYPE_Position);
     }
     else if( r == (int) GAMEPLAY_COMPONENT_TYPE_Render ) {
         
-        auto comp = new GAMEPLAY_COMPONENT_RENDER();
+        GAMEPLAY_COMPONENT_HANDLE handle;
         
-        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Render);
+        handle.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(handle, GAMEPLAY_COMPONENT_TYPE_Render);
     }
     else if( r == (int) GAMEPLAY_COMPONENT_TYPE_Animation ) {
         
-        auto comp = new GAMEPLAY_COMPONENT_ANIMATION();
+        GAMEPLAY_COMPONENT_HANDLE handle;
         
-        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Animation);
+        handle.Create< GAMEPLAY_COMPONENT_ANIMATION >( GAMEPLAY_COMPONENT_TYPE_Animation );
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(handle, GAMEPLAY_COMPONENT_TYPE_Animation);
     }
     else if( r == (int) GAMEPLAY_COMPONENT_TYPE_Script ) {
         
-        auto comp = new GAMEPLAY_COMPONENT_SCRIPT();
+        GAMEPLAY_COMPONENT_HANDLE handle;
         
-        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Script);
+        handle.Create< GAMEPLAY_COMPONENT_SCRIPT >( GAMEPLAY_COMPONENT_TYPE_Script );
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(handle, GAMEPLAY_COMPONENT_TYPE_Script);
     }
     else if( r == (int) GAMEPLAY_COMPONENT_TYPE_Physics ) {
         
-        auto comp = new GAMEPLAY_COMPONENT_PHYSICS();
+        GAMEPLAY_COMPONENT_HANDLE handle;
         
-        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(comp, GAMEPLAY_COMPONENT_TYPE_Physics);
+        handle.Create< GAMEPLAY_COMPONENT_PHYSICS >( GAMEPLAY_COMPONENT_TYPE_Physics );
+        
+        [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(handle, GAMEPLAY_COMPONENT_TYPE_Physics);
     }
     else {
         abort();
@@ -331,16 +341,18 @@
         
         if ( cmp == NULL ) {
             
-            cmp = (GAMEPLAY_COMPONENT_SCRIPT *) GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Script );
+            GAMEPLAY_COMPONENT_HANDLE handle;
             
-            [self.custom3dTableViewDelegate.Entity Entity]->SetCompononent(cmp, GAMEPLAY_COMPONENT_TYPE_Script );
+            handle.Create< GAMEPLAY_COMPONENT_SCRIPT >( GAMEPLAY_COMPONENT_TYPE_Script );
+            
+            [self.custom3dTableViewDelegate.Entity Entity]->SetCompononent(handle, GAMEPLAY_COMPONENT_TYPE_Script );
         }
         
         auto app = (ASSET_EDITOR *) (&CORE_APPLICATION::GetApplicationInstance());
         
         cmp->SetScript( program );
         
-        ( ( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT * ) app->Get3dViewer()->GetScene()->GetUpdatableSystemTable()[3] )->AddEntity( [self.custom3dTableViewDelegate.Entity Entity] );
+        ( ( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT * ) app->Get3dViewer()->GetScene()->GetUpdatableSystemTable()[3] )->AddEntity( [self.custom3dTableViewDelegate.Entity Entity]->GetHandle(), [self.custom3dTableViewDelegate.Entity Entity] );
     }
     
     //TODO:
@@ -356,14 +368,14 @@
         
         auto proxy = new RESOURCE_PROXY;
         proxy->SetResource( Resource.Object3d );
-        cmp->SetObject( proxy );
+        cmp->SetObject( *proxy );
     } else if ( [ResourceType isEqualToString:@"Effect"] ) {
         
         auto cmp = (GAMEPLAY_COMPONENT_RENDER* ) [[self.custom3dTableViewDelegate Entity] Entity]->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render);
         
         auto proxy = new RESOURCE_PROXY;
         proxy->SetResource( Resource.Effect );
-        cmp->SetEffect( proxy );
+        cmp->SetEffect( *proxy );
     }
     
     ResourceType = @"";

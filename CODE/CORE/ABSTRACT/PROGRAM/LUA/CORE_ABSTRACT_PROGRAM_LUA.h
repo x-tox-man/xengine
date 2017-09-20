@@ -13,6 +13,7 @@
 #include "CORE_ABSTRACT_PROGRAM_FACTORY.h"
 #include "CORE_ABSTRACT_PROGRAM_RUNTIME_TYPE.h"
 #include "CORE_ABSTRACT_PROGRAM_RUNTIME.h"
+#include "CORE_FILESYSTEM_PATH.h"
 #include <assert.h>
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(CORE_ABSTRACT_PROGRAM_LUA, CORE_ABSTRACT_PROGRAM_FACTORY)
@@ -22,6 +23,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(CORE_ABSTRACT_PROGRAM_LUA, CORE_ABSTRACT_PROGRAM_FA
     CORE_ABSTRACT_PROGRAM_LUA();
     virtual ~CORE_ABSTRACT_PROGRAM_LUA();
 
+    void Reload();
     virtual void Load( const char *, const CORE_ABSTRACT_BASE_PROGRAM_RUNTIME & ) override;
     virtual void Execute() override;
     virtual void ExecuteFunction( const char * function, int args, int results, int error_func ) override;
@@ -36,6 +38,8 @@ private:
 
     CORE_ABSTRACT_RUNTIME_LUA *
         Runtime;
+    CORE_FILESYSTEM_PATH
+        Path;
 
 XS_CLASS_END
 

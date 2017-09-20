@@ -30,7 +30,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME, GRAPHIC_UI_ELEMENT )
     virtual void OnViewAppearing() {}
     virtual void OnViewDisappearing() {}
 
-    virtual int GetChildCount() override { return ElementTable.size(); }
+    virtual int GetChildCount() override { return (int) ElementTable.size(); }
 
     virtual void Update( const float ) override;
     virtual void Render( GRAPHIC_RENDERER & ) override;

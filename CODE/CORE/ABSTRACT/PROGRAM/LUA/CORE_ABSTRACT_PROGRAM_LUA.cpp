@@ -15,7 +15,7 @@ extern "C" {
     #include "lauxlib.h"
 }
 
-CORE_ABSTRACT_PROGRAM_LUA::CORE_ABSTRACT_PROGRAM_LUA() : CORE_ABSTRACT_PROGRAM_FACTORY(), Runtime( NULL ) {
+CORE_ABSTRACT_PROGRAM_LUA::CORE_ABSTRACT_PROGRAM_LUA() : CORE_ABSTRACT_PROGRAM_FACTORY(), Runtime( NULL ), Path() {
     
 }
 
@@ -30,6 +30,9 @@ void CORE_ABSTRACT_PROGRAM_LUA::Load( const char * path, const CORE_ABSTRACT_BAS
     SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 2" );
     int s = luaL_loadfile( luaRuntime.getLuaState(), path );
     SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 3" );
+    
+    Path.SetPath( path );
+    
     if( s != 0 ) {
         
         printf( "%s\n", lua_tostring( luaRuntime.getLuaState(), -1 ) );
@@ -40,6 +43,26 @@ void CORE_ABSTRACT_PROGRAM_LUA::Load( const char * path, const CORE_ABSTRACT_BAS
     }
 
     Runtime = &luaRuntime;
+}
+
+void CORE_ABSTRACT_PROGRAM_LUA::Reload() {
+    
+    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 1" );
+    CORE_ABSTRACT_RUNTIME_LUA & luaRuntime = * ((CORE_ABSTRACT_RUNTIME_LUA*) Runtime);
+    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 2" );
+    int s = luaL_loadfile( luaRuntime.getLuaState(), Path.GetPath() );
+    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 3" );
+    
+    if( s != 0 ) {
+        
+        printf( "%s\n", lua_tostring( luaRuntime.getLuaState(), -1 ) );
+        
+        SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 4" );
+        
+        CORE_RUNTIME_Abort();
+    }
+    
+    Execute();
 }
 
 void CORE_ABSTRACT_PROGRAM_LUA::Execute() {

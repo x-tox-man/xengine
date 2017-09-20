@@ -14,7 +14,7 @@ GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::GRAPHIC_SHADER_EFFECT_FULLSCREEN
     Program.SetProgram( effect->GetProgram().GetProgram() );
     Program.CopyAttributes();
     Bind = effect->GetSahderBind();
-    Material = effect->GetMaterial();
+    MaterialCollection = effect->GetMaterialCollection();
 }
 
 GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::~GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR() {

@@ -478,16 +478,51 @@
 -(void)testPoseFromMatrix1
 {
     CORE_MATH_POSE pose;
+    
+    CORE_MATH_MATRIX matrix, matrix2;
+    
+    matrix[0] = 1.0f;
+    matrix[1] = 0.0f;
+    matrix[2] = 0.0f;
+    matrix[3] = 0.0f;
+    
+    matrix[4] = 0.0f;
+    matrix[5] = 0.0f;
+    matrix[6] = -1.0f;
+    matrix[7] = 0.0f;
+    
+    matrix[8] = 0.0f;
+    matrix[9] = 1.0f;
+    matrix[10] = 0.0f;
+    matrix[11] = 40.0f;
+    
+    matrix[12] = 0.0f;
+    matrix[13] = 0.0f;
+    matrix[14] = 0.0f;
+    matrix[15] = 1.0f;
+    
+    pose.FromMatrix(matrix);
+    pose.ToMatrix( matrix2 );
+    
+    XCTAssert( matrix == matrix2 );
 }
 
 -(void)testPoseToMatrix
 {
-    CORE_MATH_POSE pose;
-}
-
--(void)testPoseToMatrix1
-{
-    CORE_MATH_POSE pose;
+    CORE_MATH_POSE pose, pose2;
+    CORE_MATH_MATRIX matrix;
+    
+    pose.SetPosition(CORE_MATH_VECTOR( 1.0f, 2.0f, 3.0f, 1.0f ) );
+    
+    CORE_MATH_QUATERNION q(0.0f, 1.0f, 0.0f, 1.0f );
+    q.Normalize();
+    
+    pose.SetOrientation( q );
+    
+    pose.ToMatrix( matrix );
+    pose2.FromMatrix( matrix );
+    
+    XCTAssert( pose == pose2 );
 }
 
 -(void)testMatrixToQuaternion {
@@ -669,5 +704,22 @@
     
     XCTAssert( intersection );
 }
+
+-(void) testPicking {
+    
+    CORE_MATH_RAY ray;
+    CORE_MATH_SHAPE shape;
+    
+    ray.SetOrigin(CORE_MATH_VECTOR::WAxis );
+    ray.SetDirection( CORE_MATH_VECTOR::ZAxis );
+    
+    shape.SetPosition( CORE_MATH_VECTOR( 1.0f, 0.0f, -5.0f, 1.0f ) );
+    shape.SetHalfDiagonal( CORE_MATH_VECTOR::XAxis );
+    
+    bool intersection = shape.GetIntersection( ray );
+    
+    XCTAssert( intersection );
+}
+
 
 @end

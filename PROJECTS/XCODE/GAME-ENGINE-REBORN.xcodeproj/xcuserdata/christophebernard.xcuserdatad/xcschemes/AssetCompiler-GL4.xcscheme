@@ -61,6 +61,16 @@
             ReferencedContainer = "container:GAME-ENGINE-REBORN.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/spaceship.dae"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

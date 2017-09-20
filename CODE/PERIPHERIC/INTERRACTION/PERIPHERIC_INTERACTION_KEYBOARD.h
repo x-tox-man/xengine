@@ -11,20 +11,26 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "KEYBOARD_KEY.h"
+#include "CORE_ABSTRACT_PROGRAM_FACTORY.h"
+#include "CORE_ABSTRACT_RUNTIME_LUA.h"
+#include "CORE_ABSTRACT_PROGRAM_BINDER.h"
+#include "CORE_RUNTIME_ENVIRONMENT.h"
 
 XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_KEYBOARD )
 
     PERIPHERIC_INTERACTION_KEYBOARD();
     ~PERIPHERIC_INTERACTION_KEYBOARD();
 
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( PERIPHERIC_INTERACTION_KEYBOARD );
+
     void Initialize();
     void Update();
 
-    bool IsKeyPressed( const KEYBOARD_KEY key );
-    bool IsKeyReleased( const KEYBOARD_KEY key );
+    bool IsKeyPressed( int key );
+    bool IsKeyReleased( int key );
 
-    void SetKeyPressed( const KEYBOARD_KEY key );
-    void SetKeyReleased( const KEYBOARD_KEY key );
+    void SetKeyPressed( int key );
+    void SetKeyReleased( int key );
 
     static KEYBOARD_KEY KeyFromCode( int code );
 

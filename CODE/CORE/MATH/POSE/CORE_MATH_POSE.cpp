@@ -154,6 +154,7 @@ void CORE_MATH_POSE::FromMatrix( const CORE_MATH_MATRIX & mat ) {
     Position.X( mat[3]);
     Position.Y( mat[7]);
     Position.Z( mat[11]);
+    Position.W( mat[15]);
 }
 
 void setRotate( const CORE_MATH_QUATERNION & q ,const CORE_MATH_VECTOR & centre, CORE_MATH_MATRIX & m) {
@@ -274,7 +275,7 @@ CORE_MATH_POSE operator * ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & r
     m[11] = 0.0f;
     
     pose.SetPosition( m * rhs.GetPosition() + lhs.GetPosition());
-    pose.GetPosition().W( 0.0f );
+    pose.GetPosition().W( 1.0f );
     
     q = lhs.GetOrientation() * rhs.GetOrientation();
     

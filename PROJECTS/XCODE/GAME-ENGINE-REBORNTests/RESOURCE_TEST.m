@@ -123,6 +123,13 @@
     XCTAssert( texture );
 }
 
+-(void) testLoadTextureNotExisting {
+    
+    auto texture = GRAPHIC_TEXTURE::LoadResourceForPath( "TEXTURE:test", CORE_FILESYSTEM_PATH::FindFilePath("lsjkfghlsguf", "png", "TEXTURES" ) );
+    
+    XCTAssert( texture == NULL );
+}
+
 -(void)testCreateResourceContainer {
     
     RESOURCE_CONTAINER * container = new RESOURCE_CONTAINER();

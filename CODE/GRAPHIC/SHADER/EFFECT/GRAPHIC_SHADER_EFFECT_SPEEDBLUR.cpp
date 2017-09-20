@@ -8,16 +8,22 @@
 
 #include "GRAPHIC_SHADER_EFFECT_SPEEDBLUR.h"
 
-GRAPHIC_SHADER_EFFECT_SPEEDBLUR::GRAPHIC_SHADER_EFFECT_SPEEDBLUR() :
+GRAPHIC_SHADER_EFFECT_SPEEDBLUR::GRAPHIC_SHADER_EFFECT_SPEEDBLUR( GRAPHIC_SHADER_EFFECT::PTR effect ) :
     GRAPHIC_SHADER_EFFECT() {
     
+    Program.SetProgram( effect->GetProgram().GetProgram() );
+    Program.CopyAttributes();
+    Bind = effect->GetSahderBind();
+    MaterialCollection = effect->GetMaterialCollection();
 }
 
 GRAPHIC_SHADER_EFFECT_SPEEDBLUR::~GRAPHIC_SHADER_EFFECT_SPEEDBLUR() {
 
 }
 
-void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply( GRAPHIC_RENDERER & ) {
+void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply( GRAPHIC_RENDERER & renderer ) {
+    
+    GRAPHIC_SHADER_EFFECT::Apply( renderer );
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_view_ray = Program.getShaderAttribute( ViewRayIdentifier );
     GRAPHIC_SHADER_ATTRIBUTE & attr_previous_view_mat = Program.getShaderAttribute( PreviousModelViewProjectionIdentifier );
@@ -29,6 +35,8 @@ void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply( GRAPHIC_RENDERER & ) {
 }
 
 void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::BindAttributes() {
+    
+    GRAPHIC_SHADER_EFFECT::BindAttributes();
     
     GRAPHIC_SHADER_ATTRIBUTE * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), ViewRayIdentifier.GetTextValue() ); )

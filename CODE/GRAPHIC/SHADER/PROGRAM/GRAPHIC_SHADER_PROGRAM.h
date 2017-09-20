@@ -59,6 +59,7 @@ static const CORE_HELPERS_IDENTIFIER
     ColorTexture3,
     ColorTexture4,
     NormalTexture,
+    TesselationTexture,
     DepthTexture,
     SkinningMatrixTable,
     AttrBindShapeMatrix,

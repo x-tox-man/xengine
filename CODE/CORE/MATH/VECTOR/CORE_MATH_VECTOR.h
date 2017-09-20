@@ -24,7 +24,7 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_MATH_VECTOR )
 
 XS_DEFINE_SERIALIZABLE
 
-CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( CORE_MATH_VECTOR );
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( CORE_MATH_VECTOR );
 
     CORE_MATH_VECTOR();
     ~CORE_MATH_VECTOR();
@@ -43,6 +43,11 @@ CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( CORE_MATH_VECTOR );
     inline float & Y() { return Value[1]; }
     inline float & Z() { return Value[2]; }
     inline float & W() { return Value[3]; }
+
+    inline float GetX() { return Value[0]; }
+    inline float GetY() { return Value[1]; }
+    inline float GetZ() { return Value[2]; }
+    inline float GetW() { return Value[3]; }
 
     inline void X( float x ) { Value[0] = x; }
     inline void Y( float y ) { Value[1] = y; }

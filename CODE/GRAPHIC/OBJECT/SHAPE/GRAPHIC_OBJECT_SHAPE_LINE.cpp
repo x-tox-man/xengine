@@ -26,16 +26,6 @@ GRAPHIC_OBJECT_SHAPE_LINE::GRAPHIC_OBJECT_SHAPE_LINE():
         Vertices[5] = 0.0f;
         Vertices[6] = 0.0f;
         Vertices[7] = 1.0f;
-        
-        Vertices[8] = 0.0f;
-        Vertices[9] = 0.0f;
-        Vertices[10] = 1.0f;
-        Vertices[11] = 1.0f;
-        
-        Vertices[12] = 1.0f;
-        Vertices[13] = 1.0f;
-        Vertices[14] = 1.0f;
-        Vertices[15] = 1.0f;
 }
 
 GRAPHIC_OBJECT_SHAPE_LINE::~GRAPHIC_OBJECT_SHAPE_LINE() {
@@ -50,13 +40,12 @@ void GRAPHIC_OBJECT_SHAPE_LINE::InitializeShape() {
     GRAPHIC_MESH * mesh = new GRAPHIC_MESH();
     
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
-    mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);
     
     CORE_DATA_BUFFER * index_buffer = new CORE_DATA_BUFFER;
     CORE_DATA_BUFFER * vertex_buffer = new CORE_DATA_BUFFER;
     
     index_buffer->InitializeWithMemory( 2 * sizeof(unsigned int), 0, (void*) index_data );
-    vertex_buffer->InitializeWithMemory( 2 * 8 * sizeof(float), 0, (void*) Vertices );
+    vertex_buffer->InitializeWithMemory( 2 * 4 * sizeof(float), 0, (void*) Vertices );
     
     mesh->SetIndexCoreBuffer( index_buffer );
     mesh->SetVertexCoreBuffer( vertex_buffer );
@@ -65,6 +54,13 @@ void GRAPHIC_OBJECT_SHAPE_LINE::InitializeShape() {
     mesh->SetPolygonRenderMode( GRAPHIC_MESH_POLYGON_RENDER_MODE_Line );
     
     AddNewMesh( mesh );
+}
+
+void GRAPHIC_OBJECT_SHAPE_LINE::UpdateShape() {
+    
+    memcpy( (void*)GetMeshTable()[0]->GetVertexCoreBuffer()->getpointerAtIndex( 0 ), (void*)Vertices, 8* sizeof(float) );
+    
+    GRAPHIC_SYSTEM::UpdateVertexBuffer(GetMeshTable()[0], *GetMeshTable()[0]->GetVertexCoreBuffer());
 }
 
 CORE_HELPERS_IDENTIFIER GRAPHIC_OBJECT_SHAPE_LINE::ShaderLineGeometry( "geometryPosition" );

@@ -50,7 +50,6 @@ in vec3 bitangent;
 // -- SHADER UNIFORM
 
 uniform mat4 MVPMatrix;
-uniform mat4 ProjectionMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 jointsMatrix[128];
 uniform mat4 attrBindShapeMatrix;
@@ -108,5 +107,6 @@ void main()
     LightDirection_tangentspace = /*TBNMatrix * */- directional_light.Direction.xyz;
     EyeDirection_tangentspace =  TBNMatrix * CameraWorldPosition.xyz;
     
-    gl_Position = position * attrBindShapeMatrix  /* * blend_result*/ * MVPMatrix;
+    colorVarying = position * attrBindShapeMatrix * blend_result * MVPMatrix;
+    gl_Position = position * attrBindShapeMatrix  /* * blend_result */ * MVPMatrix;
 }

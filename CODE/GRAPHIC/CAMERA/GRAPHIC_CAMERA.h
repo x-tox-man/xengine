@@ -25,6 +25,7 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
     inline const CORE_MATH_QUATERNION & GetOrientation() const { return Lookat; }
 
+    void Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
     void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
 
 private :

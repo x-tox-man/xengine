@@ -20,10 +20,14 @@
     #include "btBulletDynamicsCommon.h"
 #endif
 
+class GRAPHIC_OBJECT;
+
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
 
     GAMEPLAY_COMPONENT_PHYSICS();
     virtual ~GAMEPLAY_COMPONENT_PHYSICS();
+
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT_PHYSICS );
 
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Physics)
 
@@ -42,14 +46,22 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
         btRigidBody* GetBulletRigidBody() { return BulletRigidBody; }
     #endif
 
-    void ConfigureShapeSphere( const CORE_MATH_VECTOR & position );
+    void ConfigureShapeSphere( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation );
+    void ConfigureHeightMap( const CORE_MATH_VECTOR & position, int width, int lenght, const void * heights, float spacing, float scale );
     void ConfigureShapePlane( const CORE_MATH_VECTOR & position );
+    void BulletConfigureConvexHullShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object );
+    void BulletConfigureBvhTriangleMeshShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object );
 
     void ApplyMotionModificator(
                                 const CORE_MATH_VECTOR & position,
                                 const CORE_MATH_VECTOR & direction);
 
     void ForcePosition( const CORE_MATH_VECTOR & position );
+
+    void SetMass( const float mass);
+    void SetPosition( const CORE_MATH_VECTOR & position);
+    void SetOrientation( const CORE_MATH_QUATERNION & rotation );
+    void SetVelocity( const CORE_MATH_VECTOR & velocity);
 
     virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
         

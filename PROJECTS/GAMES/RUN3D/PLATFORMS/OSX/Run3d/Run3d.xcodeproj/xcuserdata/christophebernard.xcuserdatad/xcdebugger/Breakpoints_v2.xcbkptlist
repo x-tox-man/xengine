@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
+            timestampString = "527527330.868065"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER &amp; renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS &amp; options, GRAPHIC_SHADER_EFFECT * effect )"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GRAPHIC_OBJECT::Render(GRAPHIC_RENDERER&amp;, GRAPHIC_OBJECT_RENDER_OPTIONS const&amp;, GRAPHIC_SHADER_EFFECT*)"
+                  moduleName = "RUN3D"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
+                  timestampString = "527527332.081684"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "368">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GRAPHIC_OBJECT::Render(GRAPHIC_RENDERER&amp;, GRAPHIC_OBJECT_RENDER_OPTIONS const&amp;, GRAPHIC_SHADER_EFFECT*)"
+                  moduleName = "RUN3D"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
+                  timestampString = "527527332.084233"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "443">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../CODE/PHYSICS/PHYSICS_COLLISION_FILTER.h"
+            timestampString = "527600466.497069"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "needBroadphaseCollision(btBroadphaseProxy* proxy0,btBroadphaseProxy* proxy1)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

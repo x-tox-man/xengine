@@ -50,6 +50,7 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
 
     inline void SetRenderCallback( CORE_HELPERS_CALLBACK * renderCallback ) { RenderCallback = renderCallback; }
     inline void SetDirectionalLight( GRAPHIC_SHADER_LIGHT * light ) { DirectionalLight = light; }
+    inline void SetAmbientLight( GRAPHIC_SHADER_LIGHT * light ) { AmbientLight = light; }
     inline void SetPointLight( GRAPHIC_SHADER_LIGHT * light, int light_index ) { PointLightTable[ light_index ] = light; }
     inline void SetSpotLight( GRAPHIC_SHADER_LIGHT * light, int light_index ) { SpotLightTable[ light_index ] = light; }
     inline const GRAPHIC_SHADER_LIGHT * GetDirectionalLight() const { return DirectionalLight; }
@@ -86,6 +87,7 @@ private :
     CORE_HELPERS_CALLBACK_2<int, int>
         ResizeViewCallback;
     GRAPHIC_SHADER_LIGHT
+        * AmbientLight,
         * DirectionalLight,
         * PointLightTable[4], // curently shaders have only 2 lights of each type, this is a fixed shader value
         * SpotLightTable[4]; // curently shaders have only 2 lights of each type, this is a fixed shader value

@@ -28,7 +28,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
 
     XS_DEFINE_OBSERVABLE(GAMEPLAY_COMPONENT_POSITION)
 
-    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT );
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT_POSITION );
 
     friend class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
 
@@ -51,8 +51,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
     inline CORE_MATH_VECTOR & GetVelocity() { return Velocity; }
     inline CORE_MATH_QUATERNION & GetSpin() { return Spin; }
 
-    inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; NotifyObservers(); }
-    inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation;NotifyObservers(); }
+    inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; /*NotifyObservers();*/ }
+    inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation; /*NotifyObservers();*/ }
 
     bool Intersects( const CORE_MATH_RAY & ray );
 

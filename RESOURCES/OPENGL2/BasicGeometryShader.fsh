@@ -30,7 +30,7 @@ void main()
         visibility = 0.4;
     }
     
-    colorOut = colorVarying * visibility;
+    colorOut = vec4(1.0,1.0,1.0,1.0) * visibility;
     colorOut.a = 1.0;
 }
 

@@ -279,6 +279,7 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     
     if ( CubeObject == NULL ) {
         CubeObject = new GRAPHIC_OBJECT_SHAPE_CUBE;
+        CubeObject->InitializeShape();
         
         CubeEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
         
@@ -286,8 +287,6 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
         
         CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
         SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 57" );
-        
-        CubeObject->InitializeShape();
     }
     
     static int component_index = 0;
@@ -298,21 +297,28 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     effect->SetMaterial( material );
     
     GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
-    component_entity->SetIndex( component_index++ );
     
-    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Position ), GAMEPLAY_COMPONENT_TYPE_Position );
-    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Render ), GAMEPLAY_COMPONENT_TYPE_Render );
-    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Physics ), GAMEPLAY_COMPONENT_TYPE_Physics );
+    GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r, handle_ph;
+    
+    handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
+    handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
+    handle_ph.Create< GAMEPLAY_COMPONENT_PHYSICS >( GAMEPLAY_COMPONENT_TYPE_Physics );
+    
+    component_entity->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
+    component_entity->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
+    component_entity->SetCompononent( handle_ph, GAMEPLAY_COMPONENT_TYPE_Physics );
+    
+    
     
     RESOURCE_PROXY * proxy_object = new RESOURCE_PROXY( mesh );
     RESOURCE_PROXY * proxy_effect = new RESOURCE_PROXY( effect );
     
-    ( ( GAMEPLAY_COMPONENT_RENDER *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetObject(  proxy_object );
-    ( ( GAMEPLAY_COMPONENT_RENDER *) component_entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Render))->SetEffect( proxy_effect );
+    handle_r.GetComponent< GAMEPLAY_COMPONENT_RENDER >()->SetObject(  *proxy_object );
+    handle_r.GetComponent< GAMEPLAY_COMPONENT_RENDER >()->SetEffect( *proxy_effect );
     
     GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) Scene->GetRenderableSystemTable()[0];
     
-    render_system->AddEntity( component_entity );
+    render_system->AddEntity( component_entity->GetHandle(), component_entity );
     render_system->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * bullet_system = ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) Scene->GetUpdatableSystemTable()[4];
@@ -352,12 +358,12 @@ void VIEWER3D::RenderSelectedObjectBox() {
     options.SetOrientation( component->GetOrientation() );
     options.SetScaleFactor( CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
-    if ( component_grap->GetEffect() == NULL || component_grap->GetObject() == NULL ) {
+    if ( component_grap->GetEffect().GetType() == NULL || component_grap->GetObject().GetType() == NULL ) {
         
         return;
     }
     
-    auto obj = component_grap->GetObject()->GetResource<GRAPHIC_OBJECT>();
+    auto obj = component_grap->GetObject().GetResource<GRAPHIC_OBJECT>();
 
     obj->GetMeshTable()[0]->GetBoundingShape().GetOrientation().ToMatrix( mat.GetRow(0) );
 

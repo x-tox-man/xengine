@@ -33,6 +33,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
     ~GRAPHIC_MATERIAL();
 
     void Apply( GRAPHIC_RENDERER &, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * );
+    void ApplyTexture( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader );
     void Discard( GRAPHIC_RENDERER & renderer );
 
     inline GRAPHIC_TEXTURE_BLOCK * GetTexture(const CORE_HELPERS_IDENTIFIER & identifier) {return TextureTable[identifier];  }

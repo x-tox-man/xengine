@@ -24,6 +24,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>LIB.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>gamePOC.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -53,6 +58,16 @@
 			<true/>
 		</dict>
 		<key>32899C13180D3DC8002AA472</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5F92D9651F163F5700292A99</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5F92DA9E1F16413800292A99</key>
 		<dict>
 			<key>primary</key>
 			<true/>

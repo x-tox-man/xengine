@@ -305,15 +305,15 @@
     }*/
     
     {
-        CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "dae", "MODELS" );
-        CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "smx", "MODELS" );
+        CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "dae", "MODELS" );
+        CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" );
         
         GRAPHIC_MESH_MANAGER::GetInstance().Compile(path, destintation_path, 0, GRAPHIC_MESH_TYPE_OpenCollada );
     }
     
     {
-        CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "dae", "MODELS" );
-        CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" );
+        CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "dae", "MODELS" );
+        CORE_FILESYSTEM_PATH destintation_path = CORE_FILESYSTEM_PATH::FindFilePath( "Chris" , "smx", "MODELS" );
         
         GRAPHIC_MESH_MANAGER::GetInstance().Compile(path, destintation_path, 0, GRAPHIC_MESH_TYPE_OpenCollada );
     }

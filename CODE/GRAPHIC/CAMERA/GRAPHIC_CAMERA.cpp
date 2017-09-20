@@ -30,6 +30,15 @@ GRAPHIC_CAMERA::~GRAPHIC_CAMERA() {
     
 }
 
+void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
+    
+    CalculateProjectionMatrix( near_plane, far_plane, width, height );
+    CalculateModelViewMatrix( position, lookat );
+    
+    Lookat = lookat;
+    Position = position;
+}
+
 void GRAPHIC_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
     Lookat = lookat;
@@ -78,8 +87,8 @@ void GRAPHIC_CAMERA::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position
     
     lookat.ToMatrix( &rotation[0] );
     
-    tmp =rotation;
-    tmp *=translation;
+    tmp =translation;
+    tmp *=rotation;
     
     tmp.GetInverse(ViewMatrix);
 }

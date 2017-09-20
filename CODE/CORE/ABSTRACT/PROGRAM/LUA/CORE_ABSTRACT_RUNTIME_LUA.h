@@ -200,8 +200,8 @@ static void LUA_FromValue( __CUSTOM_TYPE__ value, lua_State * state ) {
 template <>
 void LUA_FromValue< const char * >( const char * value, lua_State * state ) {
     
-    lua_tostring( state, lua_gettop( state ) );
-    lua_remove( state, 1 );
+    //lua_tostring( state, lua_gettop( state ) );
+    //lua_remove( state, 1 );
     
     lua_pushstring( state, value );
 }
@@ -209,36 +209,31 @@ void LUA_FromValue< const char * >( const char * value, lua_State * state ) {
 template <>
 void LUA_FromValue< int >( int value, lua_State * state ) {
     
-    lua_tointeger( state, lua_gettop( state ) );
-    lua_remove( state, 1 );
+    lua_pushinteger(state, value );
 }
 
 template <>
 void LUA_FromValue< long >( long value, lua_State * state ) {
     
-    lua_tointeger( state, lua_gettop( state ) );
-    lua_remove( state, 1 );
+    lua_pushinteger(state, value );
 }
 
 template <>
 void LUA_FromValue< bool >( bool value, lua_State * state ) {
     
-    lua_toboolean( state, lua_gettop( state ) );
-    lua_remove( state, 1 );
+    lua_pushboolean(state, value);
 }
 
 template <>
 void LUA_FromValue< float >( float value, lua_State * state ) {
     
-    lua_tonumber( state, lua_gettop( state ) );
-    lua_remove( state, 1 );
+    lua_pushnumber( state, (lua_Number) value );
 }
 
 template <>
 void LUA_FromValue< double >( double value, lua_State * state ) {
     
-    lua_tonumber( state, lua_gettop( state ) );
-    lua_remove( state, 1 );
+    lua_pushnumber( state, (lua_Number) value );
 }
 
 // -- END of LUA_FromValue overloads

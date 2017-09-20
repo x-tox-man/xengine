@@ -8,6 +8,10 @@
 
 #include "PERIPHERIC_INTERACTION_KEYBOARD.h"
 
+CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( PERIPHERIC_INTERACTION_KEYBOARD )
+    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD_1( bool, PERIPHERIC_INTERACTION_KEYBOARD, IsKeyPressed, int )
+CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( PERIPHERIC_INTERACTION_KEYBOARD )
+
 PERIPHERIC_INTERACTION_KEYBOARD::PERIPHERIC_INTERACTION_KEYBOARD() :
     KeyTable() {
     
@@ -33,23 +37,23 @@ void PERIPHERIC_INTERACTION_KEYBOARD::Update() {
     }
 }
 
-bool PERIPHERIC_INTERACTION_KEYBOARD::IsKeyPressed( const KEYBOARD_KEY key ) {
+bool PERIPHERIC_INTERACTION_KEYBOARD::IsKeyPressed( int key ) {
     
     return KeyTable[ key ] & KEY_STATE_Pressed;
 }
 
-bool PERIPHERIC_INTERACTION_KEYBOARD::IsKeyReleased( const KEYBOARD_KEY key ) {
+bool PERIPHERIC_INTERACTION_KEYBOARD::IsKeyReleased( int key ) {
     
     return KeyTable[ key ] & KEY_STATE_Released;
 }
 
-void PERIPHERIC_INTERACTION_KEYBOARD::SetKeyPressed( const KEYBOARD_KEY key ) {
+void PERIPHERIC_INTERACTION_KEYBOARD::SetKeyPressed( int key ) {
     
     KeyTable[ key ] = KeyTable[ key ] | KEY_STATE_Pressed;
     KeyTable[ key ] = KeyTable[ key ] & ~KEY_STATE_Released;
 }
 
-void PERIPHERIC_INTERACTION_KEYBOARD::SetKeyReleased( const KEYBOARD_KEY key ) {
+void PERIPHERIC_INTERACTION_KEYBOARD::SetKeyReleased( int key ) {
     
     KeyTable[ key ] = KeyTable[ key ] | KEY_STATE_Released;
     KeyTable[ key ] = KeyTable[ key ] & ~KEY_STATE_Pressed;

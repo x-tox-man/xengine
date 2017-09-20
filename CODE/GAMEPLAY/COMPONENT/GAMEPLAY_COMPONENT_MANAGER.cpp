@@ -111,7 +111,8 @@ void GAMEPLAY_COMPONENT_MANAGER::LoadFromStream( CORE_DATA_STREAM & stream ) {
     
     for ( int i = 0; i< size; i++ ) {
         
-        stream.OutputBytes((uint8_t *) InternalVector[ i ].MemoryArray, sizeof(GAMEPLAY_COMPONENT_ENTITY) * GAMEPLAY_COMPONENT_BASE_COUNT );
+        size_t b = sizeof(GAMEPLAY_COMPONENT_ENTITY) * GAMEPLAY_COMPONENT_BASE_COUNT;
+        stream.OutputBytes((uint8_t *) InternalVector[ i ].MemoryArray, b );
         stream >> InternalVector[ i ].LastIndex;
         
         for (int k = 0; k < GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS; k++ ){

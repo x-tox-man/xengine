@@ -19,6 +19,7 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH )
     XS_DEFINE_ClassMember( int, VertexStride )
     XS_DEFINE_ClassMember( CORE_MATH_MATRIX, Transform )
     XS_DEFINE_ClassMember( CORE_MATH_SHAPE, BoundingShape)
+    XS_DEFINE_ClassMember( std::string, MeshName )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH )
@@ -32,7 +33,7 @@ GRAPHIC_MESH::GRAPHIC_MESH() :
     VertexComponent( GRAPHIC_SHADER_BIND_None ),
     VertexStride( 0 ),
     PolygonRenderMode( GRAPHIC_MESH_POLYGON_RENDER_MODE_TriangleList ),
-    SurfaceRenderMode( GRAPHIC_MESH_SURFACE_RENDER_MODE_Solid ),
+    SurfaceRenderMode( GRAPHIC_MESH_SURFACE_RENDER_MODE_Wireframe ),
     Transform() {
         
         GLOBAL_IDENTITY_MATRIX( &Transform[0] );
@@ -53,6 +54,48 @@ GRAPHIC_MESH::~GRAPHIC_MESH() {
     CORE_MEMORY_ObjectSafeDeallocation( IndexCoreBuffer );
     CORE_MEMORY_ObjectSafeDeallocation( Texture );
     CORE_MEMORY_ObjectSafeDeallocation( NormalTexture );
+}
+
+int GRAPHIC_MESH::ComputeVertexStride(GRAPHIC_SHADER_BIND bind) {
+    
+    int stride = 0;
+    
+    if ( bind & GRAPHIC_SHADER_BIND_Position ) {
+        
+        stride += 4;
+    }
+    
+    if ( bind & GRAPHIC_SHADER_BIND_Normal ) {
+        
+        stride += 4;
+    }
+    
+    if ( bind & GRAPHIC_SHADER_BIND_Texcoord0 ) {
+        
+        stride += 2;
+    }
+    
+    if ( bind & GRAPHIC_SHADER_BIND_SkinWeight ) {
+        
+        stride += 3;
+    }
+    
+    if ( bind & GRAPHIC_SHADER_BIND_JointIndices ) {
+        
+        stride += 3;
+    }
+    
+    if ( bind & GRAPHIC_SHADER_BIND_Tangents ) {
+        
+        stride += 3;
+    }
+    
+    if ( bind & GRAPHIC_SHADER_BIND_Bitangents ) {
+        
+        stride += 3;
+    }
+    
+    return stride;
 }
 
 void GRAPHIC_MESH::ActivateBufferComponent( GRAPHIC_SHADER_BIND attribute ) {

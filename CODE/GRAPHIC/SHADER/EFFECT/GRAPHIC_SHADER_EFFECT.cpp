@@ -12,22 +12,23 @@
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "GRAPHIC_MATERIAL.h"
 #include "GRAPHIC_SYSTEM.h"
+#include "GRAPHIC_MATERIAL_COLLECTION.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_SHADER_EFFECT )
     XS_DEFINE_ClassMember( GRAPHIC_SHADER_BIND, Bind )
-    XS_DEFINE_ClassMember( GRAPHIC_MATERIAL::PTR, Material )
+    XS_DEFINE_ClassMember( GRAPHIC_MATERIAL_COLLECTION::PTR, MaterialCollection )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 
 GRAPHIC_SHADER_EFFECT::GRAPHIC_SHADER_EFFECT() :
     Program(),
     Bind(),
-    Material( NULL ) {
+    MaterialCollection( new GRAPHIC_MATERIAL_COLLECTION() ) {
     
 }
 
 GRAPHIC_SHADER_EFFECT::~GRAPHIC_SHADER_EFFECT() {
-
+    delete MaterialCollection;
 }
 
 void GRAPHIC_SHADER_EFFECT::Initialize( const GRAPHIC_SHADER_BIND & bind ) {
@@ -54,7 +55,16 @@ void GRAPHIC_SHADER_EFFECT::BindAttributes() {
 void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer ) {
     
     GetProgram().Enable();
-    Material->Apply(renderer, &GetProgram() );
+    MaterialCollection->Apply(renderer, &GetProgram() );
+}
+
+void GRAPHIC_SHADER_EFFECT::SelectMaterial( std::string & material_name ) {
+    
+    auto material = MaterialCollection->GetMaterialForName( material_name );
+    if ( material )
+        material->ApplyTexture( &Program );
+    else
+        MaterialCollection->GetDefaultMaterial()->ApplyTexture( &Program );
 }
 
 void GRAPHIC_SHADER_EFFECT::Discard() {
@@ -87,9 +97,7 @@ GRAPHIC_SHADER_EFFECT::PTR GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmen
     
     GRAPHIC_SHADER_EFFECT::PTR effect = LoadEffectWithVertexAndFragmentPath( vertex_path, fragment_path, identifier );
     
-    GRAPHIC_MATERIAL::PTR material = new GRAPHIC_MATERIAL( material_name );
-    
-    effect->SetMaterial( material );
+    effect->GetMaterialCollection()->LoadMaterialForName( material_name );
     
     return effect;
 }

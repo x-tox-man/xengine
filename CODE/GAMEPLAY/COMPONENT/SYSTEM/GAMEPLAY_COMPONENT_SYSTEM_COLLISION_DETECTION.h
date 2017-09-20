@@ -13,6 +13,7 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM.h"
 #include "GRAPHIC_RENDERER.h"
 #include "CORE_HELPERS_UNIQUE.h"
+#include "TOOL_BULLET_GL_DEBUGGER.h"
 
 #ifdef __BULLET_PHYSICS__
     #include "btBulletDynamicsCommon.h"
@@ -28,21 +29,35 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAM
     virtual void Render() override;
     virtual void Finalize() override;
 
-    void SetRenderer( GRAPHIC_RENDERER * renderer ) { Renderer = renderer; }
+    inline void SetGravity( const float gravity ) { Gravity = gravity; }
+    inline void SetRenderer( GRAPHIC_RENDERER * renderer ) { Renderer = renderer; }
+
+    void SetCollisionFilter( btOverlapFilterCallback * callback );
 
     #ifdef __BULLET_PHYSICS__
         btDiscreteDynamicsWorld * GetDynamicsWorld() { return DynamicsWorld; }
     #endif
 
     virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) override;
+    void AddStaticEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity );
+
+    void DebugDrawWorld();
 
 private :
 
     GRAPHIC_RENDERER
         * Renderer;
+    float
+        Gravity;
 
 #ifdef __BULLET_PHYSICS__
-    btDiscreteDynamicsWorld * DynamicsWorld;
+    btDiscreteDynamicsWorld
+        * DynamicsWorld;
+
+    #if DEBUG
+        TOOL_BULLET_GL_DEBUGGER
+            Debugger;
+    #endif
 #endif
 
 XS_CLASS_END

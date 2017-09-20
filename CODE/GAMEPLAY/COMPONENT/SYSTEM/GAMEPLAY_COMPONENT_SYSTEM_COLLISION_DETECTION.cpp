@@ -11,10 +11,14 @@
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 
 GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION() :
-GAMEPLAY_COMPONENT_SYSTEM(),
-Renderer()
+    GAMEPLAY_COMPONENT_SYSTEM(),
+    Renderer(),
+    Gravity()
 #ifdef __BULLET_PHYSICS__
     ,DynamicsWorld()
+    #if DEBUG
+        ,Debugger()
+    #endif
 #endif
 {
     
@@ -27,6 +31,7 @@ GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::~GAMEPLAY_COMPONENT_SYSTEM_COLLIS
 void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
     
     #ifdef __BULLET_PHYSICS__
+    
         btBroadphaseInterface* broadphase = new btDbvtBroadphase();
         
         // Set up the collision configuration and dispatcher
@@ -39,7 +44,23 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         // The world.
         DynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
         
-        DynamicsWorld->setGravity(btVector3(0, -10, 0));
+        DynamicsWorld->setGravity(btVector3(0, 0, Gravity));
+    
+        #if DEBUG
+            Debugger.Initialize();
+            Debugger.setDebugMode(btIDebugDraw::DBG_DrawWireframe); // so does this
+    
+            DynamicsWorld->setDebugDrawer(&Debugger);
+            //And finally, I render the debug draw after I render the bullet bodies like this:
+        #endif
+    
+    #endif
+}
+
+void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::DebugDrawWorld() {
+    
+    #ifdef __BULLET_PHYSICS__
+        DynamicsWorld->debugDrawWorld();
     #endif
 }
 
@@ -51,16 +72,22 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
     #ifdef __BULLET_PHYSICS__
         btTransform transformation;
         
-        DynamicsWorld->stepSimulation(time_step, 10);
-        
-        for (int i = 0; i < EntitiesVector.size(); i++) {
+        DynamicsWorld->stepSimulation(time_step, 100);
+    
+        std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    
+        while (it != EntitiesTable.end() ) {
             
-            GAMEPLAY_COMPONENT_PHYSICS * physics = ( GAMEPLAY_COMPONENT_PHYSICS *) EntitiesVector[i]->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
-            GAMEPLAY_COMPONENT_POSITION * position = ( GAMEPLAY_COMPONENT_POSITION *) EntitiesVector[i]->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+            GAMEPLAY_COMPONENT_PHYSICS * physics = ( GAMEPLAY_COMPONENT_PHYSICS *) (it->second)->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+            GAMEPLAY_COMPONENT_POSITION * position = ( GAMEPLAY_COMPONENT_POSITION *) (it->second)->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
             
             physics->GetBulletRigidBody()->getMotionState()->getWorldTransform( transformation );
             
             position->SetPosition(CORE_MATH_VECTOR(transformation.getOrigin().getX(), transformation.getOrigin().getY(), transformation.getOrigin().getZ(), 1.0f));
+            btQuaternion q = transformation.getRotation();
+            position->SetOrientation( CORE_MATH_QUATERNION( q.getX(), q.getZ(), q.getY(), q.getW() ) );
+            
+            it++;
         }
     #endif
 }
@@ -77,9 +104,23 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddEntity( GAMEPLAY_COMPONEN
     
     GAMEPLAY_COMPONENT_SYSTEM::AddEntity( handle, entity );
     
-    //GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics);
+    GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics);
     
     #ifdef __BULLET_PHYSICS__
         DynamicsWorld->addRigidBody( physics->GetBulletRigidBody() );
     #endif
+}
+
+void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddStaticEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) {
+    
+    GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics);
+    
+#ifdef __BULLET_PHYSICS__
+    DynamicsWorld->addRigidBody( physics->GetBulletRigidBody() );
+#endif
+}
+
+void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::SetCollisionFilter( btOverlapFilterCallback * callback ) {
+    
+    DynamicsWorld->getPairCache()->setOverlapFilterCallback( callback );
 }

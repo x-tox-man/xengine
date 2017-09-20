@@ -40,6 +40,8 @@
 #include "GRAPHIC_PARTICLE_MODIFIER_APPLY_VELOCITY.h"
 #include "GRAPHIC_PARTICLE_MODIFIER_GRAVITY.h"
 #include "APPLICATION_CONFIGURATION.h"
+#include "R3D_RENDER.h"
+#include "R3D_GAMEPLAY_GAME.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
 
@@ -52,26 +54,26 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
     virtual void Update( float time_step ) override;
     virtual void Render() override;
 
-    inline GRAPHIC_CAMERA * GetCamera() { return Camera; }
+    inline CORE_FILESYSTEM & GetDefaultFileystem() { return DefaultFileystem; }
+    inline R3D_GAMEPLAY_GAME & GetGame() { return Game; }
 
-    CORE_FILESYSTEM & GetDefaultFileystem() { return DefaultFileystem; }
-
-    void ResetRandom();
+    void SetCamera( GRAPHIC_CAMERA::PTR camera );
 
 private :
 
     void InitializeGraphics();
     void InitializeGameConfiguration();
+    void InitializePhysics();
 
-    CORE_MATH_QUATERNION
-        Lookat;
     CORE_FILESYSTEM
         DefaultFileystem;
-    GRAPHIC_CAMERA
-        * Camera;
-    GRAPHIC_CAMERA_ORTHOGONAL
-        * InterfaceCamera;
+    R3D_RENDER
+        GameRenderer;
+    R3D_GAMEPLAY_GAME
+        Game;
 
 XS_CLASS_END
+
+#define R3D_APP_PTR ((RUN3D_APPLICATION *) &RUN3D_APPLICATION::GetApplicationInstance())
 
 #endif /* MULTIPOLY_APPLICATION_hpp */

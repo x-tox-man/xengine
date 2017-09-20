@@ -20,8 +20,8 @@ GRAPHIC_SHADER_LIGHT::~GRAPHIC_SHADER_LIGHT() {
 }
 
 void GRAPHIC_SHADER_LIGHT::InitializePoint(
-                     CORE_MATH_VECTOR & color,
-                     CORE_MATH_VECTOR & position,
+                     const CORE_MATH_VECTOR & color,
+                     const CORE_MATH_VECTOR & position,
                      float exp,
                      float constant,
                      float linear,
@@ -46,7 +46,7 @@ void GRAPHIC_SHADER_LIGHT::InitializePoint(
 }
 
 void GRAPHIC_SHADER_LIGHT::InitializeAmbient(
-                       CORE_MATH_VECTOR & color,
+                       const CORE_MATH_VECTOR & color,
                        float ambient_intensity,
                        float diffuse_intensity ) {
     
@@ -63,9 +63,9 @@ void GRAPHIC_SHADER_LIGHT::InitializeAmbient(
 }
 
 void GRAPHIC_SHADER_LIGHT::InitializeSpot(
-                    CORE_MATH_VECTOR & color,
-                    CORE_MATH_VECTOR & position,
-                    CORE_MATH_VECTOR & direction,
+                    const CORE_MATH_VECTOR & color,
+                    const CORE_MATH_VECTOR & position,
+                    const CORE_MATH_VECTOR & direction,
                     float exp,
                     float constant,
                     float linear,
@@ -96,8 +96,8 @@ void GRAPHIC_SHADER_LIGHT::InitializeSpot(
 }
 
 void GRAPHIC_SHADER_LIGHT::InitializeDirectional(
-                           CORE_MATH_VECTOR & color,
-                           CORE_MATH_VECTOR & direction,
+                           const CORE_MATH_VECTOR & color,
+                           const CORE_MATH_VECTOR & direction,
                            float ambient_intensity,
                             float diffuse_intensity) {
     

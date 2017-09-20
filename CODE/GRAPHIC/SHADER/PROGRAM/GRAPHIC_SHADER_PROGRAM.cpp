@@ -30,6 +30,7 @@ const CORE_HELPERS_IDENTIFIER
     GRAPHIC_SHADER_PROGRAM::ColorTexture3( "c_texture_3" ),
     GRAPHIC_SHADER_PROGRAM::ColorTexture4( "c_texture_4" ),
     GRAPHIC_SHADER_PROGRAM::NormalTexture( "n_texture" ),
+    GRAPHIC_SHADER_PROGRAM::TesselationTexture( "t_texture" ),
     GRAPHIC_SHADER_PROGRAM::DepthTexture( "d_texture" ),
     GRAPHIC_SHADER_PROGRAM::SkinningMatrixTable( "jointsMatrix" ),
     GRAPHIC_SHADER_PROGRAM::AttrBindShapeMatrix( "attrBindShapeMatrix" ),

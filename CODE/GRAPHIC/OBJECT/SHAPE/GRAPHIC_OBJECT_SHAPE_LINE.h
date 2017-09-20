@@ -27,14 +27,15 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_OBJECT_SHAPE_LINE, GRAPHIC_OBJECT_SHAPE)
 
     virtual void InitializeShape() override;
 
-    void SetTarget( const CORE_MATH_VECTOR & target) { Target = target; }
+    inline void SetFrom( const CORE_MATH_VECTOR & target) { Vertices[0] = target[0]; Vertices[1] = target[1]; Vertices[2] = target[2]; Vertices[3] = target[3];}
+    inline void SetTo( const CORE_MATH_VECTOR & target) { Vertices[4] = target[0]; Vertices[5] = target[1]; Vertices[6] = target[2]; Vertices[7] = target[3]; }
 
-private:
+    void UpdateShape();
 
-    CORE_MATH_VECTOR
-        Target;
+private:    
+
     float
-        Vertices[16];
+        Vertices[8];
     GRAPHIC_SHADER_ATTRIBUTE
         * ShaderPositions;
 

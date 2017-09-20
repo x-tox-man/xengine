@@ -56,6 +56,8 @@
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h"
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.h"
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h"
+#include "GRAPHIC_SHADER_EFFECT_SPEEDBLUR.h"
+#include "GRAPHIC_MATERIAL_COLLECTION.h"
 
 @interface GRAPHICS_OPERATIONS : XCTestCase
 
@@ -114,7 +116,7 @@
     GRAPHIC_OBJECT_RENDER_OPTIONS
         options;
     
-    CubeEffect->Initialize( CubeObject->GetShaderBindParameter() );
+    CubeEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
     
     CubeObject->InitializeShape();
@@ -159,7 +161,7 @@
     GRAPHIC_OBJECT_RENDER_OPTIONS
         options;
     
-    CubeEffect->Initialize( CubeObject->GetShaderBindParameter() );
+    CubeEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     CubeEffect->SetMaterial( new GRAPHIC_MATERIAL( "Create_Server_button" ) );
     
     CubeObject->InitializeShape();
@@ -274,10 +276,15 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     AnimatedObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ) );
     
     Effect->Initialize( AnimatedObject->GetShaderBindParameter() );
-    Effect->SetMaterial( new GRAPHIC_MATERIAL );
+    
+    Effect->GetMaterialCollection()->LoadMaterialForName( "DE_Lingerie00_Body" );
+    Effect->GetMaterialCollection()->LoadMaterialForName( "DE_Lingerie00_Hands" );
+    Effect->GetMaterialCollection()->LoadMaterialForName( "DE_Lingerie00_Feet" );
+    Effect->GetMaterialCollection()->LoadMaterialForName( "DE_Lingerie00_Hair" );
+    Effect->GetMaterialCollection()->LoadMaterialForName( "DE_Lingerie00_Face" );
     
     CORE_MATH_QUATERNION lookat( 0.0f, 0.0f, 0.0f, 1.0f );
-    lookat.RotateX(45.0f);
+    lookat.RotateX(M_PI_4);
     lookat.Normalize();
     
     Camera = new GRAPHIC_CAMERA( 1.0f, 1000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
@@ -286,12 +293,15 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     RenderTarget.Apply();
     
-    //AnimatedObject->GetAnimationController()->Update( 0.033f );
+    AnimatedObject->GetMeshTable()[0]->SetTransform( CORE_MATH_MATRIX() );
     
-    //AnimatedObject->GetMeshTable()[0]->SetTransform( CORE_MATH_MATRIX() );
+    for (int i = 0; i < 60; i++) {
+        
+        AnimatedObject->GetAnimationController()->Update( 0.033f );
+    }
     
     options.SetPosition( CORE_MATH_VECTOR::Zero );
-    //options.SetOrientation( CORE_MATH_QUATERNION() );
+    options.SetOrientation( CORE_MATH_QUATERNION() );
     options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
     AnimatedObject->Render(GRAPHIC_RENDERER::GetInstance(), options, Effect );
@@ -317,11 +327,10 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     GRAPHIC_OBJECT_RENDER_OPTIONS
     options;
     
-    Effect->Initialize( text_shape->GetShaderBindParameter() );
-    
-    text_shape->Initialize( "Hello", *font, 1.0f, &Effect->GetProgram() );
+    Effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
     text_shape->InitializeShape();
+    text_shape->Initialize( "Hello", *font, 1.0f, &Effect->GetProgram() );
     
     CORE_MATH_MATRIX rotation_mat;
     
@@ -331,7 +340,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     lookat.Normalize();
     
     //Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), lookat );
-    Camera = new GRAPHIC_CAMERA_ORTHOGONAL( 10.0f, -10.0f, 10.0f, 10.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat);
+    Camera = new GRAPHIC_CAMERA_ORTHOGONAL( 10.0f, -10.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat);
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
@@ -340,7 +349,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     text_shape->GetMeshTable()[0]->SetTransform( CORE_MATH_MATRIX() );
     Effect->SetMaterial( new GRAPHIC_MATERIAL );
     
-    Effect->GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( font->GetTexture() ) );
+    Effect->GetMaterialCollection()->GetDefaultMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( font->GetTexture() ) );
     
     options.SetPosition( CORE_MATH_VECTOR::Zero );
     options.SetOrientation( CORE_MATH_QUATERNION() );
@@ -364,7 +373,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     GRAPHIC_OBJECT_RENDER_OPTIONS
     options;
     
-    CubeEffect->Initialize( CubeObject->GetShaderBindParameter() );
+    CubeEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
     
     CubeObject->InitializeShape();
@@ -534,12 +543,10 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         GaussianRenderTarget1,
         GaussianRenderTarget2,
         BloomRenderTarget;
-    GRAPHIC_TEXTURE_BLOCK
-        * TextureBlock = new GRAPHIC_TEXTURE_BLOCK,
-        * TextureBlock2 = new GRAPHIC_TEXTURE_BLOCK,
-        * TextureBlock3 = new GRAPHIC_TEXTURE_BLOCK;
-    
-    /*BlurEffect = (GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR ) GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SpeedBlur"), CORE_FILESYSTEM_PATH::FindFilePath( "FullScreenSpeedBlurShader" , "", "OPENGL2" ) );*/
+    GRAPHIC_TEXTURE_BLOCK::PTR
+        TextureBlock = new GRAPHIC_TEXTURE_BLOCK,
+        TextureBlock2 = new GRAPHIC_TEXTURE_BLOCK,
+        TextureBlock3 = new GRAPHIC_TEXTURE_BLOCK;
     
     
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::PTR BloomEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BloomShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenBloomPostProcess" , "", "OPENGL2" ) ) );
@@ -587,10 +594,9 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
     {
-        CubeEffect->Initialize( CubeObject->GetShaderBindParameter() );
-        CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
-        
         CubeObject->InitializeShape();
+        CubeEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+        CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
         
         CORE_MATH_MATRIX rotation_mat;
         
@@ -684,6 +690,136 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         
         FinalRenderTarget.Discard();
     }
+}
+
+-(void) testMotionBlurEffect {
+    
+    GRAPHIC_OBJECT_SHAPE_PLAN
+        * PlanObject = new GRAPHIC_OBJECT_SHAPE_PLAN;
+    GRAPHIC_RENDER_TARGET
+        PrimaryRenderTarget,
+        FinalRenderTarget;
+    
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        option;
+    
+    
+    PrimaryRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 0 );
+    FinalRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    
+    PrimaryRenderTarget.Discard();
+    FinalRenderTarget.Discard();
+    
+    auto CubeObject = new GRAPHIC_OBJECT_SHAPE_CUBE;
+    
+    auto CubeEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    
+    GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR SpeedBlurEffect = new GRAPHIC_SHADER_EFFECT_SPEEDBLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::FullScreenSpeedBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullScreenSpeedBlurShader" , "", "OPENGL2" ) ) );
+    
+    SpeedBlurEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    
+    CORE_MATH_QUATERNION interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
+    
+    interface_lookat.Normalize();
+    
+    PlanObject->InitializeShape();
+    
+    auto RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, interface_lookat );
+    option.SetPosition( CORE_MATH_VECTOR::Zero );
+    option.SetOrientation( CORE_MATH_QUATERNION() );
+    option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    CORE_MATH_QUATERNION v_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
+    
+    v_lookat.Normalize();
+    
+    Camera->UpdateCamera( CORE_MATH_VECTOR( -10.0f, 0.0f, 10.0f, 0.0f), v_lookat );
+    
+    CORE_MATH_MATRIX previous_mat( &Camera->GetProjectionMatrix()[0] );
+    
+    previous_mat *= Camera->GetViewMatrix();
+    
+    memcpy(
+           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) &previous_mat[0],
+           16* sizeof(float) );
+
+    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), v_lookat );
+    
+    CORE_MATH_MATRIX current_mat( &Camera->GetProjectionMatrix()[0] );
+    
+    CORE_MATH_MATRIX inv( CORE_MATH_MATRIX::Identity );
+    
+    current_mat *= Camera->GetViewMatrix();
+    current_mat.GetInverse( inv );
+    
+    
+    memcpy(
+           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::InverseCurrentModelViewIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) &inv[0],
+           16* sizeof(float) );
+    
+    {
+        CubeObject->InitializeShape();
+        CubeEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+        CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
+        
+        CORE_MATH_MATRIX rotation_mat;
+        
+        rotation_mat.Translate(CORE_MATH_VECTOR(0.0f, 0.0f, 0.0f, 0.0f ));
+        rotation_mat.XRotate(M_PI_2);
+        
+        CORE_MATH_QUATERNION lookat;
+        
+        lookat.FromMatrix( &rotation_mat[0] );
+        lookat.Normalize();
+        
+        Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+        
+        GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+        
+        PrimaryRenderTarget.Apply();
+        
+        CubeObject->GetMeshTable()[0]->SetTransform( CORE_MATH_MATRIX() );
+        
+        CubeObject->Render(GRAPHIC_RENDERER::GetInstance(), option, CubeEffect );
+        
+        GRAPHIC_TEXTURE * texture = PrimaryRenderTarget.GetTargetTexture();
+        texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testMotionBlurEffect-0" , "png", "" ) );
+        
+        PrimaryRenderTarget.Discard();
+    }
+    
+    CORE_MATH_VECTOR deltaPosition = CORE_MATH_VECTOR( 10.0f, 0.0f, 0.0f, 0.0f);
+    
+    memcpy(
+           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::ViewRayIdentifier ).AttributeValue.Value.FloatArray4,
+           (void*) &deltaPosition[0],
+           4* sizeof(float) );
+    
+    GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
+    {
+        GRAPHIC_TEXTURE_BLOCK::PTR tb = new GRAPHIC_TEXTURE_BLOCK();
+        tb->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
+        
+        auto mat = new GRAPHIC_MATERIAL;
+        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, tb );
+        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::DepthTexture, tb );
+        SpeedBlurEffect->SetMaterial( mat );
+        
+        FinalRenderTarget.Apply();
+        PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, SpeedBlurEffect );
+        
+        GRAPHIC_TEXTURE * texture = FinalRenderTarget.GetTargetTexture();
+        texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testMotionBlurEffect-Final" , "png", "" ) );
+        
+        FinalRenderTarget.Discard();
+    }
+    
+    memcpy(
+           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) &previous_mat[0],
+           16* sizeof(float) );
 }
 
 @end

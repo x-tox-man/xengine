@@ -9,6 +9,7 @@
 #import "Create3dItem.h"
 #import "Constants.h"
 #import "ResourceManager.h"
+#import "GAMEPLAY_COMPONENT_POSITION.h"
 
 @interface Create3dItem ()
 
@@ -50,9 +51,12 @@
     
     static int c_index = 0;
     GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
-    component_entity->SetIndex( c_index++ );
+    GAMEPLAY_COMPONENT_HANDLE handle;
     
-    component_entity->SetCompononent( GAMEPLAY_COMPONENT::FactoryCreate( GAMEPLAY_COMPONENT_TYPE_Position ), GAMEPLAY_COMPONENT_TYPE_Position );
+    handle.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
+    
+    
+    component_entity->SetCompononent( handle, GAMEPLAY_COMPONENT_TYPE_Position );
     
     [self.BackDelegate OnBack];
     

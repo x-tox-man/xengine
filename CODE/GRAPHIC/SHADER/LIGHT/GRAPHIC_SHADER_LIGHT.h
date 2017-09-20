@@ -75,8 +75,8 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_LIGHT )
     ~GRAPHIC_SHADER_LIGHT();
 
     void InitializePoint(
-                         CORE_MATH_VECTOR & color,
-                         CORE_MATH_VECTOR & position,
+                         const CORE_MATH_VECTOR & color,
+                         const CORE_MATH_VECTOR & position,
                          float exp,
                          float constant,
                          float linear,
@@ -85,14 +85,14 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_LIGHT )
                          );
 
     void InitializeAmbient(
-                           CORE_MATH_VECTOR & color,
+                           const CORE_MATH_VECTOR & color,
                            float ambient_intensity,
                            float diffuse_intensity
                            );
     void InitializeSpot(
-                        CORE_MATH_VECTOR & color,
-                        CORE_MATH_VECTOR & position,
-                        CORE_MATH_VECTOR & direction,
+                        const CORE_MATH_VECTOR & color,
+                        const CORE_MATH_VECTOR & position,
+                        const CORE_MATH_VECTOR & direction,
                         float exp,
                         float constant,
                         float linear,
@@ -101,8 +101,8 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_LIGHT )
                         float diffuse_intensity);
 
     void InitializeDirectional(
-                               CORE_MATH_VECTOR & color,
-                               CORE_MATH_VECTOR & direction,
+                               const CORE_MATH_VECTOR & color,
+                               const CORE_MATH_VECTOR & direction,
                                float ambient_intensity,
                                float diffuse_intensity);
 
