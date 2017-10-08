@@ -39,6 +39,9 @@ const CORE_HELPERS_IDENTIFIER
     GRAPHIC_SHADER_PROGRAM::DirectionalLightDirection( "directional_light.Direction" ),
     GRAPHIC_SHADER_PROGRAM::DirectionalLightAmbientIntensity( "directional_light.AmbientIntensity" ),
     GRAPHIC_SHADER_PROGRAM::DirectionalLightDiffuseIntensity( "directional_light.DiffuseIntensity" ),
+    GRAPHIC_SHADER_PROGRAM::AmbientLightColor( "ambient_light.Color" ),
+    GRAPHIC_SHADER_PROGRAM::AmbientLightAmbientIntensity( "ambient_light.AmbientIntensity" ),
+    GRAPHIC_SHADER_PROGRAM::AmbientLightDiffuseIntensity( "ambient_light.DiffuseIntensity" ),
     GRAPHIC_SHADER_PROGRAM::PointLight0Color( "point_light_table[0].Color" ),
     GRAPHIC_SHADER_PROGRAM::PointLight0Position( "point_light_table[0].Position" ),
     GRAPHIC_SHADER_PROGRAM::PointLight0AmbientIntensity( "point_light_table[0].AmbientIntensity" ),
@@ -74,4 +77,5 @@ const CORE_HELPERS_IDENTIFIER
     GRAPHIC_SHADER_PROGRAM::AmbientLight( "AmbientLight" ),
     GRAPHIC_SHADER_PROGRAM::CameraWorldPosition( "CameraWorldPosition" ),
     GRAPHIC_SHADER_PROGRAM::LightSpecularPower( "LightSpecularPower" ),
-    GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity( "MaterialSpecularIntensity" );
+    GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity( "MaterialSpecularIntensity" ),
+    GRAPHIC_SHADER_PROGRAM::TimeModulator( "TimeModulator" );

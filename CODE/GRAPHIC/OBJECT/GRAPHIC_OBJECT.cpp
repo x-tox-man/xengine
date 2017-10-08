@@ -73,6 +73,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         effect->Apply( renderer );
         
         GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & time_mod = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
         
         GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
         
@@ -81,6 +82,12 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
         
         GRAPHIC_SHADER_ATTRIBUTE & depth = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
+        
+        if ( time_mod.AttributeIndex > 0 ) {
+            
+            GFX_CHECK( glUniform1f( time_mod.AttributeIndex,
+                                   time_mod.AttributeValue.Value.FloatValue); )
+        }
         
         if ( depth.AttributeIndex > 0 && renderer.GetDepthTexture() ) {
             

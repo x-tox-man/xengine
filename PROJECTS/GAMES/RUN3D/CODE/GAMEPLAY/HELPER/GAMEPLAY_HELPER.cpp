@@ -18,6 +18,8 @@
 #include "CORE_FILESYSTEM_FILE_WATCHER.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
 #include "RESOURCE_IMAGE.h"
+#include "PHYSICS_UTILS.h"
+#include "CORE_MATH_RAY_SEGMENT.h"
 
 void GAMEPLAY_HELPER::CreateComponent_PositionRenderPhysicsScriptAnimation( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
@@ -209,41 +211,65 @@ void GAMEPLAY_HELPER::AddToAnimations( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[1]->AddEntity(entity->GetHandle(), entity );
 }
 
-void GAMEPLAY_HELPER::AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
+void GAMEPLAY_HELPER::AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with ) {
     
-    R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[4]->AddEntity(entity->GetHandle(), entity );
+    ( ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[4])->AddEntity(entity->GetHandle(), entity, group, collides_with );
 }
 
-void GAMEPLAY_HELPER::AddStaticToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
+void GAMEPLAY_HELPER::AddStaticToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with ) {
     
-    ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[4])->AddStaticEntity(entity->GetHandle(), entity );
-}
-
-void GAMEPLAY_HELPER::SetPosition( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position ) {
-    
-    auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-    
-    pos->SetPosition( position );
-}
-
-void GAMEPLAY_HELPER::SetOrientation( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_QUATERNION & orientation ) {
-    
-    auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-    auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
-    
-    pos->SetOrientation( orientation );
-    comp->SetOrientation( orientation );
+    ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[4])->AddStaticEntity(entity->GetHandle(), entity, group, collides_with );
 }
 
 void GAMEPLAY_HELPER::SetPhysicsSphereObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, float mass ) {
     
+    auto render = (GAMEPLAY_COMPONENT_RENDER *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    
+#if DEBUG
+    assert( render != NULL && pos != NULL );
+#endif
+    
+    auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    
+    pos->SetPosition( position );
+    
+    if ( comp ) {
+        
+        comp->ConfigureShapeSphere( position, orientation );
+        comp->SetMass( mass );
+    }
+}
+
+void GAMEPLAY_HELPER::SetPhysicsBoxObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & half_extent, const CORE_MATH_QUATERNION & orientation, float mass ) {
+    
     auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     auto render = (GAMEPLAY_COMPONENT_RENDER *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+#if DEBUG
+    assert( comp != NULL && render != NULL );
+#endif
     auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     pos->SetPosition( position );
     
-    comp->ConfigureShapeSphere( position, orientation );
+    comp->ConfigureShapeBox( position, half_extent, orientation );
+    comp->SetMass( mass );
+}
+
+void GAMEPLAY_HELPER::SetPhysicsCylinderObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, float radius, float height, const CORE_MATH_QUATERNION & orientation, float mass ) {
+    
+    auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    auto render = (GAMEPLAY_COMPONENT_RENDER *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+#if DEBUG
+    assert( comp != NULL && render != NULL );
+#endif
+    auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    
+    pos->SetPosition( position );
+    
+    comp->ConfigureShapeCylinder(position, radius, height, orientation );
     comp->SetMass( mass );
 }
 
@@ -251,6 +277,10 @@ void GAMEPLAY_HELPER::SetPhysicsObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, c
     
     auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     auto render = (GAMEPLAY_COMPONENT_RENDER *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+#if DEBUG
+    assert( comp != NULL && render != NULL );
+#endif
+    
     auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     pos->SetPosition( position );
@@ -263,6 +293,11 @@ void GAMEPLAY_HELPER::SetPhysicsGroundHeightMapObject( GAMEPLAY_COMPONENT_ENTITY
     
     auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     auto render = (GAMEPLAY_COMPONENT_RENDER *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+#if DEBUG
+    assert( comp != NULL && render != NULL );
+#endif
+    
     auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR object = render->GetObject().GetResource<GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP>();
     
@@ -273,4 +308,25 @@ void GAMEPLAY_HELPER::SetPhysicsGroundHeightMapObject( GAMEPLAY_COMPONENT_ENTITY
 void GAMEPLAY_HELPER::InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, GRAPHIC_CAMERA & camera ) {
     
     camera.Reset( 1.0f, 10000.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, orientation );
+}
+
+CORE_MATH_VECTOR GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
+    
+    CORE_MATH_VECTOR elevation;
+    auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    
+    auto bullet = R3D_APP_PTR->GetGame().GetBulletSystem();
+    
+    CORE_MATH_RAY_SEGMENT ray;
+    ray.SetOrigin( pos->GetPosition() );
+    ray.SetDestination( pos->GetPosition() + CORE_MATH_VECTOR( 0.0f, 0.0f, -10.0f, 0.0f) );
+    
+    if ( PHYSICS_UTILS::FindCollisionInRayFromWorld(bullet->GetDynamicsWorld(), elevation, ray ) ) {
+        
+        return pos->GetPosition() - elevation;
+    }
+    else {
+        
+        return CORE_MATH_VECTOR::Zero;
+    }
 }

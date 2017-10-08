@@ -49,7 +49,11 @@ class RESOURCE : public BASE_RESOURCE {
 
 public:
     
-    RESOURCE() {
+    RESOURCE()
+    #if DEBUG
+    : Watcher()
+    #endif
+    {
         
     }
     

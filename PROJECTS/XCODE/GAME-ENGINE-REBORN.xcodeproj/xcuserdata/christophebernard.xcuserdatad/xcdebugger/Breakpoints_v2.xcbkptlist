@@ -103,13 +103,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../CODE/GAMEPLAY/COMPONENT/GAMEPLAY_COMPONENT_RENDER.cpp"
-            timestampString = "522065819.654614"
+            filePath = "../../CODE/GAMEPLAY/COMPONENT/SYSTEM/GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp"
+            timestampString = "522066389.178677"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER &amp; renderer, GAMEPLAY_COMPONENT_POSITION * component )"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Update( float time_step )"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -119,13 +119,125 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../CODE/GAMEPLAY/COMPONENT/SYSTEM/GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp"
-            timestampString = "522066389.178677"
+            filePath = "../../CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
+            timestampString = "528030338.662193"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Update( float time_step )"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER &amp; renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS &amp; options, GRAPHIC_SHADER_EFFECT * effect )"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GRAPHIC_OBJECT::Render(GRAPHIC_RENDERER&amp;, GRAPHIC_OBJECT_RENDER_OPTIONS const&amp;, GRAPHIC_SHADER_EFFECT*)"
+                  moduleName = "ASSET_EDITOR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
+                  timestampString = "529165127.776534"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "764">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GRAPHIC_OBJECT::Render(GRAPHIC_RENDERER&amp;, GRAPHIC_OBJECT_RENDER_OPTIONS const&amp;, GRAPHIC_SHADER_EFFECT*)"
+                  moduleName = "ASSET_EDITOR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
+                  timestampString = "529165127.778799"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "789">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../CODE/RESOURCE/MESH/GRAPHIC_MESH_LOADER_COLLADA.cpp"
+            timestampString = "528030338.662295"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "COLLADA_LOADER_WRITER::fillSkeleton( std::vector&lt;GRAPHIC_MESH_ANIMATION_JOINT *&gt; &amp; joints, int base_index, int * index_table, COLLADAFW::Node * node, GRAPHIC_MESH_SUB_SKELETON &amp; skeleton )"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../CODE/RESOURCE/MESH/GRAPHIC_MESH_LOADER_COLLADA.cpp"
+            timestampString = "528030338.66238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "640"
+            endingLineNumber = "640"
+            landmarkName = "COLLADA_LOADER_WRITER::writeAnimation( const COLLADAFW::Animation* animation )"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../CODE/RESOURCE/MESH/GRAPHIC_MESH_LOADER_COLLADA.cpp"
+            timestampString = "528030338.662457"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "649"
+            endingLineNumber = "649"
+            landmarkName = "COLLADA_LOADER_WRITER::writeAnimation( const COLLADAFW::Animation* animation )"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../CODE/RESOURCE/MESH/GRAPHIC_MESH_LOADER_COLLADA.cpp"
+            timestampString = "528030338.662523"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "656"
+            endingLineNumber = "656"
+            landmarkName = "COLLADA_LOADER_WRITER::writeAnimation( const COLLADAFW::Animation* animation )"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ASSET_EDITOR/ProgramDocument.m"
+            timestampString = "529165127.044187"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "-windowNibName"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

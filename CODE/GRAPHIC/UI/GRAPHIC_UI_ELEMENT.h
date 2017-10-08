@@ -124,6 +124,7 @@ protected:
         Visible;
     float
         Opacity;
+
 XS_CLASS_END
 
 #endif /* defined(__GAME_ENGINE_REBORN__GRAPHIC_UI_ELEMENT__) */

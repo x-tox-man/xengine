@@ -16,6 +16,8 @@
 #include "GAMEPLAY_COMPONENT_ENTITY_HANDLE.h"
 #include "CORE_HELPERS_UNIQUE.h"
 
+class GAMEPLAY_COMPONENT_BASE_ENTITY;
+
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
 
     XS_DEFINE_UNIQUE( GAMEPLAY_COMPONENT_MANAGER )
@@ -24,7 +26,43 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
 
     void Initialize();
 
-    GAMEPLAY_COMPONENT_ENTITY * CreateEntity();
+    template <typename __ENTITY_TARGET_TYPE__>
+    __ENTITY_TARGET_TYPE__ * CreateEntity() {
+        
+        int index = (int) InternalVector.size();
+        
+        if( index == 0) {
+            
+            if ( InternalVector.size() != 16 ) {
+                
+                InternalVector.resize(16);
+            }
+            
+            InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_ENTITY * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_ENTITY ) );
+            InternalVector[0].LastIndex = 0;
+        }
+        
+        int size = sizeof( __ENTITY_TARGET_TYPE__ ) - sizeof( GAMEPLAY_COMPONENT_ENTITY );
+        
+#if DEBUG
+        if ((size / sizeof( GAMEPLAY_COMPONENT_ENTITY ) ) > 2048 - InternalVector[0].LastIndex - 1) {
+            abort();
+        }
+#endif
+        
+        __ENTITY_TARGET_TYPE__ * en = (__ENTITY_TARGET_TYPE__ *) new (InternalVector[ 0 ].MemoryArray + ( ++InternalVector[ 0 ].LastIndex ) ) __ENTITY_TARGET_TYPE__();
+        
+        while( size > 0 ) {
+            
+            InternalVector[ 0 ].LastIndex++;
+            size -= sizeof( GAMEPLAY_COMPONENT_ENTITY );
+        }
+        
+        en->GetHandle().SetIndex( InternalVector[ 0 ].LastIndex );
+        en->GetHandle().SetOffset( 0 );
+        
+        return en;
+    }
 
     inline GAMEPLAY_COMPONENT_ENTITY * GetEntity( int index ) {
         
@@ -40,7 +78,7 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
     void SaveToStream( CORE_DATA_STREAM & stream );
     void LoadFromStream( CORE_DATA_STREAM & stream );
 
-    GAMEPLAY_COMPONENT_ENTITY * FindEntity( const GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle ) {
+    inline GAMEPLAY_COMPONENT_ENTITY * FindEntity( const GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle ) {
     
         return &InternalVector[ handle.GetOffset() ].MemoryArray[ handle.GetIndex() -1 ]; //Fix this minus One that hangs around
     }

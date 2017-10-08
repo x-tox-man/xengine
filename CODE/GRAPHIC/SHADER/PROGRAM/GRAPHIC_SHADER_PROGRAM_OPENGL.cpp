@@ -266,6 +266,40 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     }
     delete attribute;
     
+    //AMBIENT
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightColor.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = AmbientLightColor;
+        
+        setShaderAttribute(*attribute);
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightAmbientIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = AmbientLightAmbientIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightDiffuseIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = AmbientLightDiffuseIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+    }
+    
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightColor.GetTextValue() ); )
     
@@ -723,6 +757,17 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     if ( attribute->AttributeIndex != -1 ) {
         
         attribute->AttributeName = MaterialSpecularIntensity;
+        
+        setShaderAttribute(*attribute);
+    }
+    delete attribute;
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, TimeModulator.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = TimeModulator;
         
         setShaderAttribute(*attribute);
     }

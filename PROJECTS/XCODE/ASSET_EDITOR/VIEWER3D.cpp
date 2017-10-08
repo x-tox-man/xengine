@@ -47,7 +47,7 @@ void VIEWER3D::Initialize() {
     
     lookat.Normalize();
     
-    Camera = new GAMEPLAY_CAMERA();
+    Camera = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_CAMERA >();
     Camera->Initialize( 1.0f, 10000.0f, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), position, lookat );
     
     DirectionalLight = new GRAPHIC_SHADER_LIGHT;
@@ -296,7 +296,7 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     
     effect->SetMaterial( material );
     
-    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
+    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<GAMEPLAY_COMPONENT_ENTITY>();
     
     GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r, handle_ph;
     

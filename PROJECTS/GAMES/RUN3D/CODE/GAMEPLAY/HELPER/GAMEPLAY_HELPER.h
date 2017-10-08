@@ -16,6 +16,7 @@
 #include "CORE_MATH_QUATERNION.h"
 #include "GRAPHIC_CAMERA.h"
 #include "GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.h"
+#include "PHYSICS_COLLISION_TYPE.h"
 
 XS_CLASS_BEGIN( GAMEPLAY_HELPER )
 
@@ -36,16 +37,18 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
     static void AddToWorld( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToAnimations( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
-    static void AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
-    static void AddStaticToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    static void AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with );
+    static void AddStaticToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with );
 
-    static void SetPosition( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position );
-    static void SetOrientation( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_QUATERNION & orientation );
     static void SetPhysicsSphereObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, float mass );
+    static void SetPhysicsBoxObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & half_extent, const CORE_MATH_QUATERNION & orientation, float mass );
+    static void SetPhysicsCylinderObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, float radius, float height, const CORE_MATH_QUATERNION & orientation, float mass );
     static void SetPhysicsObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, float mass );
     static void SetPhysicsGroundHeightMapObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, float mass );
 
     static void InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, GRAPHIC_CAMERA & camera );
+
+    static CORE_MATH_VECTOR GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
 
 XS_CLASS_END
 

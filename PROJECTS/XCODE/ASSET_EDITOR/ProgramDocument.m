@@ -10,13 +10,12 @@
 
 @implementation ProgramDocument
 
-/*
 - (NSString *)windowNibName {
     // Override returning the nib file name of the document
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
-    return <#nibName#>;
+    return @"test";
 }
-*/
+
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController {
     [super windowControllerDidLoadNib:aController];

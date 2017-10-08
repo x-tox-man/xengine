@@ -26,7 +26,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
     GAMEPLAY_COMPONENT_POSITION();
     virtual ~GAMEPLAY_COMPONENT_POSITION();
 
-    XS_DEFINE_OBSERVABLE(GAMEPLAY_COMPONENT_POSITION)
+    XS_DEFINE_OBSERVABLE( GAMEPLAY_COMPONENT_POSITION )
 
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT_POSITION );
 
@@ -35,7 +35,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
     void * operator new(size_t size);
     void operator delete  ( void* ptr );
 
-    CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Position)
+    CORE_HELPERS_FACTORY_Element( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Position )
 
     struct INTERNAL_ARRAY{
         int LastIndex;
@@ -44,6 +44,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
 
     inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
     inline CORE_MATH_VECTOR & GetPosition() { return Position; }
+
+    inline void SetPositionOffset( const CORE_MATH_VECTOR & offset ) { PositionOffset = offset; }
+    inline CORE_MATH_VECTOR & GetPositionOffset() { return PositionOffset; }
 
     inline CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
     inline const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
@@ -72,12 +75,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT )
 private :
 
     CORE_MATH_VECTOR
-        Position;
-    CORE_MATH_VECTOR
+        Position,
+        PositionOffset,
         Velocity;
     CORE_MATH_QUATERNION
-        Orientation;
-    CORE_MATH_QUATERNION
+        Orientation,
         Spin;
     static std::vector< INTERNAL_ARRAY >
         * InternalVector;

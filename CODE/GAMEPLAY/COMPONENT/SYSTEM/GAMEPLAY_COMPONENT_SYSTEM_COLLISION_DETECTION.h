@@ -32,14 +32,15 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAM
     inline void SetGravity( const float gravity ) { Gravity = gravity; }
     inline void SetRenderer( GRAPHIC_RENDERER * renderer ) { Renderer = renderer; }
 
-    void SetCollisionFilter( btOverlapFilterCallback * callback );
-
     #ifdef __BULLET_PHYSICS__
+        void SetCollisionFilter( btOverlapFilterCallback * callback );
+
         btDiscreteDynamicsWorld * GetDynamicsWorld() { return DynamicsWorld; }
     #endif
 
-    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) override;
-    void AddStaticEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity );
+    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity) override { abort(); }
+    void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity, int group, int mask );
+    void AddStaticEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity, int group, int mask );
 
     void DebugDrawWorld();
 

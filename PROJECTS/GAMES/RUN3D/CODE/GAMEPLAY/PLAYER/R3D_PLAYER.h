@@ -17,11 +17,11 @@ XS_CLASS_BEGIN( R3D_PLAYER )
     R3D_PLAYER();
 
     void Initialize();
-    inline R3D_PLAYER_SHIP & GetShip() { return Ship; }
+    inline R3D_PLAYER_SHIP::PTR GetShip() { return Ship; }
 
 private :
 
-    R3D_PLAYER_SHIP
+    R3D_PLAYER_SHIP::PTR
         Ship;
 
 XS_CLASS_END

@@ -15,10 +15,11 @@
 #include "GAMEPLAY_COMPONENT_ANIMATION.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_SCRIPT.h"
+#include "GAMEPLAY_COMPONENT_BASE_ENTITY.h"
 
 GAMEPLAY_COMPONENT_MANAGER::GAMEPLAY_COMPONENT_MANAGER() :
     InternalVector() {
-    
+        
 }
 
 GAMEPLAY_COMPONENT_MANAGER::~GAMEPLAY_COMPONENT_MANAGER() {
@@ -31,29 +32,6 @@ GAMEPLAY_COMPONENT_MANAGER::~GAMEPLAY_COMPONENT_MANAGER() {
 
 void GAMEPLAY_COMPONENT_MANAGER::Initialize() {
 
-}
-
-GAMEPLAY_COMPONENT_ENTITY * GAMEPLAY_COMPONENT_MANAGER::CreateEntity() {
-    
-    int index = (int) InternalVector.size();
-    
-    if( index == 0) {
-        
-        if ( InternalVector.size() != 16 ) {
-            
-            InternalVector.resize(16);
-        }
-        
-        InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_ENTITY * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_ENTITY ) );
-        InternalVector[0].LastIndex = 0;
-    }
-    
-    GAMEPLAY_COMPONENT_ENTITY * en = (GAMEPLAY_COMPONENT_ENTITY *) new (InternalVector[ 0 ].MemoryArray + ( ++InternalVector[ 0 ].LastIndex ) ) GAMEPLAY_COMPONENT_ENTITY();
-    
-    en->GetHandle().SetIndex( InternalVector[ 0 ].LastIndex );
-    en->GetHandle().SetOffset( 0 );
-    
-    return en;
 }
 
 void GAMEPLAY_COMPONENT_MANAGER::Clear() {

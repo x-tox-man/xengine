@@ -14,7 +14,7 @@
 #include "R3D_PLAYER_PARTS_COLLECTION.h"
 #include "GRAPHIC_CAMERA.h"
 
-XS_CLASS_BEGIN( R3D_PLAYER_SHIP )
+XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_PLAYER_SHIP, GAMEPLAY_COMPONENT_ENTITY)
 
     R3D_PLAYER_SHIP();
     ~R3D_PLAYER_SHIP();
@@ -22,10 +22,10 @@ XS_CLASS_BEGIN( R3D_PLAYER_SHIP )
     void Initialize();
     void Update( float step );
 
+    void CreateWeaponSystem(  const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation );
+
 private:
 
-    GAMEPLAY_COMPONENT_ENTITY::PTR
-        Entity;
     R3D_PLAYER_PARTS_COLLECTION
         Parts;
     GRAPHIC_CAMERA

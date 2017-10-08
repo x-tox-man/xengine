@@ -7,13 +7,15 @@
 //
 
 #include "R3D_PLAYER.h"
+#include "GAMEPLAY_COMPONENT_MANAGER.h"
 
 R3D_PLAYER::R3D_PLAYER() :
-    Ship() {
+    Ship( NULL ) {
     
 }
 
 void R3D_PLAYER::Initialize() {
     
-    Ship.Initialize();
+    Ship = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_PLAYER_SHIP >();
+    Ship->Initialize();
 }

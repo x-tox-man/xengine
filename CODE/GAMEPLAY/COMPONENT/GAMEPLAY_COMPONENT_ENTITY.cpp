@@ -12,12 +12,13 @@
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_ANIMATION.h"
 #include "GAMEPLAY_COMPONENT_HANDLE.h"
+#include "GAMEPLAY_COMPONENT_BASE_ENTITY.h"
 #include "CORE_DATA_STREAM.h"
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GAMEPLAY_COMPONENT_ENTITY )
-    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_POSITION::PTR, GAMEPLAY_COMPONENT_ENTITY, GetComponentPosition )
-    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_RENDER::PTR, GAMEPLAY_COMPONENT_ENTITY, GetComponentRender)
-    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_PHYSICS::PTR, GAMEPLAY_COMPONENT_ENTITY, GetComponentPhysics)
+    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_POSITION::PTR, GAMEPLAY_COMPONENT_ENTITY , GetComponentPosition )
+    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_RENDER::PTR, GAMEPLAY_COMPONENT_ENTITY , GetComponentRender)
+    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_PHYSICS::PTR, GAMEPLAY_COMPONENT_ENTITY , GetComponentPhysics)
 CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GAMEPLAY_COMPONENT_ENTITY )
 
 int l = GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS;
@@ -30,22 +31,11 @@ XS_END_INTERNAL_MEMORY_LAYOUT
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY )
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY * )
 
-GAMEPLAY_COMPONENT_ENTITY::GAMEPLAY_COMPONENT_ENTITY() :
-    Components(),
-    Parent( NULL ),
-    ChildEntities() {
-    
-    for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
-        
-        ChildEntities[ i ] = NULL;
-    }
-}
-
 GAMEPLAY_COMPONENT_ENTITY::GAMEPLAY_COMPONENT_ENTITY( const GAMEPLAY_COMPONENT_ENTITY & other ) :
     Components(),
     Parent( other.GetParent() ),
     ChildEntities() {
-        
+    
     abort();
     
     for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
@@ -54,40 +44,54 @@ GAMEPLAY_COMPONENT_ENTITY::GAMEPLAY_COMPONENT_ENTITY( const GAMEPLAY_COMPONENT_E
     }
 }
 
-GAMEPLAY_COMPONENT_ENTITY::~GAMEPLAY_COMPONENT_ENTITY() {
-
-}
-
-GAMEPLAY_COMPONENT_POSITION * GAMEPLAY_COMPONENT_ENTITY::GetComponentPosition() {
-    
-    return ( GAMEPLAY_COMPONENT_POSITION * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-}
-
-GAMEPLAY_COMPONENT_RENDER * GAMEPLAY_COMPONENT_ENTITY::GetComponentRender() {
-    
-    return ( GAMEPLAY_COMPONENT_RENDER * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
-}
-
-GAMEPLAY_COMPONENT_PHYSICS * GAMEPLAY_COMPONENT_ENTITY::GetComponentPhysics() {
-    
-    return ( GAMEPLAY_COMPONENT_PHYSICS * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
-}
-
-GAMEPLAY_COMPONENT_ANIMATION * GAMEPLAY_COMPONENT_ENTITY::GetComponentAnimation() {
-    
-    return ( GAMEPLAY_COMPONENT_ANIMATION * )GetComponent( GAMEPLAY_COMPONENT_TYPE_Animation );
-}
-
 void GAMEPLAY_COMPONENT_ENTITY::SetPosition( const CORE_MATH_VECTOR & position ) {
     
     GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     GAMEPLAY_COMPONENT_PHYSICS * physics_component = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     
     position_component->SetPosition( position );
-    physics_component->ForcePosition( position );
+    if ( physics_component ) {
+        
+        physics_component->ForcePosition( position );
+    }
+
+    for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
+        
+        if ( ChildEntities[ i ] ) {
+            
+            ChildEntities[ i ]->SetPosition( position );
+        }
+    }
 }
 
-void GAMEPLAY_COMPONENT_ENTITY::PatchMemory( int index, GAMEPLAY_COMPONENT * component ) {
+void GAMEPLAY_COMPONENT_ENTITY::SetPositionOffset( const CORE_MATH_VECTOR & offset ) {
     
-    Components[ index ].SetComponent( component->GetComponentAt( Components[ index ].GetIndex(), Components[ index ].GetOffset() + 1 ) );
+    GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    
+    position_component->SetPositionOffset( offset );
+}
+
+void GAMEPLAY_COMPONENT_ENTITY::SetOrientation( const CORE_MATH_QUATERNION & orientation ) {
+    
+    GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    GAMEPLAY_COMPONENT_PHYSICS * physics_component = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    
+    position_component->SetOrientation(orientation);
+    
+    if ( physics_component) {
+        
+        physics_component->SetOrientation( orientation );
+    }
+    
+    for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
+        
+        if ( ChildEntities[ i ] ) {
+            
+            ChildEntities[ i ]->SetOrientation(orientation);
+        }
+    }
+}
+
+void GAMEPLAY_COMPONENT_ENTITY::CollidesWith( GAMEPLAY_COMPONENT_ENTITY * other ) {
+    
 }

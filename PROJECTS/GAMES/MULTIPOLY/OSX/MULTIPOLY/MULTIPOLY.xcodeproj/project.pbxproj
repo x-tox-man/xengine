@@ -228,10 +228,6 @@
 		321F73AB1E5A606E00E6710C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321F73AA1E5A606E00E6710C /* Carbon.framework */; };
 		321F73AD1E5A607A00E6710C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321F73AC1E5A607A00E6710C /* OpenGL.framework */; };
 		321F748A1E5A619E00E6710C /* GAMEPLAY_PLAYER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F74881E5A619E00E6710C /* GAMEPLAY_PLAYER.cpp */; };
-		321F74A81E5A622800E6710C /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 321F740C1E5A60CC00E6710C /* liblua-5.2.3.a */; };
-		321F74B11E5A622800E6710C /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 321F74161E5A60CC00E6710C /* libpng.a */; };
-		321F74B31E5A622800E6710C /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 321F74181E5A60CC00E6710C /* libuv.a */; };
-		321F74B41E5A622800E6710C /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 321F74191E5A60CC00E6710C /* libz.a */; };
 		321F74B71E5A62E800E6710C /* GAMEPLAY_GAME_BOARD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F74B51E5A62E800E6710C /* GAMEPLAY_GAME_BOARD.cpp */; };
 		321F74BA1E5A638E00E6710C /* GAMEPLAY_GAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 321F74B81E5A638E00E6710C /* GAMEPLAY_GAME.cpp */; };
 		32207CFB1E5B61C800DBCE53 /* GAMEPLAY_GAME_BOARD_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32207CF91E5B61C800DBCE53 /* GAMEPLAY_GAME_BOARD_CELL.cpp */; };
@@ -534,10 +530,6 @@
 		32651FD11E71D281003F33E1 /* untitled.smx in Resources */ = {isa = PBXBuildFile; fileRef = 32B51BCD1E6B699F0088E95F /* untitled.smx */; };
 		32651FD21E71D281003F33E1 /* mesh2.smx in Resources */ = {isa = PBXBuildFile; fileRef = 3293FAFB1E5E46840090AC15 /* mesh2.smx */; };
 		32651FD31E71D287003F33E1 /* monopoly-nintendo-plateau.png in Resources */ = {isa = PBXBuildFile; fileRef = 32C3EC7E1E5B976F006ED1C8 /* monopoly-nintendo-plateau.png */; };
-		32651FD91E71D317003F33E1 /* libLua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32651FD51E71D317003F33E1 /* libLua.a */; };
-		32651FDA1E71D317003F33E1 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32651FD61E71D317003F33E1 /* libpng.a */; };
-		32651FDB1E71D317003F33E1 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32651FD71E71D317003F33E1 /* libuv.a */; };
-		32651FDC1E71D317003F33E1 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32651FD81E71D317003F33E1 /* libz.a */; };
 		32651FDF1E71D55F003F33E1 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32651FDD1E71D55F003F33E1 /* OpenAL.framework */; };
 		32651FE01E71D55F003F33E1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32651FDE1E71D55F003F33E1 /* OpenGLES.framework */; };
 		32651FE21E71D5D0003F33E1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32651FE11E71D5D0003F33E1 /* CoreFoundation.framework */; };
@@ -1126,10 +1118,6 @@
 		321F73A81E5A606900E6710C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		321F73AA1E5A606E00E6710C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		321F73AC1E5A607A00E6710C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		321F740C1E5A60CC00E6710C /* liblua-5.2.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "liblua-5.2.3.a"; sourceTree = "<group>"; };
-		321F74161E5A60CC00E6710C /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng.a; sourceTree = "<group>"; };
-		321F74181E5A60CC00E6710C /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuv.a; sourceTree = "<group>"; };
-		321F74191E5A60CC00E6710C /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		321F74881E5A619E00E6710C /* GAMEPLAY_PLAYER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_PLAYER.cpp; sourceTree = "<group>"; };
 		321F74891E5A619E00E6710C /* GAMEPLAY_PLAYER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_PLAYER.h; sourceTree = "<group>"; };
 		321F74B51E5A62E800E6710C /* GAMEPLAY_GAME_BOARD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_GAME_BOARD.cpp; sourceTree = "<group>"; };
@@ -1194,10 +1182,6 @@
 		32651EAB1E71D0AB003F33E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32651EAE1E71D0AB003F33E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32651EB01E71D0AB003F33E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32651FD51E71D317003F33E1 /* libLua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLua.a; sourceTree = "<group>"; };
-		32651FD61E71D317003F33E1 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng.a; sourceTree = "<group>"; };
-		32651FD71E71D317003F33E1 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuv.a; sourceTree = "<group>"; };
-		32651FD81E71D317003F33E1 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		32651FDD1E71D55F003F33E1 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
 		32651FDE1E71D55F003F33E1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
 		32651FE11E71D5D0003F33E1 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -1331,10 +1315,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				321F74A81E5A622800E6710C /* liblua-5.2.3.a in Frameworks */,
-				321F74B11E5A622800E6710C /* libpng.a in Frameworks */,
-				321F74B31E5A622800E6710C /* libuv.a in Frameworks */,
-				321F74B41E5A622800E6710C /* libz.a in Frameworks */,
 				321F73AD1E5A607A00E6710C /* OpenGL.framework in Frameworks */,
 				321F73AB1E5A606E00E6710C /* Carbon.framework in Frameworks */,
 				321F73A91E5A606900E6710C /* Cocoa.framework in Frameworks */,
@@ -1355,10 +1335,6 @@
 				32651FE21E71D5D0003F33E1 /* CoreFoundation.framework in Frameworks */,
 				32651FDF1E71D55F003F33E1 /* OpenAL.framework in Frameworks */,
 				32651FE01E71D55F003F33E1 /* OpenGLES.framework in Frameworks */,
-				32651FDB1E71D317003F33E1 /* libuv.a in Frameworks */,
-				32651FD91E71D317003F33E1 /* libLua.a in Frameworks */,
-				32651FDC1E71D317003F33E1 /* libz.a in Frameworks */,
-				32651FDA1E71D317003F33E1 /* libpng.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1386,9 +1362,7 @@
 		321F70001E5A558800E6710C = {
 			isa = PBXGroup;
 			children = (
-				32651FD41E71D317003F33E1 /* i386 */,
 				32207D041E5B8F9500DBCE53 /* RESOURCES */,
-				321F73AE1E5A60CC00E6710C /* COMPILED_LIBS_OSX */,
 				321F73471E5A55B100E6710C /* CODE */,
 				321F701D1E5A55A500E6710C /* CODE */,
 				321F700B1E5A558900E6710C /* MULTIPOLY */,
@@ -2716,7 +2690,6 @@
 				3263225C1E6D90FB007881DA /* NETWORK */,
 				32B51BF81E6CD0CB0088E95F /* MODEL */,
 				321F73481E5A55B100E6710C /* APPLICATION */,
-				321F73491E5A55B100E6710C /* AUDIO */,
 				321F734A1E5A55B100E6710C /* GAMEPLAY */,
 				321F734B1E5A55B100E6710C /* GRAPHICS */,
 				321F734C1E5A55B100E6710C /* RESOURCE */,
@@ -2735,13 +2708,6 @@
 				32C27CB41E617FF2008411C6 /* APPLICATION_CONFIGURATION.cpp */,
 			);
 			path = APPLICATION;
-			sourceTree = "<group>";
-		};
-		321F73491E5A55B100E6710C /* AUDIO */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AUDIO;
 			sourceTree = "<group>";
 		};
 		321F734A1E5A55B100E6710C /* GAMEPLAY */ = {
@@ -2935,18 +2901,6 @@
 				321F739E1E5A603700E6710C /* AppKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		321F73AE1E5A60CC00E6710C /* COMPILED_LIBS_OSX */ = {
-			isa = PBXGroup;
-			children = (
-				321F740C1E5A60CC00E6710C /* liblua-5.2.3.a */,
-				321F74161E5A60CC00E6710C /* libpng.a */,
-				321F74181E5A60CC00E6710C /* libuv.a */,
-				321F74191E5A60CC00E6710C /* libz.a */,
-			);
-			name = COMPILED_LIBS_OSX;
-			path = ../../../../../../../DevelopStatic/COMPILED_LIBS_OSX;
 			sourceTree = "<group>";
 		};
 		321F74841E5A618E00E6710C /* GAME */ = {
@@ -3211,18 +3165,6 @@
 				32651EA01E71D0AB003F33E1 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		32651FD41E71D317003F33E1 /* i386 */ = {
-			isa = PBXGroup;
-			children = (
-				32651FD51E71D317003F33E1 /* libLua.a */,
-				32651FD61E71D317003F33E1 /* libpng.a */,
-				32651FD71E71D317003F33E1 /* libuv.a */,
-				32651FD81E71D317003F33E1 /* libz.a */,
-			);
-			name = i386;
-			path = ../../../../../../../DevelopStatic/COMPILED_LIBS_IOS/i386;
 			sourceTree = "<group>";
 		};
 		328E9B171E64CC0900112815 /* CARD */ = {

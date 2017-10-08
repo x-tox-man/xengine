@@ -273,13 +273,20 @@
 
     void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
         
-        GRAPHIC_SHADER_ATTRIBUTE & ambient_light = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::AmbientLight );
+        GRAPHIC_SHADER_ATTRIBUTE & ambient_light_color = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::AmbientLightColor );
+        GRAPHIC_SHADER_ATTRIBUTE & ambient_light_diffuse_intensity = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::AmbientLightDiffuseIntensity );
+        GRAPHIC_SHADER_ATTRIBUTE & ambient_light_ambient_intensity = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::AmbientLightAmbientIntensity );
         
-        GRAPHIC_SYSTEM_ApplyMatrix(
-            ambient_light.AttributeIndex,
-            1,
-            0,
-            (const GLfloat * )&light.InternalLight.Ambient);
+        GFX_CHECK( glUniform4fv(
+                                ambient_light_color.AttributeIndex,
+                                1,
+                                (const GLfloat * )&light.InternalLight.Ambient.Color); )
+        
+        GFX_CHECK( glUniform1f( ambient_light_diffuse_intensity.AttributeIndex,
+                               light.InternalLight.Ambient.AmbientIntensity); )
+        
+        GFX_CHECK( glUniform1f( ambient_light_ambient_intensity.AttributeIndex,
+                               light.InternalLight.Ambient.DiffuseIntensity); )
     }
 
     void GRAPHIC_SYSTEM::ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {

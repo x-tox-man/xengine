@@ -8,6 +8,13 @@ struct DirectionalLight
     float DiffuseIntensity;
 };
 
+struct AmbientLight
+{
+    vec4 Color;
+    float AmbientIntensity;
+    float DiffuseIntensity;
+};
+
 in vec4 colorVarying;
 in vec4 o_normal;
 in DirectionalLight directional_light_out;
@@ -17,6 +24,7 @@ in vec2 texCoord;
 uniform sampler2D c_texture;
 uniform sampler2D n_texture;
 uniform sampler2D d_texture;
+uniform AmbientLight ambient_light;
 
 out vec4 colorOut;
 
@@ -24,6 +32,7 @@ void main()
 {
     float nxDir = max(0.1, dot( o_normal.xyz, directional_light_out.Direction.xyz));
     vec4 diffuse = directional_light_out.Color * nxDir;
+    diffuse += ambient_light.Color * ambient_light.AmbientIntensity;
     
     float visibility = 1.0;
 

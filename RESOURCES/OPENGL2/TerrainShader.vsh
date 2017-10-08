@@ -15,12 +15,19 @@ struct DirectionalLight
     float AmbientIntensity;
     float DiffuseIntensity;
 };
+struct AmbientLight
+{
+    vec4 Color;
+    float AmbientIntensity;
+    float DiffuseIntensity;
+};
 
 in vec4 position;
 in vec4 normal;
 in vec2 tex0;
 
 uniform DirectionalLight directional_light;
+uniform AmbientLight ambient_light;
 
 out vec4 colorVarying;
 out vec4 o_normal;

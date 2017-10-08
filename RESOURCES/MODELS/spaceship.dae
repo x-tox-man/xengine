@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.78.0 commit date:2017-02-24, commit time:14:33, hash:e92f235</authoring_tool>
     </contributor>
-    <created>2017-07-30T20:04:23</created>
-    <modified>2017-07-30T20:04:23</modified>
+    <created>2017-09-25T13:00:37</created>
+    <modified>2017-09-25T13:00:37</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -89,18 +89,77 @@
       </mesh>
     </geometry>
   </library_geometries>
-  <library_controllers/>
+  <library_controllers>
+    <controller id="Armature_Cube-skin" name="Armature">
+      <skin source="#Cube-mesh">
+        <bind_shape_matrix>0.02534521 0 0 0 0 0.02328946 0 0 0 0 0.02394467 0 0 0 0 1</bind_shape_matrix>
+        <source id="Armature_Cube-skin-joints">
+          <Name_array id="Armature_Cube-skin-joints-array" count="1">Thrust</Name_array>
+          <technique_common>
+            <accessor source="#Armature_Cube-skin-joints-array" count="1" stride="1">
+              <param name="JOINT" type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Armature_Cube-skin-bind_poses">
+          <float_array id="Armature_Cube-skin-bind_poses-array" count="16">7.54979e-7 0 -10 0.1565126 10 0 7.54979e-7 0.2518991 0 -10 0 0.02164584 0 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#Armature_Cube-skin-bind_poses-array" count="1" stride="16">
+              <param name="TRANSFORM" type="float4x4"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Armature_Cube-skin-weights">
+          <float_array id="Armature_Cube-skin-weights-array" count="40">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+          <technique_common>
+            <accessor source="#Armature_Cube-skin-weights-array" count="40" stride="1">
+              <param name="WEIGHT" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <joints>
+          <input semantic="JOINT" source="#Armature_Cube-skin-joints"/>
+          <input semantic="INV_BIND_MATRIX" source="#Armature_Cube-skin-bind_poses"/>
+        </joints>
+        <vertex_weights count="40">
+          <input semantic="JOINT" source="#Armature_Cube-skin-joints" offset="0"/>
+          <input semantic="WEIGHT" source="#Armature_Cube-skin-weights" offset="1"/>
+          <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </vcount>
+          <v>0 0 0 1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0 9 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 22 0 23 0 24 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 32 0 33 0 34 0 35 0 36 0 37 0 38 0 39</v>
+        </vertex_weights>
+      </skin>
+    </controller>
+  </library_controllers>
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
+      <node id="Armature" name="Armature" type="NODE">
+        <matrix sid="transform">7.54979e-9 0 0.1 -0.02518991 0 0.1 0 0.002164587 -0.1 0 7.54979e-9 0.01565126 0 0 0 1</matrix>
+        <node id="Thrust" name="Thrust" sid="Thrust" type="JOINT">
+          <matrix sid="transform">1 0 0 0 0 0 -1 0 0 1 0 0 0 0 0 1</matrix>
+          <extra>
+            <technique profile="blender">
+              <layer>0</layer>
+              <tip_x>0</tip_x>
+              <tip_y>0</tip_y>
+              <tip_z>1</tip_z>
+            </technique>
+          </extra>
+        </node>
+      </node>
       <node id="Cube" name="Cube" type="NODE">
-        <matrix sid="transform">0.02534521 0 0 0 0 0.02328946 0 0 0 0 0.02394467 0 0 0 0 1</matrix>
-        <instance_geometry url="#Cube-mesh" name="Cube">
+        <translate sid="location">0 0 0</translate>
+        <rotate sid="rotationZ">0 0 1 0</rotate>
+        <rotate sid="rotationY">0 1 0 0</rotate>
+        <rotate sid="rotationX">1 0 0 0</rotate>
+        <scale sid="scale">1 1 1</scale>
+        <instance_controller url="#Armature_Cube-skin">
+          <skeleton>#Thrust</skeleton>
           <bind_material>
             <technique_common>
               <instance_material symbol="Material-material" target="#Material-material"/>
             </technique_common>
           </bind_material>
-        </instance_geometry>
+        </instance_controller>
       </node>
     </visual_scene>
   </library_visual_scenes>

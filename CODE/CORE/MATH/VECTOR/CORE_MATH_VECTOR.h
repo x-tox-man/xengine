@@ -18,6 +18,10 @@
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 
+#ifdef __BULLET_PHYSICS__
+    #include "btBulletDynamicsCommon.h"
+#endif
+
 #define VECTOR_TOLERANCE 0.0001f
 
 XS_CLASS_BEGIN_WITH_COPY( CORE_MATH_VECTOR )
@@ -33,6 +37,12 @@ XS_DEFINE_SERIALIZABLE
     CORE_MATH_VECTOR( const float x, const float y );
     CORE_MATH_VECTOR( const float x, const float y, const float z );
     CORE_MATH_VECTOR( const float x, const float y, const float z, const float w);
+
+    #ifdef __BULLET_PHYSICS__
+        btVector3 toBt() const {
+            return btVector3( Value[0], Value[1], Value[2] );
+        }
+    #endif
 
     inline float X() const { return Value[0]; }
     inline float Y() const { return Value[1]; }

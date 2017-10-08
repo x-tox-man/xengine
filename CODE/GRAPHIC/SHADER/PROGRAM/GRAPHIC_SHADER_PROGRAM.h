@@ -68,6 +68,9 @@ static const CORE_HELPERS_IDENTIFIER
     DirectionalLightDirection,
     DirectionalLightAmbientIntensity,
     DirectionalLightDiffuseIntensity,
+    AmbientLightColor,
+    AmbientLightAmbientIntensity,
+    AmbientLightDiffuseIntensity,
     PointLight0Color,
     PointLight0Position,
     PointLight0AmbientIntensity,
@@ -103,7 +106,8 @@ static const CORE_HELPERS_IDENTIFIER
     AmbientLight,
     CameraWorldPosition,
     LightSpecularPower,
-    MaterialSpecularIntensity;
+    MaterialSpecularIntensity,
+    TimeModulator;
 
 #if OPENGLES2
     #include "GRAPHIC_SHADER_PROGRAM_OES2.hpp"

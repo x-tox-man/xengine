@@ -26,7 +26,7 @@ virtual void InnerDeSerialize(CORE_DATA_STREAM & stream) override;
 #define ImplementTrickFroSerializeation(__CLASS_TYPE__, __ENUM_TYPE__) \
 void __CLASS_TYPE__::InnerSerialize(CORE_DATA_STREAM & stream) { \
 stream << __ENUM_TYPE__; \
-XS_CLASS_SERIALIZER<__CLASS_TYPE__>::Serialize<std::true_type>( *this, stream ); \
+XS_CLASS_SERIALIZER<__CLASS_TYPE__, CORE_DATA_STREAM >::Serialize<std::true_type>( *this, stream ); \
 } \
 void __CLASS_TYPE__::InnerDeSerialize(CORE_DATA_STREAM & stream) { \
 }

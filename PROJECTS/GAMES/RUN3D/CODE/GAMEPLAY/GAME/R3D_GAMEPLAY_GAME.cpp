@@ -7,35 +7,38 @@
 //
 
 #include "R3D_GAMEPLAY_GAME.h"
-#include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
 #include "PHYSICS_COLLISION_FILTER.h"
+#include "R3D_RESOURCES.h"
 
 R3D_GAMEPLAY_GAME::R3D_GAMEPLAY_GAME() :
     StateMachine(),
     Level(),
-    Scene() {
+    Scene(),
+    BulletSystem( new GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION() ) {
+    
+}
+
+R3D_GAMEPLAY_GAME::~R3D_GAMEPLAY_GAME() {
     
 }
 
 void R3D_GAMEPLAY_GAME::Initialize() {
     
-    GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * bullet_system = new GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION;
-    
-    bullet_system->SetGravity( -1.81f );
-    bullet_system->Initialize();
+    BulletSystem->SetGravity( -2.81f );
+    BulletSystem->Initialize();
     
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION );
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_ANIMATING );
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_PICKING );
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT );
-    Scene.InsertUpdatableSystem( bullet_system );
+    Scene.InsertUpdatableSystem( BulletSystem );
     
-    bullet_system->SetCollisionFilter( new PHYSICS_COLLISION_FILTER() );
+    BulletSystem->SetCollisionFilter( new PHYSICS_COLLISION_FILTER() );
     
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     
@@ -58,9 +61,17 @@ void R3D_GAMEPLAY_GAME::Render( GRAPHIC_RENDERER & renderer ) {
 
 void R3D_GAMEPLAY_GAME::Update( const float step ) {
     
+    static float TimeMod = 0.0f;
+    
+    TimeMod += step;
     StateMachine.DispatchEvent( UPDATE_EVENT( step ) );
     
-    Level.GetPlayerTable()[0]->GetShip().Update( step );
+    auto proxy = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ) );
+    GRAPHIC_SHADER_ATTRIBUTE & time_mod = proxy->GetResource< GRAPHIC_SHADER_EFFECT >()->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
+    
+    time_mod.AttributeValue.Value.FloatValue = sinf( TimeMod ) * 0.1f;
+    
+    Level.GetPlayerTable()[0]->GetShip()->Update( step );
 }
 //---------------------------------------------------------------------------------------//
 //-------------------------- GAME STARTING ----------------------------------------------//

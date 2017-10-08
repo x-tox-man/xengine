@@ -14,10 +14,10 @@
 
 class GAMEPLAY_COMPONENT_POSITION;
 
-XS_CLASS_BEGIN(GAMEPLAY_CAMERA )
+XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_CAMERA, GAMEPLAY_COMPONENT_ENTITY )
 
     GAMEPLAY_CAMERA();
-    ~GAMEPLAY_CAMERA();
+    virtual ~GAMEPLAY_CAMERA();
 
     void Initialize( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
 
@@ -25,14 +25,11 @@ XS_CLASS_BEGIN(GAMEPLAY_CAMERA )
     void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & rotation_quat );
 
     inline GRAPHIC_CAMERA * GetCamera() { return Camera; }
-    inline GAMEPLAY_COMPONENT_ENTITY * GetEntity() { return Entity; }
 
     void NotifyPropertyChanged(GAMEPLAY_COMPONENT_POSITION *);
 
 private:
 
-    GAMEPLAY_COMPONENT_ENTITY
-        * Entity;
     GRAPHIC_CAMERA
         * Camera;
 

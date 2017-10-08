@@ -38,7 +38,6 @@ class CORE_ABSTRACT_PROGRAM_BINDER {
     const char * RegisterClass( const char * class_name ) {
         
         StaticBindClassMethodPointerTable.resize( StaticBindClassMethodPointerTable.size() + 1 );
-        
         StaticBindClassMethodPointerTable[ StaticBindClassMethodPointerTable.size() - 1 ] = BINDER< __BINDER_CLASS__ >::template BindClass< CORE_ABSTRACT_RUNTIME_LUA >;
         
         return class_name;

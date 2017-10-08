@@ -56,6 +56,8 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline const GRAPHIC_SHADER_LIGHT * GetDirectionalLight() const { return DirectionalLight; }
     inline const GRAPHIC_SHADER_LIGHT * GetPointLight( int index ) const { return PointLightTable[ index ]; }
     inline const GRAPHIC_SHADER_LIGHT * GetSpotLight( int index ) const { return SpotLightTable[ index ]; }
+    inline const GRAPHIC_SHADER_LIGHT * GetAmbientLight() const  { return AmbientLight; }
+
     inline int GetPassIndex() const { return PassIndex; }
     inline void SetPassIndex(int pass) { PassIndex = pass; }
     inline void SetDepthTexture( GRAPHIC_TEXTURE * depth ) { DepthTexture = depth;}

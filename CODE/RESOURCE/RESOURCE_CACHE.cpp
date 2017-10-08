@@ -35,7 +35,6 @@ GRAPHIC_SHADER_EFFECT * RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
         vsh_path[strlen(vsh_path) - 2 ] ='s';
         vsh_path[strlen(vsh_path) - 1 ] ='h';
         
-        
         ItemMap[ identifier ]->Watcher.Setup( vsh_path, *callback );
         
         delete( callback );

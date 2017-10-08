@@ -10,6 +10,9 @@
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 #include "GAMEPLAY_HELPER.h"
+#include "R3D_LEVEL_TRACK.h"
+#include "R3D_LEVEL_CHECKPOINT.h"
+#include "GAMEPLAY_COMPONENT_BASE_ENTITY.h"
 
 R3D_LEVEL::R3D_LEVEL() :
     PlayerTable(),
@@ -26,7 +29,7 @@ void R3D_LEVEL::Initialize() {
     PlayerTable[ 0 ]->Initialize();
     
     CreateTracks();
-    CreateGround();
+    //CreateGround();
 }
 
 void R3D_LEVEL::Finalize() {
@@ -45,32 +48,23 @@ void R3D_LEVEL::ComputeCollisions( const float time_step ) {
 
 void R3D_LEVEL::CreateTracks() {
     
-    for (int i = 0; i < 0; i++) {
+    for (int i = 0; i < 10; i++) {
         
-        auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
+        CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
+        if ( i > 0 && i % 5 == 0 ) {
+            
+            auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_CHECKPOINT >();
+            entity->Initialize( p );
+        }
         
-        GAMEPLAY_HELPER::CreateComponent_PositionRenderPhysics( entity );
-        
-        GAMEPLAY_HELPER::Set3DObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "straight_track" ) );
-        GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
-        GAMEPLAY_HELPER::SetTexture(entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
-        
-        CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 0.0f, 1.0f );
-        
-        GAMEPLAY_HELPER::SetPhysicsObject( entity, p, 0.0f );
-        //GAMEPLAY_HELPER::SetPhysicsSphereObject( entity, p, 0.0f );
-        
-        GAMEPLAY_HELPER::SetPosition( entity, p );
-        //GAMEPLAY_HELPER::SetOrientation(entity, CORE_MATH_QUATERNION());
-        
-        GAMEPLAY_HELPER::AddStaticToPhysics( entity );
-        GAMEPLAY_HELPER::AddToWorld( entity );
+        auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
+        entity->Initialize( p );
     }
 }
 
 void R3D_LEVEL::CreateGround() {
     
-    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
+    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_BASE_ENTITY >();
     
     GAMEPLAY_HELPER::CreateComponent_PositionRenderPhysics( entity );
     
@@ -85,6 +79,6 @@ void R3D_LEVEL::CreateGround() {
     //GAMEPLAY_HELPER::SetPosition( entity, p );
     //GAMEPLAY_HELPER::SetOrientation(entity, CORE_MATH_QUATERNION());
     
-    GAMEPLAY_HELPER::AddStaticToPhysics( entity );
+    GAMEPLAY_HELPER::AddStaticToPhysics( entity, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_WEAPONSHIP );
     GAMEPLAY_HELPER::AddToWorld( entity );
 }

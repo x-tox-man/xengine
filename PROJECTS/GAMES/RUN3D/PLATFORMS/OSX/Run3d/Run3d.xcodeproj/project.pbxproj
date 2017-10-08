@@ -14,8 +14,13 @@
 		32F2482C1EA433F200D19613 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32F2482A1EA433F200D19613 /* Main.storyboard */; };
 		32F24BA21EA4345000D19613 /* APPLICATION_CONFIGURATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F24B991EA4345000D19613 /* APPLICATION_CONFIGURATION.cpp */; };
 		32F24BA31EA4345000D19613 /* RUN3D_APPLICATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F24B9B1EA4345000D19613 /* RUN3D_APPLICATION.cpp */; };
+		5F4DEA711F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA6F1F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp */; };
+		5F4DEA741F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */; };
+		5F4DEA771F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA751F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp */; };
+		5F4DEA7A1F7922C100173EDA /* UI_COMPONENT_ITEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA781F7922C100173EDA /* UI_COMPONENT_ITEM.cpp */; };
+		5F4DEA7D1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA7B1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp */; };
+		5F4DEA801F79230B00173EDA /* UI_SCREEN_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA7E1F79230B00173EDA /* UI_SCREEN_LOADER.cpp */; };
 		5F76D0761F71B49C004BEF48 /* UI_MAIN_MENU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F76D0741F71B49C004BEF48 /* UI_MAIN_MENU.cpp */; };
-		5F76D07A1F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F76D0781F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.cpp */; };
 		5F92D9191F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D9171F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp */; };
 		5F92D91C1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D91A1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp */; };
 		5F92D91F1F12E0C400292A99 /* R3D_LEVEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D91D1F12E0C400292A99 /* R3D_LEVEL.cpp */; };
@@ -104,9 +109,20 @@
 		32F24B9A1EA4345000D19613 /* APPLICATION_CONFIGURATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APPLICATION_CONFIGURATION.h; sourceTree = "<group>"; };
 		32F24B9B1EA4345000D19613 /* RUN3D_APPLICATION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RUN3D_APPLICATION.cpp; sourceTree = "<group>"; };
 		32F24B9C1EA4345000D19613 /* RUN3D_APPLICATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUN3D_APPLICATION.h; sourceTree = "<group>"; };
+		5F4DEA6F1F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp; sourceTree = "<group>"; };
+		5F4DEA701F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.h; sourceTree = "<group>"; };
+		5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_COMPONENT_SHIP_LARGE.cpp; sourceTree = "<group>"; };
+		5F4DEA731F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_COMPONENT_SHIP_LARGE.h; sourceTree = "<group>"; };
+		5F4DEA751F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_COMPONENT_SHIP_SMALL.cpp; sourceTree = "<group>"; };
+		5F4DEA761F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_COMPONENT_SHIP_SMALL.h; sourceTree = "<group>"; };
+		5F4DEA781F7922C100173EDA /* UI_COMPONENT_ITEM.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_COMPONENT_ITEM.cpp; sourceTree = "<group>"; };
+		5F4DEA791F7922C100173EDA /* UI_COMPONENT_ITEM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_COMPONENT_ITEM.h; sourceTree = "<group>"; };
+		5F4DEA7B1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_COMPONENT_CHARACTERISTICS.cpp; sourceTree = "<group>"; };
+		5F4DEA7C1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_COMPONENT_CHARACTERISTICS.h; sourceTree = "<group>"; };
+		5F4DEA7E1F79230B00173EDA /* UI_SCREEN_LOADER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_SCREEN_LOADER.cpp; sourceTree = "<group>"; };
+		5F4DEA7F1F79230B00173EDA /* UI_SCREEN_LOADER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_SCREEN_LOADER.h; sourceTree = "<group>"; };
 		5F76D0741F71B49C004BEF48 /* UI_MAIN_MENU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI_MAIN_MENU.cpp; sourceTree = "<group>"; };
 		5F76D0751F71B49C004BEF48 /* UI_MAIN_MENU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI_MAIN_MENU.h; sourceTree = "<group>"; };
-		5F76D0781F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PHYSICS_COLLISION_FILTER.cpp; sourceTree = "<group>"; };
 		5F76D0791F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHYSICS_COLLISION_FILTER.h; sourceTree = "<group>"; };
 		5F92D9171F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAMEPLAY_GAME.cpp; sourceTree = "<group>"; };
 		5F92D9181F12E09500292A99 /* R3D_GAMEPLAY_GAME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_GAMEPLAY_GAME.h; sourceTree = "<group>"; };
@@ -199,6 +215,7 @@
 		5FD11D2E1F1B820B0092E3A7 /* R3D_RESOURCES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_RESOURCES.h; sourceTree = "<group>"; };
 		5FD11D311F1B9DB00092E3A7 /* GAMEPLAY_HELPER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_HELPER.cpp; sourceTree = "<group>"; };
 		5FD11D321F1B9DB00092E3A7 /* GAMEPLAY_HELPER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_HELPER.h; sourceTree = "<group>"; };
+		5FEA3F771F739ABE0085DDB5 /* PHYSICS_COLLISION_TYPE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHYSICS_COLLISION_TYPE.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,6 +353,14 @@
 		5F76D06E1F71B48B004BEF48 /* COMPONENTS */ = {
 			isa = PBXGroup;
 			children = (
+				5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */,
+				5F4DEA731F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.h */,
+				5F4DEA751F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp */,
+				5F4DEA761F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.h */,
+				5F4DEA781F7922C100173EDA /* UI_COMPONENT_ITEM.cpp */,
+				5F4DEA791F7922C100173EDA /* UI_COMPONENT_ITEM.h */,
+				5F4DEA7B1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp */,
+				5F4DEA7C1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.h */,
 			);
 			path = COMPONENTS;
 			sourceTree = "<group>";
@@ -354,6 +379,8 @@
 		5F76D0701F71B48B004BEF48 /* LOADER */ = {
 			isa = PBXGroup;
 			children = (
+				5F4DEA7E1F79230B00173EDA /* UI_SCREEN_LOADER.cpp */,
+				5F4DEA7F1F79230B00173EDA /* UI_SCREEN_LOADER.h */,
 			);
 			path = LOADER;
 			sourceTree = "<group>";
@@ -384,8 +411,8 @@
 		5F76D0771F71B8E1004BEF48 /* PHYSICS */ = {
 			isa = PBXGroup;
 			children = (
-				5F76D0781F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.cpp */,
 				5F76D0791F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.h */,
+				5FEA3F771F739ABE0085DDB5 /* PHYSICS_COLLISION_TYPE.h */,
 			);
 			path = PHYSICS;
 			sourceTree = "<group>";
@@ -466,6 +493,8 @@
 			children = (
 				5F92D9201F12E0D200292A99 /* R3D_LEVEL_CHECKPOINT.cpp */,
 				5F92D9211F12E0D200292A99 /* R3D_LEVEL_CHECKPOINT.h */,
+				5F4DEA6F1F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp */,
+				5F4DEA701F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.h */,
 			);
 			path = CHECKPOINT;
 			sourceTree = "<group>";
@@ -719,19 +748,24 @@
 			files = (
 				32F248271EA433F200D19613 /* ViewController.m in Sources */,
 				5FD11D2C1F1B7EA90092E3A7 /* R3D_RENDER.cpp in Sources */,
+				5F4DEA7A1F7922C100173EDA /* UI_COMPONENT_ITEM.cpp in Sources */,
 				32F24BA21EA4345000D19613 /* APPLICATION_CONFIGURATION.cpp in Sources */,
+				5F4DEA741F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp in Sources */,
 				5FD11D2F1F1B820B0092E3A7 /* R3D_RESOURCES.cpp in Sources */,
+				5F4DEA711F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp in Sources */,
 				32F248241EA433F200D19613 /* main.m in Sources */,
 				5F92D91C1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp in Sources */,
 				5F92D92B1F12E11600292A99 /* R3D_PLAYER.cpp in Sources */,
 				5FD11D131F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp in Sources */,
 				5F92D9281F12E0F000292A99 /* R3D_LEVEL_TRACK.cpp in Sources */,
+				5F4DEA771F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp in Sources */,
+				5F4DEA801F79230B00173EDA /* UI_SCREEN_LOADER.cpp in Sources */,
 				5F92D9221F12E0D200292A99 /* R3D_LEVEL_CHECKPOINT.cpp in Sources */,
+				5F4DEA7D1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp in Sources */,
 				5F92D9311F12E12D00292A99 /* R3D_PLAYER_PART.cpp in Sources */,
 				5FD11D331F1B9DB00092E3A7 /* GAMEPLAY_HELPER.cpp in Sources */,
 				5F92D9191F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp in Sources */,
 				5F92D9381F12E1E100292A99 /* R3D_PLAYER_PARTS_COLLECTION.cpp in Sources */,
-				5F76D07A1F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.cpp in Sources */,
 				5F92D9251F12E0E100292A99 /* R3D_LEVEL_STARTER.cpp in Sources */,
 				32F248211EA433F200D19613 /* AppDelegate.m in Sources */,
 				5F92D93F1F12E65100292A99 /* LEVEL_ENVIRONMENT.cpp in Sources */,

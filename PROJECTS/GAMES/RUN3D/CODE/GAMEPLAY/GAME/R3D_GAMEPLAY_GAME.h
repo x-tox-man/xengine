@@ -15,10 +15,12 @@
 #include "CORE_FIXED_STATE_EVENT.h"
 #include "GAMEPLAY_SCENE.h"
 #include "GRAPHIC_RENDERER.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
     R3D_GAMEPLAY_GAME();
+    ~R3D_GAMEPLAY_GAME();
 
     void Render( GRAPHIC_RENDERER & renderer );
     void Update( const float step );
@@ -27,6 +29,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     void Finalize();
 
     inline GAMEPLAY_SCENE & GetScene() { return Scene; }
+    inline GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * GetBulletSystem() { return BulletSystem; }
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, const float )
 
@@ -58,6 +61,8 @@ private:
         Level;
     GAMEPLAY_SCENE
         Scene;
+    GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION
+        * BulletSystem;
 
 XS_CLASS_END
 

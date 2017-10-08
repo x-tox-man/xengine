@@ -39,7 +39,7 @@ void DeSerializeNetworkCommand(SERVICE_NETWORK_COMMAND * command, CORE_TIMELINE_
     
     int factory_type;
     
-    XS_CLASS_SERIALIZER<CORE_TIMELINE_EVENT>::Serialize< std::false_type >( event, stream );
+    XS_CLASS_SERIALIZER<CORE_TIMELINE_EVENT, CORE_DATA_STREAM >::Serialize< std::false_type >( event, stream );
     stream >> factory_type;
     APPLICATION_COMMAND * event_command = APPLICATION_COMMAND::FactoryCreate((APPLICATION_NETWORK_COMMAND_TYPE) factory_type);
     
@@ -65,9 +65,9 @@ static SERVICE_NETWORK_COMMAND * CreateNetworkCommand(__COMMAND_TYPE__ & command
     event.Setup(0.0f, 0.0f, CORE_HELPERS_UNIQUE_IDENTIFIER::Empty, &command);
     
     stream.Open();
-    XS_CLASS_SERIALIZER<CORE_TIMELINE_EVENT>::Serialize< std::true_type >( event, stream );
+    XS_CLASS_SERIALIZER<CORE_TIMELINE_EVENT, CORE_DATA_STREAM >::Serialize< std::true_type >( event, stream );
     stream << command.GetFactoryType();
-    XS_CLASS_SERIALIZER<__COMMAND_TYPE__>::template Serialize< std::true_type >( command, stream );
+    XS_CLASS_SERIALIZER<__COMMAND_TYPE__, CORE_DATA_STREAM >::template Serialize< std::true_type >( command, stream );
     stream.Close();
     
     message->Data = CORE_MEMORY_ALLOCATOR_Allocate(stream.GetOffset());

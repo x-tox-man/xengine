@@ -47,7 +47,7 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     GRAPHIC_OBJECT_RENDER_OPTIONS
         options;
     
-    options.SetPosition( component->GetPosition() );
+    options.SetPosition( component->GetPosition() + component->GetPositionOffset() );
     options.SetOrientation(component->GetOrientation() );
     options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
 

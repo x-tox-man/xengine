@@ -118,7 +118,7 @@ void MAIN_MENU_WINDOW_PRESENTER::SendCommandButtonClicked( GRAPHIC_UI_ELEMENT * 
          stream.Close();
          stream.ResetOffset();
          
-         //XS_CLASS_SERIALIZER<CORE_MATH_VECTOR>::Serialize< std::true_type >( action->NewPosition, stream );
+         //XS_CLASS_SERIALIZER<CORE_MATH_VECTOR, CORE_DATA_STREAM >::Serialize< std::true_type >( action->NewPosition, stream );
          
          if ( IsClient ) {
          Client->DispatchMessageToAllPlayers(stream);

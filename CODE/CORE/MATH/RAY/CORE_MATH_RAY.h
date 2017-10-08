@@ -15,24 +15,25 @@
 
 XS_CLASS_BEGIN( CORE_MATH_RAY )
 
-CORE_MATH_RAY();
-~CORE_MATH_RAY();
+    CORE_MATH_RAY();
+    ~CORE_MATH_RAY();
 
-void SetOrigin( const CORE_MATH_VECTOR & origin ) { Origin = origin; }
-void SetDirection( const CORE_MATH_VECTOR & direction ) { Direction = direction; }
+    inline void SetOrigin( const CORE_MATH_VECTOR & origin ) { Origin = origin; }
+    inline void SetDirection( const CORE_MATH_VECTOR & direction ) { Direction = direction; }
 
-const CORE_MATH_VECTOR & GetOrigin() const { return Origin; }
-const CORE_MATH_VECTOR & GetDirection() const { return Direction; }
+    inline const CORE_MATH_VECTOR & GetOrigin() const { return Origin; }
+    inline const CORE_MATH_VECTOR & GetDirection() const { return Direction; }
 
-CORE_MATH_VECTOR & GetOrigin() { return Origin; }
-CORE_MATH_VECTOR & GetDirection() { return Direction; }
+    inline CORE_MATH_VECTOR & GetOrigin() { return Origin; }
+    inline CORE_MATH_VECTOR & GetDirection() { return Direction; }
 
 private :
 
-CORE_MATH_VECTOR Origin;
-CORE_MATH_VECTOR Direction;
-
-float Lenght;
+    CORE_MATH_VECTOR
+        Origin,
+        Direction;
+    float
+        Lenght;
 
 XS_CLASS_END
 

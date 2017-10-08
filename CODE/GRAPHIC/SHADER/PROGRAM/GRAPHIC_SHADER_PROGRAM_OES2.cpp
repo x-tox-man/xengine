@@ -104,6 +104,10 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         return;
     }
     
+//TODO:
+//    delete attribute;
+    abort();
+    
     // Get uniform locations.
     GRAPHIC_SHADER_ATTRIBUTE * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     
@@ -237,6 +241,38 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         setShaderAttribute(*attribute);
     }
     
+    //AMBIENT
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightColor.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = AmbientLightColor;
+        
+        setShaderAttribute(*attribute);
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightAmbientIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = AmbientLightAmbientIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightDiffuseIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = AmbientLightDiffuseIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+    }
+    
+    //DIRECTIONAL
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightColor.GetTextValue() ); )
     
@@ -638,6 +674,18 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         
         setShaderAttribute(*attribute);
     }
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, TimeModulator.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = TimeModulator;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    delete attribute;
 }
 
 bool GRAPHIC_SHADER_PROGRAM::ValidateProgram() {

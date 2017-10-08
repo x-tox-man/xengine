@@ -47,7 +47,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
     #endif
 
     void ConfigureShapeSphere( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation );
+    void ConfigureShapeBox( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & half_extent, const CORE_MATH_QUATERNION & orientation );
     void ConfigureHeightMap( const CORE_MATH_VECTOR & position, int width, int lenght, const void * heights, float spacing, float scale );
+    void ConfigureShapeCylinder(const CORE_MATH_VECTOR & position, float radius, float width, const CORE_MATH_QUATERNION & orientation );
     void ConfigureShapePlane( const CORE_MATH_VECTOR & position );
     void BulletConfigureConvexHullShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object );
     void BulletConfigureBvhTriangleMeshShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object );
@@ -62,6 +64,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
     void SetPosition( const CORE_MATH_VECTOR & position);
     void SetOrientation( const CORE_MATH_QUATERNION & rotation );
     void SetVelocity( const CORE_MATH_VECTOR & velocity);
+    CORE_MATH_VECTOR & GetVelocity();
 
     virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
         
@@ -81,6 +84,14 @@ private:
 
     CORE_MATH_SHAPE
         Shape;
+    CORE_MATH_VECTOR
+        Velocity;
+    float
+        Restitution,
+        Friction,
+        RollingFriction,
+        SpinningFriction,
+        Mass;
     static std::vector< INTERNAL_ARRAY_P >
         * InternalVector;
 

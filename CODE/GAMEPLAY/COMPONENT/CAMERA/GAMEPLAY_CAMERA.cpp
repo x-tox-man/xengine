@@ -11,7 +11,7 @@
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
 
 GAMEPLAY_CAMERA::GAMEPLAY_CAMERA() :
-    Entity( NULL ),
+    GAMEPLAY_COMPONENT_ENTITY( this ),
     Camera( NULL ) {
         
 }
@@ -22,13 +22,12 @@ GAMEPLAY_CAMERA::~GAMEPLAY_CAMERA() {
 
 void GAMEPLAY_CAMERA::Initialize(float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat) {
     
-    Entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
     Camera = new GRAPHIC_CAMERA( near_plane, far_plane, width, height, position, lookat );
     
     GAMEPLAY_COMPONENT_HANDLE handle;
     handle.Create<GAMEPLAY_COMPONENT_POSITION>( GAMEPLAY_COMPONENT_TYPE_Position );
     
-    Entity->SetCompononent( handle, GAMEPLAY_COMPONENT_TYPE_Position );
+    SetCompononent( handle, GAMEPLAY_COMPONENT_TYPE_Position );
     
     handle.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->InitializeObservable();
     handle.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->AddObserver( this );
@@ -38,7 +37,7 @@ void GAMEPLAY_CAMERA::Initialize(float near_plane, float far_plane, float width,
 
 void GAMEPLAY_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & rotation_quat ) {
     
-    auto position_component = ( GAMEPLAY_COMPONENT_POSITION * ) Entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    auto position_component = ( GAMEPLAY_COMPONENT_POSITION * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     position_component->SetPosition( position );
     position_component->SetOrientation( rotation_quat );
@@ -46,7 +45,7 @@ void GAMEPLAY_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const COR
 
 void GAMEPLAY_CAMERA::NotifyPropertyChanged(GAMEPLAY_COMPONENT_POSITION * position ) {
     
-    auto position_component = ( GAMEPLAY_COMPONENT_POSITION * ) Entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    auto position_component = ( GAMEPLAY_COMPONENT_POSITION * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     CORE_MATH_VECTOR & pos = position_component->GetPosition();
     CORE_MATH_QUATERNION & quat = position_component->GetOrientation();
