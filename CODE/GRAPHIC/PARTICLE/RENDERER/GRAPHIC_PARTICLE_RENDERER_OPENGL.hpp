@@ -11,38 +11,26 @@
 
 public :
 
-void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, GRAPHIC_MATERIAL & material, GRAPHIC_RENDERER & renderer ) {
+void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, GRAPHIC_SHADER_EFFECT * effect, GRAPHIC_RENDERER & renderer, int first_index, int last_index ) {
     
-    // normally : lock particle and transfert to geometry buffer
-    //int decrement = particle_table.size();
-    
-    //PlanObject.SetTextureBlock(material.GetTexture());
-    
-    /*while ( decrement-- > 0 ) {
-     
-     PlanObject.SetPosition(particle_table[decrement].Position );
-     PlanObject.SetOrientation(particle_table[decrement].Orientation );
-     PlanObject.SetScaleFactor(CORE_MATH_VECTOR(1.0f,1.0f,0.0f,1.0f) );
-     PlanObject.Render(renderer);
-     }*/
-    abort();
     //TODO:
-    /*VertexBuffer->InitializeWithMemory( 10 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
+    
+    VertexBuffer->InitializeWithMemory( 10 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
     GRAPHIC_SYSTEM::UpdateVertexBuffer(&Mesh, *VertexBuffer);
     
-    material.Apply(renderer);
+    effect->Apply( renderer );
     
-    //GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+    GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
     
     CORE_MATH_MATRIX result = renderer.GetCamera().GetProjectionMatrix();
     result *= renderer.GetCamera().GetViewMatrix();
     
-    GRAPHIC_SHADER_ATTRIBUTE * attr = &material.GetPass( renderer.GetPassIndex() )->GetEffect()->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE & attr = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
     
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    GRAPHIC_SYSTEM_ApplyMatrix(attr->AttributeIndex, 1, 0, &result[0])
+    GRAPHIC_SYSTEM_ApplyMatrix( attr.AttributeIndex, 1, 0, &result[0])
     
     int vertex_offset = 0;
     GRAPHIC_SHADER_BIND component = Mesh.GetVertexComponent();
@@ -70,26 +58,33 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     }
     
     //GFX_CHECK( glEnable( GL_PROGRAM_POINT_SIZE ); )
-    GFX_CHECK( glPointSize(10.0f); )
-    GFX_CHECK( glBindVertexArray(Mesh.GetVertexArrays() ); )
-    GFX_CHECK( glDrawArrays(GL_POINTS, 0, __ARRAY_SIZE__); )
-    
-    material.Discard(renderer);*/
+    if ( first_index < last_index ) {
+        
+        GFX_CHECK( glPointSize(10.0f); )
+        GFX_CHECK( glBindVertexArray(Mesh.GetVertexArrays() ); )
+        GFX_CHECK( glDrawArrays(GL_POINTS, first_index, last_index - first_index); )
+    }
+    else if ( last_index > first_index ){
+        
+        GFX_CHECK( glPointSize(10.0f); )
+        GFX_CHECK( glBindVertexArray(Mesh.GetVertexArrays() ); )
+        GFX_CHECK( glDrawArrays(GL_POINTS, last_index, (__ARRAY_SIZE__ - 1) - last_index); )
+        GFX_CHECK( glDrawArrays(GL_POINTS, 0, first_index); )
+    }
 }
 
 private :
 
-GRAPHIC_OBJECT_SHAPE_PLAN PlanObject;
-GRAPHIC_MESH Mesh;
-CORE_DATA_BUFFER * IndexBuffer = new CORE_DATA_BUFFER;
-CORE_DATA_BUFFER * VertexBuffer = new CORE_DATA_BUFFER;
+GRAPHIC_MESH
+    Mesh;
+CORE_DATA_BUFFER
+    * IndexBuffer,
+    * VertexBuffer;
 
-void InternalInitialize( GRAPHIC_MATERIAL & material ) {
+void InternalInitialize( GRAPHIC_SHADER_EFFECT * effect ) {
     
-    abort();
-    //TODO : crappy way to do bad things
-    /*PlanObject.InitializeShape(&material.GetPass(0)->GetEffect()->GetProgram());
-    PlanObject.SetMaterial( material );
+    IndexBuffer = new CORE_DATA_BUFFER;
+    VertexBuffer = new CORE_DATA_BUFFER;
     
     //TODO : refactor
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
@@ -101,8 +96,6 @@ void InternalInitialize( GRAPHIC_MATERIAL & material ) {
     Mesh.SetVertexCoreBuffer( VertexBuffer );
     
     Mesh.CreateBuffers();
-    //GRAPHIC_SYSTEM::
-     */
 }
 
 #endif /* GRAPHIC_PARTICLE_RENDERER_OPENGL_h */

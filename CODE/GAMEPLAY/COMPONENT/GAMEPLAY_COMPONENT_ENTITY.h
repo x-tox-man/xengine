@@ -78,18 +78,27 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY )
         return ( GAMEPLAY_COMPONENT_ANIMATION * )GetComponent( GAMEPLAY_COMPONENT_TYPE_Animation );
     }
 
-    void SetCompononent( GAMEPLAY_COMPONENT_HANDLE & component, int component_index ) {
+    void SetCompononent( GAMEPLAY_COMPONENT_HANDLE component, int component_index ) {
         
         Components[ component_index ] = component;
     }
 
-    inline void SetsChild( GAMEPLAY_COMPONENT_ENTITY * entity, int index ) {
+    inline void SetChild( GAMEPLAY_COMPONENT_ENTITY * entity, int index ) {
         
         ChildEntities[ index ] = entity;
         entity->SetParent( this );
     }
 
+    virtual GAMEPLAY_COMPONENT_ENTITY * Clone() const {
+        
+        return new GAMEPLAY_COMPONENT_ENTITY();
+    }
+
+public:
+
     inline GAMEPLAY_COMPONENT * GetComponent( int component_index ) { return Components[ component_index ].GetComponent(); }
+    inline const GAMEPLAY_COMPONENT_HANDLE & GetComponentHandle( int component_index ) const { return Components[ component_index ]; }
+    inline GAMEPLAY_COMPONENT_HANDLE & GetComponentHandle( int component_index ) { return Components[ component_index ]; }
     inline GAMEPLAY_COMPONENT_ENTITY_HANDLE & GetHandle() { return Handle; }
     inline GAMEPLAY_COMPONENT_ENTITY * GetChild( int child_index ) { return ChildEntities[ child_index ]; }
 

@@ -44,7 +44,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         // The world.
         DynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
         
-        DynamicsWorld->setGravity(btVector3(0, 0, Gravity));
+        DynamicsWorld->setGravity(btVector3(0.0f, 0.0f, Gravity));
     
         #if DEBUG
             Debugger.Initialize();
@@ -72,7 +72,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
     #ifdef __BULLET_PHYSICS__
         btTransform transformation;
         
-        DynamicsWorld->stepSimulation(time_step, 0);
+        DynamicsWorld->stepSimulation(time_step, 10);
     
         std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     
@@ -80,11 +80,11 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
             
             GAMEPLAY_COMPONENT_PHYSICS * physics = ( GAMEPLAY_COMPONENT_PHYSICS *) (it->second)->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
             
-            physics->GetBulletRigidBody()->getMotionState()->getWorldTransform( transformation );
+            auto wt = &physics->GetBulletRigidBody()->getWorldTransform();
             
-            (it->second)->GetEntity()->SetPosition(CORE_MATH_VECTOR(transformation.getOrigin().getX(), transformation.getOrigin().getY(), transformation.getOrigin().getZ(), 1.0f));
-            btQuaternion q = transformation.getRotation();
-            (it->second)->GetEntity()->SetOrientation( CORE_MATH_QUATERNION( q.getX(), q.getZ(), q.getY(), q.getW() ) );
+            (it->second)->GetEntity()->SetPosition(CORE_MATH_VECTOR(wt->getOrigin().getX(), wt->getOrigin().getY(), wt->getOrigin().getZ(), 1.0f));
+            btQuaternion q = wt->getRotation();
+            (it->second)->GetEntity()->SetOrientation( CORE_MATH_QUATERNION( q.getX(), q.getY(), q.getZ(), q.getW() ) );
             
             it++;
         }

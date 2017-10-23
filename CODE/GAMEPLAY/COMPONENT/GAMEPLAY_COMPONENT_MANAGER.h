@@ -64,6 +64,32 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
         return en;
     }
 
+    template <typename __ENTITY_TYPE__>
+    GAMEPLAY_COMPONENT_ENTITY * CloneEntity( __ENTITY_TYPE__ * entity ) {
+        
+        auto ent = ( GAMEPLAY_COMPONENT_ENTITY * ) CreateEntity< __ENTITY_TYPE__ >();
+        
+        for (int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS; i++) {
+            
+            if ( entity->GetComponent( i ) != NULL ) {
+                
+                const GAMEPLAY_COMPONENT_HANDLE & handle = entity->GetComponentHandle( i );
+                
+                ent->SetCompononent( handle.Clone(), i );
+            }
+        }
+        
+        for (int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++) {
+            
+            if ( entity->GetChild( i ) != NULL ) {
+                
+                ent->SetChild( entity->GetChild( i )->Clone(), i);
+            }
+        }
+        
+        return ent;
+    }
+
     inline GAMEPLAY_COMPONENT_ENTITY * GetEntity( int index ) {
         
         if ( index > InternalVector[ 0 ].LastIndex ) {

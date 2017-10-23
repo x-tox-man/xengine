@@ -15,6 +15,8 @@ function Update( object_parameter )
 		vel:Y( vel:GetY()  + 5.0 * 0.033 )
 
 		--pos:Y( posZ )
+
+		comp_phys:SetVelocity( vel )
 	end
 
 	if PERIPHERIC_INTERACTION_SYSTEM:GetInstance():GetKeyboard():IsKeyPressed( 14 ) then
@@ -22,6 +24,8 @@ function Update( object_parameter )
 		vel:Y( vel:GetY()  - 5.0 * 0.033 )
 
 		--pos:Y( posZ )
+
+		comp_phys:SetVelocity( vel )
 	end
 
 	if PERIPHERIC_INTERACTION_SYSTEM:GetInstance():GetKeyboard():IsKeyPressed( 15 ) then
@@ -30,17 +34,16 @@ function Update( object_parameter )
 
 		--pos:Z( posX )
 
+		comp_phys:SetVelocity( vel )
+
 	end
 	if PERIPHERIC_INTERACTION_SYSTEM:GetInstance():GetKeyboard():IsKeyPressed( 16 ) then
 
 		vel:X( vel:GetX()  - 5.0 * 0.033 )
 
 		--pos:Z( posX )
+
+		comp_phys:SetVelocity( vel )
 	end
-
-	posZ = math.min( posZ, 10 )
-	posX = math.min( posX, 10 )
-
-	comp_phys:SetVelocity( vel )
 
 end

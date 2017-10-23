@@ -12,7 +12,7 @@
 #include "GAMEPLAY_COMPONENT.h"
 #include "GRAPHIC_MESH_ANIMATION_CONTROLLER.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
+XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
 
     GAMEPLAY_COMPONENT_ANIMATION();
     virtual ~GAMEPLAY_COMPONENT_ANIMATION();
@@ -29,7 +29,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
 
     void UpdateAnimation( float time_step );
 
-    void SetAnimation( GRAPHIC_MESH_ANIMATION_CONTROLLER * animation ) { Animation = animation; }
+    void SetAnimation( const GRAPHIC_MESH_ANIMATION_CONTROLLER & animation ) { Animation = animation; }
 
     virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
         
@@ -48,7 +48,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
 private :
 
     GRAPHIC_MESH_ANIMATION_CONTROLLER
-        * Animation;
+        Animation;
     static std::vector< INTERNAL_ARRAY_A >
         * InternalVector;
 

@@ -22,6 +22,16 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     
 }
 
+GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER( const GAMEPLAY_COMPONENT_RENDER & other ) :
+    GAMEPLAY_COMPONENT(),
+    ObjectProxy( other.ObjectProxy ),
+    EffectProxy( other.EffectProxy ),
+    ShadowmapEffectProxy( other.ShadowmapEffectProxy ),
+    BoundingObject( other.BoundingObject ),
+    ScaleFactor( other.ScaleFactor ) {
+    
+}
+
 GAMEPLAY_COMPONENT_RENDER::~GAMEPLAY_COMPONENT_RENDER() {
 
 }

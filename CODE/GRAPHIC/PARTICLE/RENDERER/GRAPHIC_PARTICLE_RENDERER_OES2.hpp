@@ -11,7 +11,7 @@
 
 public :
 
-void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, GRAPHIC_MATERIAL & material, GRAPHIC_RENDERER & renderer ) {
+void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, GRAPHIC_SHADER_EFFECT & effect, GRAPHIC_RENDERER & renderer, int first_index, int last_index ) {
     
     VertexBuffer->InitializeWithMemory( 10 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
     GRAPHIC_SYSTEM::UpdateVertexBuffer(&Mesh, *VertexBuffer);
@@ -53,22 +53,23 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
         vertex_offset += 2;
     }
     
-    GFX_CHECK( glDrawArrays(GL_POINTS, 0, __ARRAY_SIZE__); )
+    GFX_CHECK( glDrawArrays(GL_POINTS, first_index, last_index); )
     
     material.Discard(renderer);
 }
 
 private :
 
-GRAPHIC_OBJECT_SHAPE_PLAN PlanObject;
-GRAPHIC_MESH Mesh;
-CORE_DATA_BUFFER * IndexBuffer = new CORE_DATA_BUFFER;
-CORE_DATA_BUFFER * VertexBuffer = new CORE_DATA_BUFFER;
+GRAPHIC_MESH
+    Mesh;
+CORE_DATA_BUFFER
+    * IndexBuffer,
+    * VertexBuffer;
 
-void InternalInitialize( GRAPHIC_MATERIAL & material ) {
+void InternalInitialize( GRAPHIC_SHADER_EFFECT & effect ) {
     
-    PlanObject.InitializeShape(&material.GetEffect()->GetProgram());
-    PlanObject.SetShaderForMesh(nullptr, material.GetEffect()->GetProgram().GetProgram());
+    IndexBuffer = new CORE_DATA_BUFFER;
+    VertexBuffer = new CORE_DATA_BUFFER;
     
     //TODO : refactor
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);

@@ -62,6 +62,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(ASSET_EDITOR, CORE_APPLICATION)
 
     void Load( const CORE_FILESYSTEM_PATH & path );
     void Save( const CORE_FILESYSTEM_PATH & path );
+    void Save( CORE_DATA_STREAM & stream );
 
     void SaveAssets();
     void SaveResources();

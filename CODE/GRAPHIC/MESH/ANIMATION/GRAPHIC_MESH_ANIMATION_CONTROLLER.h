@@ -15,28 +15,36 @@
 #include "GRAPHIC_OBJECT.h"
 #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 
-XS_CLASS_BEGIN( GRAPHIC_MESH_ANIMATION_CONTROLLER )
+XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_CONTROLLER )
 
-GRAPHIC_MESH_ANIMATION_CONTROLLER();
-~GRAPHIC_MESH_ANIMATION_CONTROLLER();
+    GRAPHIC_MESH_ANIMATION_CONTROLLER();
+    ~GRAPHIC_MESH_ANIMATION_CONTROLLER();
 
-void Initialize();
-void Load( const CORE_FILESYSTEM_PATH & path );
+    void Initialize();
+    void Load( const CORE_FILESYSTEM_PATH & path );
 
-void Update( const float time );
-void Reset();
+    void operator=(const GRAPHIC_MESH_ANIMATION_CONTROLLER & other ) {
+        
+        CurrentTimeFrame = other.CurrentTimeFrame;
+        MeshAnimationTable = other.MeshAnimationTable;
+        
+        Initialize();
+    }
 
-float GetCurrentTimeFrame() { return CurrentTimeFrame; }
-GRAPHIC_MESH_ANIMATION * GetAnimation( int index ) { return MeshAnimationTable[ index ]; }
-const GRAPHIC_MESH_ANIMATION * GetAnimation( int index ) const { return MeshAnimationTable[ index ]; }
+    void Update( const float time );
+    void Reset();
 
-inline float * GetCurrentSkinningForAnimation( int index ) { return ThisFrameAnimationMatrixArrayTable[ index ]; }
+    float GetCurrentTimeFrame() { return CurrentTimeFrame; }
+    GRAPHIC_MESH_ANIMATION * GetAnimation( int index ) { return MeshAnimationTable[ index ]; }
+    const GRAPHIC_MESH_ANIMATION * GetAnimation( int index ) const { return MeshAnimationTable[ index ]; }
+
+    inline float * GetCurrentSkinningForAnimation( int index ) { return ThisFrameAnimationMatrixArrayTable[ index ]; }
 
 private :
 
-std::vector< GRAPHIC_MESH_ANIMATION * > MeshAnimationTable;
-std::vector< float * > ThisFrameAnimationMatrixArrayTable;
-float CurrentTimeFrame;
+    std::vector< GRAPHIC_MESH_ANIMATION * > MeshAnimationTable;
+    std::vector< float * > ThisFrameAnimationMatrixArrayTable;
+    float CurrentTimeFrame;
 
 XS_CLASS_END
 

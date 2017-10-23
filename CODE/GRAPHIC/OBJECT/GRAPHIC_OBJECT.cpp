@@ -35,6 +35,18 @@ GRAPHIC_OBJECT::GRAPHIC_OBJECT() :
     JointTable.resize(0);
 }
 
+GRAPHIC_OBJECT::GRAPHIC_OBJECT( const GRAPHIC_OBJECT & other) :
+    GR_O_ANCESTOR_TYPE(),
+    MeshTable( other.MeshTable),
+    JointTable(other.JointTable)
+    #if __COMPILE_WITH__COLLADA__
+        ,AnimationTable( other.AnimationTable)
+    #endif
+{
+    
+    JointTable.resize(0);
+}
+
 GRAPHIC_OBJECT::~GRAPHIC_OBJECT() {
     
     Release();

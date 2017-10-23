@@ -95,6 +95,8 @@ void RUN3D_APPLICATION::Update( float time_step ) {
 
     Game.Update( time_step );
     
+    GRAPHIC_PARTICLE_SYSTEM::GetInstance().Update( time_step, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
+    
     GRAPHIC_UI_SYSTEM::GetInstance().Update( time_step );
 }
 

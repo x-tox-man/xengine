@@ -26,11 +26,23 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MATERIAL )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_MATERIAL::GRAPHIC_MATERIAL() :
+    GR_M_ANCESTOR_TYPE(),
     Name(),
     Diffuse( CORE_COLOR_White ),
     TextureTable(),
     DepthIsEnabled( false ),
     CubeMapIsEnabled( false )
+{
+    
+}
+
+GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const GRAPHIC_MATERIAL & other ) :
+    GR_M_ANCESTOR_TYPE(),
+    Name( other.Name ),
+    Diffuse( other.Diffuse ),
+    TextureTable( other.TextureTable ),
+    DepthIsEnabled( other.DepthIsEnabled ),
+    CubeMapIsEnabled( other.CubeMapIsEnabled )
 {
     
 }

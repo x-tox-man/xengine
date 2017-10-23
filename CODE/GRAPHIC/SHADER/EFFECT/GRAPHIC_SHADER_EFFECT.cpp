@@ -21,9 +21,18 @@ XS_END_INTERNAL_MEMORY_LAYOUT
 
 
 GRAPHIC_SHADER_EFFECT::GRAPHIC_SHADER_EFFECT() :
+    GRAPHIC_SHADER_EFFECT_RESOURCE_ANCESTOR(),
     Program(),
     Bind(),
     MaterialCollection( new GRAPHIC_MATERIAL_COLLECTION() ) {
+    
+}
+
+GRAPHIC_SHADER_EFFECT::GRAPHIC_SHADER_EFFECT( const GRAPHIC_SHADER_EFFECT & other ) :
+    GRAPHIC_SHADER_EFFECT_RESOURCE_ANCESTOR(),
+    Program( other.Program ),
+    Bind( other.Bind ),
+    MaterialCollection( other.MaterialCollection ) {
     
 }
 

@@ -13,6 +13,7 @@
 #include "GAMEPLAY_COMPONENT_ENTITY.h"
 #include "R3D_PLAYER_PARTS_COLLECTION.h"
 #include "GRAPHIC_CAMERA.h"
+#include "GRAPHICS_STEAM_ENGINE.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_PLAYER_SHIP, GAMEPLAY_COMPONENT_ENTITY)
 
@@ -32,6 +33,8 @@ private:
         Front,
         Rear,
         Top;
+    GRAPHICS_STEAM_ENGINE
+        Steam;
 
 XS_CLASS_END
 

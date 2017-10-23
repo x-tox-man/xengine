@@ -20,6 +20,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT, GAMEPLAY_CO
     void Initialize( const CORE_MATH_VECTOR & position );
     virtual void CollidesWith( GAMEPLAY_COMPONENT_ENTITY * other ) override;
 
+    virtual GAMEPLAY_COMPONENT_ENTITY * Clone() const {
+        
+        return new R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT();
+    }
+
 XS_CLASS_END
 
 #endif /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT_hpp */

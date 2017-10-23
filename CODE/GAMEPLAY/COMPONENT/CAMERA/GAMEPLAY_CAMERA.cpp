@@ -16,6 +16,12 @@ GAMEPLAY_CAMERA::GAMEPLAY_CAMERA() :
         
 }
 
+GAMEPLAY_CAMERA::GAMEPLAY_CAMERA( const GAMEPLAY_CAMERA & other ) :
+    GAMEPLAY_COMPONENT_ENTITY( this ),
+    Camera( other.Camera ) {
+    
+}
+
 GAMEPLAY_CAMERA::~GAMEPLAY_CAMERA() {
     
 }

@@ -18,6 +18,14 @@ GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER() :
     
 }
 
+GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER( const GRAPHIC_MESH_ANIMATION_CONTROLLER & other ) :
+    CurrentTimeFrame( other.CurrentTimeFrame ),
+    MeshAnimationTable( other.MeshAnimationTable ),
+    ThisFrameAnimationMatrixArrayTable() {
+    
+    Initialize();
+}
+
 GRAPHIC_MESH_ANIMATION_CONTROLLER::~GRAPHIC_MESH_ANIMATION_CONTROLLER() {
     
     std::vector< GRAPHIC_MESH_ANIMATION * >::iterator it = MeshAnimationTable.begin();

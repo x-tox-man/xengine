@@ -194,6 +194,15 @@ void ASSET_EDITOR::Save ( const CORE_FILESYSTEM_PATH & path ) {
     CORE_DATA_LOADER< ASSET_EDITOR >::Save( this, path );
 }
 
+void ASSET_EDITOR::Save( CORE_DATA_STREAM & stream ) {
+
+    stream.Open();
+    
+    XS_CLASS_SERIALIZER< ASSET_EDITOR >::template Serialize< std::true_type >( *this, stream );
+    
+    stream.Close();
+}
+
 void ASSET_EDITOR::Load( const CORE_FILESYSTEM_PATH & path) {
     
     ProjectPath = new CORE_FILESYSTEM_PATH( path );

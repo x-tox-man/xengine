@@ -40,13 +40,7 @@
         writer;
     RESOURCE_IMAGE_ATLAS_COMPILER
         atlas_compiler;
-    std::vector< RESOURCE_IMAGE *>
-        images;
-    CORE_FILESYSTEM
-        DefaultFileystem;
 }
-
-- (IBAction)saveAction:(id)sender;
 
 @end
 
@@ -54,54 +48,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
-    // Create the File Open Dialog class.
-    NSOpenPanel* openDlg = [NSOpenPanel openPanel];
-    
-    // Enable the selection of files in the dialog.
-    [openDlg setTitle:@"Select your starting resource directectory"];
-    [openDlg setCanChooseFiles:YES];
-    
-    
-    // Enable the selection of directories in the dialog.
-    [openDlg setCanChooseDirectories:YES];
-    NSString * DirectoryPath = @"";
-    
-    // Display the dialog.  If the OK button was pressed,
-    // process the files.
-    if ( [openDlg runModal] == NSModalResponseOK )
-    {
-        // Get an array containing the full filenames of all
-        // files and directories selected.
-        NSArray* files = [openDlg filenames];
-        
-        DirectoryPath =[files objectAtIndex:0];
-        
-        NSString * ext = [DirectoryPath pathExtension];
-        
-        //Project is found
-        if ( ext != nil && [ext length] > 0 && [ext isEqualToString:@"pjx"] ) {
-            
-            
-            DirectoryPath = [DirectoryPath stringByDeletingLastPathComponent];
-            DirectoryPath = [DirectoryPath stringByAppendingString:@"/"];
-            DefaultFileystem.Initialize( [DirectoryPath cStringUsingEncoding:NSASCIIStringEncoding] );
-            
-            ASSET_EDITOR * editor = (ASSET_EDITOR *) &CORE_APPLICATION::GetApplicationInstance();
-            
-            CORE_FILESYSTEM_PATH path( [[files objectAtIndex:0] cStringUsingEncoding:NSASCIIStringEncoding]);
-            
-            editor->Load( path );
-        }
-        else {
-            DirectoryPath = [DirectoryPath stringByAppendingString:@"/"];
-            DirectoryPath = [DirectoryPath stringByAppendingString:@"/"];
-            DefaultFileystem.Initialize( [DirectoryPath cStringUsingEncoding:NSASCIIStringEncoding] );
-        }
-        
-        
-    }
-    
-    CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );
 }
 
 
@@ -264,50 +210,5 @@
 
     return NSTerminateNow;
 }
-
-- (IBAction)saveAction:(id)sender {
-    
-    ASSET_EDITOR * editor = (ASSET_EDITOR *) &CORE_APPLICATION::GetApplicationInstance();
-    
-    if ( editor->GetProjectPath() != NULL ) {
-        
-        editor->Save( *editor->GetProjectPath() );
-    }
-    else if( editor->GetProjectPath() == NULL) {
-        
-        NSSavePanel *panel = [NSSavePanel savePanel];
-        
-        
-        [panel setMessage:@"Please select a path where to save project file."]; // Message inside modal window
-        [panel setAllowsOtherFileTypes:YES];
-        [panel setExtensionHidden:YES];
-        [panel setCanCreateDirectories:YES];
-        [panel setNameFieldStringValue:@"project.pjx"];
-        [panel setTitle:@"Saving Project..."]; // Window title
-        
-        NSInteger result = [panel runModal];
-        NSError *error = nil;
-        
-        if (result == NSOKButton) {
-            ////////////////////////////////////////////
-            NSString * path0 = [[panel URL] path];
-            
-            ASSET_EDITOR * editor = (ASSET_EDITOR *) &CORE_APPLICATION::GetApplicationInstance();
-            
-            CORE_FILESYSTEM_PATH path( [path0 cStringUsingEncoding:NSASCIIStringEncoding]);
-            
-            editor->Save( path );
-            
-            if (error) {
-                [NSApp presentError:error];
-            }
-            else {
-                editor->SetProjectPath( path );
-            }
-        }
-    }
-}
-
-
 
 @end

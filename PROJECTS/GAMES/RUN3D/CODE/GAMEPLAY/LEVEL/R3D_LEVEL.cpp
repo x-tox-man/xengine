@@ -29,7 +29,7 @@ void R3D_LEVEL::Initialize() {
     PlayerTable[ 0 ]->Initialize();
     
     CreateTracks();
-    //CreateGround();
+    CreateGround();
 }
 
 void R3D_LEVEL::Finalize() {
@@ -48,17 +48,25 @@ void R3D_LEVEL::ComputeCollisions( const float time_step ) {
 
 void R3D_LEVEL::CreateTracks() {
     
-    for (int i = 0; i < 10; i++) {
+    CORE_MATH_VECTOR p1( 0.0f, 1.0f, 1.0f, 1.0f );
+    
+    auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
+    base_entity->Initialize( p1 );
+    
+    for ( int i = 0; i < 20; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
-        if ( i > 0 && i % 5 == 0 ) {
+        
+        if ( i > 0 && i % 10 == 0 ) {
             
             auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_CHECKPOINT >();
             entity->Initialize( p );
         }
         
-        auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
-        entity->Initialize( p );
+        base_entity->SetPosition( p );
+        
+        auto entity = (R3D_LEVEL_TRACK*)GAMEPLAY_COMPONENT_MANAGER::GetInstance().CloneEntity< R3D_LEVEL_TRACK >( base_entity );
+        entity->AddToSystems();
     }
 }
 
@@ -72,12 +80,11 @@ void R3D_LEVEL::CreateGround() {
     GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "TerrainShader" ) );
     GAMEPLAY_HELPER::SetTexture(entity, "map-color", CORE_FILESYSTEM_PATH::FindFilePath("map-color", "png", "MAP" ) );
     
-    CORE_MATH_VECTOR p( ((height_map_object->GetXWidth()-1) * height_map_object->GetLength())*0.5f, ((height_map_object->GetYWidth()-1) * height_map_object->GetLength())*0.5f, 0.0f, 1.0f );
+    CORE_MATH_VECTOR p( -((height_map_object->GetXWidth()-1) * height_map_object->GetLength())*0.5f, -((height_map_object->GetYWidth()-1) * height_map_object->GetLength())*0.5f, -5.0f, 1.0f );
     
     GAMEPLAY_HELPER::SetPhysicsGroundHeightMapObject( entity, p, 0.0f );
     
-    //GAMEPLAY_HELPER::SetPosition( entity, p );
-    //GAMEPLAY_HELPER::SetOrientation(entity, CORE_MATH_QUATERNION());
+    entity->SetPosition( p );
     
     GAMEPLAY_HELPER::AddStaticToPhysics( entity, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_WEAPONSHIP );
     GAMEPLAY_HELPER::AddToWorld( entity );

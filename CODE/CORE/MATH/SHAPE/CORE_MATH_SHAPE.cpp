@@ -26,6 +26,14 @@ CORE_MATH_SHAPE::CORE_MATH_SHAPE() :
     
 }
 
+CORE_MATH_SHAPE::CORE_MATH_SHAPE( const CORE_MATH_SHAPE & other ) :
+    Position( other.Position ),
+    Orientation( other.Orientation ),
+    HalfDiagonal( other.HalfDiagonal ),
+    Type( other.Type ) {
+    
+}
+
 CORE_MATH_SHAPE::~CORE_MATH_SHAPE() {
 
 }

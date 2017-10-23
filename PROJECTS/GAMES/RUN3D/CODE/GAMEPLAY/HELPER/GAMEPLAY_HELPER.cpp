@@ -284,8 +284,8 @@ void GAMEPLAY_HELPER::SetPhysicsObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, c
     auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     pos->SetPosition( position );
-    
-    comp->BulletConfigureBvhTriangleMeshShape( position, render->GetObject().GetResource< GRAPHIC_OBJECT >() );
+    auto triangle_mesh = comp->CreateBvhTriangleMesh( render->GetObject().GetResource< GRAPHIC_OBJECT >() );
+    comp->BulletConfigureBvhTriangleMeshShape( position, triangle_mesh );
     comp->SetMass( mass );
 }
 

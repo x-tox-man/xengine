@@ -30,6 +30,11 @@ public:
         return (*__InnerMap)[classType]->__InnerCreate();
     }
     
+    static __NAMED_CLASS__ * __InternalCopyObject( const __FACTORY_TYPE_ENUM__ classType, const __NAMED_CLASS__ & object_to_copy ) {
+        
+        return (*__InnerMap)[classType]->__InnerCopy( object_to_copy );
+    }
+    
     static const __NAMED_CLASS__ * __InternalGetObject( const __FACTORY_TYPE_ENUM__ classType ) {
         
         return (*__InnerMap)[classType];
@@ -80,6 +85,9 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
     static __FACTORY_TYPE__ * FactoryCreate( const __FACTORY_TYPE_ENUM__ factoryType) { \
         return FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalCreateObject( factoryType ); \
     }\
+    static __FACTORY_TYPE__ * FactoryCopy( const __FACTORY_TYPE_ENUM__ factoryType, const __FACTORY_TYPE__ & object_to_copy ) { \
+        return FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalCopyObject( factoryType, object_to_copy ); \
+    }\
 \
     static const __FACTORY_TYPE__ * FactoryGetTemplateElement( const __FACTORY_TYPE_ENUM__ factoryType) { \
         return FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalGetObject( factoryType ); \
@@ -94,6 +102,10 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
         CORE_RUNTIME_Abort();\
         return NULL; \
     };\
+    virtual __FACTORY_TYPE__ * __InnerCopy( const __FACTORY_TYPE__ & object ) const { \
+        CORE_RUNTIME_Abort();\
+        return NULL; \
+    };\
     public : \
 
 #define CORE_HELPERS_FACTORY_Element( __CLASS_TYPE__, __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__, __FACTORY_TYPE_ENUMERATED__ ) \
@@ -103,7 +115,9 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
     virtual __FACTORY_TYPE__ * __InnerCreate() const override { \
         return new __CLASS_TYPE__();\
     }\
-    \
+    virtual __FACTORY_TYPE__ * __InnerCopy( const __FACTORY_TYPE__ & object ) const { \
+        return new __CLASS_TYPE__( *((__CLASS_TYPE__*) &object) );\
+    };\
     \
     static int GetFactoryType() { \
         return __FACTORY_TYPE_ENUMERATED__; \

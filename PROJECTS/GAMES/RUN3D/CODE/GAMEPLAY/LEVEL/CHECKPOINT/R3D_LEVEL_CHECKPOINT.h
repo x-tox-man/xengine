@@ -20,6 +20,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_LEVEL_CHECKPOINT, GAMEPLAY_COMPONENT_ENTITY)
 
     void Initialize( const CORE_MATH_VECTOR & position );
 
+    virtual GAMEPLAY_COMPONENT_ENTITY * Clone() const {
+        
+        return new R3D_LEVEL_CHECKPOINT();
+    }
+
 private:
 
 XS_CLASS_END

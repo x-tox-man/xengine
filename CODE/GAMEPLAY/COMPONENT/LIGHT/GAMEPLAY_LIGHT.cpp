@@ -11,7 +11,13 @@
 
 GAMEPLAY_LIGHT::GAMEPLAY_LIGHT() :
     GAMEPLAY_COMPONENT_ENTITY( this ),
-    Light( NULL ) {
+    Light() {
+    
+}
+
+GAMEPLAY_LIGHT::GAMEPLAY_LIGHT( const GAMEPLAY_LIGHT & other ) :
+    GAMEPLAY_COMPONENT_ENTITY( this ),
+    Light( other.Light ) {
     
 }
 

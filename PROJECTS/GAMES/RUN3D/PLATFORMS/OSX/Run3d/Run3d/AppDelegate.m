@@ -13,7 +13,7 @@
 @end
 
 @implementation AppDelegate {
-    CGPoint initialPoint;
+    
 }
 
 - (IBAction)NewAtlasAction:(id)sender {
@@ -45,7 +45,7 @@
     
     self.window = [[NSApplication sharedApplication] mainWindow];
     
-    [self.window setFrame:CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f) display:YES];
+    [self.window setFrame:NSRectFromCGRect(CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f) ) display:YES];
     [self.window.contentView setAcceptsTouchEvents:YES];
     
     [self.ApplicationMainScreen->GetGlView() setAcceptsTouchEvents:YES];
@@ -73,11 +73,10 @@
     NSEventMaskLeftMouseDragged |
     NSEventMaskMouseMoved;
     
-    [NSEvent addLocalMonitorForEventsMatchingMask:mask handler:^NSEvent *(NSEvent * event) {
-        
+    self.EventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:mask handler:^NSEvent *(NSEvent * event) {
         
         switch ( [event type] ) {
-                
+
             case NSEventTypeKeyUp: {
                 
                 int value = [[event characters] characterAtIndex:0 ];
@@ -214,15 +213,18 @@
 
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
-    
+    if (self.EventMonitor ) {
+        
+        [NSEvent removeMonitor:self.EventMonitor];
+    }
 }
 
 -(void)applicationWillTerminate:(NSNotification *)notification {
     
-    _Application->Finalize();
+    self.Application->Finalize();
     
-    CORE_MEMORY_ObjectSafeDeallocation( _Application );
-    CORE_MEMORY_ObjectSafeDeallocation( _ApplicationMainScreen );
+    CORE_MEMORY_ObjectSafeDeallocation( self.Application );
+    CORE_MEMORY_ObjectSafeDeallocation( self.ApplicationMainScreen );
 }
 
 - (void)touchesBeganWithEvent:(NSEvent *)event {

@@ -23,11 +23,10 @@ void R3D_LEVEL_CHECKPOINT::Initialize( const CORE_MATH_VECTOR & position ) {
     GAMEPLAY_HELPER::SetEffect( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
     GAMEPLAY_HELPER::SetTexture( this, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     
-    //GAMEPLAY_HELPER::SetPhysicsObject( this, position, 0.0f );
     GAMEPLAY_HELPER::SetPhysicsObject( this, position, 0.0f );
     
     SetPosition( position );
-    //GAMEPLAY_HELPER::SetOrientation(entity, CORE_MATH_QUATERNION());
+    SetOrientation( CORE_MATH_QUATERNION(0.0f, 0.0f, 0.0f, 1.0f) );
     
     GAMEPLAY_HELPER::AddStaticToPhysics( this, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_SHIP );
     GAMEPLAY_HELPER::AddToWorld( this );
@@ -35,5 +34,5 @@ void R3D_LEVEL_CHECKPOINT::Initialize( const CORE_MATH_VECTOR & position ) {
     auto child = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT>();
     child->Initialize( position );
     
-    SetsChild( child, 0 );
+    SetChild( child, 0 );
 }

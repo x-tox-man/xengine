@@ -21,5 +21,6 @@
 
 @property (assign) RUN3D_APPLICATION * Application;
 @property (assign) GRAPHIC_WINDOW_OSX * ApplicationMainScreen;
-
+@property (assign) CGPoint initialPoint;
+@property (assign) id EventMonitor;
 @end

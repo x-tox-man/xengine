@@ -29,6 +29,7 @@ void R3D_RESOURCES::Initialize() {
     RESOURCE_PROXY::PTR checkpoint_effect_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR checkpoint_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR capsule_proxy = new RESOURCE_PROXY;
+    RESOURCE_PROXY::PTR particle_proxy = new RESOURCE_PROXY;
     
     spaceship1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("spaceship1", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     track_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("straight_track", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
@@ -40,16 +41,19 @@ void R3D_RESOURCES::Initialize() {
     auto basic_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicGeometryShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto basic_terrain_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "TerrainShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "TerrainShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto checkpoint_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "CheckpointEffect", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
+    auto particle_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicParticleShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     
     effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     basic_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     basic_terrain_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     checkpoint_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    particle_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
     shader_proxy->SetResource( effect );
     basic_geometry_shader_proxy->SetResource( basic_effect );
     terrain_geometry_shader_proxy->SetResource( basic_terrain_effect );
     checkpoint_effect_proxy->SetResource( checkpoint_effect );
+    particle_proxy->SetResource( particle_effect );
     
     Resources->AddResource( spaceship1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1" ) );
     Resources->AddResource( track_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "straight_track" ) );
@@ -60,6 +64,7 @@ void R3D_RESOURCES::Initialize() {
     Resources->AddResource( checkpoint_effect_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ) );
     Resources->AddResource( checkpoint_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "checkpoint" ) );
     Resources->AddResource( capsule_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "capsule" ) );
+    Resources->AddResource( particle_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ) );
 }
 
 void R3D_RESOURCES::Finalize() {

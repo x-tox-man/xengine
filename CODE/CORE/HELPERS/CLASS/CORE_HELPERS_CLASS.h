@@ -63,6 +63,18 @@ public : \
     friend class XS_CLASS_SERIALIZER< __CLASS_NAME__ >; \
     typedef __CLASS_NAME__ * PTR; \
 
+#define XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( __CLASS_NAME__, __ANCESTOR__ ) \
+class __CLASS_NAME__: public __ANCESTOR__ \
+{ \
+    private : \
+    __CLASS_NAME__( const __ANCESTOR__ & other ); \
+    void operator =( const __CLASS_NAME__ & other ); \
+    void operator =( const __ANCESTOR__ & other ); \
+    public : \
+    __CLASS_NAME__( const __CLASS_NAME__ & other ); \
+    friend class XS_CLASS_SERIALIZER< __CLASS_NAME__ >; \
+    typedef __CLASS_NAME__ * PTR; \
+
 #define XS_CLASS_BEGIN_WITH_ANCESTOR_2( __CLASS_NAME__, __ANCESTOR__, __ANCESTOR__2 ) \
 class __CLASS_NAME__: public __ANCESTOR__, public __ANCESTOR__2 \
 { \

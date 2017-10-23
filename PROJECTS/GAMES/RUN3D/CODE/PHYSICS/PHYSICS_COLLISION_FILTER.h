@@ -16,6 +16,8 @@
     #include "btBulletDynamicsCommon.h"
 #endif
 
+#define BT_USE_DOUBLE_PRECISION
+
 struct PHYSICS_COLLISION_FILTER : public btOverlapFilterCallback
 {
     // return true when pairs need collision

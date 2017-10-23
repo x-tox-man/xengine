@@ -34,15 +34,15 @@ class GRAPHIC_PARTICLE_RENDERER {
     
 public:
     
-    void Initialize( GRAPHIC_MATERIAL & material) {
+    void Initialize( GRAPHIC_SHADER_EFFECT * effect ) {
         VertexComponent = GetVertexComponent<__PARTICLE_TYPE__>();
         
-        InternalInitialize( material );
+        InternalInitialize( effect );
     }
     
     // contract :
-    // void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table );
-    
+    //void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table );
+
 private:
     GRAPHIC_SHADER_BIND VertexComponent;
     

@@ -17,7 +17,7 @@
 #include "CORE_MATH_QUATERNION.h"
 #include "CORE_MATH_SHAPE_TYPE.h"
 
-XS_CLASS_BEGIN( CORE_MATH_SHAPE )
+XS_CLASS_BEGIN_WITH_COPY( CORE_MATH_SHAPE )
 
 XS_DEFINE_SERIALIZABLE
 
@@ -43,12 +43,18 @@ XS_DEFINE_SERIALIZABLE
     inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation; }
     inline void SetHalfDiagonal( const CORE_MATH_VECTOR & diagonal ) { HalfDiagonal = diagonal; }
 
+    inline void SetType( CORE_MATH_SHAPE_TYPE type ) { Type = type; }
+    inline CORE_MATH_SHAPE_TYPE GetType() { return Type; }
+
 private:
 
-    CORE_MATH_VECTOR Position;
-    CORE_MATH_QUATERNION Orientation;
-    CORE_MATH_VECTOR HalfDiagonal; // Used to represent how a shape that is a square or a sphere should be represented
-    CORE_MATH_SHAPE_TYPE Type;
+    CORE_MATH_VECTOR
+        Position,
+        HalfDiagonal; // Used to represent how a shape that is a square or a sphere should be represented
+    CORE_MATH_QUATERNION
+        Orientation;
+    CORE_MATH_SHAPE_TYPE
+        Type;
 
 XS_CLASS_END
 

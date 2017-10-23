@@ -24,10 +24,11 @@ void R3D_LEVEL_TRACK::Initialize( const CORE_MATH_VECTOR & position ) {
     GAMEPLAY_HELPER::SetTexture( this, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     
     GAMEPLAY_HELPER::SetPhysicsObject( this, position, 0.0f );
-    //GAMEPLAY_HELPER::SetPhysicsSphereObject( entity, p, 0.0f );
     
     SetPosition( position );
-    //GAMEPLAY_HELPER::SetOrientation(entity, CORE_MATH_QUATERNION());
+}
+
+void R3D_LEVEL_TRACK::AddToSystems() {
     
     GAMEPLAY_HELPER::AddStaticToPhysics( this, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_WEAPONSHIP );
     GAMEPLAY_HELPER::AddToWorld( this );

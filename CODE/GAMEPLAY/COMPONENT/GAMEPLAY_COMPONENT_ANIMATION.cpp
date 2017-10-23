@@ -10,7 +10,14 @@
 #include "CORE_MEMORY.h"
 
 GAMEPLAY_COMPONENT_ANIMATION::GAMEPLAY_COMPONENT_ANIMATION() :
-    GAMEPLAY_COMPONENT() {
+    GAMEPLAY_COMPONENT(),
+    Animation() {
+    
+}
+
+GAMEPLAY_COMPONENT_ANIMATION::GAMEPLAY_COMPONENT_ANIMATION( const GAMEPLAY_COMPONENT_ANIMATION & other ) :
+    GAMEPLAY_COMPONENT(),
+    Animation( other.Animation ) {
     
 }
 
@@ -35,15 +42,13 @@ void GAMEPLAY_COMPONENT_ANIMATION::operator delete  ( void* ptr ) {
 
 void GAMEPLAY_COMPONENT_ANIMATION::UpdateAnimation( float time_step ) {
     
-    //TODO: float t = Animation->GetAnimation( 0 )->GetJointTable()[0]->GetDuration();
-    
-    if ( time_step + Animation->GetCurrentTimeFrame() < Animation->GetAnimation( 0 )->GetJointTable()[0]->GetDuration() ) {
+    if ( time_step + Animation.GetCurrentTimeFrame() < Animation.GetAnimation( 0 )->GetJointTable()[0]->GetDuration() ) {
         
-        Animation->Update( time_step );
+        Animation.Update( time_step );
     }
     else {
         
-        Animation->Reset();
+        Animation.Reset();
     }
 }
 

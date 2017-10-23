@@ -10,6 +10,7 @@
 #include "GRAPHIC_UI_SYSTEM.h"
 #include "RUN3D_APPLICATION.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
+#include "GRAPHIC_PARTICLE_SYSTEM.h"
 
 R3D_RENDER::R3D_RENDER() :
     Lookat(),
@@ -120,6 +121,8 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         Lookat.Normalize();
         
         R3D_APP_PTR->GetGame().Render( renderer );
+        
+        GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
     
         //PrimaryRenderTarget.Discard();
     }

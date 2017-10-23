@@ -2588,7 +2588,7 @@
 		3253DB3D1EBDFABB00DF1797 /* ASSET_TYPE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASSET_TYPE.h; sourceTree = "<group>"; };
 		3253DB3E1EBDFF8900DF1797 /* ASSET_TYPE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ASSET_TYPE.cpp; sourceTree = "<group>"; };
 		3253DB431EBE45A100DF1797 /* ProgramDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramDocument.h; sourceTree = "<group>"; };
-		3253DB441EBE45A100DF1797 /* ProgramDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramDocument.m; sourceTree = "<group>"; };
+		3253DB441EBE45A100DF1797 /* ProgramDocument.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ProgramDocument.m; sourceTree = "<group>"; };
 		3253DB461EBE697D00DF1797 /* GRAPHIC_UI_SCREEN_REFERENCE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_UI_SCREEN_REFERENCE.cpp; sourceTree = "<group>"; };
 		3253DB471EBE697D00DF1797 /* GRAPHIC_UI_SCREEN_REFERENCE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_UI_SCREEN_REFERENCE.h; sourceTree = "<group>"; };
 		3253DB491EBF5EFC00DF1797 /* RESOURCE_TYPE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RESOURCE_TYPE.cpp; sourceTree = "<group>"; };
@@ -2824,6 +2824,7 @@
 		5FAFD04F1F7554B800113D6E /* CORE_MATH_RAY_SEGMENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CORE_MATH_RAY_SEGMENT.h; sourceTree = "<group>"; };
 		5FAFD0521F75592300113D6E /* PHYSICS_UTILS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PHYSICS_UTILS.cpp; sourceTree = "<group>"; };
 		5FAFD0531F75592300113D6E /* PHYSICS_UTILS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHYSICS_UTILS.h; sourceTree = "<group>"; };
+		5FB7C0D81F8A6E0000DF7472 /* x4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = x4.jpg; sourceTree = "<group>"; };
 		5FC19B5A1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RESOURCE_REPRESENTATION.cpp; sourceTree = "<group>"; };
 		5FC19B5B1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESOURCE_REPRESENTATION.h; sourceTree = "<group>"; };
 		5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_FILESYSTEM.cpp; sourceTree = "<group>"; };
@@ -3291,6 +3292,7 @@
 				3261CEF71E91229E000872F4 /* RootViewController.m */,
 				321911ED1E5331B300CF29A2 /* Assets.xcassets */,
 				321911F21E5331B300CF29A2 /* Info.plist */,
+				5FB7C0D81F8A6E0000DF7472 /* x4.jpg */,
 				321911E41E5331B300CF29A2 /* Supporting Files */,
 				3238F17A1E8FC69300838C62 /* ASSET_EDITOR.cpp */,
 				3238F17B1E8FC69300838C62 /* ASSET_EDITOR.h */,
@@ -4163,7 +4165,6 @@
 		3238F4991E90E80400838C62 /* PARTICLE */ = {
 			isa = PBXGroup;
 			children = (
-				3238F49A1E90E80400838C62 /* ATTRIBUTE */,
 				3238F49B1E90E80400838C62 /* GRAPHIC_PARTICLE.cpp */,
 				3238F49C1E90E80400838C62 /* GRAPHIC_PARTICLE.h */,
 				3238F49D1E90E80400838C62 /* GRAPHIC_PARTICLE_EMITER.cpp */,
@@ -4179,13 +4180,6 @@
 				3238F4AA1E90E80400838C62 /* RENDERER */,
 			);
 			path = PARTICLE;
-			sourceTree = "<group>";
-		};
-		3238F49A1E90E80400838C62 /* ATTRIBUTE */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ATTRIBUTE;
 			sourceTree = "<group>";
 		};
 		3238F4A61E90E80400838C62 /* MODIFIER */ = {
@@ -4664,7 +4658,6 @@
 				3238F5841E90E80400838C62 /* ASSET_COMPILER */,
 				3238F5871E90E80400838C62 /* FONT_EDITOR */,
 				3238F58C1E90E80400838C62 /* MATH_TOOLBOX */,
-				3238F5B01E90E80400838C62 /* RUNTIME_SPIKE_DETECTOR */,
 			);
 			name = TOOLS;
 			path = ../../CODE/TOOLS;
@@ -4750,13 +4743,6 @@
 				3238F5AF1E90E80400838C62 /* GteVETManifoldMesh.cpp */,
 			);
 			path = Mathematics;
-			sourceTree = "<group>";
-		};
-		3238F5B01E90E80400838C62 /* RUNTIME_SPIKE_DETECTOR */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RUNTIME_SPIKE_DETECTOR;
 			sourceTree = "<group>";
 		};
 		324E6DCE1EC4B8C000751F52 /* CAMERA */ = {
@@ -8219,6 +8205,7 @@
 		5F92DAA61F16413800292A99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
@@ -8274,12 +8261,14 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
 		};
 		5F92DAA71F16413800292A99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
@@ -8335,6 +8324,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Release;
 		};

@@ -26,12 +26,13 @@ void R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT::Initialize( const CORE_MATH_VECTOR &
     GAMEPLAY_HELPER::SetPhysicsCylinderObject(this, position, 0.75f, 0.15f, CORE_MATH_QUATERNION(), 0.0f );
     
     SetPosition( position );
-    //GAMEPLAY_HELPER::SetOrientation(entity, CORE_MATH_QUATERNION());
+    SetOrientation(CORE_MATH_QUATERNION(0.0f, 0.0f, 0.0f, 1.0f));
     
     GAMEPLAY_HELPER::AddStaticToPhysics( this, PHYSICS_COLLISION_TYPE_TARGET, PHYSICS_COLLISION_TYPE_SHIP );
     GAMEPLAY_HELPER::AddToWorld( this );
 }
 
 void R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT::CollidesWith( GAMEPLAY_COMPONENT_ENTITY * other ) {
+    
     
 }

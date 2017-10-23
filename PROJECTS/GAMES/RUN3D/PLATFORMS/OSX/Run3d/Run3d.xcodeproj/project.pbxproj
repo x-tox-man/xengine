@@ -14,6 +14,7 @@
 		32F2482C1EA433F200D19613 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32F2482A1EA433F200D19613 /* Main.storyboard */; };
 		32F24BA21EA4345000D19613 /* APPLICATION_CONFIGURATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F24B991EA4345000D19613 /* APPLICATION_CONFIGURATION.cpp */; };
 		32F24BA31EA4345000D19613 /* RUN3D_APPLICATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F24B9B1EA4345000D19613 /* RUN3D_APPLICATION.cpp */; };
+		5F237FBC1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F237FBA1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp */; };
 		5F4DEA711F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA6F1F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp */; };
 		5F4DEA741F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */; };
 		5F4DEA771F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA751F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp */; };
@@ -87,6 +88,7 @@
 		5F92DC881F16497D00292A99 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC1E1F16497D00292A99 /* libz.a */; };
 		5F92DC8A1F1649BF00292A99 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC891F1649BF00292A99 /* AudioToolbox.framework */; };
 		5F92DC8C1F1649CB00292A99 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC8B1F1649CB00292A99 /* OpenAL.framework */; };
+		5FB7C0DA1F8C1AA900DF7472 /* RESOURCE_CACHE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7C0D91F8C1AA100DF7472 /* RESOURCE_CACHE.cpp */; };
 		5FD11D0C1F16A1A70092E3A7 /* SKYDOME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D0A1F16A1A70092E3A7 /* SKYDOME.cpp */; };
 		5FD11D0F1F16A1AF0092E3A7 /* TERRAIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D0D1F16A1AF0092E3A7 /* TERRAIN.cpp */; };
 		5FD11D131F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D111F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp */; };
@@ -109,6 +111,8 @@
 		32F24B9A1EA4345000D19613 /* APPLICATION_CONFIGURATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APPLICATION_CONFIGURATION.h; sourceTree = "<group>"; };
 		32F24B9B1EA4345000D19613 /* RUN3D_APPLICATION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RUN3D_APPLICATION.cpp; sourceTree = "<group>"; };
 		32F24B9C1EA4345000D19613 /* RUN3D_APPLICATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUN3D_APPLICATION.h; sourceTree = "<group>"; };
+		5F237FBA1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHICS_STEAM_ENGINE.cpp; sourceTree = "<group>"; };
+		5F237FBB1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHICS_STEAM_ENGINE.h; sourceTree = "<group>"; };
 		5F4DEA6F1F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp; sourceTree = "<group>"; };
 		5F4DEA701F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.h; sourceTree = "<group>"; };
 		5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_COMPONENT_SHIP_LARGE.cpp; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 		5F92DC1E1F16497D00292A99 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		5F92DC891F1649BF00292A99 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5F92DC8B1F1649CB00292A99 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		5FB7C0D91F8C1AA100DF7472 /* RESOURCE_CACHE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = RESOURCE_CACHE.cpp; path = ../../../../CODE/RESOURCE/RESOURCE_CACHE.cpp; sourceTree = "<group>"; };
 		5FD11D0A1F16A1A70092E3A7 /* SKYDOME.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SKYDOME.cpp; sourceTree = "<group>"; };
 		5FD11D0B1F16A1A70092E3A7 /* SKYDOME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKYDOME.h; sourceTree = "<group>"; };
 		5FD11D0D1F16A1AF0092E3A7 /* TERRAIN.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TERRAIN.cpp; sourceTree = "<group>"; };
@@ -327,6 +332,7 @@
 		32F24B971EA4345000D19613 /* CODE */ = {
 			isa = PBXGroup;
 			children = (
+				5FB7C0D91F8C1AA100DF7472 /* RESOURCE_CACHE.cpp */,
 				5F76D0771F71B8E1004BEF48 /* PHYSICS */,
 				32F24B981EA4345000D19613 /* APPLICATION */,
 				5F92D8F81F12A59600292A99 /* AUDIO */,
@@ -348,6 +354,23 @@
 				32F24B9C1EA4345000D19613 /* RUN3D_APPLICATION.h */,
 			);
 			path = APPLICATION;
+			sourceTree = "<group>";
+		};
+		5F237FB81F9374B70099BC15 /* STEAM */ = {
+			isa = PBXGroup;
+			children = (
+				5F237FB91F9374B70099BC15 /* ENGINE */,
+			);
+			path = STEAM;
+			sourceTree = "<group>";
+		};
+		5F237FB91F9374B70099BC15 /* ENGINE */ = {
+			isa = PBXGroup;
+			children = (
+				5F237FBA1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp */,
+				5F237FBB1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.h */,
+			);
+			path = ENGINE;
 			sourceTree = "<group>";
 		};
 		5F76D06E1F71B48B004BEF48 /* COMPONENTS */ = {
@@ -439,6 +462,7 @@
 		5F92D8FA1F12A59600292A99 /* GRAPHICS */ = {
 			isa = PBXGroup;
 			children = (
+				5F237FB81F9374B70099BC15 /* STEAM */,
 				5FD11D291F1B7E9C0092E3A7 /* RENDER */,
 				5FD11D091F16A1940092E3A7 /* BACKGROUND */,
 			);
@@ -755,6 +779,7 @@
 				5F4DEA711F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp in Sources */,
 				32F248241EA433F200D19613 /* main.m in Sources */,
 				5F92D91C1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp in Sources */,
+				5F237FBC1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp in Sources */,
 				5F92D92B1F12E11600292A99 /* R3D_PLAYER.cpp in Sources */,
 				5FD11D131F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp in Sources */,
 				5F92D9281F12E0F000292A99 /* R3D_LEVEL_TRACK.cpp in Sources */,
@@ -776,6 +801,7 @@
 				5FD11D0F1F16A1AF0092E3A7 /* TERRAIN.cpp in Sources */,
 				5F76D0761F71B49C004BEF48 /* UI_MAIN_MENU.cpp in Sources */,
 				5FD11D0C1F16A1A70092E3A7 /* SKYDOME.cpp in Sources */,
+				5FB7C0DA1F8C1AA900DF7472 /* RESOURCE_CACHE.cpp in Sources */,
 				5F92D92E1F12E12200292A99 /* R3D_PLAYER_SHIP.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -886,6 +912,7 @@
 		32F248311EA433F200D19613 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 52PVU75796;
@@ -944,6 +971,7 @@
 		32F248321EA433F200D19613 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 52PVU75796;

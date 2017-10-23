@@ -24,18 +24,41 @@ GAMEPLAY_COMPONENT_PHYSICS::GAMEPLAY_COMPONENT_PHYSICS() :
     GAMEPLAY_COMPONENT(),
     Restitution( 1.0f ),
     Friction( 1.0f ),
+    Velocity(),
     RollingFriction( 1.0f ),
     SpinningFriction( 1.0f ),
+    Shape(),
     Mass(  1.0f )
 #ifdef __BULLET_PHYSICS__
-    ,Shape(),
-    BulletShape(),
-    Velocity()
+
+    ,BulletShape( NULL ),
+    BulletRigidBody( NULL ),
+    TriangleMesh( NULL )
 #endif
 {
     
     #ifdef __BULLET_PHYSICS__
         BulletShape = new btSphereShape( 1 );
+    #endif
+}
+
+GAMEPLAY_COMPONENT_PHYSICS::GAMEPLAY_COMPONENT_PHYSICS( const GAMEPLAY_COMPONENT_PHYSICS & other ) :
+    GAMEPLAY_COMPONENT(),
+    Restitution( other.Restitution ),
+    Friction( other.Friction ),
+    RollingFriction( other.RollingFriction ),
+    SpinningFriction( other.SpinningFriction ),
+    Mass(  other.Mass ),
+    Shape( other.Shape ),
+    Velocity( other.Velocity )
+    #ifdef __BULLET_PHYSICS__
+        ,BulletShape( other.BulletShape ),
+        BulletRigidBody( NULL )
+    #endif
+{
+    
+    #ifdef __BULLET_PHYSICS__
+        CreateRigidBody( other );
     #endif
 }
 
@@ -59,67 +82,90 @@ void GAMEPLAY_COMPONENT_PHYSICS::operator delete  ( void* ptr ) {
 
 void GAMEPLAY_COMPONENT_PHYSICS::ConfigureShapeSphere( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation ) {
     
+    Shape.SetType( CORE_MATH_SHAPE_TYPE_Sphere );
+    
     #ifdef __BULLET_PHYSICS__
         BulletShape = new btSphereShape(0.05f);
+        BulletShape->setMargin( 0.1f );
         
-        btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(orientation[0], orientation[2], orientation[1], orientation[3]), btVector3(position[0], position[1], position[2])));
-        btScalar mass = 1;
-        btVector3 fallInertia(0, 0, 0);
-        BulletShape->calculateLocalInertia(mass, fallInertia);
+        btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(orientation[0], orientation[1], orientation[2], orientation[3]), btVector3(position[0], position[1], position[2])));
+        btScalar mass = 1.0f;
+        btVector3 fallInertia(0.0f, 0.0f, 0.0f);
+    
+        if ( mass > 0.0f )
+            BulletShape->calculateLocalInertia(mass, fallInertia);
+    
         btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, BulletShape, fallInertia);
         BulletRigidBody = new btRigidBody(fallRigidBodyCI);
         BulletRigidBody->setRestitution( 0.1f );
         BulletRigidBody->setFriction( 0.1f );
         BulletRigidBody->setRollingFriction( 0.1f );
         BulletRigidBody->setSpinningFriction( 0.1f );
+        BulletRigidBody->setAngularFactor( 0.1f );
     #endif
 }
 
 void GAMEPLAY_COMPONENT_PHYSICS::ConfigureShapeBox(  const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & half_extent, const CORE_MATH_QUATERNION & orientation ) {
     
+    Shape.SetType( CORE_MATH_SHAPE_TYPE_Box );
+    
     #ifdef __BULLET_PHYSICS__
         BulletShape = new btBoxShape( btVector3(half_extent[0], half_extent[1], half_extent[2]) );
+        BulletShape->setMargin( 0.02f );
         
-        btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(orientation[0], orientation[2], orientation[1], orientation[3]), btVector3(position[0], position[1], position[2])));
-        btScalar mass = 1;
-        btVector3 fallInertia(0, 0, 0);
-        BulletShape->calculateLocalInertia(mass, fallInertia);
+        btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0.0f, 0.0f, 0.0f, 1.0f), btVector3(position[0], position[1], position[2])));
+        btScalar mass = 1.0f;
+        btVector3 fallInertia(0.0f, 0.0f, 0.0f);
+    
+        if ( mass > 0.0f )
+            BulletShape->calculateLocalInertia(mass, fallInertia);
+    
         btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, BulletShape, fallInertia);
         BulletRigidBody = new btRigidBody(fallRigidBodyCI);
-        BulletRigidBody->setRestitution( 1.0f );
+        BulletRigidBody->setRestitution( 0.1f );
         BulletRigidBody->setFriction( 1.0f );
         BulletRigidBody->setRollingFriction( 1.0f );
         BulletRigidBody->setSpinningFriction( 1.0f );
+        BulletRigidBody->setAngularFactor( 1.0f );
     #endif
 }
 
 void GAMEPLAY_COMPONENT_PHYSICS::ConfigureShapeCylinder(const CORE_MATH_VECTOR & position, float radius, float width, const CORE_MATH_QUATERNION & orientation ) {
     
+    Shape.SetType( CORE_MATH_SHAPE_TYPE_Cylinder );
+    
 #ifdef __BULLET_PHYSICS__
     BulletShape = new btCylinderShape( btVector3( radius, width, radius) );
     
-    btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(orientation[0], orientation[2], orientation[1], orientation[3]), btVector3(position[0], position[1], position[2])));
-    btScalar mass = 1;
-    btVector3 fallInertia(0, 0, 0);
-    BulletShape->calculateLocalInertia(mass, fallInertia);
+    btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0.0f, 0.0f, 0.0f, 1.0f), btVector3(position[0], position[1], position[2])));
+    btScalar mass = 1.0f;
+    btVector3 fallInertia(0.0f, 0.0f, 0.0f);
+    
+    if ( mass > 0.0f )
+        BulletShape->calculateLocalInertia(mass, fallInertia);
+    
     btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, BulletShape, fallInertia);
     BulletRigidBody = new btRigidBody(fallRigidBodyCI);
-    BulletRigidBody->setRestitution( 1.0f );
+    BulletRigidBody->setRestitution( 0.1f );
     BulletRigidBody->setFriction( 1.0f );
     BulletRigidBody->setRollingFriction( 1.0f );
     BulletRigidBody->setSpinningFriction( 1.0f );
+    BulletRigidBody->setAngularFactor( 1.0f );
 #endif
 }
 
 void GAMEPLAY_COMPONENT_PHYSICS::ConfigureShapePlane( const CORE_MATH_VECTOR & position ) {
+    
+    Shape.SetType( CORE_MATH_SHAPE_TYPE_Plane );
     
     #ifdef __BULLET_PHYSICS__
         BulletShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
     
         btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position[0], position[1], position[2])));
         btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, BulletShape, btVector3(0, 0, 0));
+    
         BulletRigidBody = new btRigidBody(groundRigidBodyCI);
-        BulletRigidBody->setRestitution( 1.0f );
+        BulletRigidBody->setRestitution( 0.1f );
         BulletRigidBody->setFriction( 1.0f );
         BulletRigidBody->setRollingFriction( 1.0f );
         BulletRigidBody->setSpinningFriction( 1.0f );
@@ -127,6 +173,8 @@ void GAMEPLAY_COMPONENT_PHYSICS::ConfigureShapePlane( const CORE_MATH_VECTOR & p
 }
 
 void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureConvexHullShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object ) {
+    
+    Shape.SetType( CORE_MATH_SHAPE_TYPE_TriangleList );
     
     /*for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
         
@@ -156,10 +204,13 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureConvexHullShape( const CORE_MATH
 
 void GAMEPLAY_COMPONENT_PHYSICS::ConfigureHeightMap( const CORE_MATH_VECTOR & position, int width, int lenght, const void * heights, float spacing, float scale ) {
     
+    Shape.SetType( CORE_MATH_SHAPE_TYPE_Heights );
+    
 #ifdef __BULLET_PHYSICS__
     
     BulletShape = new btHeightfieldTerrainShape( width, lenght, heights, scale, 100.0f, -100.0f, 2, PHY_ScalarType::PHY_UCHAR, false );
     BulletShape->setLocalScaling( btVector3(spacing,spacing,1.0f));
+    BulletShape->setMargin( 0.001f );
     
     int i = 0;
     while (i < width*lenght ) {
@@ -179,36 +230,45 @@ void GAMEPLAY_COMPONENT_PHYSICS::ConfigureHeightMap( const CORE_MATH_VECTOR & po
 #endif
 }
 
-void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object ) {
+void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE_MATH_VECTOR & position, btTriangleMesh * collision_mesh ) {
+    
+    Shape.SetType( CORE_MATH_SHAPE_TYPE_TriangleList );
     
 #ifdef __BULLET_PHYSICS__
+    TriangleMesh = collision_mesh;
     
-    //btTriangleIndexVertexArray* collision_mesh = new btTriangleIndexVertexArray();
+    BulletShape = new btBvhTriangleMeshShape( collision_mesh, true );
+    BulletShape->setMargin( 0.001f );
+    
+    btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position[0], position[1], position[2])));
+    
+    btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(1.0, groundMotionState, BulletShape, btVector3(0, 0, 0));
+    
+    BulletRigidBody = new btRigidBody(groundRigidBodyCI);
+    BulletRigidBody->setRestitution( 1.0f );
+    BulletRigidBody->setFriction( 1.0f );
+    BulletRigidBody->setRollingFriction( 1.0f );
+    BulletRigidBody->setSpinningFriction( 1.0f );
+#endif
+}
+
+#ifdef __BULLET_PHYSICS__
+btTriangleMesh * GAMEPLAY_COMPONENT_PHYSICS::CreateBvhTriangleMesh( GRAPHIC_OBJECT * object ) {
+
     btTriangleMesh* collision_mesh = new btTriangleMesh();
     
     for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
-     
+        
         int size = object->GetMeshTable()[i]->GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int );
         int * indice_ptr = object->GetMeshTable()[i]->GetIndexCoreBuffer()->getpointerAtIndex( 0 );
         float * vertex_ptr = (float * )object->GetMeshTable()[i]->GetVertexCoreBuffer()->getpointerAtIndex( 0 );
         
         GRAPHIC_SHADER_BIND bind = object->GetMeshTable()[i]->GetVertexComponent();
         int stride = GRAPHIC_MESH::ComputeVertexStride( bind );
-        
-        /*btIndexedMesh * imesh = new btIndexedMesh();
-        imesh->m_numTriangles = size;
-        imesh->m_triangleIndexBase = ( unsigned char *)indice_ptr;
-        imesh->m_triangleIndexStride = 0;
-        imesh->m_numVertices = object->GetMeshTable()[i]->GetVertexCoreBuffer()->GetSize() / sizeof( float ) *4;
-        imesh->m_vertexBase = ( unsigned char *) vertex_ptr;
-        imesh->m_vertexStride = 0;
-        imesh->m_vertexType = PHY_FLOAT;
-        imesh->m_indexType = PHY_INTEGER;
-        
-        collision_mesh->addIndexedMesh(*imesh);*/
 
+        
         for (int j = 0; j < size ; j += 3 ) {
-
+            
             float x1 = vertex_ptr[(indice_ptr[j] * stride ) + 0];
             float y1 = vertex_ptr[(indice_ptr[j] * stride ) + 1];
             float z1 = vertex_ptr[(indice_ptr[j] * stride ) + 2];
@@ -234,19 +294,9 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE
         }
     }
     
-    BulletShape = new btBvhTriangleMeshShape( collision_mesh, true );
-    
-    btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position[0], position[1], position[2])));
-    
-    btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(1.0, groundMotionState, BulletShape, btVector3(0, 0, 0));
-    
-    BulletRigidBody = new btRigidBody(groundRigidBodyCI);
-    BulletRigidBody->setRestitution( 1.0f );
-    BulletRigidBody->setFriction( 1.0f );
-    BulletRigidBody->setRollingFriction( 1.0f );
-    BulletRigidBody->setSpinningFriction( 1.0f );
-#endif
+    return collision_mesh;
 }
+#endif
 
 void GAMEPLAY_COMPONENT_PHYSICS::SetMass(const float mass) {
     
@@ -285,6 +335,8 @@ CORE_MATH_VECTOR & GAMEPLAY_COMPONENT_PHYSICS::GetVelocity() {
 
 void GAMEPLAY_COMPONENT_PHYSICS::SetPosition( const CORE_MATH_VECTOR & position ) {
     
+    Shape.SetPosition( position );
+    
 #ifdef __BULLET_PHYSICS__
     btTransform initialTransform;
     
@@ -301,6 +353,8 @@ void GAMEPLAY_COMPONENT_PHYSICS::SetPosition( const CORE_MATH_VECTOR & position 
 }
 
 void GAMEPLAY_COMPONENT_PHYSICS::SetOrientation( const CORE_MATH_QUATERNION & rotation ) {
+    
+    Shape.SetOrientation( rotation );
     
 #ifdef __BULLET_PHYSICS__
     btQuaternion rot( rotation[0], rotation[2], rotation[1], rotation[3]);
@@ -324,6 +378,8 @@ void GAMEPLAY_COMPONENT_PHYSICS::ApplyMotionModificator(
 }
 
 void GAMEPLAY_COMPONENT_PHYSICS::ForcePosition( const CORE_MATH_VECTOR & position ) {
+    
+    Shape.SetPosition( position );
     
     #ifdef __BULLET_PHYSICS__
         BulletRigidBody->getMotionState()->setWorldTransform(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position[0], position[1], position[2])));
@@ -374,6 +430,26 @@ void GAMEPLAY_COMPONENT_PHYSICS::LoadFromStream( CORE_DATA_STREAM & stream ) {
     }
 }
 
+#ifdef __BULLET_PHYSICS__
+
+void GAMEPLAY_COMPONENT_PHYSICS::CreateRigidBody( const GAMEPLAY_COMPONENT_PHYSICS & other ) {
+    
+    btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(other.Shape.GetOrientation().X(), other.Shape.GetOrientation().Y(), other.Shape.GetOrientation().Z(), other.Shape.GetOrientation().W() ), btVector3(other.Shape.GetPosition().X(), other.Shape.GetPosition().Y(), other.Shape.GetPosition().Z())));
+    btScalar mass = 0;
+    btVector3 fallInertia(0.0f, 0.0f, 0.0f);
+    
+    if ( mass > 0.0f )
+        BulletShape->calculateLocalInertia(mass, fallInertia);
+    
+    btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, BulletShape, fallInertia);
+    BulletRigidBody = new btRigidBody(fallRigidBodyCI);
+    BulletRigidBody->setRestitution( other.BulletRigidBody->getRestitution() );
+    BulletRigidBody->setFriction( other.BulletRigidBody->getFriction() );
+    BulletRigidBody->setRollingFriction( other.BulletRigidBody->getRollingFriction() );
+    BulletRigidBody->setSpinningFriction( other.BulletRigidBody->getSpinningFriction() );
+    BulletRigidBody->setAngularFactor( other.BulletRigidBody->getAngularFactor() );
+}
+#endif
 
 std::vector< GAMEPLAY_COMPONENT_PHYSICS::INTERNAL_ARRAY_P> * GAMEPLAY_COMPONENT_PHYSICS::InternalVector =  NULL;
 int GAMEPLAY_COMPONENT_PHYSICS::LastIndex = -1;

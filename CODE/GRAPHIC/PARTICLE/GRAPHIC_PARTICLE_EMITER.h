@@ -12,7 +12,7 @@
 #include "CORE_HELPERS_CLASS.h"
 #include "GRAPHIC_PARTICLE_MODIFIER.h"
 #include "GRAPHIC_RENDERER.h"
-#include "GRAPHIC_MATERIAL.h"
+#include "GRAPHIC_SHADER_EFFECT.h"
 #include "GRAPHIC_PARTICLE_RENDERER.h"
 
 class GRAPHIC_PARTICLE_EMITER_BASE_CLASS {
@@ -28,15 +28,19 @@ public:
     virtual void Render(GRAPHIC_RENDERER & renderer) {}
 };
 
+
 template <typename PARTICLE_TYPE, typename PARTICLE_TYPE_ATTRIBUTE, size_t PARTICLE_ARRAY_SIZE>
 class GRAPHIC_PARTICLE_EMITER : GRAPHIC_PARTICLE_EMITER_BASE_CLASS {
     
 public :
     
     typedef GRAPHIC_PARTICLE_MODIFIER<PARTICLE_TYPE, PARTICLE_TYPE_ATTRIBUTE, PARTICLE_ARRAY_SIZE > MODIFIER;
+    
     GRAPHIC_PARTICLE_EMITER() :
         GRAPHIC_PARTICLE_EMITER_BASE_CLASS(),
-        Material(),
+        Position(),
+        Velocity(),
+        Effect( NULL ),
         EmitRate(0.0f),
         ParticleLifetime(0.0f),
         ModifierTable(),
@@ -49,14 +53,14 @@ public :
         
     }
     
-    virtual void Initialize(int emition_rate, float particle_lifetime, GRAPHIC_MATERIAL * material) {
+    virtual void Initialize(int emition_rate, float particle_lifetime, GRAPHIC_SHADER_EFFECT * effect) {
         
-        Material = material;
+        Effect = effect;
         
         EmitRate = emition_rate;
         ParticleLifetime = particle_lifetime;
         
-        Renderer.Initialize( *Material );
+        Renderer.Initialize( Effect );
     }
     
     virtual void Update(float time_step) {
@@ -80,15 +84,16 @@ public :
     
     virtual void Render(GRAPHIC_RENDERER & renderer) {
         
-        Renderer.Render(ParticleTable, *Material, renderer);
+        Renderer.Render(ParticleTable, Effect, renderer, FirstIndex, LastIndex);
     }
     
     void InternalEmit( int start, int end ) {
         
         for(int i = start; i <= end; i++ ) {
-            ParticleTable[i].Position.Set(10.0f, 10.0f, 0.0f, 1.0f);
             
-            ParticleAttributeTable[i].Velocity.Set((rand() % 100 - 50) * 0.5f , 10.0f, (rand() % 100 - 50) * 0.5f, 1.0f);
+            ParticleTable[i].Position = Position;
+            
+            ParticleAttributeTable[i].Velocity.Set( Velocity.X() * (rand() % 10) * 0.1f , Velocity.Y() * (rand() % 10) * 0.1f, Velocity.Z() * (rand() % 10) * 0.1f, 1.0f);
             ParticleAttributeTable[i].Modulator = 1.0f;
             ParticleAttributeTable[i].Lifetime = 5.0f;
         }
@@ -98,6 +103,9 @@ public :
         
         ModifierTable.push_back( &modifier );
     }
+    
+    inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
+    inline void SetVelocity( const CORE_MATH_VECTOR & velocity ) { Velocity = velocity; }
     
 private:
     
@@ -136,15 +144,21 @@ private:
         }
     }
     
-    GRAPHIC_MATERIAL * Material;
-    
-    int EmitRate;
-    float ParticleLifetime;
-    int FirstIndex;
-    int LastIndex;
-    
-    std::vector< MODIFIER * > ModifierTable;
-    GRAPHIC_PARTICLE_RENDERER<PARTICLE_TYPE, PARTICLE_ARRAY_SIZE> Renderer;
+    GRAPHIC_SHADER_EFFECT
+        * Effect;
+    int
+        EmitRate,
+        FirstIndex,
+        LastIndex;
+    float
+        ParticleLifetime;
+    std::vector< MODIFIER * >
+        ModifierTable;
+    CORE_MATH_VECTOR
+        Position,
+        Velocity;
+    GRAPHIC_PARTICLE_RENDERER<PARTICLE_TYPE, PARTICLE_ARRAY_SIZE>
+        Renderer;
 };
 
 

@@ -30,6 +30,14 @@ RESOURCE_PROXY::RESOURCE_PROXY(BASE_RESOURCE * resource) :
     
 }
 
+RESOURCE_PROXY::RESOURCE_PROXY(const RESOURCE_PROXY & other) :
+    Identifier( other.Identifier ),
+    Resource( other.Resource ),
+    ItShouldLoad( other.ItShouldLoad ),
+    Type( other.Type ) {
+    
+}
+
 RESOURCE_PROXY::~RESOURCE_PROXY() {
     
 }

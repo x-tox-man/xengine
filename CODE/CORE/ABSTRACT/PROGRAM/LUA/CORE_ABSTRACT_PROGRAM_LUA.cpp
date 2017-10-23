@@ -15,7 +15,17 @@ extern "C" {
     #include "lauxlib.h"
 }
 
-CORE_ABSTRACT_PROGRAM_LUA::CORE_ABSTRACT_PROGRAM_LUA() : CORE_ABSTRACT_PROGRAM_FACTORY(), Runtime( NULL ), Path() {
+CORE_ABSTRACT_PROGRAM_LUA::CORE_ABSTRACT_PROGRAM_LUA() :
+    CORE_ABSTRACT_PROGRAM_FACTORY(),
+    Runtime( NULL ),
+    Path() {
+    
+}
+
+CORE_ABSTRACT_PROGRAM_LUA::CORE_ABSTRACT_PROGRAM_LUA( const CORE_ABSTRACT_PROGRAM_LUA & other ) :
+    CORE_ABSTRACT_PROGRAM_FACTORY(),
+    Runtime( other.Runtime ),
+    Path( other.Path ) {
     
 }
 

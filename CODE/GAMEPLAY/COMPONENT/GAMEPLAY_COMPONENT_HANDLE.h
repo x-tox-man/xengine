@@ -48,6 +48,16 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_HANDLE )
         SetComponent( position_component );
     }
 
+    GAMEPLAY_COMPONENT_HANDLE Clone() const {
+        
+        GAMEPLAY_COMPONENT_HANDLE
+            c;
+        
+        c.SetComponent( GAMEPLAY_COMPONENT::FactoryCopy( (GAMEPLAY_COMPONENT_TYPE) Component->FactoryGetType(), *Component )  );
+        
+        return c;
+    }
+
 private:
 
     GAMEPLAY_COMPONENT

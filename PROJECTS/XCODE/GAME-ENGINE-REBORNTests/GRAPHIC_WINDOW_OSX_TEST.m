@@ -30,6 +30,7 @@ void GRAPHIC_WINDOW_OSX_TEST::Initialize()
     glView = [[CustomGlViewTest alloc] initWithFrame:NSMakeRect( GetPositionX(), GetPositionY(), GetWidth(), GetHeight())];
     
     [glView registerForDraggedTypes:[NSArray arrayWithObjects: NSFilenamesPboardType, nil]];
+    [glView becomeFirstResponder];
 }
 
 void GRAPHIC_WINDOW_OSX_TEST::Display() {

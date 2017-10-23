@@ -27,6 +27,16 @@ GAMEPLAY_COMPONENT_POSITION::GAMEPLAY_COMPONENT_POSITION() :
     
 }
 
+GAMEPLAY_COMPONENT_POSITION::GAMEPLAY_COMPONENT_POSITION( const GAMEPLAY_COMPONENT_POSITION & other ) :
+    GAMEPLAY_COMPONENT(),
+    Position( other.Position ),
+    PositionOffset( other.PositionOffset ),
+    Velocity( other.Velocity ),
+    Orientation( other.Orientation ),
+    Spin( other.Spin ) {
+    
+}
+
 GAMEPLAY_COMPONENT_POSITION::~GAMEPLAY_COMPONENT_POSITION() {
 
 }

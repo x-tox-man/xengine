@@ -41,7 +41,9 @@
             case GAMEPLAY_COMPONENT_TYPE_Position:
             {
                 GAMEPLAY_COMPONENT_POSITION * pos = (GAMEPLAY_COMPONENT_POSITION *) [self.Entity Entity]->GetComponent( (int) GAMEPLAY_COMPONENT_TYPE_Position );
-                
+                if ( pos == NULL) {
+                    return nil;
+                }
                 CORE_MATH_VECTOR position( pos->GetPosition() );
                 CORE_MATH_QUATERNION rotation( pos->GetOrientation() );
                 

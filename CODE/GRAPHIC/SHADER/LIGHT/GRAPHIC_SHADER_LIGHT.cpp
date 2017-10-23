@@ -15,6 +15,12 @@ GRAPHIC_SHADER_LIGHT::GRAPHIC_SHADER_LIGHT() :
     
 }
 
+GRAPHIC_SHADER_LIGHT::GRAPHIC_SHADER_LIGHT( const GRAPHIC_SHADER_LIGHT & other ) :
+    Type( other.Type ),
+    InternalLight( other.InternalLight ) {
+    
+}
+
 GRAPHIC_SHADER_LIGHT::~GRAPHIC_SHADER_LIGHT() {
 
 }

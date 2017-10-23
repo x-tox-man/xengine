@@ -22,7 +22,7 @@
 
 class GRAPHIC_OBJECT;
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
+XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
 
     GAMEPLAY_COMPONENT_PHYSICS();
     virtual ~GAMEPLAY_COMPONENT_PHYSICS();
@@ -39,7 +39,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
         GAMEPLAY_COMPONENT_PHYSICS * MemoryArray;
     };
 
-    CORE_MATH_SHAPE & GetShape() { return Shape; }
+    inline CORE_MATH_SHAPE & GetShape() { return Shape; }
+    inline const CORE_MATH_SHAPE & GetShape() const { return Shape; }
 
     #ifdef __BULLET_PHYSICS__
         btCollisionShape * GetBulletShape() { return BulletShape; }
@@ -52,7 +53,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
     void ConfigureShapeCylinder(const CORE_MATH_VECTOR & position, float radius, float width, const CORE_MATH_QUATERNION & orientation );
     void ConfigureShapePlane( const CORE_MATH_VECTOR & position );
     void BulletConfigureConvexHullShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object );
-    void BulletConfigureBvhTriangleMeshShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object );
+    void BulletConfigureBvhTriangleMeshShape( const CORE_MATH_VECTOR & position, btTriangleMesh * collision_mesh );
 
     void ApplyMotionModificator(
                                 const CORE_MATH_VECTOR & position,
@@ -71,6 +72,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
         return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
     }
 
+    #ifdef __BULLET_PHYSICS__
+        btTriangleMesh* CreateBvhTriangleMesh( GRAPHIC_OBJECT * object  );
+        btTriangleMesh* GetTriangleMesh() const { return TriangleMesh; }
+
+    #endif
+
     static void Clear();
 
     static void SaveToStream( CORE_DATA_STREAM & stream );
@@ -81,6 +88,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT )
         LastOffset;
 
 private:
+
+    #ifdef __BULLET_PHYSICS__
+        void CreateRigidBody( const GAMEPLAY_COMPONENT_PHYSICS & other );
+    #endif
 
     CORE_MATH_SHAPE
         Shape;
@@ -96,8 +107,13 @@ private:
         * InternalVector;
 
 #ifdef __BULLET_PHYSICS__
-    btCollisionShape * BulletShape;
-    btRigidBody* BulletRigidBody;
+    btCollisionShape
+        * BulletShape;
+    btRigidBody
+        * BulletRigidBody;
+    btTriangleMesh
+        * TriangleMesh;
+
 #endif
 
 XS_CLASS_END

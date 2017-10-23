@@ -88,7 +88,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../CODE/CORE/DATA/STREAM/CORE_DATA_STREAM.h"
-            timestampString = "519652467.484392"
+            timestampString = "529172651.570003"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
@@ -111,54 +111,6 @@
             endingLineNumber = "35"
             landmarkName = "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Update( float time_step )"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
-            timestampString = "528030338.662193"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER &amp; renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS &amp; options, GRAPHIC_SHADER_EFFECT * effect )"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GRAPHIC_OBJECT::Render(GRAPHIC_RENDERER&amp;, GRAPHIC_OBJECT_RENDER_OPTIONS const&amp;, GRAPHIC_SHADER_EFFECT*)"
-                  moduleName = "ASSET_EDITOR"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
-                  timestampString = "529165127.776534"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "764">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GRAPHIC_OBJECT::Render(GRAPHIC_RENDERER&amp;, GRAPHIC_OBJECT_RENDER_OPTIONS const&amp;, GRAPHIC_SHADER_EFFECT*)"
-                  moduleName = "ASSET_EDITOR"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
-                  timestampString = "529165127.778799"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "789">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -232,12 +184,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ASSET_EDITOR/ProgramDocument.m"
-            timestampString = "529165127.044187"
+            timestampString = "529173090.660868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "-windowNibName"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "-dataOfType:error:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
