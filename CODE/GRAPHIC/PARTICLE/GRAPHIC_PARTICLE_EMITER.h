@@ -89,13 +89,14 @@ public :
     
     void InternalEmit( int start, int end ) {
         
-        for(int i = start; i <= end; i++ ) {
+        for(int i = start; i < end; i++ ) {
             
             ParticleTable[i].Position = Position;
             
-            ParticleAttributeTable[i].Velocity.Set( Velocity.X() * (rand() % 10) * 0.1f , Velocity.Y() * (rand() % 10) * 0.1f, Velocity.Z() * (rand() % 10) * 0.1f, 1.0f);
+            ParticleAttributeTable[i].Velocity.Set( Velocity.X() * (1+(rand() % 10))  * 0.1f , Velocity.Y() * (1+(rand() % 10)) * 0.1f, Velocity.Z() * (1+(rand() % 10)) * 0.1f, 1.0f);
             ParticleAttributeTable[i].Modulator = 1.0f;
             ParticleAttributeTable[i].Lifetime = 5.0f;
+            
         }
     }
     
@@ -129,17 +130,11 @@ private:
             LastIndex += emit_count;
         }
         else if( temp <= 0){
-            int emit_at_end = emit_count + temp;
-            int emit_at_start = emit_count - emit_at_end;
             
-            InternalEmit( LastIndex, emit_at_end);
-            InternalEmit( 0, emit_at_start);
-            
-            LastIndex = emit_at_start;
-            FirstIndex = LastIndex + 1;
+            LastIndex = 0;
         }
         
-        if ( FirstIndex == PARTICLE_ARRAY_SIZE - 1) {
+        if ( FirstIndex >= PARTICLE_ARRAY_SIZE - 1) {
             FirstIndex = 0;
         }
     }

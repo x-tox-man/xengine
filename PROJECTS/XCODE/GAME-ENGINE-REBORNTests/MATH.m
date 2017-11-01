@@ -653,6 +653,22 @@
     XCTAssert( MATH_IsRougthlyEqual( q3, q4) );
 }
 
+-(void) testQuaternionXRotation1 {
+    
+    CORE_MATH_QUATERNION q1, q2, q3, q4;
+    
+    CORE_MATH_MATRIX result, matrix,matrix2;
+    
+    matrix.XRotate( -M_PI_2 );
+    q1.RotateX( -M_PI_2 );
+    
+    q2.FromMatrix( &matrix[0] );
+    q2.ToMatrix( &matrix2[0]);
+    
+    XCTAssert( MATH_IsRougthlyEqual( q1, q2) );
+    XCTAssert( MATH_IsRougthlyEqual( matrix, matrix2) );
+}
+
 -(void) testMatrixInverse {
     
     CORE_MATH_MATRIX matrix( CORE_MATH_MATRIX::Identity);

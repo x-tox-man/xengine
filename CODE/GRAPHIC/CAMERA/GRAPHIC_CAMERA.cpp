@@ -10,11 +10,17 @@
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 
 GRAPHIC_CAMERA::GRAPHIC_CAMERA() :
+    Near( 0.0f ),
+    Far( 0.0f ),
+    Width( 0.0f ),
+    Height( 0.0f ),
     ProjectionMatrix( CORE_MATH_MATRIX::Identity ),
     ViewMatrix( CORE_MATH_MATRIX::Identity ),
     Position(),
-    Lookat() {
+    Lookat(),
+    Fustrum() {
     
+    Lookat.Normalize();
 }
 
 GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
@@ -24,10 +30,20 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, 
     
     Lookat = lookat;
     Position = position;
+    
+    Near = near_plane;
+    Far = far_plane;
+    Width = width;
+    Height = height;
 }
 
 GRAPHIC_CAMERA::~GRAPHIC_CAMERA() {
     
+}
+
+void GRAPHIC_CAMERA::ActivateForRender() {
+    
+    Fustrum.UpdateFustrum( *this );
 }
 
 void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
@@ -37,6 +53,11 @@ void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, floa
     
     Lookat = lookat;
     Position = position;
+    
+    Near = near_plane;
+    Far = far_plane;
+    Width = width;
+    Height = height;
 }
 
 void GRAPHIC_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {

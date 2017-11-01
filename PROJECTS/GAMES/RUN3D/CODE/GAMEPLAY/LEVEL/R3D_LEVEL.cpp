@@ -29,7 +29,7 @@ void R3D_LEVEL::Initialize() {
     PlayerTable[ 0 ]->Initialize();
     
     CreateTracks();
-    CreateGround();
+    //CreateGround();
 }
 
 void R3D_LEVEL::Finalize() {
@@ -53,7 +53,26 @@ void R3D_LEVEL::CreateTracks() {
     auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
     base_entity->Initialize( p1 );
     
-    for ( int i = 0; i < 20; i++) {
+    for ( int i = 0; i < 105; i++) {
+        
+        CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
+        
+        if ( i > 0 && i % 10 == 0 ) {
+            
+            //auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_CHECKPOINT >();
+            //entity->Initialize( p );
+        }
+        
+        base_entity->SetPosition( p );
+        
+        auto entity = (R3D_LEVEL_TRACK*)GAMEPLAY_COMPONENT_MANAGER::GetInstance().CloneEntity< R3D_LEVEL_TRACK >( base_entity );
+        entity->AddToSystems();
+        
+        /*auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
+        base_entity->Initialize( p );*/
+    }
+    
+    for ( int i = 0; i < 105; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         
@@ -63,10 +82,13 @@ void R3D_LEVEL::CreateTracks() {
             entity->Initialize( p );
         }
         
-        base_entity->SetPosition( p );
+        //base_entity->SetPosition( p );
         
-        auto entity = (R3D_LEVEL_TRACK*)GAMEPLAY_COMPONENT_MANAGER::GetInstance().CloneEntity< R3D_LEVEL_TRACK >( base_entity );
-        entity->AddToSystems();
+        //auto entity = (R3D_LEVEL_TRACK*)GAMEPLAY_COMPONENT_MANAGER::GetInstance().CloneEntity< R3D_LEVEL_TRACK >( base_entity );
+        //entity->AddToSystems();
+        
+        /*auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
+         base_entity->Initialize( p );*/
     }
 }
 

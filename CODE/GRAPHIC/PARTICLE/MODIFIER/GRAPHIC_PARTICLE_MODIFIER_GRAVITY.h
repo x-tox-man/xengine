@@ -33,7 +33,7 @@ public:
         
         PARTICLE_TYPE_ATTRIBUTE * ptr = &particle_attribute_table[0];
         
-        for (int i = 0; i < PARTICLE_ARRAY_SIZE; i++) {
+        for (int i = start; i < end; i++) {
             
             ptr->Velocity.Z( ptr->Velocity.Z() - current_g);
             ++ptr;

@@ -9,46 +9,30 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../../../../CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
-            timestampString = "528030645.4461"
+            filePath = "../../../../../../CODE/TOOLS/DEBUG_DRAW_LINE/TOOLS_DEBUG_DRAW.h"
+            timestampString = "531165508.744429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER &amp; renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS &amp; options, GRAPHIC_SHADER_EFFECT * effect )"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "DrawLine( GRAPHIC_RENDERER &amp; renderer, const CORE_MATH_VECTOR &amp; from, const CORE_MATH_VECTOR &amp; to, const CORE_HELPERS_COLOR &amp; color = CORE_COLOR_White )"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../CODE/GRAPHIC/CAMERA/GRAPHIC_CAMERA_FUSTRUM.cpp"
+            timestampString = "531260653.914817"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "GRAPHIC_CAMERA_FUSTRUM::UpdateFustrum( const GRAPHIC_CAMERA &amp; camera )"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GRAPHIC_OBJECT::Render(GRAPHIC_RENDERER&amp;, GRAPHIC_OBJECT_RENDER_OPTIONS const&amp;, GRAPHIC_SHADER_EFFECT*)"
-                  moduleName = "RUN3D"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
-                  timestampString = "527527332.081684"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "368">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GRAPHIC_OBJECT::Render(GRAPHIC_RENDERER&amp;, GRAPHIC_OBJECT_RENDER_OPTIONS const&amp;, GRAPHIC_SHADER_EFFECT*)"
-                  moduleName = "RUN3D"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/christophebernard/Develop/Project/game-engine/CODE/GRAPHIC/OBJECT/GRAPHIC_OBJECT.cpp"
-                  timestampString = "527527332.084233"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "443">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -27,6 +27,6 @@ uniform AmbientLight ambient_light;
 
 void main()
 {
-    colorOut = vec4(ambient_light.DiffuseIntensity, 0.0, 0.0, 1.0);
+    colorOut = colorVarying;
 }
 

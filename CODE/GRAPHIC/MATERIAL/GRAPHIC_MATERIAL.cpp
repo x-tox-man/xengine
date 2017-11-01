@@ -84,32 +84,35 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     
     ApplyTexture( shader );
     
-    if ( renderer.GetDirectionalLight() != NULL ) {
-        GRAPHIC_SYSTEM::ApplyLightDirectional( *renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
+    if ( renderer.IsLightingEnabled() ) {
+        
+        if ( renderer.GetDirectionalLight() != NULL ) {
+            GRAPHIC_SYSTEM::ApplyLightDirectional( *renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
+        }
+        
+        if ( renderer.GetPointLight( 0 ) != NULL) {
+            
+            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
+        }
+        if ( renderer.GetPointLight( 1 ) != NULL) {
+            
+            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
+        }
+        if ( renderer.GetSpotLight( 0 ) != NULL) {
+            
+            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
+        }
+        if ( renderer.GetSpotLight( 1 ) != NULL) {
+            
+            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
+        }
+        
+        if ( renderer.GetAmbientLight() != NULL) {
+            
+            GRAPHIC_SYSTEM::ApplyLightAmbient( *renderer.GetAmbientLight(), *shader->GetProgram() ) ;
+        }
     }
     
-    if ( renderer.GetPointLight( 0 ) != NULL) {
-        
-        GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
-    }
-    if ( renderer.GetPointLight( 1 ) != NULL) {
-        
-        GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
-    }
-    if ( renderer.GetSpotLight( 0 ) != NULL) {
-        
-        GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
-    }
-    if ( renderer.GetSpotLight( 1 ) != NULL) {
-        
-        GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
-    }
-    
-    if ( renderer.GetAmbientLight() != NULL) {
-        
-        GRAPHIC_SYSTEM::ApplyLightAmbient( *renderer.GetAmbientLight(), *shader->GetProgram() ) ;
-    }
-        
     GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
     
     if ( camera_world_position_attribute.AttributeIndex != 0 ) {

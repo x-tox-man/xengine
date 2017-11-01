@@ -167,9 +167,9 @@
     
     rd->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
-    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
-    GAMEPLAY_COMPONENT_ENTITY * component_entity2 = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
-    GAMEPLAY_COMPONENT_ENTITY * ground_component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity();
+    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<GAMEPLAY_COMPONENT_ENTITY>();
+    GAMEPLAY_COMPONENT_ENTITY * component_entity2 = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<GAMEPLAY_COMPONENT_ENTITY>();
+    GAMEPLAY_COMPONENT_ENTITY * ground_component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<GAMEPLAY_COMPONENT_ENTITY>();
     
     GAMEPLAY_COMPONENT_HANDLE position_handle, render_handle, position_handle2, render_handle2, render_handle3, position_handle3;
     

@@ -122,6 +122,9 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape() {
     mesh->SetIndexCoreBuffer( index_buffer );
     mesh->SetVertexCoreBuffer( vertex_buffer );
     
+    mesh->GetBoundingShape().SetType( CORE_MATH_SHAPE_TYPE_Sphere );
+    mesh->GetBoundingShape().SetHalfDiagonal( CORE_MATH_VECTOR( XWidth * Length, YWidth * Length, Length, 0.0f));
+    
     mesh->CreateBuffers();
     
     AddNewMesh( mesh );

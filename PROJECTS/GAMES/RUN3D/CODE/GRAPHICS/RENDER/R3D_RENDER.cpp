@@ -11,6 +11,7 @@
 #include "RUN3D_APPLICATION.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
 #include "GRAPHIC_PARTICLE_SYSTEM.h"
+#include "TOOLS_DEBUG_DRAW.h"
 
 R3D_RENDER::R3D_RENDER() :
     Lookat(),
@@ -40,15 +41,14 @@ void R3D_RENDER::Initialize() {
     
     CORE_MATH_VECTOR
         position(10.0f, 15.0f, 64.0f, 1.0f);
+    CORE_MATH_QUATERNION
+        lookat;
     
-    CORE_MATH_QUATERNION lookat;
-    
-    lookat.RotateZ(M_PI);
-    lookat.Normalize();
+    lookat.RotateX(M_PI_2);
     
     auto Window = &R3D_APP_PTR->GetApplicationWindow();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 10000.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, Lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 100.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, Lookat );
     
     CORE_MATH_QUATERNION interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     
@@ -81,7 +81,7 @@ void R3D_RENDER::Initialize() {
     CombineBloomEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
     
-    PrimaryRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    PrimaryRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, false, 0 );
     GaussianRenderTarget1.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
     GaussianRenderTarget2.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
     BloomRenderTarget.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
@@ -96,6 +96,10 @@ void R3D_RENDER::Initialize() {
     PlanObject.InitializeShape();
     
     RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, interface_lookat );
+    
+#if DEBUG
+    TOOLS_DEBUG_DRAW::Instance = new TOOLS_DEBUG_DRAW;
+#endif
 }
 
 void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
@@ -103,7 +107,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     CORE_MATH_QUATERNION interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     
     GRAPHIC_OBJECT_RENDER_OPTIONS
-    option;
+        option;
     
     option.SetPosition( CORE_MATH_VECTOR::Zero );
     option.SetOrientation( CORE_MATH_QUATERNION() );
@@ -113,17 +117,28 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     
     auto Window = &R3D_APP_PTR->GetApplicationWindow();
     
-    {        
+    {
+        Camera->ActivateForRender();
+        renderer.SetCamera( Camera );
+        
         GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
         
         //PrimaryRenderTarget.Apply();
         
+        renderer.SetLightingIsEnabled( true );
         Lookat.Normalize();
         
         R3D_APP_PTR->GetGame().Render( renderer );
         
         GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
+        
+#if DEBUG
+        renderer.SetLightingIsEnabled( false );
+        Camera->GetFustrum().DebugDraw( *Camera);
+        renderer.SetLightingIsEnabled( true );
+#endif
     
+        renderer.SetLightingIsEnabled( false );
         //PrimaryRenderTarget.Discard();
     }
     

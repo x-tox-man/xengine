@@ -68,9 +68,12 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline const CORE_MATH_VECTOR & GetScissorRectangle() const { return ScissorRectangle; }
     inline void SetScissorRectangle( const CORE_MATH_VECTOR & scissor_rectangle ) { ScissorRectangle = scissor_rectangle; }
 
-    inline bool IsColorEnabled() { return ColorEnabled; }
+    inline bool IsColorEnabled() const { return ColorEnabled; }
     inline void EnableColor( bool enable ) { ColorEnabled = enable; }
     inline void SetResizeViewCallback(CORE_HELPERS_CALLBACK_2<int, int> & callback) {ResizeViewCallback = callback; }
+
+    inline bool IsLightingEnabled() const { return LightingIsEnabled; }
+    inline void SetLightingIsEnabled( bool enabled ) { LightingIsEnabled = enabled; }
 
     inline void SetCurrentLightMatrix( const CORE_MATH_MATRIX & matrix ) { CurrentLightMatrix = matrix; }
     inline const CORE_MATH_MATRIX & GetCurrentLightMatrix() { return CurrentLightMatrix; }
@@ -104,7 +107,8 @@ private :
         PassIndex;
     bool
         ScissorIsEnabled,
-        ColorEnabled;
+        ColorEnabled,
+        LightingIsEnabled;
     /*GAMEPLAY_SCENE_RENDER_OPTION
         Option;*/
 

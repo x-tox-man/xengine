@@ -45,6 +45,6 @@ void main()
     }
     
     colorOut = diffuse;
-    colorOut.a = 0.5f;
+    colorOut.a = 0.1;
 }
 

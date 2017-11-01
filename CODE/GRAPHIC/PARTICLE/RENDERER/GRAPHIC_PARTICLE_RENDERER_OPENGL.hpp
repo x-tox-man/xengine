@@ -14,8 +14,8 @@ public :
 void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, GRAPHIC_SHADER_EFFECT * effect, GRAPHIC_RENDERER & renderer, int first_index, int last_index ) {
     
     //TODO:
-    
-    VertexBuffer->InitializeWithMemory( 10 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
+    renderer.SetLightingIsEnabled( false );
+    VertexBuffer->InitializeWithMemory( 8 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
     GRAPHIC_SYSTEM::UpdateVertexBuffer(&Mesh, *VertexBuffer);
     
     effect->Apply( renderer );
@@ -24,6 +24,7 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     
     CORE_MATH_MATRIX result = renderer.GetCamera().GetProjectionMatrix();
     result *= renderer.GetCamera().GetViewMatrix();
+    result *= CORE_MATH_MATRIX();
     
     GRAPHIC_SHADER_ATTRIBUTE & attr = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
     
@@ -50,19 +51,21 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
         vertex_offset += 4;
     }
     
-    if ( component & GRAPHIC_SHADER_BIND_Texcoord0 ) {
+    /*if ( component & GRAPHIC_SHADER_BIND_Texcoord0 ) {
         
         GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
         
         vertex_offset += 2;
-    }
+    }*/
     
     //GFX_CHECK( glEnable( GL_PROGRAM_POINT_SIZE ); )
     if ( first_index < last_index ) {
         
         GFX_CHECK( glPointSize(10.0f); )
         GFX_CHECK( glBindVertexArray(Mesh.GetVertexArrays() ); )
-        GFX_CHECK( glDrawArrays(GL_POINTS, first_index, last_index - first_index); )
+        GFX_CHECK( glDrawArrays(GL_POINTS, first_index, (last_index - (first_index+1))); )
+        
+        //printf( "-- %d\t%d\n",first_index,(last_index - (first_index + 1)) );
     }
     else if ( last_index > first_index ){
         
@@ -71,6 +74,8 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
         GFX_CHECK( glDrawArrays(GL_POINTS, last_index, (__ARRAY_SIZE__ - 1) - last_index); )
         GFX_CHECK( glDrawArrays(GL_POINTS, 0, first_index); )
     }
+    
+    renderer.SetLightingIsEnabled( true );
 }
 
 private :
@@ -89,7 +94,6 @@ void InternalInitialize( GRAPHIC_SHADER_EFFECT * effect ) {
     //TODO : refactor
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);
-    Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_PositionTexture);
     
     VertexBuffer->InitializeWithMemory( 0 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) NULL );
     

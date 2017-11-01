@@ -13,6 +13,7 @@ public :
 
 void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, GRAPHIC_SHADER_EFFECT & effect, GRAPHIC_RENDERER & renderer, int first_index, int last_index ) {
     
+    renderer.SetLightingIsEnabled( false );
     VertexBuffer->InitializeWithMemory( 10 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
     GRAPHIC_SYSTEM::UpdateVertexBuffer(&Mesh, *VertexBuffer);
     
@@ -56,6 +57,8 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     GFX_CHECK( glDrawArrays(GL_POINTS, first_index, last_index); )
     
     material.Discard(renderer);
+    
+    renderer.SetLightingIsEnabled( true );
 }
 
 private :

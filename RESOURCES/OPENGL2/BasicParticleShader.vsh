@@ -11,6 +11,7 @@
 in vec4 position;
 in vec4 normal;
 in vec2 tex0;
+in vec4 color;
 
 out vec2 textureCoordinates;
 

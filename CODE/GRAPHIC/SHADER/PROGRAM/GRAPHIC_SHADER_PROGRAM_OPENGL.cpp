@@ -103,6 +103,11 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Bitangents, "bitangent" ); )
     }
     
+    if ( shader_bind & GRAPHIC_SHADER_BIND_Color ) {
+        
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Color, "color" ); )
+    }
+    
     //TODO : color
     
     if ( /*!ValidateProgram() ||*/ !LinkProgram() ) {

@@ -98,8 +98,6 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     q.RotateX( M_PI_2 );
     q.Normalize();
     
-    q2.Normalize();
-    
     auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     Front.UpdateCamera( pos->GetPosition() + f, q );

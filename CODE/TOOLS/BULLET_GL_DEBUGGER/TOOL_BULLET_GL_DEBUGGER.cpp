@@ -9,6 +9,7 @@
 #include "TOOL_BULLET_GL_DEBUGGER.h"
 #include "GRAPHIC_RENDERER.h"
 
+#ifdef __BULLET_PHYSICS__
 TOOL_BULLET_GL_DEBUGGER::TOOL_BULLET_GL_DEBUGGER() :
     btIDebugDraw(),
     m_debugMode( 0 ),
@@ -99,3 +100,5 @@ void TOOL_BULLET_GL_DEBUGGER::setDebugMode(int debugMode) {
     
     m_debugMode = debugMode;
 }
+
+#endif

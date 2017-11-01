@@ -33,6 +33,12 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render() {
     
     std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     
+    const GRAPHIC_CAMERA_FUSTRUM & fustrum = Renderer->GetCamera().GetFustrum();
+    
+    #if DEBUG
+        int zapped = 0;
+    #endif
+    
     while (it != EntitiesTable.end() ) {
         
         GAMEPLAY_COMPONENT_ENTITY * entity = it->second->GetEntity();
@@ -40,10 +46,22 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render() {
         GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
         GAMEPLAY_COMPONENT_POSITION * located = (GAMEPLAY_COMPONENT_POSITION * ) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
         
-        renderable->Render( *Renderer, located );
+        float d = renderable->GetObject().GetResource<GRAPHIC_OBJECT>()->GetMeshTable()[0]->GetBoundingShape().GetHalfDiagonal().X();
+        if ( fustrum.SphereInFrustum( located->GetPosition(), ( d > 0.0f) ? d : 1.0f ) ) {
+            
+            renderable->Render( *Renderer, located );
+        }
+        #if DEBUG
+        else
+            zapped++;
+        #endif
         
         it++;
     }
+    
+#if DEBUG
+    printf( "eliminated from render :%d\n", zapped );
+#endif
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Finalize() {

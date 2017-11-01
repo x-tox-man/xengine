@@ -10,8 +10,10 @@
 #define TOOL_BULLET_GL_DEBUGGER_hpp
 
 #include "CORE_HELPERS_CLASS.h"
-#include <LinearMath/btIDebugDraw.h>
 #include "GRAPHIC_OBJECT_SHAPE_LINE.h"
+
+#ifdef __BULLET_PHYSICS__
+#include <LinearMath/btIDebugDraw.h>
 
 class TOOL_BULLET_GL_DEBUGGER : public btIDebugDraw
 {
@@ -49,5 +51,6 @@ private:
     GRAPHIC_SHADER_EFFECT::PTR
         Shader;
 };
+#endif
 
 #endif /* TOOL_BULLET_GL_DEBUGGER_hpp */

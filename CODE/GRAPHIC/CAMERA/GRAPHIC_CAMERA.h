@@ -13,6 +13,7 @@
 #include "CORE_MATH_MATRIX.h"
 #include "CORE_MATH_VECTOR.h"
 #include "CORE_MATH_QUATERNION.h"
+#include "GRAPHIC_CAMERA_FUSTRUM.h"
 
 XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     
@@ -24,9 +25,16 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     inline const CORE_MATH_MATRIX & GetViewMatrix() const { return ViewMatrix; }
     inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
     inline const CORE_MATH_QUATERNION & GetOrientation() const { return Lookat; }
+    inline float GetNear() const { return Near; }
+    inline float GetFar() const { return Far; }
+    inline float GetWidth() const { return Width; }
+    inline float GetHeight() const { return Height; }
+
+    inline const GRAPHIC_CAMERA_FUSTRUM & GetFustrum() const {return Fustrum; }
 
     void Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
     void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
+    void ActivateForRender();
 
 private :
 
@@ -35,6 +43,11 @@ private :
 
 protected :
 
+    float
+        Near,
+        Far,
+        Width,
+        Height;
     CORE_MATH_VECTOR
         Position;
     CORE_MATH_MATRIX
@@ -42,6 +55,8 @@ protected :
         ViewMatrix;
     CORE_MATH_QUATERNION
         Lookat;
+    GRAPHIC_CAMERA_FUSTRUM
+        Fustrum;
 
 XS_CLASS_END
 

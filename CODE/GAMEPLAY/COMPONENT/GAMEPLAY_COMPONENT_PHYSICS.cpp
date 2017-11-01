@@ -12,7 +12,9 @@
 #include "GRAPHIC_OBJECT.h"
 #include "GRAPHIC_MESH.h"
 
-#include "btHeightfieldTerrainShape.h"
+#ifdef __BULLET_PHYSICS__
+    #include "btHeightfieldTerrainShape.h"
+#endif
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GAMEPLAY_COMPONENT_PHYSICS )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1(GAMEPLAY_COMPONENT_PHYSICS, SetPosition, const CORE_MATH_VECTOR & )
@@ -212,12 +214,6 @@ void GAMEPLAY_COMPONENT_PHYSICS::ConfigureHeightMap( const CORE_MATH_VECTOR & po
     BulletShape->setLocalScaling( btVector3(spacing,spacing,1.0f));
     BulletShape->setMargin( 0.001f );
     
-    int i = 0;
-    while (i < width*lenght ) {
-        
-        printf("%d\t",  *(((uint8_t *) heights+ i++) ) );
-    }
-    
     btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position.X(), position.Y(), position.Z())));
     
     btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, BulletShape, btVector3(0, 0, 0));
@@ -230,11 +226,11 @@ void GAMEPLAY_COMPONENT_PHYSICS::ConfigureHeightMap( const CORE_MATH_VECTOR & po
 #endif
 }
 
+#ifdef __BULLET_PHYSICS__
 void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE_MATH_VECTOR & position, btTriangleMesh * collision_mesh ) {
     
     Shape.SetType( CORE_MATH_SHAPE_TYPE_TriangleList );
     
-#ifdef __BULLET_PHYSICS__
     TriangleMesh = collision_mesh;
     
     BulletShape = new btBvhTriangleMeshShape( collision_mesh, true );
@@ -249,8 +245,8 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE
     BulletRigidBody->setFriction( 1.0f );
     BulletRigidBody->setRollingFriction( 1.0f );
     BulletRigidBody->setSpinningFriction( 1.0f );
-#endif
 }
+#endif
 
 #ifdef __BULLET_PHYSICS__
 btTriangleMesh * GAMEPLAY_COMPONENT_PHYSICS::CreateBvhTriangleMesh( GRAPHIC_OBJECT * object ) {
@@ -299,6 +295,8 @@ btTriangleMesh * GAMEPLAY_COMPONENT_PHYSICS::CreateBvhTriangleMesh( GRAPHIC_OBJE
 #endif
 
 void GAMEPLAY_COMPONENT_PHYSICS::SetMass(const float mass) {
+    
+    Mass = mass;
     
     #ifdef __BULLET_PHYSICS__
         btVector3 v;
