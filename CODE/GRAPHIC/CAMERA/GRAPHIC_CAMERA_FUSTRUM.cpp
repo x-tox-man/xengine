@@ -121,7 +121,6 @@ void GRAPHIC_CAMERA_FUSTRUM::UpdateFustrum( const GRAPHIC_CAMERA & camera ) {
 
 bool GRAPHIC_CAMERA_FUSTRUM::SphereInFrustum( const CORE_MATH_VECTOR & position, const float radius ) const
 {
-    bool res = true;
     //test all 6 frustum planes
     for (int i = 0; i < 6; i++)
     {

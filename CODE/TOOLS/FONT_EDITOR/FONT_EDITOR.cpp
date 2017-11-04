@@ -219,7 +219,7 @@ void FONT_EDITOR::SaveFont( const FONT_DESCRIPTOR & descriptor,
     
     stream.Open();
     
-    XS_CLASS_SERIALIZER< GRAPHIC_FONT >::Serialize<std::true_type>( graphic_font, stream );
+    XS_CLASS_SERIALIZER< GRAPHIC_FONT, CORE_DATA_STREAM >::Serialize<std::true_type>( "font", graphic_font, stream );
     
     stream.Close();
     stream.ResetOffset();

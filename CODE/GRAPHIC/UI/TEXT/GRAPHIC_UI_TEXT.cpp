@@ -37,9 +37,9 @@ void GRAPHIC_UI_TEXT::Initialize() {
     
     GRAPHIC_MATERIAL * material = new GRAPHIC_MATERIAL();
     material->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, text_texture_block);
+    material->SetDiffuse( Color );
     
     RenderStyle = new GRAPHIC_UI_RENDER_STYLE;
-    RenderStyle->SetColor( Color );
     RenderStyle->SetShape( &Text );
     
     GRAPHIC_SHADER_EFFECT::PTR ui_textured_shader_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderText"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );

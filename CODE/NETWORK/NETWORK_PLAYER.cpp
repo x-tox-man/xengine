@@ -9,10 +9,10 @@
 #include "NETWORK_PLAYER.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( NETWORK_PLAYER )
-    XS_DEFINE_ClassMember( bool, IsActive )
-    XS_DEFINE_ClassMember(std::string, Name )
-    XS_DEFINE_ClassMember( bool, IsHost )
-    XS_DEFINE_ClassMember( CORE_HELPERS_UNIQUE_IDENTIFIER, UniqueId )
+    XS_DEFINE_ClassMember( "IsActive", bool, IsActive )
+    XS_DEFINE_ClassMember( "Name", std::string, Name )
+    XS_DEFINE_ClassMember( "IsHost", bool, IsHost )
+    XS_DEFINE_ClassMember( "UniqueId", CORE_HELPERS_UNIQUE_IDENTIFIER, UniqueId )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( NETWORK_PLAYER * )

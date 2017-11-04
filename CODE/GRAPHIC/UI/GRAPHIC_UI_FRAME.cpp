@@ -112,8 +112,8 @@ void GRAPHIC_UI_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
         CORE_MATH_VECTOR scissor_rectangle = renderer.GetScissorRectangle();
         
         
-        //renderer.SetScissorRectangle(CORE_MATH_VECTOR(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y() ) );
-        //renderer.EnableScissor( true );
+        renderer.SetScissorRectangle(CORE_MATH_VECTOR(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y() ) );
+        renderer.EnableScissor( true );
         
         GRAPHIC_SYSTEM::SetScissorRectangle(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y());
         
@@ -126,8 +126,8 @@ void GRAPHIC_UI_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
             it++;
         }
         
-        //renderer.SetScissorRectangle(scissor_rectangle);
-        //renderer.EnableScissor( scissor_is_enabled );
+        renderer.SetScissorRectangle(scissor_rectangle);
+        renderer.EnableScissor( scissor_is_enabled );
     }
 }
 

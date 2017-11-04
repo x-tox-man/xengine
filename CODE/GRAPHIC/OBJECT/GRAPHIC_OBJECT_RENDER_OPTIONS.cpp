@@ -11,7 +11,8 @@
 GRAPHIC_OBJECT_RENDER_OPTIONS::GRAPHIC_OBJECT_RENDER_OPTIONS() :
     Orientation(),
     Position(),
-    ScaleFactor( CORE_MATH_VECTOR::One) {
+    ScaleFactor( CORE_MATH_VECTOR::One),
+    Parent( NULL ) {
     
 }
 

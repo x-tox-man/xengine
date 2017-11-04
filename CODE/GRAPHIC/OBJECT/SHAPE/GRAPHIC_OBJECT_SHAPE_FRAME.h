@@ -20,11 +20,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_FRAME, GRAPHIC_OBJECT_SHAPE)
 
     virtual void InitializeShape() override;
 
-    void SetBorderSize( const float boder_width, const float boder_height ) {
-        BorderWidth = boder_width;
-        BorderHeight = boder_height;
+    void SetBorderSize( const float border_height, const float border_width ) {
         
-        //UpdateFrameVertexData
+        BorderWidth = border_width;
+        BorderHeight = border_height;
     }
 
 private :

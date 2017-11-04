@@ -50,16 +50,27 @@ void GAMEPLAY_COMPONENT_RENDER::operator delete ( void* ptr ) {
     
 }
 
-void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_COMPONENT_POSITION * component ) {
+void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_COMPONENT_POSITION * component, GAMEPLAY_COMPONENT_POSITION * parent ) {
     
     GRAPHIC_OBJECT
         * object = ObjectProxy.GetResource< GRAPHIC_OBJECT >();
     GRAPHIC_OBJECT_RENDER_OPTIONS
-        options;
+        options,
+        * parent_options = NULL;
     
     options.SetPosition( component->GetPosition() + component->GetPositionOffset() );
     options.SetOrientation(component->GetOrientation() );
     options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
+    
+    if ( parent != NULL ) {
+        
+        parent_options = new GRAPHIC_OBJECT_RENDER_OPTIONS;
+        parent_options->SetPosition( parent->GetPosition() + parent->GetPositionOffset() );
+        parent_options->SetOrientation(parent->GetOrientation() );
+        parent_options->SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
+        
+        options.SetParent( parent_options );
+    }
 
     if ( renderer.GetPassIndex() == 0 ) {
         
@@ -68,6 +79,10 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     else if ( renderer.GetPassIndex() == 1 ) {
         
         object->Render( renderer, options, ShadowmapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >() );
+    }
+    
+    if ( parent_options != NULL  ) {
+        delete parent_options;
     }
 }
 
@@ -89,8 +104,6 @@ void GAMEPLAY_COMPONENT_RENDER::SaveToStream( CORE_DATA_STREAM & stream ) {
             
             stream.InputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, sizeof(GAMEPLAY_COMPONENT_RENDER) * GAMEPLAY_COMPONENT_BASE_COUNT );
             
-            auto ptr = (*InternalVector)[ i ].MemoryArray;
-            
             stream << (*InternalVector)[ i ].LastIndex;
         }
     }
@@ -110,8 +123,6 @@ void GAMEPLAY_COMPONENT_RENDER::LoadFromStream( CORE_DATA_STREAM & stream ) {
         
         size_t b = sizeof(GAMEPLAY_COMPONENT_RENDER) * GAMEPLAY_COMPONENT_BASE_COUNT;
         stream.OutputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, b );
-        
-        auto ptr = &(*InternalVector)[0].MemoryArray[0];
         
         stream >> (*InternalVector)[ i ].LastIndex;
         

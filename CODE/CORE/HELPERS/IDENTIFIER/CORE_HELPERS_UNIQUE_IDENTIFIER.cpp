@@ -17,8 +17,8 @@
 // http://stackoverflow.com/questions/8317508/hash-function-for-a-string
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_HELPERS_UNIQUE_IDENTIFIER )
-    XS_DEFINE_ClassMemberArray( char, Identifier, (size_t) 32 )
-    XS_DEFINE_ClassMember( int, CheckSum )
+    XS_DEFINE_ClassMemberArray( "Identifier", char, Identifier, (size_t) 32 )
+    XS_DEFINE_ClassMember( "CheckSum", int, CheckSum )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER() :

@@ -1462,6 +1462,27 @@
 		5F6CD8FF1EDB52CF00631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F6CD8FB1EDB52C500631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp */; };
 		5F6CD9001EDB52CF00631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F6CD8FB1EDB52C500631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp */; };
 		5F6CD9011EDB52D000631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F6CD8FB1EDB52C500631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp */; };
+		5F70E7961FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7941FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp */; };
+		5F70E7971FAC904B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7941FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp */; };
+		5F70E7981FAC904B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7941FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp */; };
+		5F70E7991FAC904C00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7941FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp */; };
+		5F70E79A1FAC904C00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7941FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp */; };
+		5F70E79B1FAC904D00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7941FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp */; };
+		5F70E79F1FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E79D1FADB3B200D90632 /* CORE_DATA_JSON.cpp */; };
+		5F70E7A01FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E79D1FADB3B200D90632 /* CORE_DATA_JSON.cpp */; };
+		5F70E7A11FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E79D1FADB3B200D90632 /* CORE_DATA_JSON.cpp */; };
+		5F70E7A21FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E79D1FADB3B200D90632 /* CORE_DATA_JSON.cpp */; };
+		5F70E7A31FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E79D1FADB3B200D90632 /* CORE_DATA_JSON.cpp */; };
+		5F70E7A41FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E79D1FADB3B200D90632 /* CORE_DATA_JSON.cpp */; };
+		5F70E7A51FADB3B300D90632 /* CORE_DATA_JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F70E79E1FADB3B200D90632 /* CORE_DATA_JSON.h */; };
+		5F70E7A61FADF6F300D90632 /* libLIB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404A1F7530660085DDB5 /* libLIB.a */; };
+		5F70E7A81FADF82200D90632 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F70E7A71FADF82200D90632 /* libpcre.a */; };
+		5F70E7A91FADF82200D90632 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F70E7A71FADF82200D90632 /* libpcre.a */; };
+		5F70E7AA1FADF82200D90632 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F70E7A71FADF82200D90632 /* libpcre.a */; };
+		5F70E7AB1FADF82200D90632 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F70E7A71FADF82200D90632 /* libpcre.a */; };
+		5F70E7AC1FADF82200D90632 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F70E7A71FADF82200D90632 /* libpcre.a */; };
+		5F70E7AD1FADF82200D90632 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F70E7A71FADF82200D90632 /* libpcre.a */; };
+		5F70E7AE1FAE025900D90632 /* CORE_ABSTRACT_PROGRAM_V8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3801E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_V8.cpp */; };
 		5F7987C11FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F7987BF1FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp */; };
 		5F7987C21FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F7987BF1FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp */; };
 		5F7987C31FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F7987BF1FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp */; };
@@ -1776,7 +1797,6 @@
 		5FEA3F7D1F7421510085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FEA3F781F73E9B80085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp */; };
 		5FEA3F7E1F7421510085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FEA3F781F73E9B80085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp */; };
 		5FEA3F7F1F7421520085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FEA3F781F73E9B80085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp */; };
-		5FEA405A1F7530780085DDB5 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402E1F7530660085DDB5 /* libBox2D.a */; };
 		5FEA405B1F7530780085DDB5 /* libbuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402F1F7530660085DDB5 /* libbuffer.a */; };
 		5FEA405C1F7530780085DDB5 /* libBullet2FileLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40301F7530660085DDB5 /* libBullet2FileLoader.a */; };
 		5FEA405D1F7530780085DDB5 /* libBullet3AppSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40311F7530660085DDB5 /* libBullet3AppSupport.a */; };
@@ -1792,19 +1812,14 @@
 		5FEA40671F7530780085DDB5 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403B1F7530660085DDB5 /* libBulletSoftBody.a */; };
 		5FEA40681F7530780085DDB5 /* libBulletWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403C1F7530660085DDB5 /* libBulletWorldImporter.a */; };
 		5FEA40691F7530780085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403D1F7530660085DDB5 /* libBulletXmlWorldImporter.a */; };
-		5FEA406A1F7530780085DDB5 /* libCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403E1F7530660085DDB5 /* libCOLLADABaseUtils.a */; };
-		5FEA406B1F7530780085DDB5 /* libCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403F1F7530660085DDB5 /* libCOLLADAFramework.a */; };
-		5FEA406C1F7530780085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40401F7530660085DDB5 /* libCOLLADASaxFrameworkLoader.a */; };
 		5FEA406D1F7530780085DDB5 /* libConvexDecomposition.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40411F7530660085DDB5 /* libConvexDecomposition.a */; };
 		5FEA406E1F7530780085DDB5 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40421F7530660085DDB5 /* libfreetype.a */; };
 		5FEA406F1F7530780085DDB5 /* libftoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40431F7530660085DDB5 /* libftoa.a */; };
 		5FEA40701F7530780085DDB5 /* libGeneratedSaxParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40441F7530660085DDB5 /* libGeneratedSaxParser.a */; };
 		5FEA40711F7530780085DDB5 /* libGIMPACTUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40451F7530660085DDB5 /* libGIMPACTUtils.a */; };
-		5FEA40721F7530780085DDB5 /* libGLUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40461F7530660085DDB5 /* libGLUI.a */; };
 		5FEA40741F7530780085DDB5 /* libgwen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40481F7530660085DDB5 /* libgwen.a */; };
 		5FEA40751F7530780085DDB5 /* libHACD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40491F7530660085DDB5 /* libHACD.a */; };
 		5FEA40771F7530780085DDB5 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404B1F7530660085DDB5 /* libLinearMath.a */; };
-		5FEA40791F7530780085DDB5 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404D1F7530660085DDB5 /* liblua.a */; };
 		5FEA407A1F7530780085DDB5 /* libMathMLSolver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404E1F7530660085DDB5 /* libMathMLSolver.a */; };
 		5FEA407B1F7530780085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404F1F7530660085DDB5 /* libOpenCOLLADABaseUtils.a */; };
 		5FEA407C1F7530780085DDB5 /* libOpenCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40501F7530660085DDB5 /* libOpenCOLLADAFramework.a */; };
@@ -1812,12 +1827,10 @@
 		5FEA407E1F7530780085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40521F7530660085DDB5 /* libOpenCOLLADAStreamWriter.a */; };
 		5FEA407F1F7530780085DDB5 /* libOpenGLSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40531F7530660085DDB5 /* libOpenGLSupport.a */; };
 		5FEA40801F7530780085DDB5 /* libOpenGLWindow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40541F7530660085DDB5 /* libOpenGLWindow.a */; };
-		5FEA40811F7530780085DDB5 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40551F7530660085DDB5 /* libpcre.a */; };
 		5FEA40821F7530780085DDB5 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40561F7530660085DDB5 /* libpng.a */; };
 		5FEA40831F7530780085DDB5 /* libUTF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40571F7530660085DDB5 /* libUTF.a */; };
 		5FEA40841F7530780085DDB5 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40581F7530660085DDB5 /* libuv.a */; };
 		5FEA40851F7530780085DDB5 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40591F7530660085DDB5 /* libz.a */; };
-		5FEA40861F7530790085DDB5 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402E1F7530660085DDB5 /* libBox2D.a */; };
 		5FEA40871F7530790085DDB5 /* libbuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402F1F7530660085DDB5 /* libbuffer.a */; };
 		5FEA40881F7530790085DDB5 /* libBullet2FileLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40301F7530660085DDB5 /* libBullet2FileLoader.a */; };
 		5FEA40891F7530790085DDB5 /* libBullet3AppSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40311F7530660085DDB5 /* libBullet3AppSupport.a */; };
@@ -1833,22 +1846,16 @@
 		5FEA40931F7530790085DDB5 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403B1F7530660085DDB5 /* libBulletSoftBody.a */; };
 		5FEA40941F7530790085DDB5 /* libBulletWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403C1F7530660085DDB5 /* libBulletWorldImporter.a */; };
 		5FEA40951F7530790085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403D1F7530660085DDB5 /* libBulletXmlWorldImporter.a */; };
-		5FEA40961F7530790085DDB5 /* libCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403E1F7530660085DDB5 /* libCOLLADABaseUtils.a */; };
-		5FEA40971F7530790085DDB5 /* libCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403F1F7530660085DDB5 /* libCOLLADAFramework.a */; };
-		5FEA40981F7530790085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40401F7530660085DDB5 /* libCOLLADASaxFrameworkLoader.a */; };
 		5FEA40991F7530790085DDB5 /* libConvexDecomposition.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40411F7530660085DDB5 /* libConvexDecomposition.a */; };
 		5FEA409A1F7530790085DDB5 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40421F7530660085DDB5 /* libfreetype.a */; };
 		5FEA409B1F7530790085DDB5 /* libftoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40431F7530660085DDB5 /* libftoa.a */; };
 		5FEA409C1F7530790085DDB5 /* libGeneratedSaxParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40441F7530660085DDB5 /* libGeneratedSaxParser.a */; };
 		5FEA409D1F7530790085DDB5 /* libGIMPACTUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40451F7530660085DDB5 /* libGIMPACTUtils.a */; };
-		5FEA409E1F7530790085DDB5 /* libGLUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40461F7530660085DDB5 /* libGLUI.a */; };
 		5FEA409F1F7530790085DDB5 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40471F7530660085DDB5 /* libgtest.a */; };
 		5FEA40A01F7530790085DDB5 /* libgwen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40481F7530660085DDB5 /* libgwen.a */; };
 		5FEA40A11F7530790085DDB5 /* libHACD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40491F7530660085DDB5 /* libHACD.a */; };
-		5FEA40A21F7530790085DDB5 /* libLIB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404A1F7530660085DDB5 /* libLIB.a */; };
 		5FEA40A31F7530790085DDB5 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404B1F7530660085DDB5 /* libLinearMath.a */; };
 		5FEA40A41F7530790085DDB5 /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */; };
-		5FEA40A51F7530790085DDB5 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404D1F7530660085DDB5 /* liblua.a */; };
 		5FEA40A61F7530790085DDB5 /* libMathMLSolver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404E1F7530660085DDB5 /* libMathMLSolver.a */; };
 		5FEA40A71F7530790085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404F1F7530660085DDB5 /* libOpenCOLLADABaseUtils.a */; };
 		5FEA40A81F7530790085DDB5 /* libOpenCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40501F7530660085DDB5 /* libOpenCOLLADAFramework.a */; };
@@ -1856,12 +1863,10 @@
 		5FEA40AA1F7530790085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40521F7530660085DDB5 /* libOpenCOLLADAStreamWriter.a */; };
 		5FEA40AB1F7530790085DDB5 /* libOpenGLSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40531F7530660085DDB5 /* libOpenGLSupport.a */; };
 		5FEA40AC1F7530790085DDB5 /* libOpenGLWindow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40541F7530660085DDB5 /* libOpenGLWindow.a */; };
-		5FEA40AD1F7530790085DDB5 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40551F7530660085DDB5 /* libpcre.a */; };
 		5FEA40AE1F7530790085DDB5 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40561F7530660085DDB5 /* libpng.a */; };
 		5FEA40AF1F7530790085DDB5 /* libUTF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40571F7530660085DDB5 /* libUTF.a */; };
 		5FEA40B01F7530790085DDB5 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40581F7530660085DDB5 /* libuv.a */; };
 		5FEA40B11F7530790085DDB5 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40591F7530660085DDB5 /* libz.a */; };
-		5FEA40B21F7530790085DDB5 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402E1F7530660085DDB5 /* libBox2D.a */; };
 		5FEA40B31F7530790085DDB5 /* libbuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402F1F7530660085DDB5 /* libbuffer.a */; };
 		5FEA40B41F7530790085DDB5 /* libBullet2FileLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40301F7530660085DDB5 /* libBullet2FileLoader.a */; };
 		5FEA40B51F7530790085DDB5 /* libBullet3AppSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40311F7530660085DDB5 /* libBullet3AppSupport.a */; };
@@ -1877,21 +1882,16 @@
 		5FEA40BF1F7530790085DDB5 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403B1F7530660085DDB5 /* libBulletSoftBody.a */; };
 		5FEA40C01F7530790085DDB5 /* libBulletWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403C1F7530660085DDB5 /* libBulletWorldImporter.a */; };
 		5FEA40C11F7530790085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403D1F7530660085DDB5 /* libBulletXmlWorldImporter.a */; };
-		5FEA40C21F7530790085DDB5 /* libCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403E1F7530660085DDB5 /* libCOLLADABaseUtils.a */; };
-		5FEA40C31F7530790085DDB5 /* libCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403F1F7530660085DDB5 /* libCOLLADAFramework.a */; };
-		5FEA40C41F7530790085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40401F7530660085DDB5 /* libCOLLADASaxFrameworkLoader.a */; };
 		5FEA40C51F7530790085DDB5 /* libConvexDecomposition.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40411F7530660085DDB5 /* libConvexDecomposition.a */; };
 		5FEA40C61F7530790085DDB5 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40421F7530660085DDB5 /* libfreetype.a */; };
 		5FEA40C71F7530790085DDB5 /* libftoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40431F7530660085DDB5 /* libftoa.a */; };
 		5FEA40C81F7530790085DDB5 /* libGeneratedSaxParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40441F7530660085DDB5 /* libGeneratedSaxParser.a */; };
 		5FEA40C91F7530790085DDB5 /* libGIMPACTUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40451F7530660085DDB5 /* libGIMPACTUtils.a */; };
-		5FEA40CA1F7530790085DDB5 /* libGLUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40461F7530660085DDB5 /* libGLUI.a */; };
 		5FEA40CB1F7530790085DDB5 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40471F7530660085DDB5 /* libgtest.a */; };
 		5FEA40CC1F7530790085DDB5 /* libgwen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40481F7530660085DDB5 /* libgwen.a */; };
 		5FEA40CD1F7530790085DDB5 /* libHACD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40491F7530660085DDB5 /* libHACD.a */; };
 		5FEA40CF1F7530790085DDB5 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404B1F7530660085DDB5 /* libLinearMath.a */; };
 		5FEA40D01F7530790085DDB5 /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */; };
-		5FEA40D11F7530790085DDB5 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404D1F7530660085DDB5 /* liblua.a */; };
 		5FEA40D21F7530790085DDB5 /* libMathMLSolver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404E1F7530660085DDB5 /* libMathMLSolver.a */; };
 		5FEA40D31F7530790085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404F1F7530660085DDB5 /* libOpenCOLLADABaseUtils.a */; };
 		5FEA40D41F7530790085DDB5 /* libOpenCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40501F7530660085DDB5 /* libOpenCOLLADAFramework.a */; };
@@ -1899,12 +1899,10 @@
 		5FEA40D61F7530790085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40521F7530660085DDB5 /* libOpenCOLLADAStreamWriter.a */; };
 		5FEA40D71F7530790085DDB5 /* libOpenGLSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40531F7530660085DDB5 /* libOpenGLSupport.a */; };
 		5FEA40D81F7530790085DDB5 /* libOpenGLWindow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40541F7530660085DDB5 /* libOpenGLWindow.a */; };
-		5FEA40D91F7530790085DDB5 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40551F7530660085DDB5 /* libpcre.a */; };
 		5FEA40DA1F7530790085DDB5 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40561F7530660085DDB5 /* libpng.a */; };
 		5FEA40DB1F75307A0085DDB5 /* libUTF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40571F7530660085DDB5 /* libUTF.a */; };
 		5FEA40DC1F75307A0085DDB5 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40581F7530660085DDB5 /* libuv.a */; };
 		5FEA40DD1F75307A0085DDB5 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40591F7530660085DDB5 /* libz.a */; };
-		5FEA410A1F75307B0085DDB5 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402E1F7530660085DDB5 /* libBox2D.a */; };
 		5FEA410B1F75307B0085DDB5 /* libbuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402F1F7530660085DDB5 /* libbuffer.a */; };
 		5FEA410C1F75307B0085DDB5 /* libBullet2FileLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40301F7530660085DDB5 /* libBullet2FileLoader.a */; };
 		5FEA410D1F75307B0085DDB5 /* libBullet3AppSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40311F7530660085DDB5 /* libBullet3AppSupport.a */; };
@@ -1920,22 +1918,16 @@
 		5FEA41171F75307B0085DDB5 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403B1F7530660085DDB5 /* libBulletSoftBody.a */; };
 		5FEA41181F75307B0085DDB5 /* libBulletWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403C1F7530660085DDB5 /* libBulletWorldImporter.a */; };
 		5FEA41191F75307B0085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403D1F7530660085DDB5 /* libBulletXmlWorldImporter.a */; };
-		5FEA411A1F75307B0085DDB5 /* libCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403E1F7530660085DDB5 /* libCOLLADABaseUtils.a */; };
-		5FEA411B1F75307B0085DDB5 /* libCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403F1F7530660085DDB5 /* libCOLLADAFramework.a */; };
-		5FEA411C1F75307B0085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40401F7530660085DDB5 /* libCOLLADASaxFrameworkLoader.a */; };
 		5FEA411D1F75307B0085DDB5 /* libConvexDecomposition.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40411F7530660085DDB5 /* libConvexDecomposition.a */; };
 		5FEA411E1F75307B0085DDB5 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40421F7530660085DDB5 /* libfreetype.a */; };
 		5FEA411F1F75307B0085DDB5 /* libftoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40431F7530660085DDB5 /* libftoa.a */; };
 		5FEA41201F75307B0085DDB5 /* libGeneratedSaxParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40441F7530660085DDB5 /* libGeneratedSaxParser.a */; };
 		5FEA41211F75307B0085DDB5 /* libGIMPACTUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40451F7530660085DDB5 /* libGIMPACTUtils.a */; };
-		5FEA41221F75307B0085DDB5 /* libGLUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40461F7530660085DDB5 /* libGLUI.a */; };
 		5FEA41231F75307B0085DDB5 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40471F7530660085DDB5 /* libgtest.a */; };
 		5FEA41241F75307B0085DDB5 /* libgwen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40481F7530660085DDB5 /* libgwen.a */; };
 		5FEA41251F75307B0085DDB5 /* libHACD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40491F7530660085DDB5 /* libHACD.a */; };
-		5FEA41261F75307B0085DDB5 /* libLIB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404A1F7530660085DDB5 /* libLIB.a */; };
 		5FEA41271F75307B0085DDB5 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404B1F7530660085DDB5 /* libLinearMath.a */; };
 		5FEA41281F75307B0085DDB5 /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */; };
-		5FEA41291F75307B0085DDB5 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404D1F7530660085DDB5 /* liblua.a */; };
 		5FEA412A1F75307B0085DDB5 /* libMathMLSolver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404E1F7530660085DDB5 /* libMathMLSolver.a */; };
 		5FEA412B1F75307B0085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404F1F7530660085DDB5 /* libOpenCOLLADABaseUtils.a */; };
 		5FEA412C1F75307B0085DDB5 /* libOpenCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40501F7530660085DDB5 /* libOpenCOLLADAFramework.a */; };
@@ -1943,12 +1935,10 @@
 		5FEA412E1F75307B0085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40521F7530660085DDB5 /* libOpenCOLLADAStreamWriter.a */; };
 		5FEA412F1F75307B0085DDB5 /* libOpenGLSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40531F7530660085DDB5 /* libOpenGLSupport.a */; };
 		5FEA41301F75307B0085DDB5 /* libOpenGLWindow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40541F7530660085DDB5 /* libOpenGLWindow.a */; };
-		5FEA41311F75307B0085DDB5 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40551F7530660085DDB5 /* libpcre.a */; };
 		5FEA41321F75307B0085DDB5 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40561F7530660085DDB5 /* libpng.a */; };
 		5FEA41331F75307B0085DDB5 /* libUTF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40571F7530660085DDB5 /* libUTF.a */; };
 		5FEA41341F75307B0085DDB5 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40581F7530660085DDB5 /* libuv.a */; };
 		5FEA41351F75307B0085DDB5 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40591F7530660085DDB5 /* libz.a */; };
-		5FEA41361F75307C0085DDB5 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402E1F7530660085DDB5 /* libBox2D.a */; };
 		5FEA41371F75307C0085DDB5 /* libbuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA402F1F7530660085DDB5 /* libbuffer.a */; };
 		5FEA41381F75307C0085DDB5 /* libBullet2FileLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40301F7530660085DDB5 /* libBullet2FileLoader.a */; };
 		5FEA41391F75307C0085DDB5 /* libBullet3AppSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40311F7530660085DDB5 /* libBullet3AppSupport.a */; };
@@ -1964,22 +1954,16 @@
 		5FEA41431F75307C0085DDB5 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403B1F7530660085DDB5 /* libBulletSoftBody.a */; };
 		5FEA41441F75307C0085DDB5 /* libBulletWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403C1F7530660085DDB5 /* libBulletWorldImporter.a */; };
 		5FEA41451F75307C0085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403D1F7530660085DDB5 /* libBulletXmlWorldImporter.a */; };
-		5FEA41461F75307C0085DDB5 /* libCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403E1F7530660085DDB5 /* libCOLLADABaseUtils.a */; };
-		5FEA41471F75307C0085DDB5 /* libCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA403F1F7530660085DDB5 /* libCOLLADAFramework.a */; };
-		5FEA41481F75307C0085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40401F7530660085DDB5 /* libCOLLADASaxFrameworkLoader.a */; };
 		5FEA41491F75307C0085DDB5 /* libConvexDecomposition.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40411F7530660085DDB5 /* libConvexDecomposition.a */; };
 		5FEA414A1F75307C0085DDB5 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40421F7530660085DDB5 /* libfreetype.a */; };
 		5FEA414B1F75307C0085DDB5 /* libftoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40431F7530660085DDB5 /* libftoa.a */; };
 		5FEA414C1F75307C0085DDB5 /* libGeneratedSaxParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40441F7530660085DDB5 /* libGeneratedSaxParser.a */; };
 		5FEA414D1F75307C0085DDB5 /* libGIMPACTUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40451F7530660085DDB5 /* libGIMPACTUtils.a */; };
-		5FEA414E1F75307C0085DDB5 /* libGLUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40461F7530660085DDB5 /* libGLUI.a */; };
 		5FEA414F1F75307C0085DDB5 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40471F7530660085DDB5 /* libgtest.a */; };
 		5FEA41501F75307C0085DDB5 /* libgwen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40481F7530660085DDB5 /* libgwen.a */; };
 		5FEA41511F75307C0085DDB5 /* libHACD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40491F7530660085DDB5 /* libHACD.a */; };
-		5FEA41521F75307C0085DDB5 /* libLIB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404A1F7530660085DDB5 /* libLIB.a */; };
 		5FEA41531F75307C0085DDB5 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404B1F7530660085DDB5 /* libLinearMath.a */; };
 		5FEA41541F75307C0085DDB5 /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */; };
-		5FEA41551F75307C0085DDB5 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404D1F7530660085DDB5 /* liblua.a */; };
 		5FEA41561F75307C0085DDB5 /* libMathMLSolver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404E1F7530660085DDB5 /* libMathMLSolver.a */; };
 		5FEA41571F75307C0085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404F1F7530660085DDB5 /* libOpenCOLLADABaseUtils.a */; };
 		5FEA41581F75307C0085DDB5 /* libOpenCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40501F7530660085DDB5 /* libOpenCOLLADAFramework.a */; };
@@ -1987,7 +1971,6 @@
 		5FEA415A1F75307C0085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40521F7530660085DDB5 /* libOpenCOLLADAStreamWriter.a */; };
 		5FEA415B1F75307C0085DDB5 /* libOpenGLSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40531F7530660085DDB5 /* libOpenGLSupport.a */; };
 		5FEA415C1F75307C0085DDB5 /* libOpenGLWindow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40541F7530660085DDB5 /* libOpenGLWindow.a */; };
-		5FEA415D1F75307C0085DDB5 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40551F7530660085DDB5 /* libpcre.a */; };
 		5FEA415E1F75307C0085DDB5 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40561F7530660085DDB5 /* libpng.a */; };
 		5FEA415F1F75307C0085DDB5 /* libUTF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40571F7530660085DDB5 /* libUTF.a */; };
 		5FEA41601F75307C0085DDB5 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40581F7530660085DDB5 /* libuv.a */; };
@@ -2133,7 +2116,6 @@
 		3238F3961E90E80400838C62 /* CORE_DATA_MODEL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_DATA_MODEL.cpp; sourceTree = "<group>"; };
 		3238F3971E90E80400838C62 /* CORE_DATA_MODEL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_DATA_MODEL.h; sourceTree = "<group>"; };
 		3238F3981E90E80400838C62 /* CORE_DATA_TYPES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_DATA_TYPES.h; sourceTree = "<group>"; };
-		3238F3991E90E80400838C62 /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		3238F39B1E90E80400838C62 /* CORE_DATA_LOADER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_DATA_LOADER.cpp; sourceTree = "<group>"; };
 		3238F39C1E90E80400838C62 /* CORE_DATA_LOADER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_DATA_LOADER.h; sourceTree = "<group>"; };
 		3238F39E1E90E80400838C62 /* CORE_DATA_STREAM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_DATA_STREAM.cpp; sourceTree = "<group>"; };
@@ -2823,6 +2805,11 @@
 		5F6CD8F51EDB3DF300631D59 /* GAMEPLAY_COMPONENT_SCRIPT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_COMPONENT_SCRIPT.h; sourceTree = "<group>"; };
 		5F6CD8FB1EDB52C500631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp; sourceTree = "<group>"; };
 		5F6CD8FC1EDB52C500631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.h; sourceTree = "<group>"; };
+		5F70E7941FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp; sourceTree = "<group>"; };
+		5F70E7951FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_UI_RENDER_STYLE_BUILDER.h; sourceTree = "<group>"; };
+		5F70E79D1FADB3B200D90632 /* CORE_DATA_JSON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_DATA_JSON.cpp; sourceTree = "<group>"; };
+		5F70E79E1FADB3B200D90632 /* CORE_DATA_JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_DATA_JSON.h; sourceTree = "<group>"; };
+		5F70E7A71FADF82200D90632 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcre.a; sourceTree = "<group>"; };
 		5F7987BF1FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TOOLS_DEBUG_DRAW.cpp; sourceTree = "<group>"; };
 		5F7987C01FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOOLS_DEBUG_DRAW.h; sourceTree = "<group>"; };
 		5F92DA9F1F16413800292A99 /* libLIB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLIB.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2911,7 +2898,6 @@
 		5FEA3F761F731BAD0085DDB5 /* Xbox_360_X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Xbox_360_X.png; sourceTree = "<group>"; };
 		5FEA3F781F73E9B80085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_COMPONENT_BASE_ENTITY.cpp; sourceTree = "<group>"; };
 		5FEA3F791F73E9B80085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_COMPONENT_BASE_ENTITY.h; sourceTree = "<group>"; };
-		5FEA402E1F7530660085DDB5 /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBox2D.a; sourceTree = "<group>"; };
 		5FEA402F1F7530660085DDB5 /* libbuffer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbuffer.a; sourceTree = "<group>"; };
 		5FEA40301F7530660085DDB5 /* libBullet2FileLoader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBullet2FileLoader.a; sourceTree = "<group>"; };
 		5FEA40311F7530660085DDB5 /* libBullet3AppSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBullet3AppSupport.a; sourceTree = "<group>"; };
@@ -2927,22 +2913,17 @@
 		5FEA403B1F7530660085DDB5 /* libBulletSoftBody.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletSoftBody.a; sourceTree = "<group>"; };
 		5FEA403C1F7530660085DDB5 /* libBulletWorldImporter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletWorldImporter.a; sourceTree = "<group>"; };
 		5FEA403D1F7530660085DDB5 /* libBulletXmlWorldImporter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletXmlWorldImporter.a; sourceTree = "<group>"; };
-		5FEA403E1F7530660085DDB5 /* libCOLLADABaseUtils.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCOLLADABaseUtils.a; sourceTree = "<group>"; };
-		5FEA403F1F7530660085DDB5 /* libCOLLADAFramework.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCOLLADAFramework.a; sourceTree = "<group>"; };
-		5FEA40401F7530660085DDB5 /* libCOLLADASaxFrameworkLoader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCOLLADASaxFrameworkLoader.a; sourceTree = "<group>"; };
 		5FEA40411F7530660085DDB5 /* libConvexDecomposition.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libConvexDecomposition.a; sourceTree = "<group>"; };
 		5FEA40421F7530660085DDB5 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = "<group>"; };
 		5FEA40431F7530660085DDB5 /* libftoa.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libftoa.a; sourceTree = "<group>"; };
 		5FEA40441F7530660085DDB5 /* libGeneratedSaxParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGeneratedSaxParser.a; sourceTree = "<group>"; };
 		5FEA40451F7530660085DDB5 /* libGIMPACTUtils.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGIMPACTUtils.a; sourceTree = "<group>"; };
-		5FEA40461F7530660085DDB5 /* libGLUI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLUI.a; sourceTree = "<group>"; };
 		5FEA40471F7530660085DDB5 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgtest.a; sourceTree = "<group>"; };
 		5FEA40481F7530660085DDB5 /* libgwen.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgwen.a; sourceTree = "<group>"; };
 		5FEA40491F7530660085DDB5 /* libHACD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libHACD.a; sourceTree = "<group>"; };
 		5FEA404A1F7530660085DDB5 /* libLIB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLIB.a; sourceTree = "<group>"; };
 		5FEA404B1F7530660085DDB5 /* libLinearMath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLinearMath.a; sourceTree = "<group>"; };
 		5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "liblua-5.2.3.a"; sourceTree = "<group>"; };
-		5FEA404D1F7530660085DDB5 /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblua.a; sourceTree = "<group>"; };
 		5FEA404E1F7530660085DDB5 /* libMathMLSolver.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMathMLSolver.a; sourceTree = "<group>"; };
 		5FEA404F1F7530660085DDB5 /* libOpenCOLLADABaseUtils.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenCOLLADABaseUtils.a; sourceTree = "<group>"; };
 		5FEA40501F7530660085DDB5 /* libOpenCOLLADAFramework.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenCOLLADAFramework.a; sourceTree = "<group>"; };
@@ -2950,7 +2931,6 @@
 		5FEA40521F7530660085DDB5 /* libOpenCOLLADAStreamWriter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenCOLLADAStreamWriter.a; sourceTree = "<group>"; };
 		5FEA40531F7530660085DDB5 /* libOpenGLSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenGLSupport.a; sourceTree = "<group>"; };
 		5FEA40541F7530660085DDB5 /* libOpenGLWindow.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenGLWindow.a; sourceTree = "<group>"; };
-		5FEA40551F7530660085DDB5 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcre.a; sourceTree = "<group>"; };
 		5FEA40561F7530660085DDB5 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng.a; sourceTree = "<group>"; };
 		5FEA40571F7530660085DDB5 /* libUTF.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUTF.a; sourceTree = "<group>"; };
 		5FEA40581F7530660085DDB5 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuv.a; sourceTree = "<group>"; };
@@ -2968,7 +2948,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FAB11631F801D9600FAA4CD /* libbz2.tbd in Frameworks */,
-				5FEA40AD1F7530790085DDB5 /* libpcre.a in Frameworks */,
 				5FEA40A61F7530790085DDB5 /* libMathMLSolver.a in Frameworks */,
 				329756BD1E90EA2C0074EEEC /* Carbon.framework in Frameworks */,
 				5FEA409C1F7530790085DDB5 /* libGeneratedSaxParser.a in Frameworks */,
@@ -2986,7 +2965,6 @@
 				5FEA40891F7530790085DDB5 /* libBullet3AppSupport.a in Frameworks */,
 				5FEA40AC1F7530790085DDB5 /* libOpenGLWindow.a in Frameworks */,
 				5FEA40A71F7530790085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */,
-				5FEA40A51F7530790085DDB5 /* liblua.a in Frameworks */,
 				329756C21E90EA2C0074EEEC /* Cocoa.framework in Frameworks */,
 				5FEA40931F7530790085DDB5 /* libBulletSoftBody.a in Frameworks */,
 				5FAFD02C1F75400C00113D6E /* AppKit.framework in Frameworks */,
@@ -2996,16 +2974,14 @@
 				329756BF1E90EA2C0074EEEC /* OpenAL.framework in Frameworks */,
 				5FEA40A31F7530790085DDB5 /* libLinearMath.a in Frameworks */,
 				5FEA40A91F7530790085DDB5 /* libOpenCOLLADASaxFrameworkLoader.a in Frameworks */,
+				5F70E7AC1FADF82200D90632 /* libpcre.a in Frameworks */,
 				5FEA40881F7530790085DDB5 /* libBullet2FileLoader.a in Frameworks */,
 				5FEA408C1F7530790085DDB5 /* libBullet3Dynamics.a in Frameworks */,
 				329756A61E90EA160074EEEC /* AudioToolbox.framework in Frameworks */,
-				5FEA40961F7530790085DDB5 /* libCOLLADABaseUtils.a in Frameworks */,
-				5FEA40A21F7530790085DDB5 /* libLIB.a in Frameworks */,
 				5FEA40A11F7530790085DDB5 /* libHACD.a in Frameworks */,
 				5FEA409A1F7530790085DDB5 /* libfreetype.a in Frameworks */,
 				5FEA40AF1F7530790085DDB5 /* libUTF.a in Frameworks */,
 				5FEA40AE1F7530790085DDB5 /* libpng.a in Frameworks */,
-				5FEA409E1F7530790085DDB5 /* libGLUI.a in Frameworks */,
 				5FEA40871F7530790085DDB5 /* libbuffer.a in Frameworks */,
 				5FEA40991F7530790085DDB5 /* libConvexDecomposition.a in Frameworks */,
 				5FEA408F1F7530790085DDB5 /* libBulletCollision.a in Frameworks */,
@@ -3014,14 +2990,11 @@
 				329756A41E90EA160074EEEC /* AVFoundation.framework in Frameworks */,
 				5FEA40941F7530790085DDB5 /* libBulletWorldImporter.a in Frameworks */,
 				329756C01E90EA2C0074EEEC /* OpenCL.framework in Frameworks */,
-				5FEA40971F7530790085DDB5 /* libCOLLADAFramework.a in Frameworks */,
 				5FEA40911F7530790085DDB5 /* libBulletFileLoader.a in Frameworks */,
 				329756BE1E90EA2C0074EEEC /* GLKit.framework in Frameworks */,
-				5FEA40981F7530790085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */,
 				5FEA40951F7530790085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */,
 				5FEA40A41F7530790085DDB5 /* liblua-5.2.3.a in Frameworks */,
 				5FEA40921F7530790085DDB5 /* libBulletInverseDynamics.a in Frameworks */,
-				5FEA40861F7530790085DDB5 /* libBox2D.a in Frameworks */,
 				5FEA40AB1F7530790085DDB5 /* libOpenGLSupport.a in Frameworks */,
 				5FEA40AA1F7530790085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */,
 			);
@@ -3033,6 +3006,7 @@
 			files = (
 				5FAFD0461F7544BA00113D6E /* libxml2.tbd in Frameworks */,
 				5FAFD0441F7544AE00113D6E /* libbz2.tbd in Frameworks */,
+				5F70E7A61FADF6F300D90632 /* libLIB.a in Frameworks */,
 				5FAFD0371F75405100113D6E /* Foundation.framework in Frameworks */,
 				325A747C1E523ADB0046520B /* CoreAudio.framework in Frameworks */,
 				5FAFD02D1F75400D00113D6E /* AppKit.framework in Frameworks */,
@@ -3041,6 +3015,7 @@
 				325A747B1E523ADB0046520B /* AVFoundation.framework in Frameworks */,
 				325A748D1E523B3C0046520B /* OpenGL.framework in Frameworks */,
 				325A74891E523B260046520B /* Carbon.framework in Frameworks */,
+				5F70E7AA1FADF82200D90632 /* libpcre.a in Frameworks */,
 				325A748B1E523B360046520B /* OpenAL.framework in Frameworks */,
 				325A748E1E523B440046520B /* Cocoa.framework in Frameworks */,
 				325A747D1E523ADB0046520B /* AudioToolbox.framework in Frameworks */,
@@ -3048,30 +3023,22 @@
 				5FEA41581F75307C0085DDB5 /* libOpenCOLLADAFramework.a in Frameworks */,
 				5FEA41601F75307C0085DDB5 /* libuv.a in Frameworks */,
 				5FEA413E1F75307C0085DDB5 /* libBullet3OpenCL_clew.a in Frameworks */,
-				5FEA41361F75307C0085DDB5 /* libBox2D.a in Frameworks */,
 				5FEA41401F75307C0085DDB5 /* libBulletDynamics.a in Frameworks */,
 				5FEA41571F75307C0085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */,
 				5FEA41491F75307C0085DDB5 /* libConvexDecomposition.a in Frameworks */,
 				5FEA41431F75307C0085DDB5 /* libBulletSoftBody.a in Frameworks */,
-				5FEA41521F75307C0085DDB5 /* libLIB.a in Frameworks */,
 				5FEA415B1F75307C0085DDB5 /* libOpenGLSupport.a in Frameworks */,
 				5FEA41531F75307C0085DDB5 /* libLinearMath.a in Frameworks */,
 				5FEA41561F75307C0085DDB5 /* libMathMLSolver.a in Frameworks */,
-				5FEA41471F75307C0085DDB5 /* libCOLLADAFramework.a in Frameworks */,
 				5FEA413D1F75307C0085DDB5 /* libBullet3Geometry.a in Frameworks */,
-				5FEA415D1F75307C0085DDB5 /* libpcre.a in Frameworks */,
 				5FEA41381F75307C0085DDB5 /* libBullet2FileLoader.a in Frameworks */,
 				5FEA415A1F75307C0085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */,
 				5FEA413A1F75307C0085DDB5 /* libBullet3Collision.a in Frameworks */,
 				5FEA413F1F75307C0085DDB5 /* libBulletCollision.a in Frameworks */,
 				5FEA413C1F75307C0085DDB5 /* libBullet3Dynamics.a in Frameworks */,
 				5FEA414C1F75307C0085DDB5 /* libGeneratedSaxParser.a in Frameworks */,
-				5FEA41461F75307C0085DDB5 /* libCOLLADABaseUtils.a in Frameworks */,
 				5FEA41451F75307C0085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */,
-				5FEA414E1F75307C0085DDB5 /* libGLUI.a in Frameworks */,
-				5FEA41551F75307C0085DDB5 /* liblua.a in Frameworks */,
 				5FEA413B1F75307C0085DDB5 /* libBullet3Common.a in Frameworks */,
-				5FEA41481F75307C0085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */,
 				5FEA414F1F75307C0085DDB5 /* libgtest.a in Frameworks */,
 				5FEA41391F75307C0085DDB5 /* libBullet3AppSupport.a in Frameworks */,
 				5FEA41421F75307C0085DDB5 /* libBulletInverseDynamics.a in Frameworks */,
@@ -3100,6 +3067,7 @@
 				329FABCE1B6829DB004396A7 /* CoreFoundation.framework in Frameworks */,
 				329FABCC1B6829C7004396A7 /* CoreAudio.framework in Frameworks */,
 				329FABCB1B6829C0004396A7 /* OpenAL.framework in Frameworks */,
+				5F70E7A91FADF82200D90632 /* libpcre.a in Frameworks */,
 				329FABCA1B6829BC004396A7 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3114,23 +3082,19 @@
 				5FEA41341F75307B0085DDB5 /* libuv.a in Frameworks */,
 				32D9DC321B150FD2007BEFD6 /* AVFoundation.framework in Frameworks */,
 				5FEA41121F75307B0085DDB5 /* libBullet3OpenCL_clew.a in Frameworks */,
-				5FEA410A1F75307B0085DDB5 /* libBox2D.a in Frameworks */,
 				5FEA41141F75307B0085DDB5 /* libBulletDynamics.a in Frameworks */,
 				5FEA412B1F75307B0085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */,
 				5FEA411D1F75307B0085DDB5 /* libConvexDecomposition.a in Frameworks */,
 				32ADAB2E1B13CFAE000038F5 /* CoreAudio.framework in Frameworks */,
 				32ADAB2C1B128C60000038F5 /* AudioToolbox.framework in Frameworks */,
 				5FEA41171F75307B0085DDB5 /* libBulletSoftBody.a in Frameworks */,
-				5FEA41261F75307B0085DDB5 /* libLIB.a in Frameworks */,
 				5FEA412F1F75307B0085DDB5 /* libOpenGLSupport.a in Frameworks */,
 				5FEA41271F75307B0085DDB5 /* libLinearMath.a in Frameworks */,
 				5FEA412A1F75307B0085DDB5 /* libMathMLSolver.a in Frameworks */,
 				32571BC5186C918900AC7CCF /* OpenAL.framework in Frameworks */,
-				5FEA411B1F75307B0085DDB5 /* libCOLLADAFramework.a in Frameworks */,
 				32899BF7180D3DC8002AA472 /* Cocoa.framework in Frameworks */,
 				5FEA41111F75307B0085DDB5 /* libBullet3Geometry.a in Frameworks */,
 				5FAFD02E1F75400D00113D6E /* AppKit.framework in Frameworks */,
-				5FEA41311F75307B0085DDB5 /* libpcre.a in Frameworks */,
 				5FEA410C1F75307B0085DDB5 /* libBullet2FileLoader.a in Frameworks */,
 				5FEA412E1F75307B0085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */,
 				32EFD5231AF8219D0071A5A3 /* Carbon.framework in Frameworks */,
@@ -3138,14 +3102,10 @@
 				5FEA41131F75307B0085DDB5 /* libBulletCollision.a in Frameworks */,
 				5FEA41101F75307B0085DDB5 /* libBullet3Dynamics.a in Frameworks */,
 				5FEA41201F75307B0085DDB5 /* libGeneratedSaxParser.a in Frameworks */,
-				5FEA411A1F75307B0085DDB5 /* libCOLLADABaseUtils.a in Frameworks */,
 				32E5D78C19FFB8E700BB3D97 /* GLKit.framework in Frameworks */,
 				5FEA41191F75307B0085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */,
 				32571BC7186C918900AC7CCF /* OpenGL.framework in Frameworks */,
-				5FEA41221F75307B0085DDB5 /* libGLUI.a in Frameworks */,
-				5FEA41291F75307B0085DDB5 /* liblua.a in Frameworks */,
 				5FEA410F1F75307B0085DDB5 /* libBullet3Common.a in Frameworks */,
-				5FEA411C1F75307B0085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */,
 				5FEA41231F75307B0085DDB5 /* libgtest.a in Frameworks */,
 				5FEA410D1F75307B0085DDB5 /* libBullet3AppSupport.a in Frameworks */,
 				5FEA41161F75307B0085DDB5 /* libBulletInverseDynamics.a in Frameworks */,
@@ -3157,6 +3117,7 @@
 				5FEA41281F75307B0085DDB5 /* liblua-5.2.3.a in Frameworks */,
 				5FEA412D1F75307B0085DDB5 /* libOpenCOLLADASaxFrameworkLoader.a in Frameworks */,
 				5FEA410B1F75307B0085DDB5 /* libbuffer.a in Frameworks */,
+				5F70E7A81FADF82200D90632 /* libpcre.a in Frameworks */,
 				5FEA41331F75307B0085DDB5 /* libUTF.a in Frameworks */,
 				5FEA41321F75307B0085DDB5 /* libpng.a in Frameworks */,
 				5FEA41301F75307B0085DDB5 /* libOpenGLWindow.a in Frameworks */,
@@ -3175,7 +3136,6 @@
 				5FEA40D41F7530790085DDB5 /* libOpenCOLLADAFramework.a in Frameworks */,
 				5FEA40DC1F75307A0085DDB5 /* libuv.a in Frameworks */,
 				5FEA40BA1F7530790085DDB5 /* libBullet3OpenCL_clew.a in Frameworks */,
-				5FEA40B21F7530790085DDB5 /* libBox2D.a in Frameworks */,
 				5FEA40BC1F7530790085DDB5 /* libBulletDynamics.a in Frameworks */,
 				5FAFD0381F75405100113D6E /* Foundation.framework in Frameworks */,
 				5FEA40D31F7530790085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */,
@@ -3186,24 +3146,19 @@
 				5FEA40CF1F7530790085DDB5 /* libLinearMath.a in Frameworks */,
 				5FEA40D21F7530790085DDB5 /* libMathMLSolver.a in Frameworks */,
 				32D314531B7230C900003802 /* AVFoundation.framework in Frameworks */,
-				5FEA40C31F7530790085DDB5 /* libCOLLADAFramework.a in Frameworks */,
 				32899C17180D3DC8002AA472 /* Cocoa.framework in Frameworks */,
 				5FEA40B91F7530790085DDB5 /* libBullet3Geometry.a in Frameworks */,
-				5FEA40D91F7530790085DDB5 /* libpcre.a in Frameworks */,
 				5FEA40B41F7530790085DDB5 /* libBullet2FileLoader.a in Frameworks */,
 				5FEA40D61F7530790085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */,
 				5FEA40B61F7530790085DDB5 /* libBullet3Collision.a in Frameworks */,
 				5FEA40BB1F7530790085DDB5 /* libBulletCollision.a in Frameworks */,
 				5FEA40B81F7530790085DDB5 /* libBullet3Dynamics.a in Frameworks */,
 				5FEA40C81F7530790085DDB5 /* libGeneratedSaxParser.a in Frameworks */,
-				5FEA40C21F7530790085DDB5 /* libCOLLADABaseUtils.a in Frameworks */,
 				5FEA40C11F7530790085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */,
-				5FEA40CA1F7530790085DDB5 /* libGLUI.a in Frameworks */,
-				5FEA40D11F7530790085DDB5 /* liblua.a in Frameworks */,
 				5FEA40B71F7530790085DDB5 /* libBullet3Common.a in Frameworks */,
-				5FEA40C41F7530790085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */,
 				5FEA40CB1F7530790085DDB5 /* libgtest.a in Frameworks */,
 				5FEA40B51F7530790085DDB5 /* libBullet3AppSupport.a in Frameworks */,
+				5F70E7AB1FADF82200D90632 /* libpcre.a in Frameworks */,
 				5FEA40BE1F7530790085DDB5 /* libBulletInverseDynamics.a in Frameworks */,
 				5FEA40C01F7530790085DDB5 /* libBulletWorldImporter.a in Frameworks */,
 				32D3146F1B7230E900003802 /* OpenCL.framework in Frameworks */,
@@ -3242,31 +3197,26 @@
 				5FAFD0291F753FEC00113D6E /* AppKit.framework in Frameworks */,
 				5F92DB8D1F1641E300292A99 /* CoreAudio.framework in Frameworks */,
 				5F92DB8E1F1641E300292A99 /* AudioToolbox.framework in Frameworks */,
+				5F70E7AD1FADF82200D90632 /* libpcre.a in Frameworks */,
 				5FAFD0331F75401D00113D6E /* OpenGL.framework in Frameworks */,
 				5FAFD0301F75401500113D6E /* GLKit.framework in Frameworks */,
-				5FEA40721F7530780085DDB5 /* libGLUI.a in Frameworks */,
 				5FEA407C1F7530780085DDB5 /* libOpenCOLLADAFramework.a in Frameworks */,
 				5FEA40711F7530780085DDB5 /* libGIMPACTUtils.a in Frameworks */,
-				5FEA405A1F7530780085DDB5 /* libBox2D.a in Frameworks */,
 				5FEA407A1F7530780085DDB5 /* libMathMLSolver.a in Frameworks */,
 				5FEA405B1F7530780085DDB5 /* libbuffer.a in Frameworks */,
-				5FEA40811F7530780085DDB5 /* libpcre.a in Frameworks */,
 				5FEA40701F7530780085DDB5 /* libGeneratedSaxParser.a in Frameworks */,
 				5FEA40801F7530780085DDB5 /* libOpenGLWindow.a in Frameworks */,
 				5FEA407F1F7530780085DDB5 /* libOpenGLSupport.a in Frameworks */,
 				5FEA40741F7530780085DDB5 /* libgwen.a in Frameworks */,
 				5FEA40771F7530780085DDB5 /* libLinearMath.a in Frameworks */,
-				5FEA406A1F7530780085DDB5 /* libCOLLADABaseUtils.a in Frameworks */,
 				5FEA407B1F7530780085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */,
 				5FEA407D1F7530780085DDB5 /* libOpenCOLLADASaxFrameworkLoader.a in Frameworks */,
-				5FEA406C1F7530780085DDB5 /* libCOLLADASaxFrameworkLoader.a in Frameworks */,
 				5FEA407E1F7530780085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */,
 				5FEA406D1F7530780085DDB5 /* libConvexDecomposition.a in Frameworks */,
 				5FEA40831F7530780085DDB5 /* libUTF.a in Frameworks */,
 				5FEA40851F7530780085DDB5 /* libz.a in Frameworks */,
 				5FEA40841F7530780085DDB5 /* libuv.a in Frameworks */,
 				5FEA40821F7530780085DDB5 /* libpng.a in Frameworks */,
-				5FEA40791F7530780085DDB5 /* liblua.a in Frameworks */,
 				5FEA40631F7530780085DDB5 /* libBulletCollision.a in Frameworks */,
 				5FEA40641F7530780085DDB5 /* libBulletDynamics.a in Frameworks */,
 				5FEA40601F7530780085DDB5 /* libBullet3Dynamics.a in Frameworks */,
@@ -3277,7 +3227,6 @@
 				5FEA40671F7530780085DDB5 /* libBulletSoftBody.a in Frameworks */,
 				5FEA40621F7530780085DDB5 /* libBullet3OpenCL_clew.a in Frameworks */,
 				5FEA40681F7530780085DDB5 /* libBulletWorldImporter.a in Frameworks */,
-				5FEA406B1F7530780085DDB5 /* libCOLLADAFramework.a in Frameworks */,
 				5FEA40611F7530780085DDB5 /* libBullet3Geometry.a in Frameworks */,
 				5FEA40691F7530780085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */,
 				5FEA405F1F7530780085DDB5 /* libBullet3Common.a in Frameworks */,
@@ -3533,12 +3482,12 @@
 		3238F38F1E90E80400838C62 /* DATA */ = {
 			isa = PBXGroup;
 			children = (
+				5F70E79C1FADB3B200D90632 /* JSON */,
 				3238F3901E90E80400838C62 /* ARRAY */,
 				3238F3931E90E80400838C62 /* BUFFER */,
 				3238F3961E90E80400838C62 /* CORE_DATA_MODEL.cpp */,
 				3238F3971E90E80400838C62 /* CORE_DATA_MODEL.h */,
 				3238F3981E90E80400838C62 /* CORE_DATA_TYPES.h */,
-				3238F3991E90E80400838C62 /* Header.h */,
 				3238F39A1E90E80400838C62 /* LOADER */,
 				3238F39D1E90E80400838C62 /* STREAM */,
 			);
@@ -4391,6 +4340,8 @@
 				3238F5171E90E80400838C62 /* GRAPHIC_UI_PLACEMENT_ANCHOR.h */,
 				3238F5181E90E80400838C62 /* GRAPHIC_UI_RENDER_STYLE.cpp */,
 				3238F5191E90E80400838C62 /* GRAPHIC_UI_RENDER_STYLE.h */,
+				5F70E7941FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp */,
+				5F70E7951FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.h */,
 				3238F51A1E90E80400838C62 /* GRAPHIC_UI_SYSTEM.cpp */,
 				3238F51B1E90E80400838C62 /* GRAPHIC_UI_SYSTEM.h */,
 				3253DB461EBE697D00DF1797 /* GRAPHIC_UI_SCREEN_REFERENCE.cpp */,
@@ -5383,6 +5334,15 @@
 			path = OPENGL2;
 			sourceTree = "<group>";
 		};
+		5F70E79C1FADB3B200D90632 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				5F70E79D1FADB3B200D90632 /* CORE_DATA_JSON.cpp */,
+				5F70E79E1FADB3B200D90632 /* CORE_DATA_JSON.h */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
 		5F7987BE1FA8BFAA0062EB1F /* DEBUG_DRAW_LINE */ = {
 			isa = PBXGroup;
 			children = (
@@ -5515,7 +5475,7 @@
 		5FEA3FED1F7530660085DDB5 /* COMPILED_LIBS_OSX */ = {
 			isa = PBXGroup;
 			children = (
-				5FEA402E1F7530660085DDB5 /* libBox2D.a */,
+				5F70E7A71FADF82200D90632 /* libpcre.a */,
 				5FEA402F1F7530660085DDB5 /* libbuffer.a */,
 				5FEA40301F7530660085DDB5 /* libBullet2FileLoader.a */,
 				5FEA40311F7530660085DDB5 /* libBullet3AppSupport.a */,
@@ -5531,22 +5491,17 @@
 				5FEA403B1F7530660085DDB5 /* libBulletSoftBody.a */,
 				5FEA403C1F7530660085DDB5 /* libBulletWorldImporter.a */,
 				5FEA403D1F7530660085DDB5 /* libBulletXmlWorldImporter.a */,
-				5FEA403E1F7530660085DDB5 /* libCOLLADABaseUtils.a */,
-				5FEA403F1F7530660085DDB5 /* libCOLLADAFramework.a */,
-				5FEA40401F7530660085DDB5 /* libCOLLADASaxFrameworkLoader.a */,
 				5FEA40411F7530660085DDB5 /* libConvexDecomposition.a */,
 				5FEA40421F7530660085DDB5 /* libfreetype.a */,
 				5FEA40431F7530660085DDB5 /* libftoa.a */,
 				5FEA40441F7530660085DDB5 /* libGeneratedSaxParser.a */,
 				5FEA40451F7530660085DDB5 /* libGIMPACTUtils.a */,
-				5FEA40461F7530660085DDB5 /* libGLUI.a */,
 				5FEA40471F7530660085DDB5 /* libgtest.a */,
 				5FEA40481F7530660085DDB5 /* libgwen.a */,
 				5FEA40491F7530660085DDB5 /* libHACD.a */,
 				5FEA404A1F7530660085DDB5 /* libLIB.a */,
 				5FEA404B1F7530660085DDB5 /* libLinearMath.a */,
 				5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */,
-				5FEA404D1F7530660085DDB5 /* liblua.a */,
 				5FEA404E1F7530660085DDB5 /* libMathMLSolver.a */,
 				5FEA404F1F7530660085DDB5 /* libOpenCOLLADABaseUtils.a */,
 				5FEA40501F7530660085DDB5 /* libOpenCOLLADAFramework.a */,
@@ -5554,7 +5509,6 @@
 				5FEA40521F7530660085DDB5 /* libOpenCOLLADAStreamWriter.a */,
 				5FEA40531F7530660085DDB5 /* libOpenGLSupport.a */,
 				5FEA40541F7530660085DDB5 /* libOpenGLWindow.a */,
-				5FEA40551F7530660085DDB5 /* libpcre.a */,
 				5FEA40561F7530660085DDB5 /* libpng.a */,
 				5FEA40571F7530660085DDB5 /* libUTF.a */,
 				5FEA40581F7530660085DDB5 /* libuv.a */,
@@ -5585,6 +5539,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FD9B7E01F52EBED00708B8D /* TOOL_BULLET_GL_DEBUGGER.h in Headers */,
+				5F70E7A51FADB3B300D90632 /* CORE_DATA_JSON.h in Headers */,
 				5F7987C71FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.h in Headers */,
 				5F92DAA21F16413800292A99 /* LIB.h in Headers */,
 			);
@@ -5704,7 +5659,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Christophe Bernard";
 				TargetAttributes = {
 					321911DE1E5331B200CF29A2 = {
@@ -5961,6 +5916,7 @@
 			files = (
 				3238F8EE1E90E80600838C62 /* GRAPHIC_UI_FRAME_ADAPTER.cpp in Sources */,
 				3238F82B1E90E80600838C62 /* GRAPHIC_PARTICLE.cpp in Sources */,
+				5F70E7A31FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
 				3238FA1F1E90E80700838C62 /* GteLogToOutputWindow.cpp in Sources */,
 				3238F6501E90E80500838C62 /* CORE_DATA_BUFFER.cpp in Sources */,
 				3238F9A71E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
@@ -6020,6 +5976,7 @@
 				32AFECED1EB731B8006664AB /* CppUIDataProxy.m in Sources */,
 				3238F6871E90E80500838C62 /* CORE_HELPERS_UNIQUE.cpp in Sources */,
 				3238F91B1E90E80600838C62 /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
+				5F70E79A1FAC904C00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */,
 				3238F7451E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */,
 				3238F9DE1E90E80700838C62 /* FONT_EDITOR.cpp in Sources */,
 				3238F7A91E90E80500838C62 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
@@ -6371,6 +6328,7 @@
 				3238F99C1E90E80700838C62 /* RESOURCE_CACHE.cpp in Sources */,
 				3238F7C11E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_JOINT.cpp in Sources */,
 				3238F8341E90E80600838C62 /* GRAPHIC_PARTICLE_MANAGER.cpp in Sources */,
+				5F70E7A11FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
 				3238F7B21E90E80500838C62 /* GRAPHIC_MATERIAL.cpp in Sources */,
 				5F02EC781F9E97F7001A6AA4 /* GRAPHIC_CAMERA_FUSTRUM.cpp in Sources */,
 				5F6CD8F21EDAED7500631D59 /* RESOURCE_TYPE.cpp in Sources */,
@@ -6420,6 +6378,7 @@
 				3238F9101E90E80600838C62 /* GRAPHIC_UI_HELPER.cpp in Sources */,
 				3238F6361E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS.cpp in Sources */,
 				3238F83E1E90E80600838C62 /* GRAPHIC_PARTICLE_MODIFIER_GRAVITY.cpp in Sources */,
+				5F70E7981FAC904B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */,
 				3238F8251E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_SPHERE.cpp in Sources */,
 				3238F6951E90E80500838C62 /* CORE_MATH_QUATERNION.cpp in Sources */,
 				3238F6271E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_V8.cpp in Sources */,
@@ -6619,6 +6578,7 @@
 				3238F87E1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_SPEEDBLUR.cpp in Sources */,
 				3238F6B21E90E80500838C62 /* CORE_MATH_SHAPE_TYPE.cpp in Sources */,
 				3238F8AB1E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_OES2.cpp in Sources */,
+				5F70E7A01FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
 				3238F7C01E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_JOINT.cpp in Sources */,
 				3238F96E1E90E80600838C62 /* PERIPHERIC_INTERACTION_TOUCH.cpp in Sources */,
 				3238F6211E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_STATE.cpp in Sources */,
@@ -6652,6 +6612,7 @@
 				3238F9C31E90E80700838C62 /* SERVICE_NETWORK_COMMAND.cpp in Sources */,
 				3238F8A11E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */,
 				3238F8EC1E90E80600838C62 /* GRAPHIC_UI_FRAME_ADAPTER.cpp in Sources */,
+				5F70E7971FAC904B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */,
 				3238FA4A1E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
 				3238F9641E90E80600838C62 /* PERIPHERIC_INTERACTION_MOUSE.cpp in Sources */,
 				3238FA681E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */,
@@ -6830,6 +6791,7 @@
 				3238F5CF1E90E80400838C62 /* AUDIO_SYSTEM.cpp in Sources */,
 				3238F6511E90E80500838C62 /* CORE_DATA_MODEL.cpp in Sources */,
 				3238F6C41E90E80500838C62 /* CORE_HELPERS_OBSERVABLE.cpp in Sources */,
+				5F70E79F1FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
 				3238F6561E90E80500838C62 /* CORE_DATA_LOADER.cpp in Sources */,
 				32E4CC101E3574E000E79F0D /* APPLICATION_SINGLEPLAYER_HUD_PRESENTER.cpp in Sources */,
 				3238F81D1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
@@ -6946,6 +6908,7 @@
 				3238F7731E90E80500838C62 /* GAMEPLAY_COMPONENT_RENDER.cpp in Sources */,
 				5FD9B7DE1F52EBED00708B8D /* TOOL_BULLET_GL_DEBUGGER.cpp in Sources */,
 				3238F8271E90E80600838C62 /* GRAPHIC_PARTICLE.cpp in Sources */,
+				5F70E7961FAC903B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */,
 				3238F8D61E90E80600838C62 /* GRAPHIC_TEXTURE_ATLAS.cpp in Sources */,
 				3238FA431E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */,
 				3238F6DD1E90E80500838C62 /* CORE_PARALLEL_TASK.cpp in Sources */,
@@ -7095,6 +7058,7 @@
 				3238F9721E90E80600838C62 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp in Sources */,
 				3238F7B51E90E80500838C62 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
 				3238F6481E90E80500838C62 /* CORE_DATA_FAST_ARRAY.cpp in Sources */,
+				5F70E7AE1FAE025900D90632 /* CORE_ABSTRACT_PROGRAM_V8.cpp in Sources */,
 				5F41B36E1EDCBBCF00D93AEE /* RESOURCE_TEST.m in Sources */,
 				5FC19B711EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F9541E90E80600838C62 /* NETWORK_PLAYER.cpp in Sources */,
@@ -7281,11 +7245,13 @@
 				3238F8DC1E90E80600838C62 /* GRAPHIC_TEXTURE_BLOCK.cpp in Sources */,
 				3238F8691E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
 				3238F67F1E90E80500838C62 /* CORE_HELPERS_STATIC.cpp in Sources */,
+				5F70E7A21FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
 				5F5661E71ED9C8EA00C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				5FC19B9A1EE0359B003E53D5 /* TIMELINE_TEST.m in Sources */,
 				5F02EC791F9E97F7001A6AA4 /* GRAPHIC_CAMERA_FUSTRUM.cpp in Sources */,
 				3238F9901E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				3238F7971E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
+				5F70E7991FAC904C00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */,
 				3238F90E1E90E80600838C62 /* GRAPHIC_UI_HELPER.cpp in Sources */,
 				3238F9811E90E80600838C62 /* RESOURCE_IMAGE_PNG_WRITER.cpp in Sources */,
 				3238F66B1E90E80500838C62 /* CORE_HELPERS_IDENTIFIER.cpp in Sources */,
@@ -7478,12 +7444,14 @@
 				5F92DB421F16415F00292A99 /* GRAPHIC_SHADER_OPENGL.cpp in Sources */,
 				5F92DB431F16415F00292A99 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
 				5F92DB441F16415F00292A99 /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */,
+				5F70E7A41FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
 				5F92DB451F16415F00292A99 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
 				5F92DB471F16415F00292A99 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */,
 				5F92DB481F16415F00292A99 /* OPENGL_3.cpp in Sources */,
 				5F92DB4A1F16415F00292A99 /* GRAPHIC_FONT.cpp in Sources */,
 				5F92DB4B1F16415F00292A99 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
 				5F92DB4C1F16415F00292A99 /* GRAPHIC_GLYPH.cpp in Sources */,
+				5F70E79B1FAC904D00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */,
 				5F92DB4D1F16415F00292A99 /* GRAPHIC_TEXT.cpp in Sources */,
 				5F92DB4E1F16415F00292A99 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
 				5F92DB4F1F16415F00292A99 /* GRAPHIC_TEXTURE.cpp in Sources */,
@@ -7954,14 +7922,20 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -7998,7 +7972,6 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -8009,14 +7982,20 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -8046,7 +8025,6 @@
 					"/Users/CBE/DevelopStatic/freetype-2.6.2/include",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -8255,7 +8233,6 @@
 		5F92DAA61F16413800292A99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
@@ -8318,7 +8295,6 @@
 		5F92DAA71F16413800292A99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;

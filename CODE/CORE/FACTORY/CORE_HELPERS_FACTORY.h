@@ -115,7 +115,7 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
     virtual __FACTORY_TYPE__ * __InnerCreate() const override { \
         return new __CLASS_TYPE__();\
     }\
-    virtual __FACTORY_TYPE__ * __InnerCopy( const __FACTORY_TYPE__ & object ) const { \
+    virtual __FACTORY_TYPE__ * __InnerCopy( const __FACTORY_TYPE__ & object ) const override { \
         return new __CLASS_TYPE__( *((__CLASS_TYPE__*) &object) );\
     };\
     \

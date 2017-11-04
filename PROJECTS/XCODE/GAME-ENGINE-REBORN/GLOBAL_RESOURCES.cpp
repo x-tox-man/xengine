@@ -59,7 +59,6 @@ void GLOBAL_RESOURCES::Initialize( GAMEPLAY_SCENE * scene ) {
     CellRenderStyle->SetDecoratingTextureBlock( UIFrameTextureBlock );
     CellRenderStyle->SetShape(UIPlanObjectColorOnly);
 
-    
     PageFrameRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     
     PageFrameRenderStyle->SetColor( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 0.5f ) );
@@ -377,7 +376,6 @@ GRAPHIC_OBJECT_SHAPE_FRAME * GLOBAL_RESOURCES::CreateFrameBorder( float height, 
     
     return frame;
 }
-
 
 void GLOBAL_RESOURCES::CreateGround(GAMEPLAY_SCENE * scene) {
     

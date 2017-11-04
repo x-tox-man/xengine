@@ -26,16 +26,16 @@ XS_CLASS_BEGIN(GAMEPLAY_ACTION_SYSTEM)
 
     inline CORE_TIMELINE & GetTimeline() { return Timeline; }
 
-    void DeSerializeNetworkCommand(SERVICE_NETWORK_COMMAND * command, CORE_TIMELINE_EVENT ** event ) {
+    void DeSerializeNetworkCommand( SERVICE_NETWORK_COMMAND * command, CORE_TIMELINE_EVENT ** event ) {
         
         CORE_DATA_STREAM
-        stream( (char *) command->Data, command->Size );
+            stream( (char *) command->Data, command->Size );
         
         stream.Open();
         
         int factory_type;
         
-        XS_CLASS_SERIALIZER<CORE_TIMELINE_EVENT>::Serialize< std::false_type >( event, stream );
+        XS_CLASS_SERIALIZER< CORE_TIMELINE_EVENT, CORE_DATA_STREAM >::Serialize< std::false_type >( "event", event, stream );
         stream >> factory_type;
         
         GAMEPLAY_ACTION * event_command = GAMEPLAY_ACTION::FactoryCreate((GAMEPLAY_ACTION_TYPE) factory_type);
@@ -62,9 +62,9 @@ XS_CLASS_BEGIN(GAMEPLAY_ACTION_SYSTEM)
         event.Setup(0.0f, 0.0f, CORE_HELPERS_UNIQUE_IDENTIFIER::Empty, &command);
         
         stream.Open();
-        XS_CLASS_SERIALIZER<CORE_TIMELINE_EVENT>::Serialize< std::true_type >( event, stream );
+        XS_CLASS_SERIALIZER< CORE_TIMELINE_EVENT, CORE_DATA_STREAM >::Serialize< std::true_type >( "event", event, stream );
         stream << command.GetFactoryType();
-        XS_CLASS_SERIALIZER<__COMMAND_TYPE__>::template Serialize< std::true_type >( command, stream );
+        XS_CLASS_SERIALIZER< __COMMAND_TYPE__, CORE_DATA_STREAM >::template Serialize< std::true_type >( "command", command, stream );
         stream.Close();
         
         message->Data = CORE_MEMORY_ALLOCATOR_Allocate(stream.GetOffset());

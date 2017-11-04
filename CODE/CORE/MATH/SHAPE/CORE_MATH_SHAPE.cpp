@@ -12,10 +12,10 @@
 #include "CORE_MEMORY.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_MATH_SHAPE )
-    XS_DEFINE_ClassMember( CORE_MATH_VECTOR, Position )
-    XS_DEFINE_ClassMember( CORE_MATH_VECTOR, HalfDiagonal )
-    XS_DEFINE_ClassMember( CORE_MATH_SHAPE_TYPE, Type )
-    XS_DEFINE_ClassMember( CORE_MATH_QUATERNION, Orientation )
+    XS_DEFINE_ClassMember( "Position", CORE_MATH_VECTOR, Position )
+    XS_DEFINE_ClassMember( "HalfDiagonal", CORE_MATH_VECTOR, HalfDiagonal )
+    XS_DEFINE_ClassMember( "Type", CORE_MATH_SHAPE_TYPE, Type )
+    XS_DEFINE_ClassMember( "Orientation", CORE_MATH_QUATERNION, Orientation )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_MATH_SHAPE::CORE_MATH_SHAPE() :

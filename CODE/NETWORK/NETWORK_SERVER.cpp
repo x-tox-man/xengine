@@ -55,8 +55,6 @@ CORE_FIXED_STATE_DefineStateEnterEvent( NETWORK_SERVER::STARTING_STATE )
     std::vector<NETWORK_PLAYER * >
         player_table;
 
-    int size = 0;
-
     for( int i = 0; i < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; i++) {
         
         if ( GetContext().GetPlayerTable()[ i ] != NULL ) {

@@ -18,11 +18,11 @@ typedef std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * > TEX_TAB_TYP
 XS_IMPLEMENT_INTERNAL_STL_MAP_MEMORY_LAYOUT(GRAPHIC_TEXTURE_BLOCK *, CORE_HELPERS_IDENTIFIER)
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MATERIAL )
-    XS_DEFINE_ClassMember( std::string, Name )
-    XS_DEFINE_ClassMember( CORE_HELPERS_COLOR, Diffuse )
-    XS_DEFINE_ClassMember( TEX_TAB_TYPE, TextureTable )
-    XS_DEFINE_ClassMember( bool, DepthIsEnabled )
-    XS_DEFINE_ClassMember( bool, CubeMapIsEnabled )
+    XS_DEFINE_ClassMember( "Name", std::string, Name )
+    XS_DEFINE_ClassMember( "Diffuse", CORE_HELPERS_COLOR, Diffuse )
+    XS_DEFINE_ClassMember( "TextureTable", TEX_TAB_TYPE, TextureTable )
+    XS_DEFINE_ClassMember( "DepthIsEnabled", bool, DepthIsEnabled )
+    XS_DEFINE_ClassMember( "CubeMapIsEnabled", bool, CubeMapIsEnabled )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_MATERIAL::GRAPHIC_MATERIAL() :

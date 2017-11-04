@@ -9,11 +9,11 @@
 #include "CORE_TIMELINE_EVENT.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_TIMELINE_EVENT )
-    XS_DEFINE_ClassMember( float, Start )
-    XS_DEFINE_ClassMember( float, End )
-    XS_DEFINE_ClassMember( bool, Ended )
-    XS_DEFINE_ClassMember( bool, Cancelled )
-    XS_DEFINE_ClassMember( CORE_HELPERS_UNIQUE_IDENTIFIER, Identifier )
+    XS_DEFINE_ClassMember( "Start", float, Start )
+    XS_DEFINE_ClassMember( "End", float, End )
+    XS_DEFINE_ClassMember( "Ended", bool, Ended )
+    XS_DEFINE_ClassMember( "Cancelled", bool, Cancelled )
+    XS_DEFINE_ClassMember( "Identifier", CORE_HELPERS_UNIQUE_IDENTIFIER, Identifier )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_TIMELINE_EVENT::CORE_TIMELINE_EVENT() :

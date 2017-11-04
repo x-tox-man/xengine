@@ -33,7 +33,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Render)
 
-    void Render( GRAPHIC_RENDERER &renderer, GAMEPLAY_COMPONENT_POSITION * component );
+    void Render( GRAPHIC_RENDERER &renderer, GAMEPLAY_COMPONENT_POSITION * component, GAMEPLAY_COMPONENT_POSITION * parent );
 
     struct INTERNAL_ARRAY_R{
         int LastIndex;
@@ -49,11 +49,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
     inline void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
 
-    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
-#if DEBUG
-      auto ptr = &(*InternalVector)[index].MemoryArray[offset];
-        auto ptr2 = (*InternalVector)[0].MemoryArray;
-#endif
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
+
         return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
     }
 

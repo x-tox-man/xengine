@@ -19,8 +19,8 @@
 #include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_OBJECT )
-    XS_DEFINE_ClassMember( std::vector< GRAPHIC_MESH * > , MeshTable )
-    XS_DEFINE_ClassMember( std::vector< GRAPHIC_MESH_ANIMATION_JOINT *>, JointTable )
+    XS_DEFINE_ClassMember( "MeshTable", std::vector< GRAPHIC_MESH * > , MeshTable )
+    XS_DEFINE_ClassMember( "JointTable", std::vector< GRAPHIC_MESH_ANIMATION_JOINT *>, JointTable )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_OBJECT::GRAPHIC_OBJECT() :
@@ -87,12 +87,17 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         effect->Apply( renderer );
         
         GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE * model_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelViewMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & time_mod = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
         
         CompteModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
         GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
         
+        if ( model_matrix->AttributeIndex > 0 ) {
+            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix->AttributeIndex, 1, 0, &object[0])
+        }
+
         GRAPHIC_SHADER_ATTRIBUTE & depth = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
         
         if ( time_mod.AttributeIndex > 0 ) {
@@ -138,20 +143,31 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
     
     CORE_MATH_MATRIX
         scaling_matrix;
+    CORE_MATH_MATRIX
+        parent_matrix;
+    
+    CORE_MATH_MATRIX
+        orientation_mat;
+    
+    if ( options.GetParent() ) {
+        
+        options.GetParent()->GetOrientation().ToMatrix( &orientation_mat[0] );
+        
+        object_matrix.Translate( options.GetParent()->GetPosition() );
+        object_matrix *= orientation_mat;
+    }
     
     if ( !transform.IsIdentity() ) {
         
         object_matrix *= transform;
     }
     
-    CORE_MATH_MATRIX
-        orientation_mat;
-    
     options.GetOrientation().ToMatrix( &orientation_mat[0] );
     
     object_matrix.Scale( options.GetScaleFactor() );
-    object_matrix *= orientation_mat;
     object_matrix.Translate( options.GetPosition() );
+    object_matrix *= orientation_mat;
+    
     
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !

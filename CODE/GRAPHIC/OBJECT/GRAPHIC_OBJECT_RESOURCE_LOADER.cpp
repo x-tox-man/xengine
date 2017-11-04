@@ -54,7 +54,7 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( const CORE_FILESYSTEM_PAT
     
     SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
     
-    XS_CLASS_SERIALIZER< GRAPHIC_OBJECT >::Serialize<std::false_type>( *object, stream );
+    XS_CLASS_SERIALIZER< GRAPHIC_OBJECT, CORE_DATA_STREAM >::Serialize<std::false_type>( "object", *object, stream );
     
     stream.Close();
     
@@ -73,7 +73,7 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( CORE_DATA_STREAM & stream
     
     SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
     
-    XS_CLASS_SERIALIZER< GRAPHIC_OBJECT >::Serialize<std::false_type>( *object, stream );
+    XS_CLASS_SERIALIZER< GRAPHIC_OBJECT, CORE_DATA_STREAM >::Serialize<std::false_type>( "object", *object, stream );
     
     for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
         
@@ -102,7 +102,7 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
     
     stream.Open();
     
-    XS_CLASS_SERIALIZER< GRAPHIC_OBJECT >::Serialize< std::true_type >( *object, stream );
+    XS_CLASS_SERIALIZER< GRAPHIC_OBJECT, CORE_DATA_STREAM >::Serialize< std::true_type >( "asset", *object, stream );
     
     stream.Close();
     
@@ -178,7 +178,7 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
         
         animation_stream.Open();
         
-        XS_CLASS_SERIALIZER< GRAPHIC_MESH_ANIMATION >::Serialize< std::true_type >( *object->GetAnimationTable()[ i ], animation_stream );
+        XS_CLASS_SERIALIZER< GRAPHIC_MESH_ANIMATION, CORE_DATA_STREAM >::Serialize< std::true_type >( "asset", *object->GetAnimationTable()[ i ], animation_stream );
         
         animation_stream.Close();
         
@@ -252,7 +252,7 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::LoadObject( const CORE_FILESYST
             
             SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
             
-            XS_CLASS_SERIALIZER< GRAPHIC_OBJECT >::Serialize<std::false_type>( *object, stream );
+            XS_CLASS_SERIALIZER< GRAPHIC_OBJECT, CORE_DATA_STREAM >::Serialize<std::false_type>( "object", *object, stream );
             
             stream.Close();
             

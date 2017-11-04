@@ -147,7 +147,7 @@ void OutputBytes(__TYPE__ ** pointer, int & size ) {
 template < typename __TYPE__ >
 void InputBytes(__TYPE__ * pointer, size_t size ) {
     
-    unsigned int length = size * sizeof( __TYPE__ );
+    unsigned long length = size * sizeof( __TYPE__ );
     
     if ( AllocatedBytes - Offset < length + sizeof(unsigned int) ) {
         

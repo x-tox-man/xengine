@@ -21,33 +21,35 @@
 
 XS_CLASS_BEGIN( GRAPHIC_UI_HELPER )
 
-CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GRAPHIC_UI_HELPER );
+    GRAPHIC_UI_HELPER();
+    ~GRAPHIC_UI_HELPER();
 
-GRAPHIC_UI_HELPER();
-~GRAPHIC_UI_HELPER();
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GRAPHIC_UI_HELPER );
 
-static GRAPHIC_UI_ELEMENT * CreateElement( const CORE_HELPERS_IDENTIFIER & identifier );
-static GRAPHIC_UI_ELEMENT * CreateElement( const char * identifier );
+    static GRAPHIC_UI_ELEMENT * CreateElement( const CORE_HELPERS_IDENTIFIER & identifier );
+    static GRAPHIC_UI_ELEMENT * CreateElement( const char * identifier );
 
-static GRAPHIC_UI_FRAME * CreateFrame( const CORE_HELPERS_IDENTIFIER & identifier );
-static GRAPHIC_UI_FRAME * CreateFrame( const char * identifier );
+    static GRAPHIC_UI_FRAME * CreateFrame( const CORE_HELPERS_IDENTIFIER & identifier );
+    static GRAPHIC_UI_FRAME * CreateFrame( const char * identifier );
 
-static GRAPHIC_UI_ELEMENT * CreateTextElement( const CORE_HELPERS_IDENTIFIER & identifier, const char * text );
-static GRAPHIC_UI_ELEMENT * CreateTextElement( const char * identifier, const char * text );
+    static void CreateFrameStyleWithBorderAndContentTexture( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_IDENTIFIER & content_texture_identifier, const CORE_HELPERS_IDENTIFIER & border_texture_identifier );
+    static void CreateFrameStyleWithBorderAndContentColor( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, const CORE_HELPERS_IDENTIFIER & border_texture_identifier );
 
-static void AddElementToFrame( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_FRAME * frame );
+    static GRAPHIC_UI_ELEMENT * CreateTextElement( const CORE_HELPERS_IDENTIFIER & identifier, const char * text );
+    static GRAPHIC_UI_ELEMENT * CreateTextElement( const char * identifier, const char * text );
 
-static GRAPHIC_OBJECT_SHAPE_PLAN
-    * DefaultPlanShape;
-static GRAPHIC_TEXTURE_ATLAS
-    * TextureAtlas;
-static GRAPHIC_FONT
-    * DefaultFont;
+    static void AddElementToFrame( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_FRAME * frame );
+
+    static GRAPHIC_OBJECT_SHAPE_PLAN
+        * DefaultPlanShape;
+    static GRAPHIC_TEXTURE_ATLAS
+        * TextureAtlas;
+    static GRAPHIC_FONT
+        * DefaultFont;
 
 private :
 
-static GRAPHIC_UI_RENDER_STYLE * CreateDefaultRenderStyle( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
-static GRAPHIC_UI_RENDER_STYLE * CreateTextRenderStyle( GRAPHIC_FONT * DefaultFont, GRAPHIC_TEXT *text_shape );
+    static GRAPHIC_UI_RENDER_STYLE * CreateTextRenderStyle( GRAPHIC_FONT * DefaultFont, GRAPHIC_TEXT *text_shape );
 
 XS_CLASS_END
 

@@ -36,7 +36,7 @@ void R3D_PLAYER_SHIP::Initialize() {
     
     GAMEPLAY_HELPER::CreateComponent_PositionRenderPhysicsScriptAnimation( this );
     
-    GAMEPLAY_HELPER::Set3DObject( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1" ) );
+    GAMEPLAY_HELPER::Set3DObject( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     GAMEPLAY_HELPER::SetEffect( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
     GAMEPLAY_HELPER::SetTexture(this, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     GAMEPLAY_HELPER::SetScript(this, CORE_FILESYSTEM_PATH::FindFilePath("spaceship", "lua", "SCRIPTS" ) );
@@ -77,9 +77,8 @@ void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, con
     CORE_MATH_VECTOR
         offset(0.1f, 2.0f, -0.1f, 0.0f );
     
-    entity->SetOrientation( orientation );
-    entity->SetPosition( position );
-    entity->SetPositionOffset( offset );
+    entity->SetOrientation( CORE_MATH_QUATERNION() );
+    entity->SetPosition( offset );
     
     //GAMEPLAY_HELPER::AddToScripts( this );
     GAMEPLAY_HELPER::AddToWorld( entity );
@@ -89,7 +88,7 @@ void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, con
 void R3D_PLAYER_SHIP::Update( float step ) {
     
     static const CORE_MATH_VECTOR f(0.0f, 0.1f, 0.01f, 0.0f );
-    static const CORE_MATH_VECTOR r(0.0f, -0.3f, 0.04f, 0.0f );
+    static const CORE_MATH_VECTOR r(0.0f, -0.5f, 0.04f, 0.0f );
     static const CORE_MATH_VECTOR t(0.0f, 0.0f, 5.0f, 0.0f );
     
     CORE_MATH_QUATERNION

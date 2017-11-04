@@ -278,7 +278,7 @@
     
     stream.Open();
     
-    XS_CLASS_SERIALIZER< CORE_DATA_BUFFER >::Serialize<std::true_type>( buffer, stream );
+    XS_CLASS_SERIALIZER< CORE_DATA_BUFFER, CORE_DATA_STREAM >::Serialize<std::true_type>( "data", buffer, stream );
     
     stream.Close();
     
@@ -286,7 +286,7 @@
     
     stream.Open();
     
-    XS_CLASS_SERIALIZER< CORE_DATA_BUFFER >::Serialize<std::false_type>( buffer2, stream );
+    XS_CLASS_SERIALIZER< CORE_DATA_BUFFER, CORE_DATA_STREAM >::Serialize<std::false_type>( "data", buffer2, stream );
     
     stream.Close();
     
@@ -421,11 +421,11 @@
     
     stream.Open();
     
-    XS_CLASS_SERIALIZER< TestClass2 >::Serialize< std::true_type >( test_class2, stream );
+    XS_CLASS_SERIALIZER< TestClass2, CORE_DATA_STREAM >::Serialize< std::true_type >( "data", test_class2, stream );
     
     stream.ResetOffset();
     
-    XS_CLASS_SERIALIZER< TestClass2 >::Serialize< std::false_type >( test_class3, stream );
+    XS_CLASS_SERIALIZER< TestClass2, CORE_DATA_STREAM >::Serialize< std::false_type >( "data", test_class3, stream );
     
     XCTAssert( test_class2.TestChar == test_class3.TestChar );
     XCTAssert( test_class2.TestFloat == test_class3.TestFloat );

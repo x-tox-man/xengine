@@ -11,15 +11,15 @@
 #include "CORE_MEMORY.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH )
-    XS_DEFINE_ClassMember( CORE_DATA_BUFFER, VertexCoreBuffer )
-    XS_DEFINE_ClassMember( CORE_DATA_BUFFER, IndexCoreBuffer )
-    XS_DEFINE_ClassMember( GRAPHIC_SHADER_BIND, VertexComponent )
-    XS_DEFINE_ClassMember( GRAPHIC_MESH_POLYGON_RENDER_MODE, PolygonRenderMode )
-    XS_DEFINE_ClassMember( GRAPHIC_MESH_SURFACE_RENDER_MODE, SurfaceRenderMode )
-    XS_DEFINE_ClassMember( int, VertexStride )
-    XS_DEFINE_ClassMember( CORE_MATH_MATRIX, Transform )
-    XS_DEFINE_ClassMember( CORE_MATH_SHAPE, BoundingShape)
-    XS_DEFINE_ClassMember( std::string, MeshName )
+    XS_DEFINE_ClassMember( "VertexCoreBuffer", CORE_DATA_BUFFER, VertexCoreBuffer )
+    XS_DEFINE_ClassMember( "IndexCoreBuffer", CORE_DATA_BUFFER, IndexCoreBuffer )
+    XS_DEFINE_ClassMember( "VertexComponent", GRAPHIC_SHADER_BIND, VertexComponent )
+    XS_DEFINE_ClassMember( "PolygonRenderMode", GRAPHIC_MESH_POLYGON_RENDER_MODE, PolygonRenderMode )
+    XS_DEFINE_ClassMember( "SurfaceRenderMode", GRAPHIC_MESH_SURFACE_RENDER_MODE, SurfaceRenderMode )
+    XS_DEFINE_ClassMember( "VertexStride", int, VertexStride )
+    XS_DEFINE_ClassMember( "Transform", CORE_MATH_MATRIX, Transform )
+    XS_DEFINE_ClassMember( "BoundingShape", CORE_MATH_SHAPE, BoundingShape )
+    XS_DEFINE_ClassMember( "MeshName", std::string, MeshName )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH )

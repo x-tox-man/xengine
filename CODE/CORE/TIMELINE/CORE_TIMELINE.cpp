@@ -9,7 +9,7 @@
 #include "CORE_TIMELINE.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_TIMELINE )
-    XS_DEFINE_ClassMember( float, TimeOffset )
+    XS_DEFINE_ClassMember( "TimeOffset", float, TimeOffset )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_TIMELINE::CORE_TIMELINE() :

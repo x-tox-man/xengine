@@ -20,7 +20,6 @@ CORE_MATH_POSE();
 
 XS_DEFINE_SERIALIZABLE
 
-    CORE_MATH_POSE( CORE_MATH_POSE & other );
     ~CORE_MATH_POSE();
 
     void FromMatrix( const CORE_MATH_MATRIX & matrix );
@@ -30,13 +29,13 @@ XS_DEFINE_SERIALIZABLE
     void ToMatrix( float * matrix ) const;
     void Lerp( const CORE_MATH_POSE & other, CORE_MATH_POSE & result, float percentage );
 
-    CORE_MATH_VECTOR & GetPosition() { return Position; }
-    CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
-    const CORE_MATH_VECTOR & GetPosition() const { return Position; }
-    const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
+    inline CORE_MATH_VECTOR & GetPosition() { return Position; }
+    inline CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
+    inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
+    inline const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
 
-    void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
-    void SetOrientation( const CORE_MATH_QUATERNION & orientation ) {Orientation = orientation; }
+    inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
+    inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation; }
 
     CORE_MATH_POSE & operator *= ( const CORE_MATH_POSE & other);
     CORE_MATH_POSE & operator = ( const CORE_MATH_POSE & other);

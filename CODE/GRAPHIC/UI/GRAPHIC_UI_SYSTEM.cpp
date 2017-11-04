@@ -10,6 +10,7 @@
 #include "CORE_ABSTRACT_PROGRAM_LUA.h"
 #include "GRAPHIC_UI_ELEMENT_SCRIPTED.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
+#include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GRAPHIC_UI_SYSTEM )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GRAPHIC_UI_FRAME *, GRAPHIC_UI_SYSTEM, GetCurrentView )
@@ -26,6 +27,20 @@ GRAPHIC_UI_SYSTEM::GRAPHIC_UI_SYSTEM() :
 
 GRAPHIC_UI_SYSTEM::~GRAPHIC_UI_SYSTEM() {
 
+}
+
+void GRAPHIC_UI_SYSTEM::Initialize() {
+    
+    auto shader_textured = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(TexturedShaderIdentifier, CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
+    auto shader_colored = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( ColoredShaderIdentifier, CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderColored", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
+    
+    GRAPHIC_OBJECT_SHAPE * shape = new GRAPHIC_OBJECT_SHAPE_PLAN;
+    shape->InitializeShape();
+    
+    shader_textured->Initialize( shape->GetShaderBindParameter() );
+    shader_colored->Initialize( shape->GetShaderBindParameter() );
+    
+    GRAPHIC_OBJECT::SetResourceForIdentifier(shape, UIPlanShape );
 }
 
 void GRAPHIC_UI_SYSTEM::Update( float time_step ) {
@@ -61,9 +76,11 @@ void GRAPHIC_UI_SYSTEM::Update( float time_step ) {
         it++;
     }
     
-    for (int i = 0; i < AnimationTable.size(); i++ ) {
+    while ( animation_iterator != AnimationTable.end() ) {
         
-        AnimationTable[i]->Update( time_step );
+        (*animation_iterator)->Update( time_step );
+        
+        animation_iterator++;
     }
 }
 
@@ -125,3 +142,8 @@ void GRAPHIC_UI_SYSTEM::CommitAnimation(GRAPHIC_UI_ANIMATION * animation) {
 void GRAPHIC_UI_SYSTEM::FinalizeAnimation( GRAPHIC_UI_ANIMATION * animation) {
     
 }
+
+CORE_HELPERS_UNIQUE_IDENTIFIER
+    GRAPHIC_UI_SYSTEM::TexturedShaderIdentifier = CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShader" ),
+    GRAPHIC_UI_SYSTEM::ColoredShaderIdentifier = CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderColored" ),
+    GRAPHIC_UI_SYSTEM::UIPlanShape = CORE_HELPERS_UNIQUE_IDENTIFIER( "UIPlanShape" );

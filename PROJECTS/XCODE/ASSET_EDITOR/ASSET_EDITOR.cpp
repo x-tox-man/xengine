@@ -18,7 +18,7 @@
 typedef std::map<CORE_FILESYSTEM_PATH, ASSET> ASSET_TYPE_TABLE;
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( ASSET_EDITOR )
-    XS_DEFINE_ClassMember(ASSET_TYPE_TABLE, AssetTable)
+    XS_DEFINE_ClassMember( "AssetTable", ASSET_TYPE_TABLE, AssetTable)
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 ASSET_EDITOR::ASSET_EDITOR() :
@@ -198,7 +198,7 @@ void ASSET_EDITOR::Save( CORE_DATA_STREAM & stream ) {
 
     stream.Open();
     
-    XS_CLASS_SERIALIZER< ASSET_EDITOR >::template Serialize< std::true_type >( *this, stream );
+    XS_CLASS_SERIALIZER< ASSET_EDITOR, CORE_DATA_STREAM >::template Serialize< std::true_type >( *this, stream );
     
     stream.Close();
 }

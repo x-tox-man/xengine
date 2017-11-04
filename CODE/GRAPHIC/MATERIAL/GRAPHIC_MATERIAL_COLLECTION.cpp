@@ -13,7 +13,7 @@ typedef std::map<std::string, GRAPHIC_MATERIAL::PTR> MAT_TAB_STRING;
 XS_IMPLEMENT_INTERNAL_STL_MAP_MEMORY_LAYOUT( GRAPHIC_MATERIAL::PTR, std::string)
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MATERIAL_COLLECTION )
-    XS_DEFINE_ClassMember( MAT_TAB_STRING, MaterialTable )
+    XS_DEFINE_ClassMember( "MaterialTable", MAT_TAB_STRING, MaterialTable )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_MATERIAL_COLLECTION::GRAPHIC_MATERIAL_COLLECTION() :
@@ -75,7 +75,7 @@ void GRAPHIC_MATERIAL_COLLECTION::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SH
     MaterialTable.begin()->second->Apply(renderer, shader );
 }
 
-void GRAPHIC_MATERIAL_COLLECTION::SetDiffuse( const CORE_HELPERS_COLOR & color ) {
+void GRAPHIC_MATERIAL_COLLECTION::SetDiffuse( const CORE_HELPERS_COLOR & color ) {
     std::map<std::string, GRAPHIC_MATERIAL::PTR>::iterator it = MaterialTable.begin();
     
     while( it != MaterialTable.end() ) {

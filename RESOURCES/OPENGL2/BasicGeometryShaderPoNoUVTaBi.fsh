@@ -25,12 +25,14 @@ uniform sampler2D c_texture;
 uniform sampler2D n_texture;
 uniform sampler2D d_texture;
 uniform AmbientLight ambient_light;
+uniform mediump mat4 modelViewMatrix;
 
 out vec4 colorOut;
 
 void main()
 {
-    float nxDir = max(0.1, dot( o_normal.xyz, directional_light_out.Direction.xyz));
+    vec4 normalTimesLModel = modelViewMatrix * o_normal;
+    float nxDir = max(0.1, dot( normalTimesLModel.xyz, directional_light_out.Direction.xyz));
     vec4 diffuse = directional_light_out.Color * nxDir;
     diffuse += ambient_light.Color * ambient_light.AmbientIntensity;
     

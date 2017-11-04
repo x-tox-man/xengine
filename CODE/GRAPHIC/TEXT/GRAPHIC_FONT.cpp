@@ -14,9 +14,9 @@
 #include "GRAPHIC_GLYPH.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_FONT )
-    XS_DEFINE_ClassMember( GLYPH_TABLE, GlyphTable )
-    XS_DEFINE_ClassMemberArray( char , Name, (size_t)256 )
-    XS_DEFINE_ClassMember( int, Size )
+    XS_DEFINE_ClassMember( "GlyphTable", GLYPH_TABLE, GlyphTable )
+    XS_DEFINE_ClassMemberArray( "Name", char , Name, (size_t)256 )
+    XS_DEFINE_ClassMember( "Size", int, Size )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_FONT::GRAPHIC_FONT() :
@@ -54,7 +54,7 @@ void GRAPHIC_FONT::Load( const CORE_FILESYSTEM_PATH & font_path, const CORE_FILE
     
     file.OutputBytes( stream.GetMemoryBuffer(), size );
     
-    XS_CLASS_SERIALIZER< GRAPHIC_FONT >::Serialize<std::false_type>( *this, stream );
+    XS_CLASS_SERIALIZER< GRAPHIC_FONT, CORE_DATA_STREAM >::Serialize<std::false_type>( "font", *this, stream );
     
     stream.Close();
     stream.ResetOffset();

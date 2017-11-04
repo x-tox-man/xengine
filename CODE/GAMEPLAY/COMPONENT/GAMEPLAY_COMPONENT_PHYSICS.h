@@ -69,7 +69,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COM
     void SetVelocity( const CORE_MATH_VECTOR & velocity);
     CORE_MATH_VECTOR & GetVelocity();
 
-    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
         
         return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
     }

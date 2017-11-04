@@ -10,9 +10,9 @@
 #include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_GLYPH )
-    XS_DEFINE_ClassMember( char , Value )
-    XS_DEFINE_ClassMember( CORE_MATH_VECTOR, PaddingBounding )
-    XS_DEFINE_ClassMember( CORE_MATH_VECTOR, Advance )
+    XS_DEFINE_ClassMember( "Value", char , Value )
+    XS_DEFINE_ClassMember( "PaddingBounding", CORE_MATH_VECTOR, PaddingBounding )
+    XS_DEFINE_ClassMember( "Advance", CORE_MATH_VECTOR, Advance )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_GLYPH * )

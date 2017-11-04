@@ -275,7 +275,7 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
     stream.Open();
     stream.ResetOffset();
     
-    XS_CLASS_SERIALIZER< GRAPHIC_TEXTURE_ATLAS >::Serialize< std::true_type >( atlas, stream );
+    XS_CLASS_SERIALIZER< GRAPHIC_TEXTURE_ATLAS, CORE_DATA_STREAM >::Serialize< std::true_type >( "atlas", atlas, stream );
     
     stream.Close();
     

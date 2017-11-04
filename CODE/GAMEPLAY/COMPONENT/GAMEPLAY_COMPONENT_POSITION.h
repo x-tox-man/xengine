@@ -18,6 +18,7 @@
 #include "CORE_MATH_QUATERNION.h"
 #include "CORE_MATH_RAY.h"
 #include "CORE_HELPERS_OBSERVABLE.h"
+#include "CORE_MATH_POSE.h"
 
 class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
 
@@ -42,24 +43,24 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_CO
         GAMEPLAY_COMPONENT_POSITION * MemoryArray;
     };
 
-    inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
-    inline CORE_MATH_VECTOR & GetPosition() { return Position; }
+    inline const CORE_MATH_VECTOR & GetPosition() const { return Pose.GetPosition(); }
+    inline CORE_MATH_VECTOR & GetPosition() { return Pose.GetPosition(); }
 
     inline void SetPositionOffset( const CORE_MATH_VECTOR & offset ) { PositionOffset = offset; }
     inline CORE_MATH_VECTOR & GetPositionOffset() { return PositionOffset; }
 
-    inline CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
-    inline const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
+    inline CORE_MATH_QUATERNION & GetOrientation() { return Pose.GetOrientation(); }
+    inline const CORE_MATH_QUATERNION & GetOrientation() const { return Pose.GetOrientation(); }
 
     inline CORE_MATH_VECTOR & GetVelocity() { return Velocity; }
     inline CORE_MATH_QUATERNION & GetSpin() { return Spin; }
 
-    inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; /*NotifyObservers();*/ }
-    inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Orientation = orientation; /*NotifyObservers();*/ }
+    inline void SetPosition( const CORE_MATH_VECTOR & position ) { Pose.SetPosition( position ); /*NotifyObservers();*/ }
+    inline void SetOrientation( const CORE_MATH_QUATERNION & orientation ) { Pose.SetOrientation( orientation ); /*NotifyObservers();*/ }
 
     bool Intersects( const CORE_MATH_RAY & ray );
 
-    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
         
         return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
     }
@@ -75,12 +76,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_CO
 private :
 
     CORE_MATH_VECTOR
-        Position,
         PositionOffset,
         Velocity;
     CORE_MATH_QUATERNION
-        Orientation,
         Spin;
+    CORE_MATH_POSE
+        Pose;
     static std::vector< INTERNAL_ARRAY >
         * InternalVector;
 

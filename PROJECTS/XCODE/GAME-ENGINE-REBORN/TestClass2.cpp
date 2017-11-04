@@ -10,13 +10,13 @@
 #include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( TestClass2 )
-    XS_DEFINE_ClassMember( TestClass, TestInnerClass )
-    XS_DEFINE_ClassMember( TestClass, &TestInnerClassPtr )
-    XS_DEFINE_ClassMember( int, TestInt )
-    XS_DEFINE_ClassMember( char, TestChar )
-    XS_DEFINE_ClassMemberArray( char, TestCharArray, (int) strlen(TestCharArray) )
-    XS_DEFINE_ClassMember( float, TestFloat )
-    XS_DEFINE_ClassMember( std::vector< TestClass >, TestVector )
+    XS_DEFINE_ClassMember( "TestInnerClass", TestClass, TestInnerClass )
+    XS_DEFINE_ClassMember( "TestInnerClassPtr", TestClass, &TestInnerClassPtr )
+    XS_DEFINE_ClassMember( "TestInt", int, TestInt )
+    XS_DEFINE_ClassMember( "TestChar", char, TestChar )
+    XS_DEFINE_ClassMemberArray( "TestCharArray", char, TestCharArray, (int) strlen(TestCharArray) )
+    XS_DEFINE_ClassMember( "TestFloat", float, TestFloat )
+    XS_DEFINE_ClassMember( "TestVector", std::vector< TestClass >, TestVector )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( TestClass )

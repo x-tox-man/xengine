@@ -31,7 +31,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_C
 
     void SetAnimation( const GRAPHIC_MESH_ANIMATION_CONTROLLER & animation ) { Animation = animation; }
 
-    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) {
+    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
         
         return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
     }

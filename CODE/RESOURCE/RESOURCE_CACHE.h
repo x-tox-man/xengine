@@ -44,12 +44,26 @@ public:
     
     __RESOURCE_TYPE__ * GetResourceForIdentifier( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
         
+        #if DEBUG
+        if ( ItemMap.find( identifier ) == ItemMap.end() ) {
+            
+            return NULL;
+        }
+        #endif
+        
+        return ItemMap[ identifier ];
+    }
+    
+    void SetResourceForIdentifier( __RESOURCE_TYPE__ * resource, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+        
+        #if DEBUG
         if ( ItemMap.find( identifier ) != ItemMap.end() ) {
             
             CORE_RUNTIME_Abort();
         }
+        #endif
         
-        return ItemMap[ identifier ];
+        ItemMap[ identifier ] = resource;
     }
     
     __RESOURCE_TYPE__ * LoadResourceForPath( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_FILESYSTEM_PATH & path ) {
@@ -86,7 +100,7 @@ public:
     void SaveResourceFromStream( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {
         auto rs = ItemMap[ identifier ];
         
-        XS_CLASS_SERIALIZER< __RESOURCE_TYPE__ >::template Serialize<std::true_type>( rs, stream );
+        XS_CLASS_SERIALIZER< __RESOURCE_TYPE__, CORE_DATA_STREAM >::template Serialize<std::true_type>( "resource", rs, stream );
     }
     
     void FlushCache( ) {

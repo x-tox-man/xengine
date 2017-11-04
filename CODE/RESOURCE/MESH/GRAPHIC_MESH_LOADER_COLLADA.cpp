@@ -600,8 +600,6 @@
             }
         }
         
-        
-        
         return true;
     }
 
@@ -736,7 +734,6 @@
      @return The writer should return true, if writing succeeded, false otherwise.*/
     bool COLLADA_LOADER_WRITER::writeAnimationList( const COLLADAFW::AnimationList* animationList )
     {
-        
         return true;
     }
 
@@ -960,5 +957,6 @@
         if ( ! success ) {
             
         }
+        
     }
 #endif

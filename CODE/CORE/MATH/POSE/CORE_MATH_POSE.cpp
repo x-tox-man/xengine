@@ -10,7 +10,8 @@
 #include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT(CORE_MATH_POSE)
-
+    XS_DEFINE_ClassMember( "Position", CORE_MATH_VECTOR, Position )
+    XS_DEFINE_ClassMember( "Orientation", CORE_MATH_QUATERNION, Orientation )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_MATH_POSE::CORE_MATH_POSE() :
@@ -23,7 +24,7 @@ CORE_MATH_POSE::~CORE_MATH_POSE() {
 
 }
 
-CORE_MATH_POSE::CORE_MATH_POSE( CORE_MATH_POSE & other ) :
+CORE_MATH_POSE::CORE_MATH_POSE( const CORE_MATH_POSE & other ) :
     Position(),
     Orientation() {
     

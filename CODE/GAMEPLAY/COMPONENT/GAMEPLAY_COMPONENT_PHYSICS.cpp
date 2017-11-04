@@ -355,14 +355,17 @@ void GAMEPLAY_COMPONENT_PHYSICS::SetOrientation( const CORE_MATH_QUATERNION & ro
     Shape.SetOrientation( rotation );
     
 #ifdef __BULLET_PHYSICS__
-    btQuaternion rot( rotation[0], rotation[2], rotation[1], rotation[3]);
+    CORE_MATH_MATRIX m;
+    rotation.ToMatrix( &m[0] );
     
     btTransform initialTransform;
     
     BulletRigidBody->getMotionState()->getWorldTransform(initialTransform);
+    btMatrix3x3 basis;
+    basis.setValue(m[0], m[1], m[2], m[4], m[5], m[6], m[8], m[9], m[10]);
     
-    initialTransform.setRotation( rot );
-    //BulletRigidBody->setWorldTransform(initialTransform);
+    initialTransform.setBasis( basis );
+    BulletRigidBody->setWorldTransform(initialTransform);
 #endif
 }
 

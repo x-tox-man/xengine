@@ -11,13 +11,13 @@
 #include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION_JOINT )
-    XS_DEFINE_ClassMember( CORE_DATA_BUFFER, FloatMatrixBuffer )
-    XS_DEFINE_ClassMember( CORE_DATA_BUFFER, PoseBuffer )
-    XS_DEFINE_ClassMember( CORE_SCALAR, WorldMatrix )
-    XS_DEFINE_ClassMember( CORE_MATH_POSE, WorldPose )
-    XS_DEFINE_ClassMember( CORE_DATA_BUFFER, TimeTableBuffer )
-    XS_DEFINE_ClassMemberArray( char, JointName, (size_t) 256 )
-    XS_DEFINE_ClassMember( CORE_SCALAR, BindShapeMatrix )
+    XS_DEFINE_ClassMember( "FloatMatrixBuffer", CORE_DATA_BUFFER, FloatMatrixBuffer )
+    XS_DEFINE_ClassMember( "PoseBuffer", CORE_DATA_BUFFER, PoseBuffer )
+    XS_DEFINE_ClassMember( "WorldMatrix", CORE_SCALAR, WorldMatrix )
+    XS_DEFINE_ClassMember( "WorldPose", CORE_MATH_POSE, WorldPose )
+    XS_DEFINE_ClassMember( "TimeTableBuffer", CORE_DATA_BUFFER, TimeTableBuffer )
+    XS_DEFINE_ClassMemberArray( "JointName", char, JointName, (size_t) 256 )
+    XS_DEFINE_ClassMember( "BindShapeMatrix", CORE_SCALAR, BindShapeMatrix )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION_JOINT )

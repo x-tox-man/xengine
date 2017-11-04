@@ -27,7 +27,7 @@ CORE_SCALAR GLOBAL_CORE_MATH_QUATERNION_LERP( float * lhs, float * rhs);
 
 XS_CLASS_BEGIN_WITH_COPY(CORE_MATH_QUATERNION)
 
-    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( CORE_MATH_VECTOR );
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( CORE_MATH_QUATERNION );
 
     XS_DEFINE_SERIALIZABLE
 
@@ -171,6 +171,11 @@ XS_CLASS_BEGIN_WITH_COPY(CORE_MATH_QUATERNION)
     void RotateY( float angle );
 
     void RotateZ( float angle );
+
+    inline float GetX() { return Value[0]; }
+    inline float GetY() { return Value[1]; }
+    inline float GetZ() { return Value[2]; }
+    inline float GetW() { return Value[3]; }
 
     CORE_MATH_QUATERNION GetConjugate() const {
         

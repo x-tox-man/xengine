@@ -31,7 +31,7 @@ void R3D_RESOURCES::Initialize() {
     RESOURCE_PROXY::PTR capsule_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR particle_proxy = new RESOURCE_PROXY;
     
-    spaceship1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("spaceship1", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
+    spaceship1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("spaceship", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     track_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("straight_track", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     weapon1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("weapon1", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     checkpoint_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("checkpoint", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
@@ -55,7 +55,7 @@ void R3D_RESOURCES::Initialize() {
     checkpoint_effect_proxy->SetResource( checkpoint_effect );
     particle_proxy->SetResource( particle_effect );
     
-    Resources->AddResource( spaceship1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1" ) );
+    Resources->AddResource( spaceship1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     Resources->AddResource( track_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "straight_track" ) );
     Resources->AddResource( weapon1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "weapon1" ) );
     Resources->AddResource( shader_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );

@@ -87,6 +87,11 @@ public:
         return ResourceCache->GetResourceForIdentifier( identifier );
     }
     
+    static void SetResourceForIdentifier( __CHILD_RESOURCE_TYPE__ * resource, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+        
+        return ResourceCache->SetResourceForIdentifier( resource, identifier );
+    }
+    
     void LoadResource( CORE_DATA_STREAM & stream ) {
         
         __CHILD_RESOURCE_TYPE__::LoadResource( stream );

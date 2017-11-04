@@ -71,7 +71,7 @@ GRAPHIC_OBJECT * GRAPHIC_MESH_MANAGER::LoadObject( const CORE_FILESYSTEM_PATH & 
             
             SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
             
-            XS_CLASS_SERIALIZER< GRAPHIC_OBJECT >::Serialize<std::false_type>( *object, stream );
+            XS_CLASS_SERIALIZER< GRAPHIC_OBJECT, CORE_DATA_STREAM >::Serialize<std::false_type>( "object", *object, stream );
             
             stream.Close();
             
@@ -147,7 +147,7 @@ void GRAPHIC_MESH_MANAGER::Compile( const CORE_FILESYSTEM_PATH & path, const COR
     
     stream.Open();
     
-    XS_CLASS_SERIALIZER< GRAPHIC_OBJECT >::Serialize< std::true_type >( *object, stream );
+    XS_CLASS_SERIALIZER< GRAPHIC_OBJECT, CORE_DATA_STREAM >::Serialize< std::true_type >( "object", *object, stream );
     
     stream.Close();
     
@@ -227,7 +227,7 @@ void GRAPHIC_MESH_MANAGER::Compile( const CORE_FILESYSTEM_PATH & path, const COR
         
             animation_stream.Open();
         
-            XS_CLASS_SERIALIZER< GRAPHIC_MESH_ANIMATION >::Serialize< std::true_type >( *object->GetAnimationTable()[ i ], animation_stream );
+            XS_CLASS_SERIALIZER< GRAPHIC_MESH_ANIMATION, CORE_DATA_STREAM >::Serialize< std::true_type >( "mesh", *object->GetAnimationTable()[ i ], animation_stream );
         
             animation_stream.Close();
         

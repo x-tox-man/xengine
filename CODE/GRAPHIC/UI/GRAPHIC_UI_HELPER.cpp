@@ -7,6 +7,7 @@
 //
 
 #include "GRAPHIC_UI_HELPER.h"
+#include "GRAPHIC_UI_RENDER_STYLE_BUILDER.h"
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GRAPHIC_UI_HELPER )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_STATIC_YIELD_METHOD_1( GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_HELPER, CreateElement, const CORE_HELPERS_IDENTIFIER & )
@@ -32,7 +33,7 @@ GRAPHIC_UI_ELEMENT * GRAPHIC_UI_HELPER::CreateElement( const CORE_HELPERS_IDENTI
     
     GRAPHIC_UI_ELEMENT * element = new GRAPHIC_UI_ELEMENT;
     
-    GRAPHIC_UI_RENDER_STYLE * style = GRAPHIC_UI_HELPER::CreateDefaultRenderStyle( identifier.GetTextValue() );
+    GRAPHIC_UI_RENDER_STYLE * style = GRAPHIC_UI_RENDER_STYLE_BUILDER::NewStyle().CreateStyle( CORE_HELPERS_UNIQUE_IDENTIFIER( identifier.GetTextValue() ) ).Build();
     
     element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, style );
     element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Disabled, style );
@@ -61,6 +62,27 @@ GRAPHIC_UI_FRAME * GRAPHIC_UI_HELPER::CreateFrame( const CORE_HELPERS_IDENTIFIER
 GRAPHIC_UI_FRAME * GRAPHIC_UI_HELPER::CreateFrame( const char * identifier ) {
     
     return GRAPHIC_UI_HELPER::CreateFrame( CORE_HELPERS_IDENTIFIER( identifier ) );
+}
+
+void GRAPHIC_UI_HELPER::CreateFrameStyleWithBorderAndContentTexture( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_IDENTIFIER & content_texture_identifier, const CORE_HELPERS_IDENTIFIER & border_texture_identifier ) {
+    
+    GRAPHIC_UI_RENDER_STYLE * style = GRAPHIC_UI_RENDER_STYLE_BUILDER::NewStyle()
+        .CreateStyle( CORE_HELPERS_UNIQUE_IDENTIFIER( content_texture_identifier.GetTextValue() ) )
+        .CreateDecoratingFrameBorder( element->GetSize(), CORE_HELPERS_UNIQUE_IDENTIFIER( border_texture_identifier.GetTextValue() ) )
+        .Build();
+    
+    element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, style );
+}
+
+void GRAPHIC_UI_HELPER::CreateFrameStyleWithBorderAndContentColor( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, const CORE_HELPERS_IDENTIFIER & border_texture_identifier ) {
+    
+    GRAPHIC_UI_RENDER_STYLE * style = GRAPHIC_UI_RENDER_STYLE_BUILDER::NewStyle()
+        .CreateStyle( color )
+        .CreateDecoratingFrameBorder( element->GetSize(), CORE_HELPERS_UNIQUE_IDENTIFIER( border_texture_identifier.GetTextValue() ) )
+        .Build();
+    
+    element->SetOpacity( color.W() );
+    element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, style );
 }
 
 GRAPHIC_UI_ELEMENT * GRAPHIC_UI_HELPER::CreateTextElement( const CORE_HELPERS_IDENTIFIER & identifier, const char * text ) {
@@ -92,7 +114,7 @@ void GRAPHIC_UI_HELPER::AddElementToFrame( GRAPHIC_UI_ELEMENT * element, GRAPHIC
     frame->SetObjectForIdentifier(element->GetIdentifier(), element );
 } 
 
-GRAPHIC_UI_RENDER_STYLE * GRAPHIC_UI_HELPER::CreateDefaultRenderStyle( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+/*GRAPHIC_UI_RENDER_STYLE * GRAPHIC_UI_HELPER::CreateDefaultRenderStyle( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     GRAPHIC_UI_RENDER_STYLE * render_style = new GRAPHIC_UI_RENDER_STYLE;
     GRAPHIC_SHADER_EFFECT * effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderText"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
@@ -107,7 +129,7 @@ GRAPHIC_UI_RENDER_STYLE * GRAPHIC_UI_HELPER::CreateDefaultRenderStyle( const COR
     render_style->SetEffect( effect );
     
     return render_style;
-}
+}*/
 
 GRAPHIC_UI_RENDER_STYLE * GRAPHIC_UI_HELPER::CreateTextRenderStyle( GRAPHIC_FONT * font, GRAPHIC_TEXT *text_shape ) {
     
@@ -119,7 +141,7 @@ GRAPHIC_UI_RENDER_STYLE * GRAPHIC_UI_HELPER::CreateTextRenderStyle( GRAPHIC_FONT
     
     effect->SetMaterial( material );
     
-    render_style->SetColor( CORE_MATH_VECTOR( 1.0f, 0.0f, 0.0f, 1.0f ) );
+    material->SetDiffuse( CORE_MATH_VECTOR( 1.0f, 0.0f, 0.0f, 1.0f ) );
     render_style->SetShape( text_shape );
     render_style->SetEffect( effect );
     

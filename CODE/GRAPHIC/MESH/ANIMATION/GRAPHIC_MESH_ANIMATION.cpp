@@ -12,12 +12,12 @@
 //TODO: std::string AnimationName;
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION )
-    XS_DEFINE_ClassMember( std::vector<int>, IndexTable )
-    XS_DEFINE_ClassMember( GRAPHIC_MESH_ANIMATION_MODE, Mode )
-    XS_DEFINE_ClassMember( CORE_SCALAR, BindShapeMatrix )
-    XS_DEFINE_ClassMember( CORE_DATA_BUFFER, InverseBindMatrixes )
-    XS_DEFINE_ClassMember( CORE_DATA_BUFFER, JointIndexTable )
-    XS_DEFINE_ClassMember( GRAPHIC_MESH_ANIMATION_SKELETON, Skeleton )
+    XS_DEFINE_ClassMember( "IndexTable", std::vector<int>, IndexTable )
+    XS_DEFINE_ClassMember( "Mode", GRAPHIC_MESH_ANIMATION_MODE, Mode )
+    XS_DEFINE_ClassMember( "BindShapeMatrix", CORE_SCALAR, BindShapeMatrix )
+    XS_DEFINE_ClassMember( "InverseBindMatrixes", CORE_DATA_BUFFER, InverseBindMatrixes )
+    XS_DEFINE_ClassMember( "JointIndexTable", CORE_DATA_BUFFER, JointIndexTable )
+    XS_DEFINE_ClassMember( "Skeleton", GRAPHIC_MESH_ANIMATION_SKELETON, Skeleton )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION )

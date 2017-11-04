@@ -8,6 +8,7 @@ function Update( object_parameter )
 	
 	pos = comp_pos:GetPosition()
 	vel = comp_phys:GetVelocity()
+	ori = comp_pos:GetOrientation()
 
 	
 	if PERIPHERIC_INTERACTION_SYSTEM:GetInstance():GetKeyboard():IsKeyPressed( 13 ) then
@@ -44,6 +45,17 @@ function Update( object_parameter )
 		--pos:Z( posX )
 
 		comp_phys:SetVelocity( vel )
+	end
+
+	-- G touch
+	if PERIPHERIC_INTERACTION_SYSTEM:GetInstance():GetKeyboard():IsKeyPressed( 17 ) then
+
+		
+		ori:RotateY( math.pi * 0.033 )
+
+		--pos:Y( posZ )
+
+		object_parameter:SetOrientation( ori );
 	end
 
 end

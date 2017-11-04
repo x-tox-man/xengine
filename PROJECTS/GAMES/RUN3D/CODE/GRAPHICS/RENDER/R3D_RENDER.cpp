@@ -50,7 +50,11 @@ void R3D_RENDER::Initialize() {
     
     Camera = new GRAPHIC_CAMERA( 1.0f, 100.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, Lookat );
     
-    CORE_MATH_QUATERNION interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
+    CORE_MATH_QUATERNION
+        interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f ),
+        render_target_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
+    interface_lookat.RotateX( M_PI_2 );
+    interface_lookat.RotateX( M_PI_2 );
     
     GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight() ) );
     
@@ -95,7 +99,7 @@ void R3D_RENDER::Initialize() {
     
     PlanObject.InitializeShape();
     
-    RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, interface_lookat );
+    RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, render_target_lookat );
     
 #if DEBUG
     TOOLS_DEBUG_DRAW::Instance = new TOOLS_DEBUG_DRAW;
@@ -123,11 +127,12 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         
         GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
         
-        //PrimaryRenderTarget.Apply();
+        PrimaryRenderTarget.Apply();
         
         renderer.SetLightingIsEnabled( true );
         Lookat.Normalize();
         
+        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_LessOrEqual, true, 0.0f, 1.0f);
         R3D_APP_PTR->GetGame().Render( renderer );
         
         GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
@@ -139,10 +144,15 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
 #endif
     
         renderer.SetLightingIsEnabled( false );
-        //PrimaryRenderTarget.Discard();
+        
+        GRAPHIC_SYSTEM::DisableDepthTest();
+        renderer.SetCamera( InterfaceCamera );
+        GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
+        
+        PrimaryRenderTarget.Discard();
     }
     
-    /*GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
+    GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
     {
         TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
         
@@ -152,7 +162,6 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         
         BloomRenderTarget.Apply();
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, BloomEffect );
-        
         BloomRenderTarget.Discard();
     }
     
@@ -165,7 +174,6 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         
         GaussianRenderTarget1.Apply();
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, HorizontalBlurEffect );
-        
         GaussianRenderTarget1.Discard();
     }
     
@@ -178,7 +186,6 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         
         GaussianRenderTarget2.Apply();
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, VerticalBlurEffect );
-        
         GaussianRenderTarget2.Discard();
     }
     
@@ -192,12 +199,9 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         CombineBloomEffect->SetMaterial( mat );
         
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, CombineBloomEffect );
-    }*/
+    }
     
     auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[4]);
     
     //detect->DebugDrawWorld();
-    
-    renderer.SetCamera( InterfaceCamera );
-    GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
 }

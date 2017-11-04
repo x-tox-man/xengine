@@ -10,7 +10,7 @@
 #include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( TestClass )
-    XS_DEFINE_ClassMember( int, TestInt )
+    XS_DEFINE_ClassMember( "TestInt", int, TestInt )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 TestClass::TestClass( const TestClass & other ) {

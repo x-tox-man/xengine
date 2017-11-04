@@ -31,7 +31,14 @@ XS_CLASS_BEGIN( GRAPHIC_UI_RENDER_STYLE )
     inline void SetEffect( GRAPHIC_SHADER_EFFECT * effect ) { Effect = effect; }
     inline void SetDecoratingEffect( GRAPHIC_SHADER_EFFECT * effect ) { DecoratingEffect = effect; }
 
-    void SetColor( const CORE_HELPERS_COLOR & color ) { Color = color; }
+    inline void SetMaterial( GRAPHIC_MATERIAL * material ) { Material = material; }
+    inline void SetDecoratingMaterial( GRAPHIC_MATERIAL * material ) { DecoratingMaterial = material; }
+
+    inline GRAPHIC_MATERIAL * GetMaterial() { return Material; }
+    inline const GRAPHIC_MATERIAL * GetMaterial() const { return Material; }
+
+    inline GRAPHIC_MATERIAL * GetDecoratingMaterial() { return DecoratingMaterial; }
+    inline const GRAPHIC_MATERIAL * GetDecoratingMaterial() const { return DecoratingMaterial; }
 
     inline GRAPHIC_OBJECT * GetShape() { return Shape; }
     inline GRAPHIC_OBJECT * GetDecoratingShape() { return DecoratingShape; }
@@ -41,8 +48,9 @@ XS_CLASS_BEGIN( GRAPHIC_UI_RENDER_STYLE )
 
 private :
 
-    CORE_HELPERS_COLOR
-        Color;
+    GRAPHIC_MATERIAL
+        * Material,
+        * DecoratingMaterial;
     GRAPHIC_SHADER_EFFECT
         * Effect,
         * DecoratingEffect;

@@ -48,7 +48,7 @@ public:
         
         SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
         
-        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__ >::template Serialize<std::false_type>( *object, stream );
+        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__, CORE_DATA_STREAM >::template Serialize<std::false_type>( "data", *object, stream );
         
         stream.Close();
         
@@ -85,14 +85,14 @@ public:
         
         SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
         
-        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__ >::template Serialize<std::false_type>( *object, stream );
+        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__, CORE_DATA_STREAM >::template Serialize<std::false_type>( "data", *object, stream );
         
         return true;
     }
     
     static bool Load( __TYPE_TO_SERIALIZE__ * object, CORE_DATA_STREAM & stream ) {
         
-        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__ >::template Serialize<std::false_type>( *object, stream );
+        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__, CORE_DATA_STREAM >::template Serialize<std::false_type>( "object", *object, stream );
         
         return true;
     }
@@ -106,7 +106,7 @@ public:
         
         stream.Open();
         
-        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__ >::template Serialize< std::true_type >( *object, stream );
+        XS_CLASS_SERIALIZER< __TYPE_TO_SERIALIZE__, CORE_DATA_STREAM >::template Serialize< std::true_type >( "object", *object, stream );
         
         stream.Close();
         

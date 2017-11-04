@@ -30,6 +30,9 @@ XS_CLASS_BEGIN( GRAPHIC_OBJECT_RENDER_OPTIONS )
     inline const CORE_MATH_QUATERNION & GetOrientation() const { return Orientation; }
     inline CORE_MATH_QUATERNION & GetOrientation() { return Orientation; }
 
+    inline void SetParent( GRAPHIC_OBJECT_RENDER_OPTIONS * parent ) { Parent = parent; }
+    inline GRAPHIC_OBJECT_RENDER_OPTIONS * GetParent() const { return Parent; }
+
 private:
 
     CORE_MATH_QUATERNION
@@ -37,6 +40,8 @@ private:
     CORE_MATH_VECTOR
         Position,
         ScaleFactor;
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        * Parent;
 
 XS_CLASS_END
 

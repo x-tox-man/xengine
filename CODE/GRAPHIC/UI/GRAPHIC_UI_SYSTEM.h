@@ -35,6 +35,8 @@ XS_CLASS_BEGIN( GRAPHIC_UI_SYSTEM )
 
     ~GRAPHIC_UI_SYSTEM();
 
+    void Initialize();
+
     GRAPHIC_UI_FRAME * GetCurrentView() { return CurrentView; }
 
     void Update( float time_step );
@@ -54,6 +56,11 @@ XS_CLASS_BEGIN( GRAPHIC_UI_SYSTEM )
 
     void CommitAnimation( GRAPHIC_UI_ANIMATION * animation);
     void FinalizeAnimation( GRAPHIC_UI_ANIMATION * animation);
+
+    static CORE_HELPERS_UNIQUE_IDENTIFIER
+        TexturedShaderIdentifier,
+        ColoredShaderIdentifier,
+        UIPlanShape;
 
 private :
 

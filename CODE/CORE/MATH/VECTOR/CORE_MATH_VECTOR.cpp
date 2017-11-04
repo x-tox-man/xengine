@@ -11,10 +11,7 @@
 
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_MATH_VECTOR )
-    XS_DEFINE_ClassMember( float , Value[0] )
-    XS_DEFINE_ClassMember( float , Value[1] )
-    XS_DEFINE_ClassMember( float , Value[2] )
-    XS_DEFINE_ClassMember( float , Value[3] )
+    XS_DEFINE_ClassMemberArray( "Value", float , (float*) Value, 4 )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( CORE_MATH_VECTOR )

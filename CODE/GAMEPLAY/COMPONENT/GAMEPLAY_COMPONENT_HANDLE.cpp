@@ -10,8 +10,8 @@
 
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_HANDLE )
-    XS_DEFINE_ClassMember( int, Index )
-    XS_DEFINE_ClassMember( int, Offset )
+    XS_DEFINE_ClassMember( "Index", int, Index )
+    XS_DEFINE_ClassMember( "Offset", int, Offset )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GAMEPLAY_COMPONENT_HANDLE::GAMEPLAY_COMPONENT_HANDLE() :

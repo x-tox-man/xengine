@@ -10,8 +10,8 @@
 #include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_SCALAR )
-    XS_DEFINE_ClassMember( SCALAR, Value )
-    XS_DEFINE_ClassMember( int, ValueIndex )
+    XS_DEFINE_ClassMember( "Value", SCALAR, Value )
+    XS_DEFINE_ClassMember( "ValueIndex", int, ValueIndex )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_CLASS_SERIALIZER_TemplateScalar( SCALAR )

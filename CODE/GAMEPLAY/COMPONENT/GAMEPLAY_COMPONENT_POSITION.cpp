@@ -15,25 +15,24 @@ CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GAMEPLAY_COMPONENT_POSITION )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( CORE_MATH_VECTOR &, GAMEPLAY_COMPONENT_POSITION, GetPosition )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1(GAMEPLAY_COMPONENT_POSITION, SetPosition, const CORE_MATH_VECTOR & )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1(GAMEPLAY_COMPONENT_POSITION, SetOrientation, const CORE_MATH_QUATERNION & )
+    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( CORE_MATH_QUATERNION &, GAMEPLAY_COMPONENT_POSITION, GetOrientation )
 CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GAMEPLAY_COMPONENT_POSITION )
 
 GAMEPLAY_COMPONENT_POSITION::GAMEPLAY_COMPONENT_POSITION() :
     GAMEPLAY_COMPONENT(),
-    Position(),
     PositionOffset(),
     Velocity(),
-    Orientation(),
-    Spin() {
+    Spin(),
+    Pose() {
     
 }
 
 GAMEPLAY_COMPONENT_POSITION::GAMEPLAY_COMPONENT_POSITION( const GAMEPLAY_COMPONENT_POSITION & other ) :
     GAMEPLAY_COMPONENT(),
-    Position( other.Position ),
     PositionOffset( other.PositionOffset ),
     Velocity( other.Velocity ),
-    Orientation( other.Orientation ),
-    Spin( other.Spin ) {
+    Spin( other.Spin ),
+    Pose( other.Pose ){
     
 }
 
@@ -77,8 +76,6 @@ void GAMEPLAY_COMPONENT_POSITION::SaveToStream( CORE_DATA_STREAM & stream ) {
             
             stream.InputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, sizeof(GAMEPLAY_COMPONENT_POSITION) * GAMEPLAY_COMPONENT_BASE_COUNT );
             
-            auto ptr = (*InternalVector)[ i ].MemoryArray;
-            
             stream << (*InternalVector)[ i ].LastIndex;
         }
     }
@@ -101,8 +98,6 @@ void GAMEPLAY_COMPONENT_POSITION::LoadFromStream( CORE_DATA_STREAM & stream ) {
         stream.OutputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, b );
         
         stream >> (*InternalVector)[ i ].LastIndex;
-        
-        auto ptr = (*InternalVector)[ i ].MemoryArray;
         
         LastIndex = (*InternalVector)[ i ].LastIndex;
         LastOffset = i;

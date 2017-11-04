@@ -29,13 +29,13 @@ XS_CLASS_SERIALIZER_TemplateScalarPointerPointer( wchar_t )
 
 
 template<> template<>
-void XS_CLASS_SERIALIZER< std::string >::Serialize< std::true_type >( std::string & type, CORE_DATA_STREAM & stream ) {
+void XS_CLASS_SERIALIZER< std::string, CORE_DATA_STREAM >::Serialize< std::true_type >( const char * member_name,std::string & type, CORE_DATA_STREAM & stream ) {
     
     stream.InputBytes(type.c_str(), type.length());
 }
 
 template<> template<>
-void XS_CLASS_SERIALIZER< std::string >::Serialize< std::false_type >( std::string & type, CORE_DATA_STREAM & stream ) {
+void XS_CLASS_SERIALIZER< std::string, CORE_DATA_STREAM >::Serialize< std::false_type >( const char * member_name,std::string & type, CORE_DATA_STREAM & stream ) {
     int size;
     char * string;
     

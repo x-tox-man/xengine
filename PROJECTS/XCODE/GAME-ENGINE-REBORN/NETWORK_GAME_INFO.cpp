@@ -10,8 +10,8 @@
 #include "CORE_DATA_TYPES.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( NETWORK_GAME_INFO )
-    XS_DEFINE_ClassMemberArray( char, (char **) &GameId, (int)strlen( GameId ) )
-    XS_DEFINE_ClassMemberArray( char, (char **) &GameStartedTime, (int)strlen( GameStartedTime ) )
+    XS_DEFINE_ClassMemberArray( "GameId", char, (char **) &GameId, (int)strlen( GameId ) )
+    XS_DEFINE_ClassMemberArray( "GameStartedTime", char, (char **) &GameStartedTime, (int)strlen( GameStartedTime ) )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 NETWORK_GAME_INFO::NETWORK_GAME_INFO() :

@@ -21,6 +21,7 @@
 		5F4DEA7A1F7922C100173EDA /* UI_COMPONENT_ITEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA781F7922C100173EDA /* UI_COMPONENT_ITEM.cpp */; };
 		5F4DEA7D1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA7B1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp */; };
 		5F4DEA801F79230B00173EDA /* UI_SCREEN_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA7E1F79230B00173EDA /* UI_SCREEN_LOADER.cpp */; };
+		5F70E7931FABA87200D90632 /* R3D_UI_FRAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7911FABA87200D90632 /* R3D_UI_FRAME.cpp */; };
 		5F76D0761F71B49C004BEF48 /* UI_MAIN_MENU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F76D0741F71B49C004BEF48 /* UI_MAIN_MENU.cpp */; };
 		5F92D9191F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D9171F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp */; };
 		5F92D91C1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D91A1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp */; };
@@ -43,7 +44,6 @@
 		5F92DBAC1F16478500292A99 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DBAB1F16478500292A99 /* OpenGL.framework */; };
 		5F92DBAE1F16478900292A99 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DBAD1F16478900292A99 /* AVFoundation.framework */; };
 		5F92DBB01F16479D00292A99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DBAF1F16479D00292A99 /* GLKit.framework */; };
-		5F92DC5E1F16497D00292A99 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DBF41F16497D00292A99 /* libBox2D.a */; };
 		5F92DC5F1F16497D00292A99 /* libbuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DBF51F16497D00292A99 /* libbuffer.a */; };
 		5F92DC601F16497D00292A99 /* libBullet2FileLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DBF61F16497D00292A99 /* libBullet2FileLoader.a */; };
 		5F92DC611F16497D00292A99 /* libBullet3AppSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DBF71F16497D00292A99 /* libBullet3AppSupport.a */; };
@@ -58,22 +58,17 @@
 		5F92DC6A1F16497D00292A99 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC001F16497D00292A99 /* libBulletSoftBody.a */; };
 		5F92DC6B1F16497D00292A99 /* libBulletWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC011F16497D00292A99 /* libBulletWorldImporter.a */; };
 		5F92DC6C1F16497D00292A99 /* libBulletXmlWorldImporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC021F16497D00292A99 /* libBulletXmlWorldImporter.a */; };
-		5F92DC6D1F16497D00292A99 /* libCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC031F16497D00292A99 /* libCOLLADABaseUtils.a */; };
-		5F92DC6E1F16497D00292A99 /* libCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC041F16497D00292A99 /* libCOLLADAFramework.a */; };
-		5F92DC6F1F16497D00292A99 /* libCOLLADASaxFrameworkLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC051F16497D00292A99 /* libCOLLADASaxFrameworkLoader.a */; };
 		5F92DC701F16497D00292A99 /* libConvexDecomposition.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC061F16497D00292A99 /* libConvexDecomposition.a */; };
 		5F92DC711F16497D00292A99 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC071F16497D00292A99 /* libfreetype.a */; };
 		5F92DC721F16497D00292A99 /* libftoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC081F16497D00292A99 /* libftoa.a */; };
 		5F92DC731F16497D00292A99 /* libGeneratedSaxParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC091F16497D00292A99 /* libGeneratedSaxParser.a */; };
 		5F92DC741F16497D00292A99 /* libGIMPACTUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC0A1F16497D00292A99 /* libGIMPACTUtils.a */; };
-		5F92DC751F16497D00292A99 /* libGLUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC0B1F16497D00292A99 /* libGLUI.a */; };
 		5F92DC761F16497D00292A99 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC0C1F16497D00292A99 /* libgtest.a */; };
 		5F92DC771F16497D00292A99 /* libgwen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC0D1F16497D00292A99 /* libgwen.a */; };
 		5F92DC781F16497D00292A99 /* libHACD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC0E1F16497D00292A99 /* libHACD.a */; };
 		5F92DC791F16497D00292A99 /* libLIB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC0F1F16497D00292A99 /* libLIB.a */; };
 		5F92DC7A1F16497D00292A99 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC101F16497D00292A99 /* libLinearMath.a */; };
 		5F92DC7B1F16497D00292A99 /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC111F16497D00292A99 /* liblua-5.2.3.a */; };
-		5F92DC7C1F16497D00292A99 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC121F16497D00292A99 /* liblua.a */; };
 		5F92DC7D1F16497D00292A99 /* libMathMLSolver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC131F16497D00292A99 /* libMathMLSolver.a */; };
 		5F92DC7E1F16497D00292A99 /* libOpenCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC141F16497D00292A99 /* libOpenCOLLADABaseUtils.a */; };
 		5F92DC7F1F16497D00292A99 /* libOpenCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC151F16497D00292A99 /* libOpenCOLLADAFramework.a */; };
@@ -125,6 +120,8 @@
 		5F4DEA7C1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_COMPONENT_CHARACTERISTICS.h; sourceTree = "<group>"; };
 		5F4DEA7E1F79230B00173EDA /* UI_SCREEN_LOADER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_SCREEN_LOADER.cpp; sourceTree = "<group>"; };
 		5F4DEA7F1F79230B00173EDA /* UI_SCREEN_LOADER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_SCREEN_LOADER.h; sourceTree = "<group>"; };
+		5F70E7911FABA87200D90632 /* R3D_UI_FRAME.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_UI_FRAME.cpp; sourceTree = "<group>"; };
+		5F70E7921FABA87200D90632 /* R3D_UI_FRAME.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_UI_FRAME.h; sourceTree = "<group>"; };
 		5F76D0741F71B49C004BEF48 /* UI_MAIN_MENU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI_MAIN_MENU.cpp; sourceTree = "<group>"; };
 		5F76D0751F71B49C004BEF48 /* UI_MAIN_MENU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI_MAIN_MENU.h; sourceTree = "<group>"; };
 		5F76D0791F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHYSICS_COLLISION_FILTER.h; sourceTree = "<group>"; };
@@ -234,7 +231,6 @@
 				5F92DBB01F16479D00292A99 /* GLKit.framework in Frameworks */,
 				5F92DC801F16497D00292A99 /* libOpenCOLLADASaxFrameworkLoader.a in Frameworks */,
 				5F92DC7E1F16497D00292A99 /* libOpenCOLLADABaseUtils.a in Frameworks */,
-				5F92DC6D1F16497D00292A99 /* libCOLLADABaseUtils.a in Frameworks */,
 				5F92DC631F16497D00292A99 /* libBullet3Common.a in Frameworks */,
 				5F92DC6C1F16497D00292A99 /* libBulletXmlWorldImporter.a in Frameworks */,
 				5F92DC771F16497D00292A99 /* libgwen.a in Frameworks */,
@@ -243,14 +239,10 @@
 				5F92DC7B1F16497D00292A99 /* liblua-5.2.3.a in Frameworks */,
 				5F92DC681F16497D00292A99 /* libBulletDynamics.a in Frameworks */,
 				5F92DC6A1F16497D00292A99 /* libBulletSoftBody.a in Frameworks */,
-				5F92DC6F1F16497D00292A99 /* libCOLLADASaxFrameworkLoader.a in Frameworks */,
 				5F92DC761F16497D00292A99 /* libgtest.a in Frameworks */,
 				5F92DC731F16497D00292A99 /* libGeneratedSaxParser.a in Frameworks */,
-				5F92DC5E1F16497D00292A99 /* libBox2D.a in Frameworks */,
 				5F92DBAC1F16478500292A99 /* OpenGL.framework in Frameworks */,
-				5F92DC751F16497D00292A99 /* libGLUI.a in Frameworks */,
 				5F92DC711F16497D00292A99 /* libfreetype.a in Frameworks */,
-				5F92DC7C1F16497D00292A99 /* liblua.a in Frameworks */,
 				5F92DBAA1F16475B00292A99 /* Cocoa.framework in Frameworks */,
 				5F92DC881F16497D00292A99 /* libz.a in Frameworks */,
 				5F92DBA81F16473B00292A99 /* libz.tbd in Frameworks */,
@@ -268,7 +260,6 @@
 				5F92DC811F16497D00292A99 /* libOpenCOLLADAStreamWriter.a in Frameworks */,
 				5F92DC851F16497D00292A99 /* libpng.a in Frameworks */,
 				5F92DC601F16497D00292A99 /* libBullet2FileLoader.a in Frameworks */,
-				5F92DC6E1F16497D00292A99 /* libCOLLADAFramework.a in Frameworks */,
 				5F92DC871F16497D00292A99 /* libuv.a in Frameworks */,
 				5F92DC7D1F16497D00292A99 /* libMathMLSolver.a in Frameworks */,
 				5F92DC721F16497D00292A99 /* libftoa.a in Frameworks */,
@@ -373,6 +364,15 @@
 			path = ENGINE;
 			sourceTree = "<group>";
 		};
+		5F70E7901FABA86300D90632 /* FRAME */ = {
+			isa = PBXGroup;
+			children = (
+				5F70E7911FABA87200D90632 /* R3D_UI_FRAME.cpp */,
+				5F70E7921FABA87200D90632 /* R3D_UI_FRAME.h */,
+			);
+			path = FRAME;
+			sourceTree = "<group>";
+		};
 		5F76D06E1F71B48B004BEF48 /* COMPONENTS */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +391,7 @@
 		5F76D06F1F71B48B004BEF48 /* SCREENS */ = {
 			isa = PBXGroup;
 			children = (
+				5F70E7901FABA86300D90632 /* FRAME */,
 				5F76D0701F71B48B004BEF48 /* LOADER */,
 				5F76D0711F71B48B004BEF48 /* MAIN */,
 				5F76D0721F71B48B004BEF48 /* MULTIPLAYER */,
@@ -773,6 +774,7 @@
 				32F248271EA433F200D19613 /* ViewController.m in Sources */,
 				5FD11D2C1F1B7EA90092E3A7 /* R3D_RENDER.cpp in Sources */,
 				5F4DEA7A1F7922C100173EDA /* UI_COMPONENT_ITEM.cpp in Sources */,
+				5F70E7931FABA87200D90632 /* R3D_UI_FRAME.cpp in Sources */,
 				32F24BA21EA4345000D19613 /* APPLICATION_CONFIGURATION.cpp in Sources */,
 				5F4DEA741F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp in Sources */,
 				5FD11D2F1F1B820B0092E3A7 /* R3D_RESOURCES.cpp in Sources */,

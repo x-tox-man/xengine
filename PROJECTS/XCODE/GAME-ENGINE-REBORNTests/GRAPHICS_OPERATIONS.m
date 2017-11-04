@@ -162,7 +162,7 @@
         options;
     
     CubeEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
-    CubeEffect->SetMaterial( new GRAPHIC_MATERIAL( "Create_Server_button" ) );
+    CubeEffect->SetMaterial( new GRAPHIC_MATERIAL( "game-controller" ) );
     
     CubeObject->InitializeShape();
     

@@ -11,9 +11,9 @@
 #include "CORE_DATA_STREAM.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_DATA_BUFFER )
-    XS_DEFINE_ClassMember( int, Sections )
-    XS_DEFINE_ClassMember( int, Size )
-    XS_DEFINE_ClassMemberArray( char, (char **) &DataPointer, Size )
+    XS_DEFINE_ClassMember( "Sections", int, Sections )
+    XS_DEFINE_ClassMember( "Size", int, Size )
+    XS_DEFINE_ClassMemberArray( "DataPointer", char, (char **) &DataPointer, Size )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_DATA_BUFFER::CORE_DATA_BUFFER() :

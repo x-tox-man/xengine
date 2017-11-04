@@ -16,6 +16,7 @@
 #include "R3D_RESOURCES.h"
 #include "btBulletDynamicsCommon.h"
 #include "PHYSICS_COLLISION_FILTER.h"
+#include "R3D_UI_FRAME.h"
 
 RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
@@ -63,6 +64,10 @@ void RUN3D_APPLICATION::Initialize() {
     Game.Initialize();
     
     AUDIO_SYSTEM::GetInstance().GetBank().Load();
+    
+    auto frame = new R3D_UI_FRAME;
+    frame->Initialize();
+    GRAPHIC_UI_SYSTEM::GetInstance().RegisterView( frame, "main" );
 }
 
 void RUN3D_APPLICATION::Finalize() {
@@ -113,6 +118,8 @@ void RUN3D_APPLICATION::InitializeGraphics() {
     GRAPHIC_RENDERER::GetInstance().SetRenderCallback( myCallback );
     
     R3D_RESOURCES::GetInstance().Initialize();
+    
+    GRAPHIC_UI_SYSTEM::GetInstance().Initialize();
     
     GameRenderer.Initialize();
 }

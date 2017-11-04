@@ -14,7 +14,7 @@
 #include "CORE_HELPERS_UNIQUE_IDENTIFIER.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_TEXTURE_ATLAS )
-    XS_DEFINE_ClassMember( GRAPHIC_TEXTURE_ATLAS_BLOCK_TABLE, TextureBlockTable )
+    XS_DEFINE_ClassMember( "TextureBlockTable", GRAPHIC_TEXTURE_ATLAS_BLOCK_TABLE, TextureBlockTable )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_MAP_MEMORY_LAYOUT( GRAPHIC_TEXTURE_BLOCK, CORE_HELPERS_UNIQUE_IDENTIFIER )
@@ -74,7 +74,7 @@ void GRAPHIC_TEXTURE_ATLAS::Load( const CORE_FILESYSTEM_PATH & atlas_path, const
         
         file.OutputBytes( stream.GetMemoryBuffer(), size );
         
-        XS_CLASS_SERIALIZER< GRAPHIC_TEXTURE_ATLAS >::Serialize<std::false_type>( *this, stream );
+        XS_CLASS_SERIALIZER< GRAPHIC_TEXTURE_ATLAS, CORE_DATA_STREAM >::Serialize<std::false_type>( "atlas", *this, stream );
         
         stream.Close();
         stream.ResetOffset();

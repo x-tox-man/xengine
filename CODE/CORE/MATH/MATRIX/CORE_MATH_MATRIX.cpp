@@ -10,22 +10,7 @@
 #include "CORE_MEMORY.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_MATH_MATRIX )
-    XS_DEFINE_ClassMember( float , Value[0] )
-    XS_DEFINE_ClassMember( float , Value[1] )
-    XS_DEFINE_ClassMember( float , Value[2] )
-    XS_DEFINE_ClassMember( float , Value[3] )
-    XS_DEFINE_ClassMember( float , Value[4] )
-    XS_DEFINE_ClassMember( float , Value[5] )
-    XS_DEFINE_ClassMember( float , Value[6] )
-    XS_DEFINE_ClassMember( float , Value[7] )
-    XS_DEFINE_ClassMember( float , Value[8] )
-    XS_DEFINE_ClassMember( float , Value[9] )
-    XS_DEFINE_ClassMember( float , Value[10] )
-    XS_DEFINE_ClassMember( float , Value[11] )
-    XS_DEFINE_ClassMember( float , Value[12] )
-    XS_DEFINE_ClassMember( float , Value[13] )
-    XS_DEFINE_ClassMember( float , Value[14] )
-    XS_DEFINE_ClassMember( float , Value[15] )
+    XS_DEFINE_ClassMemberArray( "Value", float , (float*) Value, 16 )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_MATH_MATRIX::CORE_MATH_MATRIX( const  CORE_MATH_MATRIX  & other ) {

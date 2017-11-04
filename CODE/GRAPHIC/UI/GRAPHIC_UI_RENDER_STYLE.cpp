@@ -12,11 +12,12 @@
 #include "GRAPHIC_OBJECT_RENDER_OPTIONS.h"
 
 GRAPHIC_UI_RENDER_STYLE::GRAPHIC_UI_RENDER_STYLE() :
-    Color( CORE_COLOR_White ),
     Effect( NULL ),
     DecoratingEffect( NULL ),
     Shape( NULL ),
-    DecoratingShape( NULL ) {
+    DecoratingShape( NULL ),
+    Material( NULL ),
+    DecoratingMaterial( NULL ) {
     
 }
 
@@ -37,11 +38,16 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_
     GRAPHIC_OBJECT_RENDER_OPTIONS
         option;
     
+    renderer.EnableColor( true );
+    
     if ( Shape && Effect ) {
         
         option.SetPosition( placement.GetAbsolutePosition() );
         option.SetScaleFactor( placement.GetSize() );
-        Effect->SetDiffuse( Color * opacity );
+        
+        
+        Material->GetDiffuse().W( opacity );
+        Effect->SetMaterial( Material );
         
         Shape->Render( renderer, option, Effect );
     }
@@ -51,8 +57,11 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_
         option.SetPosition( placement.GetAbsolutePosition() );
         option.SetScaleFactor( placement.GetSize() );
         
-        DecoratingEffect->SetDiffuse( Color * opacity );
+        DecoratingMaterial->GetDiffuse().W( opacity );
+        DecoratingEffect->SetMaterial( DecoratingMaterial );
         
         DecoratingShape->Render( renderer, option, DecoratingEffect );
     }
+    
+    renderer.EnableColor( false );
 }

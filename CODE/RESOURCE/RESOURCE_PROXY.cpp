@@ -9,9 +9,9 @@
 #include "RESOURCE_PROXY.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( RESOURCE_PROXY )
-    XS_DEFINE_ClassMember( CORE_HELPERS_UNIQUE_IDENTIFIER , Identifier )
-    XS_DEFINE_ClassMember( RESOURCE_TYPE , Type )
-    XS_DEFINE_ClassMember(bool , ItShouldLoad )
+    XS_DEFINE_ClassMember( "Identifier", CORE_HELPERS_UNIQUE_IDENTIFIER , Identifier )
+    XS_DEFINE_ClassMember( "Type", RESOURCE_TYPE , Type )
+    XS_DEFINE_ClassMember( "ItShouldLoad", bool , ItShouldLoad )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 RESOURCE_PROXY::RESOURCE_PROXY()  :

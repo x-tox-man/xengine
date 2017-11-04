@@ -9,8 +9,8 @@
 #include "GAMEPLAY_ACTION_COMMAND_START_GAME.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_ACTION_COMMAND_START_GAME )
-    XS_DEFINE_ClassMember(std::vector<NETWORK_PLAYER *>, Players )
-    XS_DEFINE_ClassMember(int, Seed )
+    XS_DEFINE_ClassMember( "Players", std::vector<NETWORK_PLAYER *>, Players )
+    XS_DEFINE_ClassMember( "Seed", int, Seed )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 ImplementTrickFroSerializeation(GAMEPLAY_ACTION_COMMAND_START_GAME, GAMEPLAY_ACTION_TYPE_ClientRejected)
