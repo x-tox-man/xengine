@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MESH_ANIMATION_SKELETON.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 24/02/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -9,6 +9,7 @@
 #include "GRAPHIC_MESH_ANIMATION_SKELETON.h"
 #include "CORE_MATH_MATRIX.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 
 //TODO: Move GRAPHIC_MESH_SUB_SKELETON to own class
 

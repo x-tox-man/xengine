@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_ENTITY_HANDLE.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 18/06/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

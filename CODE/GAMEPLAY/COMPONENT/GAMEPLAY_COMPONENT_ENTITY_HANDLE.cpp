@@ -1,12 +1,13 @@
 //
 //  GAMEPLAY_COMPONENT_ENTITY_HANDLE.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 20/06/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
 //
 
 #include "GAMEPLAY_COMPONENT_ENTITY_HANDLE.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY_HANDLE )
     XS_DEFINE_ClassMember( "Offset", int, Offset )

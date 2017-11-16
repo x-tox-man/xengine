@@ -1,12 +1,13 @@
 //
 //  APPLICATION_NETWORK_COMMAND_CLIENT_REJECTED.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 29/12/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
 //
 
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED )
 

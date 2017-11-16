@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_FONT.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 21/06/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -8,7 +8,7 @@
 
 #include "GRAPHIC_FONT.h"
 #include "CORE_DATA_STREAM.h"
-#include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 #include "RESOURCE_IMAGE.h"
 #include "RESOURCE_IMAGE_PNG_LOADER.h"
 #include "GRAPHIC_GLYPH.h"

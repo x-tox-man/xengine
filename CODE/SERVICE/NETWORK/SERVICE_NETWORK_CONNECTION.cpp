@@ -1,6 +1,6 @@
 //
 //  SERVICE_NETWORK_CONNECTION.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 24/08/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -122,7 +122,7 @@ void SERVICE_NETWORK_CONNECTION::TCPReceivePacket(uv_stream_t *req, ssize_t nrea
             
             SERVICE_NETWORK_COMMAND * command = new SERVICE_NETWORK_COMMAND;
             
-            command->UnSerialize(stream);
+            command->UnSerialize( "command", stream);
             
             (*SERVICE_NETWORK_SYSTEM::GetInstance().OnTCPDataReceivedCallback)( command, req );
         } while (stream.GetOffset() < nread && strcmp(buf->base, "--END--" ) == 0 );

@@ -1,6 +1,6 @@
 //
 //  CORE_PARALLEL_LOCK_MUTEX.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 22/12/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

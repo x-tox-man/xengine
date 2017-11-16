@@ -1,6 +1,6 @@
 //
 //  Custom3dTableViewDelegate.m
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 16/05/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

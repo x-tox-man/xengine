@@ -1,12 +1,13 @@
 //
 //  CORE_TIMELINE_EVENT.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 8/02/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
 //
 
 #include "CORE_TIMELINE_EVENT.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_TIMELINE_EVENT )
     XS_DEFINE_ClassMember( "Start", float, Start )

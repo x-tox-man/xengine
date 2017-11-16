@@ -1,12 +1,13 @@
 //
 //  GAMEPLAY_COMPONENT.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
 //
 
 #include "GAMEPLAY_COMPONENT.h"
+#include "CORE_DATA_JSON.h"
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GAMEPLAY_COMPONENT )
 

@@ -1,6 +1,6 @@
 //
 //  MATH_TOOLBOX.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 27/02/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

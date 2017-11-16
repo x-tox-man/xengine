@@ -1,6 +1,6 @@
 //
 //  AUDIO_SOUND_OSX.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 11/11/15.
 //  Copyright © 2015 Christophe Bernard. All rights reserved.

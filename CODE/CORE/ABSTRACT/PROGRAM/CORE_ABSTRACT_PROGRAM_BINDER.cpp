@@ -1,6 +1,6 @@
 //
 //  CORE_ABSTRACT_PROGRAM_BINDER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 6/12/15.
 //  Copyright © 2015 Christophe Bernard. All rights reserved.

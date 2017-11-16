@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_CAMERA.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 24/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -47,6 +47,8 @@ void GAMEPLAY_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const COR
     
     position_component->SetPosition( position );
     position_component->SetOrientation( rotation_quat );
+    
+    GetCamera()->UpdateCamera( position, rotation_quat );
 }
 
 void GAMEPLAY_CAMERA::NotifyPropertyChanged(GAMEPLAY_COMPONENT_POSITION * position ) {

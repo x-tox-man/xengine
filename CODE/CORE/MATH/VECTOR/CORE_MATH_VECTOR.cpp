@@ -1,6 +1,6 @@
 //
 //  CORE_MATH_VECTOR.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 3/05/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -8,7 +8,7 @@
 
 #include "CORE_MATH_VECTOR.h"
 #include "CORE_DATA_STREAM.h"
-
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_MATH_VECTOR )
     XS_DEFINE_ClassMemberArray( "Value", float , (float*) Value, 4 )

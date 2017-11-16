@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_OBJECT_SHAPE_CUBE.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 24/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

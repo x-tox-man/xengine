@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_UI_RENDER_STYLE_BUILDER.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 3/11/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

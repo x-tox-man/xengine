@@ -1,6 +1,6 @@
 //
 //  CORE_FIXED_STATE_EVENT.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 6/03/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

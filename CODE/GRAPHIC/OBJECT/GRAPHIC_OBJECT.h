@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_OBJECT.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.

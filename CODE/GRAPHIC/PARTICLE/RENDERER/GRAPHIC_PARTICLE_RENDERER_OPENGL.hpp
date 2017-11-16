@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_PARTICLE_RENDERER_OPENGL.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 20/09/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
@@ -24,7 +24,6 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     
     CORE_MATH_MATRIX result = renderer.GetCamera().GetProjectionMatrix();
     result *= renderer.GetCamera().GetViewMatrix();
-    result *= CORE_MATH_MATRIX();
     
     GRAPHIC_SHADER_ATTRIBUTE & attr = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
     
@@ -51,21 +50,12 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
         vertex_offset += 4;
     }
     
-    /*if ( component & GRAPHIC_SHADER_BIND_Texcoord0 ) {
-        
-        GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
-        
-        vertex_offset += 2;
-    }*/
     
-    //GFX_CHECK( glEnable( GL_PROGRAM_POINT_SIZE ); )
     if ( first_index < last_index ) {
         
         GFX_CHECK( glPointSize(10.0f); )
         GFX_CHECK( glBindVertexArray(Mesh.GetVertexArrays() ); )
         GFX_CHECK( glDrawArrays(GL_POINTS, first_index, (last_index - (first_index+1))); )
-        
-        //printf( "-- %d\t%d\n",first_index,(last_index - (first_index + 1)) );
     }
     else if ( last_index > first_index ){
         

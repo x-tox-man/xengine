@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 6/10/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

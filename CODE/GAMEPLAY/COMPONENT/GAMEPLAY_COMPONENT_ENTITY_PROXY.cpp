@@ -1,12 +1,13 @@
 //
 //  GAMEPLAY_COMPONENT_ENTITY_PROXY.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 21/06/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
 //
 
 #include "GAMEPLAY_COMPONENT_ENTITY_PROXY.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY_PROXY )
 

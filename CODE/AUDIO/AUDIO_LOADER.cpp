@@ -1,6 +1,6 @@
 //
 //  AUDIO_MP3_LOADER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 25/05/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -34,6 +34,8 @@ void AUDIO_LOADER_Open( const CORE_FILESYSTEM_PATH & file_path, const char * ext
     
     #if PLATFORM_ANDROID && defined AUDIO_MPG
         MPG_123_Open( file_path, sound );
+    #elif PLATFORM_IOS && __AUDIO_OPENAL__
+    
     #elif PLATFORM_OSX && __AUDIO_OPENAL__
         UInt32 size,
             samplerate;
@@ -86,6 +88,8 @@ bool AUDIO_LOADER_ReadChunk( AUDIO_SOUND & sound, int chunk_index ) {
                     withFrameSize:sound.GetFrameSize()
                      withChannels:sound.GetChannels()
                          fromFile:(ExtAudioFileRef * ) sound.GetExtAudioFile()];
+    #elif PLATFORM_IOS && __AUDIO_OPENAL__
+    
     #else
         MPG_123_Read( sound , chunk_index);
     #endif
@@ -98,6 +102,7 @@ void AUDIO_LOADER_Close( AUDIO_SOUND & sound ) {
     #if PLATFORM_OSX
         [XSAudioLoader closeAudioFile:(ExtAudioFileRef * ) sound.GetExtAudioFile()
                         withAudioFile:(AudioFileID * ) sound.GetAudioFile() ];
+    #elif PLATFORM_IOS && __AUDIO_OPENAL__
     #elif PLATFORM_ANDROID && defined AUDIO_MPG
         MPG_123_Close( sound );
     #endif

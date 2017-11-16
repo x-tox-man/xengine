@@ -1,6 +1,6 @@
 //
 //  CORE_ABSTRACT_PROGRAM_LUA_HELPERS.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 23/01/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

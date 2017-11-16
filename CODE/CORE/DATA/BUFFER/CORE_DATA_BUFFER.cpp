@@ -1,6 +1,6 @@
 //
 //  CORE_DATA_BUFFER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.
@@ -9,6 +9,7 @@
 #include "CORE_DATA_BUFFER.h"
 #include "CORE_MEMORY_ALLOCATOR.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_DATA_BUFFER )
     XS_DEFINE_ClassMember( "Sections", int, Sections )

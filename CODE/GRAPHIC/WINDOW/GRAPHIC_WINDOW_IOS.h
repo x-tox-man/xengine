@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_WINDOW_OSX.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 26/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.

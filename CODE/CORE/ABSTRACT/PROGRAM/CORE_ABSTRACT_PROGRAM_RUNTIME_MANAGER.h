@@ -1,6 +1,6 @@
 //
 //  CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/12/14.
 //  Copyright (c) 2014 Christophe Bernard. All rights reserved.

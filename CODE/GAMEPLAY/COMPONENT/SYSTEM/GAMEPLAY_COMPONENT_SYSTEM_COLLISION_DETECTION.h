@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 31/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -26,7 +26,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAM
 
     virtual void Initialize() override;
     virtual void Update( float time_step ) override;
-    virtual void Render() override;
+    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
     virtual void Finalize() override;
 
     inline void SetGravity( const float gravity ) { Gravity = gravity; }

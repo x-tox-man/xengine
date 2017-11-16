@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_TEXTURE_ATLAS.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 21/06/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -12,6 +12,7 @@
 #include "RESOURCE_IMAGE_PNG_LOADER.h"
 #include "CORE_MATH_SHAPE_RECTANGLE.h"
 #include "CORE_HELPERS_UNIQUE_IDENTIFIER.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_TEXTURE_ATLAS )
     XS_DEFINE_ClassMember( "TextureBlockTable", GRAPHIC_TEXTURE_ATLAS_BLOCK_TABLE, TextureBlockTable )

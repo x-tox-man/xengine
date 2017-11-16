@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 31/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -91,7 +91,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
     #endif
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Render() {
+void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Render( GRAPHIC_RENDERER & renderer ) {
     
 }
 

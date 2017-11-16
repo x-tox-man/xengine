@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_UI_RENDER_STYLE.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 16/06/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

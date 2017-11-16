@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM_RENDERER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/04/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -29,11 +29,11 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Update( float time_step ) {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render() {
+void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render( GRAPHIC_RENDERER & renderer ) {
     
     std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     
-    const GRAPHIC_CAMERA_FUSTRUM & fustrum = Renderer->GetCamera().GetFustrum();
+    const GRAPHIC_CAMERA_FUSTRUM & fustrum = renderer.GetCamera().GetFustrum();
     
     #if DEBUG
         int zapped = 0;

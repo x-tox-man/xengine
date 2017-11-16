@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    }
+]

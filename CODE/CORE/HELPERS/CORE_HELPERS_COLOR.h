@@ -1,6 +1,6 @@
 //
 //  CORE_HELPERS_COLOR.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 6/01/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

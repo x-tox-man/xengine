@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_SHADER_PROGRAM_OPENGL.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 5/05/14.
 //  Copyright (c) 2014 Christophe Bernard. All rights reserved.
@@ -811,12 +811,11 @@ bool GRAPHIC_SHADER_PROGRAM::LinkProgram() {
         
         if (logLength > 0)
         {
-            GLchar *log = (GLchar *)CORE_MEMORY_ALLOCATOR::Allocate( logLength );
+            GLchar log[1024];
             glGetProgramInfoLog( ShaderProgram, logLength, &logLength, log );
             //NSLog(@"Program link log:\n%s", log);
             
             SERVICE_LOGGER_Error("%s\n", log );
-            CORE_MEMORY_ALLOCATOR_Free(log);
         }
     #endif
     

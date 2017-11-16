@@ -1,6 +1,6 @@
 //
 //  PERIPHERIC_INTERRACTION_MOUSE.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 29/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

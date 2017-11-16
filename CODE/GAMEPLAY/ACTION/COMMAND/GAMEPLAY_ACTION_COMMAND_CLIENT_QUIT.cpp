@@ -1,12 +1,13 @@
 //
 //  APPLICATION_NETWORK_COMMAND_CLIENT_QUIT.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 12/02/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
 //
 
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT )
     XS_DEFINE_ClassMember( "ClientIdentifier", CORE_HELPERS_UNIQUE_IDENTIFIER, ClientIdentifier )

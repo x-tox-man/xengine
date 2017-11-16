@@ -39,7 +39,11 @@ void R3D_PLAYER_SHIP::Initialize() {
     GAMEPLAY_HELPER::Set3DObject( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     GAMEPLAY_HELPER::SetEffect( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
     GAMEPLAY_HELPER::SetTexture(this, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
+#if PLATFORM_IOS || PLATFORM_ANDROID
+    GAMEPLAY_HELPER::SetScript(this, CORE_FILESYSTEM_PATH::FindFilePath("spaceship-touch", "lua", "SCRIPTS" ) );
+#else
     GAMEPLAY_HELPER::SetScript(this, CORE_FILESYSTEM_PATH::FindFilePath("spaceship", "lua", "SCRIPTS" ) );
+#endif
     
     q.RotateZ( M_PI_2 );
     q.Normalize();
@@ -98,18 +102,20 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     q.Normalize();
     
     auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    auto phys = (GAMEPLAY_COMPONENT_PHYSICS::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     
     Front.UpdateCamera( pos->GetPosition() + f, q );
     Rear.UpdateCamera( pos->GetPosition() + r, q );
     Top.UpdateCamera( pos->GetPosition() + t, q2 );
     
     Steam.SetPosition( pos->GetPosition() );
+    Steam.SetVelocity( phys->GetVelocity() );
     
     CORE_MATH_VECTOR elevation = GAMEPLAY_HELPER::GetElevation( this );
     
     if ( elevation.GetZ() < 1.0f && elevation.GetZ() > 0.0f ) {
         
-        auto phys = (GAMEPLAY_COMPONENT_PHYSICS::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+        
         
         CORE_MATH_VECTOR & vel = phys->GetVelocity();
         
@@ -119,6 +125,10 @@ void R3D_PLAYER_SHIP::Update( float step ) {
         
         //phys->SetVelocity( vel );
     }
+    
+    #if PLATFORM_IOS || PLATFORM_ANDROID
+        R3D_APP_PTR->SetCamera( &Rear );
+    #endif
     
     if (  PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_A ) ) {
         

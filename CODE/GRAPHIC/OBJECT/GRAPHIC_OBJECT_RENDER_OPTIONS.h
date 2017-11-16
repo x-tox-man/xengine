@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_OBJECT_RENDER_OPTIONS.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 24/05/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

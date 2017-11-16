@@ -1,6 +1,6 @@
 //
 //  CORE_FILESYSTEM_PATH.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 2/08/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -9,6 +9,7 @@
 #include "CORE_FILESYSTEM_PATH.h"
 #include "CORE_FILESYSTEM.h"
 #include "SERVICE_LOGGER.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_FILESYSTEM_PATH )
     XS_DEFINE_ClassMemberArray( "Path", char, Path, (size_t) FILE_PATH_MAX_LENGHT )
@@ -42,6 +43,8 @@ CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const CORE_FILESYSTEM_PATH & other )
         
         CORE_FILESYSTEM_PATH
             file_path;
+        
+        path_buffer[0] = '\0';
         
         strcpy( path_buffer, CORE_FILESYSTEM::GetDefaultFilesystem().GetBaseDirectoryPath() );
         

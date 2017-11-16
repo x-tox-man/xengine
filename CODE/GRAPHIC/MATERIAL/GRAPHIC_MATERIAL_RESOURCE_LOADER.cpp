@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 19/05/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

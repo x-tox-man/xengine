@@ -1,6 +1,6 @@
 //
 //  AUDIO_MP3_LOADER.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 25/05/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

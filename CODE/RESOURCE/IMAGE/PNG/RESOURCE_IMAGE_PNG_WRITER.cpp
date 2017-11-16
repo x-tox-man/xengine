@@ -1,6 +1,6 @@
 //
 //  RESOURCE_IMAGE_PNG_WRITER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 14/07/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

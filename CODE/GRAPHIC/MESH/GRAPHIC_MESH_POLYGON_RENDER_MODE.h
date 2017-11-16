@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MESH_POLYGON_RENDER_MODE.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 16/05/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

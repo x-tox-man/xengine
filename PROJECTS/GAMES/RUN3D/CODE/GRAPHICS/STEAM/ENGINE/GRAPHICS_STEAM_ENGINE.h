@@ -27,10 +27,15 @@ XS_CLASS_BEGIN( GRAPHICS_STEAM_ENGINE )
 
     void Initialize();
     inline void SetPosition( CORE_MATH_VECTOR & position) { Emiter->SetPosition( position ); }
+    inline void SetVelocity( CORE_MATH_VECTOR & velocity) { Emiter->SetVelocity( velocity ); }
+
+    static void InternalEmit( GRAPHIC_PARTICLE_EMITER<GRAPHIC_PARTICLE, GRAPHICS_STEAM_ENGINE, GRAPHIC_PARTICLE_DYNAMIC_ATTRIBUTES, PARTICLE_SIZE> & emiter,
+                             int start,
+                             int end );
 
 private:
 
-    GRAPHIC_PARTICLE_EMITER<GRAPHIC_PARTICLE, GRAPHIC_PARTICLE_DYNAMIC_ATTRIBUTES, PARTICLE_SIZE>
+    GRAPHIC_PARTICLE_EMITER<GRAPHIC_PARTICLE, GRAPHICS_STEAM_ENGINE, GRAPHIC_PARTICLE_DYNAMIC_ATTRIBUTES, PARTICLE_SIZE>
         * Emiter;
 
 XS_CLASS_END

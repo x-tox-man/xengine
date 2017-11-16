@@ -1,6 +1,6 @@
 //
 //  PERIPHERIC_INTERACTION_SYSTEM.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 29/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -17,6 +17,7 @@
 #include "CORE_ABSTRACT_RUNTIME_LUA.h"
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
 #include "CORE_RUNTIME_ENVIRONMENT.h"
+#include "PERIPHERIC_INTERACTION_TOUCH.h"
 
 XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_SYSTEM )
 
@@ -33,6 +34,7 @@ XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_SYSTEM )
     inline PERIPHERIC_INTERACTION_KEYBOARD & GetKeyboard() { return Keyboard; }
     inline PERIPHERIC_INTERACTION_MOUSE & GetMouse() { return Mouse; }
     inline PERIPHERIC_INTERRACTION_VIBRATOR & GetVibrator() { return Vibrator; }
+    inline PERIPHERIC_INTERACTION_TOUCH & GetTouch() { return Touch; }
 
 private :
 
@@ -42,6 +44,8 @@ private :
         Mouse;
     PERIPHERIC_INTERRACTION_VIBRATOR
         Vibrator;
+    PERIPHERIC_INTERACTION_TOUCH
+        Touch;
 
 XS_CLASS_END
 

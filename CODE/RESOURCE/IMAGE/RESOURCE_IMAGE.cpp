@@ -1,6 +1,6 @@
 //
 //  RESOURCE_IMAGE.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 4/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -8,6 +8,7 @@
 
 #include "RESOURCE_IMAGE.h"
 #include "CORE_MEMORY.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( RESOURCE_IMAGE )
 

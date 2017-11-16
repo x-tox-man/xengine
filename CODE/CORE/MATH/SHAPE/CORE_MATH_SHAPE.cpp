@@ -1,6 +1,6 @@
 //
 //  CORE_MATH_SHAPE.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/04/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -10,6 +10,7 @@
 #include "CORE_MATH_SHAPE_BOX.h"
 #include "CORE_MATH_SHAPE_SPHERE.h"
 #include "CORE_MEMORY.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_MATH_SHAPE )
     XS_DEFINE_ClassMember( "Position", CORE_MATH_VECTOR, Position )

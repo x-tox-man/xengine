@@ -1,6 +1,6 @@
 //
 //  APPLICATION_NETWORK_COMMAND_CLIENT_CONNECTED.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 10/02/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
@@ -9,6 +9,7 @@
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.h"
 #include "CORE_APPLICATION.h"
 #include "SERVICE_NETWORK_LOBBY.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED )
     XS_DEFINE_ClassMember( "Player", NETWORK_PLAYER, Player )

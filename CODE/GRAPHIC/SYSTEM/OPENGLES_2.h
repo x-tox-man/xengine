@@ -1,6 +1,6 @@
 //
 //  OPENGL_2.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.
@@ -21,7 +21,6 @@
 #if PLATFORM_IOS
     #include <OpenGLES/ES2/gl.h>
     #include <OpenGLES/ES2/glext.h>
-
 
     #define GFX_CHECK( __METHOD__ ) \
         __METHOD__ \

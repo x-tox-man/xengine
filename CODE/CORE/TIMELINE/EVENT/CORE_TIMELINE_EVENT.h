@@ -1,6 +1,6 @@
 //
 //  CORE_TIMELINE_EVENT.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 8/02/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

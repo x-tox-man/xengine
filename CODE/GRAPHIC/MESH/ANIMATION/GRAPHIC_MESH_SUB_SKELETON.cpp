@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MESH_SUB_SKELETON.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 26/07/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -8,6 +8,7 @@
 
 #include "GRAPHIC_MESH_SUB_SKELETON.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH_SUB_SKELETON )
     XS_DEFINE_ClassMember( "JointIndex", int, JointIndex )

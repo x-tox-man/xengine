@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_WINDOW_OSX.m
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 26/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.
@@ -99,7 +99,7 @@ void GRAPHIC_WINDOW_IOS::EnableBackgroundContext(bool enable) {
         CORE_APPLICATION::GetApplicationInstance().Update( 0.033f );
     }
     
-    glClearColor(0.5f, 0, 0.0f, 0.5f);
+    glClearColor(0.0f, 0, 0.2f, 1.0f);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

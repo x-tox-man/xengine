@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/MULTIPOLY/ANDROID/app/build/intermediates/res/merged/debug/values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/MULTIPOLY/ANDROID/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "22,21",
+                        "startColumns": "4,4",
+                        "startOffsets": "906,851",
+                        "endColumns": "46,54",
+                        "endOffsets": "948,901"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,102",
+                        "endColumns": "46,54",
+                        "endOffsets": "97,152"
+                    }
+                }
+            ]
+        }
+    ]
+}

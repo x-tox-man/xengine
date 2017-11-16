@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MATERIAL.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 11/09/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
@@ -12,6 +12,7 @@
 #include "RESOURCE_IMAGE_PNG_LOADER.h"
 #include "RESOURCE_IMAGE.h"
 #include "GRAPHIC_SHADER_PROGRAM_DATA_PROXY.h"
+#include "CORE_DATA_JSON.h"
 
 typedef std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * > TEX_TAB_TYPE;
 
@@ -61,6 +62,8 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const char * image_path ) :
     char image_path_1[256], image_path_2[256], image_normal[256];
     
     sprintf(image_path_1, "%s1", image_path);
+    image_path_2[0] = '\0';
+    image_normal[0] = '\0';
         
     TryAndFillFor( image_path, "png", GRAPHIC_SHADER_PROGRAM::ColorTexture );
     TryAndFillFor( image_path_1, "png", GRAPHIC_SHADER_PROGRAM::ColorTexture1 );
@@ -156,6 +159,10 @@ void GRAPHIC_MATERIAL::Discard( GRAPHIC_RENDERER & renderer ) {
 }
 
 void GRAPHIC_MATERIAL::TryAndFillFor( const char * file_path, const char * extension, const CORE_HELPERS_IDENTIFIER & identifier ) {
+    if ( strlen( file_path ) == 0 ) {
+        
+        return;
+    }
     
     CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath(file_path, extension, "TEXTURES");
     CORE_FILESYSTEM_FILE file( path );

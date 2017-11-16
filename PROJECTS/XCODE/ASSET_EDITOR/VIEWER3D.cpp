@@ -1,6 +1,6 @@
 //
 //  VIEWER3D.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 19/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -212,11 +212,11 @@ void VIEWER3D::Update( const float time_step ) {
     Scene->Update( time_step );
 }
 
-void VIEWER3D::Render() {
+void VIEWER3D::Render( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera->GetCamera() );
     
-    Scene->Render();
+    Scene->Render( renderer );
     RenderSelectedObjectBox();
     
     if ( TrigerScreenshot ) {
@@ -226,7 +226,7 @@ void VIEWER3D::Render() {
     }
 }
 
-void VIEWER3D::Load( const char * path ) {
+void VIEWER3D::Load( const char * path, CORE_HELPERS_CALLBACK & callback ) {
     
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
     
@@ -237,6 +237,9 @@ void VIEWER3D::Load( const char * path ) {
         auto mesh = GRAPHIC_OBJECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( path ), CORE_FILESYSTEM_PATH( path ));
     
         CreateMesh( mesh, program );
+    
+        if ( callback.IsConnected() )
+            callback();
     
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
 }
@@ -250,7 +253,7 @@ void VIEWER3D::Screenshot() {
     
     RenderTarget.Apply();
     
-    Scene->Render();
+    Scene->Render( GRAPHIC_RENDERER::GetInstance() );
     
     GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderCubeAt00" , "png", "" ) );

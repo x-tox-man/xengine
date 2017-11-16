@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_SHADER_PROGRAM.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 5/05/14.
 //  Copyright (c) 2014 Christophe Bernard. All rights reserved.

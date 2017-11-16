@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_SCENE.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -26,7 +26,7 @@ XS_CLASS_BEGIN( GAMEPLAY_SCENE )
     static void Ping();
 
     void Update( float time_step );
-    void Render();
+    void Render( GRAPHIC_RENDERER & renderer );
 
     void SaveTo( const CORE_FILESYSTEM_PATH & path );
     void LoadFrom( const CORE_FILESYSTEM_PATH & path );

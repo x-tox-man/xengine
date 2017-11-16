@@ -1,13 +1,13 @@
 //
 //  GAMEPLAY_COMPONENT_PROXY.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 18/06/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
 //
 
 #include "GAMEPLAY_COMPONENT_HANDLE.h"
-
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_HANDLE )
     XS_DEFINE_ClassMember( "Index", int, Index )

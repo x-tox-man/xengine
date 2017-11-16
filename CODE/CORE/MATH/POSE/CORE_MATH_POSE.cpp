@@ -1,6 +1,6 @@
 //
 //  CORE_MATH_POSE.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 16/04/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -8,6 +8,7 @@
 
 #include "CORE_MATH_POSE.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT(CORE_MATH_POSE)
     XS_DEFINE_ClassMember( "Position", CORE_MATH_VECTOR, Position )

@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_UI_FRAME_LIST_ADAPTER.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 21/11/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

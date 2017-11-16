@@ -1,0 +1,22 @@
+//
+//  APPLICATION_OPTION_WINDOW.hpp
+//  GAME-ENGINE
+//
+//  Created by Christophe Bernard on 14/02/16.
+//  Copyright © 2016 Christophe Bernard. All rights reserved.
+//
+
+#ifndef APPLICATION_OPTION_WINDOW_h
+#define APPLICATION_OPTION_WINDOW_h
+
+#include "CORE_HELPERS_CLASS.h"
+#include "GRAPHIC_UI_FRAME.h"
+
+XS_CLASS_BEGIN_WITH_ANCESTOR( APPLICATION_OPTION_WINDOW, GRAPHIC_UI_FRAME )
+
+    APPLICATION_OPTION_WINDOW();
+    virtual ~APPLICATION_OPTION_WINDOW();
+
+XS_CLASS_END
+
+#endif /* APPLICATION_OPTION_WINDOW_hpp */

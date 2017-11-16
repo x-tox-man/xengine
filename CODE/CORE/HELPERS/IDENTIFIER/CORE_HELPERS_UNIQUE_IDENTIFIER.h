@@ -1,6 +1,6 @@
 //
 //  CORE_HELPERS_UNIQUE_IDENTIFIER.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 3/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -58,7 +58,7 @@ private :
 
     char
         Identifier[32];
-    int
+    unsigned int
         CheckSum;
 
 XS_CLASS_END

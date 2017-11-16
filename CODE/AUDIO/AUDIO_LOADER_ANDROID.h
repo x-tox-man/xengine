@@ -1,6 +1,6 @@
 //
 //  AUDIO_LOADER_ANDROID.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 20/03/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  CORE_ABSTRACT_PROGRAM_LUA.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 8/11/14.
 //  Copyright (c) 2014 Christophe Bernard. All rights reserved.
@@ -8,6 +8,7 @@
 
 #include "CORE_ABSTRACT_PROGRAM_LUA.h"
 #include "CORE_ABSTRACT_RUNTIME_LUA.h"
+#include "CORE_FILESYSTEM_FILE.h"
 
 extern "C" {
     #include "lua.h"
@@ -38,8 +39,21 @@ void CORE_ABSTRACT_PROGRAM_LUA::Load( const char * path, const CORE_ABSTRACT_BAS
     SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 1" );
     CORE_ABSTRACT_RUNTIME_LUA & luaRuntime = * ((CORE_ABSTRACT_RUNTIME_LUA*) &runtime);
     SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 2" );
-    int s = luaL_loadfile( luaRuntime.getLuaState(), path );
-    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 3" );
+    
+    CORE_FILESYSTEM_FILE
+        file( path );
+    file.OpenOutput();
+    
+    char * content = (char *) malloc( file.GetSize() + 1 );
+    file.OutputBytes( content, file.GetSize() );
+    content[file.GetSize()] = '\0';
+    file.Close();
+    
+    int s = luaL_loadstring( luaRuntime.getLuaState(), content );
+    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 3 %s", content );
+    
+    free( content );
+    
     
     Path.SetPath( path );
     
@@ -47,7 +61,7 @@ void CORE_ABSTRACT_PROGRAM_LUA::Load( const char * path, const CORE_ABSTRACT_BAS
         
         printf( "%s\n", lua_tostring( luaRuntime.getLuaState(), -1 ) );
         
-        SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 4" );
+        SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 4 %s", path );
         
         CORE_RUNTIME_Abort();
     }

@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MESH.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.
@@ -8,6 +8,7 @@
 
 #include "GRAPHIC_MESH.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 #include "CORE_MEMORY.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH )

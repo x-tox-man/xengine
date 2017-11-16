@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_OBJECT.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.
@@ -17,6 +17,7 @@
 #include "CORE_MATH_MATRIX.h"
 #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_OBJECT )
     XS_DEFINE_ClassMember( "MeshTable", std::vector< GRAPHIC_MESH * > , MeshTable )

@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_SCENE.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -78,7 +78,7 @@ void GAMEPLAY_SCENE::Update( float time_step ) {
     }
 }
 
-void GAMEPLAY_SCENE::Render() {
+void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_LessOrEqual, true, 0.0f, 1.0f);
     GRAPHIC_SYSTEM::EnableBackfaceCulling();
@@ -86,7 +86,7 @@ void GAMEPLAY_SCENE::Render() {
     
     for (int i = 0; i < RenderableSystemTable.size(); i++ ) {
         
-        RenderableSystemTable[ 0 ]->Render();
+        RenderableSystemTable[ 0 ]->Render( renderer );
     }
 }
 
@@ -112,7 +112,7 @@ void GAMEPLAY_SCENE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
     GAMEPLAY_COMPONENT_ACTION::SaveToStream( stream );
     
     //Serialize Entities
-    GAMEPLAY_COMPONENT_MANAGER::GetInstance().SaveToStream( stream );
+    /*GAMEPLAY_COMPONENT_MANAGER::GetInstance().SaveToStream( stream );
     
     //Serialize Systems
     while (update_table_iterator != UpdatableSystemTable.end() ) {
@@ -131,7 +131,7 @@ void GAMEPLAY_SCENE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
     
     file.OpenInput();
     file.InputBytes( stream.GetMemoryBuffer(), stream.GetOffset() );
-    file.Close();
+    file.Close();*/
 }
 
 void GAMEPLAY_SCENE::LoadFrom( const CORE_FILESYSTEM_PATH & path ) {

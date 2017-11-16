@@ -1,6 +1,6 @@
 //
 //  SERVICE_NETWORK_CONNECTION_INFO.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 24/08/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

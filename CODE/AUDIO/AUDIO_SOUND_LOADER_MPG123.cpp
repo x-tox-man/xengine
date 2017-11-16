@@ -70,7 +70,7 @@
         sound.SetBufferSize( buffer_size );
         sound.SetFrameSize( 16 );
     
-        SERVICE_LOGGER_Info( "MPG_123 : rate %d, channels : %d, encoding %d, buffersize %d", rate, channels, encoding, buffer_size );
+        SERVICE_LOGGER_Info( "MPG_123 : rate %d, channels : %d, encoding %d, buffersize %d", (int) rate, (int) channels, (int) encoding, (int) buffer_size );
     }
 
     void MPG_123_Read( AUDIO_SOUND & sound, int chunk_index ) {

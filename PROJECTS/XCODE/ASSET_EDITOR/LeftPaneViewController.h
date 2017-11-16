@@ -1,6 +1,6 @@
 //
 //  LeftPane.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 2/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -10,8 +10,9 @@
 #define LeftPane_h
 
 #import <Cocoa/Cocoa.h>
+#import "ParentVCDelegate.h"
 
-@interface LeftPaneViewController : NSViewController<NSMenuDelegate, NSOutlineViewDelegate,NSOutlineViewDataSource>
+@interface LeftPaneViewController : NSViewController<NSMenuDelegate, ParentVCDelegate, NSOutlineViewDelegate,NSOutlineViewDataSource>
 
 - (IBAction)CreateItemButtonClicked:(id)sender;
 - (IBAction)DeleteItemButtonClicked:(id)sender;

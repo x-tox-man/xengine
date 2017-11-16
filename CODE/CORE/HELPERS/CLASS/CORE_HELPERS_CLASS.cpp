@@ -1,6 +1,6 @@
 //
 //  CORE_HELPERS_CLASS.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 26/06/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -8,6 +8,7 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 #include "CORE_DATA_TYPES.h"
 
 #include <string>
@@ -32,6 +33,18 @@ template<> template<>
 void XS_CLASS_SERIALIZER< std::string, CORE_DATA_STREAM >::Serialize< std::true_type >( const char * member_name,std::string & type, CORE_DATA_STREAM & stream ) {
     
     stream.InputBytes(type.c_str(), type.length());
+}
+
+template<> template<>
+void XS_CLASS_SERIALIZER< std::string, CORE_DATA_JSON >::Serialize< std::true_type >( const char * member_name,std::string & type, CORE_DATA_JSON & stream ) {
+    
+    stream.InputBytes( member_name, (const char *) type.c_str(), type.length());
+}
+
+template<> template<>
+void XS_CLASS_SERIALIZER< std::string, CORE_DATA_JSON >::Serialize< std::false_type >( const char * member_name,std::string & type, CORE_DATA_JSON & stream ) {
+    
+    abort();
 }
 
 template<> template<>

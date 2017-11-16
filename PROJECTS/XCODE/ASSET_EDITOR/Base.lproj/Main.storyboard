@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kU3-3p-OdY">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kU3-3p-OdY">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -709,10 +709,10 @@
             </objects>
             <point key="canvasLocation" x="-135" y="1040"/>
         </scene>
-        <!--Tab View Controller-->
+        <!--Custom Tab-->
         <scene sceneID="EdO-fn-TSK">
             <objects>
-                <tabViewController selectedTabViewItemIndex="0" id="5sY-5V-209" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="0" id="5sY-5V-209" customClass="CustomTab" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem label="UI" identifier="" id="lcw-fl-3UB"/>
                         <tabViewItem label="3D" identifier="" id="dGv-rT-BgI"/>
@@ -723,7 +723,7 @@
                         <font key="font" metaFont="message"/>
                         <tabViewItems/>
                         <connections>
-                            <outlet property="delegate" destination="5sY-5V-209" id="U4X-j4-Tsw"/>
+                            <outlet property="delegate" destination="5sY-5V-209" id="d18-qd-qyH"/>
                         </connections>
                     </tabView>
                     <connections>

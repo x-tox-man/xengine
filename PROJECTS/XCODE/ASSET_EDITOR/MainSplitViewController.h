@@ -1,6 +1,6 @@
 //
 //  MainSplitViewController.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 2/05/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

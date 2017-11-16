@@ -1,12 +1,13 @@
 //
 //  GRAPHIC_MATERIAL_COLLECTION.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 9/07/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
 //
 
 #include "GRAPHIC_MATERIAL_COLLECTION.h"
+#include "CORE_DATA_JSON.h"
 
 typedef std::map<std::string, GRAPHIC_MATERIAL::PTR> MAT_TAB_STRING;
 

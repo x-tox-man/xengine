@@ -1,6 +1,6 @@
 //
 //  LeftPane3DViewController.m
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 19/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -45,10 +45,11 @@
     
     self.ComponentsTableView.delegate = self.custom3dTableViewDelegate;
     self.ComponentsTableView.dataSource = self.custom3dTableViewDelegate;
-    self.custom3dTableViewDelegate.ParentVCDelegate = self;
+    self.custom3dTableViewDelegate.ParentVCDelegate = self; 
 }
 
 -(void)viewDidAppear {
+    [self.OutlineView reloadData];
     [self.ComponentsTableView reloadData];
 }
 
@@ -308,6 +309,10 @@
     
     ResourceType = @"Effect";
     [self performSegueWithIdentifier:@CHOOSE_RESOURCE_SEGUE sender:self];
+}
+
+-(void) SetCallback:(CORE_HELPERS_CALLBACK *) callback {
+    
 }
 
 -(void) SelectScript {

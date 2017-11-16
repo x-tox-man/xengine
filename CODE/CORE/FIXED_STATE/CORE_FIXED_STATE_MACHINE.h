@@ -1,6 +1,6 @@
 //
 //  CORE_FIXED_STATE_MACHINE.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 24/05/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

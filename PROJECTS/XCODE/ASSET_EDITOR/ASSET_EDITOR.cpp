@@ -1,6 +1,6 @@
 //
 //  ASSET_EDITOR.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -14,6 +14,7 @@
 #include "CORE_DATA_LOADER.h"
 #include "CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.h"
 #include "CORE_ABSTRACT_RUNTIME_LUA.h"
+#include "CORE_DATA_JSON.h"
 
 typedef std::map<CORE_FILESYSTEM_PATH, ASSET> ASSET_TYPE_TABLE;
 
@@ -27,7 +28,8 @@ ASSET_EDITOR::ASSET_EDITOR() :
     InterfaceCamera( NULL ),
     BaseUiScreen(),
     Viewer3d(),
-    ResourceContainer() {
+    ResourceContainer(),
+    RefreshCallback() {
     
     SetApplicationInstance( *this );
 }
@@ -80,7 +82,7 @@ void ASSET_EDITOR::Update( float time_step ) {
 
 void ASSET_EDITOR::Render() {
     
-    Viewer3d.Render();
+    Viewer3d.Render( GRAPHIC_RENDERER::GetInstance() );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( InterfaceCamera );
     
@@ -186,7 +188,7 @@ void ASSET_EDITOR::OnScreenResized( int width, int height ) {
 
 void ASSET_EDITOR::OnDraggedPath( const char * path ) {
     
-    Viewer3d.Load( path );
+    Viewer3d.Load( path, RefreshCallback );
 }
 
 void ASSET_EDITOR::Save ( const CORE_FILESYSTEM_PATH & path ) {
@@ -198,7 +200,7 @@ void ASSET_EDITOR::Save( CORE_DATA_STREAM & stream ) {
 
     stream.Open();
     
-    XS_CLASS_SERIALIZER< ASSET_EDITOR, CORE_DATA_STREAM >::template Serialize< std::true_type >( *this, stream );
+    XS_CLASS_SERIALIZER< ASSET_EDITOR, CORE_DATA_STREAM >::template Serialize< std::true_type >( "EDITOR", *this, stream );
     
     stream.Close();
 }

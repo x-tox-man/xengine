@@ -1,6 +1,6 @@
 //
 //  RESOURCE_SYSTEM.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 2/05/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -8,6 +8,7 @@
 
 #include "RESOURCE_CONTAINER.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 #include "CORE_DATA_LOADER.h"
 #include "RESOURCE.h"
 

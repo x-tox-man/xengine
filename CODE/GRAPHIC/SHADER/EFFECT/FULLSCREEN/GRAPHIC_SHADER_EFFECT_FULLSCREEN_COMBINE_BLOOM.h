@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 25/10/15.
 //  Copyright © 2015 Christophe Bernard. All rights reserved.

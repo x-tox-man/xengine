@@ -1,6 +1,6 @@
 //
 //  CORE_DATA_STREAM.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/06/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

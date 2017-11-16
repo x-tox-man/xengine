@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_SHADER_PROGRAM_OPENGLES2.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/07/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -51,6 +51,8 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     
     //TODO : clean based on shader content
     
+    GRAPHIC_SHADER_ATTRIBUTE * attribute = NULL;
+    
     BoundParameters = shader_bind;
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_Position ) {
@@ -72,35 +74,33 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         
         GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGLES2_Texcoord1, "tex1" ); )
     }
-    
+    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_BIND_Texcoord1" );
     if ( shader_bind & GRAPHIC_SHADER_BIND_SkinWeight ) {
         
         GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGLES2_SkinWeight, "weights"); )
     }
-    
+    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_BIND_JointIndices" );
     if ( shader_bind & GRAPHIC_SHADER_BIND_JointIndices ) {
         
         GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices, "joint_indices"); )
     }
-    
+    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_BIND_JointIndices" );
     if ( shader_bind & GRAPHIC_SHADER_BIND_Tangents ) {
         
         GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGLES2_Tangents, "tangent" ); )
     }
-    
+    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_BIND_Tangents" );
     if ( shader_bind & GRAPHIC_SHADER_BIND_Bitangents ) {
         
         GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGLES2_Bitangents, "bitangent" ); )
     }
-    
+    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_BIND_Bitangents" );
     if ( shader_bind & GRAPHIC_SHADER_BIND_Color ) {
         
         GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGLES2_Color, "color" ); )
     }
-    
-    //TODO : color
-    
-    if ( /*!ValidateProgram() ||*/ !LinkProgram() ) {
+    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_BIND_Color" );
+    if ( !LinkProgram() ) {
         
         Finalize();
         
@@ -108,589 +108,666 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         
         return;
     }
-    
-//TODO:
-//    delete attribute;
-    abort();
-    
-    // Get uniform locations.
-    GRAPHIC_SHADER_ATTRIBUTE * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ProjectionMatrix.GetTextValue() ); )
-    attribute->AttributeName = ProjectionMatrix;
-    
-    setShaderAttribute(*attribute);
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelViewMatrix.GetTextValue() ); )
-    attribute->AttributeName = ModelViewMatrix;
-    
-    setShaderAttribute(*attribute);
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ShadowMapMVP.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
+    else {
+        SERVICE_LOGGER_Error( "T1" );
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE();
+        SERVICE_LOGGER_Error( "T2" );
         
-        attribute->AttributeName = ShadowMapMVP;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ProjectionMatrix.GetTextValue() ); )
+        attribute->AttributeName = ProjectionMatrix;
         
         setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, MVPMatrix.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = MVPMatrix;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SkinningMatrixTable.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        attribute->AttributeName = SkinningMatrixTable;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AttrBindShapeMatrix.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        attribute->AttributeName = AttrBindShapeMatrix;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = ColorTexture;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = ColorTexture;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture1.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = ColorTexture1;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture2.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = ColorTexture2;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture3.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = ColorTexture3;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture4.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = ColorTexture4;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, NormalTexture.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = NormalTexture;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DepthTexture.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = DepthTexture;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    //AMBIENT
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightColor.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = AmbientLightColor;
+        delete attribute;
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelViewMatrix.GetTextValue() ); )
+        attribute->AttributeName = ModelViewMatrix;
         
         setShaderAttribute(*attribute);
         
+        delete attribute;
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightAmbientIntensity.GetTextValue() ); )
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ShadowMapMVP.GetTextValue() ); )
         
         if ( attribute->AttributeIndex != -1 ) {
             
-            attribute->AttributeName = AmbientLightAmbientIntensity;
+            attribute->AttributeName = ShadowMapMVP;
             
             setShaderAttribute(*attribute);
         }
         
+        delete attribute;
+        
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightDiffuseIntensity.GetTextValue() ); )
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, MVPMatrix.GetTextValue() ); )
         
         if ( attribute->AttributeIndex != -1 ) {
             
-            attribute->AttributeName = AmbientLightDiffuseIntensity;
+            attribute->AttributeName = MVPMatrix;
             
             setShaderAttribute(*attribute);
         }
+        
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SkinningMatrixTable.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            attribute->AttributeName = SkinningMatrixTable;
+            
+            setShaderAttribute(*attribute);
+        }
+        
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AttrBindShapeMatrix.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            attribute->AttributeName = AttrBindShapeMatrix;
+            
+            setShaderAttribute(*attribute);
+        }
+        
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTexture;
+            
+            setShaderAttribute(*attribute);
+        }
+        
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTexture;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture1.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTexture1;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture2.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTexture2;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture3.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTexture3;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture4.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTexture4;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, NormalTexture.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = NormalTexture;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DepthTexture.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = DepthTexture;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        //AMBIENT
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightColor.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = AmbientLightColor;
+            
+            setShaderAttribute(*attribute);
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightAmbientIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = AmbientLightAmbientIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightDiffuseIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = AmbientLightDiffuseIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+        }
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightColor.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = DirectionalLightColor;
+            
+            setShaderAttribute(*attribute);
+            
+            delete attribute;
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightDirection.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = DirectionalLightDirection;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightDiffuseIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = DirectionalLightDiffuseIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightAmbientIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = DirectionalLightAmbientIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+        }
+        else {
+            
+            delete attribute;
+        }
+        
+        // POINT LIGHT 0
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Color.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLight0Color;
+            
+            setShaderAttribute(*attribute);
+            
+            delete attribute;
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Position.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight0Position;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0DiffuseIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight0DiffuseIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0AmbientIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight0AmbientIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Exp.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight0Exp;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Constant.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight0Constant;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Linear.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight0Linear;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+        }
+        else {
+            
+            delete attribute;
+        }
+        
+        // POINT LIGHT 1
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Color.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLight1Color;
+            
+            setShaderAttribute(*attribute);
+            
+            delete attribute;
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Position.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight1Position;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1DiffuseIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight1DiffuseIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1AmbientIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight1AmbientIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Exp.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight1Exp;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Constant.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight1Constant;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Linear.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = PointLight1Linear;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+        }
+        else {
+            
+            delete attribute;
+        }
+        
+        // SPOT 0
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Color.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLight0Color;
+            
+            setShaderAttribute(*attribute);
+            
+            delete attribute;
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Position.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight0Position;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0DiffuseIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight0DiffuseIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0AmbientIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight0AmbientIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Exp.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight0Exp;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Constant.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight0Constant;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Linear.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight0Linear;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Direction.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight0Direction;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Cutoff.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight0Cutoff;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+        }
+        else {
+            
+            delete attribute;
+        }
+        
+        // SPOT 1
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Color.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLight1Color;
+            
+            setShaderAttribute(*attribute);
+            
+            delete attribute;
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Position.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight1Position;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1DiffuseIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight1DiffuseIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1AmbientIntensity.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight1AmbientIntensity;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Exp.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight1Exp;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Constant.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight1Constant;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Linear.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight1Linear;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Direction.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight1Direction;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+            
+            attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+            GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Cutoff.GetTextValue() ); )
+            
+            if ( attribute->AttributeIndex != -1 ) {
+                
+                attribute->AttributeName = SpotLight1Cutoff;
+                
+                setShaderAttribute(*attribute);
+            }
+            delete attribute;
+        }
+        else {
+            
+            delete attribute;
+        }
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, GeometryColor.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = GeometryColor;
+            attribute->AttributeValue.Value.FloatArray4[0] = 1.0f;
+            attribute->AttributeValue.Value.FloatArray4[1] = 1.0f;
+            attribute->AttributeValue.Value.FloatArray4[2] = 1.0f;
+            attribute->AttributeValue.Value.FloatArray4[3] = 1.0f;
+            
+            setShaderAttribute(*attribute);
+        }
+        
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, LightSpecularPower.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = LightSpecularPower;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, MaterialSpecularIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = MaterialSpecularIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, TimeModulator.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = TimeModulator;
+            
+            setShaderAttribute(*attribute);
+        }
+        delete attribute;
     }
-    
-    //DIRECTIONAL
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightColor.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = DirectionalLightColor;
-        
-        setShaderAttribute(*attribute);
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightDirection.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = DirectionalLightDirection;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightDiffuseIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = DirectionalLightDiffuseIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightAmbientIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = DirectionalLightAmbientIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-    }
-    
-    // POINT LIGHT 0
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Color.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = PointLight0Color;
-        
-        setShaderAttribute(*attribute);
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Position.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight0Position;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0DiffuseIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight0DiffuseIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0AmbientIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight0AmbientIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Exp.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight0Exp;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Constant.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight0Constant;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Linear.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight0Linear;
-            
-            setShaderAttribute(*attribute);
-        }
-    }
-    
-    // POINT LIGHT 1
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Color.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = PointLight1Color;
-        
-        setShaderAttribute(*attribute);
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Position.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight1Position;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1DiffuseIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight1DiffuseIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1AmbientIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight1AmbientIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Exp.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight1Exp;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Constant.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight1Constant;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Linear.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = PointLight1Linear;
-            
-            setShaderAttribute(*attribute);
-        }
-    }
-    
-    // SPOT 0
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Color.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = SpotLight0Color;
-        
-        setShaderAttribute(*attribute);
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Position.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight0Position;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0DiffuseIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight0DiffuseIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0AmbientIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight0AmbientIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Exp.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight0Exp;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Constant.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight0Constant;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Linear.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight0Linear;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Direction.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight0Direction;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Cutoff.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight0Cutoff;
-            
-            setShaderAttribute(*attribute);
-        }
-    }
-    
-    // SPOT 1
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Color.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = SpotLight1Color;
-        
-        setShaderAttribute(*attribute);
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Position.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight1Position;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1DiffuseIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight1DiffuseIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1AmbientIntensity.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight1AmbientIntensity;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Exp.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight1Exp;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Constant.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight1Constant;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Linear.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight1Linear;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Direction.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight1Direction;
-            
-            setShaderAttribute(*attribute);
-        }
-        
-        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Cutoff.GetTextValue() ); )
-        
-        if ( attribute->AttributeIndex != -1 ) {
-            
-            attribute->AttributeName = SpotLight1Cutoff;
-            
-            setShaderAttribute(*attribute);
-        }
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, GeometryColor.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = GeometryColor;
-        attribute->AttributeValue.Value.FloatArray4[0] = 1.0f;
-        attribute->AttributeValue.Value.FloatArray4[1] = 1.0f;
-        attribute->AttributeValue.Value.FloatArray4[2] = 1.0f;
-        attribute->AttributeValue.Value.FloatArray4[3] = 1.0f;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, LightSpecularPower.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = LightSpecularPower;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, MaterialSpecularIntensity.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = MaterialSpecularIntensity;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, TimeModulator.GetTextValue() ); )
-    
-    if ( attribute->AttributeIndex != -1 ) {
-        
-        attribute->AttributeName = TimeModulator;
-        
-        setShaderAttribute(*attribute);
-    }
-    
-    delete attribute;
 }
 
 bool GRAPHIC_SHADER_PROGRAM::ValidateProgram() {

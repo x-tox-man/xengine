@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -16,6 +16,8 @@
 #include "GAMEPLAY_COMPONENT_ENTITY.h"
 #include "GAMEPLAY_COMPONENT_ENTITY_PROXY.h"
 
+class GRAPHIC_RENDERER;
+
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_SYSTEM )
 
     GAMEPLAY_COMPONENT_SYSTEM();
@@ -26,7 +28,7 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_SYSTEM )
     virtual void Initialize();
 
     virtual void Update( float time_step );
-    virtual void Render();
+    virtual void Render( GRAPHIC_RENDERER & renderer );
 
     virtual void Finalize();
 

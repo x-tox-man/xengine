@@ -47,5 +47,5 @@ void main()
     
     colorOut.rgb = texture( c_texture, texCoord ).rgb * diffuse.rgb;
 
-    colorOut.a = texture( c_texture, texCoord ).a;
+    colorOut.a = 1.0;
 }

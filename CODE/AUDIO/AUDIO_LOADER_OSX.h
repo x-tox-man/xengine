@@ -1,6 +1,6 @@
 //
 //  AUDIO_LOADER_OSX.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 26/05/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

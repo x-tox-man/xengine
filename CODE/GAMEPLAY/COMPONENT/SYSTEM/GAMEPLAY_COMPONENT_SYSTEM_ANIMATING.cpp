@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/04/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -39,7 +39,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Finalize() {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Render() {
+void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Render( GRAPHIC_RENDERER & renderer ) {
     
     CORE_RUNTIME_Abort();
 }

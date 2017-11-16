@@ -1,6 +1,6 @@
 //
 //  FONT_EDITOR.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 31/01/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

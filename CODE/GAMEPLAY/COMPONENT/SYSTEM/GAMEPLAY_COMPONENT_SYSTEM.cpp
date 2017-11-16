@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -10,6 +10,7 @@
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_PHYSICS.h"
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_STL_MAP_MEMORY_LAYOUT(GAMEPLAY_COMPONENT_ENTITY_PROXY *, GAMEPLAY_COMPONENT_ENTITY_HANDLE)
 
@@ -53,7 +54,7 @@ void GAMEPLAY_COMPONENT_SYSTEM::Update( float time_step ) {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM::Render() {
+void GAMEPLAY_COMPONENT_SYSTEM::Render( GRAPHIC_RENDERER & renderer ) {
     
 }
 

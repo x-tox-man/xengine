@@ -1,6 +1,6 @@
 //
 //  CORE_ABSTRACT_RUNTIME_LUA.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 9/11/14.
 //  Copyright (c) 2014 Christophe Bernard. All rights reserved.

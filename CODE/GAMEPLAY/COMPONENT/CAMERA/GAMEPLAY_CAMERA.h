@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_CAMERA.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 24/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

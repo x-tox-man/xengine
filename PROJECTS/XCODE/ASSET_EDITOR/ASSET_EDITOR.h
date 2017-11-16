@@ -1,6 +1,6 @@
 //
 //  ASSET_EDITOR.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -86,6 +86,8 @@ private:
         ResourceContainer;
     std::map<CORE_FILESYSTEM_PATH, ASSET>
         AssetTable;
+    CORE_HELPERS_CALLBACK
+        RefreshCallback;
 
 XS_CLASS_END
 

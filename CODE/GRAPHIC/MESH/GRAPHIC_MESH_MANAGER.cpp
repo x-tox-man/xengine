@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MESH_MANAGER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.
@@ -11,6 +11,7 @@
 #include "GRAPHIC_OBJECT_ANIMATED.h"
 #include "CORE_DATA_STREAM.h"
 #include "CORE_DATA_LOADER.h"
+#include "CORE_DATA_JSON.h"
 
 GRAPHIC_MESH_MANAGER::GRAPHIC_MESH_MANAGER() {
     

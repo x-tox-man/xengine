@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 4/04/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -54,7 +54,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Update( float time_step ) {
     }
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Render() {
+void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Render( GRAPHIC_RENDERER & renderer ) {
     
 }
 

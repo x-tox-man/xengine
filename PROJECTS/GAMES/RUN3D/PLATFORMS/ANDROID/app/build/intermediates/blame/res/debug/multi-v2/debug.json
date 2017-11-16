@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/build/intermediates/res/merged/debug/values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "22,21",
+                        "startColumns": "4,4",
+                        "startOffsets": "906,851",
+                        "endColumns": "42,54",
+                        "endOffsets": "944,901"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,98",
+                        "endColumns": "42,54",
+                        "endOffsets": "93,148"
+                    }
+                }
+            ]
+        }
+    ]
+}

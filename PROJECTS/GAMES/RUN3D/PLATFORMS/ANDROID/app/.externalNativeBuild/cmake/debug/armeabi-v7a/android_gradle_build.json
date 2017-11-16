@@ -1,0 +1,19 @@
+
+{
+	"buildFiles" : 
+	[
+		"/Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/app/src/main/cpp/CMakeLists.txt"
+	],
+	"cleanCommands" : 
+	[
+		"/Users/CBE/Library/Developer/Xamarin/android-sdk-macosx/cmake/3.6.3155560/bin/cmake --build /Users/CBE/DevelopProjects/game-engine-clean/PROJECTS/GAMES/MULTIPOLY/ANDROID/app/.externalNativeBuild/cmake/debug/armeabi-v7a --target clean"
+	],
+	"toolchains" : 
+	{
+		"12432969735076166420" : 
+		{
+			"cCompilerExecutable" : "/Users/CBE/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang",
+			"cppCompilerExecutable" : "/Users/CBE/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+		}
+	}
+}

@@ -1,6 +1,6 @@
 //
 //  VIEWER3D.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 19/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -30,10 +30,10 @@ XS_CLASS_BEGIN( VIEWER3D )
 
     void Initialize();
 
-    void Render();
+    void Render( GRAPHIC_RENDERER & renderer );
     void Update( const float time_step );
 
-    void Load( const char *);
+    void Load( const char *, CORE_HELPERS_CALLBACK &);
     void SetSelectedEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) { SelectedEntity = entity; }
     inline GAMEPLAY_SCENE * GetScene() { return Scene; }
 

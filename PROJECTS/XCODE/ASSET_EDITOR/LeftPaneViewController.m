@@ -1,6 +1,6 @@
 //
 //  LeftPane.m
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 2/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -318,6 +318,10 @@
 - (IBAction)ViewAssets:(id)sender {
     
     [self performSegueWithIdentifier:@SHOW_ASSETS_SEGUE sender:self];
+}
+
+-(void) SetCallback:(CORE_HELPERS_CALLBACK *) callback {
+    
 }
 
 @end

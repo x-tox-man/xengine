@@ -1,6 +1,6 @@
 //
 //  NETWORK_PLAYER.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 30/10/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
@@ -11,11 +11,13 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 #include "SERVICE_NETWORK_COMMAND.h"
 #include "SERVICE_NETWORK_CONNECTION.h"
 #include "CORE_HELPERS_UNIQUE_IDENTIFIER.h"
-#include <string>
 #include "CORE_DATA_MODEL.h"
+
+#include <string>
 
 #define OUTGOING_MESSAGE_QUEUE_SIZE 36
 

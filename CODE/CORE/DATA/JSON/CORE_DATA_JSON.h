@@ -1,7 +1,7 @@
 
 //
 //  CORE_DATA_JSON.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/06/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -13,6 +13,38 @@
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_DATA_TYPES.h"
 #include "SERVICE_LOGGER.h"
+#include "CORE_DATA_STREAM.h"
+#include "CORE_HELPERS_SCALAR.h"
+
+template <typename __TYPE__>
+void XSPrintf( char * string_stream, const char * name, __TYPE__ & value) {
+    abort();
+}
+
+template <typename __TYPE__>
+void XSPrintf( char * string_stream, const char * name, __TYPE__ * & value) {
+    abort();
+}
+
+template <typename __TYPE__>
+void XSPrintf( char * string_stream, const char * name, __TYPE__ ** value) {
+    abort();
+}
+
+template <typename __TYPE__>
+void XSscanf( char * string_stream, const char * name, __TYPE__ & value, int & string_size ) {
+    abort();
+}
+
+template <typename __TYPE__>
+void XSscanf( char * string_stream, const char * name, __TYPE__ * & value, int & string_size ) {
+    abort();
+}
+
+template <typename __TYPE__>
+void XSscanf( char * string_stream, const char * name, __TYPE__ ** value, int & string_size ) {
+    abort();
+}
 
 XS_CLASS_BEGIN( CORE_DATA_JSON )
 
@@ -28,210 +60,110 @@ XS_CLASS_BEGIN( CORE_DATA_JSON )
     void InitializeWithSize( int size );
 
     void ResetOffset();
-    int GetSize() const { return Size; }
-    int GetAllocatedBytes() const { return AllocatedBytes; }
+    int GetSize() const { return Stream.GetSize(); }
+    int GetAllocatedBytes() const { return Stream.GetAllocatedBytes(); }
 
-template <typename __TYPE__ >
-void operator << ( const __TYPE__ & data ) {
-    
-    if ( AllocatedBytes - Offset < sizeof( __TYPE__ ) ) {
+    inline const void * GetMemoryBuffer() const { return Stream.GetMemoryBuffer(); }
+    inline void * GetMemoryBuffer() { return Stream.GetMemoryBuffer(); }
+
+    inline const int GetOffset() { return Stream.GetOffset(); }
+
+    template < typename __TYPE__ >
+    void InputBytes( const char * name, __TYPE__ & data, int size ) {
+        char tmp[256];
+        void * mem = (void*) malloc( sizeof( __TYPE__) * size );
         
-        AllocatedBytes += AllocatedBytes + sizeof( __TYPE__ );
+        tmp[0] = '\0';
         
-        MemoryBuffer = realloc( MemoryBuffer, AllocatedBytes );
+        memcpy(mem, &data, size );
         
-        #if DEBUG
-            if ( MemoryBuffer == NULL ) {
-            
-                CORE_RUNTIME_Abort();
-            }
-        #endif
+        XSPrintf< __TYPE__ >( tmp, name, data );
+        
+        Stream.InputBytesWithoutSize( tmp, (int) strlen( tmp ) );
+        
+        free( mem );
     }
-    
-    //TODO : byteswap :
-    
-    CORE_MEMORY_COPY_BYTES_SWAPPED< __TYPE__ >( MemoryBuffer, Offset, data );
-    
-    Offset += sizeof( __TYPE__ );
-}
 
-template <typename __TYPE__ >
-void operator << ( const __TYPE__ * data ) {
-    
-    if ( AllocatedBytes - Offset < sizeof( __TYPE__ ) ) {
+    template < typename __TYPE__ >
+    void InputBytes( const char * name, __TYPE__ ** pointer, int size ) {
         
-        AllocatedBytes += AllocatedBytes + sizeof( __TYPE__ );
+        char tmp[256];
         
-        MemoryBuffer = realloc( MemoryBuffer, AllocatedBytes );
+        tmp[0] = '\0';
         
-        #if DEBUG
-            if ( MemoryBuffer == NULL ) {
-                
-                CORE_RUNTIME_Abort();
-            }
-        #endif
+        XSPrintf< __TYPE__ >( tmp, name, pointer );
+        
+        Stream.InputBytesWithoutSize( tmp, (int) strlen( tmp ) );
     }
-    
-    CORE_RUNTIME_Abort();
-}
 
-template <typename __TYPE__ >
-void operator >> ( __TYPE__ & data ) {
-    
-    memcpy( &data, ( char* )MemoryBuffer + Offset, sizeof(__TYPE__ ) );
-    
-    Offset += sizeof( __TYPE__ );
-}
-
-void operator >> ( wchar_t ** data ) {
-    
-    unsigned int length;
-    
-    memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
-    Offset  += sizeof(unsigned int);
-    
-    *data = (wchar_t *) CORE_MEMORY_ALLOCATOR::Allocate( length );
-    
-    memcpy( data, ((( char* )MemoryBuffer) + Offset), length );
-    
-    Offset += length;
-}
-
-inline const void * GetMemoryBuffer() const { return MemoryBuffer; }
-inline void * GetMemoryBuffer() { return MemoryBuffer; }
-
-inline const int GetOffset() { return Offset; }
-
-template < typename __TYPE__ >
-void InputBytes(__TYPE__ ** pointer, int size ) {
-    
-    unsigned int length = size * sizeof( __TYPE__ );
-    
-    if ( AllocatedBytes - Offset < length + sizeof(unsigned int) ) {
+    template < typename __TYPE__ >
+    void OutputBytes( const char * name, __TYPE__ ** pointer, int & size ) {
         
-        AllocatedBytes += AllocatedBytes + length + sizeof(unsigned int);
+        int string_size = 0;
+        XSscanf( (char * ) Stream.GetMemoryAtOffset(), name, pointer, string_size );
         
-        MemoryBuffer = realloc( MemoryBuffer, AllocatedBytes );
-        
-#if DEBUG
-        if ( MemoryBuffer == NULL ) {
-            
-            CORE_RUNTIME_Abort();
-        }
-#endif
+        Stream.SetOffset( Stream.GetOffset() + string_size);
     }
-    
-    memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(unsigned int) );
-    Offset  += sizeof(unsigned int);
-    memcpy( ((( char* )MemoryBuffer) + Offset), *pointer, length );
-    Offset += length;
-}
 
-template < typename __TYPE__ >
-void OutputBytes(__TYPE__ ** pointer, int & size ) {
-    
-    int length;
-    
-    memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
-    Offset  += sizeof(unsigned int);
-    
-    *pointer = ( __TYPE__ *) CORE_MEMORY_ALLOCATOR::Allocate( length * sizeof( __TYPE__ ) );
-    
-    memcpy( *pointer, ((( char* )MemoryBuffer) + Offset), length );
-    
-    Offset  += length;
-    size = length;
-}
-
-//Stupid fix with size_t
-template < typename __TYPE__ >
-void InputBytes(__TYPE__ * pointer, size_t size ) {
-    
-    unsigned long length = size * sizeof( __TYPE__ );
-    
-    if ( AllocatedBytes - Offset < length + sizeof(unsigned int) ) {
+    //Stupid fix with size_t
+    template < typename __TYPE__ >
+    void InputBytes( const char * name, __TYPE__ * pointer, size_t size ) {
         
-        AllocatedBytes += AllocatedBytes + length + sizeof(unsigned int);
+        char tmp[256];
         
-        MemoryBuffer = realloc( MemoryBuffer, AllocatedBytes );
+        tmp[0] = '\0';
         
-#if DEBUG
-        if ( MemoryBuffer == NULL ) {
-            
-            CORE_RUNTIME_Abort();
-        }
-#endif
+        XSPrintf< __TYPE__ >( tmp, name, *(pointer) );
+        
+        Stream.InputBytesWithoutSize( tmp, (int) strlen( tmp ) );
     }
-    
-    memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(unsigned int) );
-    Offset  += sizeof(unsigned int);
-    memcpy( ((( char* )MemoryBuffer) + Offset), (void*)pointer, length );
-    Offset += length;
-}
 
-template < typename __TYPE__ >
-void InputBytes(__TYPE__ * & pointer, int size ) {
-    
-    unsigned int length = size * sizeof( __TYPE__ );
-    
-    if ( AllocatedBytes - Offset < length + sizeof(unsigned int) ) {
+    template < typename __TYPE__ >
+    void InputBytes( const char * name, __TYPE__ * & pointer, int size ) {
         
-        AllocatedBytes += AllocatedBytes + length + sizeof(unsigned int);
+        char tmp[256];
         
-        MemoryBuffer = realloc( MemoryBuffer, AllocatedBytes );
+        tmp[0] = '\0';
         
-#if DEBUG
-        if ( MemoryBuffer == NULL ) {
-            
-            CORE_RUNTIME_Abort();
-        }
-#endif
+        XSPrintf< __TYPE__ >( tmp, name, pointer );
+        
+        Stream.InputBytesWithoutSize( tmp, (int) strlen( tmp ) );
     }
-    
-    memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(unsigned int) );
-    Offset  += sizeof(unsigned int);
-    memcpy( ((( char* )MemoryBuffer) + Offset), (void*)pointer, length );
-    Offset += length;
-}
 
-template < typename __TYPE__ >
-void OutputBytes(__TYPE__ * & pointer, int & size ) {
-    
-    int length;
-    
-    memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
-    Offset  += sizeof(unsigned int);
-    
-    pointer = ( __TYPE__ *) CORE_MEMORY_ALLOCATOR::Allocate( length * sizeof( __TYPE__ ) );
-    
-    memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (unsigned int) length );
-    
-    Offset  += length;
-    size = length;
-}
+    template < typename __TYPE__ >
+    void OutputBytes( const char * name, __TYPE__ * & pointer, int & size ) {
+        
+        int string_size = 0;
+        XSscanf( (char * ) Stream.GetMemoryAtOffset(), name, pointer, string_size );
+        
+        Stream.SetOffset( Stream.GetOffset() + string_size);
+    }
 
-//Stupid fix with size_t
-template < typename __TYPE__ >
-void OutputBytes(__TYPE__ * pointer, size_t & size ) {
-    
-    int length;
-    
-    memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
-    Offset  += sizeof(unsigned int);
-    
-    memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (unsigned int) length );
-    
-    Offset  += length;
-    
-    size = length;
-}
+    template < typename __TYPE__ >
+    void OutputBytes( const char * name, __TYPE__ & pointer, int & size ) {
+        
+        int string_size = 0;
+        XSscanf( (char * ) Stream.GetMemoryAtOffset(), name, pointer, string_size );
+        
+        Stream.SetOffset( Stream.GetOffset() + string_size);
+    }
 
-private :
+    void PushObject( const char * object_name );
+    void PopObject();
+    void PushArray( const char * object_name );
+    void PopArray();
+    void AppendMember();
 
-    void * MemoryBuffer;
-    int AllocatedBytes,
-        Offset,
-        Size;
+    void ReadObject( const char * object_name );
+    void ReadEndObject();
+    void ReadArray( const char * object_name );
+    void ReadEndArray();
+    void ReadMember();
+
+    private :
+
+        CORE_DATA_STREAM
+            Stream;
 
 XS_CLASS_END
 

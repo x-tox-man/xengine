@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 4/02/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

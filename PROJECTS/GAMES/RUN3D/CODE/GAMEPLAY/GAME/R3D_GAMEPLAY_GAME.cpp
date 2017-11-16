@@ -56,7 +56,7 @@ void R3D_GAMEPLAY_GAME::Finalize() {
 
 void R3D_GAMEPLAY_GAME::Render( GRAPHIC_RENDERER & renderer ) {
     
-    Scene.Render();
+    Scene.Render( renderer );
 }
 
 void R3D_GAMEPLAY_GAME::Update( const float step ) {

@@ -1,6 +1,6 @@
 //
 //  CORE_APPLICATION.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 2/11/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.

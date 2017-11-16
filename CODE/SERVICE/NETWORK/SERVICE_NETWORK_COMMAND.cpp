@@ -1,6 +1,6 @@
 //
 //  SERVICE_NETWORK_COMMAND.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 26/08/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -10,6 +10,7 @@
 #include "SERVICE_NETWORK_SYSTEM.h"
 #include "CORE_DATA_STREAM.h"
 #include "CORE_DATA_BUFFER.h"
+#include "CORE_DATA_JSON.h"
 
 XS_CLASS_SERIALIZER_TemplateScalar( SERVICE_NETWORK_CONNECTION_TYPE )
 

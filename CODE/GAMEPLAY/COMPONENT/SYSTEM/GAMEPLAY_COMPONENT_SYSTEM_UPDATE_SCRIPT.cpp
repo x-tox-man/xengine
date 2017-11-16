@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/05/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -40,7 +40,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Update( float time_step ) {
     }
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Render() {
+void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Render( GRAPHIC_RENDERER & renderer ) {
     
 }
 

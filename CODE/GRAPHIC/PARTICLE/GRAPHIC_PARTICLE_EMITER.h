@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_PARTICLE_EMITER.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 7/02/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
@@ -29,7 +29,7 @@ public:
 };
 
 
-template <typename PARTICLE_TYPE, typename PARTICLE_TYPE_ATTRIBUTE, size_t PARTICLE_ARRAY_SIZE>
+template <typename PARTICLE_TYPE, typename EMITTER, typename PARTICLE_TYPE_ATTRIBUTE, size_t PARTICLE_ARRAY_SIZE>
 class GRAPHIC_PARTICLE_EMITER : GRAPHIC_PARTICLE_EMITER_BASE_CLASS {
     
 public :
@@ -87,19 +87,6 @@ public :
         Renderer.Render(ParticleTable, Effect, renderer, FirstIndex, LastIndex);
     }
     
-    void InternalEmit( int start, int end ) {
-        
-        for(int i = start; i < end; i++ ) {
-            
-            ParticleTable[i].Position = Position;
-            
-            ParticleAttributeTable[i].Velocity.Set( Velocity.X() * (1+(rand() % 10))  * 0.1f , Velocity.Y() * (1+(rand() % 10)) * 0.1f, Velocity.Z() * (1+(rand() % 10)) * 0.1f, 1.0f);
-            ParticleAttributeTable[i].Modulator = 1.0f;
-            ParticleAttributeTable[i].Lifetime = 5.0f;
-            
-        }
-    }
-    
     void AddModifier(MODIFIER & modifier) {
         
         ModifierTable.push_back( &modifier );
@@ -107,6 +94,12 @@ public :
     
     inline void SetPosition( const CORE_MATH_VECTOR & position ) { Position = position; }
     inline void SetVelocity( const CORE_MATH_VECTOR & velocity ) { Velocity = velocity; }
+    
+    inline const CORE_MATH_VECTOR & GetPosition() { return Position; }
+    inline const CORE_MATH_VECTOR & GetVelocity() { return Velocity; }
+    
+    std::array< PARTICLE_TYPE, PARTICLE_ARRAY_SIZE > & GetParticleTable() { return ParticleTable; }
+    std::array< PARTICLE_TYPE_ATTRIBUTE, PARTICLE_ARRAY_SIZE > & GetParticleAttributeTable() { return ParticleAttributeTable; }
     
 private:
     
@@ -125,7 +118,7 @@ private:
         // we are after segment's end so emit at the end then emit from the start
         if( temp > 0 ) {
             
-            InternalEmit( LastIndex, LastIndex + emit_count);
+            EMITTER::InternalEmit( *this, LastIndex, LastIndex + emit_count);
             
             LastIndex += emit_count;
         }

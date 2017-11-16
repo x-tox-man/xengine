@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_SHADER_EFFECT.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 6/10/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -13,6 +13,7 @@
 #include "GRAPHIC_MATERIAL.h"
 #include "GRAPHIC_SYSTEM.h"
 #include "GRAPHIC_MATERIAL_COLLECTION.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_SHADER_EFFECT )
     XS_DEFINE_ClassMember( "Bind", GRAPHIC_SHADER_BIND, Bind )

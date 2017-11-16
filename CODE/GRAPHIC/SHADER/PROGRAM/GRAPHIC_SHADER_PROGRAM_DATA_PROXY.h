@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_SHADER_PROGRAM_DATA_PROXY.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 3/03/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

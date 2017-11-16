@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_TEXTURE_BLOCK.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 22/06/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -8,6 +8,7 @@
 
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 #include "GRAPHIC_TEXTURE_LOADER.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_TEXTURE_BLOCK )

@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_CAMERA_BILLBOARD.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 30/08/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  SERVICE_NETWORK_CLIENT.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 30/10/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

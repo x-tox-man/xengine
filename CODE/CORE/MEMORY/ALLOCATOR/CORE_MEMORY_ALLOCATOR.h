@@ -1,6 +1,6 @@
 //
 //  CORE_MEMORY.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 2/01/14.
 //  Copyright (c) 2014 Christophe Bernard. All rights reserved.

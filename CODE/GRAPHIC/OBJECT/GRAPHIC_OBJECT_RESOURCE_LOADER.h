@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_OBJECT_RESOURCE_LOADER.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 13/02/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

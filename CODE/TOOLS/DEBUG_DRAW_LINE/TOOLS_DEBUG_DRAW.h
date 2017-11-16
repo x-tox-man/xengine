@@ -1,6 +1,6 @@
 //
 //  TOOLS_DEBUG_DRAW_LINE.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 31/10/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

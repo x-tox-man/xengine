@@ -53,7 +53,7 @@ void R3D_LEVEL::CreateTracks() {
     auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
     base_entity->Initialize( p1 );
     
-    for ( int i = 0; i < 2; i++) {
+    for ( int i = 0; i < 21; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         
@@ -72,7 +72,7 @@ void R3D_LEVEL::CreateTracks() {
         base_entity->Initialize( p );*/
     }
     
-    for ( int i = 0; i < 2; i++) {
+    for ( int i = 0; i < 21; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         

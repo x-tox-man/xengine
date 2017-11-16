@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_SHADER_EFFECT_LOADER.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 6/03/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

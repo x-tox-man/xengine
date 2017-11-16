@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SCRIPT.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/05/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.

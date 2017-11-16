@@ -5,7 +5,7 @@ def platformVersion = 18    //openGLES 3 min Version
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '26.0.2'
 
     // for preventing (cheating) gradle-build to overwrite Android.mk with auto-generated Android.mk (NdkCompile task)
     sourceSets.main {
@@ -31,7 +31,7 @@ android {
     }
 
     task ndkBuild(type: Exec) {
-        def ndkDir = "/Users/CBE/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle"
+        def ndkDir = "/Users/christophebernard/Library/Android/sdk/ndk-bundle"
         workingDir "../"
         commandLine "$ndkDir/ndk-build"
     }

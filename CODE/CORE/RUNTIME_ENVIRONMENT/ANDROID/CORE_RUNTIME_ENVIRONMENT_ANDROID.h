@@ -1,6 +1,6 @@
 //
 //  CORE_RUNTIME_ENVIRONMENT_ANDROID.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 27/07/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

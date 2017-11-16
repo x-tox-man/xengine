@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/04/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -39,7 +39,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Update( float time_step ) {
     }
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Render() {
+void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Render( GRAPHIC_RENDERER & renderer ) {
     
     CORE_RUNTIME_Abort();
 }

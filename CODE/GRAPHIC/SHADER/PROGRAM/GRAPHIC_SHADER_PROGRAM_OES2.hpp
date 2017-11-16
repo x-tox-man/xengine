@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_SHADER_PROGRAM_OPENGLES2.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/07/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

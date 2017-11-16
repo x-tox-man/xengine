@@ -1,6 +1,6 @@
 //
 //  AUDIO_BANK_SOUND.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 10/11/15.
 //  Copyright © 2015 Christophe Bernard. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_TEXTURE.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 2/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -11,6 +11,7 @@
 #include "GRAPHIC_SYSTEM.h"
 #include "RESOURCE_IMAGE_PNG_WRITER.h"
 #include "GRAPHIC_TEXTURE_LOADER.h"
+#include "CORE_DATA_JSON.h"
 
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_TEXTURE )

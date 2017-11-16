@@ -1,6 +1,6 @@
 //
 //  CORE_ABSTRACT_FUNCTION_PARAMETER.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 24/01/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

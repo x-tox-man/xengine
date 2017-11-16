@@ -1,6 +1,6 @@
 //
 //  CORE_FILESYSTEM_FILE_WATCHER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 13/03/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  NETWORK_PLAYER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 30/10/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
@@ -83,7 +83,7 @@ CORE_DATA_STREAM & NETWORK_PLAYER::PrepareMessage() {
             command->Address[1] = 168;
             command->Address[2] = 0;
             command->Address[3] = 12;
-            command->Serialize( OutGoingMessage );
+            command->Serialize( "command", OutGoingMessage );
             
             CORE_MEMORY_ObjectSafeDeallocation( OutGoingMessageQueue[i] );
         }

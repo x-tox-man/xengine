@@ -1,6 +1,6 @@
 //
 //  NETWORK_SERVER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 29/10/16.
 //  Copyright © 2016 Christophe Bernard. All rights reserved.
@@ -473,7 +473,7 @@ void NETWORK_SERVER::RejectPlayer( SERVICE_NETWORK_CONNECTION * connection ) {
     auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command );
     
     stream.Open();
-    network_message->Serialize( stream );
+    network_message->Serialize( "command", stream );
     stream.Close();
     
     LobbyInstance->SendTcpCommand(stream, connection);

@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 28/05/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -19,7 +19,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT, GAMEPLAY_
 
     virtual void Initialize() override;
     virtual void Update( float time_step ) override;
-    virtual void Render() override;
+    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
     virtual void Finalize() override;
 
 XS_CLASS_END

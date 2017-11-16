@@ -1,6 +1,6 @@
 //
 //  CreateItemViewController.m
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 3/04/17.
 //  Copyright © 2017 Christophe Bernard. All rights reserved.
@@ -229,7 +229,7 @@
     
         render_style->SetShape( ASSET_SCREEN::CreateUIPlanShape( ui_textured_shader_effect ) );
         render_style->SetEffect( ui_textured_shader_effect );
-        render_style->SetColor( CORE_COLOR_White );
+        material->SetDiffuse( CORE_COLOR_White );
         
         item->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, render_style );
         CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);

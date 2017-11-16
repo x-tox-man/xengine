@@ -127,9 +127,14 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         
         GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
         
+#if PLATFORM_OSX
         PrimaryRenderTarget.Apply();
-        
+#endif
+#if PLATFORM_IOS || PLATFORM_ANDROID
+        renderer.SetLightingIsEnabled( false );
+#else
         renderer.SetLightingIsEnabled( true );
+#endif
         Lookat.Normalize();
         
         GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_LessOrEqual, true, 0.0f, 1.0f);
@@ -148,10 +153,12 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         GRAPHIC_SYSTEM::DisableDepthTest();
         renderer.SetCamera( InterfaceCamera );
         GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
-        
+#if PLATFORM_OSX
         PrimaryRenderTarget.Discard();
+#endif
     }
     
+#if PLATFORM_OSX
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
     {
         TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
@@ -200,6 +207,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, CombineBloomEffect );
     }
+#endif
     
     auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[4]);
     

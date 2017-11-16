@@ -1,6 +1,6 @@
 //
 //  CORE_HELPERS_UNIQUE_IDENTIFIER.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 3/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -9,6 +9,7 @@
 #include "CORE_HELPERS_UNIQUE_IDENTIFIER.h"
 #include "CORE_MEMORY.h"
 #include "SERVICE_LOGGER.h"
+#include "CORE_DATA_JSON.h"
 
 #define A_PRIME 54059 /* a prime */
 #define B_PRIME 76963 /* another prime */
@@ -18,7 +19,7 @@
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_HELPERS_UNIQUE_IDENTIFIER )
     XS_DEFINE_ClassMemberArray( "Identifier", char, Identifier, (size_t) 32 )
-    XS_DEFINE_ClassMember( "CheckSum", int, CheckSum )
+    XS_DEFINE_ClassMember( "CheckSum", unsigned int, CheckSum )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER() :

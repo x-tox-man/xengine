@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MESH_SUB_SKELETON.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 26/07/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

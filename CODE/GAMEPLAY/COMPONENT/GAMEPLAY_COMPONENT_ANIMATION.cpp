@@ -1,6 +1,6 @@
 //
 //  GAMEPLAY_COMPONENT_ANIMATION.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 31/03/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -33,6 +33,11 @@ void * GAMEPLAY_COMPONENT_ANIMATION::operator new( size_t size ) {
     LastOffset = 0;
     
     return ( void *) &( (*InternalVector)[ 0 ].MemoryArray[ ++(( *InternalVector)[ 0 ].LastIndex) ] );
+}
+
+void GAMEPLAY_COMPONENT_ANIMATION::operator =( const GAMEPLAY_COMPONENT_ANIMATION & other ) {
+    
+    Animation = other.Animation;
 }
 
 void GAMEPLAY_COMPONENT_ANIMATION::operator delete  ( void* ptr ) {

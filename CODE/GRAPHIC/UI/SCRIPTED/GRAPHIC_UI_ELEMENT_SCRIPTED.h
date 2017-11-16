@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_UI_ELEMENT_SCRIPTED.hpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 5/12/15.
 //  Copyright © 2015 Christophe Bernard. All rights reserved.

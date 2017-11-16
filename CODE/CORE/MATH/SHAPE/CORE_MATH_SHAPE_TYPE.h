@@ -1,6 +1,6 @@
 //
 //  CORE_MATH_SHAPE_TYPE.h
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 14/05/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.

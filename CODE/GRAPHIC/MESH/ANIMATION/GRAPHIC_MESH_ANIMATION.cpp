@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MESH_ANIMATION.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 26/01/15.
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
@@ -8,6 +8,7 @@
 
 #include "GRAPHIC_MESH_ANIMATION.h"
 #include "CORE_DATA_STREAM.h"
+#include "CORE_DATA_JSON.h"
 
 //TODO: std::string AnimationName;
 

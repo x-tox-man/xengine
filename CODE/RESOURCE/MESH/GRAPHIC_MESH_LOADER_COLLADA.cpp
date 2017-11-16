@@ -1,6 +1,6 @@
 //
 //  GRAPHIC_MESH_LOADER_COLLADA.cpp
-//  GAME-ENGINE-REBORN
+//  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.
@@ -437,8 +437,6 @@
                         const COLLADAFW::MeshPrimitive * prim = ( const COLLADAFW::MeshPrimitive * ) primitives->getData()[poly_count];
                         
                         const COLLADAFW::UIntValuesArray & pos_indices = prim->getPositionIndices();
-                        const COLLADAFW::UIntValuesArray & norm_indices = prim->getNormalIndices();
-                        const COLLADAFW::UIntValuesArray & uv_indices = prim->getUVCoordIndices(0)->getIndices();
                         
                         const COLLADAFW::IndexList * index_list;
                         
@@ -462,14 +460,15 @@
                             
                             for ( int v_index = 0; v_index < prim->getGroupedVerticesVertexCount( face ); v_index++ ) {
                                 
-                                mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 );
-                                mesh->CurrenGeometrytTable[ accumulated_index ].position[1] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 + 1);
-                                mesh->CurrenGeometrytTable[ accumulated_index ].position[2] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 + 2);
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 );
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[1] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 + 1);
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[2] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 + 2);
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[3] = 1.0f;
                                 
                                 mesh->CurrenGeometrytTable[ accumulated_index ].vertex_index = pos_indices[ accumulated_index ];
                                 
                                 if ( hasNormals ) {
+                                    const COLLADAFW::UIntValuesArray & norm_indices = prim->getNormalIndices();
                                     
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[0] = *(data->getNormals().getFloatValues()->getData()+ norm_indices[ accumulated_index ] * 3);
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[1] = *(data->getNormals().getFloatValues()->getData()+ norm_indices[ accumulated_index ] * 3 + 1);
@@ -478,6 +477,8 @@
                                 }
                                 
                                 if ( hasUV ) {
+                                    
+                                    const COLLADAFW::UIntValuesArray & uv_indices = prim->getUVCoordIndices(0)->getIndices();
                                     
                                     mesh->CurrenGeometrytTable[ accumulated_index ].UV0[0] = *(data->getUVCoords().getFloatValues()->getData()+ uv_indices[accumulated_index ] * 2 );
                                     mesh->CurrenGeometrytTable[ accumulated_index ].UV0[1] = *(data->getUVCoords().getFloatValues()->getData()+ uv_indices[accumulated_index ] * 2 + 1);
@@ -829,27 +830,36 @@
             
             int jointsPerVertex = *((unsigned int *) skinControllerData->getJointsPerVertex().getData() + i);
             
+            if ( jointsPerVertex > 3 ) {
+                SERVICE_LOGGER_Warning( "COLLADA_LOADER_WRITER::writeSkinControllerData : jointsPerVertex higher than 3 > ignoring other components" );
+                jointsPerVertex = 3;
+            }
+            
             for (int new_geometry_index = 0; new_geometry_index < mesh->CurrenGeometrytTableSize; new_geometry_index++ ) {
                 
                 if ( mesh->CurrenGeometrytTable[ new_geometry_index ].vertex_index == i ) {
                     
-                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + 0));
-                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + 1));
-                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[2] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + 2));
+                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] = 0.0f;
+                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] = 0.0f;
+                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
                     
-                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] = *(skinControllerData->getWeights().getFloatValues()->getData() + joint_index_offset + 0);
-                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] = *(skinControllerData->getWeights().getFloatValues()->getData() + joint_index_offset + 1);
-                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = *(skinControllerData->getWeights().getFloatValues()->getData() + joint_index_offset + 2);
-                    
-                    if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 0.0f ) {
+                    for( int joint_per_vertex_index = 0; joint_per_vertex_index < jointsPerVertex; joint_per_vertex_index++ ) {
                         
-                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
-                    }
-                    
-                    if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] +
-                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] >= 1.0f) {
+                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + joint_per_vertex_index));
                         
-                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
+                        int weight_index = skinControllerData->getWeightIndices().getData()[ joint_index_offset + joint_per_vertex_index];
+                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[joint_per_vertex_index] = *(skinControllerData->getWeights().getFloatValues()->getData() + weight_index );
+                        
+                        if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 0.0f ) {
+                            
+                            mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
+                        }
+                        
+                        if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] +
+                            mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] >= 1.0f) {
+                            
+                            mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
+                        }
                     }
                 }
             }
