@@ -36,6 +36,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAM
         void SetCollisionFilter( btOverlapFilterCallback * callback );
 
         btDiscreteDynamicsWorld * GetDynamicsWorld() { return DynamicsWorld; }
+
+        inline void SetNearCallback( btNearCallback & callback ) {
+            
+            NearCallback = &callback;
+        }
+
     #endif
 
     virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity) override { abort(); }
@@ -54,6 +60,8 @@ private :
 #ifdef __BULLET_PHYSICS__
     btDiscreteDynamicsWorld
         * DynamicsWorld;
+    btNearCallback
+        * NearCallback;
 
     #if DEBUG
         TOOL_BULLET_GL_DEBUGGER

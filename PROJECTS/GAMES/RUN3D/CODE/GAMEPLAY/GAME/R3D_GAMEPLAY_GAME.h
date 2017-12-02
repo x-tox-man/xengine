@@ -28,6 +28,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     void Initialize();
     void Finalize();
 
+    inline R3D_LEVEL & GetLevel() { return Level; }
     inline GAMEPLAY_SCENE & GetScene() { return Scene; }
     inline GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * GetBulletSystem() { return BulletSystem; }
 

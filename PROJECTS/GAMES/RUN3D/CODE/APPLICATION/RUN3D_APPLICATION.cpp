@@ -96,11 +96,20 @@ void RUN3D_APPLICATION::Finalize() {
 
 void RUN3D_APPLICATION::Update( float time_step ) {
     
-    AUDIO_SYSTEM::GetInstance().Update( time_step );
-
-    Game.Update( time_step );
+    static float acc = 0.0f;
+    const float step = 1.0f / 60.0f;
     
-    GRAPHIC_PARTICLE_SYSTEM::GetInstance().Update( time_step, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
+    AUDIO_SYSTEM::GetInstance().Update( time_step );
+    
+    acc += time_step;
+
+    while ( acc > step) {
+        acc -= step;
+        
+        Game.Update( step );
+        
+        GRAPHIC_PARTICLE_SYSTEM::GetInstance().Update( time_step, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
+    }
     
     GRAPHIC_UI_SYSTEM::GetInstance().Update( time_step );
 }

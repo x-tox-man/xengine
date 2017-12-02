@@ -10,6 +10,8 @@
 #include "GRAPHIC_MESH_MANAGER.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
+#include "GRAPHIC_FONT_MANAGER.h"
+#include "GRAPHIC_UI_HELPER.h"
 
 R3D_RESOURCES::R3D_RESOURCES() :
     Resources( NULL ) {
@@ -65,6 +67,15 @@ void R3D_RESOURCES::Initialize() {
     Resources->AddResource( checkpoint_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "checkpoint" ) );
     Resources->AddResource( capsule_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "capsule" ) );
     Resources->AddResource( particle_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ) );
+    
+    GRAPHIC_FONT_MANAGER::GetInstance().LoadFont(
+                                                 CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ),
+                                                 CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "fxb", "FONTS/" ),
+                                                 CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "png", "FONTS/" ) );
+    
+    GRAPHIC_FONT * font = GRAPHIC_FONT_MANAGER::GetInstance().GetFont( CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ) );
+    
+    GRAPHIC_UI_HELPER::DefaultFont = font;
 }
 
 void R3D_RESOURCES::Finalize() {

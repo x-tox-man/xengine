@@ -16,7 +16,9 @@
 
 R3D_LEVEL::R3D_LEVEL() :
     PlayerTable(),
-    Environment() {
+    Environment(),
+    EndGameCallback( &Wrapper1<R3D_LEVEL, GAMEPLAY_COMPONENT_ENTITY *, &R3D_LEVEL::OnEndGame>, this ),
+    Checkpoints() {
     
 }
 
@@ -25,15 +27,36 @@ void R3D_LEVEL::Initialize() {
     PlayerTable.resize( 1 );
     
     PlayerTable[ 0 ] = new R3D_PLAYER();
-    
     PlayerTable[ 0 ]->Initialize();
+    
+    Checkpoints.SetPlayerFinishedCallback( EndGameCallback );
     
     CreateTracks();
     //CreateGround();
 }
 
+
+void R3D_LEVEL::OnEndGame( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+    
+}
+
 void R3D_LEVEL::Finalize() {
     
+}
+
+void R3D_LEVEL::Start() {
+    
+    std::vector<GAMEPLAY_COMPONENT_ENTITY *> players_table;
+    
+    std::vector<R3D_PLAYER::PTR>::iterator it = PlayerTable.begin();
+    
+    while ( it != PlayerTable.end() ) {
+        
+        players_table.push_back( (*it)->GetShip() );
+        it++;
+    }
+    
+    Checkpoints.Start( players_table );
 }
 
 void R3D_LEVEL::Update( const float time_step ) {
@@ -72,14 +95,17 @@ void R3D_LEVEL::CreateTracks() {
         base_entity->Initialize( p );*/
     }
     
-    for ( int i = 0; i < 21; i++) {
+    /*for ( int i = 0; i < 21; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         
         if ( i > 0 && i % 10 == 0 ) {
             
             auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_CHECKPOINT >();
+            
             entity->Initialize( p );
+            
+            Checkpoints.AddCheckpoint( entity->GetChild( 0 ) );
         }
         
         //base_entity->SetPosition( p );
@@ -89,7 +115,7 @@ void R3D_LEVEL::CreateTracks() {
         
         /*auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
          base_entity->Initialize( p );*/
-    }
+    //}
 }
 
 void R3D_LEVEL::CreateGround() {

@@ -19,6 +19,10 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY_HANDLE )
     GAMEPLAY_COMPONENT_ENTITY_HANDLE( int index, int offset );
     ~GAMEPLAY_COMPONENT_ENTITY_HANDLE();
 
+    bool operator == ( const GAMEPLAY_COMPONENT_ENTITY_HANDLE & other ) const {
+        return other.Index == Index && other.Offset == Offset;
+    }
+
     inline void SetIndex( int index ) { Index = index; }
     inline void SetOffset( int offset ) { Offset = offset; }
     inline int GetOffset() const { return Offset; }

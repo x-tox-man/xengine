@@ -107,7 +107,7 @@ CORE_FIXED_STATE_EndOfStateEvent()
 //-------------------------- GAME STATE    ----------------------------------------------//
 //---------------------------------------------------------------------------------------//
 CORE_FIXED_STATE_DefineStateEnterEvent( R3D_GAMEPLAY_GAME::GAME_STATE )
-
+    GetContext().GetLevel().Start();
 CORE_FIXED_STATE_EndOfStateEvent()
 
 

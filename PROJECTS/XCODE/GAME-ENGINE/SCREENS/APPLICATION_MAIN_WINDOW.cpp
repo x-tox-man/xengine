@@ -68,18 +68,23 @@ void APPLICATION_MAIN_WINDOW::Initialize() {
     DefaultRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     HooveredRenderStyle = new GRAPHIC_UI_RENDER_STYLE;
     
-    DefaultRenderStyle->SetColor( CORE_MATH_VECTOR( 1.0f, 0.0f, 1.0f, 1.0f ) );
+    auto mat = new GRAPHIC_MATERIAL;
+    mat->SetDiffuse( CORE_MATH_VECTOR( 1.0f, 0.0f, 1.0f, 1.0f ) );
+    mat->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "Create_Server_button" ) ) );
+    DefaultRenderStyle->SetMaterial( mat );
     DefaultRenderStyle->SetShape( Shape );
-    DefaultRenderStyle->SetTextureBlock( &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "Create_Server_button" ) ) );
     
     //Uncomment for debugging  Shadow texture :
     //GRAPHIC_TEXTURE_BLOCK * tb = new GRAPHIC_TEXTURE_BLOCK;
     //tb->SetTexture( ((MyTestApp *)&CORE_APPLICATION::GetApplicationInstance())->GetShadowMapRenderTarget().TargetTexture );
     //default_render_style->SetTextureBlock( tb );
     
-    HooveredRenderStyle->SetColor( CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    mat = new GRAPHIC_MATERIAL;
+    mat->SetDiffuse( CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    mat->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "fireButton" ) ) );
+    
     HooveredRenderStyle->SetShape( Shape );
-    HooveredRenderStyle->SetTextureBlock( &GLOBAL_RESOURCES::GetInstance().UITextureAtlas.GetTextureBlock( CORE_HELPERS_UNIQUE_IDENTIFIER( "fireButton" ) ) );
+    HooveredRenderStyle->SetMaterial( mat );
     
     start_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, DefaultRenderStyle );
     start_lobby_button->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Hovered, HooveredRenderStyle );

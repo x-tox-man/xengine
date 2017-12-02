@@ -19,6 +19,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_UI_FRAME, GRAPHIC_UI_FRAME )
 
     virtual void Initialize() override;
 
+    void OnClick( GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE );
+
 XS_CLASS_END
 
 #endif /* R3D_UI_FRAME_hpp */

@@ -8,11 +8,12 @@
 
 #include "NETWORK_SERVER_INFO.h"
 #include "CORE_DATA_TYPES.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( NETWORK_SERVER_INFO )
     XS_DEFINE_ClassMemberArray( "Name", char, (char **) &Name, (int)strlen( Name ) )
     XS_DEFINE_ClassMemberArray( "GameTitle", char, (char **) &GameTitle, (int)strlen( GameTitle ) )
-    XS_DEFINE_ClassMemberArray( "Adress," char, (char **) &Adress, (int)strlen( Adress ) )
+    XS_DEFINE_ClassMemberArray( "Adress", char, (char **) &Adress, (int)strlen( Adress ) )
     XS_DEFINE_ClassMember( "PlayersCount", int, PlayersCount )
     XS_DEFINE_ClassMember( "MaxPlayers", int, MaxPlayers )
 XS_END_INTERNAL_MEMORY_LAYOUT

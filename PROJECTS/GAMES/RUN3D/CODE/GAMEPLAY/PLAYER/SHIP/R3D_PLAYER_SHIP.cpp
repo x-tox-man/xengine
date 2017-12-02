@@ -51,8 +51,8 @@ void R3D_PLAYER_SHIP::Initialize() {
     CORE_MATH_VECTOR
         start_position(0.0f, 0.0f, 3.0f, 0.0f );
     
-    GAMEPLAY_HELPER::SetPhysicsSphereObject( this, start_position, q, 1.0f );
-    //GAMEPLAY_HELPER::SetPhysicsBoxObject( this, start_position, CORE_MATH_VECTOR(0.1f,0.1f,0.1f, 0.0f), q, 1.0f );
+    //GAMEPLAY_HELPER::SetPhysicsSphereObject( this, start_position, q, 1.0f );
+    GAMEPLAY_HELPER::SetPhysicsBoxObject( this, start_position, CORE_MATH_VECTOR(0.1f,0.1f,0.1f, 0.0f), q, 1.0f );
     SetOrientation( q );
     
     GAMEPLAY_HELPER::AddToPhysics( this, PHYSICS_COLLISION_TYPE_SHIP, PHYSICS_COLLISION_TYPE_ALL );
@@ -123,7 +123,7 @@ void R3D_PLAYER_SHIP::Update( float step ) {
         
         vel.Z( vel.Z() + p * step );
         
-        //phys->SetVelocity( vel );
+        phys->SetVelocity( vel );
     }
     
     #if PLATFORM_IOS || PLATFORM_ANDROID

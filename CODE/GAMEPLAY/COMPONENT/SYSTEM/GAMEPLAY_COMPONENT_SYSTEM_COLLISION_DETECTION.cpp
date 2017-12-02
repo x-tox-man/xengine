@@ -15,7 +15,8 @@ GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::GAMEPLAY_COMPONENT_SYSTEM_COLLISI
     Renderer(),
     Gravity()
 #ifdef __BULLET_PHYSICS__
-    ,DynamicsWorld()
+    ,DynamicsWorld( NULL )
+    ,NearCallback( NULL )
     #if DEBUG
         ,Debugger()
     #endif
@@ -28,6 +29,15 @@ GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::~GAMEPLAY_COMPONENT_SYSTEM_COLLIS
 
 }
 
+#ifdef __BULLET_PHYSICS__
+    void MyNearCallback(btBroadphasePair& collisionPair, btCollisionDispatcher& dispatcher, const btDispatcherInfo& dispatchInfo) {
+        // Do your collision logic here
+        // Only dispatch the Bullet collision information if you want the physics to continue
+        
+        dispatcher.defaultNearCallback(collisionPair, dispatcher, dispatchInfo);
+    }
+#endif
+
 void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
     
     #ifdef __BULLET_PHYSICS__
@@ -37,6 +47,11 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         // Set up the collision configuration and dispatcher
         btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
         btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+    
+        if ( NearCallback ) {
+            
+            dispatcher->setNearCallback( MyNearCallback );
+        }
         
         // The actual physics solver
         btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
@@ -72,7 +87,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
     #ifdef __BULLET_PHYSICS__
         btTransform transformation;
         
-        DynamicsWorld->stepSimulation(time_step, 10);
+        DynamicsWorld->stepSimulation(time_step);
     
         std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     

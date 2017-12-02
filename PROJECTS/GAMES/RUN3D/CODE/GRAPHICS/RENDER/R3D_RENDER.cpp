@@ -84,7 +84,6 @@ void R3D_RENDER::Initialize() {
     VerticalBlurEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     CombineBloomEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
-    
     PrimaryRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, false, 0 );
     GaussianRenderTarget1.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
     GaussianRenderTarget2.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );

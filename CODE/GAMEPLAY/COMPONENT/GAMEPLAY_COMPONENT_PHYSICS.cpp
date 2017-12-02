@@ -239,6 +239,7 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE
     btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position[0], position[1], position[2])));
     
     btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(1.0, groundMotionState, BulletShape, btVector3(0, 0, 0));
+
     
     BulletRigidBody = new btRigidBody(groundRigidBodyCI);
     BulletRigidBody->setRestitution( 1.0f );
