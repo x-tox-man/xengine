@@ -49,7 +49,7 @@ void R3D_PLAYER_SHIP::Initialize() {
     q.Normalize();
     
     CORE_MATH_VECTOR
-        start_position(0.0f, 0.0f, 3.0f, 0.0f );
+        start_position(0.0f, 0.0f, 1.6f, 0.0f );
     
     //GAMEPLAY_HELPER::SetPhysicsSphereObject( this, start_position, q, 1.0f );
     GAMEPLAY_HELPER::SetPhysicsBoxObject( this, start_position, CORE_MATH_VECTOR(0.1f,0.1f,0.1f, 0.0f), q, 1.0f );
@@ -113,7 +113,7 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     
     CORE_MATH_VECTOR elevation = GAMEPLAY_HELPER::GetElevation( this );
     
-    if ( elevation.GetZ() < 1.0f && elevation.GetZ() > 0.0f ) {
+    /*if ( elevation.GetZ() < 1.0f && elevation.GetZ() > 0.0f ) {
         
         
         
@@ -124,7 +124,7 @@ void R3D_PLAYER_SHIP::Update( float step ) {
         vel.Z( vel.Z() + p * step );
         
         phys->SetVelocity( vel );
-    }
+    }*/
     
     #if PLATFORM_IOS || PLATFORM_ANDROID
         R3D_APP_PTR->SetCamera( &Rear );

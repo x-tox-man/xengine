@@ -124,11 +124,11 @@ void GAMEPLAY_COMPONENT_PHYSICS::ConfigureShapeBox(  const CORE_MATH_VECTOR & po
     
         btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, BulletShape, fallInertia);
         BulletRigidBody = new btRigidBody(fallRigidBodyCI);
-        BulletRigidBody->setRestitution( 0.1f );
-        BulletRigidBody->setFriction( 1.0f );
-        BulletRigidBody->setRollingFriction( 1.0f );
-        BulletRigidBody->setSpinningFriction( 1.0f );
-        BulletRigidBody->setAngularFactor( 1.0f );
+        BulletRigidBody->setRestitution( 0.0f );
+        BulletRigidBody->setFriction( 0.0f );
+        BulletRigidBody->setRollingFriction( 0.0f );
+        BulletRigidBody->setSpinningFriction( 0.0f );
+        BulletRigidBody->setAngularFactor( 0.0f );
     #endif
 }
 
@@ -242,10 +242,10 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE
 
     
     BulletRigidBody = new btRigidBody(groundRigidBodyCI);
-    BulletRigidBody->setRestitution( 1.0f );
-    BulletRigidBody->setFriction( 1.0f );
-    BulletRigidBody->setRollingFriction( 1.0f );
-    BulletRigidBody->setSpinningFriction( 1.0f );
+    BulletRigidBody->setRestitution( 0.0f );
+    BulletRigidBody->setFriction( 0.0f );
+    BulletRigidBody->setRollingFriction( 0.0f );
+    BulletRigidBody->setSpinningFriction( 0.0f );
 }
 #endif
 
