@@ -16,6 +16,13 @@
 #include <time.h>
 #include <Winbase.h>
 
+//https://msdn.microsoft.com/en-us/library/ms632667(VS.85).aspx
+//https://msdn.microsoft.com/en-us/library/ms632600(v=vs.85).aspx
+//https://msdn.microsoft.com/en-us/library/ff700543(v=vs.85).aspx
+
+#define WIN32_WINDOWS_STYLE CS_HREDRAW | CS_VREDRAW | CS_OWNDC
+#define WIN32_WINDOWS_EX_STYLE WS_EX_APPWINDOW | WS_EX_WINDOWEDGE
+
 LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
 
 void CreateOpenGlContext( HDC hdc );
@@ -50,6 +57,11 @@ void GRAPHIC_WINDOW_WINDOWS::Initialize() {
 
         CORE_RUNTIME_Abort();
     }
+}
+
+void GRAPHIC_WINDOW_WINDOWS::EnableBackgroundContext( bool enable ) {
+
+    abort();
 }
 
 void GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS::Display() {
@@ -102,7 +114,7 @@ ATOM GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS::MyRegisterClass( HINSTANCE 
 
     wcex.cbSize=sizeof( WNDCLASSEX );
 
-    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+    wcex.style = WIN32_WINDOWS_STYLE;
     wcex.lpfnWndProc = WndProc;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
@@ -140,7 +152,7 @@ BOOL GRAPHIC_WINDOW_WINDOWS::InitInstance( HINSTANCE hInstance, int nCmdShow ) {
 
     AdjustWindowRectEx( &window_rect, WS_OVERLAPPEDWINDOW, FALSE, WS_EX_APPWINDOW | WS_EX_WINDOWEDGE );
 
-    hWnd=CreateWindowW( szWindowClass, szTitle, WS_EX_APPWINDOW | WS_EX_WINDOWEDGE, CW_USEDEFAULT, CW_USEDEFAULT, window_rect.right - window_rect.left, window_rect.bottom - window_rect.top, nullptr, nullptr, hInstance, nullptr );
+    hWnd=CreateWindowW( szWindowClass, szTitle, WIN32_WINDOWS_EX_STYLE, CW_USEDEFAULT, CW_USEDEFAULT, window_rect.right - window_rect.left, window_rect.bottom - window_rect.top, nullptr, nullptr, hInstance, nullptr );
 
     if ( !hWnd )
     {
@@ -342,4 +354,20 @@ void CreateOpenGlContext( HDC hdc ) {
 void DeleteOpenGlContext( HDC hdc ) {
 
     wglMakeCurrent( hdc, NULL );
+}
+
+void GRAPHIC_WINDOW_WINDOWS::Resize( int width, int height ) {
+
+    SetWidth( width );
+    SetHeight( height );
+
+    RECT rect;
+    rect.top=GetPositionY();
+    rect.left=GetPositionX();
+    rect.right=GetPositionX() + GetWidth();
+    rect.bottom=GetPositionY() + GetHeight();
+
+    AdjustWindowRectEx( &rect, WIN32_WINDOWS_STYLE, false, WIN32_WINDOWS_EX_STYLE );
+
+    GRAPHIC_RENDERER::GetInstance().Resize( width, height );
 }

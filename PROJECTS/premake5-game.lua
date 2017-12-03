@@ -1,10 +1,10 @@
 -- premake5.lua
 workspace "XSGameEngine"
-	configurations { "Debug-VK", "Release-VK", "Debug-DX12", "Release-DX12", "Debug-GL4", "Release-GL4", "Debug-GLES2", "Release-GLES2", "ResourceBuilder", "unit-test" }
+	configurations { "Debug-DX12", "Release-DX12", "Debug-GL4", "Release-GL4", "Debug-GLES2", "Release-GLES2", "ResourceBuilder", "unit-test" }
 	platforms { "Win32" }
 
-project "EngineLib"
-	kind "StaticLib"
+project "XSGameEngine"
+	kind "WindowedApp"
 	language "C++"
 	targetdir "bin/%{cfg.buildcfg}"
 	libdirs { "libs", "../mylibs" }
@@ -12,24 +12,26 @@ project "EngineLib"
 	defines { "__X_APP__" }
 
 	files {
+		"XCODE/GAME-ENGINE/**.h",
+		"XCODE/GAME-ENGINE/**.cpp",
 		"../CODE/**.h",
 		"../CODE/**.hpp",
 		"../CODE/**.cpp",
 		"../CODE/**.c" }
 	
-	links { "libpng16", "liblua", "libuv", "zlib", "LinearMath", "Bullet3Collision", "Bullet3Common", "Bullet3Geometry", "Bullet3Dynamics", "BulletCollision", "BulletDynamics", "BulletInverseDynamics", "BulletInverseDynamicsUtils", "BulletSoftBody" }
+	links { "libpng16", "liblua", "libuv", "zlib" }
 	
 	filter { "platforms:Win32" }
 		system "Windows"
 		architecture "x86"
 		flags { "Maps", "MultiProcessorCompile", "NoImplicitLink", "NoImportLib", "NoIncrementalLink", "NoManifest", "NoRuntimeChecks", "WinMain" }
-		defines { "__PLATFORM_WINDOWS__", "__AUDIO_OPENAL__", "_USE_MATH_DEFINES", "WIN32", "_WINDOWS", "__BULLET_PHYSICS__" }
+		defines { "__PLATFORM_WINDOWS__", "__AUDIO_OPENAL__", "_USE_MATH_DEFINES", "WIN32", "_WINDOWS" }
 		links { "OpenAL32", "kernel32", "Userenv", "EFX-Util", "freetype262", "ws2_32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32", "oleaut32","uuid", "odbc32", "odbccp32", "Iphlpapi", "Psapi" }
-		removefiles { "../CODE/**/*_OSX.h", "../CODE/**/*_LINUX.*", "../CODE/**/*_IOS.*", "../CODE/**/*_POSIX.*", "../CODE/TOOLS/MATH_TOOLBOX/**.*", "../CODE/TOOLS/FONT_EDITOR/**.*", "../CODE/TOOLS/ASSET_COMPILER/**.*", "../CODE/**/*OPENSL*",  "../CODE/**/*ANDROID*" }
+		removefiles { "../CODE/**/*_OSX.h", "../CODE/**/*_LINUX.*", "../CODE/**/*_IOS.*", "../CODE/**/*_POSIX.*", "../CODE/TOOLS/**.*", "../CODE/**/*OPENSL*",  "../CODE/**/*ANDROID*" }
 		includedirs {
 			"../CODE/**",
-			"../LIBRARY/COMMON/BULLET/src/**",
-			"../LIBRARY/COMMON/BULLET/src",
+			"XCODE/GAME-ENGINE",
+			"XCODE/GAME-ENGINE/**",
 			"../LIBRARY/WINDOWS/INCLUDES/LUA",
 			"../LIBRARY/WINDOWS/INCLUDES/PNG",
 			"../LIBRARY/WINDOWS/INCLUDES/UV",
@@ -37,6 +39,9 @@ project "EngineLib"
 			"../LIBRARY/WINDOWS/INCLUDES/OPENAL",
 			"../LIBRARY/WINDOWS/INCLUDES/FREETYPE"
 			}
+		files {
+			"VISUAL2015/GameEngineWindows/GameEngineWindows/GameEngineWindows.cpp",
+			"VISUAL2015/GameEngineWindows/GameEngineWindows/GameEngineWindows.h" }
 			
 	filter { "platforms:Win32", "configurations:*GL4" }
 		defines { "GL_GLEXT_PROTOTYPES", "GLEW_STATIC" }

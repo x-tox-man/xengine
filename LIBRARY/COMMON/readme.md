@@ -1,5 +1,5 @@
 LIB BULLET	: https://github.com/bulletphysics/bullet3
-	Release : 2.86 - a230c941f9ba7d5c170380cb21b5df92e5f52429
+	Release : 2.87 - 6e4707df5fa1f9927109e89a7cd2a6d6a6ddd072
 
 LIB PNG		: https://github.com/glennrp/libpng
 	Release : v1.6.28 - 5756fcab2f6cefcba285dac4f080bcc4f4fef42c

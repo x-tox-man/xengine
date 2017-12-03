@@ -1,8 +1,12 @@
 .DS_Store
+.DS_Store/
+*.DS_Store/
 CODE/HEADERS/
 armv7armv7sarm64/
 *.sdf
 *.suo
+*.vs/
+.vs/
 bin/
 obj/
 BUILDIR/

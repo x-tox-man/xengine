@@ -1,6 +1,5 @@
 #pragma once
 
-#include "resource.h"
 #include "GRAPHIC_MATERIAL_RESOURCE_LOADER.h"
 #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 #include "GRAPHIC_TEXTURE_BLOCK.h"

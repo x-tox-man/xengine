@@ -13,7 +13,9 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM.h"
 #include "GRAPHIC_RENDERER.h"
 #include "CORE_HELPERS_UNIQUE.h"
-#include "TOOL_BULLET_GL_DEBUGGER.h"
+#ifndef PLATFORM_WINDOWS
+    #include "TOOL_BULLET_GL_DEBUGGER.h"
+#endif
 
 #ifdef __BULLET_PHYSICS__
     #include "btBulletDynamicsCommon.h"
@@ -63,7 +65,7 @@ private :
     btNearCallback
         * NearCallback;
 
-    #if DEBUG
+    #if DEBUG && !defined(PLATFORM_WINDOWS)
         TOOL_BULLET_GL_DEBUGGER
             Debugger;
     #endif

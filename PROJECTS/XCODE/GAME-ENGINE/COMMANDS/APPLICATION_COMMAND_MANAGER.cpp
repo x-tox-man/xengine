@@ -58,7 +58,7 @@ void APPLICATION_COMMAND_MANAGER::OnTimelineEventAdded( CORE_TIMELINE_EVENT * ev
     
     stream.Open();
     
-    XS_CLASS_SERIALIZER< CORE_TIMELINE_EVENT, CORE_DATA_STREAM  >::Serialize< std::true_type >( *event, stream );
+    XS_CLASS_SERIALIZER< CORE_TIMELINE_EVENT, CORE_DATA_STREAM  >::Serialize< std::true_type >( "event", *event, stream );
     
     stream.Close();
     stream.ResetOffset();
