@@ -15,19 +15,21 @@ project "Run3d"
 		"../../CODE/**.h",
 		"../../CODE/**.cpp" }
 	
-	links { "libpng16", "liblua", "libuv", "zlib", "EngineLib" }
+	links { "libpng16", "liblua", "libuv", "zlib", "LinearMath", "EngineLib", "Bullet3Collision", "Bullet3Common", "Bullet3Geometry", "Bullet3Dynamics", "BulletCollision", "BulletDynamics", "BulletInverseDynamics", "BulletInverseDynamicsUtils", "BulletSoftBody" }
 	
 	filter { "platforms:Win32" }
 		system "Windows"
 		architecture "x86"
 		flags { "Maps", "MultiProcessorCompile", "NoImplicitLink", "NoImportLib", "NoIncrementalLink", "NoManifest", "NoRuntimeChecks", "WinMain" }
-		defines { "__PLATFORM_WINDOWS__", "__AUDIO_OPENAL__", "_USE_MATH_DEFINES", "WIN32", "_WINDOWS" }
+		defines { "__PLATFORM_WINDOWS__", "__AUDIO_OPENAL__", "_USE_MATH_DEFINES", "WIN32", "_WINDOWS", "__BULLET_PHYSICS__" }
 		links { "OpenAL32", "kernel32", "Userenv", "EFX-Util", "freetype262", "ws2_32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32", "oleaut32","uuid", "odbc32", "odbccp32", "Iphlpapi", "Psapi" }
 		removefiles { "../../../../../CODE/**/*_OSX.h", "../../../../../CODE/**/*_LINUX.*", "../../../../../CODE/**/*_IOS.*", "../../../../../CODE/**/*_POSIX.*", "../../../../../CODE/TOOLS/**.*", "../../../../../CODE/**/*OPENSL*",  "../../../../../CODE/**/*ANDROID*" }
 		includedirs {
 			"../../../../../CODE/**",
 			"../../CODE",
 			"../../CODE/**",
+			"../../../../../LIBRARY/COMMON/BULLET/src/**",
+			"../../../../../LIBRARY/COMMON/BULLET/src",
 			"../../../../../LIBRARY/WINDOWS/INCLUDES/LUA",
 			"../../../../../LIBRARY/WINDOWS/INCLUDES/PNG",
 			"../../../../../LIBRARY/WINDOWS/INCLUDES/UV",
@@ -50,9 +52,9 @@ project "Run3d"
 		defines {  }
 		links {  }
 	filter { "platforms:Win32", "configurations:Debug*" }
-		libdirs { "../LIBRARY/WINDOWS/DEBUG" }
+		libdirs { "../../../../../LIBRARY/WINDOWS/DEBUG" }
 	filter { "platforms:Win32", "configurations:Release*" }
-		libdirs { "../LIBRARY/WINDOWS/RELEASE" }
+		libdirs { "../../../../../LIBRARY/WINDOWS/RELEASE" }
 		
 	filter { "platforms:macosx", "configurations:Debug*" }
 		libdirs { "../LIBRARY/OSX/DEBUG" }
@@ -76,21 +78,21 @@ project "Run3d"
 		removefiles { "**WINDOWS*", "**OSX*", "**IOS*" }
 	
 	filter "configurations:*GL4"
-		removefiles { "../CODE/**/*DX12*", "../CODE/**/*GLES*", "../CODE/**/*OES2*" }
+		removefiles { "../../../../../CODE/**/*DX12*", "../../../../../CODE/**/*GLES*", "../../../../../CODE/**/*OES2*" }
 		defines { "OPENGL4=1" }
 		
 	filter "configurations:*GLES2"
-		removefiles { "../CODE/**/*DX12*", "../CODE/**/*GL2*", "../CODE/**/*GL3*", "../CODE/**/*GL4*" }
+		removefiles { ".../../../../../CODE/**/*DX12*", "../../../../../CODE/**/*GL2*", "../../../../../CODE/**/*GL3*", "../../../../../CODE/**/*GL4*" }
 		defines { "OPENGLES2=1" }
 		
 	filter "configurations:*DX12"
-		removefiles { "../CODE/**/*GLES*", "../CODE/**/*GL2*", "../CODE/**/*GL3*", "../CODE/**/*GL4*" }
+		removefiles { "../../../../../CODE/**/*GLES*", "../../../../../CODE/**/*GL2*", "../../../../../CODE/**/*GL3*", "../../../../../CODE/**/*GL4*" }
 		defines { "DIRECTX12=1" }
 
 	filter "configurations:Debug*"
 		defines { "DEBUG", "_DEBUG" }
 		flags { "Symbols" }
-		removefiles { "../CODE/**/*COLLADA*.*" }
+		removefiles { "../../../../../CODE/**/*COLLADA*.*" }
 
 	filter "configurations:Release*"
 		defines { "NDEBUG" }

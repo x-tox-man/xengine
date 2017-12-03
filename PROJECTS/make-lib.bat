@@ -1,1 +1,1 @@
-..\TOOLS\WINDOWS\premake5.exe vs2015 
+..\TOOLS\WINDOWS\premake5.exe vs2017 

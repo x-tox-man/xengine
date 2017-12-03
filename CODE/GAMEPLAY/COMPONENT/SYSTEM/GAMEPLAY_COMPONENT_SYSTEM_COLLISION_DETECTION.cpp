@@ -17,7 +17,7 @@ GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::GAMEPLAY_COMPONENT_SYSTEM_COLLISI
 #ifdef __BULLET_PHYSICS__
     ,DynamicsWorld( NULL )
     ,NearCallback( NULL )
-    #if DEBUG
+    #if DEBUG  && !defined(PLATFORM_WINDOWS)
         ,Debugger()
     #endif
 #endif
@@ -61,7 +61,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         
         DynamicsWorld->setGravity(btVector3(0.0f, 0.0f, Gravity));
     
-        #if DEBUG
+        #if DEBUG  && !defined(PLATFORM_WINDOWS)
             Debugger.Initialize();
             Debugger.setDebugMode(btIDebugDraw::DBG_DrawWireframe); // so does this
     

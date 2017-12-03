@@ -278,7 +278,7 @@ btTriangleMesh * GAMEPLAY_COMPONENT_PHYSICS::CreateBvhTriangleMesh( GRAPHIC_OBJE
             float y3 = vertex_ptr[(indice_ptr[j + 2] * stride ) + 1];
             float z3 = vertex_ptr[(indice_ptr[j + 2] * stride ) + 2];
             
-            CORE_MATH_VECTOR
+            const CORE_MATH_VECTOR
             p1( x1, y1, z1, 1.0f ),
             p2( x2, y2, z2, 1.0f ),
             p3( x3, y3, z3, 1.0f );

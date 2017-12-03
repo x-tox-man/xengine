@@ -46,6 +46,25 @@ void XSscanf( char * string_stream, const char * name, __TYPE__ ** value, int & 
     abort();
 }
 
+template<> void XSPrintf<bool>( char * string_stream, const char * name, bool & value );
+template<> void XSPrintf<double>( char * string_stream, const char * name, double & value );
+template<> void XSPrintf<float>( char * string_stream, const char * name, float & value );
+template<> void XSPrintf<int>( char * string_stream, const char * name, int & value );
+template<> void XSPrintf<char>( char * string_stream, const char * name, char & value );
+template<> void XSPrintf<char>( char * string_stream, const char * name, char * & value );
+template<> void XSPrintf<char>( char * string_stream, const char * name, char ** value );
+template<> void XSPrintf<unsigned int>( char * string_stream, const char * name, unsigned int & value );
+template<> void XSPrintf<SCALAR>( char * string_stream, const char * name, SCALAR & value );
+template<> void XSscanf<bool>( char * string_stream, const char * name, bool & value, int & string_size );
+template<> void XSscanf<double>( char * string_stream, const char * name, double & value, int & string_size );
+template<> void XSscanf<float>( char * string_stream, const char * name, float & value, int & string_size );
+template<> void XSscanf<int>( char * string_stream, const char * name, int & value, int & string_size );
+template<> void XSscanf<char>( char * string_stream, const char * name, char & value, int & string_size );
+template<> void XSscanf<char>( char * string_stream, const char * name, char ** value, int & string_size );
+template<> void XSscanf<char>( char * string_stream, const char * name, char * & value, int & string_size );
+template<> void XSscanf<unsigned int>( char * string_stream, const char * name, unsigned int & value, int & string_size );
+template<> void XSscanf<SCALAR>( char * string_stream, const char * name, SCALAR & value, int & string_size );
+
 XS_CLASS_BEGIN( CORE_DATA_JSON )
 
     CORE_DATA_JSON();

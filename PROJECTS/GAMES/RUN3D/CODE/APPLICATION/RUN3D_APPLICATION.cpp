@@ -31,8 +31,7 @@ RUN3D_APPLICATION::RUN3D_APPLICATION() :
     #elif PLATFORM_ANDROID
         DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_WINDOWS
-        abort();
-        DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\game-engine-clean\\RESOURCES\\" );
+        DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\xengine\\RESOURCES\\" );
     #endif
     
     CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );

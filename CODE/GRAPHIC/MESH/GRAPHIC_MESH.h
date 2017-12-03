@@ -72,6 +72,7 @@ public:
     inline GRAPHIC_SHADER_BIND & GetVertexComponent() { return VertexComponent; }
     inline void SetPolygonRenderMode( const GRAPHIC_MESH_POLYGON_RENDER_MODE mode ) { PolygonRenderMode = mode; }
     inline CORE_MATH_MATRIX & GetTransform() { return Transform; }
+    inline const CORE_MATH_MATRIX & GetTransform() const { return Transform; }
     inline void SetTransform( const CORE_MATH_MATRIX & matrix ) { Transform = matrix; }
 
     inline const CORE_MATH_SHAPE & GetBoundingShape() const { return BoundingShape; }
