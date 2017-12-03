@@ -9,13 +9,16 @@
 #include <math.h>
 
 #include "GRAPHIC_OBJECT.h"
-#include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 #include "GRAPHIC_MESH.h"
 #include "GRAPHIC_SHADER_PROGRAM.h"
 #include "CORE_MATH_MATRIX.h"
 #include "CORE_HELPERS_SCALAR.h"
 #include "CORE_MATH_MATRIX.h"
+#include "GRAPHIC_MATERIAL_RESOURCE_LOADER.h"
 #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
+#include "GRAPHIC_TEXTURE_BLOCK.h"
+#include "GRAPHIC_SHADER_EFFECT.h"
+#include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "CORE_DATA_STREAM.h"
 #include "CORE_DATA_JSON.h"
 

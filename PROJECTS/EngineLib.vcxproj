@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug-VK|Win32">
+      <Configuration>Debug-VK</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-VK|Win32">
+      <Configuration>Release-VK</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug-DX12|Win32">
       <Configuration>Debug-DX12</Configuration>
       <Platform>Win32</Platform>
@@ -35,62 +43,80 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8012254B-6C75-B4EF-15FB-ECA5013D8072}</ProjectGuid>
+    <ProjectGuid>{32CF8BD1-9E39-4048-E777-F1ED53211E9D}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>XSGameEngine</RootNamespace>
+    <RootNamespace>EngineLib</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DX12|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DX12|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-GL4|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-GL4|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-GLES2|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-GLES2|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ResourceBuilder|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='unit-test|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug-DX12|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -117,77 +143,83 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">
+    <OutDir>bin\Debug-VK\</OutDir>
+    <IntDir>obj\Win32\Debug-VK\</IntDir>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">
+    <OutDir>bin\Release-VK\</OutDir>
+    <IntDir>obj\Win32\Release-VK\</IntDir>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DX12|Win32'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>bin\Debug-DX12\</OutDir>
     <IntDir>obj\Win32\Debug-DX12\</IntDir>
-    <TargetName>XSGameEngine</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DX12|Win32'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>bin\Release-DX12\</OutDir>
     <IntDir>obj\Win32\Release-DX12\</IntDir>
-    <TargetName>XSGameEngine</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-GL4|Win32'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>bin\Debug-GL4\</OutDir>
     <IntDir>obj\Win32\Debug-GL4\</IntDir>
-    <TargetName>XSGameEngine</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-GL4|Win32'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>bin\Release-GL4\</OutDir>
     <IntDir>obj\Win32\Release-GL4\</IntDir>
-    <TargetName>XSGameEngine</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-GLES2|Win32'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>bin\Debug-GLES2\</OutDir>
     <IntDir>obj\Win32\Debug-GLES2\</IntDir>
-    <TargetName>XSGameEngine</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-GLES2|Win32'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>bin\Release-GLES2\</OutDir>
     <IntDir>obj\Win32\Release-GLES2\</IntDir>
-    <TargetName>XSGameEngine</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ResourceBuilder|Win32'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>bin\ResourceBuilder\</OutDir>
     <IntDir>obj\Win32\ResourceBuilder\</IntDir>
-    <TargetName>XSGameEngine</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='unit-test|Win32'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>bin\unit-test\</OutDir>
     <IntDir>obj\Win32\unit-test\</IntDir>
-    <TargetName>XSGameEngine</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <TargetName>EngineLib</TargetName>
+    <TargetExt>.lib</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DX12|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;DIRECTX12=1;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;XCODE\GAME-ENGINE\Base.lproj;XCODE\GAME-ENGINE\COMMANDS;XCODE\GAME-ENGINE\en.lproj;XCODE\GAME-ENGINE\GAME;XCODE\GAME-ENGINE\Images.xcassets;XCODE\GAME-ENGINE\SCREENS;XCODE\GAME-ENGINE\SERVER;XCODE\GAME-ENGINE\GAME\NETWORK;XCODE\GAME-ENGINE\GAME\PLAYER;XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER;XCODE\GAME-ENGINE\Images.xcassets\AppIcon.appiconset;XCODE\GAME-ENGINE\SCREENS\HELPERS;XCODE\GAME-ENGINE\SCREENS\NAVIGATION;XCODE\GAME-ENGINE\SCREENS\PRESENTER;XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -197,11 +229,64 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
       <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs;..\mylibs;..\LIBRARY\WINDOWS\DEBUG;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
-      <GenerateMapFile>true</GenerateMapFile>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>libs;..\mylibs;..\LIBRARY\WINDOWS\RELEASE;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DX12|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;DIRECTX12=1;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>libs;..\mylibs;..\LIBRARY\WINDOWS\DEBUG;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
@@ -212,7 +297,7 @@
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;DIRECTX12=1;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;XCODE\GAME-ENGINE\Base.lproj;XCODE\GAME-ENGINE\COMMANDS;XCODE\GAME-ENGINE\en.lproj;XCODE\GAME-ENGINE\GAME;XCODE\GAME-ENGINE\Images.xcassets;XCODE\GAME-ENGINE\SCREENS;XCODE\GAME-ENGINE\SERVER;XCODE\GAME-ENGINE\GAME\NETWORK;XCODE\GAME-ENGINE\GAME\PLAYER;XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER;XCODE\GAME-ENGINE\Images.xcassets\AppIcon.appiconset;XCODE\GAME-ENGINE\SCREENS\HELPERS;XCODE\GAME-ENGINE\SCREENS\NAVIGATION;XCODE\GAME-ENGINE\SCREENS\PRESENTER;XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -225,11 +310,11 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
       <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs;..\mylibs;..\LIBRARY\WINDOWS\RELEASE;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
-      <GenerateMapFile>true</GenerateMapFile>
-    </Link>
+    </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
@@ -240,7 +325,7 @@
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;GL_GLEXT_PROTOTYPES;GLEW_STATIC;OPENGL4=1;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;XCODE\GAME-ENGINE\Base.lproj;XCODE\GAME-ENGINE\COMMANDS;XCODE\GAME-ENGINE\en.lproj;XCODE\GAME-ENGINE\GAME;XCODE\GAME-ENGINE\Images.xcassets;XCODE\GAME-ENGINE\SCREENS;XCODE\GAME-ENGINE\SERVER;XCODE\GAME-ENGINE\GAME\NETWORK;XCODE\GAME-ENGINE\GAME\PLAYER;XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER;XCODE\GAME-ENGINE\Images.xcassets\AppIcon.appiconset;XCODE\GAME-ENGINE\SCREENS\HELPERS;XCODE\GAME-ENGINE\SCREENS\NAVIGATION;XCODE\GAME-ENGINE\SCREENS\PRESENTER;XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;..\LIBRARY\WINDOWS\INCLUDES\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;..\LIBRARY\WINDOWS\INCLUDES\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -250,11 +335,11 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
       <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;OpenGL32.lib;glew32s.lib;glew32.lib;GlU32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs;..\mylibs;..\LIBRARY\WINDOWS\DEBUG;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
-      <GenerateMapFile>true</GenerateMapFile>
-    </Link>
+    </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
@@ -265,7 +350,7 @@
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;GL_GLEXT_PROTOTYPES;GLEW_STATIC;OPENGL4=1;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;XCODE\GAME-ENGINE\Base.lproj;XCODE\GAME-ENGINE\COMMANDS;XCODE\GAME-ENGINE\en.lproj;XCODE\GAME-ENGINE\GAME;XCODE\GAME-ENGINE\Images.xcassets;XCODE\GAME-ENGINE\SCREENS;XCODE\GAME-ENGINE\SERVER;XCODE\GAME-ENGINE\GAME\NETWORK;XCODE\GAME-ENGINE\GAME\PLAYER;XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER;XCODE\GAME-ENGINE\Images.xcassets\AppIcon.appiconset;XCODE\GAME-ENGINE\SCREENS\HELPERS;XCODE\GAME-ENGINE\SCREENS\NAVIGATION;XCODE\GAME-ENGINE\SCREENS\PRESENTER;XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;..\LIBRARY\WINDOWS\INCLUDES\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;..\LIBRARY\WINDOWS\INCLUDES\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -278,11 +363,11 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
       <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;OpenGL32.lib;glew32s.lib;glew32.lib;GlU32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs;..\mylibs;..\LIBRARY\WINDOWS\RELEASE;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
-      <GenerateMapFile>true</GenerateMapFile>
-    </Link>
+    </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
@@ -293,7 +378,7 @@
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;OPENGLES2=1;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;XCODE\GAME-ENGINE\Base.lproj;XCODE\GAME-ENGINE\COMMANDS;XCODE\GAME-ENGINE\en.lproj;XCODE\GAME-ENGINE\GAME;XCODE\GAME-ENGINE\Images.xcassets;XCODE\GAME-ENGINE\SCREENS;XCODE\GAME-ENGINE\SERVER;XCODE\GAME-ENGINE\GAME\NETWORK;XCODE\GAME-ENGINE\GAME\PLAYER;XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER;XCODE\GAME-ENGINE\Images.xcassets\AppIcon.appiconset;XCODE\GAME-ENGINE\SCREENS\HELPERS;XCODE\GAME-ENGINE\SCREENS\NAVIGATION;XCODE\GAME-ENGINE\SCREENS\PRESENTER;XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -303,11 +388,11 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
       <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs;..\mylibs;..\LIBRARY\WINDOWS\DEBUG;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
-      <GenerateMapFile>true</GenerateMapFile>
-    </Link>
+    </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
@@ -318,7 +403,7 @@
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;OPENGLES2=1;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;XCODE\GAME-ENGINE\Base.lproj;XCODE\GAME-ENGINE\COMMANDS;XCODE\GAME-ENGINE\en.lproj;XCODE\GAME-ENGINE\GAME;XCODE\GAME-ENGINE\Images.xcassets;XCODE\GAME-ENGINE\SCREENS;XCODE\GAME-ENGINE\SERVER;XCODE\GAME-ENGINE\GAME\NETWORK;XCODE\GAME-ENGINE\GAME\PLAYER;XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER;XCODE\GAME-ENGINE\Images.xcassets\AppIcon.appiconset;XCODE\GAME-ENGINE\SCREENS\HELPERS;XCODE\GAME-ENGINE\SCREENS\NAVIGATION;XCODE\GAME-ENGINE\SCREENS\PRESENTER;XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -331,11 +416,11 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
       <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs;..\mylibs;..\LIBRARY\WINDOWS\RELEASE;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
-      <GenerateMapFile>true</GenerateMapFile>
-    </Link>
+    </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
@@ -346,7 +431,7 @@
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;XCODE\GAME-ENGINE\Base.lproj;XCODE\GAME-ENGINE\COMMANDS;XCODE\GAME-ENGINE\en.lproj;XCODE\GAME-ENGINE\GAME;XCODE\GAME-ENGINE\Images.xcassets;XCODE\GAME-ENGINE\SCREENS;XCODE\GAME-ENGINE\SERVER;XCODE\GAME-ENGINE\GAME\NETWORK;XCODE\GAME-ENGINE\GAME\PLAYER;XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER;XCODE\GAME-ENGINE\Images.xcassets\AppIcon.appiconset;XCODE\GAME-ENGINE\SCREENS\HELPERS;XCODE\GAME-ENGINE\SCREENS\NAVIGATION;XCODE\GAME-ENGINE\SCREENS\PRESENTER;XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -354,11 +439,11 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+    </Link>
+    <Lib>
       <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs;..\mylibs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
-      <GenerateMapFile>true</GenerateMapFile>
-    </Link>
+    </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
@@ -369,7 +454,7 @@
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;XCODE\GAME-ENGINE\Base.lproj;XCODE\GAME-ENGINE\COMMANDS;XCODE\GAME-ENGINE\en.lproj;XCODE\GAME-ENGINE\GAME;XCODE\GAME-ENGINE\Images.xcassets;XCODE\GAME-ENGINE\SCREENS;XCODE\GAME-ENGINE\SERVER;XCODE\GAME-ENGINE\GAME\NETWORK;XCODE\GAME-ENGINE\GAME\PLAYER;XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER;XCODE\GAME-ENGINE\Images.xcassets\AppIcon.appiconset;XCODE\GAME-ENGINE\SCREENS\HELPERS;XCODE\GAME-ENGINE\SCREENS\NAVIGATION;XCODE\GAME-ENGINE\SCREENS\PRESENTER;XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\CLIENT;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -377,11 +462,11 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+    </Link>
+    <Lib>
       <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs;..\mylibs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
-      <GenerateMapFile>true</GenerateMapFile>
-    </Link>
+    </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
@@ -648,47 +733,6 @@
     <ClInclude Include="..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_CONNECTION_INFO.h" />
     <ClInclude Include="..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_CONNECTION_TYPE.h" />
     <ClInclude Include="..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_SYSTEM.h" />
-    <ClInclude Include="VISUAL2015\GameEngineWindows\GameEngineWindows\GameEngineWindows.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\APPLICATION_NETWORK_REMOTE_SERVER_INFO.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\AppDelegate.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\Application.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\ApplicationSoundBank.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_COMMAND.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_COMMAND_MANAGER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\GAME\GAME.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\GAME\NETWORK\NETWORK_GAME.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER\NETWORK_GAME_PLAYER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\GAME\PLAYER\GAME_PLAYER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\GLOBAL_RESOURCES.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\NETWORK_GAME_INFO.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_GAME_HUD.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_LOADER_SCREEN.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_MAIN_WINDOW.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_MULTIPLAYER_GAME_CONFIGURATION.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_NETWORK_BROWSER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_NETWORK_GAME_CONFIGURATION.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_OPTION_WINDOW.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\HELPERS\MULTIPLAYER_GAME_LAUNCH_VALIDATOR.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\NAVIGATION\APPLICATION_SCREENS_NAVIGATION.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\NETWORK_BROWSER_LIST_ADAPTER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\NETWORK_GAME_PLAYER_CELL.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\NETWORK_GAME_PLAYER_LIST_ADAPTER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\NETWORK_PLAYER_LOBBY_CELL.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_CLIENT_PRESENTER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_HUD_PRESENTER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_MULTIPLAYER_HUD_PRESENTER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_SERVER_PRESENTER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_SINGLEPLAYER_HUD_PRESENTER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW\MAIN_MENU_WINDOW_PRESENTER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SERVER\NETWORK_CLIENT.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SERVER\NETWORK_CLIENT_DELEGATE.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SERVER\NETWORK_PLAYER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SERVER\NETWORK_SERVER.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\SERVER\NETWORK_SERVER_INFO.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\ScriptEntity.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\TestClass.h" />
-    <ClInclude Include="XCODE\GAME-ENGINE\TestClass2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\CODE\AUDIO\AUDIO_INTERFACE.cpp" />
@@ -919,6 +963,7 @@
     <ClCompile Include="..\CODE\RESOURCE\IMAGE\RESOURCE_IMAGE.cpp" />
     <ClCompile Include="..\CODE\RESOURCE\IMAGE\RESOURCE_IMAGE_ATLAS_COMPILER.cpp" />
     <ClCompile Include="..\CODE\RESOURCE\MESH\GRAPHIC_MESH_LOADER_COLLADA.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DX12|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-GL4|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-GLES2|Win32'">true</ExcludedFromBuild>
@@ -940,66 +985,6 @@
     <ClCompile Include="..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_CONNECTION.cpp" />
     <ClCompile Include="..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_CONNECTION_INFO.cpp" />
     <ClCompile Include="..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_SYSTEM.cpp" />
-    <ClCompile Include="VISUAL2015\GameEngineWindows\GameEngineWindows\GameEngineWindows.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\Application.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\ApplicationSoundBank.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_COMMAND.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_COMMAND_MANAGER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_GAMEPLAY_COMMAND_ACTION_FIRE.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE_ENTITY.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_GAMEPLAY_COMMAND_GAME_STARTING.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_GAMEPLAY_COMMAND_LOAD_GAME.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_GAMEPLAY_COMMAND_ORDER_ATTACK.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_GAMEPLAY_COMMAND_ORDER_BUILD.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_GAMEPLAY_COMMAND_ORDER_MOVE.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_NETWORK_COMMAND_CLIENT_ACCEPTED.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_NETWORK_COMMAND_CLIENT_CONNECTED.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_NETWORK_COMMAND_CLIENT_QUIT.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_NETWORK_COMMAND_CLIENT_READY.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\COMMANDS\APPLICATION_NETWORK_COMMAND_CLIENT_REJECTED.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\GAME\GAME.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\GAME\NETWORK\NETWORK_GAME.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\GAME\NETWORK\PLAYER\NETWORK_GAME_PLAYER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\GAME\PLAYER\GAME_PLAYER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\GLOBAL_RESOURCES.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\NETWORK_GAME_INFO.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\NETWORK_SERVER_INFO.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_GAME_HUD.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_LOADER_SCREEN.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_MAIN_WINDOW.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_MULTIPLAYER_GAME_CONFIGURATION.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_NETWORK_BROWSER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_NETWORK_GAME_CONFIGURATION.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\APPLICATION_OPTION_WINDOW.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\HELPERS\MULTIPLAYER_GAME_LAUNCH_VALIDATOR.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\NAVIGATION\APPLICATION_SCREENS_NAVIGATION.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\NETWORK_BROWSER_LIST_ADAPTER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\NETWORK_GAME_PLAYER_CELL.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\NETWORK_GAME_PLAYER_LIST_ADAPTER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\NETWORK_PLAYER_LOBBY_CELL.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_CLIENT_PRESENTER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_HUD_PRESENTER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_MULTIPLAYER_GAME_CONFIGURATION_PRESENTER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_MULTIPLAYER_HUD_PRESENTER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_SERVER_PRESENTER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\APPLICATION_SINGLEPLAYER_HUD_PRESENTER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SCREENS\PRESENTER\MAIN_MENU_WINDOW\MAIN_MENU_WINDOW_PRESENTER.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\SERVER\NETWORK_CLIENT.cpp">
-      <ObjectFileName>$(IntDir)\NETWORK_CLIENT1.obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="XCODE\GAME-ENGINE\SERVER\NETWORK_PLAYER.cpp">
-      <ObjectFileName>$(IntDir)\NETWORK_PLAYER1.obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="XCODE\GAME-ENGINE\SERVER\NETWORK_SERVER.cpp">
-      <ObjectFileName>$(IntDir)\NETWORK_SERVER1.obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="XCODE\GAME-ENGINE\SERVER\NETWORK_SERVER_INFO.cpp">
-      <ObjectFileName>$(IntDir)\NETWORK_SERVER_INFO1.obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="XCODE\GAME-ENGINE\ScriptEntity.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\TestClass.cpp" />
-    <ClCompile Include="XCODE\GAME-ENGINE\TestClass2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

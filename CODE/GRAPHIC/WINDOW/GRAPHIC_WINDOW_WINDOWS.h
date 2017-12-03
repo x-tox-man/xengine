@@ -17,15 +17,18 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_WINDOWS, GRAPHIC_WINDOW )
 
-GRAPHIC_WINDOW_WINDOWS();
-~GRAPHIC_WINDOW_WINDOWS();
+    GRAPHIC_WINDOW_WINDOWS();
+    ~GRAPHIC_WINDOW_WINDOWS();
 
-virtual void Initialize();
-void Display();
+    virtual void Initialize();
+    void Display();
 
-void SetHInstance( HINSTANCE h_instance ) { hInstance = h_instance; }
-void SetCommandLine( LPWSTR command_line ) { lpCmdLine = command_line; }
-void SetCommandShow( int show_cmd ) { nCmdShow = show_cmd; }
+    void SetHInstance( HINSTANCE h_instance ) { hInstance = h_instance; }
+    void SetCommandLine( LPWSTR command_line ) { lpCmdLine = command_line; }
+    void SetCommandShow( int show_cmd ) { nCmdShow = show_cmd; }
+
+    virtual void Resize( int width, int height ) override;
+    virtual void EnableBackgroundContext( bool enable ) override;
 
 private :
 

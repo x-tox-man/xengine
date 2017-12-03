@@ -35,10 +35,10 @@ void GLOBAL_RESOURCES::Initialize( GAMEPLAY_SCENE * scene ) {
     UIPlanObjectColorOnly = new GRAPHIC_OBJECT_SHAPE_PLAN;
     
     ui_textured_shader_effect->Initialize( UIPlanObject->GetShaderBindParameter() );
-    UIPlanObject->InitializeShape( &ui_textured_shader_effect->GetProgram() );
+    UIPlanObject->InitializeShape();
     
     ui_colored_shader_effect->Initialize( UIPlanObjectColorOnly->GetShaderBindParameter() );
-    UIPlanObjectColorOnly->InitializeShape( &ui_colored_shader_effect->GetProgram() );
+    UIPlanObjectColorOnly->InitializeShape();
     
     UIFrameTextureBlock = new GRAPHIC_TEXTURE_BLOCK;
     

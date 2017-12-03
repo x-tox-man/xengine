@@ -1,10 +1,10 @@
 -- premake5.lua
 workspace "XSGameEngine"
-	configurations { "Debug-VK", "Release-VK", "Debug-DX12", "Release-DX12", "Debug-GL4", "Release-GL4", "Debug-GLES2", "Release-GLES2", "ResourceBuilder", "unit-test" }
+	configurations { "Debug-DX12", "Release-DX12", "Debug-GL4", "Release-GL4", "Debug-GLES2", "Release-GLES2", "ResourceBuilder", "unit-test" }
 	platforms { "Win32" }
 
-project "EngineLib"
-	kind "StaticLib"
+project "XSGameEngine"
+	kind "WindowedApp"
 	language "C++"
 	targetdir "bin/%{cfg.buildcfg}"
 	libdirs { "libs", "../mylibs" }
@@ -12,6 +12,8 @@ project "EngineLib"
 	defines { "__X_APP__" }
 
 	files {
+		"XCODE/GAME-ENGINE/**.h",
+		"XCODE/GAME-ENGINE/**.cpp",
 		"../CODE/**.h",
 		"../CODE/**.hpp",
 		"../CODE/**.cpp",
@@ -28,6 +30,8 @@ project "EngineLib"
 		removefiles { "../CODE/**/*_OSX.h", "../CODE/**/*_LINUX.*", "../CODE/**/*_IOS.*", "../CODE/**/*_POSIX.*", "../CODE/TOOLS/**.*", "../CODE/**/*OPENSL*",  "../CODE/**/*ANDROID*" }
 		includedirs {
 			"../CODE/**",
+			"XCODE/GAME-ENGINE",
+			"XCODE/GAME-ENGINE/**",
 			"../LIBRARY/WINDOWS/INCLUDES/LUA",
 			"../LIBRARY/WINDOWS/INCLUDES/PNG",
 			"../LIBRARY/WINDOWS/INCLUDES/UV",
@@ -35,6 +39,9 @@ project "EngineLib"
 			"../LIBRARY/WINDOWS/INCLUDES/OPENAL",
 			"../LIBRARY/WINDOWS/INCLUDES/FREETYPE"
 			}
+		files {
+			"VISUAL2015/GameEngineWindows/GameEngineWindows/GameEngineWindows.cpp",
+			"VISUAL2015/GameEngineWindows/GameEngineWindows/GameEngineWindows.h" }
 			
 	filter { "platforms:Win32", "configurations:*GL4" }
 		defines { "GL_GLEXT_PROTOTYPES", "GLEW_STATIC" }

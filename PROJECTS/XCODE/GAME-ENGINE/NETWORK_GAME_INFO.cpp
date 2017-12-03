@@ -8,6 +8,7 @@
 
 #include "NETWORK_GAME_INFO.h"
 #include "CORE_DATA_TYPES.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( NETWORK_GAME_INFO )
     XS_DEFINE_ClassMemberArray( "GameId", char, (char **) &GameId, (int)strlen( GameId ) )

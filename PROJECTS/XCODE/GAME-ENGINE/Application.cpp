@@ -416,7 +416,7 @@ void MyTestApp::Render() {
             #endif
 
             
-            Game->GetScene()->Render();
+            Game->GetScene()->Render( GRAPHIC_RENDERER::GetInstance()  );
             
             #if PLATFORM_OSX
                 GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( NULL );
@@ -486,9 +486,15 @@ void MyTestApp::Render() {
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
-    GLOBAL_RESOURCES::GetInstance().Line->SetPosition( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game->GetScene()->GetUpdatableSystemTable()[2])->GetRay().GetOrigin() );
-    GLOBAL_RESOURCES::GetInstance().Line->SetTarget( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game->GetScene()->GetUpdatableSystemTable()[2])->GetRay().GetDirection() );
-    GLOBAL_RESOURCES::GetInstance().Line->Render(GRAPHIC_RENDERER::GetInstance());
+    GLOBAL_RESOURCES::GetInstance().Line->SetFrom( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game->GetScene()->GetUpdatableSystemTable()[2])->GetRay().GetOrigin() );
+    GLOBAL_RESOURCES::GetInstance().Line->SetTo( ( ( GAMEPLAY_COMPONENT_SYSTEM_PICKING * ) Game->GetScene()->GetUpdatableSystemTable()[2])->GetRay().GetDirection() );
+
+    GRAPHIC_OBJECT_RENDER_OPTIONS options;
+    options.SetPosition( CORE_MATH_VECTOR() );
+
+    GRAPHIC_SHADER_EFFECT * effect =GRAPHIC_SHADER_EFFECT::GetResourceForIdentifier( CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader" ) );
+
+    GLOBAL_RESOURCES::GetInstance().Line->Render( GRAPHIC_RENDERER::GetInstance(), options, effect );
     
 #if PLATFORM_OSX
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );

@@ -89,9 +89,11 @@ bool AUDIO_LOADER_ReadChunk( AUDIO_SOUND & sound, int chunk_index ) {
                      withChannels:sound.GetChannels()
                          fromFile:(ExtAudioFileRef * ) sound.GetExtAudioFile()];
     #elif PLATFORM_IOS && __AUDIO_OPENAL__
-    
-    #else
+        abort();
+    #elif PLATFORM_ANDROID
         MPG_123_Read( sound , chunk_index);
+    #else
+        abort();
     #endif
     
     return file_is_at_end;
