@@ -1,6 +1,6 @@
 //
 //  RUN3D_APPLICATION.cpp
-//  MULTIPOLY
+//  RUN3D
 //
 //  Created by Christophe Bernard on 19/02/17.
 //  Copyright © 2017 cbe. All rights reserved.
@@ -16,7 +16,7 @@
 #include "R3D_RESOURCES.h"
 #include "btBulletDynamicsCommon.h"
 #include "PHYSICS_COLLISION_FILTER.h"
-#include "R3D_UI_FRAME.h"
+#include "UI_MAIN_MENU.h"
 
 RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
@@ -64,9 +64,8 @@ void RUN3D_APPLICATION::Initialize() {
     
     AUDIO_SYSTEM::GetInstance().GetBank().Load();
     
-    auto frame = new R3D_UI_FRAME;
-    frame->Initialize();
-    GRAPHIC_UI_SYSTEM::GetInstance().RegisterView( frame, "main" );
+    UI_MAIN_MENU & main_window = ( UI_MAIN_MENU & ) GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().InitializeNavigation<UI_MAIN_MENU>("MainWindow");
+    main_window.Initialize();
 }
 
 void RUN3D_APPLICATION::Finalize() {
@@ -111,6 +110,7 @@ void RUN3D_APPLICATION::Update( float time_step ) {
     }
     
     GRAPHIC_UI_SYSTEM::GetInstance().Update( time_step );
+    PERIPHERIC_INTERACTION_SYSTEM::GetInstance().Update();
 }
 
 void RUN3D_APPLICATION::Render() {

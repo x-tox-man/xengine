@@ -1,13 +1,13 @@
 //
-//  MULTIPOLY_APPLICATION.hpp
-//  MULTIPOLY
+//  RUN3D_APPLICATION_hpp
+//  RUN3D
 //
 //  Created by Christophe Bernard on 19/02/17.
 //  Copyright © 2017 cbe. All rights reserved.
 //
 
-#ifndef MULTIPOLY_APPLICATION_hpp
-#define MULTIPOLY_APPLICATION_hpp
+#ifndef RUN3D_APPLICATION_hpp
+#define RUN3D_APPLICATION_hpp
 
 #include "CORE_APPLICATION.h"
 #include "GRAPHIC_RENDERER.h"
@@ -42,6 +42,7 @@
 #include "APPLICATION_CONFIGURATION.h"
 #include "R3D_RENDER.h"
 #include "R3D_GAMEPLAY_GAME.h"
+#include "NETWORK_MANAGER.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
 
@@ -56,6 +57,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
 
     inline CORE_FILESYSTEM & GetDefaultFileystem() { return DefaultFileystem; }
     inline R3D_GAMEPLAY_GAME & GetGame() { return Game; }
+    inline NETWORK_MANAGER & GetNetworkManager() { return NetworkManager; }
+    inline int GetSeed() { return Seed; }
 
     void SetCamera( GRAPHIC_CAMERA::PTR camera );
 
@@ -71,9 +74,13 @@ private :
         GameRenderer;
     R3D_GAMEPLAY_GAME
         Game;
+    NETWORK_MANAGER
+        NetworkManager;
+    int
+        Seed;
 
 XS_CLASS_END
 
 #define R3D_APP_PTR ((RUN3D_APPLICATION *) &RUN3D_APPLICATION::GetApplicationInstance())
 
-#endif /* MULTIPOLY_APPLICATION_hpp */
+#endif /* RUN3D_APPLICATION_hpp */

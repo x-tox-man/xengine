@@ -1,3 +1,4 @@
+
 //
 //  GRAPHIC_UI_SYSTEM.cpp
 //  GAME-ENGINE
@@ -21,7 +22,8 @@ GRAPHIC_UI_SYSTEM::GRAPHIC_UI_SYSTEM() :
     VisibleViewTable(),
     CurrentView( NULL ),
     UISystemLock(),
-    ScreenSize() {
+    ScreenSize(),
+    Navigation() {
     
 }
 
@@ -45,17 +47,17 @@ void GRAPHIC_UI_SYSTEM::Initialize() {
 
 void GRAPHIC_UI_SYSTEM::Update( float time_step ) {
     
+    const CORE_MATH_VECTOR & coordinates = GRAPHIC_UI_SYSTEM::GetInstance().GetScreenMouseCoordinates();
+    
     std::map<CORE_HELPERS_IDENTIFIER, GRAPHIC_UI_FRAME * >::iterator it = VisibleViewTable.begin();
-    std::vector< GRAPHIC_UI_ANIMATION * >::iterator animation_iterator = AnimationTable.begin();
     
     ScreenMouseCoordinates = PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetCenteredCoordinates();
     
     ScreenMouseCoordinates[ 0 ] *= ScreenSize[ 0 ];
     ScreenMouseCoordinates[ 1 ] *= ScreenSize[ 1 ];
     
-    CORE_PARALLEL_LOCK Lock( UISystemLock );
-    
-    const CORE_MATH_VECTOR & coordinates = GRAPHIC_UI_SYSTEM::GetInstance().GetScreenMouseCoordinates();
+    CORE_PARALLEL_LOCK
+        Lock( UISystemLock );
     
     while ( it != VisibleViewTable.end()) {
         
@@ -75,6 +77,8 @@ void GRAPHIC_UI_SYSTEM::Update( float time_step ) {
         
         it++;
     }
+    
+    std::vector< GRAPHIC_UI_ANIMATION * >::iterator animation_iterator = AnimationTable.begin();
     
     while ( animation_iterator != AnimationTable.end() ) {
         

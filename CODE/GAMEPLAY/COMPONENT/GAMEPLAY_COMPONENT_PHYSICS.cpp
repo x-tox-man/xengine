@@ -453,6 +453,19 @@ void GAMEPLAY_COMPONENT_PHYSICS::CreateRigidBody( const GAMEPLAY_COMPONENT_PHYSI
 }
 #endif
 
+void GAMEPLAY_COMPONENT_PHYSICS::Reset() {
+    
+    #ifdef __BULLET_PHYSICS__
+    btVector3 fallInertia(0.0f, 0.0f, 0.0f);
+    
+    SetVelocity( CORE_MATH_VECTOR::Zero );
+    
+    if ( Mass > 0.0f )
+        BulletShape->calculateLocalInertia( Mass, fallInertia);
+    
+    #endif
+}
+
 std::vector< GAMEPLAY_COMPONENT_PHYSICS::INTERNAL_ARRAY_P> * GAMEPLAY_COMPONENT_PHYSICS::InternalVector =  NULL;
 int GAMEPLAY_COMPONENT_PHYSICS::LastIndex = -1;
 int GAMEPLAY_COMPONENT_PHYSICS::LastOffset = -1;

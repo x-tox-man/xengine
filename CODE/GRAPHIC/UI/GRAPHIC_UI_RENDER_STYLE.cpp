@@ -45,7 +45,6 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_
         option.SetPosition( placement.GetAbsolutePosition() );
         option.SetScaleFactor( placement.GetSize() );
         
-        
         Material->GetDiffuse().W( opacity );
         Effect->SetMaterial( Material );
         

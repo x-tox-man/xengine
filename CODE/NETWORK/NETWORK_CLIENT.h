@@ -14,7 +14,7 @@
 #include "SERVICE_NETWORK_LOBBY.h"
 #include "NETWORK_PLAYER.h"
 #include "CORE_TIMELINE.h"
-#include "SERVICE_NETWORK_CLIENT.h"
+#include "SERVICE_NETWORK_LOBBY_CLIENT.h"
 #include "CORE_FIXED_STATE_MACHINE.h"
 #include "CORE_FIXED_STATE_EVENT.h"
 #include "NETWORK_CLIENT_DELEGATE.h"
@@ -113,7 +113,7 @@ XS_CLASS_BEGIN(NETWORK_CLIENT)
 
     inline void SetOnServerStatusCallback( const CORE_HELPERS_CALLBACK_1< SERVICE_NETWORK_COMMAND * > & callback) { OnServerStatusCallback = callback; }
 
-    inline SERVICE_NETWORK_CLIENT * GetClient() { return ClientInstance; }
+    inline SERVICE_NETWORK_LOBBY_CLIENT * GetClient() { return ClientInstance; }
     inline NETWORK_PLAYER & GetCurrentPlayer() { return CurrentPlayer; }
 
 private :
@@ -124,7 +124,7 @@ private :
 
     CORE_HELPERS_CALLBACK_1< SERVICE_NETWORK_COMMAND * >
         OnServerStatusCallback;
-    SERVICE_NETWORK_CLIENT
+    SERVICE_NETWORK_LOBBY_CLIENT
         * ClientInstance;
     std::array< SERVICE_NETWORK_COMMAND *, THIS_GAME_MAX_NETWORK_MESSAG_QUEUE_SIZE>
         IncommingMessageQueue;

@@ -163,7 +163,7 @@ NETWORK_CLIENT::~NETWORK_CLIENT() {
 
 void NETWORK_CLIENT::Initialize() {
 
-    ClientInstance = new SERVICE_NETWORK_CLIENT();
+    ClientInstance = new SERVICE_NETWORK_LOBBY_CLIENT();
     ClientInstance->Initialize();
     
     CORE_FIXED_STATE_InitializeState( StateMachine, NETWORK_CLIENT::INITIAL_STATE, this );

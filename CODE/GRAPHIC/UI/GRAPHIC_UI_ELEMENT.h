@@ -19,6 +19,7 @@
 #include "CORE_HELPERS_CALLBACK.h"
 #include "GRAPHIC_UI_PLACEMENT.h"
 #include "GRAPHIC_UI_ELEMENT_STATE.h"
+#include "GRAPHIC_UI_ELEMENT_EVENT.h"
 #include "GRAPHIC_UI_ELEMENT_SCRIPTED.h"
 #include "CORE_ABSTRACT_PROGRAM_FACTORY.h"
 #include "CORE_ABSTRACT_RUNTIME_LUA.h"
@@ -73,8 +74,8 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
     inline void Hide() { Visible = false; }
 
     inline void SetVisible( bool visible ) { Visible = visible; }
-    void SetActionCallback( CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE > & action_callback );
-    CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT * , GRAPHIC_UI_ELEMENT_STATE > & GetActionCallback() { return ActionCallback; }
+    void SetActionCallback( CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT > & action_callback );
+    CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT * , GRAPHIC_UI_ELEMENT_EVENT > & GetActionCallback() { return ActionCallback; }
 
     inline GRAPHIC_UI_ELEMENT_STATE GetCurrentState() const { return CurrentState; }
 
@@ -85,7 +86,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
 
     virtual void OnPlacementPropertyChanged() {};
 
-    inline void SetTextValue( const char * text) {
+    inline void SetTextValue( const CORE_DATA_UTF8_TEXT & text) {
         
         Adapter->OnTextPropertyChanged( this, text );
     }
@@ -105,7 +106,7 @@ protected:
 
     GRAPHIC_UI_PLACEMENT
         Placement;
-    CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT * , GRAPHIC_UI_ELEMENT_STATE >
+    CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT * , GRAPHIC_UI_ELEMENT_EVENT >
         ActionCallback;
     CORE_HELPERS_CALLBACK_1< const char * >
         OnTextChangedCallback;

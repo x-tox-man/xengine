@@ -39,9 +39,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAM
 
         btDiscreteDynamicsWorld * GetDynamicsWorld() { return DynamicsWorld; }
 
-        inline void SetNearCallback( btNearCallback & callback ) {
+        inline void SetNearCallback( btNearCallback callback ) {
             
-            NearCallback = &callback;
+            NearCallback = callback;
+            HasNearCallback = true;
         }
 
     #endif
@@ -58,12 +59,14 @@ private :
         * Renderer;
     float
         Gravity;
+    bool
+        HasNearCallback;
 
 #ifdef __BULLET_PHYSICS__
     btDiscreteDynamicsWorld
         * DynamicsWorld;
     btNearCallback
-        * NearCallback;
+        NearCallback;
 
     #if DEBUG && !defined(PLATFORM_WINDOWS)
         TOOL_BULLET_GL_DEBUGGER

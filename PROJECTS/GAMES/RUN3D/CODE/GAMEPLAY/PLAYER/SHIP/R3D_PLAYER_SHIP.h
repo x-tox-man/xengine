@@ -22,6 +22,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_PLAYER_SHIP, GAMEPLAY_COMPONENT_ENTITY)
 
     void Initialize();
     void Update( float step );
+    void Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation );
 
     void CreateWeaponSystem(  const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation );
 

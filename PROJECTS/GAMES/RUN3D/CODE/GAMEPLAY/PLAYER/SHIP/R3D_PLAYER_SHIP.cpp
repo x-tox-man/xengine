@@ -113,13 +113,11 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     
     CORE_MATH_VECTOR elevation = GAMEPLAY_HELPER::GetElevation( this );
     
-    /*if ( elevation.GetZ() < 1.0f && elevation.GetZ() > 0.0f ) {
-        
-        
+    /*if ( elevation.GetZ() < 1.0f ) {
         
         CORE_MATH_VECTOR & vel = phys->GetVelocity();
         
-        float p = sinf( (1.0f - elevation.GetZ()) * M_PI_2) * 2.81f;
+        float p = (1.0f - fabs(elevation.GetZ() ) ) * 2.81f;
         
         vel.Z( vel.Z() + p * step );
         
@@ -142,4 +140,13 @@ void R3D_PLAYER_SHIP::Update( float step ) {
         
         R3D_APP_PTR->SetCamera( &Top );
     }
+}
+
+void R3D_PLAYER_SHIP::Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation ) {
+    
+    SetPosition( position );
+    SetOrientation( orientation );
+    auto phys = (GAMEPLAY_COMPONENT_PHYSICS::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    
+    phys->Reset();
 }

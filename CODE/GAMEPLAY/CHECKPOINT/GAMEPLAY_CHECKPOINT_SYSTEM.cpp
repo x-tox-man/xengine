@@ -40,6 +40,18 @@ void GAMEPLAY_CHECKPOINT_SYSTEM::Reset( GAMEPLAY_COMPONENT_ENTITY * entity ) {
     abort();
 }
 
+void GAMEPLAY_CHECKPOINT_SYSTEM::Reset() {
+    
+    std::vector< GAMEPLAY_CHECKPOINT * >::iterator it = Checkpoints.begin();
+    
+    while (it != Checkpoints.end() ) {
+        
+        (*it)->Reset();
+        
+        it++;
+    }
+}
+
 void GAMEPLAY_CHECKPOINT_SYSTEM::AddCheckpoint( GAMEPLAY_COMPONENT_ENTITY * entity ) {
     
     GAMEPLAY_CHECKPOINT::PTR cp = new GAMEPLAY_CHECKPOINT( entity );

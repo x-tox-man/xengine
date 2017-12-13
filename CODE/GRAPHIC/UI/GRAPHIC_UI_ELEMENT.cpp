@@ -11,7 +11,7 @@
 #include "CORE_ABSTRACT_FUNCTION.h"
 #include "CORE_ABSTRACT_PROGRAM_LUA.h"
 
-typedef CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE > XS_UI_CALLBACK;
+typedef CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT > XS_UI_CALLBACK;
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GRAPHIC_UI_ELEMENT )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_UI_ELEMENT, Click, const CORE_MATH_VECTOR & )
@@ -19,7 +19,7 @@ CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GRAPHIC_UI_ELEMENT )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( CORE_MATH_VECTOR &, GRAPHIC_UI_ELEMENT, GetPosition )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( CORE_MATH_VECTOR &, GRAPHIC_UI_ELEMENT, GetSize )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_UI_ELEMENT, SetPosition, const CORE_MATH_VECTOR & )
-    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_UI_ELEMENT, SetTextValue, const char * )
+    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_UI_ELEMENT, SetTextValue, const CORE_DATA_UTF8_TEXT & )
 
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_UI_ELEMENT, SetActionCallback, XS_UI_CALLBACK & )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( const CORE_HELPERS_IDENTIFIER &, GRAPHIC_UI_ELEMENT, GetIdentifier)
@@ -64,7 +64,7 @@ GRAPHIC_UI_ELEMENT::~GRAPHIC_UI_ELEMENT() {
     }
 }
 
-void GRAPHIC_UI_ELEMENT::SetActionCallback( CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE > & action_callback ) {
+void GRAPHIC_UI_ELEMENT::SetActionCallback( CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT > & action_callback ) {
     
     ActionCallback = action_callback;
     
@@ -89,7 +89,7 @@ void GRAPHIC_UI_ELEMENT::Update( const float time_step ) {
                 
                 CurrentState = GRAPHIC_UI_ELEMENT_STATE_Default;
                 
-                ActionCallback( this, CurrentState );
+                ActionCallback( this, GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut );
             }
             
             break;
@@ -124,9 +124,12 @@ void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
 
 void GRAPHIC_UI_ELEMENT::Click( const CORE_MATH_VECTOR & cursor_position ) {
     
-    CurrentState = GRAPHIC_UI_ELEMENT_STATE_Pressed;
-    
-    ActionCallback( this, CurrentState );
+    if ( CurrentState != GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
+        
+        CurrentState = GRAPHIC_UI_ELEMENT_STATE_Pressed;
+        
+        ActionCallback( this, GRAPHIC_UI_ELEMENT_EVENT_OnTouchIn );
+    }
 }
 
 void GRAPHIC_UI_ELEMENT::Hover( const CORE_MATH_VECTOR & cursor_position ) {
@@ -139,29 +142,29 @@ void GRAPHIC_UI_ELEMENT::Hover( const CORE_MATH_VECTOR & cursor_position ) {
             
             CurrentState = GRAPHIC_UI_ELEMENT_STATE_Hovered;
             
-            ActionCallback( this, CurrentState );
+            ActionCallback( this, GRAPHIC_UI_ELEMENT_EVENT_OnHoveredIn );
         }
     }
-    else if ( CurrentState == GRAPHIC_UI_ELEMENT_STATE_Hovered ) {
+    else if ( CurrentState == GRAPHIC_UI_ELEMENT_STATE_Hovered && CurrentState != GRAPHIC_UI_ELEMENT_STATE_Default ) {
         
         if ( !contains && IsVisible() ) {
             
             CurrentState = GRAPHIC_UI_ELEMENT_STATE_Default;
             
-            ActionCallback( this, CurrentState );
+            ActionCallback( this, GRAPHIC_UI_ELEMENT_EVENT_OnHoveredOut );
         }
     }
 }
 
 void GRAPHIC_UI_ELEMENT::Hover( const bool force_hover ) {
     
-    if ( CurrentState == GRAPHIC_UI_ELEMENT_STATE_Hovered ) {
+    if ( ( CurrentState & GRAPHIC_UI_ELEMENT_STATE_Hovered) == GRAPHIC_UI_ELEMENT_STATE_Hovered ) {
         
         if ( IsVisible() ) {
             
             CurrentState = GRAPHIC_UI_ELEMENT_STATE_Default;
             
-            ActionCallback( this, CurrentState );
+            ActionCallback( this, GRAPHIC_UI_ELEMENT_EVENT_OnHoveredOut );
         }
     }
 }

@@ -28,7 +28,7 @@ void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnResize( GRAPHIC_UI_ELEMENT * ) {
 
 void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnLayoutFrame( GRAPHIC_UI_FRAME * frame ) {
     
-    OverallFrameDimension = CalculateFrameDimension( (GRAPHIC_UI_ELEMENT *) frame );
+    OverallFrameDimension = CalculateFrameContentDimension( (GRAPHIC_UI_ELEMENT *) frame );
     
     ScrollZone.Y( OverallFrameDimension.W() - frame->GetSize().Y());
 }

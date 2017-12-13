@@ -59,6 +59,19 @@ void R3D_LEVEL::Start() {
     Checkpoints.Start( players_table );
 }
 
+void R3D_LEVEL::Restart() {
+    
+    Checkpoints.Reset();
+    
+    std::vector<R3D_PLAYER::PTR>::iterator it = PlayerTable.begin();
+    
+    while ( it != PlayerTable.end() ) {
+        
+        (*it)->Reset( CORE_MATH_VECTOR( 0.0f, 0.0f, 1.6f, 1.0f), CORE_MATH_QUATERNION( 0.0f, 0.0f, 0.0f, 1.0f ));
+        it++;
+    }
+}
+
 void R3D_LEVEL::Update( const float time_step ) {
     
     ComputeCollisions( time_step );
@@ -76,7 +89,7 @@ void R3D_LEVEL::CreateTracks() {
     auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
     base_entity->Initialize( p1 );
     
-    for ( int i = 0; i < 10; i++) {
+    for ( int i = 0; i < 2; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         
@@ -95,7 +108,7 @@ void R3D_LEVEL::CreateTracks() {
         base_entity->Initialize( p );*/
     }
     
-    /*for ( int i = 0; i < 21; i++) {
+    /*for ( int i = 0; i < 31; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         

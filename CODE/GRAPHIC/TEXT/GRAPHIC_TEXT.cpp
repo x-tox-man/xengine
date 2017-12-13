@@ -10,7 +10,7 @@
 #include "GRAPHIC_MESH.h"
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GRAPHIC_TEXT )
-    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_TEXT, UpdateText, const char * )
+    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_TEXT, UpdateText, const CORE_DATA_UTF8_TEXT & )
 CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GRAPHIC_TEXT )
 
 GRAPHIC_TEXT::GRAPHIC_TEXT() :
@@ -20,7 +20,7 @@ GRAPHIC_TEXT::GRAPHIC_TEXT() :
     TextExtent(),
     Font( NULL ),
     TextSize( 0.0f ),
-    Text( NULL ) {
+    Text() {
     
 }
 
@@ -28,7 +28,7 @@ GRAPHIC_TEXT::~GRAPHIC_TEXT() {
 
 }
 
-void GRAPHIC_TEXT::Initialize( const char * text, GRAPHIC_FONT & font, float size_factor, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, bool left_to_right ) {
+void GRAPHIC_TEXT::Initialize( const CORE_DATA_UTF8_TEXT & text, GRAPHIC_FONT & font, float size_factor, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, bool left_to_right ) {
     
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Position );
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Normal );
@@ -80,12 +80,12 @@ void GRAPHIC_TEXT::Initialize( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
     UpdateText( Text, TextSize );
 }
 
-void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_to_right ) {
+void GRAPHIC_TEXT::UpdateText( const CORE_DATA_UTF8_TEXT & text, float size_factor, bool left_to_right ) {
     
     CORE_DATA_BUFFER * index_buffer = new CORE_DATA_BUFFER;
     CORE_DATA_BUFFER * vertex_buffer = new CORE_DATA_BUFFER;
     
-    int text_size = (int) strlen( text );
+    int text_size = text.GetLenght();
     
     float * vertex_data = (float *) CORE_MEMORY_ALLOCATOR::Allocate( 10 * sizeof( float ) * text_size * 4 );
     
@@ -106,7 +106,7 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
     
     for ( int i = 0; i < text_size; i++ ) {
         
-        char current_char = text[i];
+        wchar_t current_char = text[i];
         GRAPHIC_GLYPH & current_glyph = Font->GetGlyphTable()[ current_char ];
         
         if ( current_char == '\n' || current_char == '\r' ) {
@@ -176,7 +176,7 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
         TextExtent[0] += current_glyph.Advance[0];
     }
     
-    if ( text[strlen(text) -1 ] != '\n' || text[strlen(text) -1 ] != '\r' ) {
+    if ( text[text.GetLenght() -1 ] != '\n' || text[ text.GetLenght() -1 ] != '\r' ) {
         
         TextExtent[1] += font_size;
     }

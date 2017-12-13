@@ -23,6 +23,7 @@ XS_CLASS_BEGIN( R3D_LEVEL )
     void Finalize();
 
     void Start();
+    void Restart();
 
     void Update( const float time_step );
 

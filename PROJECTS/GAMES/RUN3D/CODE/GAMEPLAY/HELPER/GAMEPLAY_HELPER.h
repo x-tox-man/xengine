@@ -46,6 +46,8 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
     static void SetPhysicsObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, float mass );
     static void SetPhysicsGroundHeightMapObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, float mass );
 
+    static void SetPhysicsCustomMaterialCallback( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+
     static void InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, GRAPHIC_CAMERA & camera );
 
     static CORE_MATH_VECTOR GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity );

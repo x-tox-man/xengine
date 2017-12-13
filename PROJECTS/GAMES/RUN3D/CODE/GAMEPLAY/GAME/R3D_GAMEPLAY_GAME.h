@@ -16,6 +16,7 @@
 #include "GAMEPLAY_SCENE.h"
 #include "GRAPHIC_RENDERER.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
+#include "PHYSICS_COLLISION_NEAR_FILTER.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
@@ -27,6 +28,8 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
     void Initialize();
     void Finalize();
+
+    void Restart();
 
     inline R3D_LEVEL & GetLevel() { return Level; }
     inline GAMEPLAY_SCENE & GetScene() { return Scene; }

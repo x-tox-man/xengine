@@ -1,6 +1,6 @@
 //
 //  APPLICATION_CONFIGURATION.h
-//  MULTIPOLY
+//  RUN3D
 //
 //  Created by Christophe Bernard on 22/02/17.
 //  Copyright © 2017 cbe. All rights reserved.

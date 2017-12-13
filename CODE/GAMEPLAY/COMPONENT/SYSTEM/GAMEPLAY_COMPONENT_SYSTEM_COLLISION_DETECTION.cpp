@@ -13,7 +13,8 @@
 GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION() :
     GAMEPLAY_COMPONENT_SYSTEM(),
     Renderer(),
-    Gravity()
+    Gravity(),
+    HasNearCallback( false )
 #ifdef __BULLET_PHYSICS__
     ,DynamicsWorld( NULL )
     ,NearCallback( NULL )
@@ -29,15 +30,6 @@ GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::~GAMEPLAY_COMPONENT_SYSTEM_COLLIS
 
 }
 
-#ifdef __BULLET_PHYSICS__
-    void MyNearCallback(btBroadphasePair& collisionPair, btCollisionDispatcher& dispatcher, const btDispatcherInfo& dispatchInfo) {
-        // Do your collision logic here
-        // Only dispatch the Bullet collision information if you want the physics to continue
-        
-        dispatcher.defaultNearCallback(collisionPair, dispatcher, dispatchInfo);
-    }
-#endif
-
 void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
     
     #ifdef __BULLET_PHYSICS__
@@ -48,9 +40,9 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
         btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
     
-        if ( NearCallback ) {
+        if ( HasNearCallback ) {
             
-            dispatcher->setNearCallback( MyNearCallback );
+            dispatcher->setNearCallback( NearCallback );
         }
         
         // The actual physics solver
@@ -99,7 +91,11 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
             
             (it->second)->GetEntity()->SetPosition(CORE_MATH_VECTOR(wt->getOrigin().getX(), wt->getOrigin().getY(), wt->getOrigin().getZ(), 1.0f));
             btQuaternion q = wt->getRotation();
-            (it->second)->GetEntity()->SetOrientation( CORE_MATH_QUATERNION( q.getX(), q.getY(), q.getZ(), q.getW() ) );
+            
+            CORE_MATH_QUATERNION oq( q.getX(), q.getY(), q.getZ(), q.getW() );
+            oq.Normalize();
+            
+            (it->second)->GetEntity()->SetOrientation( oq );
             
             it++;
         }

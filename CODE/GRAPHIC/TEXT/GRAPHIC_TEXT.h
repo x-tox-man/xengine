@@ -12,6 +12,7 @@
 #include "CORE_HELPERS_CLASS.h"
 #include "GRAPHIC_FONT.h"
 #include "CORE_DATA_BUFFER.h"
+#include "CORE_DATA_UTF8_TEXT.h"
 #include "GRAPHIC_SHADER_BIND.h"
 #include "GRAPHIC_RENDERER.h"
 #include "GRAPHIC_OBJECT_SHAPE.h"
@@ -26,13 +27,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_TEXT, GRAPHIC_OBJECT_SHAPE )
     GRAPHIC_TEXT();
     virtual ~GRAPHIC_TEXT();
 
-    void Initialize( const char * text, GRAPHIC_FONT & font, float size_factor, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, bool left_to_right = true);
+    void Initialize( const CORE_DATA_UTF8_TEXT & text, GRAPHIC_FONT & font, float size_factor, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, bool left_to_right = true );
 
-    inline void SetTextSize(float size ) { TextSize = size; }
+    inline void SetTextSize( float size ) { TextSize = size; }
     inline float GetTextSize() { return TextSize; }
-    inline void SetText( const char * text ) { Text = text; }
+    inline void SetText( const CORE_DATA_UTF8_TEXT & text ) { Text = text; }
 
-    void UpdateText( const char * text, float size_factor = 1.0f, bool left_to_right = true );
+    void UpdateText( const CORE_DATA_UTF8_TEXT & text, float size_factor = 1.0f, bool left_to_right = true );
     void SetFont( GRAPHIC_FONT * font ) { Font = font; }
 
     const CORE_MATH_VECTOR & GetTextExtent();
@@ -54,8 +55,8 @@ private :
         Font;
     float
         TextSize;
-    const char
-        * Text;
+    CORE_DATA_UTF8_TEXT
+        Text;
 
 XS_CLASS_END
 

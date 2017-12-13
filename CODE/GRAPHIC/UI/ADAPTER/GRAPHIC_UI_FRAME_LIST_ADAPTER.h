@@ -37,7 +37,7 @@ protected:
 private:
 
     int CalculateVisibleItemsCount(GRAPHIC_UI_FRAME * );
-    virtual CORE_MATH_VECTOR CalculateFrameDimension( GRAPHIC_UI_ELEMENT * ) override;
+    virtual CORE_MATH_VECTOR CalculateFrameContentDimension( GRAPHIC_UI_ELEMENT * ) override;
     void UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force = false) override;
 
     GRAPHIC_UI_FRAME

@@ -454,16 +454,23 @@
                         index_buffer->Initialize( (unsigned int) prim->getFaceCount() * 3 * 4 );
                         mesh->CurrenGeometrytTableSize = (int) (3 * prim->getFaceCount());
                         
-                        memcpy((void *)index_buffer->getpointerAtIndex( 0 ), (void *)prim->getPositionIndices().getData(), sizeof(unsigned int) * prim->getPositionIndices().getCount() );
+                        //memcpy((void *)index_buffer->getpointerAtIndex( 0 ), (void *)prim->getPositionIndices().getData(), sizeof(unsigned int) * prim->getPositionIndices().getCount() );
                         
                         for (int face = 0; face < prim->getFaceCount(); face++ ) {
                             
                             for ( int v_index = 0; v_index < prim->getGroupedVerticesVertexCount( face ); v_index++ ) {
                                 
                                 //Need to take stride in account
-                                mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData() + accumulated_index * 3 );
+                                /*mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData() + accumulated_index * 3 );
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[1] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 + 1);
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[2] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 + 2);
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[3] = 1.0f;*/
+                                
+                                memcpy((void *)index_buffer->getpointerAtIndex( accumulated_index ), &accumulated_index, sizeof(unsigned int));
+                                
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 );
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[1] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 + 1);
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[2] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 + 2);
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[3] = 1.0f;
                                 
                                 printf( "%d\n", prim->getPositionIndices()[accumulated_index] );
@@ -474,9 +481,9 @@
                                 if ( hasNormals ) {
                                     const COLLADAFW::UIntValuesArray & norm_indices = prim->getNormalIndices();
                                     
-                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[0] = *(data->getNormals().getFloatValues()->getData()+ accumulated_index * 3);
-                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[1] = *(data->getNormals().getFloatValues()->getData()+ accumulated_index * 3 + 1);
-                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[2] = *(data->getNormals().getFloatValues()->getData()+ accumulated_index * 3 + 2);
+                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[0] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3);
+                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[1] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3 + 1);
+                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[2] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3 + 2);
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[3] = 1.0f;
                                 }
                                 

@@ -329,3 +329,10 @@ CORE_MATH_VECTOR GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR e
         return CORE_MATH_VECTOR::Zero;
     }
 }
+
+void GAMEPLAY_HELPER::SetPhysicsCustomMaterialCallback( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
+    
+    auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    comp->GetBulletRigidBody()->setCollisionFlags( comp->GetBulletRigidBody()->getCollisionFlags() | btCollisionObject::CF_STATIC_OBJECT );
+}
+

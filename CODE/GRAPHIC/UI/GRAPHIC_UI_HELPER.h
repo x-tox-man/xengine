@@ -19,6 +19,8 @@
 #include "GRAPHIC_TEXT.h"
 #include "GRAPHIC_TEXTURE_ATLAS.h"
 
+#define ALL_STATES ( ( ( GRAPHIC_UI_ELEMENT_STATE_Default | GRAPHIC_UI_ELEMENT_STATE_Hovered ) | GRAPHIC_UI_ELEMENT_STATE_Pressed ) | GRAPHIC_UI_ELEMENT_STATE_Disabled )
+
 XS_CLASS_BEGIN( GRAPHIC_UI_HELPER )
 
     GRAPHIC_UI_HELPER();
@@ -32,11 +34,12 @@ XS_CLASS_BEGIN( GRAPHIC_UI_HELPER )
     static GRAPHIC_UI_FRAME * CreateFrame( const CORE_HELPERS_IDENTIFIER & identifier );
     static GRAPHIC_UI_FRAME * CreateFrame( const char * identifier );
 
-    static void CreateFrameStyleWithBorderAndContentTexture( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_IDENTIFIER & content_texture_identifier, const CORE_HELPERS_IDENTIFIER & border_texture_identifier );
-    static void CreateFrameStyleWithBorderAndContentColor( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, const CORE_HELPERS_IDENTIFIER & border_texture_identifier );
+    static void CreateFrameStyleWithBorderAndContentTexture( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_IDENTIFIER & content_texture_identifier, const CORE_HELPERS_IDENTIFIER & border_texture_identifier, int state_mask = ALL_STATES );
+    static void CreateFrameStyleWithBorderAndContentColor( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, const CORE_HELPERS_IDENTIFIER & border_texture_identifier, int state_mask = ALL_STATES );
+    static void CreateElementStyleWithContentTexture( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, const CORE_HELPERS_IDENTIFIER & content_texture_identifier, int state_mask = ALL_STATES );
 
-    static GRAPHIC_UI_ELEMENT * CreateTextElement( const CORE_HELPERS_IDENTIFIER & identifier, const char * text );
-    static GRAPHIC_UI_ELEMENT * CreateTextElement( const char * identifier, const char * text );
+    static GRAPHIC_UI_ELEMENT * CreateTextElement( const CORE_HELPERS_IDENTIFIER & identifier, const CORE_DATA_UTF8_TEXT & text, int state_mask = ALL_STATES );
+    static GRAPHIC_UI_ELEMENT * CreateTextElement( const char * identifier, const CORE_DATA_UTF8_TEXT & text, int state_mask = ALL_STATES );
 
     static void AddElementToFrame( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_FRAME * frame );
 
@@ -50,6 +53,26 @@ XS_CLASS_BEGIN( GRAPHIC_UI_HELPER )
 private :
 
     static GRAPHIC_UI_RENDER_STYLE * CreateTextRenderStyle( GRAPHIC_FONT * DefaultFont, GRAPHIC_TEXT *text_shape );
+
+    static void AddStyleToElementWithMask(GRAPHIC_UI_ELEMENT::PTR element, GRAPHIC_UI_RENDER_STYLE::PTR style, int mask ) {
+    
+        if ( ( mask & GRAPHIC_UI_ELEMENT_STATE_Hovered ) ) {
+            element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Hovered, style );
+        }
+        
+        if ( ( mask & GRAPHIC_UI_ELEMENT_STATE_Default ) ) {
+            
+            element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, style );
+        }
+        if ( ( mask & GRAPHIC_UI_ELEMENT_STATE_Disabled ) ) {
+        
+            element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Disabled, style );
+        }
+        if ( ( mask & GRAPHIC_UI_ELEMENT_STATE_Pressed ) ) {
+            
+            element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Pressed, style );
+        }
+    }
 
 XS_CLASS_END
 

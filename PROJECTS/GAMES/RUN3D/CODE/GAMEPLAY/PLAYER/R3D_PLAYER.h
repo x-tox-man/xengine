@@ -17,6 +17,8 @@ XS_CLASS_BEGIN( R3D_PLAYER )
     R3D_PLAYER();
 
     void Initialize();
+    void Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation );
+
     inline R3D_PLAYER_SHIP::PTR GetShip() { return Ship; }
 
 private :

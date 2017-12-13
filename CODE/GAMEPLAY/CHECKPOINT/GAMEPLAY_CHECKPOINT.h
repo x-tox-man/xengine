@@ -31,6 +31,7 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_CHECKPOINT )
     void DeactivateFor( GAMEPLAY_COMPONENT_ENTITY * entity );
     void AddNext( GAMEPLAY_CHECKPOINT * cp );
     void SetParent( GAMEPLAY_CHECKPOINT * entity );
+    void Reset();
 
     inline bool IsLast() const { return NextCheckpoints.size() == 0; }
 

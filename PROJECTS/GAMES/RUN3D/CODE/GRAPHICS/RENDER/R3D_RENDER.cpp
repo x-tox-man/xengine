@@ -53,8 +53,8 @@ void R3D_RENDER::Initialize() {
     CORE_MATH_QUATERNION
         interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f ),
         render_target_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
-    interface_lookat.RotateX( M_PI_2 );
-    interface_lookat.RotateX( M_PI_2 );
+    //interface_lookat.RotateX( M_PI_2 );
+    //interface_lookat.RotateX( M_PI_2 );
     
     GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight() ) );
     

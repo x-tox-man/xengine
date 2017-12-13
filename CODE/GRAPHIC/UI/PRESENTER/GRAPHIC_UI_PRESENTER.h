@@ -25,11 +25,18 @@ XS_CLASS_BEGIN(GRAPHIC_UI_PRESENTER)
 
     virtual void Configure() = 0;
 
-    void BindAction( GRAPHIC_UI_ELEMENT * element, CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE> * callback ) {
+    void BindAction( GRAPHIC_UI_ELEMENT * element, CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT> & callback ) {
         
-        element->SetActionCallback( *callback );
+        element->SetActionCallback( callback );
+    }
+
+    template <typename __CLASS__, void  ( __CLASS__::*CALLBACK_FUNCTION)( GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT )>
+    void BindAction( GRAPHIC_UI_ELEMENT * element, __CLASS__ * destination ) {
         
-        CORE_MEMORY_ObjectSafeDeallocation( callback );
+        CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT>
+            action_callback( &Wrapper2<__CLASS__, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT, CALLBACK_FUNCTION>, destination);
+        
+        element->SetActionCallback( action_callback );
     }
 
 protected :

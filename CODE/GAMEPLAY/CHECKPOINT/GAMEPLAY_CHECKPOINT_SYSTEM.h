@@ -28,6 +28,7 @@ XS_CLASS_BEGIN( GAMEPLAY_CHECKPOINT_SYSTEM )
 
     void Start( std::vector< GAMEPLAY_COMPONENT_ENTITY * > & players );
     void Reset( GAMEPLAY_COMPONENT_ENTITY * );
+    void Reset();
 
 private:
 

@@ -63,6 +63,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COM
 
     void ForcePosition( const CORE_MATH_VECTOR & position );
 
+    void Reset();
     void SetMass( const float mass);
     void SetPosition( const CORE_MATH_VECTOR & position);
     void SetOrientation( const CORE_MATH_QUATERNION & rotation );

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../CODE/RESOURCE/MESH/GRAPHIC_MESH_LOADER_COLLADA.cpp"
-            timestampString = "534033445.249105"
+            timestampString = "534065631.601586"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "886"
-            endingLineNumber = "886"
+            startingLineNumber = "893"
+            endingLineNumber = "893"
             landmarkName = "COLLADA_LOADER_WRITER::writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData )"
             landmarkType = "7">
          </BreakpointContent>

@@ -96,6 +96,11 @@ void GAMEPLAY_CHECKPOINT::AddNext( GAMEPLAY_CHECKPOINT * cp ) {
     NextCheckpoints.push_back( cp );
 }
 
+void GAMEPLAY_CHECKPOINT::Reset() {
+    
+    PlayerData.clear();
+}
+
 void GAMEPLAY_CHECKPOINT::SetParent( GAMEPLAY_CHECKPOINT * entity ) {
     
     Parent = entity;

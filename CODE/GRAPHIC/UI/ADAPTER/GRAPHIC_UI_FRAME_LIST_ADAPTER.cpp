@@ -115,7 +115,7 @@ void GRAPHIC_UI_FRAME_LIST_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, co
     }
 }
 
-CORE_MATH_VECTOR GRAPHIC_UI_FRAME_LIST_ADAPTER::CalculateFrameDimension( GRAPHIC_UI_ELEMENT * ) {
+CORE_MATH_VECTOR GRAPHIC_UI_FRAME_LIST_ADAPTER::CalculateFrameContentDimension( GRAPHIC_UI_ELEMENT * ) {
     
     return CellDimension * GetItemsCount();
 }
