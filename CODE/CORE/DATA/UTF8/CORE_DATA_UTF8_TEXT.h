@@ -14,7 +14,9 @@
 XS_CLASS_BEGIN_WITH_COPY( CORE_DATA_UTF8_TEXT )
 
     CORE_DATA_UTF8_TEXT();
-    CORE_DATA_UTF8_TEXT( wchar_t * string);
+    CORE_DATA_UTF8_TEXT( const wchar_t * string);
+
+    XS_DEFINE_SERIALIZABLE
 
     void operator = ( const CORE_DATA_UTF8_TEXT & other ) {
         
@@ -23,8 +25,11 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_DATA_UTF8_TEXT )
             String = NULL;
         }
         
-        String = ( wchar_t * )  malloc( sizeof(wchar_t) * ( wcslen( other.String ) + 1 ) );
-        wcscpy( String, other.String );
+        if ( other.String ) {
+            
+            String = ( wchar_t * )  malloc( sizeof(wchar_t) * ( wcslen( other.String ) + 1 ) );
+            wcscpy( String, other.String );
+        }
     }
 
     wchar_t operator[] (const int index ) const {
@@ -43,6 +48,9 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_DATA_UTF8_TEXT )
         
         return (int) wcslen( String );
     }
+
+    inline wchar_t * GetString() { return String; }
+    inline const wchar_t * GetString() const { return String; }
 
 private:
 

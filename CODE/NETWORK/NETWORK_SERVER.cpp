@@ -13,14 +13,18 @@
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.h"
 #include "GAMEPLAY_ACTION_COMMAND_START_GAME.h"
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.h"
+#include "GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT.h"
+#include "GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.h"
+#include "GAMEPLAY_ACTION_COMMAND_SERVER_INFO.h"
+#include "GAMEPLAY_ACTION_COMMAND_CLIENT_READY.h"
 
 //----------------------------------------------------------------------------------------------------------//
 //                              ACCEPTING_CONNECTIONS_STATE                                                 //
 //-- STATE BEGIN
 //----------------------------------------------------------------------------------------------------------//
-CORE_FIXED_STATE_DefineStateEnterEvent( NETWORK_SERVER::ACCEPTING_CONNECTIONS_STATE )
-    GetContext().SetAcceptsConnexions(true);
-CORE_FIXED_STATE_EndOfStateEvent()
+    CORE_FIXED_STATE_DefineStateEnterEvent( NETWORK_SERVER::ACCEPTING_CONNECTIONS_STATE )
+        GetContext().SetAcceptsConnexions(true);
+    CORE_FIXED_STATE_EndOfStateEvent()
     //--State EVENT
     CORE_FIXED_STATE_DefineStateEvent( NETWORK_SERVER::ACCEPTING_CONNECTIONS_STATE, TCP_CONNECTED_EVENT )
         
@@ -34,7 +38,38 @@ CORE_FIXED_STATE_EndOfStateEvent()
     //--State EVENT
 
     //--State EVENT
+    CORE_FIXED_STATE_DefineStateEvent( NETWORK_SERVER::ACCEPTING_CONNECTIONS_STATE, UPDATE_EVENT )
+        static float acc = 0.0f;
+
+        acc += event.GetEventData();
+
+        if ( acc >= 1.0f ) {
+            
+            GetContext().ServerChanged();
+            acc = 0.0f;
+        }
+
+    CORE_FIXED_STATE_EndOfStateEvent()
+    //--State EVENT
+
+    //--State EVENT
     CORE_FIXED_STATE_DefineStateEvent( NETWORK_SERVER::ACCEPTING_CONNECTIONS_STATE, QUIT_EVENT )
+
+    CORE_FIXED_STATE_EndOfStateEvent()
+    //--State EVENT
+
+    //--State EVENT
+    CORE_FIXED_STATE_DefineStateEvent( NETWORK_SERVER::ACCEPTING_CONNECTIONS_STATE, CLIENT_DISCONNECTED_EVENT )
+
+        if ( GetContext().Delegate ) {
+            
+            GetContext().Delegate->OnClientDisconnected( event.GetEventData() );
+        }
+        #if DEBUG
+            else {
+                SERVICE_LOGGER_Warning( "Add NETWORK_SERVER_DELEGATE" );
+            }
+        #endif
 
     CORE_FIXED_STATE_EndOfStateEvent()
     //--State EVENT
@@ -51,27 +86,27 @@ CORE_FIXED_STATE_EndOfStateEvent()
 //                              STARTING_STATE                                                              //
 //-- STATE BEGIN
 //----------------------------------------------------------------------------------------------------------//
-CORE_FIXED_STATE_DefineStateEnterEvent( NETWORK_SERVER::STARTING_STATE )
-    std::vector<NETWORK_PLAYER * >
-        player_table;
+    CORE_FIXED_STATE_DefineStateEnterEvent( NETWORK_SERVER::STARTING_STATE )
+        std::vector<NETWORK_PLAYER * >
+            player_table;
 
-    for( int i = 0; i < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; i++) {
-        
-        if ( GetContext().GetPlayerTable()[ i ] != NULL ) {
+        for( int i = 0; i < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; i++) {
             
-            NETWORK_PLAYER
-                * player_ptr( GetContext().GetPlayerTable()[ i ] );
-            
-            player_table.push_back( player_ptr );
+            if ( GetContext().GetPlayerTable()[ i ] != NULL ) {
+                
+                NETWORK_PLAYER
+                    * player_ptr( GetContext().GetPlayerTable()[ i ] );
+                
+                player_table.push_back( player_ptr );
+            }
         }
-    }
 
-    GAMEPLAY_ACTION_COMMAND_START_GAME
-        command( player_table, GetContext().Seed );
+        GAMEPLAY_ACTION_COMMAND_START_GAME
+            command( player_table, GetContext().Seed );
 
-    GetContext().DispatchMessageToAllPlayers( GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand(command));
-    GetContext().SetAcceptsConnexions(false);
-CORE_FIXED_STATE_EndOfStateEvent()
+        GetContext().DispatchMessageToAllPlayers( GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand(command));
+        GetContext().SetAcceptsConnexions(false);
+    CORE_FIXED_STATE_EndOfStateEvent()
 
     //--State EVENT
     CORE_FIXED_STATE_DefineStateEvent( NETWORK_SERVER::STARTING_STATE, CLIENT_DISCONNECTED_EVENT )
@@ -175,11 +210,10 @@ NETWORK_SERVER::NETWORK_SERVER() :
     AccumulatedRemaining( 0.0f ),
     NetworkEventsTimeLine(),
     CurrentPlayer(),
-    OnPlayerConnected(),
-    OnPlayerLeft(),
     GameStartedCallback(),
     StartingGameCounter( 0 ),
-    StartingGameTicTacCounter( true ) {
+    StartingGameTicTacCounter( true ),
+    Delegate( NULL ) {
     
     for (int i = 0; i < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; i++ ) {
         
@@ -196,12 +230,15 @@ NETWORK_SERVER::~NETWORK_SERVER() {
     
 }
 
-void NETWORK_SERVER::Initialize( float network_refresh_rate ) {
+void NETWORK_SERVER::Initialize( float network_refresh_rate, const char * discover_message ) {
+    
+    char
+        id[32];
     
     LobbyInstance = new SERVICE_NETWORK_LOBBY();
     NetworkRefreshRate = network_refresh_rate;
     
-    LobbyInstance->Initialize(THIS_GAME_MAX_NETWORK_PLAYER_SIZE, "XS_SERVER_ACCEPTS_CONNECTIONS" );
+    LobbyInstance->Initialize(THIS_GAME_MAX_NETWORK_PLAYER_SIZE, discover_message );
     
     LobbyInstance->OnTCPNetworkCommandReceivedCallback = new CORE_HELPERS_CALLBACK_1< SERVICE_NETWORK_COMMAND * >( &Wrapper1< NETWORK_SERVER , SERVICE_NETWORK_COMMAND *, &NETWORK_SERVER::OnTCPDataReceived >, this );
     
@@ -215,9 +252,6 @@ void NETWORK_SERVER::Initialize( float network_refresh_rate ) {
     
     GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED::ClientConnectedCallback = callback;
     
-    char
-        id[32];
-    
     sprintf(id, "PLAYER%d", 0);
     
     std::string str( id );
@@ -225,8 +259,6 @@ void NETWORK_SERVER::Initialize( float network_refresh_rate ) {
     CurrentPlayer.SetUniqueId( CORE_HELPERS_UNIQUE_IDENTIFIER(id) );
     CurrentPlayer.SetName( id );
 
-
-    
     PlayerTable[0] = &CurrentPlayer;
 }
 
@@ -240,7 +272,6 @@ void NETWORK_SERVER::ConnectedUpdateClientInfo( NETWORK_PLAYER * player ) {
             PlayerTable[i]->SetUniqueId( player->GetUniqueId() );
         }
     }
-    
 }
 
 void NETWORK_SERVER::SetAcceptsConnexions(bool accepts) {
@@ -307,8 +338,15 @@ void NETWORK_SERVER::AcceptPlayerFromConnection( SERVICE_NETWORK_CONNECTION * co
             player = PlayerTable[i];
             PlayerTable[i]->SetNetworkConnexion( connection );
             
-            OnPlayerConnected( player );
-            
+            if ( Delegate ) {
+                
+                Delegate->OnClientConnected( player );
+            }
+#if DEBUG
+            else {
+                SERVICE_LOGGER_Warning( "Add NETWORK_SERVER_DELEGATE" );
+            }
+#endif
             break;
         }
     }
@@ -359,6 +397,7 @@ void NETWORK_SERVER::Update( float time_step ) {
 void NETWORK_SERVER::Finalize() {
     
     SetAcceptsConnexions( false );
+    
     if ( LobbyInstance ) {
         
         LobbyInstance->Finalize();
@@ -415,14 +454,35 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
         command = IncommingMessageQueue[i];
         
         if ( command == NULL ) {
+            
             continue;
         }
         
         GAMEPLAY_ACTION_SYSTEM::GetInstance().DeSerializeNetworkCommand( command, &event );
         
+        int type = ((GAMEPLAY_ACTION*) event->GetCommand())->GetCommandType();
+        
         for (int i = 0; i < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; i++ ) {
             
-            if ( command && PlayerTable[i] != NULL && PlayerTable[i]->GetNetworkConnexion() != NULL && PlayerTable[i]->GetNetworkConnexion()->UVConnection.TCPType.TCPServer == command->Connection->UVConnection.TCPType.TCPServer ) {
+            if ( type == (int) GAMEPLAY_ACTION_TYPE_ClientQuit ) {
+                
+                for ( int pi = 0; pi < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; pi++ ) {
+                    
+                    if ( PlayerTable[ pi ] != NULL && PlayerTable[ pi ]->GetUniqueId() == ( ( GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT::PTR ) event->GetCommand() )->GetClientIdentifier() ) {
+                        
+                        StateMachine.DispatchEvent( CLIENT_DISCONNECTED_EVENT( PlayerTable[ pi ] ) );
+                        
+                        PlayerTable[ pi ]->Finalize();
+                        CORE_MEMORY_ObjectSafeDeallocation( PlayerTable[ pi ] );
+                        PlayerTable[ pi ] = NULL;
+                        
+                        break;
+                    }
+                }
+                
+                command = NULL;
+            }
+            else if ( type >= (int) GAMEPLAY_ACTION_TYPE_Custom_1 && command && PlayerTable[i] != NULL && PlayerTable[i]->GetNetworkConnexion() != NULL && PlayerTable[i]->GetNetworkConnexion()->UVConnection.TCPType.TCPServer == command->Connection->UVConnection.TCPType.TCPServer ) {
                 
                 // Assign the command to the player
                 
@@ -434,15 +494,27 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
         
         if ( command != NULL ) {
             
-            if ( ((GAMEPLAY_ACTION *) event->GetCommand())->GetCommandType() == (int) GAMEPLAY_ACTION_TYPE_ClientConnected ) {
+            if ( type == (int) GAMEPLAY_ACTION_TYPE_ClientConnected ) {
                 
                 if ( AcceptsConnections() ) {
+                    
                     AcceptPlayerFromConnection( command->Connection );
                 }
                 else {
                     //TO Test
                     command->Connection->Stop();
                 }
+            }
+            else if ( type == (int) GAMEPLAY_ACTION_TYPE_ClientReady ) {
+                
+                if ( Delegate ) {
+                    auto cmd = ( ( GAMEPLAY_ACTION_COMMAND_CLIENT_READY::PTR ) event->GetCommand() );
+                    
+                    Delegate->OnClientReady( cmd->Player, cmd->Ready );
+                }
+            }
+            else {
+                abort();
             }
         }
         
@@ -498,6 +570,19 @@ void NETWORK_SERVER::StartCountDown() {
     StateMachine.ChangeState( STARTING_STATESTATE );
 }
 
+void NETWORK_SERVER::ServerChanged() {
+    
+    LobbyInstance->UpdateDiscoverMessage( "XS_SERVER_ACCEPTS_CONNECTIONS" );
+    
+    DispatchMessageToAllPlayers( CreateInfo() );
+}
+
+void NETWORK_SERVER::SetReady( bool ready ){
+    CurrentPlayer.SetIsReady( ready );
+    
+    ServerChanged();
+}
+
 void NETWORK_SERVER::SendStartingMessage() {
     
     if ( StartingGameCounter < 10 ) {
@@ -512,5 +597,65 @@ void NETWORK_SERVER::SendStartingMessage() {
     else {
         
         StateMachine.DispatchEvent(COUNTDOWN_FINISHED_EVENT());
+    }
+}
+
+SERVICE_NETWORK_COMMAND * NETWORK_SERVER::CreateInfo() {
+    
+    GAMEPLAY_ACTION_COMMAND_SERVER_INFO
+        command;
+    CORE_DATA_STREAM
+        stream;
+    
+    command.Info->PlayersCount = 0;
+    for(int i = 0; i < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; i ++ ) {
+        
+        command.Info->PlayersCount++;
+        command.Info->MaxPlayers = THIS_GAME_MAX_NETWORK_PLAYER_SIZE;
+        
+        if ( PlayerTable[i] != NULL ) {
+            
+            command.Players.push_back( PlayerTable[i] );
+        }
+    }
+    
+    if ( Delegate ) {
+        
+        Delegate->FillGameInfo( *command.Info );
+    }
+#if DEBUG
+    else {
+        SERVICE_LOGGER_Warning( "Add NETWORK_SERVER_DELEGATE" );
+    }
+#endif
+    
+    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command );
+    
+    stream.Open();
+    network_message->Serialize( "command", stream );
+    stream.Close();
+    
+    return network_message;
+}
+
+void NETWORK_SERVER::DisconnectAll() {
+    
+    GAMEPLAY_ACTION_COMMAND_SERVER_QUIT
+        command;
+    CORE_DATA_STREAM
+        stream;
+    
+    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command );
+    
+    stream.Open();
+    network_message->Serialize( "command", stream );
+    stream.Close();
+    
+    for (int i = 0; i < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; i++ ) {
+        
+        if ( PlayerTable[ i ] != NULL && PlayerTable[ i ]->GetUniqueId() != CurrentPlayer.GetUniqueId()) {
+            
+            PlayerTable[i]->AppendMessage( network_message );
+        }
     }
 }

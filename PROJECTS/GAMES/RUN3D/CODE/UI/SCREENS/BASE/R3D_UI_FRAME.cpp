@@ -12,7 +12,8 @@
 
 R3D_UI_FRAME::R3D_UI_FRAME() :
     GRAPHIC_UI_FRAME(),
-    Presenter( NULL ) {
+    Presenter( NULL ),
+    Borderless( false ) {
     
 }
 
@@ -35,7 +36,11 @@ void R3D_UI_FRAME::Initialize() {
     GRAPHIC_TEXTURE::LoadResourceForPath( texture_identifier, CORE_FILESYSTEM_PATH::FindFilePath( "frameBorder3", "png", "TEXTURES" ) );
     
     GetPlacement().SetSize( GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize() * 0.9f );
-    GRAPHIC_UI_HELPER::CreateFrameStyleWithBorderAndContentColor(this, CORE_HELPERS_COLOR( 0.5f, 0.5f, 0.5f, 0.5f ), "frameBorder3" );
+    
+    if ( !Borderless ) {
+        GRAPHIC_UI_HELPER::CreateFrameStyleWithBorderAndContentColor(this, CORE_HELPERS_COLOR( 0.5f, 0.5f, 0.5f, 0.5f ), "frameBorder3" );
+    }
+    
     GRAPHIC_UI_FRAME::Initialize();
 }
 

@@ -15,6 +15,7 @@
 #include "PHYSICS_COLLISION_FILTER.h"
 #include "R3D_RESOURCES.h"
 #include "btInternalEdgeUtility.h"
+#include "RUN3D_APPLICATION.h"
 
 //https://github.com/libgdx/libgdx/issues/2534
 //https://pybullet.org/Bullet/phpBB3/viewtopic.php?p=&f=9&t=3052
@@ -98,6 +99,7 @@ R3D_GAMEPLAY_GAME::R3D_GAMEPLAY_GAME() :
     StateMachine(),
     Level(),
     Scene(),
+    Tick( 0 ),
     BulletSystem( new GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION() ) {
         
 }
@@ -106,7 +108,18 @@ R3D_GAMEPLAY_GAME::~R3D_GAMEPLAY_GAME() {
     
 }
 
-void R3D_GAMEPLAY_GAME::Initialize() {
+void R3D_GAMEPLAY_GAME::SetPlayers( const std::vector< GAME_PLAYER_MODEL > & players ) {
+    
+    GetLevel().GetPlayerTable().resize( players.size() );
+    
+    for (int i = 0; i < players.size(); i++ ) {
+        
+        GetLevel().GetPlayerTable()[ i ] = new R3D_PLAYER();
+        GetLevel().GetPlayerTable()[ i ]->Initialize();
+    }
+}
+
+void R3D_GAMEPLAY_GAME::Initialize( ) {
     
     //gContactAddedCallback = CustomMaterialCombinerCallback;
     
@@ -128,14 +141,15 @@ void R3D_GAMEPLAY_GAME::Initialize() {
     
     Level.Initialize();
     
-    Restart();
+    CORE_FIXED_STATE_InitializeState( StateMachine, R3D_GAMEPLAY_GAME::IDLE_STATE, this );
 }
 
 void R3D_GAMEPLAY_GAME::Restart() {
     
+    Tick = 0;
     Level.Restart();
     
-    CORE_FIXED_STATE_InitializeState( StateMachine, R3D_GAMEPLAY_GAME::GAME_STARTING, this );
+    StateMachine.ChangeState( GAME_STARTINGSTATE );
 }
 
 void R3D_GAMEPLAY_GAME::Finalize() {
@@ -160,8 +174,22 @@ void R3D_GAMEPLAY_GAME::Update( const float step ) {
     
     time_mod.AttributeValue.Value.FloatValue = sinf( TimeMod ) * 0.1f;
     
-    Level.GetPlayerTable()[0]->GetShip()->Update( step );
+    for ( int i = 0; i < Level.GetPlayerTable().size(); i++ ) {
+        
+        Level.GetPlayerTable()[ i ]->GetShip()->Update( step );
+    }
 }
+
+//---------------------------------------------------------------------------------------//
+//-------------------------- GAME IDLE_STATE ----------------------------------------------//
+//---------------------------------------------------------------------------------------//
+CORE_FIXED_STATE_DefineStateEnterEvent( R3D_GAMEPLAY_GAME::IDLE_STATE )
+
+CORE_FIXED_STATE_EndOfStateEvent()
+
+CORE_FIXED_STATE_DefineStateLeaveEvent( R3D_GAMEPLAY_GAME::IDLE_STATE )
+
+CORE_FIXED_STATE_EndOfStateEvent()
 
 //---------------------------------------------------------------------------------------//
 //-------------------------- GAME STARTING ----------------------------------------------//
@@ -173,12 +201,29 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVENT )
     static float t = 0.0f;
+    static GRAPHIC_CAMERA local_camera( 1.0f, 100.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
+    static const CORE_MATH_VECTOR & position = R3D_APP_PTR->GetCamera()->GetPosition();
+    static const CORE_MATH_QUATERNION & orientation = R3D_APP_PTR->GetCamera()->GetOrientation();
 
-    if ( t > 1.0f ) {
+    if ( t > 2.0f ) {
         
         CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().GAME_STATE )
         
         t = 0.0f;
+        
+        R3D_APP_PTR->SetCamera( &R3D_APP_PTR->GetGame()->GetLevel().GetPlayerTable()[0]->GetShip()->GetRear() );
+    }
+    else {
+        
+        const GRAPHIC_CAMERA & camera = R3D_APP_PTR->GetGame()->GetLevel().GetPlayerTable()[0]->GetShip()->GetRear();
+        
+        float p = t / 2.0f;
+        
+        CORE_MATH_QUATERNION q = camera.GetOrientation() * p + orientation * (1.0f - p);
+        q.Normalize();
+        
+        local_camera.UpdateCamera(camera.GetPosition() * p + position * (1.0f - p), q );
+        R3D_APP_PTR->SetCamera( &local_camera );
     }
 
     t += event.GetEventData();
@@ -202,8 +247,14 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STATE, UPDATE_EVENT )
 
+    GetContext().Tick++;
     GetContext().Scene.Update( event.GetEventData() );
+    GetContext().InternalUpdateGame( event.GetEventData() );
 
+CORE_FIXED_STATE_EndOfStateEvent()
+
+CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STATE, PAUSE_EVENT )
+    CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().PAUSE_STATE);
 CORE_FIXED_STATE_EndOfStateEvent()
 
 

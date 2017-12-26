@@ -11,7 +11,7 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_HELPERS_UNIQUE.h"
-#include "TOOLS_LOCALE_STRING.h"
+#include "CORE_DATA_UTF8_TEXT.h"
 #include "CORE_HELPERS_UNIQUE_IDENTIFIER.h"
 #include "RESOURCE.h"
 
@@ -21,12 +21,17 @@ XS_CLASS_BEGIN( TOOLS_LOCALE_SYSTEM )
 
     void Initialize( const char * locale_code );
 
-    inline const TOOLS_LOCALE_STRING & FindTranslation( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) const { return TranslationTable.at( identifier ); }
+    void AddLocale( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_DATA_UTF8_TEXT & value ) {
+        
+        TranslationTable[ identifier ] = value;
+    }
+
+    inline const CORE_DATA_UTF8_TEXT & FindTranslation( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) const { return TranslationTable.at( identifier ); }
     void FindResourceForLocale( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
 
 private:
 
-    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, TOOLS_LOCALE_STRING >
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, CORE_DATA_UTF8_TEXT >
         TranslationTable;
     const char *
         LocaleCode;

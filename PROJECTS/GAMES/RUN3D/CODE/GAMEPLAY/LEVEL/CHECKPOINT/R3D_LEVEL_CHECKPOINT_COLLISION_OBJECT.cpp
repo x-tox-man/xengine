@@ -35,5 +35,5 @@ void R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT::Initialize( const CORE_MATH_VECTOR &
 
 void R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT::CollidesWith( GAMEPLAY_COMPONENT_ENTITY * other ) {
     
-    R3D_APP_PTR->GetGame().GetLevel().GetCheckpoints().OnCheckpointCollision( this, other );
+    R3D_APP_PTR->GetGame()->GetLevel().GetCheckpoints().OnCheckpointCollision( this, other );
 }

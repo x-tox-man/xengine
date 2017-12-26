@@ -11,6 +11,7 @@
 #include "GRAPHIC_UI_HELPER.h"
 #include "RUN3D_APPLICATION.h"
 #include "R3D_GARAGE_SHIPS_ADAPTER.h"
+#include "UI_GARAGE_SHIP_CELL.h"
 
 UI_GARAGE::UI_GARAGE() :
     R3D_UI_FRAME() {
@@ -31,7 +32,12 @@ void UI_GARAGE::Initialize() {
     button->GetPlacement().SetSize( CORE_MATH_VECTOR( 128.0f, 64.0f ) );
     
     auto ship_frame = GRAPHIC_UI_HELPER:: CreateFrame( "ShipsContainer" );
-    ship_frame->SetAdapter( new R3D_GARAGE_SHIPS_ADAPTER( ship_frame ) );
+    auto adapter = new R3D_GARAGE_SHIPS_ADAPTER( ship_frame );
+    adapter->SetHorizontal();
+    ship_frame->GetPlacement().SetSize(CORE_MATH_VECTOR( 768.0f, 256.0f ) );
+    ship_frame->SetAdapter( adapter );
+    ((UI_GARAGE_PRESENTER::PTR)GetPresenter())->SetShipsListAdapter( adapter );
+    ship_frame->Initialize();
     
     GRAPHIC_UI_HELPER::CreateElementStyleWithContentTexture(button, CORE_COLOR_White, CORE_HELPERS_IDENTIFIER( "frameBorder3" ) );
     button->Initialize();

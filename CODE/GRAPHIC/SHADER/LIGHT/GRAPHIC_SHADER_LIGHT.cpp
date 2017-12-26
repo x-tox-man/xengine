@@ -159,7 +159,7 @@ void GRAPHIC_SHADER_LIGHT::ComputeModelViewProjection( GRAPHIC_RENDERER & render
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    mvp = renderer.GetCamera().GetProjectionMatrix();
-    mvp *= renderer.GetCamera().GetViewMatrix();
+    mvp = renderer.GetCamera()->GetProjectionMatrix();
+    mvp *= renderer.GetCamera()->GetViewMatrix();
     mvp *= CORE_MATH_MATRIX( CORE_MATH_MATRIX::Identity );
 }

@@ -237,7 +237,10 @@ inline CORE_MATH_QUATERNION operator * ( const CORE_MATH_QUATERNION & lhs, const
     
     CORE_MATH_QUATERNION result;
     
-    CORE_RUNTIME_Abort();
+    result[0] = lhs[0] * rhs;
+    result[1] = lhs[1] * rhs;
+    result[2] = lhs[2] * rhs;
+    result[3] = lhs[3] * rhs;
     
     return result;
 }

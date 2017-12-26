@@ -60,6 +60,7 @@ void GAMEPLAY_COMPONENT_SYSTEM::Render( GRAPHIC_RENDERER & renderer ) {
 
 void GAMEPLAY_COMPONENT_SYSTEM::Finalize() {
     
+    EntitiesTable.clear();
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM::AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) {

@@ -137,7 +137,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         Lookat.Normalize();
         
         GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_LessOrEqual, true, 0.0f, 1.0f);
-        R3D_APP_PTR->GetGame().Render( renderer );
+        R3D_APP_PTR->GetGame()->Render( renderer );
         
         GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
         
@@ -149,9 +149,6 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     
         renderer.SetLightingIsEnabled( false );
         
-        GRAPHIC_SYSTEM::DisableDepthTest();
-        renderer.SetCamera( InterfaceCamera );
-        GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
 #if PLATFORM_OSX
         PrimaryRenderTarget.Discard();
 #endif
@@ -208,7 +205,11 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     }
 #endif
     
-    auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[4]);
+    GRAPHIC_SYSTEM::DisableDepthTest();
+    renderer.SetCamera( InterfaceCamera );
+    GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
+    
+    auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4]);
     
     //detect->DebugDrawWorld();
 }

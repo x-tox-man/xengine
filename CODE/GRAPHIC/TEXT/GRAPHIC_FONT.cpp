@@ -63,5 +63,5 @@ void GRAPHIC_FONT::Load( const CORE_FILESYSTEM_PATH & font_path, const CORE_FILE
     
     Texture = img->CreateTextureObject( true );
     
-    delete img;
+    CORE_MEMORY_ObjectSafeDeallocation( img );
 }

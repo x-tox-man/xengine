@@ -12,22 +12,26 @@
 #include "GRAPHIC_UI_FRAME_LIST_ADAPTER.h"
 #include "GRAPHIC_UI_FRAME.h"
 #include "NETWORK_REMOTE_SERVER_INFO.h"
+#include "NETWORK_BROWSER_LOBBY_CELL.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(NETWORK_BROWSER_LIST_ADAPTER, GRAPHIC_UI_FRAME_LIST_ADAPTER )
     
     NETWORK_BROWSER_LIST_ADAPTER(GRAPHIC_UI_FRAME * frame, GRAPHIC_UI_ELEMENT * ui_template);
     virtual ~NETWORK_BROWSER_LIST_ADAPTER();
     
-    void SetCollection(std::vector< NETWORK_REMOTE_SERVER_INFO * > * collection) {
+    inline void SetCollection(std::vector< NETWORK_REMOTE_SERVER_INFO * > * collection) {
         ItemsTable = collection;
     }
     
-    void SetServerSelectedCallback( CORE_HELPERS_CALLBACK_1< NETWORK_REMOTE_SERVER_INFO * > & callback) {
+    inline void SetServerSelectedCallback( CORE_HELPERS_CALLBACK_1< NETWORK_REMOTE_SERVER_INFO * > & callback) {
         ActionCallback = callback;
     }
-    virtual int GetItemsCount();
-    virtual int GetSpacing();
-    virtual void ConfigureItemLayoutFor(int , GRAPHIC_UI_ELEMENT *);
+    virtual int GetItemsCount() override;
+    virtual int GetSpacing() override;
+    virtual void ConfigureItemLayoutFor(int , GRAPHIC_UI_ELEMENT *) override;
+    virtual GRAPHIC_UI_ELEMENT::PTR CreateItem() override {
+        return new NETWORK_BROWSER_LOBBY_CELL;
+    }
     
 private:
     

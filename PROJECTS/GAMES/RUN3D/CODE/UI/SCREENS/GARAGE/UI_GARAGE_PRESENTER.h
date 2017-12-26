@@ -12,6 +12,8 @@
 #include "CORE_HELPERS_CLASS.h"
 #include "R3D_BASE_PRESENTER.h"
 #include "R3D_PLAYER_SHIP.h"
+#include "R3D_PLAYER.h"
+#include "R3D_GARAGE_SHIPS_ADAPTER.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( UI_GARAGE_PRESENTER, R3D_BASE_PRESENTER )
 
@@ -20,11 +22,16 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( UI_GARAGE_PRESENTER, R3D_BASE_PRESENTER )
     virtual void Configure() override;
 
     void OnClick(GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state );
+    inline void SetShipsListAdapter( R3D_GARAGE_SHIPS_ADAPTER::PTR adapter ) { Adapter = adapter; }
 
 private:
 
-std::vector< R3D_PLAYER_SHIP::PTR >
-    PlayerShips;
+    std::vector< R3D_PLAYER_SHIP_MODEL::PTR >
+        PlayerShips;
+    R3D_PLAYER::PTR
+        Player;
+    R3D_GARAGE_SHIPS_ADAPTER::PTR
+        Adapter;
 
 XS_CLASS_END
 

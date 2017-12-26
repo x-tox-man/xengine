@@ -45,6 +45,12 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_
         option.SetPosition( placement.GetAbsolutePosition() );
         option.SetScaleFactor( placement.GetSize() );
         
+        CORE_MATH_QUATERNION orientation;
+        orientation.RotateY( placement.GetRotation() );
+        orientation.Normalize();
+        
+        option.SetOrientation( orientation );
+        
         Material->GetDiffuse().W( opacity );
         Effect->SetMaterial( Material );
         

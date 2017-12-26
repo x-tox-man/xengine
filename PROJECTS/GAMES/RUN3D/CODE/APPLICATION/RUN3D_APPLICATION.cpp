@@ -17,12 +17,15 @@
 #include "btBulletDynamicsCommon.h"
 #include "PHYSICS_COLLISION_FILTER.h"
 #include "UI_MAIN_MENU.h"
+#include "TOOLS_LOCALE_SYSTEM.h"
+#include "CORE_DATA_UTF8_TEXT.h"
+#include "R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h"
 
 RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
     DefaultFileystem(),
     GameRenderer(),
-    Game() {
+    Game( NULL ) {
     
     #if PLATFORM_OSX
         DefaultFileystem.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
@@ -58,19 +61,44 @@ void RUN3D_APPLICATION::Initialize() {
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
     CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
     
+    Game = new R3D_GAMEPLAY_GAME;
+    Game->Initialize();
+    
+    InitializeSingleplayerGame();
+    
     CORE_ABSTRACT_PROGRAM_BINDER::GetInstance().BindRuntime<CORE_ABSTRACT_RUNTIME_LUA>( *runtime );
     
-    Game.Initialize();
-    
     AUDIO_SYSTEM::GetInstance().GetBank().Load();
+    TOOLS_LOCALE_SYSTEM::GetInstance().Initialize( "fr" );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Garage" ), CORE_DATA_UTF8_TEXT ( L"Garage\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Network" ), CORE_DATA_UTF8_TEXT( L"Réseau\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "CreateServer" ), CORE_DATA_UTF8_TEXT( L"Lancer le serveur\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Play" ), CORE_DATA_UTF8_TEXT( L"Jouer\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Back" ), CORE_DATA_UTF8_TEXT( L"Retour\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Pause" ), CORE_DATA_UTF8_TEXT( L"Pause\0" ) );
+    
+    GetNetworkManager().Initialize();
     
     UI_MAIN_MENU & main_window = ( UI_MAIN_MENU & ) GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().InitializeNavigation<UI_MAIN_MENU>("MainWindow");
     main_window.Initialize();
 }
 
+void RUN3D_APPLICATION::InitializeSingleplayerGame() {
+    
+    Game->SetDelegate( new R3D_GAMEPLAY_GAME_DELEGATE );
+}
+
+void RUN3D_APPLICATION::InitializeMultiplayerGame() {
+    
+    Game->SetDelegate( new R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE );
+}
+
 void RUN3D_APPLICATION::Finalize() {
     
-    Game.Finalize();
+    if ( Game ) {
+        
+        Game->Finalize();
+    }
     
     AUDIO_SYSTEM::GetInstance().Finalize();
     AUDIO_SYSTEM::RemoveInstance();
@@ -104,11 +132,12 @@ void RUN3D_APPLICATION::Update( float time_step ) {
     while ( acc > step) {
         acc -= step;
         
-        Game.Update( step );
+        Game->Update( step );
         
         GRAPHIC_PARTICLE_SYSTEM::GetInstance().Update( time_step, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
     }
     
+    NetworkManager.Update( time_step );
     GRAPHIC_UI_SYSTEM::GetInstance().Update( time_step );
     PERIPHERIC_INTERACTION_SYSTEM::GetInstance().Update();
 }

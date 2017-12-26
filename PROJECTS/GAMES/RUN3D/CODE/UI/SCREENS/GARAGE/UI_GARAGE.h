@@ -16,9 +16,9 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( UI_GARAGE, R3D_UI_FRAME )
 
-UI_GARAGE();
+    UI_GARAGE();
 
-virtual void Initialize() override;
+    virtual void Initialize() override;
 
 XS_CLASS_END
 

@@ -30,5 +30,8 @@ void NETWORK_SETUP_PLAYER_LIST_ADAPTER::ConfigureItemLayoutFor(int row, GRAPHIC_
     NETWORK_SETUP_PLAYER_CELL * cell = (NETWORK_SETUP_PLAYER_CELL*) item;
 
     cell->GetObjectAtIndex(0)->GetActionCallback().SetObject(cell);
-    //cell->SetPlayerInfo( ItemsTable->at(row) );
+    if ( ItemsTable && ItemsTable->size() > row ) {
+        
+        cell->SetPlayerInfo( ItemsTable->at( row ) );
+    }
 }

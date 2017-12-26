@@ -42,6 +42,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
     virtual void Click( const CORE_MATH_VECTOR & cursor_position );
     virtual void Hover( const CORE_MATH_VECTOR & cursor_position );
     virtual void Hover( const bool force_hover );
+    virtual void Drag( const CORE_MATH_VECTOR & cursor_position );
 
     virtual int GetChildCount() { return -1; }
 
@@ -96,6 +97,11 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
         Adapter = adapter;
     }
 
+    inline GRAPHIC_UI_BASE_ADAPTER::PTR GetAdapter() {
+        
+        return Adapter;
+    }
+
     virtual GRAPHIC_UI_ELEMENT * Copy();
 
     virtual void SetOpacity( float opacity ) { Opacity = opacity; }
@@ -116,7 +122,7 @@ protected:
         CurrentState;
     GRAPHIC_UI_ELEMENT_SCRIPTED
         Animation;
-    std::array< GRAPHIC_UI_RENDER_STYLE *, GRAPHIC_UI_ELEMENT_STATE_Count >
+    std::array< GRAPHIC_UI_RENDER_STYLE *, 4 >
         RenderStyleTable;
     GRAPHIC_UI_BASE_ADAPTER
         * Adapter;

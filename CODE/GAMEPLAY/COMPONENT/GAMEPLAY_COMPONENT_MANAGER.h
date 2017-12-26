@@ -25,6 +25,7 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
     ~GAMEPLAY_COMPONENT_MANAGER();
 
     void Initialize();
+    void Finalize();
 
     template <typename __ENTITY_TARGET_TYPE__>
     __ENTITY_TARGET_TYPE__ * CreateEntity() {

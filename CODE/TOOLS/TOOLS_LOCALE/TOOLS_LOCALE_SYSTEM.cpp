@@ -10,13 +10,12 @@
 
 TOOLS_LOCALE_SYSTEM::TOOLS_LOCALE_SYSTEM() :
     TranslationTable(),
-    LocaleCode( NULL ){
+    LocaleCode( NULL ) {
     
 }
 
 void TOOLS_LOCALE_SYSTEM::Initialize( const char * locale_code ) {
     
-    abort();
 }
 
 void  TOOLS_LOCALE_SYSTEM::FindResourceForLocale( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {

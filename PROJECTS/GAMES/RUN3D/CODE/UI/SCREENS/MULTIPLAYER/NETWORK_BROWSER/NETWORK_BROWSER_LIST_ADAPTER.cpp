@@ -10,7 +10,9 @@
 #include "NETWORK_BROWSER_LOBBY_CELL.h"
 
 NETWORK_BROWSER_LIST_ADAPTER::NETWORK_BROWSER_LIST_ADAPTER(GRAPHIC_UI_FRAME * frame, GRAPHIC_UI_ELEMENT * ui_template) :
-    GRAPHIC_UI_FRAME_LIST_ADAPTER( frame, ui_template ) {
+    GRAPHIC_UI_FRAME_LIST_ADAPTER( frame, ui_template ),
+    ItemsTable( NULL ),
+    ActionCallback() {
     
 }
 
@@ -20,7 +22,11 @@ NETWORK_BROWSER_LIST_ADAPTER::~NETWORK_BROWSER_LIST_ADAPTER() {
 
 int NETWORK_BROWSER_LIST_ADAPTER::GetItemsCount() {
     
-    return (int) ItemsTable->size();
+    if ( ItemsTable ) {
+        return (int) ItemsTable->size();
+    }
+    
+    return 0;
 }
 
 int NETWORK_BROWSER_LIST_ADAPTER::GetSpacing() {

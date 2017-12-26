@@ -18,8 +18,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( UI_MAIN_MENU_PRESENTER, R3D_BASE_PRESENTER )
 
     virtual void Configure() override;
 
-    void OnClick(GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state );
+    void OnClickToGarage(GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state );
     void OnNetworkButtonPressed(GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state );
+    void OnClickStartGame( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state );
 
 XS_CLASS_END
 

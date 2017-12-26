@@ -19,6 +19,7 @@
 #include "CORE_FIXED_STATE_EVENT.h"
 #include "SERVICE_NETWORK_CONNECTION.h"
 #include "CORE_TIMELINE_EVENT.h"
+#include "NETWORK_SERVER_DELEGATE.h"
 
 #define THIS_GAME_MAX_NETWORK_PLAYER_SIZE 8
 #define THIS_GAME_MAX_NETWORK_MESSAG_QUEUE_SIZE 512
@@ -30,8 +31,8 @@ XS_CLASS_BEGIN(NETWORK_SERVER)
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( GAME_EVENT, CORE_TIMELINE_EVENT * )
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, float )
+    CORE_FIXED_STATE_MACHINE_DefineEvent( CLIENT_DISCONNECTED_EVENT, NETWORK_PLAYER * )
     CORE_FIXED_STATE_MACHINE_DefineEventVoid( TCP_CONNECTED_EVENT )
-    CORE_FIXED_STATE_MACHINE_DefineEventVoid( CLIENT_DISCONNECTED_EVENT )
     CORE_FIXED_STATE_MACHINE_DefineEventVoid( QUIT_EVENT )
     CORE_FIXED_STATE_MACHINE_DefineEventVoid( COUNTDOWN_FINISHED_EVENT )
     CORE_FIXED_STATE_MACHINE_DefineEventVoid( COUNTDOWN_CANCELLED_EVENT )
@@ -55,6 +56,8 @@ XS_CLASS_BEGIN(NETWORK_SERVER)
 
     CORE_FIXED_STATE_MACHINE_DefineState(BASE_STATE, ACCEPTING_CONNECTIONS_STATE)
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( TCP_CONNECTED_EVENT )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( CLIENT_DISCONNECTED_EVENT )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( QUIT_EVENT )
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( GAME_EVENT )
     CORE_FIXED_STATE_MACHINE_EndDefineState( ACCEPTING_CONNECTIONS_STATE )
@@ -70,7 +73,7 @@ XS_CLASS_BEGIN(NETWORK_SERVER)
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( GAME_EVENT )
     CORE_FIXED_STATE_MACHINE_EndDefineState( NETWORK_RECOVER_STATE )
 
-    void Initialize( float network_refresh_rate );
+    void Initialize( float network_refresh_rate, const char * discover_message );
     void SetAcceptsConnexions(bool accepts);
 
     void Update( float time_step );
@@ -85,16 +88,20 @@ XS_CLASS_BEGIN(NETWORK_SERVER)
     void RejectPlayer( SERVICE_NETWORK_CONNECTION * connection );
 
     bool AcceptsConnections();
+    void DisconnectAll();
     void StartCountDown();
+    void ServerChanged();
+    void SetReady( bool ready );
 
     inline SERVICE_NETWORK_LOBBY * GetLobby() { return LobbyInstance; }
     inline CORE_FIXED_STATE_MACHINE< BASE_STATE, NETWORK_SERVER > & GetStateMachine() { return StateMachine; }
     inline NETWORK_PLAYER & GetCurrentPlayer() { return CurrentPlayer; }
     inline void SetGameStartedCallback( const CORE_HELPERS_CALLBACK & callback) { GameStartedCallback = callback; }
-    inline void SetOnPlayerConnectedCallback( CORE_HELPERS_CALLBACK_1< NETWORK_PLAYER * > & callback ) { OnPlayerConnected = callback; }
-    inline void SetOnPlayerLeftCallback( CORE_HELPERS_CALLBACK_1< NETWORK_PLAYER * > & callback ) { OnPlayerLeft = callback; }
     inline std::array<NETWORK_PLAYER *, THIS_GAME_MAX_NETWORK_PLAYER_SIZE> & GetPlayerTable() { return PlayerTable; }
     inline void SetSeed( int seed ) { Seed = seed; }
+    inline void SetDelegate( NETWORK_SERVER_DELEGATE * delegate ) { Delegate = delegate; }
+
+    SERVICE_NETWORK_COMMAND * CreateInfo();
 
 private :
 
@@ -106,17 +113,10 @@ private :
     void OnTCPDataReceived( SERVICE_NETWORK_COMMAND * command );
     void ConnectedUpdateClientInfo( NETWORK_PLAYER * player );
 
-    SERVICE_NETWORK_LOBBY
-        * LobbyInstance;
     std::array<NETWORK_PLAYER *, THIS_GAME_MAX_NETWORK_PLAYER_SIZE>
         PlayerTable;
     std::array< SERVICE_NETWORK_COMMAND *, THIS_GAME_MAX_NETWORK_MESSAG_QUEUE_SIZE>
         IncommingMessageQueue;
-    int
-        IncommingMessageQueueIterator;
-    float
-        NetworkRefreshRate,
-        AccumulatedRemaining;
     CORE_TIMELINE
         NetworkEventsTimeLine;
     CORE_FIXED_STATE_MACHINE< BASE_STATE, NETWORK_SERVER >
@@ -125,14 +125,19 @@ private :
         CurrentPlayer;
     CORE_HELPERS_CALLBACK
         GameStartedCallback;
-    CORE_HELPERS_CALLBACK_1< NETWORK_PLAYER * >
-        OnPlayerConnected,
-        OnPlayerLeft;
+    NETWORK_SERVER_DELEGATE
+        * Delegate;
+    SERVICE_NETWORK_LOBBY
+        * LobbyInstance;
     int
         StartingGameCounter,
-        Seed;
+        Seed,
+        IncommingMessageQueueIterator;
     bool
         StartingGameTicTacCounter;
+    float
+        NetworkRefreshRate,
+        AccumulatedRemaining;
 
 XS_CLASS_END
 

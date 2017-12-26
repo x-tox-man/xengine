@@ -17,6 +17,8 @@
 #include "GRAPHIC_RENDERER.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
 #include "PHYSICS_COLLISION_NEAR_FILTER.h"
+#include "GAME_PLAYER_MODEL.h"
+#include "R3D_GAMEPLAY_GAME_DELEGATE.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
@@ -26,20 +28,34 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     void Render( GRAPHIC_RENDERER & renderer );
     void Update( const float step );
 
+    inline void InternalUpdateGame( const float step) {
+        
+        Delegate->InternalUpdateGame( step );
+    }
+
+    void SetPlayers( const std::vector< GAME_PLAYER_MODEL > & players );
+
     void Initialize();
     void Finalize();
-
     void Restart();
 
+    inline int GetTick() const { return Tick; }
     inline R3D_LEVEL & GetLevel() { return Level; }
     inline GAMEPLAY_SCENE & GetScene() { return Scene; }
     inline GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * GetBulletSystem() { return BulletSystem; }
+    inline R3D_GAMEPLAY_GAME_DELEGATE * GetDelegate() { return Delegate; }
+    inline void SetDelegate( R3D_GAMEPLAY_GAME_DELEGATE * delegate ) { Delegate = delegate; }
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, const float )
+    CORE_FIXED_STATE_MACHINE_DefineEventVoid( PAUSE_EVENT )
 
     CORE_FIXED_STATE_MACHINE_DeclareBaseState(GAME_BASE_STATE, R3D_GAMEPLAY_GAME )
         CORE_FIXED_STATE_MACHINE_DeclareHandleEvent( UPDATE_EVENT )
     CORE_FIXED_STATE_MACHINE_End()
+
+    CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, IDLE_STATE )
+
+    CORE_FIXED_STATE_MACHINE_EndDefineState( IDLE_STATE )
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, GAME_STARTING )
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
@@ -47,6 +63,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, GAME_STATE )
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( PAUSE_EVENT )
     CORE_FIXED_STATE_MACHINE_EndDefineState( GAME_STATE )
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, PAUSE_STATE )
@@ -57,7 +74,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
     CORE_FIXED_STATE_MACHINE_EndDefineState( END_GAME_STATE )
 
-private:
+protected:
 
     CORE_FIXED_STATE_MACHINE<GAME_BASE_STATE, R3D_GAMEPLAY_GAME>
         StateMachine;
@@ -67,6 +84,10 @@ private:
         Scene;
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION
         * BulletSystem;
+    int
+        Tick;
+    R3D_GAMEPLAY_GAME_DELEGATE::PTR
+        Delegate;
 
 XS_CLASS_END
 

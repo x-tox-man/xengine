@@ -19,7 +19,7 @@
 #include "GRAPHIC_TEXT.h"
 #include "GRAPHIC_TEXTURE_ATLAS.h"
 
-#define ALL_STATES ( ( ( GRAPHIC_UI_ELEMENT_STATE_Default | GRAPHIC_UI_ELEMENT_STATE_Hovered ) | GRAPHIC_UI_ELEMENT_STATE_Pressed ) | GRAPHIC_UI_ELEMENT_STATE_Disabled )
+#define ALL_STATES 15
 
 XS_CLASS_BEGIN( GRAPHIC_UI_HELPER )
 
@@ -56,21 +56,24 @@ private :
 
     static void AddStyleToElementWithMask(GRAPHIC_UI_ELEMENT::PTR element, GRAPHIC_UI_RENDER_STYLE::PTR style, int mask ) {
     
-        if ( ( mask & GRAPHIC_UI_ELEMENT_STATE_Hovered ) ) {
-            element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Hovered, style );
-        }
-        
-        if ( ( mask & GRAPHIC_UI_ELEMENT_STATE_Default ) ) {
+        if ( mask & 1 ) {
             
             element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, style );
         }
-        if ( ( mask & GRAPHIC_UI_ELEMENT_STATE_Disabled ) ) {
         
-            element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Disabled, style );
+        if ( mask & 2 ) {
+            
+            element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Hovered, style );
         }
-        if ( ( mask & GRAPHIC_UI_ELEMENT_STATE_Pressed ) ) {
+        
+        if ( mask & 4 ) {
             
             element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Pressed, style );
+        }
+        
+        if ( mask & 8 ) {
+            
+            element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Disabled, style );
         }
     }
 

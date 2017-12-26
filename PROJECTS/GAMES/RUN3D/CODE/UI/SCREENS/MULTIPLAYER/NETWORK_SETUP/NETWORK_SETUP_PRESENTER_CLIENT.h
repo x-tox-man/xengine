@@ -34,7 +34,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PRESENTER, GRAPHIC_UI_PRESENTER)
 private:
 
     bool
-        NavigationIsRequested,
         GameIsStarting;
     NETWORK_SERVER
         * Server;

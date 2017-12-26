@@ -55,7 +55,7 @@ GRAPHIC_UI_ELEMENT::~GRAPHIC_UI_ELEMENT() {
 
     CORE_MEMORY_ObjectSafeDeallocation( Adapter );
     
-    std::array< GRAPHIC_UI_RENDER_STYLE *, GRAPHIC_UI_ELEMENT_STATE_Count >::iterator it = RenderStyleTable.begin();
+    std::array< GRAPHIC_UI_RENDER_STYLE *, 4 >::iterator it = RenderStyleTable.begin();
     
     while (it != RenderStyleTable.end() ) {
         
@@ -67,12 +67,6 @@ GRAPHIC_UI_ELEMENT::~GRAPHIC_UI_ELEMENT() {
 void GRAPHIC_UI_ELEMENT::SetActionCallback( CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT > & action_callback ) {
     
     ActionCallback = action_callback;
-    
-    // TODO : FIX!!!!
-    /*if ( action_callback.IsConnected() ) {
-        
-        ActionCallback = *(CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE > *) ((void *)action_callback.CallbackFunction);
-    }*/
 }
 
 void GRAPHIC_UI_ELEMENT::Update( const float time_step ) {
@@ -103,7 +97,7 @@ void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
     
     if ( IsVisible() ) {
         
-        if (  RenderStyleTable[ (unsigned int) CurrentState ] ) {
+        if (  RenderStyleTable[ (unsigned int) CurrentState ] != NULL ) {
             
             RenderStyleTable[ CurrentState ]->Apply( renderer, Placement, Opacity );
         }
@@ -111,7 +105,7 @@ void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
             
             for (int i = 0; i< RenderStyleTable.size(); i++) {
                 
-                if ( RenderStyleTable[ CurrentState ] != NULL ) {
+                if ( RenderStyleTable[ i ] != NULL ) {
                     
                     RenderStyleTable[ i ]->Apply( renderer, Placement, Opacity );
                     
@@ -156,6 +150,14 @@ void GRAPHIC_UI_ELEMENT::Hover( const CORE_MATH_VECTOR & cursor_position ) {
     }
 }
 
+void GRAPHIC_UI_ELEMENT::Drag( const CORE_MATH_VECTOR & cursor_position ) {
+    
+    if ( Adapter ) {
+        
+        Adapter->OnDragged( this, cursor_position );
+    }
+}
+
 void GRAPHIC_UI_ELEMENT::Hover( const bool force_hover ) {
     
     if ( ( CurrentState & GRAPHIC_UI_ELEMENT_STATE_Hovered) == GRAPHIC_UI_ELEMENT_STATE_Hovered ) {
@@ -197,9 +199,6 @@ GRAPHIC_UI_ELEMENT * GRAPHIC_UI_ELEMENT::Copy() {
     newElement->Visible = Visible;
     newElement->Adapter = Adapter;
     Animation.Copy(newElement->Animation );
-    
-    newElement->ActionCallback = ActionCallback;
-    newElement->ActionCallback.SetObject(newElement);
     
     return newElement;
 }

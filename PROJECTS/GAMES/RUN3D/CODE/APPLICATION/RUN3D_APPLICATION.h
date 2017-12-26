@@ -43,6 +43,9 @@
 #include "R3D_RENDER.h"
 #include "R3D_GAMEPLAY_GAME.h"
 #include "NETWORK_MANAGER.h"
+#include "GAME_PLAYER_MODEL.h"
+
+#define R3D_APP_VERSION 1
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
 
@@ -56,11 +59,15 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
     virtual void Render() override;
 
     inline CORE_FILESYSTEM & GetDefaultFileystem() { return DefaultFileystem; }
-    inline R3D_GAMEPLAY_GAME & GetGame() { return Game; }
+    inline R3D_GAMEPLAY_GAME * GetGame() { return Game; }
     inline NETWORK_MANAGER & GetNetworkManager() { return NetworkManager; }
     inline int GetSeed() { return Seed; }
 
     void SetCamera( GRAPHIC_CAMERA::PTR camera );
+    GRAPHIC_CAMERA::PTR GetCamera() { return GameRenderer.GetCamera(); }
+
+    void InitializeSingleplayerGame();
+    void InitializeMultiplayerGame();
 
 private :
 
@@ -72,7 +79,7 @@ private :
         DefaultFileystem;
     R3D_RENDER
         GameRenderer;
-    R3D_GAMEPLAY_GAME
+    R3D_GAMEPLAY_GAME::PTR
         Game;
     NETWORK_MANAGER
         NetworkManager;

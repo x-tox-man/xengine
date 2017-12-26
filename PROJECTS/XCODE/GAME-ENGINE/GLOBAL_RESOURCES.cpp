@@ -168,7 +168,7 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     HeightMapObject = new GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP( heights, height_map->GetImageInfo().Width, height_map->GetImageInfo().Height, 2.0f );
     SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 56" );
     
-    delete height_map;
+    CORE_MEMORY_ObjectSafeDeallocation( height_map);
     
     plane_shader_effect->Initialize( PlanObject->GetShaderBindParameter() );
     SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 57" );

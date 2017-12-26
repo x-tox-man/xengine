@@ -33,7 +33,7 @@ GRAPHIC_TEXTURE * GRAPHIC_TEXTURE_LOADER::Load( const CORE_FILESYSTEM_PATH & pat
     
     GRAPHIC_TEXTURE * texture = image->CreateTextureObject( false );
     
-    delete image;
+    CORE_MEMORY_ObjectSafeDeallocation( image );
     
     return texture;
 }

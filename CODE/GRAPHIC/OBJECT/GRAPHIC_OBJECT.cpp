@@ -176,8 +176,8 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    mvp = renderer.GetCamera().GetProjectionMatrix();
-    mvp *= renderer.GetCamera().GetViewMatrix();
+    mvp = renderer.GetCamera()->GetProjectionMatrix();
+    mvp *= renderer.GetCamera()->GetViewMatrix();
     mvp *= object_matrix;
 }
 

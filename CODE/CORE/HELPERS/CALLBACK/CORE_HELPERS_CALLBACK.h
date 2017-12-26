@@ -163,7 +163,7 @@ public:
     void * GetObjectPointer() { return ObjectPointer; }
     
     void operator()( __TYPE_1__ first, __TYPE_2__ second ) {
-        if ( ObjectPointer == 0 ) {
+        if ( ObjectPointer == 0 || CallbackFunction == 0 ) {
             return;
         }
         

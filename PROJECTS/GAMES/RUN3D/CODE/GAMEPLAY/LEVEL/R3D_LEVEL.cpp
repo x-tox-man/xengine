@@ -24,15 +24,10 @@ R3D_LEVEL::R3D_LEVEL() :
 
 void R3D_LEVEL::Initialize() {
     
-    PlayerTable.resize( 1 );
-    
-    PlayerTable[ 0 ] = new R3D_PLAYER();
-    PlayerTable[ 0 ]->Initialize();
-    
     Checkpoints.SetPlayerFinishedCallback( EndGameCallback );
     
     CreateTracks();
-    //CreateGround();
+    CreateGround();
 }
 
 

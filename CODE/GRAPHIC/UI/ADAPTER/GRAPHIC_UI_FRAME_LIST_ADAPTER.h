@@ -27,12 +27,14 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME_LIST_ADAPTER, GRAPHIC_UI_FRAME_SC
     virtual void OnScrolled(GRAPHIC_UI_ELEMENT *, const CORE_MATH_VECTOR & ) override;
     virtual void OnCollectionChanged();
     virtual void OnDragEnd() override;
+    inline void SetCellDimension( const CORE_MATH_VECTOR & dimension ) {CellDimension = dimension; }
 
 protected:
 
     virtual int GetItemsCount() = 0;
     virtual int GetSpacing() = 0;
     virtual void ConfigureItemLayoutFor(int , GRAPHIC_UI_ELEMENT *) = 0;
+    virtual GRAPHIC_UI_ELEMENT::PTR CreateItem() = 0;
 
 private:
 

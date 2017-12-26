@@ -35,8 +35,7 @@ public:
         
         if ( VertexCoreBuffer && VertexCoreBuffer != vertexCoreBuffer) {
             
-            delete VertexCoreBuffer;
-            VertexCoreBuffer = NULL;
+            CORE_MEMORY_ObjectSafeDeallocation( VertexCoreBuffer);
         }
         
         VertexCoreBuffer = vertexCoreBuffer;
@@ -47,8 +46,7 @@ public:
         
         if ( IndexCoreBuffer ) {
             
-            delete IndexCoreBuffer;
-            VertexCoreBuffer = NULL;
+            CORE_MEMORY_ObjectSafeDeallocation( IndexCoreBuffer);
         }
         
         IndexCoreBuffer = indexCoreBuffer;

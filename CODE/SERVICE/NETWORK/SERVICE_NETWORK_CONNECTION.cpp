@@ -79,9 +79,13 @@ void SERVICE_NETWORK_CONNECTION::UDPReceivePacket(uv_udp_t *req, ssize_t nread, 
     command->Size = 0;
     command->Data = ( void * ) buf->base;
     
-    (*SERVICE_NETWORK_SYSTEM::GetInstance().OnUPDDataReceivedCallback)( command );
     
-    uv_close( ( uv_handle_t * ) req, NULL );
+    if ( *((int*)buf->base) > 0 && *((int*)buf->base) < 409600 ) {
+        
+        (*SERVICE_NETWORK_SYSTEM::GetInstance().OnUPDDataReceivedCallback)( command );
+    }
+    
+    //uv_close( ( uv_handle_t * ) req, NULL );
 }
 
 void SERVICE_NETWORK_CONNECTION::InitializeCommunicationThread() {
@@ -246,7 +250,7 @@ void SERVICE_NETWORK_CONNECTION::Stop() {
         case SERVICE_NETWORK_CONNECTION_TYPE_Udp: {
             
             if( Info.ItIsReceiver ) {
-                
+                //TODO: Check this
                 UV_CHECK_ERROR( uv_udp_recv_stop( &UVConnection.UDPType.UDPSocket ); )
             }
             

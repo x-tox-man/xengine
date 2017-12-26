@@ -11,10 +11,11 @@
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 
 GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER() :
-    TotalScrollOffset(CORE_MATH_VECTOR::Zero),
-    ScrollZone(CORE_MATH_VECTOR::Zero),
-    DragOffset(CORE_MATH_VECTOR::Zero),
-    OverallFrameDimension(CORE_MATH_VECTOR::Zero) {
+    TotalScrollOffset( CORE_MATH_VECTOR::Zero ),
+    ScrollZone( CORE_MATH_VECTOR::Zero ),
+    DragOffset( CORE_MATH_VECTOR::Zero ),
+    OverallFrameDimension( CORE_MATH_VECTOR::Zero ),
+    Horizontal( false ){
     
 }
 
@@ -30,7 +31,14 @@ void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnLayoutFrame( GRAPHIC_UI_FRAME * fram
     
     OverallFrameDimension = CalculateFrameContentDimension( (GRAPHIC_UI_ELEMENT *) frame );
     
-    ScrollZone.Y( OverallFrameDimension.W() - frame->GetSize().Y());
+    if ( Horizontal ) {
+        
+        ScrollZone.X( OverallFrameDimension.X() - frame->GetSize().X());
+    }
+    else {
+        
+        ScrollZone.Y( OverallFrameDimension.Y() - frame->GetSize().Y());
+    }
 }
 
 void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnDragEnd() {
@@ -42,16 +50,35 @@ void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnDragged(GRAPHIC_UI_ELEMENT * element
     
     if ( DragOffset == CORE_MATH_VECTOR::Zero ) {
         
+        if (  Horizontal ) {
+            
+            DragOffset.X( offset.X() );
+            DragOffset.Y( 0.0f );
+        }
+        else {
+            
+            DragOffset.X( 0.0f );
+            DragOffset.Y( offset.Y() );
+        }
+    }
+    
+    if (  Horizontal ) {
+        
+        CORE_MATH_VECTOR current_offset(offset.X() - DragOffset.X(), 0.0f );
+        
+        UpdateOffset( element, current_offset, false );
+        
+        DragOffset.X( offset.X() );
+    }
+    else {
+        
+        CORE_MATH_VECTOR current_offset( 0.0f, offset.Y() - DragOffset.Y() );
+        
+        UpdateOffset( element, current_offset, false );
+        
         DragOffset.Y( offset.Y() );
     }
     
-    CORE_MATH_VECTOR current_offset(0.0f, offset.Y() - DragOffset.Y() );
-    
-    printf( "%f\n", PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetPreviousScreenCoordinates().Y() );
-    
-    UpdateOffset( element, current_offset, false );
-    
-    DragOffset.Y( offset.Y() );
 }
 
 void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnScrolled(GRAPHIC_UI_ELEMENT * element, const CORE_MATH_VECTOR & offset ) {
@@ -61,12 +88,26 @@ void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnScrolled(GRAPHIC_UI_ELEMENT * elemen
 
 void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force) {
     
-    if ( ScrollZone.Y() > 0.0f ) {
+    if (  Horizontal ) {
         
-        auto fr = ( GRAPHIC_UI_FRAME * ) frame;
+        if ( ScrollZone.X() > 0.0f ) {
+            
+            auto fr = ( GRAPHIC_UI_FRAME * ) frame;
+            
+            TotalScrollOffset.X(fminf(ScrollZone.X(),(offset.X() + TotalScrollOffset.X())));
+            
+            fr->SetOffset( TotalScrollOffset );
+        }
+    }
+    else {
         
-        TotalScrollOffset.Y(fminf(ScrollZone.Y(),(offset.Y() + TotalScrollOffset.Y())));
-        
-        fr->SetOffset( TotalScrollOffset );
+        if ( ScrollZone.Y() > 0.0f ) {
+            
+            auto fr = ( GRAPHIC_UI_FRAME * ) frame;
+            
+            TotalScrollOffset.Y(fminf(ScrollZone.Y(),(offset.Y() + TotalScrollOffset.Y())));
+            
+            fr->SetOffset( TotalScrollOffset );
+        }
     }
 }

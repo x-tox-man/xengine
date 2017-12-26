@@ -30,6 +30,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(NETWORK_PLAYER, CORE_DATA_MODEL)
     NETWORK_PLAYER(int player_id, bool is_active);
     virtual ~NETWORK_PLAYER();
 
+    void Finalize();
     CORE_DATA_STREAM & PrepareMessage();
     void AppendMessage(SERVICE_NETWORK_COMMAND * message );
 
@@ -39,16 +40,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(NETWORK_PLAYER, CORE_DATA_MODEL)
     inline void SetUniqueId(const CORE_HELPERS_UNIQUE_IDENTIFIER & unique_id) { UniqueId = unique_id;}
     inline SERVICE_NETWORK_CONNECTION * GetNetworkConnexion() { return CurrentNewtorkStream; }
     inline void SetNetworkConnexion( SERVICE_NETWORK_CONNECTION *connection ) { CurrentNewtorkStream = connection; }
+    inline void SetIsReady( bool ready ) { IsReady = ready; }
+    inline bool Ready() const { return IsReady; }
 
 private :
 
     std::string
         Name;
-    int
-        OutGoingMessageQueueIterator;
-    bool
-        IsActive,
-        IsHost;
     CORE_DATA_STREAM
         OutGoingMessage;
     std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE>
@@ -57,6 +55,12 @@ private :
         * CurrentNewtorkStream;
     CORE_HELPERS_UNIQUE_IDENTIFIER
         UniqueId;
+    int
+        OutGoingMessageQueueIterator;
+    bool
+        IsActive,
+        IsHost,
+        IsReady;
 
 XS_CLASS_END
 

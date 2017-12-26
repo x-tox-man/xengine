@@ -47,6 +47,19 @@ void SERVICE_NETWORK_LOBBY::Initialize( int max_pool_size, const char * discover
     
     UdpBroadcastMinimumInterval = interval;
     
+    
+    UpdateDiscoverMessage( discover_message );
+    
+    for ( int i = 0; i < ConnectionPool.size(); i++ ) {
+        
+        ConnectionPool[ i ] = NULL;
+    }
+    
+    SERVICE_NETWORK_SYSTEM::GetInstance().OnTCPDataReceivedCallback = new CORE_HELPERS_CALLBACK_2< SERVICE_NETWORK_COMMAND *, uv_stream_t * >( Wrapper2< SERVICE_NETWORK_LOBBY, SERVICE_NETWORK_COMMAND *, uv_stream_t *, &SERVICE_NETWORK_LOBBY::OnTCPDataReceived >, this );
+}
+
+void SERVICE_NETWORK_LOBBY::UpdateDiscoverMessage( const char * discover_message ) {
+    
     char * t = (char*) CORE_MEMORY_ALLOCATOR_Allocate((int) strlen(discover_message));
     strcpy(t, discover_message);
     
@@ -55,16 +68,8 @@ void SERVICE_NETWORK_LOBBY::Initialize( int max_pool_size, const char * discover
     UDPBroadcastMessage.Close();
     UDPBroadcastMessage.ResetOffset();
     
-    for ( int i = 0; i < ConnectionPool.size(); i++ ) {
-        
-        ConnectionPool[ i ] = NULL;
-    }
-    
-    SERVICE_NETWORK_SYSTEM::GetInstance().OnTCPDataReceivedCallback = new CORE_HELPERS_CALLBACK_2< SERVICE_NETWORK_COMMAND *, uv_stream_t * >( Wrapper2< SERVICE_NETWORK_LOBBY, SERVICE_NETWORK_COMMAND *, uv_stream_t *, &SERVICE_NETWORK_LOBBY::OnTCPDataReceived >, this );
-    
     CORE_MEMORY_ALLOCATOR_Free( t );
 }
-
 void SERVICE_NETWORK_LOBBY::Finalize() {
     
     if ( UDPBroadcastConnection ) {
@@ -92,8 +97,7 @@ void SERVICE_NETWORK_LOBBY::Finalize() {
             
             ConnectionPool[ i ]->Stop();
             
-            delete ConnectionPool[ i ];
-            ConnectionPool[ i ] = NULL;
+            CORE_MEMORY_ObjectSafeDeallocation( ConnectionPool[ i ] );
         }
     }
 }
@@ -161,8 +165,8 @@ void SERVICE_NETWORK_LOBBY::StopBroadcast() {
         
         UDPBroadcastConnection->Stop();
         SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
-        delete UDPBroadcastConnection;
-        UDPBroadcastConnection= NULL;
+        
+        CORE_MEMORY_ObjectSafeDeallocation( UDPBroadcastConnection );
     }
 }
 

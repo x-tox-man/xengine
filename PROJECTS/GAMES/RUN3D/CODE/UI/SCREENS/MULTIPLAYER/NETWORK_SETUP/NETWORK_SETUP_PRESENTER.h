@@ -14,6 +14,8 @@
 #include "NETWORK_SERVER.h"
 #include "NETWORK_CLIENT.h"
 #include "R3D_BASE_PRESENTER.h"
+#include "R3D_SETUP_NETWORK_CLIENT_DELEGATE.h"
+#include "R3D_SETUP_NETWORK_SERVER_DELEGATE.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PRESENTER, R3D_BASE_PRESENTER)
 
@@ -23,7 +25,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PRESENTER, R3D_BASE_PRESENTER)
     virtual void Configure() override;
     void Update( const float step );
 
-    void GameStarted( std::vector<NETWORK_PLAYER *> & players, int seed);
+    void ServerGameStarted();
+    void ClientGameStarted( std::vector<NETWORK_PLAYER *> & players, int seed);
 
     void StartGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event );
     void SelectGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event );
@@ -32,20 +35,20 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PRESENTER, R3D_BASE_PRESENTER)
     void OnClientConnected(NETWORK_PLAYER * player);
     void OnClientDisconnected(NETWORK_PLAYER * player);
     void OnChatMessageReceived(NETWORK_PLAYER * player, const char * message);
+    void OnServerInfo( GAMEPLAY_ACTION_COMMAND_SERVER_INFO * info );
     void OnGameStarting();
     void OnStoppedGameStarting();
 
+    void OnServerDisconnected();
+
+    void UpdateClientReady( NETWORK_PLAYER * player, bool ready );
+
 private:
 
-    bool
-        NavigationIsRequested,
-        GameIsStarting;
-    float
-        CountDown;
-    NETWORK_SERVER
-        * Server;
-    NETWORK_CLIENT
-        * Client;
+    R3D_SETUP_NETWORK_CLIENT_DELEGATE
+        ClientDelegate;
+    R3D_SETUP_NETWORK_SERVER_DELEGATE
+        ServerDelegate;
 
 XS_CLASS_END
 

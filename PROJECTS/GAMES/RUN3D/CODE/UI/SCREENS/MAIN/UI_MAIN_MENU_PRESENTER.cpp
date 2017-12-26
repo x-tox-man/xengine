@@ -11,6 +11,7 @@
 #include "UI_GARAGE.h"
 #include "GRAPHIC_UI_SYSTEM.h"
 #include "NETWORK_BROWSER_PAGE.h"
+#include "UI_INGAME.h"
 
 UI_MAIN_MENU_PRESENTER::UI_MAIN_MENU_PRESENTER( GRAPHIC_UI_FRAME * view ) :
     R3D_BASE_PRESENTER( view ) {
@@ -21,11 +22,25 @@ void UI_MAIN_MENU_PRESENTER::Configure() {
     
 }
 
-void UI_MAIN_MENU_PRESENTER::OnClick( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state ) {
+void UI_MAIN_MENU_PRESENTER::OnClickStartGame( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state ) {
     
     if ( state == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
         
-        R3D_APP_PTR->GetGame().Restart();
+        std::vector< GAME_PLAYER_MODEL >
+            players_model;
+        
+        players_model.resize( 1 );
+        
+        R3D_APP_PTR->GetGame()->SetPlayers( players_model );
+        R3D_APP_PTR->GetGame()->Restart();
+        GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_INGAME >( "InGame" );
+    }
+}
+
+void UI_MAIN_MENU_PRESENTER::OnClickToGarage( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state ) {
+    
+    if ( state == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
+        
         GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_GARAGE >( "Garage" );
     }
 }

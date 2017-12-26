@@ -15,6 +15,7 @@
 #include "GRAPHIC_UI_FRAME_LIST_ADAPTER.h"
 #include "GRAPHIC_UI_FRAME.h"
 #include "NETWORK_REMOTE_SERVER_INFO.h"
+#include "NETWORK_SETUP_PLAYER_CELL.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PLAYER_LIST_ADAPTER, GRAPHIC_UI_FRAME_LIST_ADAPTER )
 
@@ -28,9 +29,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PLAYER_LIST_ADAPTER, GRAPHIC_UI_FRAM
     void SetServerSelectedCallback( CORE_HELPERS_CALLBACK_1<NETWORK_PLAYER *> & callback) {
         ActionCallback = callback;
     }
-    virtual int GetItemsCount();
-    virtual int GetSpacing();
-    virtual void ConfigureItemLayoutFor(int , GRAPHIC_UI_ELEMENT *);
+    virtual int GetItemsCount() override;
+    virtual int GetSpacing() override;
+    virtual void ConfigureItemLayoutFor(int , GRAPHIC_UI_ELEMENT *) override;
+    virtual GRAPHIC_UI_ELEMENT::PTR CreateItem() override {
+        return new NETWORK_SETUP_PLAYER_CELL;
+    }
+
     
 private:
     

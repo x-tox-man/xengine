@@ -79,8 +79,12 @@ public :
         
         CORE_PARALLEL_TASK_BEGIN(this, screen_name)
             auto item = GetNextItemForNavigation<SCREEN_TYPE>( screen_name );
+        
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+            CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
             item->GetFrame()->Initialize();
-            item->GetFrame()->OnViewAppearing();
+            CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
         
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GetUILockMutex() )
                 if ( CurrentNavigationItem != NULL ) {
@@ -94,6 +98,10 @@ public :
                 CurrentNavigationItem = item;
             
                 RegisterView( CurrentNavigationItem->GetFrame(), screen_name);
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+        
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+                CurrentNavigationItem->GetFrame()->OnViewAppearing();
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
         CORE_PARALLEL_TASK_END()
     }

@@ -10,6 +10,7 @@
 
 NETWORK_MANAGER::NETWORK_MANAGER() :
     Multiplayer( false ),
+    ItIsServer( true ),
     Client( NULL ),
     Server( NULL ) {
     
@@ -34,11 +35,11 @@ void NETWORK_MANAGER::Update( const float step ) {
         
         SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
         
-        if ( Client != NULL ) {
+        if ( Client != NULL && !ItIsServer ) {
             
             Client->Update( step );
         }
-        else if ( Server != NULL ) {
+        else if ( Server != NULL && ItIsServer ) {
             
             Server->Update( step );
         }
@@ -47,10 +48,10 @@ void NETWORK_MANAGER::Update( const float step ) {
 
 void NETWORK_MANAGER::InitializeServer(int seed) {
     
-    assert( Client == NULL && Server == NULL );
+    assert( Server == NULL );
     
     Server = new NETWORK_SERVER;
-    Server->Initialize( 0.2f );
+    Server->Initialize( 0.2f, "XS_SERVER_ACCEPTS_CONNECTIONS" );
     Server->SetSeed( seed );
     
     Multiplayer = true;
@@ -58,7 +59,7 @@ void NETWORK_MANAGER::InitializeServer(int seed) {
 
 void NETWORK_MANAGER::InitializeClient() {
     
-    assert( Client == NULL && Server == NULL );
+    assert( Client == NULL );
         
     Client = new NETWORK_CLIENT;
     Client->Initialize();
@@ -72,24 +73,17 @@ void NETWORK_MANAGER::FinalizeServer() {
     Server->Finalize();
     
     SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
-    delete Server;
-    Server = NULL;
-    
-    
-    Multiplayer = false;
+    CORE_MEMORY_ObjectSafeDeallocation( Server );
 }
 
 void NETWORK_MANAGER::FinalizeClient() {
 
     assert( Client != NULL );
-    Client->Finalize();
     
     SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
+    Client->Finalize();
     
-    delete Client;
-    Client = NULL;
-    
-    Multiplayer = false;
+    CORE_MEMORY_ObjectSafeDeallocation( Client );
 }
 
 void NETWORK_MANAGER::SendCommand( SERVICE_NETWORK_COMMAND * command ) {

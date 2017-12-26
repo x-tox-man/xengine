@@ -41,7 +41,8 @@ GRAPHIC_SHADER_EFFECT::GRAPHIC_SHADER_EFFECT( const GRAPHIC_SHADER_EFFECT & othe
 }
 
 GRAPHIC_SHADER_EFFECT::~GRAPHIC_SHADER_EFFECT() {
-    delete MaterialCollection;
+    
+    CORE_MEMORY_ObjectSafeDeallocation( MaterialCollection);
 }
 
 void GRAPHIC_SHADER_EFFECT::Initialize( const GRAPHIC_SHADER_BIND & bind ) {

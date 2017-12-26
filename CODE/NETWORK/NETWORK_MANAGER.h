@@ -34,11 +34,14 @@ XS_CLASS_BEGIN( NETWORK_MANAGER )
     inline NETWORK_CLIENT * GetClient() { return Client; }
     inline NETWORK_SERVER * GetServer() { return Server; }
 
+    inline bool IsServer() const { return ItIsServer; }
+    inline void SetServer( bool server) { ItIsServer = server; }
 
 private:
 
     bool
-        Multiplayer;
+        Multiplayer,
+        ItIsServer;
     NETWORK_CLIENT
         * Client;
     NETWORK_SERVER

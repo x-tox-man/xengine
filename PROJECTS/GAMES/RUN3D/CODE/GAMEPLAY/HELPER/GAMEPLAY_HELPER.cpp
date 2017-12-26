@@ -197,27 +197,27 @@ void GAMEPLAY_HELPER::SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CO
 
 void GAMEPLAY_HELPER::AddToWorld( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    R3D_APP_PTR->GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity->GetHandle(), entity );
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[0]->AddEntity( entity->GetHandle(), entity );
 }
 
 void GAMEPLAY_HELPER::AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[3]->AddEntity(entity->GetHandle(), entity );
+    R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[3]->AddEntity(entity->GetHandle(), entity );
 }
 
 void GAMEPLAY_HELPER::AddToAnimations( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
    
-    R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[1]->AddEntity(entity->GetHandle(), entity );
+    R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[1]->AddEntity(entity->GetHandle(), entity );
 }
 
 void GAMEPLAY_HELPER::AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with ) {
     
-    ( ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[4])->AddEntity(entity->GetHandle(), entity, group, collides_with );
+    ( ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4])->AddEntity(entity->GetHandle(), entity, group, collides_with );
 }
 
 void GAMEPLAY_HELPER::AddStaticToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with ) {
     
-    ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame().GetScene().GetUpdatableSystemTable()[4])->AddStaticEntity(entity->GetHandle(), entity, group, collides_with );
+    ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4])->AddStaticEntity(entity->GetHandle(), entity, group, collides_with );
 }
 
 void GAMEPLAY_HELPER::SetPhysicsSphereObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, float mass ) {
@@ -314,7 +314,7 @@ CORE_MATH_VECTOR GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR e
     CORE_MATH_VECTOR elevation;
     auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
-    auto bullet = R3D_APP_PTR->GetGame().GetBulletSystem();
+    auto bullet = R3D_APP_PTR->GetGame()->GetBulletSystem();
     
     CORE_MATH_RAY_SEGMENT ray;
     ray.SetOrigin( pos->GetPosition() );

@@ -8,9 +8,11 @@
 
 #include "R3D_GARAGE_SHIPS_ADAPTER.h"
 #include "GRAPHIC_UI_HELPER.h"
+#include "UI_GARAGE_SHIP_CELL.h"
 
 R3D_GARAGE_SHIPS_ADAPTER::R3D_GARAGE_SHIPS_ADAPTER( GRAPHIC_UI_FRAME * frame ) :
-    GRAPHIC_UI_FRAME_LIST_ADAPTER( frame, CreateTemplate() ) {
+    GRAPHIC_UI_FRAME_LIST_ADAPTER( frame, CreateTemplate() ),
+    PlayerShips( NULL ) {
     
 }
 
@@ -20,16 +22,21 @@ R3D_GARAGE_SHIPS_ADAPTER::~R3D_GARAGE_SHIPS_ADAPTER() {
 
 int R3D_GARAGE_SHIPS_ADAPTER::GetItemsCount() {
     
-    return 10;
+    if ( PlayerShips ) {
+        return (int) PlayerShips->size();
+    }
+    
+    return 0;
 }
 
 int R3D_GARAGE_SHIPS_ADAPTER::GetSpacing() {
     
-    return 20;
+    return 64;
 }
 
-void R3D_GARAGE_SHIPS_ADAPTER::ConfigureItemLayoutFor(int , GRAPHIC_UI_ELEMENT *) {
+void R3D_GARAGE_SHIPS_ADAPTER::ConfigureItemLayoutFor( int row, GRAPHIC_UI_ELEMENT * item) {
     
+    UI_GARAGE_SHIP_CELL * cell = (UI_GARAGE_SHIP_CELL*) item;
 }
 
 GRAPHIC_UI_ELEMENT::PTR R3D_GARAGE_SHIPS_ADAPTER::CreateTemplate() {

@@ -13,6 +13,7 @@
 #include "GRAPHIC_UI_FRAME.h"
 #include "R3D_BASE_PRESENTER.h"
 #include "UI_BASE_BUTTON.h"
+#include "TOOLS_LOCALE_SYSTEM.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_UI_FRAME, GRAPHIC_UI_FRAME )
 
@@ -28,11 +29,15 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_UI_FRAME, GRAPHIC_UI_FRAME )
     }
 
     inline void SetPresenter( R3D_BASE_PRESENTER::PTR presenter ) { Presenter = presenter; }
+    inline R3D_BASE_PRESENTER::PTR GetPresenter() { return Presenter; }
+    inline void SetBorderLess() { Borderless = true; }
 
 protected :
 
     R3D_BASE_PRESENTER::PTR
         Presenter;
+    bool
+        Borderless;
 
 XS_CLASS_END
 

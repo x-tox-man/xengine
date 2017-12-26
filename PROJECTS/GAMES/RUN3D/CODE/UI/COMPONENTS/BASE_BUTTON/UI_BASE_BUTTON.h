@@ -10,18 +10,20 @@
 #define UI_BASE_BUTTON_hpp
 
 #include "GRAPHIC_UI_FRAME.h"
-#include "TOOLS_LOCALE_STRING.h"
+#include "CORE_DATA_UTF8_TEXT.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( UI_BASE_BUTTON, GRAPHIC_UI_FRAME )
 
     UI_BASE_BUTTON();
 
     virtual void Initialize() override;
-    void SetTitle( const TOOLS_LOCALE_STRING & title );
+    void SetTitle( const CORE_DATA_UTF8_TEXT & title ) {
+        Title = title;
+    }
 
 private:
 
-    TOOLS_LOCALE_STRING
+    CORE_DATA_UTF8_TEXT
         Title;
 
 XS_CLASS_END

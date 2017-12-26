@@ -46,6 +46,7 @@ LOCAL_C_INCLUDES 	:= /Users/christophebernard/Develop/Project/game-engine/PROJEC
 /Users/christophebernard/Develop/Project/game-engine/LIBRARY/COMMON/BULLET/src/BulletInverseDynamics \
 /Users/christophebernard/Develop/Project/game-engine/LIBRARY/COMMON/BULLET/src/BulletSoftBody \
 /Users/christophebernard/Develop/Project/game-engine/LIBRARY/COMMON/BULLET/src \
+/Users/christophebernard/Develop/Project/game-engine/LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionDispatch \
 
 include engine.mk
 

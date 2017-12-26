@@ -15,6 +15,7 @@
 #include "NETWORK_CLIENT.h"
 #include "NETWORK_BROWSER_LIST_ADAPTER.h"
 #include "R3D_BASE_PRESENTER.h"
+#include "R3D_BROWSER_NETWORK_CLIENT_DELEGATE.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_BROWSER_PRESENTER, R3D_BASE_PRESENTER )
 
@@ -29,11 +30,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_BROWSER_PRESENTER, R3D_BASE_PRESENTER )
     inline void SetListAdapter( NETWORK_BROWSER_LIST_ADAPTER * adapter ) { ListAdapter = adapter; }
     void OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event );
     void OnStartLobbyButtonPressed( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event );
+    void OnserverConnected();
 
 private:
 
-    bool
-        NavigationIsRequested;
     int
         MessageReceivedCount;
     std::vector< NETWORK_REMOTE_SERVER_INFO * >
@@ -44,6 +44,8 @@ private:
         * ListAdapter;
     NETWORK_CLIENT
         * Client;
+    R3D_BROWSER_NETWORK_CLIENT_DELEGATE
+        Delegate;
 
 XS_CLASS_END
 

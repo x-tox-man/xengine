@@ -16,6 +16,8 @@ SERVICE_NETWORK_LOBBY_CLIENT::SERVICE_NETWORK_LOBBY_CLIENT() :
     OnTcpConnectedCallback(),
     OnTCPConnectionLostCallback(),
     OnTCPConnectionResumedCallback(),
+    OnTCPNetworkCommandReceivedCallback( NULL ),
+    OnUDPNetworkCommandReceivedCallback( NULL ),
     OnUdpBroadcastMessageReceivedCallback() {
     
 }
@@ -38,11 +40,27 @@ void SERVICE_NETWORK_LOBBY_CLIENT::OnTcpConnected( uv_connect_t* connexion_data)
 }
 
 void SERVICE_NETWORK_LOBBY_CLIENT::Finalize() {
+    
     if ( UDPListenConnection ) {
         
         UDPListenConnection->Stop();
+        //TODO
+        //CORE_MEMORY_ObjectSafeDeallocation( UDPListenConnection );
+    }
+    
+    OnTcpConnectedCallback.Disconnect();
+    OnTCPConnectionLostCallback.Disconnect();
+    OnTCPConnectionResumedCallback.Disconnect();
+    OnUdpBroadcastMessageReceivedCallback.Disconnect();
+    
+    if ( OnTCPNetworkCommandReceivedCallback ) {
         
-        CORE_MEMORY_ObjectSafeDeallocation( UDPListenConnection );
+        CORE_MEMORY_ObjectSafeDeallocation( OnTCPNetworkCommandReceivedCallback );
+    }
+    
+    if ( OnUDPNetworkCommandReceivedCallback ) {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( OnUDPNetworkCommandReceivedCallback );
     }
 }
 
@@ -95,12 +113,18 @@ void SERVICE_NETWORK_LOBBY_CLIENT::StopUDPListen() {
 
 void SERVICE_NETWORK_LOBBY_CLIENT::OnTCPDataReceived( SERVICE_NETWORK_COMMAND * command, uv_stream_t * tcp_stream) {
     
-    (*OnTCPNetworkCommandReceivedCallback)( command );
+    if ( OnTCPNetworkCommandReceivedCallback ) {
+        
+        (*OnTCPNetworkCommandReceivedCallback)( command );
+    }
 }
 
 void SERVICE_NETWORK_LOBBY_CLIENT::OnUDPDataReceived( SERVICE_NETWORK_COMMAND * command ) {
 
-    OnUDPNetworkCommandReceivedCallback->operator()(command);
+    if ( OnUDPNetworkCommandReceivedCallback ) {
+        
+        OnUDPNetworkCommandReceivedCallback->operator()(command);
+    }
 }
 
 void SERVICE_NETWORK_LOBBY_CLIENT::Listen() {

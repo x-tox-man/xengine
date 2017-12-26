@@ -182,7 +182,8 @@ void ASSET_EDITOR::OnScreenResized( int width, int height ) {
     GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize( size );
     BaseUiScreen.GetPlacement().SetSize(size);
     
-    delete InterfaceCamera;
+    CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );
+    
     InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, width, height, CORE_MATH_VECTOR(0.0f, 0.0f), interface_lookat );
 }
 
@@ -230,7 +231,5 @@ void ASSET_EDITOR::SaveUI() {
 
 void ASSET_EDITOR::Close() {
     
-    delete ProjectPath;
-    
-    ProjectPath = NULL;
+    CORE_MEMORY_ObjectSafeDeallocation( ProjectPath );
 }

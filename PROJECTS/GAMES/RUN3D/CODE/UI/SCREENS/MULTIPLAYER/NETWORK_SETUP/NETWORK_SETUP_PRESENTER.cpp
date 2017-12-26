@@ -12,14 +12,13 @@
 #include "GAMEPLAY_ACTION_SYSTEM.h"
 #include "RUN3D_APPLICATION.h"
 #include "GRAPHIC_UI_SYSTEM.h"
+#include "UI_INGAME.h"
+#include "GAME_PLAYER_MODEL.h"
+#include "RUN3D_APPLICATION.h"
+#include "R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h"
 
 NETWORK_SETUP_PRESENTER::NETWORK_SETUP_PRESENTER( GRAPHIC_UI_FRAME * view ) :
-    R3D_BASE_PRESENTER( view ),
-    NavigationIsRequested( false ),
-    GameIsStarting( false ),
-    Server( NULL ),
-    Client( NULL ),
-    CountDown( 0.0f ) {
+    R3D_BASE_PRESENTER( view ) {
     
 }
 
@@ -35,62 +34,84 @@ void NETWORK_SETUP_PRESENTER::Configure() {
     
     auto * view = (NETWORK_SETUP_PAGE * ) GetView();
     
-    Server = R3D_APP_PTR->GetNetworkManager().GetServer();
-    Client = R3D_APP_PTR->GetNetworkManager().GetClient();
-    
-    NETWORK_PLAYER * current_player = &Server->GetCurrentPlayer();
-    
-    view->GetPlayersList().push_back(current_player);
-    view->GetPlayersListAdapter()->OnCollectionChanged();
-    
-    CORE_HELPERS_CALLBACK_1<NETWORK_PLAYER *> callback ( &Wrapper1<NETWORK_SETUP_PRESENTER, NETWORK_PLAYER *, &NETWORK_SETUP_PRESENTER::OnClientConnected>, this);
-    
-    if ( Server ) {
+    if ( R3D_APP_PTR->GetNetworkManager().IsServer() ) {
         
-        Server->SetOnPlayerConnectedCallback( callback );
+        R3D_APP_PTR->GetNetworkManager().GetServer()->SetDelegate( &ServerDelegate );
+        ServerDelegate.Presenter = this;
+        
+        NETWORK_PLAYER * current_player = &R3D_APP_PTR->GetNetworkManager().GetServer()->GetCurrentPlayer();
+        
+        view->GetPlayersList().push_back(current_player);
     }
     else {
-        CORE_HELPERS_CALLBACK_2< std::vector< NETWORK_PLAYER* > &, int > callback( &Wrapper2< NETWORK_SETUP_PRESENTER, std::vector< NETWORK_PLAYER * > &, int, &NETWORK_SETUP_PRESENTER::GameStarted >, this);
+        
+        R3D_APP_PTR->GetNetworkManager().GetClient()->SetDelegate( &ClientDelegate );
+        ClientDelegate.Presenter = this;
+        
+        CORE_HELPERS_CALLBACK_2< std::vector< NETWORK_PLAYER* > &, int > callback( &Wrapper2< NETWORK_SETUP_PRESENTER, std::vector< NETWORK_PLAYER * > &, int, &NETWORK_SETUP_PRESENTER::ClientGameStarted >, this);
         GAMEPLAY_ACTION_COMMAND_START_GAME::SetGameStartingCallback( callback );
+        
+        NETWORK_PLAYER * current_player = &R3D_APP_PTR->GetNetworkManager().GetClient()->GetCurrentPlayer();
+        
+        view->GetPlayersList().push_back(current_player);
     }
+    
+    view->GetPlayersListAdapter()->OnCollectionChanged();
 }
 
-void NETWORK_SETUP_PRESENTER::GameStarted( std::vector<NETWORK_PLAYER *> & players, int seed) {
+void NETWORK_SETUP_PRESENTER::ClientGameStarted( std::vector<NETWORK_PLAYER *> & players, int seed) {
     
-    abort();
-    
-    /*std::vector< GAME_PLAYER_MODEL >
+    std::vector< GAME_PLAYER_MODEL >
         players_model;
-
-    APPLICATION_SCREENS_NAVIGATION::GetInstance().NavigateToAsync<MULTIPLAYER_GAME_HUD_PAGE>("MULTIPLAYER_GAME_HUD_PAGE");
     
     players_model.resize( players.size() );
     
     for (int i = 0; i < players.size(); i++) {
         
-        players_model[i].IsHuman = true;
-        players_model[i].Color = CORE_COLOR_White;
-        players_model[i].Name = players[i]->GetName();
-        players_model[i].IsMultiplayer = !( players[i]->GetUniqueId() == R3D_APP_PTR->GetNetworkManager().GetClient()->GetCurrentPlayer().GetUniqueId() );
+        players_model[i].NetworkPlayer = players[ i ];
     }
+
+    R3D_APP_PTR->GetGame()->SetPlayers( players_model );
+    R3D_APP_PTR->GetGame()->Restart();
     
-    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
-        ((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().SetPlayers( players_model );
-        ((MULTIPOLY_APPLICATION*) &MULTIPOLY_APPLICATION::GetApplicationInstance())->GetGame().Start( seed );
-    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()*/
+    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_INGAME >( "UI_INGAME" );
+}
+
+void NETWORK_SETUP_PRESENTER::ServerGameStarted() {
+    
+    R3D_APP_PTR->GetGame()->Restart();
+    R3D_APP_PTR->GetNetworkManager().GetServer()->StartCountDown();
+    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_INGAME >( "UI_INGAME" );
 }
 
 void NETWORK_SETUP_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event ) {
     
-    if ( Server && !GameIsStarting && event == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
+    if ( R3D_APP_PTR->GetNetworkManager().GetServer() && event == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
         
-        GameIsStarting = true;
+        int i = 0;
+        auto * view = (NETWORK_SETUP_PAGE * ) GetView();
+        std::vector< NETWORK_PLAYER * >::iterator it = view->GetPlayersList().begin();
+        std::vector< GAME_PLAYER_MODEL >
+            players_model;
         
-        Server->StartCountDown();
+        players_model.resize( view->GetPlayersList().size() );
         
-        abort();
+        while (it != view->GetPlayersList().end() ) {
+            if ( !(*it)->Ready() ) {
+                
+                return;
+            }
+            else {
+                players_model[i].NetworkPlayer = *it;
+            }
+            
+            it++;
+        }
         
-        //GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync<MULTIPLAYER_GAME_HUD_PAGE>("MULTIPLAYER_GAME_HUD_PAGE");
+        CORE_HELPERS_CALLBACK callback( &Wrapper<NETWORK_SETUP_PRESENTER, &NETWORK_SETUP_PRESENTER::ServerGameStarted>, this );
+        
+        R3D_APP_PTR->GetNetworkManager().GetServer()->SetGameStartedCallback( callback );
+        R3D_APP_PTR->GetGame()->SetPlayers( players_model );
     }
 }
 
@@ -100,13 +121,16 @@ void NETWORK_SETUP_PRESENTER::SelectGameButtonClicked( GRAPHIC_UI_ELEMENT * clic
 
 void NETWORK_SETUP_PRESENTER::OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event ) {
     
-    if ( !NavigationIsRequested && !GameIsStarting && event == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
+    if ( event == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
         
-        NavigationIsRequested = true;
-        
-        if ( Server ) {
+        if ( R3D_APP_PTR->GetNetworkManager().IsServer() ) {
             
+            R3D_APP_PTR->GetNetworkManager().GetServer()->SetAcceptsConnexions( false );
+            R3D_APP_PTR->GetNetworkManager().GetServer()->DisconnectAll();
             R3D_APP_PTR->GetNetworkManager().FinalizeServer();
+        }
+        else {
+            R3D_APP_PTR->GetNetworkManager().GetClient()->SendDisconnectCommand();
         }
         
         GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateBackAsync();
@@ -123,21 +147,65 @@ void NETWORK_SETUP_PRESENTER::OnClientConnected(NETWORK_PLAYER * player) {
 
 void NETWORK_SETUP_PRESENTER::OnClientDisconnected(NETWORK_PLAYER * player) {
     
+    auto * view = (NETWORK_SETUP_PAGE * ) GetView();
+    std::vector< NETWORK_PLAYER * >::iterator it = view->GetPlayersList().begin();
+    
+    while (it != view->GetPlayersList().end() ) {
+        if ( player->GetUniqueId() == (*it)->GetUniqueId() ) {
+            
+            view->GetPlayersList().erase( it );
+            break;
+        }
+        
+        it++;
+    }
+    view->GetPlayersListAdapter()->SetCollection( &view->GetPlayersList() );
+    view->GetPlayersListAdapter()->OnCollectionChanged();
+}
+
+void NETWORK_SETUP_PRESENTER::OnServerDisconnected() {
+    
+    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateBackAsync();
+}
+
+void NETWORK_SETUP_PRESENTER::UpdateClientReady( NETWORK_PLAYER * player, bool ready ) {
+    
+    auto * view = (NETWORK_SETUP_PAGE * ) GetView();
+    std::vector< NETWORK_PLAYER * >::iterator it = view->GetPlayersList().begin();
+    
+    while (it != view->GetPlayersList().end() ) {
+        if ( player->GetUniqueId() == (*it)->GetUniqueId() ) {
+            
+            (*it)->SetIsReady( ready );
+            break;
+        }
+        
+        it++;
+    }
+    view->GetPlayersListAdapter()->OnCollectionChanged();
 }
 
 void NETWORK_SETUP_PRESENTER::OnChatMessageReceived(NETWORK_PLAYER * player, const char * message) {
     
 }
 
-void NETWORK_SETUP_PRESENTER::OnGameStarting() {
-    
-    if ( !NavigationIsRequested && !GameIsStarting ) {
-        
-        NavigationIsRequested = true;
-        //GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< GAME_LOADER_SCREEN >( "LoadingScreen" );
-    }
-}
-
 void NETWORK_SETUP_PRESENTER::OnStoppedGameStarting() {
     
+}
+
+void NETWORK_SETUP_PRESENTER::OnServerInfo( GAMEPLAY_ACTION_COMMAND_SERVER_INFO * info ) {
+    
+    auto * view = (NETWORK_SETUP_PAGE * ) GetView();
+    std::vector< NETWORK_PLAYER * >::iterator it = info->Players.begin();
+    view->GetPlayersList().clear();
+    
+    while (it != info->Players.end() ) {
+        
+        view->GetPlayersList().push_back( *it );
+        
+        it++;
+    }
+    
+    view->GetPlayersListAdapter()->SetCollection( &view->GetPlayersList() );
+    view->GetPlayersListAdapter()->OnCollectionChanged();
 }

@@ -12,6 +12,8 @@
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.h"
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.h"
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_READY.h"
+#include "GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT.h"
+#include "GAMEPLAY_ACTION_COMMAND_SERVER_INFO.h"
 
 //--State EVENT
 CORE_FIXED_STATE_DefineStateEnterEvent( NETWORK_CLIENT::INITIAL_STATE )
@@ -21,7 +23,6 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
     //--State EVENT
     CORE_FIXED_STATE_DefineStateEvent( NETWORK_CLIENT::INITIAL_STATE, UDP_RECEIVED_EVENT )
-
         SERVICE_NETWORK_COMMAND const * command = event.GetEventData();
 
         CORE_DATA_STREAM
@@ -31,13 +32,16 @@ CORE_FIXED_STATE_EndOfStateEvent()
         int size = 0;
 
         stream.OutputBytes( &txt, size );
+        txt[ size ] = '\0';
 
         stream.Close();
 
         SERVICE_LOGGER_Error( "Message : %s\n", txt );
 
-        GetContext().OnServerStatusCallback.operator()(event.GetEventData());
-
+        if ( GetContext().Delegate ) {
+            
+            GetContext().Delegate->OnServerDiscovered( event.GetEventData() );
+        }
     CORE_FIXED_STATE_EndOfStateEvent()
 
     CORE_FIXED_STATE_DefineStateEvent( NETWORK_CLIENT::INITIAL_STATE, UDP_SERVER_SELECTED_EVENT )
@@ -74,6 +78,12 @@ CORE_FIXED_STATE_DefineStateEnterEvent( NETWORK_CLIENT::TCP_CHALLENGE_STATE )
 CORE_FIXED_STATE_EndOfStateEvent()
 
     CORE_FIXED_STATE_DefineStateEvent( NETWORK_CLIENT::TCP_CHALLENGE_STATE, SERVER_ACCEPTED_CONNECTION_EVENT )
+
+        if ( GetContext().Delegate ) {
+            
+            GetContext().Delegate->OnServerAccepted( event.GetEventData() );
+        }
+
         CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().CONNECTED_STATE);
     CORE_FIXED_STATE_EndOfStateEvent()
 
@@ -103,7 +113,10 @@ CORE_FIXED_STATE_EndOfStateEvent()
     CORE_FIXED_STATE_EndOfStateEvent()
 
     CORE_FIXED_STATE_DefineStateEvent( NETWORK_CLIENT::CONNECTED_STATE, SERVER_DISCONNECTED_EVENT )
-
+        if ( GetContext().Delegate ) {
+            
+            GetContext().Delegate->OnServerDisconnected();
+        }
     CORE_FIXED_STATE_EndOfStateEvent()
 
     CORE_FIXED_STATE_DefineStateEvent( NETWORK_CLIENT::CONNECTED_STATE, QUIT_EVENT )
@@ -153,7 +166,8 @@ NETWORK_CLIENT::NETWORK_CLIENT() :
     NetworkEventsTimeLine(),
     CurrentPlayer( 0, true ),
     NetworkRefreshRate(0.1f),
-    AccumulatedRemaining(0.0f) {
+    AccumulatedRemaining( 0.0f ),
+    Delegate( NULL ) {
     
 }
 
@@ -202,8 +216,9 @@ void NETWORK_CLIENT::Update( float time_step ) {
 
 void NETWORK_CLIENT::Finalize() {
     
+    Delegate = NULL;
+    
     ClientInstance->Finalize();
-    CORE_MEMORY_ObjectSafeDeallocation( ClientInstance );
     
     StateMachine.FinalizeState();
 }
@@ -234,7 +249,7 @@ void NETWORK_CLIENT::SetClientIsConnected(NETWORK_PLAYER * player) {
     }
 }
 
-void NETWORK_CLIENT::DispatchMessageToAllPlayers(SERVICE_NETWORK_COMMAND * command) {
+void NETWORK_CLIENT::DispatchMessageToAllPlayers( SERVICE_NETWORK_COMMAND * command ) {
     
     CurrentPlayer.AppendMessage(command);
 }
@@ -243,8 +258,9 @@ void NETWORK_CLIENT::DispatchMessageToPlayer(NETWORK_PLAYER & player, CORE_DATA_
     
 }
 
-void NETWORK_CLIENT::Disconnect() {
+void NETWORK_CLIENT::DispatchMessageToServer( SERVICE_NETWORK_COMMAND * command ) {
     
+    CurrentPlayer.AppendMessage( command );
 }
 
 void NETWORK_CLIENT::SelectServer(SERVICE_NETWORK_COMMAND * connexion) {
@@ -273,7 +289,20 @@ void NETWORK_CLIENT::ProcessIncommingMessages() {
         
         GAMEPLAY_ACTION_SYSTEM::GetInstance().DeSerializeNetworkCommand( command, &event );
         
-        StateMachine.DispatchEvent(GAME_EVENT(event));
+        int type = ((GAMEPLAY_ACTION*) event->GetCommand())->GetCommandType();
+            
+        if ( type == (int) GAMEPLAY_ACTION_TYPE_ServerQuit ) {
+                
+            StateMachine.DispatchEvent( SERVER_DISCONNECTED_EVENT() );
+        }
+        else if ( type == (int) GAMEPLAY_ACTION_TYPE_ServerInfo ) {
+            
+            Delegate->OnServerInfo( ((GAMEPLAY_ACTION_COMMAND_SERVER_INFO*) event->GetCommand()) );
+        }
+        else {
+            
+            StateMachine.DispatchEvent(GAME_EVENT(event));
+        }
         
         CORE_MEMORY_ObjectSafeDeallocation( IncommingMessageQueue[i] );
     }
@@ -297,3 +326,29 @@ void NETWORK_CLIENT::SendJoinRequestCommand() {
     
     CurrentPlayer.AppendMessage( network_message );
 }
+
+void NETWORK_CLIENT::SendDisconnectCommand() {
+    
+    GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT
+        command( CurrentPlayer.GetUniqueId() );
+    
+    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command );
+    
+    StateMachine.ChangeState( INITIAL_STATESTATE );
+    
+    CurrentPlayer.AppendMessage( network_message );
+}
+
+void NETWORK_CLIENT::SendReadyCommand( bool ready ) {
+    
+    GAMEPLAY_ACTION_COMMAND_CLIENT_READY
+        command;
+    
+    command.Player = &CurrentPlayer;
+    command.Ready = ready;
+    
+    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command );
+    
+    CurrentPlayer.AppendMessage( network_message );
+}
+

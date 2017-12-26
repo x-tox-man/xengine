@@ -48,14 +48,18 @@ GAMEPLAY_SCENE::GAMEPLAY_SCENE() :
 }
 
 GAMEPLAY_SCENE::~GAMEPLAY_SCENE() {
+    
+    Clear();
 
     for (int i = 0; i < UpdatableSystemTable.size(); i++ ) {
         
+        UpdatableSystemTable[ i ]->Finalize();
         CORE_MEMORY_ObjectSafeDeallocation( UpdatableSystemTable[ i ] );
     }
     
     for (int i = 0; i < RenderableSystemTable.size(); i++ ) {
         
+        RenderableSystemTable[ i ]->Finalize();
         CORE_MEMORY_ObjectSafeDeallocation( RenderableSystemTable[ i ] );
     }
 }
