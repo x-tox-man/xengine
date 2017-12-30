@@ -463,6 +463,7 @@ void GAMEPLAY_COMPONENT_PHYSICS::Reset() {
     if ( Mass > 0.0f )
         BulletShape->calculateLocalInertia( Mass, fallInertia);
     
+    BulletRigidBody->activate();
     #endif
 }
 

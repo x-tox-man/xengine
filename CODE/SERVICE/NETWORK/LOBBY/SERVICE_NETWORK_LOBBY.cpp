@@ -35,7 +35,7 @@ SERVICE_NETWORK_LOBBY::~SERVICE_NETWORK_LOBBY() {
 
 void SERVICE_NETWORK_LOBBY::Initialize( int max_pool_size, const char * discover_message, const float interval ) {
     
-    #if !PLATFORM_ANDROID
+    #if DEBUG
         assert( max_pool_size > 0 && max_pool_size <= NETWORK_SERVICE_LOBBY_MAX_CONNECTIONS );
     #endif
     

@@ -19,6 +19,7 @@
 #include "PHYSICS_COLLISION_NEAR_FILTER.h"
 #include "GAME_PLAYER_MODEL.h"
 #include "R3D_GAMEPLAY_GAME_DELEGATE.h"
+#include "PERIPHERIC_INTERACTION_SYSTEM.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
@@ -28,7 +29,39 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     void Render( GRAPHIC_RENDERER & renderer );
     void Update( const float step );
 
-    inline void InternalUpdateGame( const float step) {
+    void OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity );
+
+    void InternalUpdateGame( const float step) {
+        
+        float thrust = 0.0f;
+        float orientation = 0.0f;
+        
+        if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_UP ) ) {
+            
+            thrust = 1.0f;
+        }
+        else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_DOWN ) ) {
+            
+            thrust = -1.0f;
+        }
+        
+        if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_LEFT ) ) {
+            
+            orientation = -1.0f;
+        }
+        else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_RIGHT ) ) {
+            
+            orientation = 1.0f;
+        }
+        
+#if PLATFORM_IOS || PLATFORM_ANDROID
+        
+        Delegate->SetThrust( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetY() );
+        //Delegate->SetOrientation( orientation );
+#else
+        Delegate->SetThrust( thrust );
+        Delegate->SetOrientation( orientation );
+#endif
         
         Delegate->InternalUpdateGame( step );
     }
@@ -45,6 +78,9 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     inline GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * GetBulletSystem() { return BulletSystem; }
     inline R3D_GAMEPLAY_GAME_DELEGATE * GetDelegate() { return Delegate; }
     inline void SetDelegate( R3D_GAMEPLAY_GAME_DELEGATE * delegate ) { Delegate = delegate; }
+    inline void SetThisPlayerIndex( int index ) { ThisPlayerIndex = index; }
+
+    inline float GetGameDuration() const { return Tick * 0.033f; }
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, const float )
     CORE_FIXED_STATE_MACHINE_DefineEventVoid( PAUSE_EVENT )
@@ -85,7 +121,8 @@ protected:
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION
         * BulletSystem;
     int
-        Tick;
+        Tick,
+        ThisPlayerIndex;
     R3D_GAMEPLAY_GAME_DELEGATE::PTR
         Delegate;
 

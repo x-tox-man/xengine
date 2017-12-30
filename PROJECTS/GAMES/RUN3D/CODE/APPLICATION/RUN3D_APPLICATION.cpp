@@ -157,6 +157,9 @@ void RUN3D_APPLICATION::InitializeGraphics() {
     R3D_RESOURCES::GetInstance().Initialize();
     
     GRAPHIC_UI_SYSTEM::GetInstance().Initialize();
+    R3D_UI::ScreenWidth = GetApplicationWindow().GetWidth();
+    R3D_UI::ScreenHeight = GetApplicationWindow().GetHeight();
+    R3D_UI::ScreenDensity = 1.0f;
     
     GameRenderer.Initialize();
 }

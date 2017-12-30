@@ -18,6 +18,7 @@
 
     CORE_PARALLEL_LOCK_MUTEX GRAPHIC_SYSTEM::GraphicSystemLock;
     const char * GRAPHIC_SYSTEM::ShaderDirectoryPath = "OPENGL2";
+    CORE_HELPERS_COLOR GRAPHIC_SYSTEM::ClearColor = CORE_COLOR_Blue;
 
     GRAPHIC_SYSTEM::~GRAPHIC_SYSTEM() {
 

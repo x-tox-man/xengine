@@ -25,7 +25,9 @@ R3D_PLAYER_SHIP::R3D_PLAYER_SHIP() :
     Front(),
     Rear(),
     Top(),
-    Steam() {
+    Steam(),
+    Thrust( 0.0f ),
+    Rotation( 0.0f ) {
     
 }
 
@@ -144,6 +146,17 @@ void R3D_PLAYER_SHIP::Update( float step ) {
         
         R3D_APP_PTR->SetCamera( &Top );
     }
+    else if (  PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_R ) ) {
+        
+        Reset(CORE_MATH_VECTOR( 0.0f, 0.0f, 1.5f, 0.0f), CORE_MATH_QUATERNION());
+    }
+    
+    auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    CORE_MATH_VECTOR v = comp->GetVelocity();
+    
+    v.Y( GetThrust() * 5.0f );
+    
+    comp->ApplyForce( v );
 }
 
 void R3D_PLAYER_SHIP::Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation ) {

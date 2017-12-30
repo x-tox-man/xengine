@@ -13,6 +13,7 @@
 #include "R3D_GAMEPLAY_GAME.h"
 #include "NETWORK_REMOTE_GAME_INFO.h"
 #include "GAME_PLAYER_MODEL.h"
+#include "R3D_COMMAND_GAME_STATUS.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE, R3D_GAMEPLAY_GAME_DELEGATE )
 
@@ -26,11 +27,15 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE, R3D_GAMEPL
     void SetInfo( const NETWORK_REMOTE_GAME_INFO & info );
 
     virtual void InternalUpdateGame( const float step ) override;
+    virtual void InitializePlayers() override;
+    void SetPlayerUpdate( R3D_COMMAND_PLAYER_UPDATE::PTR player_update );
 
 private:
 
     NETWORK_REMOTE_GAME_INFO
         Info;
+    R3D_COMMAND_GAME_STATUS
+        Command;
 
 XS_CLASS_END
 

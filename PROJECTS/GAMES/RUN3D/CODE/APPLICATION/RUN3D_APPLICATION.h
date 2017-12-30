@@ -44,6 +44,7 @@
 #include "R3D_GAMEPLAY_GAME.h"
 #include "NETWORK_MANAGER.h"
 #include "GAME_PLAYER_MODEL.h"
+#include "APPLICATION_IDENTITY_MANAGER.h"
 
 #define R3D_APP_VERSION 1
 
@@ -69,6 +70,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
     void InitializeSingleplayerGame();
     void InitializeMultiplayerGame();
 
+    inline APPLICATION_IDENTITY_MANAGER & GetPlayerIdentityManager() { return PlayerIdentityManager; }
+
 private :
 
     void InitializeGraphics();
@@ -83,6 +86,8 @@ private :
         Game;
     NETWORK_MANAGER
         NetworkManager;
+    APPLICATION_IDENTITY_MANAGER
+        PlayerIdentityManager;
     int
         Seed;
 

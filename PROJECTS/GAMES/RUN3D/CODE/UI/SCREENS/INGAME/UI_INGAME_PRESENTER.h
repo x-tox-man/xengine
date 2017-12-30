@@ -22,7 +22,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( UI_INGAME_PRESENTER, R3D_BASE_PRESENTER )
 
     void OnPauseButtonPressed( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state );
 
+    void Update( float time_step );
 private:
+
+    R3D_PLAYER::PTR
+        CurrentPlayer;
 
 XS_CLASS_END
 

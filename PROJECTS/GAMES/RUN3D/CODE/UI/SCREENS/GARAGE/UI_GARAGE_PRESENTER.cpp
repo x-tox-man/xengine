@@ -21,7 +21,7 @@ UI_GARAGE_PRESENTER::UI_GARAGE_PRESENTER( GRAPHIC_UI_FRAME * view ) :
 
 void UI_GARAGE_PRESENTER::Configure() {
     
-    Player = R3D_APP_PTR->GetGame()->GetLevel().GetPlayerTable()[ 0 ];
+    Player = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer();
     PlayerShips = Player->GetAllShipsOwned();
     
     Adapter->SetCellDimension( CORE_MATH_VECTOR( 128.0f, 128.0f ) );

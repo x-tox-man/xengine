@@ -46,6 +46,7 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
         * fp = fopen(path.GetPath(), "wb");
     
     unsigned char * header;
+    int pixel_size = 4;
     
     header = (unsigned char *) CORE_MEMORY_ALLOCATOR::Allocate( 8 );
     
@@ -104,7 +105,7 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
                          PNG_INTERLACE_NONE,
                          PNG_COMPRESSION_TYPE_DEFAULT,
                          PNG_FILTER_TYPE_DEFAULT);
-            
+            pixel_size = 2;
             break;
             
         case GRAPHIC_TEXTURE_IMAGE_TYPE_RGB :
@@ -117,6 +118,21 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
                          PNG_INTERLACE_NONE,
                          PNG_COMPRESSION_TYPE_DEFAULT,
                          PNG_FILTER_TYPE_DEFAULT);
+            pixel_size = 3;
+            break;
+            
+        case GRAPHIC_TEXTURE_IMAGE_TYPE_GRAY :
+            
+            png_set_IHDR(png_ptr, info_ptr,
+                         image->GetImageInfo().Width,
+                         image->GetImageInfo().Height,
+                         8,
+                         PNG_COLOR_TYPE_GRAY,
+                         PNG_INTERLACE_NONE,
+                         PNG_COMPRESSION_TYPE_DEFAULT,
+                         PNG_FILTER_TYPE_DEFAULT);
+            
+            pixel_size = 1;
             
             break;
             
@@ -131,6 +147,7 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
                          PNG_COMPRESSION_TYPE_BASE,
                          PNG_FILTER_TYPE_BASE);
             
+            pixel_size = 4;
             break;
             
         default:
@@ -147,7 +164,7 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
         return false;
     }
     
-    int line_size = image->GetImageInfo().Width;
+    int line_size = image->GetImageInfo().Width * pixel_size / 4;
     
     png_bytep * ptr = ( png_bytep * ) CORE_MEMORY_ALLOCATOR::Allocate ( sizeof( png_bytep ) * image->GetImageInfo().Height );
     

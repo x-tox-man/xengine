@@ -70,6 +70,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COM
     void SetVelocity( const CORE_MATH_VECTOR & velocity);
     CORE_MATH_VECTOR & GetVelocity();
 
+    void ApplyForce( const CORE_MATH_VECTOR & vector ) {
+        #ifdef __BULLET_PHYSICS__
+            BulletRigidBody->activate();
+            BulletRigidBody->applyCentralForce( btVector3( vector.X(), vector.Y(), vector.Z() ) );
+        #endif
+    }
+
     virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
         
         return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];

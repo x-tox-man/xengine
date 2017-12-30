@@ -330,7 +330,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     Effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
     text_shape->InitializeShape();
-    text_shape->Initialize( "Hello", *font, 1.0f, &Effect->GetProgram() );
+    text_shape->Initialize( L"Hello", *font, 1.0f, &Effect->GetProgram() );
     
     CORE_MATH_MATRIX rotation_mat;
     

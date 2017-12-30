@@ -99,7 +99,7 @@ void GRAPHIC_WINDOW_IOS::EnableBackgroundContext(bool enable) {
         CORE_APPLICATION::GetApplicationInstance().Update( 0.033f );
     }
     
-    glClearColor(0.0f, 0, 0.2f, 1.0f);
+    glClearColor(GRAPHIC_SYSTEM::ClearColor.GetX(), GRAPHIC_SYSTEM::ClearColor.GetY(), GRAPHIC_SYSTEM::ClearColor.GetZ(), 1.0f );
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

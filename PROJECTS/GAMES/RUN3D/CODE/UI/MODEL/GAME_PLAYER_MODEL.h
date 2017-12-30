@@ -10,11 +10,12 @@
 #define GAME_PLAYER_MODEL_hpp
 
 #include "NETWORK_PLAYER.h"
+#include "R3D_PLAYER.h"
 
 XS_CLASS_BEGIN_WITH_COPY( GAME_PLAYER_MODEL )
 
     GAME_PLAYER_MODEL();
-    GAME_PLAYER_MODEL( NETWORK_PLAYER::PTR player );
+    GAME_PLAYER_MODEL( NETWORK_PLAYER::PTR player, R3D_PLAYER::PTR game_player );
     ~GAME_PLAYER_MODEL() {
         
     }
@@ -26,6 +27,8 @@ XS_CLASS_BEGIN_WITH_COPY( GAME_PLAYER_MODEL )
 
     NETWORK_PLAYER::PTR
         NetworkPlayer;
+    R3D_PLAYER::PTR
+        GamePlayer;
 
 XS_CLASS_END
 

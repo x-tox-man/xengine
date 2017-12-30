@@ -80,7 +80,6 @@ void NETWORK_SETUP_PRESENTER::ClientGameStarted( std::vector<NETWORK_PLAYER *> &
 void NETWORK_SETUP_PRESENTER::ServerGameStarted() {
     
     R3D_APP_PTR->GetGame()->Restart();
-    R3D_APP_PTR->GetNetworkManager().GetServer()->StartCountDown();
     GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_INGAME >( "UI_INGAME" );
 }
 
@@ -112,6 +111,7 @@ void NETWORK_SETUP_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * click
         
         R3D_APP_PTR->GetNetworkManager().GetServer()->SetGameStartedCallback( callback );
         R3D_APP_PTR->GetGame()->SetPlayers( players_model );
+        R3D_APP_PTR->GetNetworkManager().GetServer()->StartCountDown();
     }
 }
 

@@ -82,6 +82,7 @@ XS_CLASS_BEGIN(NETWORK_SERVER)
 
     void DispatchMessageToAllPlayers(SERVICE_NETWORK_COMMAND * command);
     void DispatchMessageToPlayer(NETWORK_PLAYER & player, CORE_DATA_STREAM & data_buffer);
+    void DispatchMessageToPlayer(NETWORK_PLAYER & player, SERVICE_NETWORK_COMMAND * command);
 
     void DropPlayer( NETWORK_PLAYER * );
     void AcceptPlayerFromConnection( SERVICE_NETWORK_CONNECTION * );
@@ -138,6 +139,8 @@ private :
     float
         NetworkRefreshRate,
         AccumulatedRemaining;
+    CORE_PARALLEL_LOCK_MUTEX
+        ServerLock;
 
 XS_CLASS_END
 

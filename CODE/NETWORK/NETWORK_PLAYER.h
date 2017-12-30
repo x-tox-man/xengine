@@ -42,6 +42,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(NETWORK_PLAYER, CORE_DATA_MODEL)
     inline void SetNetworkConnexion( SERVICE_NETWORK_CONNECTION *connection ) { CurrentNewtorkStream = connection; }
     inline void SetIsReady( bool ready ) { IsReady = ready; }
     inline bool Ready() const { return IsReady; }
+    inline std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE> & GetOutGoingMessageQueue() { return OutGoingMessageQueue; }
 
 private :
 

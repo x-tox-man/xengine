@@ -65,7 +65,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render( GRAPHIC_RENDERER & renderer ) {
     }
     
 #if DEBUG
-    printf( "eliminated from render :%d\n", zapped );
+    //printf( "eliminated from render :%d\n", zapped );
 #endif
 }
 

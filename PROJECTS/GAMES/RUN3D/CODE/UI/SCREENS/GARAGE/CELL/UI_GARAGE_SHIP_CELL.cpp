@@ -8,6 +8,7 @@
 
 #include "UI_GARAGE_SHIP_CELL.h"
 #include "R3D_RESOURCES.h"
+#include "GRAPHIC_UI_HELPER.h"
 
 UI_GARAGE_SHIP_CELL::UI_GARAGE_SHIP_CELL() :
     GRAPHIC_UI_FRAME(),
@@ -28,8 +29,7 @@ void UI_GARAGE_SHIP_CELL::Initialize() {
     
     Accumulated = (rand() % 100) * 0.01f * M_PI_2;
     
-    GetPlacement().SetSize( CORE_MATH_VECTOR( 512.0f, 512.0f ) );
-    GRAPHIC_UI_FRAME::Initialize();
+    GetPlacement().SetSize( CORE_MATH_VECTOR( 128.0f, 128.0f ) );
     
     GRAPHIC_UI_RENDER_STYLE *style = new GRAPHIC_UI_RENDER_STYLE;
     auto r = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
@@ -43,7 +43,21 @@ void UI_GARAGE_SHIP_CELL::Initialize() {
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     m->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( text ) );
     
-    SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, style );
+    auto element = GRAPHIC_UI_HELPER::CreateElement( "ship" );
+    element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default, style );
+    element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Hovered, style );
+    element->SetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Pressed, style );
+    element->GetPlacement().SetSize( CORE_MATH_VECTOR( 128.0f, 128.0f ) );
+    element->Initialize();
+    AddObject( element );
+    
+    CORE_HELPERS_UNIQUE_IDENTIFIER
+        texture_identifier( "frameBorder3" );
+    
+    GRAPHIC_TEXTURE::LoadResourceForPath( texture_identifier, CORE_FILESYSTEM_PATH::FindFilePath( "frameBorder3", "png", "TEXTURES" ) );
+    GRAPHIC_UI_HELPER::CreateFrameStyleWithBorderAndContentColor(this, CORE_HELPERS_COLOR( 0.5f, 0.5f, 0.5f, 0.5f ), "frameBorder3" );
+    
+    GRAPHIC_UI_FRAME::Initialize();
 }
 
 void UI_GARAGE_SHIP_CELL::Update(const float time_step ) {
@@ -51,7 +65,7 @@ void UI_GARAGE_SHIP_CELL::Update(const float time_step ) {
     GRAPHIC_UI_FRAME::Update( time_step );
     
     Accumulated += time_step;
-    GetPlacement().SetRotation( Accumulated );
+    GetObjectAtIndex( 0 )->GetPlacement().SetRotation( Accumulated );
 }
 
 void UI_GARAGE_SHIP_CELL::Render( GRAPHIC_RENDERER & renderer ) {

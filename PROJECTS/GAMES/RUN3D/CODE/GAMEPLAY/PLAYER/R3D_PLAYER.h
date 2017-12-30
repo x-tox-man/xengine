@@ -27,6 +27,8 @@ private :
 
     R3D_PLAYER_SHIP::PTR
         Ship;
+    float
+        TotalRunTime;
 
 XS_CLASS_END
 

@@ -31,7 +31,7 @@ XS_CLASS_BEGIN( R3D_LEVEL )
     inline GAMEPLAY_CHECKPOINT_SYSTEM & GetCheckpoints() { return Checkpoints; }
 
     void OnCheckpointCollision( GAMEPLAY_COMPONENT_ENTITY * entity );
-    void OnEndGame( GAMEPLAY_COMPONENT_ENTITY * entity );
+    void OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity );
 
 private :
 
@@ -40,7 +40,7 @@ private :
     void CreateTracks();
     void CreateGround();
 
-    std::vector<R3D_PLAYER::PTR>
+    std::vector< R3D_PLAYER::PTR >
         PlayerTable;
     LEVEL_ENVIRONMENT::PTR
         Environment;

@@ -9,6 +9,7 @@
 #include "SERVICE_NETWORK_CONNECTION.h"
 #include "SERVICE_NETWORK_SYSTEM.h"
 #include "SERVICE_NETWORK_COMMAND.h"
+#define MAX_BUFFFER_SIZE 65535
 
 SERVICE_NETWORK_CONNECTION::SERVICE_NETWORK_CONNECTION() :
     Info(),
@@ -110,52 +111,54 @@ void SERVICE_NETWORK_CONNECTION::Listen() {
         else {
             SERVICE_NETWORK_SYSTEM::GetInstance().Update( false, SERVICE_NETWORK_SYSTEM::GetInstance().Loop );
         }
-        
         CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
     }
 }
 
 void SERVICE_NETWORK_CONNECTION::TCPReceivePacket(uv_stream_t *req, ssize_t nread, const uv_buf_t *buf ) {
     
-    if ( nread > 0 ) {
+    if ( nread > 0 && buf->len > 0 ) {
         
         CORE_DATA_STREAM
             stream(buf->base, (int) buf->len);
         
         do {
             
-            SERVICE_NETWORK_COMMAND * command = new SERVICE_NETWORK_COMMAND;
+            int size = *((int *) buf->base);
             
-            command->UnSerialize( "command", stream);
-            
-            (*SERVICE_NETWORK_SYSTEM::GetInstance().OnTCPDataReceivedCallback)( command, req );
+            if ( size > 0 && size < MAX_BUFFFER_SIZE ) {
+                
+                SERVICE_NETWORK_COMMAND * command = new SERVICE_NETWORK_COMMAND;
+                
+                command->UnSerialize( "command", stream);
+                
+                (*SERVICE_NETWORK_SYSTEM::GetInstance().OnTCPDataReceivedCallback)( command, req );
+            }
+            else {
+                break;
+            }
         } while (stream.GetOffset() < nread && strcmp(buf->base, "--END--" ) == 0 );
-
-        //TODO Delete memory
     }
-    else
-    {
-        //TODO Delete memory
-    }
+    
+    //TODO : Clean memory
 }
 
 void SERVICE_NETWORK_CONNECTION::UDPSend( uv_udp_send_t* req, int status ) {
     
+    SERVICE_LOGGER_Info( "SERVICE_NETWORK_CONNECTION upd send %s %d\n", (char*)req->bufsml[0].base , req->bufsml[0].len );
 }
 
 void SERVICE_NETWORK_CONNECTION::TCPSend( uv_write_t* req, int status ) {
     
+    SERVICE_LOGGER_Info( "SERVICE_NETWORK_CONNECTION tcp send %s %d\n", (char*)req->bufsml[0].base , req->bufsml[0].len );
 }
-
 
 void SERVICE_NETWORK_CONNECTION::AllocateReceiveBuffer( uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf ) {
     
     //TODO : Release memory
     
-    if ( buf->len != suggested_size ) {
-        buf->base = (char*) CORE_MEMORY_ALLOCATOR_Allocate(suggested_size);
-        buf->len = suggested_size;
-    }
+    buf->base = (char*) CORE_MEMORY_ALLOCATOR_Allocate(suggested_size);
+    buf->len = suggested_size;
     
     /*static char Buffer[2048];
     static char * AlternateBuffer;
@@ -233,6 +236,7 @@ void SERVICE_NETWORK_CONNECTION::Start() {
             
         default :
             
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Start error" );
             CORE_RUNTIME_Abort();
             break;
     }
@@ -291,6 +295,7 @@ void SERVICE_NETWORK_CONNECTION::Receive() {
             
         default : {
             
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Receive error" );
             CORE_RUNTIME_Abort();
             break;
         }
@@ -302,8 +307,9 @@ void SERVICE_NETWORK_CONNECTION::Send( const CORE_DATA_STREAM & data_to_send ) {
 #if DEBUG
     if ( data_to_send.GetSize() <= 0 && data_to_send.GetAllocatedBytes() <= 0 ) {
         
+        SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Send error" );
+        
         return;
-        CORE_RUNTIME_Abort();
     }
 #endif
     
@@ -320,13 +326,17 @@ void SERVICE_NETWORK_CONNECTION::Send( const CORE_DATA_STREAM & data_to_send ) {
             
         case SERVICE_NETWORK_CONNECTION_TYPE_Udp: {
             
-            UV_CHECK_ERROR( uv_udp_send(
-                &UVConnection.UDPType.UDPRequest,
-                &UVConnection.UDPType.UDPSocket,
-                &UVConnection.TCPType.Buffer,
-                1,
-                (const struct sockaddr *) &SocketConnectionAddress,
-                UDPSend ); )
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION udp Send 1" );
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(ConnexionLock)
+                UV_CHECK_ERROR( uv_udp_send(
+                    &UVConnection.UDPType.UDPRequest,
+                    &UVConnection.UDPType.UDPSocket,
+                    &UVConnection.TCPType.Buffer,
+                    1,
+                    (const struct sockaddr *) &SocketConnectionAddress,
+                    UDPSend ); )
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION udp Send 2" );
 
             break;
         }
@@ -334,6 +344,7 @@ void SERVICE_NETWORK_CONNECTION::Send( const CORE_DATA_STREAM & data_to_send ) {
         case SERVICE_NETWORK_CONNECTION_TYPE_TcpAccept:
         case SERVICE_NETWORK_CONNECTION_TYPE_Tcp: {
         
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Send 1" );
             if ( SelfLoop ) {
                 
                 CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(ConnexionLock)
@@ -342,14 +353,17 @@ void SERVICE_NETWORK_CONNECTION::Send( const CORE_DATA_STREAM & data_to_send ) {
                 
             }
             else {
-                UV_CHECK_ERROR( uv_write( &UVConnection.TCPType.TCPRequest, (uv_stream_t*) &UVConnection.TCPType.TCPSocket, &UVConnection.TCPType.Buffer, 1, SERVICE_NETWORK_CONNECTION::TCPSend); )
+                CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(ConnexionLock)
+                    UV_CHECK_ERROR( uv_write( &UVConnection.TCPType.TCPRequest, (uv_stream_t*) &UVConnection.TCPType.TCPSocket, &UVConnection.TCPType.Buffer, 1, SERVICE_NETWORK_CONNECTION::TCPSend); )
+                CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
             }
-        
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Send 2" );
             break;
         }
             
         default : {
 
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Send error default" );
             CORE_RUNTIME_Abort();
             break;
         }

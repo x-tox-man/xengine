@@ -129,6 +129,9 @@ private :
     template<typename SCREEN_TYPE>
     NAVIGATION_ITEM * GetNextItemForNavigation( const char * screen_name ) {
         
+        if ( NavigationItemsTable. ) {
+            
+        }
         NAVIGATION_ITEM * item = CurrentNavigationItem->GetNavigationChilds()[screen_name];
         
         if ( item == NULL ) {

@@ -35,6 +35,17 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_PLAYER_SHIP, GAMEPLAY_COMPONENT_ENTITY)
     inline const GRAPHIC_CAMERA & GetTop() const { return Top; }
     inline GRAPHIC_CAMERA & GetTop() { return Top; }
 
+    inline void SetThrust( float thrust ) { Thrust = thrust; }
+    inline void SetRotation( float orientation ) { Rotation = orientation; }
+    inline float GetThrust() const { return Thrust; }
+    inline float GetRotation() const { return Rotation; }
+
+    void ApplyInputParamters( float thrust, float orientation ) {
+        
+        SetThrust( thrust );
+        SetRotation( orientation );
+    }
+
 private:
 
     R3D_PLAYER_PARTS_COLLECTION
@@ -45,6 +56,9 @@ private:
         Top;
     GRAPHICS_STEAM_ENGINE
         Steam;
+    float
+        Thrust,
+        Rotation;
 
 XS_CLASS_END
 

@@ -9,16 +9,19 @@
 #include "GAME_PLAYER_MODEL.h"
 
 GAME_PLAYER_MODEL::GAME_PLAYER_MODEL() :
-    NetworkPlayer() {
+    NetworkPlayer( NULL ),
+    GamePlayer( NULL ) {
     
 }
 
-GAME_PLAYER_MODEL::GAME_PLAYER_MODEL( NETWORK_PLAYER::PTR player ) :
-    NetworkPlayer( player ) {
+GAME_PLAYER_MODEL::GAME_PLAYER_MODEL( NETWORK_PLAYER::PTR player, R3D_PLAYER::PTR game_player ) :
+    NetworkPlayer( player ),
+    GamePlayer( game_player ) {
     
 }
 
 GAME_PLAYER_MODEL::GAME_PLAYER_MODEL( const GAME_PLAYER_MODEL & other ) :
-    NetworkPlayer( other.NetworkPlayer ) {
+    NetworkPlayer( other.NetworkPlayer ),
+    GamePlayer( other.GamePlayer ){
     
 }

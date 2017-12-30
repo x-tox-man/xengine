@@ -7,7 +7,17 @@
 //
 
 #include "R3D_GAMEPLAY_GAME_DELEGATE.h"
+#include "GRAPHIC_UI_SYSTEM.h"
+#include "UI_ENDGAME.h"
 
-R3D_GAMEPLAY_GAME_DELEGATE::R3D_GAMEPLAY_GAME_DELEGATE() {
+R3D_GAMEPLAY_GAME_DELEGATE::R3D_GAMEPLAY_GAME_DELEGATE() :
+    PlayersList( NULL ),
+    Thrust( 0.0f ),
+    Orientation( 0.0f )  {
     
+}
+
+void R3D_GAMEPLAY_GAME_DELEGATE::OnEndGame() {
+    
+    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_ENDGAME >( "Garage" );
 }

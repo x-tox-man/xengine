@@ -30,6 +30,7 @@ void UI_MAIN_MENU_PRESENTER::OnClickStartGame( GRAPHIC_UI_ELEMENT * element, GRA
             players_model;
         
         players_model.resize( 1 );
+        players_model[ 0 ].GamePlayer = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer();
         
         R3D_APP_PTR->GetGame()->SetPlayers( players_model );
         R3D_APP_PTR->GetGame()->Restart();

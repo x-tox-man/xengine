@@ -80,7 +80,7 @@ CORE_DATA_STREAM & NETWORK_PLAYER::PrepareMessage() {
     OutGoingMessage.Reset();
     OutGoingMessage.Open();
     
-    for(int i = 0; i < OUTGOING_MESSAGE_QUEUE_SIZE; i++ ) {
+    for( int i = 0; i < OUTGOING_MESSAGE_QUEUE_SIZE; i++ ) {
         
         if ( OutGoingMessageQueue[i] != NULL ) {
             

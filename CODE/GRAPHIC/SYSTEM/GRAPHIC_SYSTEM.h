@@ -20,6 +20,7 @@
 #include "CORE_DATA_BUFFER.h"
 #include "GRAPHIC_TEXTURE_INFO.h"
 #include "CORE_PARALLEL_LOCK_MUTEX.h"
+#include "CORE_HELPERS_COLOR.h"
 
 class GRAPHIC_TEXTURE;
 class GRAPHIC_RENDER_TARGET;
@@ -78,11 +79,14 @@ static void CreateIndexBuffer( GRAPHIC_MESH & mesh );
 static void ReleaseBuffers(GRAPHIC_MESH &mesh);
 static void ApplyBuffers(GRAPHIC_MESH &mesh);
 static const char * GetShaderDirectoryPath() { return ShaderDirectoryPath; }
+static void SetClearColor( CORE_HELPERS_COLOR & color ) { ClearColor = color; }
 
 static CORE_PARALLEL_LOCK_MUTEX
     GraphicSystemLock;
 static const char *
     ShaderDirectoryPath;
+static CORE_HELPERS_COLOR
+    ClearColor;
 
 XS_CLASS_END
 

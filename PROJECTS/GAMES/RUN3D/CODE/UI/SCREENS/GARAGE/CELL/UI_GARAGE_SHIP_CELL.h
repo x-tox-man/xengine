@@ -10,7 +10,7 @@
 #define UI_GARAGE_SHIP_CELL_hpp
 
 #include "CORE_HELPERS_CLASS.h"
-#include "GRAPHIC_UI_FRAME.h"
+#include "R3D_UI_FRAME.h"
 #include "GRAPHIC_CAMERA.h"
 #include "R3D_PLAYER_SHIP_MODEL.h"
 

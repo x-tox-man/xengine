@@ -10,7 +10,8 @@
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
 
 R3D_PLAYER::R3D_PLAYER() :
-    Ship( NULL ) {
+    Ship( NULL ),
+    TotalRunTime( 0.0f ) {
     
 }
 
@@ -23,6 +24,7 @@ void R3D_PLAYER::Initialize() {
 void R3D_PLAYER::Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation ) {
     
     Ship->Reset( position, orientation);
+    TotalRunTime = 0.0f;
 }
 
 std::vector< R3D_PLAYER_SHIP_MODEL::PTR > R3D_PLAYER::GetAllShipsOwned() {

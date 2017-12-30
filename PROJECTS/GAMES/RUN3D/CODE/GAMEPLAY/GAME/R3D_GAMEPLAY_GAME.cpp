@@ -89,7 +89,7 @@ void MyNearCallback( btBroadphasePair & collision_pair, btCollisionDispatcher & 
     }
     else if ( (collision_pair.m_pProxy1->m_collisionFilterGroup & PHYSICS_COLLISION_TYPE_SHIP) == PHYSICS_COLLISION_TYPE_SHIP ) {
         
-        abort();
+        
     }
     
     dispatcher.defaultNearCallback(collision_pair, dispatcher, info );
@@ -100,6 +100,7 @@ R3D_GAMEPLAY_GAME::R3D_GAMEPLAY_GAME() :
     Level(),
     Scene(),
     Tick( 0 ),
+    ThisPlayerIndex( 0 ),
     BulletSystem( new GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION() ) {
         
 }
@@ -114,9 +115,11 @@ void R3D_GAMEPLAY_GAME::SetPlayers( const std::vector< GAME_PLAYER_MODEL > & pla
     
     for (int i = 0; i < players.size(); i++ ) {
         
-        GetLevel().GetPlayerTable()[ i ] = new R3D_PLAYER();
+        GetLevel().GetPlayerTable()[ i ] = players[ i ].GamePlayer;
         GetLevel().GetPlayerTable()[ i ]->Initialize();
     }
+    
+    Delegate->SetPlayers( & GetLevel().GetPlayerTable() );
 }
 
 void R3D_GAMEPLAY_GAME::Initialize( ) {
@@ -180,6 +183,12 @@ void R3D_GAMEPLAY_GAME::Update( const float step ) {
     }
 }
 
+void R3D_GAMEPLAY_GAME::OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+    
+    StateMachine.ChangeState( END_GAME_STATESTATE );
+    Delegate->OnEndGame();
+}
+
 //---------------------------------------------------------------------------------------//
 //-------------------------- GAME IDLE_STATE ----------------------------------------------//
 //---------------------------------------------------------------------------------------//
@@ -211,11 +220,11 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVEN
         
         t = 0.0f;
         
-        R3D_APP_PTR->SetCamera( &R3D_APP_PTR->GetGame()->GetLevel().GetPlayerTable()[0]->GetShip()->GetRear() );
+        R3D_APP_PTR->SetCamera( &R3D_APP_PTR->GetGame()->GetLevel().GetPlayerTable()[ GetContext().ThisPlayerIndex ]->GetShip()->GetRear() );
     }
     else {
         
-        const GRAPHIC_CAMERA & camera = R3D_APP_PTR->GetGame()->GetLevel().GetPlayerTable()[0]->GetShip()->GetRear();
+        const GRAPHIC_CAMERA & camera = R3D_APP_PTR->GetGame()->GetLevel().GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip()->GetRear();
         
         float p = t / 2.0f;
         
@@ -287,7 +296,7 @@ CORE_FIXED_STATE_EndOfStateEvent()
 //-------------------------- END GAME STATE    ------------------------------------------//
 //---------------------------------------------------------------------------------------//
 CORE_FIXED_STATE_DefineStateEnterEvent( R3D_GAMEPLAY_GAME::END_GAME_STATE )
-
+    GetContext().Delegate->OnEndGame();
 CORE_FIXED_STATE_EndOfStateEvent()
 
 

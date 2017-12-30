@@ -46,12 +46,12 @@ void NETWORK_MANAGER::Update( const float step ) {
     }
 }
 
-void NETWORK_MANAGER::InitializeServer(int seed) {
+void NETWORK_MANAGER::InitializeServer(int seed, float refresh_rate) {
     
     assert( Server == NULL );
     
     Server = new NETWORK_SERVER;
-    Server->Initialize( 0.2f, "XS_SERVER_ACCEPTS_CONNECTIONS" );
+    Server->Initialize( refresh_rate, "XS_SERVER_ACCEPTS_CONNECTIONS" );
     Server->SetSeed( seed );
     
     Multiplayer = true;
