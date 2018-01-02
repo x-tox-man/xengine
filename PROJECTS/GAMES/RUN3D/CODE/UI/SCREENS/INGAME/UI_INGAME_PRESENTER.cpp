@@ -28,8 +28,9 @@ void UI_INGAME_PRESENTER::Update( float time_step ) {
     
     const CORE_MATH_VECTOR & v = cmp->GetVelocity();
     float speed = v.ComputeLength();
-    ((UI_INGAME::PTR) GetView())->SetSpeed( speed );
-    ((UI_INGAME::PTR) GetView())->SetEllapsedTime( R3D_APP_PTR->GetGame()->GetGameDuration() );
+    //((UI_INGAME::PTR) GetView())->SetSpeed( speed );
+    //float gd = R3D_APP_PTR->GetGame()->GetGameDuration();
+    //((UI_INGAME::PTR) GetView())->SetEllapsedTime( gd );
 }
 
 void UI_INGAME_PRESENTER::OnPauseButtonPressed( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state ) {

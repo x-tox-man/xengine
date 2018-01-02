@@ -47,8 +47,8 @@ void UI_INGAME::Initialize() {
     time->Initialize();
     time->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     
-    AddObject( text );
-    AddObject( time );
+    //AddObject( text );
+    //AddObject( time );
     AddObject( pause_button );
     
     R3D_UI_FRAME::Initialize();

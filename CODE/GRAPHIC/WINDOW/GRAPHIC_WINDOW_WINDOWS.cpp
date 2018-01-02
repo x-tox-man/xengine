@@ -63,13 +63,16 @@ void GRAPHIC_WINDOW_WINDOWS::Initialize() {
 
 void GRAPHIC_WINDOW_WINDOWS::EnableBackgroundContext( bool enable ) {
 
-    abort();
+    if ( !wglMakeCurrent( GetDC( hWnd ), OGLBackgroundContext ) ) {
+
+        CORE_RUNTIME_Abort();
+    }
 }
 
 void GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS::Display() {
 
     MSG msg;
-
+    
     long long elapsed =  0.0f;
 
     while ( msg.message != WM_QUIT ) {

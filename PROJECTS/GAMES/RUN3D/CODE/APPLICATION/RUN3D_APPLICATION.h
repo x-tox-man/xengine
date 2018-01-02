@@ -72,8 +72,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
 
     inline APPLICATION_IDENTITY_MANAGER & GetPlayerIdentityManager() { return PlayerIdentityManager; }
 #if DEBUG
-    inline void SetFrom( const CORE_MATH_VECTOR & v ) { From = v; }
-    inline void SetTo( const CORE_MATH_VECTOR & v ) { To = v; }
+    inline void SetFrom( const CORE_MATH_VECTOR & v ) { From = v; }
+    inline void SetTo( const CORE_MATH_VECTOR & v ) { To = v; }
 #endif
 
 private :

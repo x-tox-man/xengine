@@ -1,5 +1,5 @@
 -- premake5.lua
-workspace "XSGameEngine"
+workspace "EngineLib"
 	configurations { "Debug-VK", "Release-VK", "Debug-DX12", "Release-DX12", "Debug-GL4", "Release-GL4", "Debug-GLES2", "Release-GLES2", "ResourceBuilder", "unit-test" }
 	platforms { "Win32" }
 

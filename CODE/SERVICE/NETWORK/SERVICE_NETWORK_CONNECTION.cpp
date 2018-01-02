@@ -145,12 +145,12 @@ void SERVICE_NETWORK_CONNECTION::TCPReceivePacket(uv_stream_t *req, ssize_t nrea
 
 void SERVICE_NETWORK_CONNECTION::UDPSend( uv_udp_send_t* req, int status ) {
     
-    SERVICE_LOGGER_Info( "SERVICE_NETWORK_CONNECTION upd send %s %d\n", (char*)req->bufsml[0].base , req->bufsml[0].len );
+    //SERVICE_LOGGER_Info( "SERVICE_NETWORK_CONNECTION upd send %s %d\n", (char*)req->bufsml[0].base , req->bufsml[0].len );
 }
 
 void SERVICE_NETWORK_CONNECTION::TCPSend( uv_write_t* req, int status ) {
     
-    SERVICE_LOGGER_Info( "SERVICE_NETWORK_CONNECTION tcp send %s %d\n", (char*)req->bufsml[0].base , req->bufsml[0].len );
+    //SERVICE_LOGGER_Info( "SERVICE_NETWORK_CONNECTION tcp send %s %d\n", (char*)req->bufsml[0].base , req->bufsml[0].len );
 }
 
 void SERVICE_NETWORK_CONNECTION::AllocateReceiveBuffer( uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf ) {

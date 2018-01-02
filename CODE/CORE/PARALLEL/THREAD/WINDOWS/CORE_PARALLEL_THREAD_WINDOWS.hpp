@@ -6,11 +6,13 @@
 //  Copyright (c) 2015 Christophe Bernard. All rights reserved.
 //
 
+
 static DWORD WINAPI ThreadBody( LPVOID lpParam ) {
 
     CORE_PARALLEL_TASK::Execute( &lpParam );
 
     return 1;
 }
+
 
 HANDLE Thread;

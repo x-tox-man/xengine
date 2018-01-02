@@ -16,7 +16,6 @@ CORE_PARALLEL_THREAD::~CORE_PARALLEL_THREAD() {
 
 void CORE_PARALLEL_THREAD::Start() {
 
-    CreateThread( NULL, 0, &CORE_PARALLEL_THREAD::ThreadBody, 0, 0, 0 );
 }
 
 void CORE_PARALLEL_THREAD::Stop() {

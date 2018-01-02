@@ -48,7 +48,9 @@ static const char * DefaultThreadName;
 #if __P__THREAD__
     #include "CORE_PARALLEL_THREAD_POSIX.hpp"
 #else
+    public:
     #include "CORE_PARALLEL_THREAD_WINDOWS.hpp"
+    private:
 #endif
 
 XS_CLASS_END
@@ -73,10 +75,13 @@ void Initialize( const char * thread_name, __TASK_TYPE & task ) {
 #if __P__THREAD__
         pthread_create( &Thread, NULL, &__TASK_TYPE::Execute, (void*) TypedTask );
 #else
-        abort();
+       
+       CreateThread( NULL, 0, &__TASK_TYPE::ExecuteWindows, ( void* ) TypedTask, 0, 0 );
+
         //TODO WINDOWS PART : Attention, this code is awfully
 #endif
     }
+
 
 __TASK_TYPE
     * TypedTask;
@@ -84,9 +89,11 @@ char
     * ThreadName;
 
 #if __P__THREAD__
-#include "CORE_PARALLEL_THREAD_POSIX.hpp"
+    #include "CORE_PARALLEL_THREAD_POSIX.hpp"
 #else
-#include "CORE_PARALLEL_THREAD_WINDOWS.hpp"
+    public:
+    #include "CORE_PARALLEL_THREAD_WINDOWS.hpp"
+    private:
 #endif
 
 XS_CLASS_END

@@ -5,6 +5,7 @@
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "../../../CODE/APPLICATION/RUN3D_APPLICATION.h"
 #include "GRAPHIC_WINDOW_WINDOWS.h"
+//https://support.microsoft.com/en-us/help/125750/you-receive-an-unresolved-external-symbol-winmain-16-error-message-whe
 
 int APIENTRY wWinMain( _In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,

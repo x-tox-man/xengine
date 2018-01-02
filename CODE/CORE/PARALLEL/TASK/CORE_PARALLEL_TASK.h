@@ -33,6 +33,15 @@ public:
         
         return 0;
     }
+
+#if PLATFORM_WINDOWS
+    static DWORD WINAPI ExecuteWindows( LPVOID context ) {
+        CORE_PARALLEL_LAMBDA_TASK * task=( CORE_PARALLEL_LAMBDA_TASK * ) context;
+
+        task->Execute();
+        return 0;
+    }
+#endif
     
 private:
     __LABMDA_TYPE Lambda;
