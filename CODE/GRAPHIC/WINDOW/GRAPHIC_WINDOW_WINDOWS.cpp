@@ -20,6 +20,8 @@
 //https://msdn.microsoft.com/en-us/library/ms632600(v=vs.85).aspx
 //https://msdn.microsoft.com/en-us/library/ff700543(v=vs.85).aspx
 
+// API Entry for windows (linker command line) /ENTRY:"wWinMainCRTStartup"
+
 #define WIN32_WINDOWS_STYLE CS_HREDRAW | CS_VREDRAW | CS_OWNDC
 #define WIN32_WINDOWS_EX_STYLE WS_EX_APPWINDOW | WS_EX_WINDOWEDGE
 
