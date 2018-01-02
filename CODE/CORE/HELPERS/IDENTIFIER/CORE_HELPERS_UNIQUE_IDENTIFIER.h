@@ -26,7 +26,7 @@ XS_DEFINE_SERIALIZABLE
         return CheckSum == other.CheckSum;
     }
 
-    const char * GetIdentifier() const { return Identifier; }
+    inline const char * GetIdentifier() const { return Identifier; }
 
     CORE_HELPERS_UNIQUE_IDENTIFIER & operator = ( const CORE_HELPERS_UNIQUE_IDENTIFIER & other ){
         
@@ -51,6 +51,7 @@ XS_DEFINE_SERIALIZABLE
 
 
     void Generate( const char * value );
+    inline unsigned int GetChecksum() const { return CheckSum; }
 
     static const CORE_HELPERS_UNIQUE_IDENTIFIER Empty;
 

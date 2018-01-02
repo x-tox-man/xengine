@@ -36,6 +36,7 @@ bool GAMEPLAY_CHECKPOINT::ProcessCollision( GAMEPLAY_COMPONENT_ENTITY * entity )
         if ( it->Collides( entity ) ) {
             
             DeactivateFor( entity );
+            
             if ( Parent != NULL ) {
                 
                 Parent->DeactivateNextCheckpoints( entity );
@@ -94,6 +95,11 @@ void GAMEPLAY_CHECKPOINT::AddNext( GAMEPLAY_CHECKPOINT * cp ) {
     
     cp->SetParent( this );
     NextCheckpoints.push_back( cp );
+}
+
+void GAMEPLAY_CHECKPOINT::Reset() {
+    
+    PlayerData.clear();
 }
 
 void GAMEPLAY_CHECKPOINT::SetParent( GAMEPLAY_CHECKPOINT * entity ) {

@@ -13,35 +13,35 @@
 #include "R3D_LEVEL_TRACK.h"
 #include "R3D_LEVEL_CHECKPOINT.h"
 #include "GAMEPLAY_COMPONENT_BASE_ENTITY.h"
+#include "RUN3D_APPLICATION.h"
 
 R3D_LEVEL::R3D_LEVEL() :
     PlayerTable(),
-    Environment(),
-    EndGameCallback( &Wrapper1<R3D_LEVEL, GAMEPLAY_COMPONENT_ENTITY *, &R3D_LEVEL::OnEndGame>, this ),
-    Checkpoints() {
+    Environment( NULL ),
+    EndGameCallback( &Wrapper1<R3D_LEVEL, GAMEPLAY_COMPONENT_ENTITY *, &R3D_LEVEL::OnPlayerCompleted>, this ),
+    Checkpoints(),
+    Info() {
     
 }
 
 void R3D_LEVEL::Initialize() {
     
-    PlayerTable.resize( 1 );
-    
-    PlayerTable[ 0 ] = new R3D_PLAYER();
-    PlayerTable[ 0 ]->Initialize();
-    
     Checkpoints.SetPlayerFinishedCallback( EndGameCallback );
     
     CreateTracks();
-    //CreateGround();
+    CreateGround();
 }
 
 
-void R3D_LEVEL::OnEndGame( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+void R3D_LEVEL::OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity ) {
     
+    R3D_APP_PTR->GetGame()->OnPlayerCompleted( entity );
 }
 
 void R3D_LEVEL::Finalize() {
     
+    PlayerTable.clear();
+    CORE_MEMORY_ObjectSafeDeallocation( Environment );
 }
 
 void R3D_LEVEL::Start() {
@@ -57,6 +57,19 @@ void R3D_LEVEL::Start() {
     }
     
     Checkpoints.Start( players_table );
+}
+
+void R3D_LEVEL::Restart() {
+    
+    Checkpoints.Reset();
+    
+    std::vector<R3D_PLAYER::PTR>::iterator it = PlayerTable.begin();
+    
+    while ( it != PlayerTable.end() ) {
+        
+        (*it)->Reset( CORE_MATH_VECTOR( 0.0f, 0.0f, 1.6f, 1.0f), CORE_MATH_QUATERNION( 0.0f, 0.0f, 0.0f, 1.0f ));
+        it++;
+    }
 }
 
 void R3D_LEVEL::Update( const float time_step ) {
@@ -76,14 +89,14 @@ void R3D_LEVEL::CreateTracks() {
     auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
     base_entity->Initialize( p1 );
     
-    for ( int i = 0; i < 21; i++) {
+    /*for ( int i = 0; i < 30; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         
         if ( i > 0 && i % 10 == 0 ) {
             
-            //auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_CHECKPOINT >();
-            //entity->Initialize( p );
+            auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_CHECKPOINT >();
+            entity->Initialize( p );
         }
         
         base_entity->SetPosition( p );
@@ -91,11 +104,11 @@ void R3D_LEVEL::CreateTracks() {
         auto entity = (R3D_LEVEL_TRACK*)GAMEPLAY_COMPONENT_MANAGER::GetInstance().CloneEntity< R3D_LEVEL_TRACK >( base_entity );
         entity->AddToSystems();
         
-        /*auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
-        base_entity->Initialize( p );*/
-    }
+        auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
+        base_entity->Initialize( p );
+    }*/
     
-    /*for ( int i = 0; i < 21; i++) {
+    for ( int i = 0; i < 11; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         
@@ -108,14 +121,14 @@ void R3D_LEVEL::CreateTracks() {
             Checkpoints.AddCheckpoint( entity->GetChild( 0 ) );
         }
         
-        //base_entity->SetPosition( p );
+        base_entity->SetPosition( p );
         
-        //auto entity = (R3D_LEVEL_TRACK*)GAMEPLAY_COMPONENT_MANAGER::GetInstance().CloneEntity< R3D_LEVEL_TRACK >( base_entity );
-        //entity->AddToSystems();
+        auto entity = (R3D_LEVEL_TRACK*)GAMEPLAY_COMPONENT_MANAGER::GetInstance().CloneEntity< R3D_LEVEL_TRACK >( base_entity );
+        entity->AddToSystems();
         
-        /*auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
-         base_entity->Initialize( p );*/
-    //}
+        auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
+        base_entity->Initialize( p );
+    }
 }
 
 void R3D_LEVEL::CreateGround() {
@@ -130,7 +143,8 @@ void R3D_LEVEL::CreateGround() {
     
     CORE_MATH_VECTOR p( -((height_map_object->GetXWidth()-1) * height_map_object->GetLength())*0.5f, -((height_map_object->GetYWidth()-1) * height_map_object->GetLength())*0.5f, -5.0f, 1.0f );
     
-    GAMEPLAY_HELPER::SetPhysicsGroundHeightMapObject( entity, p, 0.0f );
+    //GAMEPLAY_HELPER::SetPhysicsGroundHeightMapObject( entity, CORE_MATH_VECTOR::Zero, 0.0f );
+    GAMEPLAY_HELPER::SetPhysicsFlatGroundObject( entity, p, 0.0f, -2.0f );
     
     entity->SetPosition( p );
     

@@ -107,6 +107,17 @@ XS_CLASS_BEGIN_WITH_COPY(CORE_MATH_QUATERNION)
         return *this;
     }
 
+inline CORE_MATH_QUATERNION operator - () {
+    
+    CORE_MATH_QUATERNION q;
+    q.X( -X() );
+    q.Y( -Y() );
+    q.Z( -Z() );
+    q.W( -W() );
+    
+    return q;
+}
+
     inline CORE_MATH_QUATERNION & operator *= ( const CORE_MATH_QUATERNION & q2 ) {
         
         CORE_MATH_QUATERNION q1 = *this;
@@ -237,7 +248,10 @@ inline CORE_MATH_QUATERNION operator * ( const CORE_MATH_QUATERNION & lhs, const
     
     CORE_MATH_QUATERNION result;
     
-    CORE_RUNTIME_Abort();
+    result[0] = lhs[0] * rhs;
+    result[1] = lhs[1] * rhs;
+    result[2] = lhs[2] * rhs;
+    result[3] = lhs[3] * rhs;
     
     return result;
 }

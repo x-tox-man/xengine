@@ -20,7 +20,7 @@ GRAPHIC_UI_TEXT_ADAPTER::~GRAPHIC_UI_TEXT_ADAPTER() {
     
 }
 
-void GRAPHIC_UI_TEXT_ADAPTER::OnTextPropertyChanged( GRAPHIC_UI_ELEMENT * element, const char * text ) {
+void GRAPHIC_UI_TEXT_ADAPTER::OnTextPropertyChanged( GRAPHIC_UI_ELEMENT * element, const CORE_DATA_UTF8_TEXT & text ) {
     
     GRAPHIC_TEXT * text_shape = (GRAPHIC_TEXT *) element->GetRenderStyleForState( element->GetCurrentState() )->GetShape();
     

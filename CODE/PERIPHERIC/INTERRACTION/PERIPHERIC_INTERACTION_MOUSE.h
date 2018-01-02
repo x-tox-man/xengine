@@ -22,9 +22,9 @@ XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_MOUSE )
     ~PERIPHERIC_INTERACTION_MOUSE();
 
     enum MOUSE_BUTTON_STATE{
-        MOUSE_BUTTON_STATE_Up = 0x0000,
-        MOUSE_BUTTON_STATE_Pressed = 0x0001,
-        MOUSE_BUTTON_STATE_Released = 0x0010
+        MOUSE_BUTTON_STATE_Up = 0x00000000,
+        MOUSE_BUTTON_STATE_Pressed = 0x00000001,
+        MOUSE_BUTTON_STATE_Released = 0x00000010
     };
 
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( PERIPHERIC_INTERACTION_MOUSE );
@@ -32,8 +32,8 @@ XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_MOUSE )
     void Initialize();
     void Update();
 
-    inline void SetLeftButtonClicked() { LeftButton = LeftButton | MOUSE_BUTTON_STATE_Pressed; }
-    inline void SetRightButtonClicked() { RightButton = RightButton | MOUSE_BUTTON_STATE_Pressed; }
+    inline void SetLeftButtonClicked() { LeftButton = MOUSE_BUTTON_STATE_Pressed; }
+    inline void SetRightButtonClicked() { RightButton = MOUSE_BUTTON_STATE_Pressed; }
 
     inline const CORE_MATH_VECTOR & GetPointCoordinates() { return PointCoordinates; }
     inline const CORE_MATH_VECTOR & GetScreenCoordinates() { return ScreenCoordinates; }
@@ -43,14 +43,12 @@ XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_MOUSE )
 
     inline void SetLeftButtonReleased() {
         
-        LeftButton = LeftButton | MOUSE_BUTTON_STATE_Released;
-        LeftButton = LeftButton & ~MOUSE_BUTTON_STATE_Pressed;
+        LeftButton = MOUSE_BUTTON_STATE_Released;
     }
 
     inline void SetRightButtonReleased() {
         
-        RightButton = RightButton | MOUSE_BUTTON_STATE_Released;
-        RightButton = RightButton & ~MOUSE_BUTTON_STATE_Pressed;
+        RightButton = MOUSE_BUTTON_STATE_Released;
     }
 
     inline void SetScreenCoordinates( const float x, const float y ) {
@@ -71,24 +69,21 @@ XS_CLASS_BEGIN( PERIPHERIC_INTERACTION_MOUSE )
 
     inline void AddNormalizedDisplacement( const float x, const float y ) {
         
-        
         NormalizedDisplacement[0] += x;
         NormalizedDisplacement[1] += y;
     }
 
-    inline bool GetLeftButtonClicked() { return LeftButton & MOUSE_BUTTON_STATE_Pressed; }
-    inline bool GetRightButtonClicked(){ return RightButton & MOUSE_BUTTON_STATE_Pressed; }
+    inline bool GetLeftButtonClicked() { return (LeftButton & MOUSE_BUTTON_STATE_Pressed) == MOUSE_BUTTON_STATE_Pressed; }
+    inline bool GetRightButtonClicked(){ return (RightButton & MOUSE_BUTTON_STATE_Pressed) == MOUSE_BUTTON_STATE_Pressed; }
 
-    inline bool GetLeftButtonReleased() { return LeftButton & MOUSE_BUTTON_STATE_Released; }
-    inline bool GetRightButtonReleased(){ return RightButton & MOUSE_BUTTON_STATE_Released; }
+    inline bool GetLeftButtonReleased() { return (LeftButton & MOUSE_BUTTON_STATE_Released) == MOUSE_BUTTON_STATE_Released; }
+    inline bool GetRightButtonReleased(){ return (RightButton & MOUSE_BUTTON_STATE_Released) == MOUSE_BUTTON_STATE_Released; }
 
 private :
 
     int
-        LeftButton;
-    int
+        LeftButton,
         RightButton;
-
     CORE_MATH_VECTOR
         ScreenCoordinates,
         CenteredCoordinates,

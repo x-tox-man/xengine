@@ -91,7 +91,7 @@ void GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS::Display() {
                 CORE_RUNTIME_Abort();
             }
 
-            glClearColor( 1.0f, 0.0f, 0.0f, 1.0f );
+            glClearColor(GRAPHIC_SYSTEM::ClearColor.GetX(), GRAPHIC_SYSTEM::ClearColor.GetY(), GRAPHIC_SYSTEM::ClearColor.GetZ(), 1.0f );
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
             GRAPHIC_RENDERER::GetInstance().BeginFrame();

@@ -16,6 +16,11 @@
 #include "GAMEPLAY_SCENE.h"
 #include "GRAPHIC_RENDERER.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
+#include "PHYSICS_COLLISION_NEAR_FILTER.h"
+#include "GAME_PLAYER_MODEL.h"
+#include "R3D_GAMEPLAY_GAME_DELEGATE.h"
+#include "PERIPHERIC_INTERACTION_SYSTEM.h"
+#include "R3D_LEVEL_MANAGER.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
@@ -25,18 +30,73 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     void Render( GRAPHIC_RENDERER & renderer );
     void Update( const float step );
 
+    void OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity );
+
+    void InternalUpdateGame( const float step) {
+        
+        float thrust = 0.0f;
+        float orientation = 0.0f;
+        
+        if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_UP ) ) {
+            
+            thrust = 1.0f;
+            printf( "up pressed\n" );
+        }
+        else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_DOWN ) ) {
+            
+            thrust = -1.0f;
+            printf( "down pressed\n" );
+        }
+        
+        if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_LEFT ) ) {
+            
+            orientation = 1.0f;
+        }
+        else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_RIGHT ) ) {
+            
+            orientation = -1.0f;
+        }
+        
+#if PLATFORM_IOS || PLATFORM_ANDROID
+        
+        Delegate->SetThrust( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetY() );
+        //Delegate->SetOrientation( orientation );
+#else
+        Delegate->SetThrust( thrust );
+        Delegate->SetOrientation( orientation );
+#endif
+        
+        Delegate->InternalUpdateGame( step );
+    }
+
+    void SetPlayers( const std::vector< GAME_PLAYER_MODEL > & players );
+
     void Initialize();
     void Finalize();
+    void Restart();
+    void SelectLevel( const R3D_GAME_LEVEL_INFO & info );
 
-    inline R3D_LEVEL & GetLevel() { return Level; }
+    inline int GetTick() const { return Tick; }
+    inline R3D_LEVEL::PTR GetLevel() { return LevelManager.GetCurrentLevel(); }
     inline GAMEPLAY_SCENE & GetScene() { return Scene; }
     inline GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * GetBulletSystem() { return BulletSystem; }
+    inline R3D_GAMEPLAY_GAME_DELEGATE * GetDelegate() { return Delegate; }
+    inline void SetDelegate( R3D_GAMEPLAY_GAME_DELEGATE * delegate ) { Delegate = delegate; }
+    inline void SetThisPlayerIndex( int index ) { ThisPlayerIndex = index; }
+    inline R3D_LEVEL_MANAGER & GetLevelManager() { return LevelManager; }
+
+    inline float GetGameDuration() const { return Tick * 0.033f; }
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, const float )
+    CORE_FIXED_STATE_MACHINE_DefineEventVoid( PAUSE_EVENT )
 
     CORE_FIXED_STATE_MACHINE_DeclareBaseState(GAME_BASE_STATE, R3D_GAMEPLAY_GAME )
         CORE_FIXED_STATE_MACHINE_DeclareHandleEvent( UPDATE_EVENT )
     CORE_FIXED_STATE_MACHINE_End()
+
+    CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, IDLE_STATE )
+
+    CORE_FIXED_STATE_MACHINE_EndDefineState( IDLE_STATE )
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, GAME_STARTING )
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
@@ -44,6 +104,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, GAME_STATE )
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( PAUSE_EVENT )
     CORE_FIXED_STATE_MACHINE_EndDefineState( GAME_STATE )
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, PAUSE_STATE )
@@ -54,16 +115,23 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
         CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
     CORE_FIXED_STATE_MACHINE_EndDefineState( END_GAME_STATE )
 
-private:
+protected:
 
     CORE_FIXED_STATE_MACHINE<GAME_BASE_STATE, R3D_GAMEPLAY_GAME>
         StateMachine;
-    R3D_LEVEL
-        Level;
+    R3D_LEVEL_MANAGER
+        LevelManager;
     GAMEPLAY_SCENE
         Scene;
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION
         * BulletSystem;
+    int
+        Tick,
+        ThisPlayerIndex;
+    float
+        TimeMod;
+    R3D_GAMEPLAY_GAME_DELEGATE::PTR
+        Delegate;
 
 XS_CLASS_END
 

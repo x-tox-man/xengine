@@ -29,7 +29,8 @@ GRAPHIC_UI_RENDER_STYLE_BUILDER & GRAPHIC_UI_RENDER_STYLE_BUILDER::CreateStyle( 
     
     Style->SetShape( ( GRAPHIC_OBJECT_SHAPE * ) GRAPHIC_OBJECT::GetResourceForIdentifier( GRAPHIC_UI_SYSTEM::UIPlanShape ) );
     Style->SetEffect( GRAPHIC_SHADER_EFFECT::GetResourceForIdentifier( GRAPHIC_UI_SYSTEM::TexturedShaderIdentifier ) );
-
+    Style->SetMaterial( material );
+    
     return ThisBuilder;
 }
 
@@ -41,6 +42,7 @@ GRAPHIC_UI_RENDER_STYLE_BUILDER & GRAPHIC_UI_RENDER_STYLE_BUILDER::CreateStyle( 
     
     Style->SetShape( ( GRAPHIC_OBJECT_SHAPE * ) GRAPHIC_OBJECT::GetResourceForIdentifier( GRAPHIC_UI_SYSTEM::UIPlanShape ) );
     Style->SetEffect( GRAPHIC_SHADER_EFFECT::GetResourceForIdentifier( GRAPHIC_UI_SYSTEM::TexturedShaderIdentifier ) );
+    Style->SetMaterial( material );
     
     return ThisBuilder;
 }

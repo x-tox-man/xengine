@@ -19,6 +19,7 @@
 #include "CORE_HELPERS_CALLBACK.h"
 #include "GRAPHIC_UI_PLACEMENT.h"
 #include "GRAPHIC_UI_ELEMENT_STATE.h"
+#include "GRAPHIC_UI_ELEMENT_EVENT.h"
 #include "GRAPHIC_UI_ELEMENT_SCRIPTED.h"
 #include "CORE_ABSTRACT_PROGRAM_FACTORY.h"
 #include "CORE_ABSTRACT_RUNTIME_LUA.h"
@@ -34,13 +35,14 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
     virtual ~GRAPHIC_UI_ELEMENT();
 
     virtual void Initialize() {}
-    virtual void Finalize() {}
+    virtual void Finalize();
 
     virtual void Update( const float );
     virtual void Render( GRAPHIC_RENDERER & );
     virtual void Click( const CORE_MATH_VECTOR & cursor_position );
     virtual void Hover( const CORE_MATH_VECTOR & cursor_position );
     virtual void Hover( const bool force_hover );
+    virtual void Drag( const CORE_MATH_VECTOR & cursor_position );
 
     virtual int GetChildCount() { return -1; }
 
@@ -73,8 +75,8 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
     inline void Hide() { Visible = false; }
 
     inline void SetVisible( bool visible ) { Visible = visible; }
-    void SetActionCallback( CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_STATE > & action_callback );
-    CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT * , GRAPHIC_UI_ELEMENT_STATE > & GetActionCallback() { return ActionCallback; }
+    void SetActionCallback( CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT > & action_callback );
+    CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT * , GRAPHIC_UI_ELEMENT_EVENT > & GetActionCallback() { return ActionCallback; }
 
     inline GRAPHIC_UI_ELEMENT_STATE GetCurrentState() const { return CurrentState; }
 
@@ -85,7 +87,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
 
     virtual void OnPlacementPropertyChanged() {};
 
-    inline void SetTextValue( const char * text) {
+    inline void SetTextValue( const CORE_DATA_UTF8_TEXT & text) {
         
         Adapter->OnTextPropertyChanged( this, text );
     }
@@ -93,6 +95,11 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
     inline void SetAdapter( GRAPHIC_UI_BASE_ADAPTER * adapter ) {
         
         Adapter = adapter;
+    }
+
+    inline GRAPHIC_UI_BASE_ADAPTER::PTR GetAdapter() {
+        
+        return Adapter;
     }
 
     virtual GRAPHIC_UI_ELEMENT * Copy();
@@ -105,7 +112,7 @@ protected:
 
     GRAPHIC_UI_PLACEMENT
         Placement;
-    CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT * , GRAPHIC_UI_ELEMENT_STATE >
+    CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT * , GRAPHIC_UI_ELEMENT_EVENT >
         ActionCallback;
     CORE_HELPERS_CALLBACK_1< const char * >
         OnTextChangedCallback;
@@ -115,7 +122,7 @@ protected:
         CurrentState;
     GRAPHIC_UI_ELEMENT_SCRIPTED
         Animation;
-    std::array< GRAPHIC_UI_RENDER_STYLE *, GRAPHIC_UI_ELEMENT_STATE_Count >
+    std::array< GRAPHIC_UI_RENDER_STYLE *, 4 >
         RenderStyleTable;
     GRAPHIC_UI_BASE_ADAPTER
         * Adapter;

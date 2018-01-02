@@ -34,6 +34,11 @@ void GAMEPLAY_COMPONENT_MANAGER::Initialize() {
 
 }
 
+void GAMEPLAY_COMPONENT_MANAGER::Finalize() {
+    
+    InternalVector.clear();
+}
+
 void GAMEPLAY_COMPONENT_MANAGER::Clear() {
     
     InternalVector.clear();

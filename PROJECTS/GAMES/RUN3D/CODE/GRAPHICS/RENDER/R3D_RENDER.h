@@ -44,7 +44,6 @@ private :
     GRAPHIC_SHADER_LIGHT
         Directional,
         Ambient;
-
     GRAPHIC_OBJECT_SHAPE_PLAN
         PlanObject;
     GRAPHIC_RENDER_TARGET

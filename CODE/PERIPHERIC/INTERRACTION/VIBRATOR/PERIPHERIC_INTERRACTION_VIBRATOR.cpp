@@ -74,7 +74,7 @@ void PERIPHERIC_INTERRACTION_VIBRATOR::Update( const float step ) {
             
             if ( EffectTable[ i ]->IsDone() ) {
                 
-                delete EffectTable[ i ];
+                CORE_MEMORY_ObjectSafeDeallocation( EffectTable[ i ] );
             }
         }
     }

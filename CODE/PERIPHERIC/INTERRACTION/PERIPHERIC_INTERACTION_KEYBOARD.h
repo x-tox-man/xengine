@@ -39,10 +39,10 @@ private :
     int KeyTable[ KEYBOARD_KEY_Count ];
 
     enum KEY_STATE{
-        KEY_STATE_Up = 0x00000001,
-        KEY_STATE_Pressed = 0x00000010,
-        KEY_STATE_Released = 0x00000100
-};
+        KEY_STATE_Up = 0x0001,
+        KEY_STATE_Pressed = 0x0010,
+        KEY_STATE_Released = 0x0100
+    };
 
 XS_CLASS_END
 

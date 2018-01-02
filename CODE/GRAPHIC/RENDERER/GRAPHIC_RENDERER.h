@@ -15,6 +15,7 @@
 #include "CORE_APPLICATION.h"
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_SHADER_LIGHT.h"
+#include "CORE_PARALLEL_LOCK.h"
 
 XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     XS_DEFINE_UNIQUE( GRAPHIC_RENDERER )
@@ -43,7 +44,7 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     }
 
     inline void SetCamera( GRAPHIC_CAMERA * camera ) { Camera = camera; };
-    inline const GRAPHIC_CAMERA & GetCamera() const { return *Camera; };
+    inline GRAPHIC_CAMERA * GetCamera() { return Camera; };
 
     inline void SetShadowMapCamera( GRAPHIC_CAMERA * camera ) { ShadowMapCamera = camera; };
     inline const GRAPHIC_CAMERA & GetShadowMapCamera() const { return *ShadowMapCamera; };

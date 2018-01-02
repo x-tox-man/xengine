@@ -10,7 +10,7 @@
 #include "GRAPHIC_MESH.h"
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GRAPHIC_TEXT )
-    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_TEXT, UpdateText, const char * )
+    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1( GRAPHIC_TEXT, UpdateText, const CORE_DATA_UTF8_TEXT & )
 CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GRAPHIC_TEXT )
 
 GRAPHIC_TEXT::GRAPHIC_TEXT() :
@@ -20,7 +20,7 @@ GRAPHIC_TEXT::GRAPHIC_TEXT() :
     TextExtent(),
     Font( NULL ),
     TextSize( 0.0f ),
-    Text( NULL ) {
+    Text() {
     
 }
 
@@ -28,7 +28,7 @@ GRAPHIC_TEXT::~GRAPHIC_TEXT() {
 
 }
 
-void GRAPHIC_TEXT::Initialize( const char * text, GRAPHIC_FONT & font, float size_factor, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, bool left_to_right ) {
+void GRAPHIC_TEXT::Initialize( const CORE_DATA_UTF8_TEXT & text, GRAPHIC_FONT & font, float size_factor, GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader, bool left_to_right ) {
     
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Position );
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Normal );
@@ -38,7 +38,7 @@ void GRAPHIC_TEXT::Initialize( const char * text, GRAPHIC_FONT & font, float siz
     
     if( GetMeshTable().size() ) {
         
-        delete GetMeshTable()[0];
+        CORE_MEMORY_ObjectSafeDeallocation( GetMeshTable()[0] );
         GetMeshTable().clear();
     }
     
@@ -65,7 +65,7 @@ void GRAPHIC_TEXT::Initialize( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
     
     if( GetMeshTable().size() ) {
         
-        delete GetMeshTable()[0];
+        CORE_MEMORY_ObjectSafeDeallocation( GetMeshTable()[0] );
         GetMeshTable().clear();
     }
     
@@ -80,12 +80,12 @@ void GRAPHIC_TEXT::Initialize( GRAPHIC_SHADER_PROGRAM_DATA_PROXY::PTR shader ) {
     UpdateText( Text, TextSize );
 }
 
-void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_to_right ) {
+void GRAPHIC_TEXT::UpdateText( const CORE_DATA_UTF8_TEXT & text, float size_factor, bool left_to_right ) {
     
     CORE_DATA_BUFFER * index_buffer = new CORE_DATA_BUFFER;
     CORE_DATA_BUFFER * vertex_buffer = new CORE_DATA_BUFFER;
     
-    int text_size = (int) strlen( text );
+    int text_size = text.GetLenght();
     
     float * vertex_data = (float *) CORE_MEMORY_ALLOCATOR::Allocate( 10 * sizeof( float ) * text_size * 4 );
     
@@ -106,7 +106,7 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
     
     for ( int i = 0; i < text_size; i++ ) {
         
-        char current_char = text[i];
+        wchar_t current_char = text[i];
         GRAPHIC_GLYPH & current_glyph = Font->GetGlyphTable()[ current_char ];
         
         if ( current_char == '\n' || current_char == '\r' ) {
@@ -176,23 +176,26 @@ void GRAPHIC_TEXT::UpdateText( const char * text, float size_factor, bool left_t
         TextExtent[0] += current_glyph.Advance[0];
     }
     
-    if ( text[strlen(text) -1 ] != '\n' || text[strlen(text) -1 ] != '\r' ) {
+    if (text.GetLenght() ) {
         
-        TextExtent[1] += font_size;
-    }
-    
-    TextExtent[0] *= font_size;
-    
-    offset = 0;
-    
-    for ( int base = 0; base < text_size; base++ ) {
+        if ( text[text.GetLenght() -1 ] != '\n' || text[ text.GetLenght() -1 ] != '\r' ) {
+            
+            TextExtent[1] += font_size;
+        }
         
-        int i = base * 4;
-        int ind_temp[] = { i, i + 1, i + 2, i + 2, i + 3, i };
+        TextExtent[0] *= font_size;
         
-        memcpy( (void*)(index_data + offset), ind_temp, 6 * sizeof( int ) );
+        offset = 0;
         
-        offset += 6;
+        for ( int base = 0; base < text_size; base++ ) {
+            
+            int i = base * 4;
+            int ind_temp[] = { i, i + 1, i + 2, i + 2, i + 3, i };
+            
+            memcpy( (void*)(index_data + offset), ind_temp, 6 * sizeof( int ) );
+            
+            offset += 6;
+        }
     }
     
     index_buffer->InitializeWithMemory( 6 * sizeof(int) * text_size, 0, (void*) index_data );

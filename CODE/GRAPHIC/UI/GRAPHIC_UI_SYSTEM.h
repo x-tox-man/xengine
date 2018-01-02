@@ -26,6 +26,7 @@
 #include "GRAPHIC_UI_FRAME.h"
 #include "CORE_PARALLEL.h"
 #include "GRAPHIC_UI_ANIMATION.h"
+#include "GRAPHIC_UI_NAVIGATION.h"
 
 XS_CLASS_BEGIN( GRAPHIC_UI_SYSTEM )
 
@@ -37,22 +38,20 @@ XS_CLASS_BEGIN( GRAPHIC_UI_SYSTEM )
 
     void Initialize();
 
-    GRAPHIC_UI_FRAME * GetCurrentView() { return CurrentView; }
-
     void Update( float time_step );
     void Render( GRAPHIC_RENDERER &);
 
     void RegisterView( GRAPHIC_UI_FRAME * view, const char * view_name );
     void RegisterScritpedView( const CORE_FILESYSTEM_PATH & script_path, const char * view_name );
 
-    void UnregisterScreen(const char * view_name);
+    void UnregisterScreen( const char * view_name );
 
-    CORE_PARALLEL_LOCK_MUTEX & GetLockMutex() { return UISystemLock; }
-
-    const CORE_MATH_VECTOR & GetScreenMouseCoordinates() { return ScreenMouseCoordinates; }
-
-    void SetScreenSize( const CORE_MATH_VECTOR & screen_size ) { ScreenSize = screen_size; }
-    const CORE_MATH_VECTOR & GetScreenSize() const { return ScreenSize; }
+    inline CORE_PARALLEL_LOCK_MUTEX & GetLockMutex() { return UISystemLock; }
+    inline const CORE_MATH_VECTOR & GetScreenMouseCoordinates() { return ScreenMouseCoordinates; }
+    inline void SetScreenSize( const CORE_MATH_VECTOR & screen_size ) { ScreenSize = screen_size; }
+    inline const CORE_MATH_VECTOR & GetScreenSize() const { return ScreenSize; }
+    inline GRAPHIC_UI_NAVIGATION & GetNavigation() { return Navigation; }
+    inline GRAPHIC_UI_FRAME * GetCurrentView() { return CurrentView; }
 
     void CommitAnimation( GRAPHIC_UI_ANIMATION * animation);
     void FinalizeAnimation( GRAPHIC_UI_ANIMATION * animation);
@@ -75,6 +74,8 @@ private :
     CORE_MATH_VECTOR
         ScreenSize,
         ScreenMouseCoordinates;
+    GRAPHIC_UI_NAVIGATION
+        Navigation;
 
 XS_CLASS_END
 

@@ -17,13 +17,34 @@
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_PLAYER_SHIP, GAMEPLAY_COMPONENT_ENTITY)
 
+    XS_DEFINE_SERIALIZABLE
+
     R3D_PLAYER_SHIP();
     ~R3D_PLAYER_SHIP();
 
     void Initialize();
     void Update( float step );
+    void Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation );
 
     void CreateWeaponSystem(  const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation );
+    inline const GRAPHIC_CAMERA & GetFront() const { return Front; }
+    inline GRAPHIC_CAMERA & GetFront() { return Front; }
+    inline const GRAPHIC_CAMERA & GetRear() const { return Rear; }
+    inline GRAPHIC_CAMERA & GetRear() { return Rear; }
+
+    inline const GRAPHIC_CAMERA & GetTop() const { return Top; }
+    inline GRAPHIC_CAMERA & GetTop() { return Top; }
+
+    inline void SetThrust( float thrust ) { Thrust = thrust; }
+    inline void SetRotation( float orientation ) { Rotation = orientation; }
+    inline float GetThrust() const { return Thrust; }
+    inline float GetRotation() const { return Rotation; }
+
+    void ApplyInputParamters( float thrust, float orientation ) {
+        
+        SetThrust( thrust );
+        SetRotation( orientation );
+    }
 
 private:
 
@@ -35,6 +56,9 @@ private:
         Top;
     GRAPHICS_STEAM_ENGINE
         Steam;
+    float
+        Thrust,
+        Rotation;
 
 XS_CLASS_END
 

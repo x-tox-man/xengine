@@ -142,7 +142,7 @@ void GRAPHIC_OBJECT_SHAPE_AXIS::InitializeShape() {
         attr->AttributeIndex,
         1,
         0,
-        (const GLfloat * )&renderer.GetCamera().GetProjectionMatrix()[0]);
+        (const GLfloat * )&renderer.GetCamera()->GetProjectionMatrix()[0]);
     
     GRAPHIC_SYSTEM_ApplyMatrix(
         attrModel->AttributeIndex,

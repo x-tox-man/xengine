@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "GRAPHIC_UI_FRAME_LIST_ADAPTER::OnLayoutFrame(GRAPHIC_UI_FRAME*):GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "NETWORK_BROWSER_LIST_ADAPTER::GetItemsCount():NETWORK_BROWSER_LIST_ADAPTER.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "CORE_HELPERS_CALLBACK_2&lt;GRAPHIC_UI_ELEMENT*, GRAPHIC_UI_ELEMENT_EVENT&gt;::operator()(GRAPHIC_UI_ELEMENT*, GRAPHIC_UI_ELEMENT_EVENT):CORE_HELPERS_CALLBACK.h">
+      </ContextState>
+      <ContextState
+         contextName = "GRAPHIC_UI_ELEMENT::SetActionCallback(CORE_HELPERS_CALLBACK_2&lt;GRAPHIC_UI_ELEMENT*, GRAPHIC_UI_ELEMENT_EVENT&gt;&amp;):GRAPHIC_UI_ELEMENT.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "GRAPHIC_UI_ELEMENT::Hover(CORE_MATH_VECTOR const&amp;):GRAPHIC_UI_ELEMENT.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "CORE_HELPERS_CALLBACK_2&lt;GRAPHIC_UI_ELEMENT*, GRAPHIC_UI_ELEMENT_EVENT&gt;::operator=(CORE_HELPERS_CALLBACK_2&lt;GRAPHIC_UI_ELEMENT*, GRAPHIC_UI_ELEMENT_EVENT&gt; const&amp;):CORE_HELPERS_CALLBACK.h">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

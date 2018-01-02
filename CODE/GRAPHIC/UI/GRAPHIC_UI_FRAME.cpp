@@ -45,9 +45,11 @@ void GRAPHIC_UI_FRAME::Initialize() {
     
     std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
     
+    OnPlacementPropertyChanged();
+    
     while ( it != ElementTable.end() ) {
         
-        (*it)->Initialize();
+        (*it)->OnPlacementPropertyChanged();
         
         it++;
         
@@ -57,6 +59,25 @@ void GRAPHIC_UI_FRAME::Initialize() {
         
         ((GRAPHIC_UI_FRAME_ADAPTER *) Adapter)->OnLayoutFrame( this );
     }
+}
+
+void GRAPHIC_UI_FRAME::Finalize() {
+    
+    std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
+    
+    OnPlacementPropertyChanged();
+    
+    while ( it != ElementTable.end() ) {
+        
+        (*it)->Finalize();
+        
+        it++;
+        
+    }
+    
+    ElementTable.clear();
+    
+    GRAPHIC_UI_ELEMENT::Finalize();
 }
 
 GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::Contains( const CORE_MATH_VECTOR & cursor_position ) {
@@ -69,7 +90,7 @@ GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::Contains( const CORE_MATH_VECTOR & cursor
             
             GRAPHIC_UI_ELEMENT * element = (*it)->Contains( cursor_position );
             
-            if( element ) {
+            if( element && element->GetActionCallback().IsConnected() ) {
                 
                 return element;
             }
@@ -77,6 +98,8 @@ GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::Contains( const CORE_MATH_VECTOR & cursor
             it++;
             
         }
+        
+        return this;
     }
     
     return NULL;
@@ -113,7 +136,7 @@ void GRAPHIC_UI_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
         
         
         renderer.SetScissorRectangle(CORE_MATH_VECTOR(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y() ) );
-        renderer.EnableScissor( true );
+        renderer.EnableScissor( false );
         
         GRAPHIC_SYSTEM::SetScissorRectangle(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y());
         
@@ -133,9 +156,15 @@ void GRAPHIC_UI_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
 
 void GRAPHIC_UI_FRAME::Click( const CORE_MATH_VECTOR & cursor_position ) {
     
+    if ( Adapter ) {
+        printf( "test" );
+    }
+    
     if ( GRAPHIC_UI_ELEMENT::Contains( cursor_position ) ) {
         
         std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
+        
+        GRAPHIC_UI_ELEMENT::Click( cursor_position );
         
         while ( it != ElementTable.end() ) {
             
@@ -146,27 +175,24 @@ void GRAPHIC_UI_FRAME::Click( const CORE_MATH_VECTOR & cursor_position ) {
                 if ( element->GetCurrentState() != GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
                     
                     element->Click( cursor_position );
+                    break;
                 }
-                
-                return;
+                else if ( element->GetCurrentState() == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
+                    
+                    element->Drag( cursor_position );
+                }
             }
             
             it++;
-            
         }
-        
-        if ( Adapter ) {
-            
-            Adapter->OnDragged( this, cursor_position );
-        }
-        
-        ActionCallback( this, CurrentState );
     }
 }
 
 void GRAPHIC_UI_FRAME::Hover( const CORE_MATH_VECTOR & cursor_position ) {
     
     if ( GRAPHIC_UI_ELEMENT::Contains( cursor_position ) ) {
+        
+        GRAPHIC_UI_ELEMENT::Hover( cursor_position );
         
         std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
         
@@ -178,15 +204,16 @@ void GRAPHIC_UI_FRAME::Hover( const CORE_MATH_VECTOR & cursor_position ) {
             
         }
         
-        if ( Adapter && !PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetLeftButtonClicked() ) {
+        if ( Adapter && PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetLeftButtonReleased() ) {
             
+            //TODO
             Adapter->OnDragEnd();
         }
-        
-        ActionCallback( this, CurrentState );
     }
     else {
         std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
+        
+        GRAPHIC_UI_ELEMENT::Hover( false );
         
         while ( it != ElementTable.end() ) {
             
@@ -201,12 +228,27 @@ void GRAPHIC_UI_FRAME::Hover( const bool force_hover ) {
     
     std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
     
+    GRAPHIC_UI_ELEMENT::Hover( false );
+    
     while ( it != ElementTable.end() ) {
         
         (*it)->Hover( force_hover );
         
         it++;
+    }
+}
+
+void GRAPHIC_UI_FRAME::Drag( const CORE_MATH_VECTOR & cursor_position ) {
+    
+    std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
+    
+    GRAPHIC_UI_ELEMENT::Drag( cursor_position );
+    
+    while ( it != ElementTable.end() ) {
         
+        (*it)->Drag( cursor_position );
+        
+        it++;
     }
 }
 

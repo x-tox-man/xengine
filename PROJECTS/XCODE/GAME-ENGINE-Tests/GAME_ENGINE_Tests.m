@@ -34,6 +34,7 @@
 #include "GRAPHIC_GLYPH.h"
 #include "FONT_EDITOR.h"
 #include "CORE_DATA_JSON.h"
+#include "CORE_DATA_UTF8_TEXT.h"
 
 #include <vector>
 
@@ -59,6 +60,46 @@
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+-(void) testMap {
+    
+    u_int8_t * table = (u_int8_t *) malloc( 256 * 256 * sizeof( u_int8_t ) * 4 );
+    
+    for (int i = 0; i < 256; i++ ) {
+        
+        for (int j = 0; j < 256; j++ ) {
+            
+            table[ i * 256 + j ] = rand() % 256;
+        }
+    }
+    
+    RESOURCE_IMAGE_PNG_WRITER
+    writer;
+    
+    RESOURCE_IMAGE
+    img;
+    
+    img.GetImageInfo().Height = 256;
+    img.GetImageInfo().Width = 256;
+    img.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_GRAY;
+    img.SetImageRawData( table );
+    
+    writer.Write( CORE_FILESYSTEM_PATH::FindFilePath( "map_test", "png", "MAP" ), &img );
+}
+
+-(void) testUTF8 {
+    
+    wchar_t * tt = NULL;
+    tt = (wchar_t *) malloc( 20* sizeof( wchar_t ) );
+    swprintf( tt, 40, L"kmsfgsfg\0" );
+    
+    CORE_DATA_UTF8_TEXT
+        t( L"Coucou c%d %s %s %.01f\0" ),
+        f( t.Format( 12, "test", tt , 12.0f ) );
+    
+    wprintf( f.GetString() );
+    free( tt );
 }
 
 -(void) testVirtualTemplate {

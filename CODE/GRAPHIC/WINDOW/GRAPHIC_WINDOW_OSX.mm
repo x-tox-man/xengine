@@ -202,7 +202,7 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
     
     [self.openGLContext makeCurrentContext];
     
-    GFX_CHECK( glClearColor(0, 0, 0.5, 1); )
+    GFX_CHECK( glClearColor(GRAPHIC_SYSTEM::ClearColor.GetX(), GRAPHIC_SYSTEM::ClearColor.GetY(), GRAPHIC_SYSTEM::ClearColor.GetZ(), 1.0f ); )
     GFX_CHECK( glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); )
 
     //Do graphic system instead: a renderer is for a gfx implementation

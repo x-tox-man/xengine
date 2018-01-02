@@ -32,7 +32,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Initialize() {
 
 void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Update( float time_step ) {
     
-    ComputeRay( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetScreenCoordinates(), GRAPHIC_RENDERER::GetInstance().GetCamera() );
+    ComputeRay( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetScreenCoordinates(), *GRAPHIC_RENDERER::GetInstance().GetCamera() );
     std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     
     while (it != EntitiesTable.end() ) {

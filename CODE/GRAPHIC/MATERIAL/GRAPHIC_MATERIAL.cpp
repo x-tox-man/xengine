@@ -120,7 +120,7 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     
     if ( camera_world_position_attribute.AttributeIndex != 0 ) {
         
-        GRAPHIC_SYSTEM::ApplyShaderAttributeVector( &renderer.GetCamera().GetPosition()[0], camera_world_position_attribute );
+        GRAPHIC_SYSTEM::ApplyShaderAttributeVector( &renderer.GetCamera()->GetPosition()[0], camera_world_position_attribute );
     }
     
     GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::LightSpecularPower );

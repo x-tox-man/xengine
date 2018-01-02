@@ -32,9 +32,10 @@ void R3D_RESOURCES::Initialize() {
     RESOURCE_PROXY::PTR checkpoint_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR capsule_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR particle_proxy = new RESOURCE_PROXY;
+    RESOURCE_PROXY::PTR text_proxy = new RESOURCE_PROXY;
     
     spaceship1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("spaceship", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
-    track_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("straight_track", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
+    track_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("flat", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     weapon1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("weapon1", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     checkpoint_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("checkpoint", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     capsule_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("capsule", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
@@ -44,21 +45,24 @@ void R3D_RESOURCES::Initialize() {
     auto basic_terrain_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "TerrainShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "TerrainShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto checkpoint_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "CheckpointEffect", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto particle_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicParticleShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
+    auto text_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderTextured"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
     effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     basic_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     basic_terrain_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     checkpoint_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     particle_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    text_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
     shader_proxy->SetResource( effect );
     basic_geometry_shader_proxy->SetResource( basic_effect );
     terrain_geometry_shader_proxy->SetResource( basic_terrain_effect );
     checkpoint_effect_proxy->SetResource( checkpoint_effect );
     particle_proxy->SetResource( particle_effect );
+    text_proxy->SetResource( text_effect );
     
     Resources->AddResource( spaceship1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
-    Resources->AddResource( track_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "straight_track" ) );
+    Resources->AddResource( track_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "flat" ) );
     Resources->AddResource( weapon1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "weapon1" ) );
     Resources->AddResource( shader_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
     Resources->AddResource( basic_geometry_shader_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicGeometryShader" ) );
@@ -67,6 +71,7 @@ void R3D_RESOURCES::Initialize() {
     Resources->AddResource( checkpoint_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "checkpoint" ) );
     Resources->AddResource( capsule_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "capsule" ) );
     Resources->AddResource( particle_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ) );
+    Resources->AddResource( text_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "UIShaderTextured" ) );
     
     GRAPHIC_FONT_MANAGER::GetInstance().LoadFont(
                                                  CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ),

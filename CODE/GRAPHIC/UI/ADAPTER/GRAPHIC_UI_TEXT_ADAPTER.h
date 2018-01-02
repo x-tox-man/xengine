@@ -17,7 +17,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_TEXT_ADAPTER, GRAPHIC_UI_BASE_ADAPTER )
     GRAPHIC_UI_TEXT_ADAPTER();
     virtual ~GRAPHIC_UI_TEXT_ADAPTER();
 
-    virtual void OnTextPropertyChanged( GRAPHIC_UI_ELEMENT * element, const char * text ) override;
+    virtual void OnTextPropertyChanged( GRAPHIC_UI_ELEMENT * element, const CORE_DATA_UTF8_TEXT & text ) override;
     virtual void OnResize( GRAPHIC_UI_ELEMENT * ) override;
 
 XS_CLASS_END

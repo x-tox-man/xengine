@@ -43,6 +43,8 @@ XS_CLASS_BEGIN( SERVICE_NETWORK_LOBBY )
 
     void SendTcpCommand( CORE_DATA_STREAM & command, SERVICE_NETWORK_CONNECTION * connexion );
 
+    void UpdateDiscoverMessage( const char * discover_message );
+
     std::array< SERVICE_NETWORK_CONNECTION * , NETWORK_SERVICE_LOBBY_MAX_CONNECTIONS >
         ConnectionPool;
     SERVICE_NETWORK_CONNECTION

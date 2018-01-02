@@ -33,7 +33,14 @@ void PERIPHERIC_INTERACTION_KEYBOARD::Update() {
     
     for ( int key = 0; key < KEYBOARD_KEY_Count; key++ ) {
         
-        KeyTable[ key ] = KeyTable[ key ] & ~KEY_STATE_Released;
+        if ( KeyTable[ key ] == KEY_STATE_Released ) {
+            
+            KeyTable[ key ] = KEY_STATE_Up;
+        }
+        else if ( (KeyTable[ key ] & KEY_STATE_Released) == KEY_STATE_Released ) {
+            
+            KeyTable[ key ] = KeyTable[ key ] & ~KEY_STATE_Released;
+        }
     }
 }
 

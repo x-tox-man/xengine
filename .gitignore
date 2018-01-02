@@ -6,9 +6,13 @@ armv7armv7sarm64/
 *.sdf
 *.suo
 *.vs/
+**/*.apk
+**/*.exe
 .vs/
 bin/
 obj/
+**/bin/
+**/obj/
 BUILDIR/
 LIBS/
 HEADERS/

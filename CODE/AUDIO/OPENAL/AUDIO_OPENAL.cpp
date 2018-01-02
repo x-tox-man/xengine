@@ -75,7 +75,7 @@ void AUDIO_OPENAL::Finalize() {
 void AUDIO_OPENAL::Update( const float time_step ) {
     
     #if __AUDIO_OPENAL__
-        const CORE_MATH_VECTOR & position = GRAPHIC_RENDERER::GetInstance().GetCamera().GetPosition();
+        const CORE_MATH_VECTOR & position = GRAPHIC_RENDERER::GetInstance().GetCamera()->GetPosition();
     
         AUDIO_CHECK( alListener3f(AL_POSITION, position[0], position[1], position[2]); )
         

@@ -98,9 +98,7 @@
                 }
                 else {
                     
-                    //int keyChar = [event charactersIgnoringModifiers] characterAtIndex:0];
-                    
-                    //PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().SetKeyPressed( [event keyCode] );
+                    PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().SetKeyReleased( [event keyCode] );
                 }
                 
                 break;
@@ -127,9 +125,7 @@
                 }
                 else {
                     
-                    //int keyChar = [event charactersIgnoringModifiers] characterAtIndex:0];
-                    
-                    //PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().SetKeyPressed( [event keyCode] );
+                    PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().SetKeyPressed( [event keyCode] );
                 }
                 
                 break;

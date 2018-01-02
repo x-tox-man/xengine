@@ -166,6 +166,7 @@ class APPLICATION_NETWORK_COMMAND_CLIENT_ACCEPTED  : public APPLICATION_COMMAND 
     SimpleTrickForSerialization()
     
     virtual void Apply() override;
+    
 };
 
 class APPLICATION_NETWORK_COMMAND_CLIENT_REJECTED  : public APPLICATION_COMMAND {

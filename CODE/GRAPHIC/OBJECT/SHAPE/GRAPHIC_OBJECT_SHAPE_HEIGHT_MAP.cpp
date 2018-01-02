@@ -91,11 +91,12 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape() {
     
     offset=0;
         
-    for ( int j = 0; j < YWidth; j++ ) {
+    for ( int j = 0; j < YWidth -1; j++ ) {
         
-        for ( int i = 0; i < XWidth; i++ ) {
-            int base = i*XWidth + j;
-            int base2 = (i+1)*XWidth +j;
+        for ( int i = 0; i < XWidth - 1; i++ ) {
+            
+            int base = j*YWidth + i;
+            int base2 = (j+1)*YWidth +i;
             int ind_temp[] = {base , base +1, base2+1, base2+1, base2, base};
             
             memcpy( (void*)(index_data+ offset), ind_temp, 6 * sizeof( int ) );

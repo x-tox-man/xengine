@@ -135,6 +135,19 @@ XS_DEFINE_SERIALIZABLE
         return false;
     }
 
+    inline CORE_MATH_VECTOR operator - () const {
+        
+        CORE_MATH_VECTOR v;
+        
+        v.X( -X() );
+        v.Y( -Y() );
+        v.Z( -Z() );
+        v.W( -W() );
+        
+        return v;
+    }
+
+
     inline float & operator [] ( const int index ) {
         
     #if DEBUG

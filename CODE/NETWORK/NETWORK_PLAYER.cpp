@@ -7,11 +7,13 @@
 //
 
 #include "NETWORK_PLAYER.h"
+#include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( NETWORK_PLAYER )
     XS_DEFINE_ClassMember( "IsActive", bool, IsActive )
     XS_DEFINE_ClassMember( "Name", std::string, Name )
     XS_DEFINE_ClassMember( "IsHost", bool, IsHost )
+    XS_DEFINE_ClassMember( "IsReady", bool, IsReady )
     XS_DEFINE_ClassMember( "UniqueId", CORE_HELPERS_UNIQUE_IDENTIFIER, UniqueId )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
@@ -24,7 +26,8 @@ NETWORK_PLAYER::NETWORK_PLAYER() :
     CurrentNewtorkStream( NULL ),
     UniqueId( "Temporary" ),
     IsActive( false ),
-    IsHost( false ){
+    IsHost( false ),
+    IsReady( false ) {
     
 }
 
@@ -57,6 +60,10 @@ NETWORK_PLAYER::NETWORK_PLAYER(int player_id, bool is_active) :
     }
 }
 
+void NETWORK_PLAYER::Finalize() {
+    
+}
+
 NETWORK_PLAYER::~NETWORK_PLAYER() {
     
     for(int i = 0; i < OUTGOING_MESSAGE_QUEUE_SIZE; i++ ) {
@@ -73,7 +80,7 @@ CORE_DATA_STREAM & NETWORK_PLAYER::PrepareMessage() {
     OutGoingMessage.Reset();
     OutGoingMessage.Open();
     
-    for(int i = 0; i < OUTGOING_MESSAGE_QUEUE_SIZE; i++ ) {
+    for( int i = 0; i < OUTGOING_MESSAGE_QUEUE_SIZE; i++ ) {
         
         if ( OutGoingMessageQueue[i] != NULL ) {
             

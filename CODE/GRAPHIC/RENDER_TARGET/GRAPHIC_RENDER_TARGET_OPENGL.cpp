@@ -127,7 +127,7 @@ void GRAPHIC_RENDER_TARGET::Apply() {
         CORE_RUNTIME_Abort();
     }
     
-    GFX_CHECK( glClearColor( 0.0, 0.0f, 0.4f, 1.0f ); )
+    GFX_CHECK( glClearColor(GRAPHIC_SYSTEM::ClearColor.GetX(), GRAPHIC_SYSTEM::ClearColor.GetY(), GRAPHIC_SYSTEM::ClearColor.GetZ(), 1.0f ); )
     GFX_CHECK( glClearDepth(1.0f); )
     
     if ( TargetTexture->GetTextureHandle() == 0 && TargetTexture->GetDepthTextureHandle() ) {

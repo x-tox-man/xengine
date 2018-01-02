@@ -29,12 +29,12 @@ bool CORE_MATH_SHAPE_RECTANGLE::Contains( const CORE_MATH_VECTOR & other ) {
     return CORE_MATH_SHAPE_RECTANGLE::Contains( Center, Size, other );
 }
 
-bool CORE_MATH_SHAPE_RECTANGLE::Contains( const CORE_MATH_VECTOR & rectangle_position,
+bool CORE_MATH_SHAPE_RECTANGLE::Contains( const CORE_MATH_VECTOR & rectangle_center,
                                         const CORE_MATH_VECTOR & rectangle_size,
                                         const CORE_MATH_VECTOR & other ) {
     
-    if ( rectangle_position[0] - rectangle_size[0] < other[0] && rectangle_position[0] + rectangle_size[0] > other[0] &&
-        rectangle_position[1] - rectangle_size[1] < other[1] && rectangle_position[1] + rectangle_size[1] > other[1] ) {
+    if ( rectangle_center[0] - rectangle_size[0] < other[0] && rectangle_center[0] + rectangle_size[0] > other[0] &&
+        rectangle_center[1] - rectangle_size[1] < other[1] && rectangle_center[1] + rectangle_size[1] > other[1] ) {
         
         return true;
     }

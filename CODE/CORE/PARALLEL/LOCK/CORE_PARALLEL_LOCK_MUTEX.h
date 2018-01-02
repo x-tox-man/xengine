@@ -14,15 +14,15 @@
 
 XS_CLASS_BEGIN(CORE_PARALLEL_LOCK_MUTEX)
 
-CORE_PARALLEL_LOCK_MUTEX();
-~CORE_PARALLEL_LOCK_MUTEX();
+    CORE_PARALLEL_LOCK_MUTEX();
+    ~CORE_PARALLEL_LOCK_MUTEX();
 
-std::mutex & GetMutex() { return Mutex; }
+    inline std::mutex & GetMutex() { return Mutex; }
 
 private:
 
-std::mutex
-    Mutex;
+    std::mutex
+        Mutex;
 
 XS_CLASS_END
 

@@ -1,13 +1,13 @@
 //
-//  MULTIPOLY_APPLICATION.hpp
-//  MULTIPOLY
+//  RUN3D_APPLICATION_hpp
+//  RUN3D
 //
 //  Created by Christophe Bernard on 19/02/17.
 //  Copyright © 2017 cbe. All rights reserved.
 //
 
-#ifndef MULTIPOLY_APPLICATION_hpp
-#define MULTIPOLY_APPLICATION_hpp
+#ifndef RUN3D_APPLICATION_hpp
+#define RUN3D_APPLICATION_hpp
 
 #include "CORE_APPLICATION.h"
 #include "GRAPHIC_RENDERER.h"
@@ -42,6 +42,11 @@
 #include "APPLICATION_CONFIGURATION.h"
 #include "R3D_RENDER.h"
 #include "R3D_GAMEPLAY_GAME.h"
+#include "NETWORK_MANAGER.h"
+#include "GAME_PLAYER_MODEL.h"
+#include "APPLICATION_IDENTITY_MANAGER.h"
+
+#define R3D_APP_VERSION 1
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
 
@@ -55,9 +60,21 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
     virtual void Render() override;
 
     inline CORE_FILESYSTEM & GetDefaultFileystem() { return DefaultFileystem; }
-    inline R3D_GAMEPLAY_GAME & GetGame() { return Game; }
+    inline R3D_GAMEPLAY_GAME * GetGame() { return Game; }
+    inline NETWORK_MANAGER & GetNetworkManager() { return NetworkManager; }
+    inline int GetSeed() { return Seed; }
 
     void SetCamera( GRAPHIC_CAMERA::PTR camera );
+    GRAPHIC_CAMERA::PTR GetCamera() { return GameRenderer.GetCamera(); }
+
+    void InitializeSingleplayerGame();
+    void InitializeMultiplayerGame();
+
+    inline APPLICATION_IDENTITY_MANAGER & GetPlayerIdentityManager() { return PlayerIdentityManager; }
+#if DEBUG
+    inline void SetFrom( const CORE_MATH_VECTOR & v ) { From = v; }
+    inline void SetTo( const CORE_MATH_VECTOR & v ) { To = v; }
+#endif
 
 private :
 
@@ -69,11 +86,26 @@ private :
         DefaultFileystem;
     R3D_RENDER
         GameRenderer;
-    R3D_GAMEPLAY_GAME
+    R3D_GAMEPLAY_GAME::PTR
         Game;
+    NETWORK_MANAGER
+        NetworkManager;
+    APPLICATION_IDENTITY_MANAGER
+        PlayerIdentityManager;
+    int
+        Seed;
+    #if DEBUG
+        GRAPHIC_OBJECT_SHAPE_LINE
+            ShipDirection;
+        GRAPHIC_SHADER_EFFECT::PTR
+            LineEffect;
+    CORE_MATH_VECTOR
+        From,
+        To;
+    #endif
 
 XS_CLASS_END
 
 #define R3D_APP_PTR ((RUN3D_APPLICATION *) &RUN3D_APPLICATION::GetApplicationInstance())
 
-#endif /* MULTIPOLY_APPLICATION_hpp */
+#endif /* RUN3D_APPLICATION_hpp */

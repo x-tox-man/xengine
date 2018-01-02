@@ -55,12 +55,15 @@ TOOL_ASSET_COMPILER::TOOL_ASSET_COMPILER(const char * source_path, const char * 
     }
     else if ( strcmp(ext, "font" ) == 0 ) {
         
+        abort();
     }
     else if ( strcmp( ext, "atlas" ) ) {
         
+        abort();
     }
     else if ( strcmp( ext, "png" ) ) {
         
+        abort();
     }
 }
 

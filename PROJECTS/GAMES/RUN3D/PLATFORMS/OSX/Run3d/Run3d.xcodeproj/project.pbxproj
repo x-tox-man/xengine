@@ -14,7 +14,55 @@
 		32F2482C1EA433F200D19613 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32F2482A1EA433F200D19613 /* Main.storyboard */; };
 		32F24BA21EA4345000D19613 /* APPLICATION_CONFIGURATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F24B991EA4345000D19613 /* APPLICATION_CONFIGURATION.cpp */; };
 		32F24BA31EA4345000D19613 /* RUN3D_APPLICATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F24B9B1EA4345000D19613 /* RUN3D_APPLICATION.cpp */; };
+		5F0C3CC81FDF1F1C00B761A2 /* R3D_GARAGE_SHIPS_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CC61FDF1F1C00B761A2 /* R3D_GARAGE_SHIPS_ADAPTER.cpp */; };
+		5F0C3CEE1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CDD1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp */; };
+		5F0C3CEF1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CDD1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp */; };
+		5F0C3CF01FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CDE1FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.cpp */; };
+		5F0C3CF11FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CDE1FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.cpp */; };
+		5F0C3CF41FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CE01FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp */; };
+		5F0C3CF51FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CE01FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp */; };
+		5F0C3CF61FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CE71FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp */; };
+		5F0C3CF71FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CE71FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp */; };
+		5F0C3CF81FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CE81FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.cpp */; };
+		5F0C3CF91FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CE81FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.cpp */; };
+		5F0C3CFC1FDF315F00B761A2 /* NETWORK_SETUP_PAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CEC1FDF315F00B761A2 /* NETWORK_SETUP_PAGE.cpp */; };
+		5F0C3CFD1FDF315F00B761A2 /* NETWORK_SETUP_PAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3CEC1FDF315F00B761A2 /* NETWORK_SETUP_PAGE.cpp */; };
+		5F0C3D111FDF368900B761A2 /* UI_BASE_BUTTON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3D0F1FDF368900B761A2 /* UI_BASE_BUTTON.cpp */; };
+		5F0C3D121FDF368900B761A2 /* UI_BASE_BUTTON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3D0F1FDF368900B761A2 /* UI_BASE_BUTTON.cpp */; };
+		5F0F94911FEA522700EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F948E1FEA522600EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp */; };
+		5F0F94921FEA522700EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F948E1FEA522600EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp */; };
+		5F0F94931FEA522700EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F94901FEA522600EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.cpp */; };
+		5F0F94941FEA522700EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F94901FEA522600EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.cpp */; };
+		5F0F94981FEA523E00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F94971FEA523D00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp */; };
+		5F0F94991FEA523E00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F94971FEA523D00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp */; };
+		5F193B8B1FEEA2A600F5DB4B /* NETWORK_REMOTE_GAME_INFO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B8A1FEEA2A600F5DB4B /* NETWORK_REMOTE_GAME_INFO.cpp */; };
+		5F193B981FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B961FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp */; };
+		5F193B991FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B961FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp */; };
+		5F193B9C1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B9A1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp */; };
+		5F193B9D1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B9A1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp */; };
+		5F193BA01FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B9E1FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp */; };
+		5F193BA11FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B9E1FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp */; };
+		5F193BA41FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193BA21FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp */; };
+		5F193BA51FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193BA21FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp */; };
+		5F193BA81FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193BA61FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.cpp */; };
+		5F193BA91FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193BA61FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.cpp */; };
 		5F237FBC1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F237FBA1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp */; };
+		5F4330491FF5A0E50028DDD6 /* UI_ENDGAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4330471FF5A0E50028DDD6 /* UI_ENDGAME.cpp */; };
+		5F43304A1FF5A0E50028DDD6 /* UI_ENDGAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4330471FF5A0E50028DDD6 /* UI_ENDGAME.cpp */; };
+		5F43304D1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F43304B1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.cpp */; };
+		5F43304E1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F43304B1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.cpp */; };
+		5F4330511FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F43304F1FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.cpp */; };
+		5F4330521FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F43304F1FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.cpp */; };
+		5F4330541FF611AB0028DDD6 /* R3D_UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4330531FF611AB0028DDD6 /* R3D_UI.cpp */; };
+		5F4330551FF611AB0028DDD6 /* R3D_UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4330531FF611AB0028DDD6 /* R3D_UI.cpp */; };
+		5F4330581FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4330561FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.cpp */; };
+		5F4330591FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4330561FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.cpp */; };
+		5F43305C1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F43305A1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp */; };
+		5F43305D1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F43305A1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp */; };
+		5F4330611FF70FAE0028DDD6 /* SELECT_LEVEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F43305F1FF70FAE0028DDD6 /* SELECT_LEVEL.cpp */; };
+		5F4330621FF70FAE0028DDD6 /* SELECT_LEVEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F43305F1FF70FAE0028DDD6 /* SELECT_LEVEL.cpp */; };
+		5F4330651FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4330631FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.cpp */; };
+		5F4330661FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4330631FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.cpp */; };
 		5F4DEA711F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA6F1F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp */; };
 		5F4DEA741F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */; };
 		5F4DEA771F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA751F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp */; };
@@ -37,6 +85,7 @@
 		5F8A76291FAF21E6005DD2DD /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8A76281FAF21E6005DD2DD /* OpenAL.framework */; };
 		5F8A76B11FAF2759005DD2DD /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8A76B01FAF2759005DD2DD /* libuv.a */; };
 		5F8A76B31FAF276F005DD2DD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8A76B21FAF276E005DD2DD /* libz.tbd */; };
+		5F8B0B0B1FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F8B0B091FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.cpp */; };
 		5F92D9191F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D9171F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp */; };
 		5F92D91C1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D91A1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp */; };
 		5F92D91F1F12E0C400292A99 /* R3D_LEVEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D91D1F12E0C400292A99 /* R3D_LEVEL.cpp */; };
@@ -96,6 +145,16 @@
 		5F92DC881F16497D00292A99 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC1E1F16497D00292A99 /* libz.a */; };
 		5F92DC8A1F1649BF00292A99 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC891F1649BF00292A99 /* AudioToolbox.framework */; };
 		5F92DC8C1F1649CB00292A99 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F92DC8B1F1649CB00292A99 /* OpenAL.framework */; };
+		5F9C83B91FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83B71FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp */; };
+		5F9C83BA1FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83B71FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp */; };
+		5F9C83BD1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83BB1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp */; };
+		5F9C83BE1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83BB1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp */; };
+		5F9C83C11FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83BF1FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.cpp */; };
+		5F9C83C21FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83BF1FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.cpp */; };
+		5F9C83C61FE71EF90085CF18 /* UI_INGAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83C41FE71EF90085CF18 /* UI_INGAME.cpp */; };
+		5F9C83C71FE71EF90085CF18 /* UI_INGAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83C41FE71EF90085CF18 /* UI_INGAME.cpp */; };
+		5F9C83CA1FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83C81FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp */; };
+		5F9C83CB1FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83C81FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp */; };
 		5F9E74621FAF5252003DA3CD /* libBulletInverseDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E745B1FAF5252003DA3CD /* libBulletInverseDynamics.a */; };
 		5F9E74631FAF5252003DA3CD /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E745C1FAF5252003DA3CD /* libBulletSoftBody.a */; };
 		5F9E74641FAF5252003DA3CD /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E745D1FAF5252003DA3CD /* libBulletDynamics.a */; };
@@ -247,7 +306,17 @@
 		5F9E76081FAF55D7003DA3CD /* tulips.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9E753C1FAF55D7003DA3CD /* tulips.png */; };
 		5F9E76091FAF55D7003DA3CD /* waves.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9E753D1FAF55D7003DA3CD /* waves.png */; };
 		5F9E760A1FAF55D7003DA3CD /* Xbox_360_X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9E753E1FAF55D7003DA3CD /* Xbox_360_X.png */; };
+		5FA9F1E81FDDEE0C00D2869F /* UI_GARAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1E61FDDEE0C00D2869F /* UI_GARAGE.cpp */; };
+		5FA9F1E91FDDEE0C00D2869F /* UI_GARAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1E61FDDEE0C00D2869F /* UI_GARAGE.cpp */; };
+		5FA9F1EC1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1EA1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp */; };
+		5FA9F1ED1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1EA1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp */; };
+		5FA9F1FB1FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1F91FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp */; };
+		5FA9F1FC1FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1F91FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp */; };
 		5FB7C0DA1F8C1AA900DF7472 /* RESOURCE_CACHE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7C0D91F8C1AA100DF7472 /* RESOURCE_CACHE.cpp */; };
+		5FCED0CE1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCED0CC1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp */; };
+		5FCED0CF1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCED0CC1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp */; };
+		5FCED0D31FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCED0D21FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp */; };
+		5FCED0D41FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCED0D21FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp */; };
 		5FD11D0C1F16A1A70092E3A7 /* SKYDOME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D0A1F16A1A70092E3A7 /* SKYDOME.cpp */; };
 		5FD11D0F1F16A1AF0092E3A7 /* TERRAIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D0D1F16A1AF0092E3A7 /* TERRAIN.cpp */; };
 		5FD11D131F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D111F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp */; };
@@ -300,8 +369,59 @@
 		32F24B9A1EA4345000D19613 /* APPLICATION_CONFIGURATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APPLICATION_CONFIGURATION.h; sourceTree = "<group>"; };
 		32F24B9B1EA4345000D19613 /* RUN3D_APPLICATION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RUN3D_APPLICATION.cpp; sourceTree = "<group>"; };
 		32F24B9C1EA4345000D19613 /* RUN3D_APPLICATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUN3D_APPLICATION.h; sourceTree = "<group>"; };
+		5F0C3CC61FDF1F1C00B761A2 /* R3D_GARAGE_SHIPS_ADAPTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GARAGE_SHIPS_ADAPTER.cpp; sourceTree = "<group>"; };
+		5F0C3CC71FDF1F1C00B761A2 /* R3D_GARAGE_SHIPS_ADAPTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_GARAGE_SHIPS_ADAPTER.h; sourceTree = "<group>"; };
+		5F0C3CDC1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_BROWSER_PAGE.h; sourceTree = "<group>"; };
+		5F0C3CDD1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_BROWSER_PAGE.cpp; sourceTree = "<group>"; };
+		5F0C3CDE1FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_BROWSER_PRESENTER.cpp; sourceTree = "<group>"; };
+		5F0C3CE01FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_BROWSER_LIST_ADAPTER.cpp; sourceTree = "<group>"; };
+		5F0C3CE11FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_BROWSER_PRESENTER.h; sourceTree = "<group>"; };
+		5F0C3CE21FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_BROWSER_LIST_ADAPTER.h; sourceTree = "<group>"; };
+		5F0C3CE51FDF315F00B761A2 /* NETWORK_SETUP_PAGE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_SETUP_PAGE.h; sourceTree = "<group>"; };
+		5F0C3CE61FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER_CLIENT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_SETUP_PRESENTER_CLIENT.h; sourceTree = "<group>"; };
+		5F0C3CE71FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp; sourceTree = "<group>"; };
+		5F0C3CE81FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_SETUP_PRESENTER.cpp; sourceTree = "<group>"; };
+		5F0C3CE91FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_SETUP_PRESENTER.h; sourceTree = "<group>"; };
+		5F0C3CEC1FDF315F00B761A2 /* NETWORK_SETUP_PAGE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_SETUP_PAGE.cpp; sourceTree = "<group>"; };
+		5F0C3CED1FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_SETUP_PLAYER_LIST_ADAPTER.h; sourceTree = "<group>"; };
+		5F0C3CFF1FDF321D00B761A2 /* NETWORK_REMOTE_SERVER_INFO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_REMOTE_SERVER_INFO.h; sourceTree = "<group>"; };
+		5F0C3D0F1FDF368900B761A2 /* UI_BASE_BUTTON.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_BASE_BUTTON.cpp; sourceTree = "<group>"; };
+		5F0C3D101FDF368900B761A2 /* UI_BASE_BUTTON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_BASE_BUTTON.h; sourceTree = "<group>"; };
+		5F0F948D1FEA522600EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_SETUP_NETWORK_CLIENT_DELEGATE.h; sourceTree = "<group>"; };
+		5F0F948E1FEA522600EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp; sourceTree = "<group>"; };
+		5F0F948F1FEA522600EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_SETUP_NETWORK_SERVER_DELEGATE.h; sourceTree = "<group>"; };
+		5F0F94901FEA522600EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_SETUP_NETWORK_CLIENT_DELEGATE.cpp; sourceTree = "<group>"; };
+		5F0F94961FEA523D00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_BROWSER_NETWORK_CLIENT_DELEGATE.h; sourceTree = "<group>"; };
+		5F0F94971FEA523D00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp; sourceTree = "<group>"; };
+		5F193B891FEEA0EE00F5DB4B /* NETWORK_REMOTE_GAME_INFO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NETWORK_REMOTE_GAME_INFO.h; sourceTree = "<group>"; };
+		5F193B8A1FEEA2A600F5DB4B /* NETWORK_REMOTE_GAME_INFO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_REMOTE_GAME_INFO.cpp; sourceTree = "<group>"; };
+		5F193B961FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp; sourceTree = "<group>"; };
+		5F193B971FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h; sourceTree = "<group>"; };
+		5F193B9A1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_COMMAND_GAME_STATUS.cpp; sourceTree = "<group>"; };
+		5F193B9B1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_COMMAND_GAME_STATUS.h; sourceTree = "<group>"; };
+		5F193B9E1FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_COMMAND_PLAYER_UPDATE.cpp; sourceTree = "<group>"; };
+		5F193B9F1FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_COMMAND_PLAYER_UPDATE.h; sourceTree = "<group>"; };
+		5F193BA21FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GAME_PLAYER_MODEL.cpp; sourceTree = "<group>"; };
+		5F193BA31FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAME_PLAYER_MODEL.h; sourceTree = "<group>"; };
+		5F193BA61FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAMEPLAY_GAME_DELEGATE.cpp; sourceTree = "<group>"; };
+		5F193BA71FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_GAMEPLAY_GAME_DELEGATE.h; sourceTree = "<group>"; };
 		5F237FBA1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHICS_STEAM_ENGINE.cpp; sourceTree = "<group>"; };
 		5F237FBB1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHICS_STEAM_ENGINE.h; sourceTree = "<group>"; };
+		5F4330471FF5A0E50028DDD6 /* UI_ENDGAME.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_ENDGAME.cpp; sourceTree = "<group>"; };
+		5F4330481FF5A0E50028DDD6 /* UI_ENDGAME.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_ENDGAME.h; sourceTree = "<group>"; };
+		5F43304B1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_ENDGAME_PRESENTER.cpp; sourceTree = "<group>"; };
+		5F43304C1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_ENDGAME_PRESENTER.h; sourceTree = "<group>"; };
+		5F43304F1FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = APPLICATION_IDENTITY_MANAGER.cpp; sourceTree = "<group>"; };
+		5F4330501FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APPLICATION_IDENTITY_MANAGER.h; sourceTree = "<group>"; };
+		5F4330531FF611AB0028DDD6 /* R3D_UI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_UI.cpp; sourceTree = "<group>"; };
+		5F4330561FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_LEVEL_MANAGER.cpp; sourceTree = "<group>"; };
+		5F4330571FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_LEVEL_MANAGER.h; sourceTree = "<group>"; };
+		5F43305A1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAME_LEVEL_INFO.cpp; sourceTree = "<group>"; };
+		5F43305B1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_GAME_LEVEL_INFO.h; sourceTree = "<group>"; };
+		5F43305F1FF70FAE0028DDD6 /* SELECT_LEVEL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SELECT_LEVEL.cpp; sourceTree = "<group>"; };
+		5F4330601FF70FAE0028DDD6 /* SELECT_LEVEL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SELECT_LEVEL.h; sourceTree = "<group>"; };
+		5F4330631FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SELECT_LEVEL_PRESENTER.cpp; sourceTree = "<group>"; };
+		5F4330641FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SELECT_LEVEL_PRESENTER.h; sourceTree = "<group>"; };
 		5F4DEA6F1F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp; sourceTree = "<group>"; };
 		5F4DEA701F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.h; sourceTree = "<group>"; };
 		5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_COMPONENT_SHIP_LARGE.cpp; sourceTree = "<group>"; };
@@ -329,6 +449,7 @@
 		5F76D0741F71B49C004BEF48 /* UI_MAIN_MENU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI_MAIN_MENU.cpp; sourceTree = "<group>"; };
 		5F76D0751F71B49C004BEF48 /* UI_MAIN_MENU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI_MAIN_MENU.h; sourceTree = "<group>"; };
 		5F76D0791F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHYSICS_COLLISION_FILTER.h; sourceTree = "<group>"; };
+		5F8372BF1FF569F00095520A /* R3D_UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_UI.h; sourceTree = "<group>"; };
 		5F8A761E1FAF2107005DD2DD /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblua.a; sourceTree = "<group>"; };
 		5F8A761F1FAF2107005DD2DD /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng.a; sourceTree = "<group>"; };
 		5F8A76221FAF21A0005DD2DD /* libLIBIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLIBIOS.a; sourceTree = "<group>"; };
@@ -337,6 +458,8 @@
 		5F8A76281FAF21E6005DD2DD /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.1.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
 		5F8A76B01FAF2759005DD2DD /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuv.a; sourceTree = "<group>"; };
 		5F8A76B21FAF276E005DD2DD /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.1.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		5F8B0B091FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_MAIN_MENU_PRESENTER.cpp; sourceTree = "<group>"; };
+		5F8B0B0A1FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_MAIN_MENU_PRESENTER.h; sourceTree = "<group>"; };
 		5F92D9171F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAMEPLAY_GAME.cpp; sourceTree = "<group>"; };
 		5F92D9181F12E09500292A99 /* R3D_GAMEPLAY_GAME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_GAMEPLAY_GAME.h; sourceTree = "<group>"; };
 		5F92D91A1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAMEPLAY_GAME_PROGRESSION.cpp; sourceTree = "<group>"; };
@@ -409,6 +532,16 @@
 		5F92DC1E1F16497D00292A99 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		5F92DC891F1649BF00292A99 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5F92DC8B1F1649CB00292A99 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		5F9C83B71FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_GARAGE_SHIP_CELL.cpp; sourceTree = "<group>"; };
+		5F9C83B81FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_GARAGE_SHIP_CELL.h; sourceTree = "<group>"; };
+		5F9C83BB1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_PLAYER_SHIP_MODEL.cpp; sourceTree = "<group>"; };
+		5F9C83BC1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_PLAYER_SHIP_MODEL.h; sourceTree = "<group>"; };
+		5F9C83BF1FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_PLAYER_SHIP_GEAR_STAGE.cpp; sourceTree = "<group>"; };
+		5F9C83C01FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_PLAYER_SHIP_GEAR_STAGE.h; sourceTree = "<group>"; };
+		5F9C83C41FE71EF90085CF18 /* UI_INGAME.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_INGAME.cpp; sourceTree = "<group>"; };
+		5F9C83C51FE71EF90085CF18 /* UI_INGAME.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_INGAME.h; sourceTree = "<group>"; };
+		5F9C83C81FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_INGAME_PRESENTER.cpp; sourceTree = "<group>"; };
+		5F9C83C91FE71F840085CF18 /* UI_INGAME_PRESENTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_INGAME_PRESENTER.h; sourceTree = "<group>"; };
 		5F9E745B1FAF5252003DA3CD /* libBulletInverseDynamics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletInverseDynamics.a; sourceTree = "<group>"; };
 		5F9E745C1FAF5252003DA3CD /* libBulletSoftBody.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletSoftBody.a; sourceTree = "<group>"; };
 		5F9E745D1FAF5252003DA3CD /* libBulletDynamics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletDynamics.a; sourceTree = "<group>"; };
@@ -560,7 +693,18 @@
 		5F9E753C1FAF55D7003DA3CD /* tulips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tulips.png; sourceTree = "<group>"; };
 		5F9E753D1FAF55D7003DA3CD /* waves.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waves.png; sourceTree = "<group>"; };
 		5F9E753E1FAF55D7003DA3CD /* Xbox_360_X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Xbox_360_X.png; sourceTree = "<group>"; };
+		5FA9F1E41FDD2CF000D2869F /* PHYSICS_COLLISION_NEAR_FILTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHYSICS_COLLISION_NEAR_FILTER.h; sourceTree = "<group>"; };
+		5FA9F1E61FDDEE0C00D2869F /* UI_GARAGE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_GARAGE.cpp; sourceTree = "<group>"; };
+		5FA9F1E71FDDEE0C00D2869F /* UI_GARAGE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_GARAGE.h; sourceTree = "<group>"; };
+		5FA9F1EA1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_GARAGE_PRESENTER.cpp; sourceTree = "<group>"; };
+		5FA9F1EB1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_GARAGE_PRESENTER.h; sourceTree = "<group>"; };
+		5FA9F1F91FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_BASE_PRESENTER.cpp; sourceTree = "<group>"; };
+		5FA9F1FA1FDDF25E00D2869F /* R3D_BASE_PRESENTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_BASE_PRESENTER.h; sourceTree = "<group>"; };
 		5FB7C0D91F8C1AA100DF7472 /* RESOURCE_CACHE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = RESOURCE_CACHE.cpp; path = ../../../../CODE/RESOURCE/RESOURCE_CACHE.cpp; sourceTree = "<group>"; };
+		5FCED0CC1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_BROWSER_LOBBY_CELL.cpp; sourceTree = "<group>"; };
+		5FCED0CD1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_BROWSER_LOBBY_CELL.h; sourceTree = "<group>"; };
+		5FCED0D11FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_SETUP_PLAYER_CELL.h; sourceTree = "<group>"; };
+		5FCED0D21FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_SETUP_PLAYER_CELL.cpp; sourceTree = "<group>"; };
 		5FD11D0A1F16A1A70092E3A7 /* SKYDOME.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SKYDOME.cpp; sourceTree = "<group>"; };
 		5FD11D0B1F16A1A70092E3A7 /* SKYDOME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKYDOME.h; sourceTree = "<group>"; };
 		5FD11D0D1F16A1AF0092E3A7 /* TERRAIN.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TERRAIN.cpp; sourceTree = "<group>"; };
@@ -724,8 +868,101 @@
 				32F24B9A1EA4345000D19613 /* APPLICATION_CONFIGURATION.h */,
 				32F24B9B1EA4345000D19613 /* RUN3D_APPLICATION.cpp */,
 				32F24B9C1EA4345000D19613 /* RUN3D_APPLICATION.h */,
+				5F43304F1FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.cpp */,
+				5F4330501FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.h */,
 			);
 			path = APPLICATION;
+			sourceTree = "<group>";
+		};
+		5F0C3CDB1FDF315F00B761A2 /* NETWORK_BROWSER */ = {
+			isa = PBXGroup;
+			children = (
+				5F0F94951FEA523D00EEA01D /* DELEGATE */,
+				5FCED0CB1FE10FF400CFA7EF /* CELL */,
+				5F0C3CDC1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.h */,
+				5F0C3CDD1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp */,
+				5F0C3CDE1FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.cpp */,
+				5F0C3CE11FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.h */,
+				5F0C3CE01FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp */,
+				5F0C3CE21FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.h */,
+			);
+			path = NETWORK_BROWSER;
+			sourceTree = "<group>";
+		};
+		5F0C3CE41FDF315F00B761A2 /* NETWORK_SETUP */ = {
+			isa = PBXGroup;
+			children = (
+				5F0F948C1FEA522600EEA01D /* DELEGATE */,
+				5FCED0D01FE1103500CFA7EF /* CELL */,
+				5F0C3CE51FDF315F00B761A2 /* NETWORK_SETUP_PAGE.h */,
+				5F0C3CEC1FDF315F00B761A2 /* NETWORK_SETUP_PAGE.cpp */,
+				5F0C3CE61FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER_CLIENT.h */,
+				5F0C3CE71FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp */,
+				5F0C3CED1FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.h */,
+				5F0C3CE81FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.cpp */,
+				5F0C3CE91FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.h */,
+			);
+			path = NETWORK_SETUP;
+			sourceTree = "<group>";
+		};
+		5F0C3CFE1FDF321D00B761A2 /* MODEL */ = {
+			isa = PBXGroup;
+			children = (
+				5F0C3CFF1FDF321D00B761A2 /* NETWORK_REMOTE_SERVER_INFO.h */,
+				5F193B891FEEA0EE00F5DB4B /* NETWORK_REMOTE_GAME_INFO.h */,
+				5F193B8A1FEEA2A600F5DB4B /* NETWORK_REMOTE_GAME_INFO.cpp */,
+				5F9C83BB1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp */,
+				5F9C83BC1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.h */,
+				5F9C83BF1FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.cpp */,
+				5F9C83C01FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.h */,
+				5F193BA21FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp */,
+				5F193BA31FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.h */,
+				5F43305A1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp */,
+				5F43305B1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.h */,
+			);
+			path = MODEL;
+			sourceTree = "<group>";
+		};
+		5F0C3D0E1FDF367800B761A2 /* BASE_BUTTON */ = {
+			isa = PBXGroup;
+			children = (
+				5F0C3D0F1FDF368900B761A2 /* UI_BASE_BUTTON.cpp */,
+				5F0C3D101FDF368900B761A2 /* UI_BASE_BUTTON.h */,
+			);
+			path = BASE_BUTTON;
+			sourceTree = "<group>";
+		};
+		5F0F948C1FEA522600EEA01D /* DELEGATE */ = {
+			isa = PBXGroup;
+			children = (
+				5F0F948D1FEA522600EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.h */,
+				5F0F94901FEA522600EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.cpp */,
+				5F0F948F1FEA522600EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.h */,
+				5F0F948E1FEA522600EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp */,
+			);
+			path = DELEGATE;
+			sourceTree = "<group>";
+		};
+		5F0F94951FEA523D00EEA01D /* DELEGATE */ = {
+			isa = PBXGroup;
+			children = (
+				5F0F94961FEA523D00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.h */,
+				5F0F94971FEA523D00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp */,
+			);
+			path = DELEGATE;
+			sourceTree = "<group>";
+		};
+		5F193B911FEFC89D00F5DB4B /* MULTIPLAYER */ = {
+			isa = PBXGroup;
+			children = (
+				5F193B961FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp */,
+				5F193B971FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h */,
+				5F193B9A1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp */,
+				5F193B9B1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.h */,
+				5F193B9E1FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp */,
+				5F193B9F1FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.h */,
+			);
+			path = MULTIPLAYER;
 			sourceTree = "<group>";
 		};
 		5F237FB81F9374B70099BC15 /* STEAM */ = {
@@ -745,13 +982,39 @@
 			path = ENGINE;
 			sourceTree = "<group>";
 		};
-		5F70E7901FABA86300D90632 /* FRAME */ = {
+		5F4330461FF5A0D30028DDD6 /* ENDGAME */ = {
 			isa = PBXGroup;
 			children = (
+				5F4330471FF5A0E50028DDD6 /* UI_ENDGAME.cpp */,
+				5F4330481FF5A0E50028DDD6 /* UI_ENDGAME.h */,
+				5F43304B1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.cpp */,
+				5F43304C1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.h */,
+			);
+			path = ENDGAME;
+			sourceTree = "<group>";
+		};
+		5F43305E1FF70F990028DDD6 /* SOLO_CAMPAIGN */ = {
+			isa = PBXGroup;
+			children = (
+				5F43305F1FF70FAE0028DDD6 /* SELECT_LEVEL.cpp */,
+				5F4330601FF70FAE0028DDD6 /* SELECT_LEVEL.h */,
+				5F4330631FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.cpp */,
+				5F4330641FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.h */,
+			);
+			path = SOLO_CAMPAIGN;
+			sourceTree = "<group>";
+		};
+		5F70E7901FABA86300D90632 /* BASE */ = {
+			isa = PBXGroup;
+			children = (
+				5FA9F1F91FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp */,
+				5FA9F1FA1FDDF25E00D2869F /* R3D_BASE_PRESENTER.h */,
 				5F70E7911FABA87200D90632 /* R3D_UI_FRAME.cpp */,
 				5F70E7921FABA87200D90632 /* R3D_UI_FRAME.h */,
+				5F8372BF1FF569F00095520A /* R3D_UI.h */,
+				5F4330531FF611AB0028DDD6 /* R3D_UI.cpp */,
 			);
-			path = FRAME;
+			path = BASE;
 			sourceTree = "<group>";
 		};
 		5F70E7B41FAE235A00D90632 /* IOS */ = {
@@ -773,6 +1036,7 @@
 		5F76D06E1F71B48B004BEF48 /* COMPONENTS */ = {
 			isa = PBXGroup;
 			children = (
+				5F0C3D0E1FDF367800B761A2 /* BASE_BUTTON */,
 				5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */,
 				5F4DEA731F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.h */,
 				5F4DEA751F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp */,
@@ -788,7 +1052,11 @@
 		5F76D06F1F71B48B004BEF48 /* SCREENS */ = {
 			isa = PBXGroup;
 			children = (
-				5F70E7901FABA86300D90632 /* FRAME */,
+				5F43305E1FF70F990028DDD6 /* SOLO_CAMPAIGN */,
+				5F4330461FF5A0D30028DDD6 /* ENDGAME */,
+				5F9C83C31FE71EEF0085CF18 /* INGAME */,
+				5FA9F1E51FDDEDFC00D2869F /* GARAGE */,
+				5F70E7901FABA86300D90632 /* BASE */,
 				5F76D0701F71B48B004BEF48 /* LOADER */,
 				5F76D0711F71B48B004BEF48 /* MAIN */,
 				5F76D0721F71B48B004BEF48 /* MULTIPLAYER */,
@@ -811,6 +1079,8 @@
 			children = (
 				5F76D0741F71B49C004BEF48 /* UI_MAIN_MENU.cpp */,
 				5F76D0751F71B49C004BEF48 /* UI_MAIN_MENU.h */,
+				5F8B0B091FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.cpp */,
+				5F8B0B0A1FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.h */,
 			);
 			path = MAIN;
 			sourceTree = "<group>";
@@ -818,6 +1088,8 @@
 		5F76D0721F71B48B004BEF48 /* MULTIPLAYER */ = {
 			isa = PBXGroup;
 			children = (
+				5F0C3CDB1FDF315F00B761A2 /* NETWORK_BROWSER */,
+				5F0C3CE41FDF315F00B761A2 /* NETWORK_SETUP */,
 			);
 			path = MULTIPLAYER;
 			sourceTree = "<group>";
@@ -834,6 +1106,7 @@
 			children = (
 				5F76D0791F71B8ED004BEF48 /* PHYSICS_COLLISION_FILTER.h */,
 				5FEA3F771F739ABE0085DDB5 /* PHYSICS_COLLISION_TYPE.h */,
+				5FA9F1E41FDD2CF000D2869F /* PHYSICS_COLLISION_NEAR_FILTER.h */,
 			);
 			path = PHYSICS;
 			sourceTree = "<group>";
@@ -879,6 +1152,7 @@
 		5F92D8FC1F12A59600292A99 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5F0C3CFE1FDF321D00B761A2 /* MODEL */,
 				5F76D06E1F71B48B004BEF48 /* COMPONENTS */,
 				5F76D06F1F71B48B004BEF48 /* SCREENS */,
 			);
@@ -894,6 +1168,8 @@
 				5F92D9131F12DDAA00292A99 /* TRACK */,
 				5F92D91D1F12E0C400292A99 /* R3D_LEVEL.cpp */,
 				5F92D91E1F12E0C400292A99 /* R3D_LEVEL.h */,
+				5F4330561FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.cpp */,
+				5F4330571FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.h */,
 			);
 			path = LEVEL;
 			sourceTree = "<group>";
@@ -964,10 +1240,13 @@
 		5F92D9161F12E07F00292A99 /* GAME */ = {
 			isa = PBXGroup;
 			children = (
+				5F193B911FEFC89D00F5DB4B /* MULTIPLAYER */,
 				5F92D9171F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp */,
 				5F92D9181F12E09500292A99 /* R3D_GAMEPLAY_GAME.h */,
 				5F92D91A1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp */,
 				5F92D91B1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.h */,
+				5F193BA61FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.cpp */,
+				5F193BA71FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.h */,
 			);
 			path = GAME;
 			sourceTree = "<group>";
@@ -1053,6 +1332,26 @@
 			);
 			name = COMPILED_LIBS_OSX;
 			path = ../../../../../../../../Static/COMPILED_LIBS_OSX;
+			sourceTree = "<group>";
+		};
+		5F9C83B61FE6B95B0085CF18 /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				5F9C83B71FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp */,
+				5F9C83B81FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.h */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		5F9C83C31FE71EEF0085CF18 /* INGAME */ = {
+			isa = PBXGroup;
+			children = (
+				5F9C83C41FE71EF90085CF18 /* UI_INGAME.cpp */,
+				5F9C83C51FE71EF90085CF18 /* UI_INGAME.h */,
+				5F9C83C81FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp */,
+				5F9C83C91FE71F840085CF18 /* UI_INGAME_PRESENTER.h */,
+			);
+			path = INGAME;
 			sourceTree = "<group>";
 		};
 		5F9E74691FAF55D7003DA3CD /* RESOURCES */ = {
@@ -1271,6 +1570,38 @@
 			path = TEXTURES;
 			sourceTree = "<group>";
 		};
+		5FA9F1E51FDDEDFC00D2869F /* GARAGE */ = {
+			isa = PBXGroup;
+			children = (
+				5F9C83B61FE6B95B0085CF18 /* CELL */,
+				5FA9F1E61FDDEE0C00D2869F /* UI_GARAGE.cpp */,
+				5FA9F1E71FDDEE0C00D2869F /* UI_GARAGE.h */,
+				5FA9F1EA1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp */,
+				5FA9F1EB1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.h */,
+				5F0C3CC61FDF1F1C00B761A2 /* R3D_GARAGE_SHIPS_ADAPTER.cpp */,
+				5F0C3CC71FDF1F1C00B761A2 /* R3D_GARAGE_SHIPS_ADAPTER.h */,
+			);
+			path = GARAGE;
+			sourceTree = "<group>";
+		};
+		5FCED0CB1FE10FF400CFA7EF /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				5FCED0CC1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp */,
+				5FCED0CD1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.h */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		5FCED0D01FE1103500CFA7EF /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				5FCED0D11FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.h */,
+				5FCED0D21FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
 		5FD11D091F16A1940092E3A7 /* BACKGROUND */ = {
 			isa = PBXGroup;
 			children = (
@@ -1372,7 +1703,7 @@
 		32F248141EA433F200D19613 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = IGZ;
 				TargetAttributes = {
 					32F2481B1EA433F200D19613 = {
@@ -1577,39 +1908,75 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FA9F1EC1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp in Sources */,
 				32F248271EA433F200D19613 /* ViewController.m in Sources */,
+				5F0C3CF41FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp in Sources */,
+				5F9C83BD1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp in Sources */,
 				5FD11D2C1F1B7EA90092E3A7 /* R3D_RENDER.cpp in Sources */,
+				5F0C3CF01FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.cpp in Sources */,
+				5FCED0D31FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */,
 				5F4DEA7A1F7922C100173EDA /* UI_COMPONENT_ITEM.cpp in Sources */,
 				5F70E7931FABA87200D90632 /* R3D_UI_FRAME.cpp in Sources */,
+				5F4330541FF611AB0028DDD6 /* R3D_UI.cpp in Sources */,
 				32F24BA21EA4345000D19613 /* APPLICATION_CONFIGURATION.cpp in Sources */,
+				5F8B0B0B1FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.cpp in Sources */,
 				5F4DEA741F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp in Sources */,
 				5FD11D2F1F1B820B0092E3A7 /* R3D_RESOURCES.cpp in Sources */,
 				5F4DEA711F7676DB00173EDA /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp in Sources */,
+				5F43304D1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.cpp in Sources */,
 				32F248241EA433F200D19613 /* main.m in Sources */,
 				5F92D91C1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp in Sources */,
+				5F0C3CC81FDF1F1C00B761A2 /* R3D_GARAGE_SHIPS_ADAPTER.cpp in Sources */,
 				5F237FBC1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp in Sources */,
 				5F92D92B1F12E11600292A99 /* R3D_PLAYER.cpp in Sources */,
 				5FD11D131F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp in Sources */,
+				5F193B8B1FEEA2A600F5DB4B /* NETWORK_REMOTE_GAME_INFO.cpp in Sources */,
+				5F193B981FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp in Sources */,
+				5F43305C1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp in Sources */,
+				5FCED0CE1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp in Sources */,
+				5F0C3D111FDF368900B761A2 /* UI_BASE_BUTTON.cpp in Sources */,
+				5FA9F1E81FDDEE0C00D2869F /* UI_GARAGE.cpp in Sources */,
+				5F9C83B91FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp in Sources */,
 				5F92D9281F12E0F000292A99 /* R3D_LEVEL_TRACK.cpp in Sources */,
+				5F193BA01FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp in Sources */,
+				5F0C3CEE1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp in Sources */,
 				5F4DEA771F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp in Sources */,
+				5F4330611FF70FAE0028DDD6 /* SELECT_LEVEL.cpp in Sources */,
 				5F4DEA801F79230B00173EDA /* UI_SCREEN_LOADER.cpp in Sources */,
+				5F4330651FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.cpp in Sources */,
+				5FA9F1FB1FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp in Sources */,
 				5F92D9221F12E0D200292A99 /* R3D_LEVEL_CHECKPOINT.cpp in Sources */,
 				5F4DEA7D1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp in Sources */,
+				5F9C83CA1FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp in Sources */,
 				5F92D9311F12E12D00292A99 /* R3D_PLAYER_PART.cpp in Sources */,
 				5FD11D331F1B9DB00092E3A7 /* GAMEPLAY_HELPER.cpp in Sources */,
 				5F92D9191F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp in Sources */,
 				5F92D9381F12E1E100292A99 /* R3D_PLAYER_PARTS_COLLECTION.cpp in Sources */,
+				5F9C83C11FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.cpp in Sources */,
+				5F193BA41FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp in Sources */,
 				5F92D9251F12E0E100292A99 /* R3D_LEVEL_STARTER.cpp in Sources */,
 				32F248211EA433F200D19613 /* AppDelegate.m in Sources */,
 				5F92D93F1F12E65100292A99 /* LEVEL_ENVIRONMENT.cpp in Sources */,
 				5F92D93B1F12E1ED00292A99 /* R3D_PLAYER_SHIPS_COLLECTION.cpp in Sources */,
 				5F92D9351F12E15C00292A99 /* R3D_AUDIO_MUSIC_MANAGER.cpp in Sources */,
+				5F9C83C61FE71EF90085CF18 /* UI_INGAME.cpp in Sources */,
+				5F0C3CF81FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.cpp in Sources */,
+				5F4330581FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.cpp in Sources */,
+				5F193B9C1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp in Sources */,
 				5F92D91F1F12E0C400292A99 /* R3D_LEVEL.cpp in Sources */,
+				5F0F94981FEA523E00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp in Sources */,
+				5F0F94911FEA522700EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp in Sources */,
+				5F4330491FF5A0E50028DDD6 /* UI_ENDGAME.cpp in Sources */,
 				32F24BA31EA4345000D19613 /* RUN3D_APPLICATION.cpp in Sources */,
 				5FD11D0F1F16A1AF0092E3A7 /* TERRAIN.cpp in Sources */,
 				5F76D0761F71B49C004BEF48 /* UI_MAIN_MENU.cpp in Sources */,
+				5F0C3CF61FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp in Sources */,
 				5FD11D0C1F16A1A70092E3A7 /* SKYDOME.cpp in Sources */,
+				5F0C3CFC1FDF315F00B761A2 /* NETWORK_SETUP_PAGE.cpp in Sources */,
+				5F4330511FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.cpp in Sources */,
 				5FB7C0DA1F8C1AA900DF7472 /* RESOURCE_CACHE.cpp in Sources */,
+				5F0F94931FEA522700EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.cpp in Sources */,
+				5F193BA81FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.cpp in Sources */,
 				5F92D92E1F12E12200292A99 /* R3D_PLAYER_SHIP.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1618,39 +1985,72 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F0C3D121FDF368900B761A2 /* UI_BASE_BUTTON.cpp in Sources */,
+				5F9C83C21FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.cpp in Sources */,
 				5FD956F41FAE238B00FB9376 /* APPLICATION_CONFIGURATION.cpp in Sources */,
 				5FD956F51FAE238B00FB9376 /* RUN3D_APPLICATION.cpp in Sources */,
 				5FD956F61FAE238B00FB9376 /* R3D_AUDIO_MUSIC_MANAGER.cpp in Sources */,
+				5FCED0CF1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp in Sources */,
+				5F193B9D1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp in Sources */,
+				5F9C83BA1FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp in Sources */,
+				5FCED0D41FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */,
 				5FD956F71FAE238B00FB9376 /* GAMEPLAY_HELPER.cpp in Sources */,
+				5F43304E1FF5A1280028DDD6 /* UI_ENDGAME_PRESENTER.cpp in Sources */,
 				5FD956F81FAE238B00FB9376 /* R3D_GAMEPLAY_GAME.cpp in Sources */,
 				5FD956F91FAE238B00FB9376 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp in Sources */,
+				5F0F94991FEA523E00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp in Sources */,
+				5F0C3CF11FDF315F00B761A2 /* NETWORK_BROWSER_PRESENTER.cpp in Sources */,
+				5FA9F1ED1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp in Sources */,
 				5FD956FA1FAE238B00FB9376 /* LEVEL_ENVIRONMENT.cpp in Sources */,
 				5FD956FB1FAE238B00FB9376 /* R3D_LEVEL_CHECKPOINT.cpp in Sources */,
 				5FD956FC1FAE238B00FB9376 /* R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT.cpp in Sources */,
+				5F193B991FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp in Sources */,
+				5F0C3CFD1FDF315F00B761A2 /* NETWORK_SETUP_PAGE.cpp in Sources */,
 				5FD956FD1FAE238B00FB9376 /* R3D_LEVEL_STARTER.cpp in Sources */,
+				5F9C83C71FE71EF90085CF18 /* UI_INGAME.cpp in Sources */,
+				5F9C83BE1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp in Sources */,
+				5F43304A1FF5A0E50028DDD6 /* UI_ENDGAME.cpp in Sources */,
+				5F0F94921FEA522700EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp in Sources */,
 				5FD956FE1FAE238B00FB9376 /* R3D_LEVEL_TRACK.cpp in Sources */,
 				5FD956FF1FAE238B00FB9376 /* R3D_LEVEL.cpp in Sources */,
 				5FD957001FAE238B00FB9376 /* R3D_PLAYER_INPUT.cpp in Sources */,
 				5FD957011FAE238B00FB9376 /* R3D_PLAYER_PART.cpp in Sources */,
 				5FD957021FAE238B00FB9376 /* R3D_PLAYER_PARTS_COLLECTION.cpp in Sources */,
+				5F0C3CF51FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp in Sources */,
 				5FD957031FAE238B00FB9376 /* R3D_PLAYER_SHIP.cpp in Sources */,
 				5FD957041FAE238B00FB9376 /* R3D_PLAYER_SHIPS_COLLECTION.cpp in Sources */,
+				5F0C3CEF1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp in Sources */,
 				5FD957051FAE238B00FB9376 /* R3D_PLAYER.cpp in Sources */,
 				5FD957061FAE238B00FB9376 /* GRAPHICS_STEAM_ENGINE.cpp in Sources */,
+				5F4330551FF611AB0028DDD6 /* R3D_UI.cpp in Sources */,
 				5FD957071FAE238B00FB9376 /* R3D_RENDER.cpp in Sources */,
+				5FA9F1E91FDDEE0C00D2869F /* UI_GARAGE.cpp in Sources */,
 				5FD957081FAE238B00FB9376 /* SKYDOME.cpp in Sources */,
 				5FD957091FAE238B00FB9376 /* TERRAIN.cpp in Sources */,
 				5FD9570A1FAE238B00FB9376 /* R3D_RESOURCES.cpp in Sources */,
+				5F0C3CF91FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.cpp in Sources */,
+				5F43305D1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp in Sources */,
+				5F4330521FF6097F0028DDD6 /* APPLICATION_IDENTITY_MANAGER.cpp in Sources */,
 				5FD9570B1FAE238B00FB9376 /* UI_COMPONENT_SHIP_LARGE.cpp in Sources */,
+				5F4330661FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.cpp in Sources */,
 				5FD9570C1FAE238B00FB9376 /* UI_COMPONENT_SHIP_SMALL.cpp in Sources */,
+				5F4330621FF70FAE0028DDD6 /* SELECT_LEVEL.cpp in Sources */,
+				5F193BA11FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp in Sources */,
+				5F0F94941FEA522700EEA01D /* R3D_SETUP_NETWORK_CLIENT_DELEGATE.cpp in Sources */,
+				5F9C83CB1FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp in Sources */,
 				5FD9570D1FAE238B00FB9376 /* UI_COMPONENT_ITEM.cpp in Sources */,
 				5FD9570E1FAE238B00FB9376 /* UI_COMPONENT_CHARACTERISTICS.cpp in Sources */,
+				5F0C3CF71FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp in Sources */,
+				5F4330591FF647DB0028DDD6 /* R3D_LEVEL_MANAGER.cpp in Sources */,
+				5FA9F1FC1FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp in Sources */,
 				5FD9570F1FAE238B00FB9376 /* R3D_UI_FRAME.cpp in Sources */,
 				5FD957101FAE238B00FB9376 /* UI_SCREEN_LOADER.cpp in Sources */,
+				5F193BA91FF2801C00F5DB4B /* R3D_GAMEPLAY_GAME_DELEGATE.cpp in Sources */,
 				5FD957111FAE238B00FB9376 /* UI_MAIN_MENU.cpp in Sources */,
 				5F70E7BA1FAE235A00D90632 /* ViewController.m in Sources */,
 				5F70E7C51FAE235A00D90632 /* main.m in Sources */,
 				5F70E7B71FAE235A00D90632 /* AppDelegate.m in Sources */,
+				5F193BA51FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1694,15 +2094,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1742,15 +2148,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1776,7 +2188,6 @@
 		32F248311EA433F200D19613 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 52PVU75796;
@@ -1818,6 +2229,7 @@
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src\"",
 					"\"$(SRCROOT)/../../../../../../CODE/\"/**",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionDispatch\"",
 				);
 				INFOPLIST_FILE = RUN3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1827,6 +2239,7 @@
 					/Users/christophebernard/Develop/Static/COMPILED_LIBS_OSX/lib,
 					"\"$(SRCROOT)/../../../../../../../../../Library/Developer/Xcode/DerivedData/GAME-ENGINE-REBORN-airmaybvevdheleajsmyzuhimeuz/Build/Products\"/**",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = be.igz.RUN3D;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1835,7 +2248,6 @@
 		32F248321EA433F200D19613 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 52PVU75796;
@@ -1856,15 +2268,19 @@
 					"/Users/christophebernard/Develop/Static/freetype-2.6.2/include",
 					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
 					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../../../../../CODE\"/**",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/Bullet3OpenCL\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/Bullet3Serialize\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletInverseDynamics\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src\"",
+					"\"$(SRCROOT)/../../../../../../CODE/\"/**",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionDispatch\"",
 				);
 				INFOPLIST_FILE = RUN3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1874,6 +2290,7 @@
 					/Users/christophebernard/Develop/Static/COMPILED_LIBS_OSX/lib,
 					"\"$(SRCROOT)/../../../../../../../../../Library/Developer/Xcode/DerivedData/GAME-ENGINE-REBORN-airmaybvevdheleajsmyzuhimeuz/Build/Products\"/**",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = be.igz.RUN3D;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

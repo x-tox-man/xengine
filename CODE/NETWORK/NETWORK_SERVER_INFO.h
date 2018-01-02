@@ -10,9 +10,9 @@
 #define NETWORK_SERVER_INFO_hpp
 
 #include "CORE_HELPERS_CLASS.h"
-#include "NETWORK_PLAYER.h"
+#include "CORE_DATA_BUFFER.h"
 
-XS_CLASS_BEGIN(NETWORK_SERVER_INFO)
+XS_CLASS_BEGIN( NETWORK_SERVER_INFO )
 
     NETWORK_SERVER_INFO();
     NETWORK_SERVER_INFO(const char *, const char *, const char *, int, int);
@@ -20,7 +20,7 @@ XS_CLASS_BEGIN(NETWORK_SERVER_INFO)
 
     XS_DEFINE_SERIALIZABLE
 
-private :
+    CORE_DATA_BUFFER & GetSpecificGameInfo() { return SpecificGameInfo; }
 
     char
         * Name,
@@ -28,9 +28,10 @@ private :
         * Adress;
     int
         PlayersCount,
-        MaxPlayers;
-    std::vector<NETWORK_PLAYER *>
-        Players;
+        MaxPlayers,
+        AppVersion;
+    CORE_DATA_BUFFER
+        SpecificGameInfo;
 
 XS_CLASS_END
 

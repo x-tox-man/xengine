@@ -339,7 +339,7 @@
     bool COLLADA_LOADER_WRITER::writeGeometry ( const COLLADAFW::Geometry* geometry )
     {
         std::string
-        mesh_name;
+            mesh_name;
         
         mesh_name = geometry->getName();
         
@@ -454,25 +454,36 @@
                         index_buffer->Initialize( (unsigned int) prim->getFaceCount() * 3 * 4 );
                         mesh->CurrenGeometrytTableSize = (int) (3 * prim->getFaceCount());
                         
-                        memcpy((void *)index_buffer->getpointerAtIndex( 0 ), (void *)prim->getPositionIndices().getData(), sizeof(unsigned int) * prim->getPositionIndices().getCount() );
+                        //memcpy((void *)index_buffer->getpointerAtIndex( 0 ), (void *)prim->getPositionIndices().getData(), sizeof(unsigned int) * prim->getPositionIndices().getCount() );
                         
                         for (int face = 0; face < prim->getFaceCount(); face++ ) {
                             
                             for ( int v_index = 0; v_index < prim->getGroupedVerticesVertexCount( face ); v_index++ ) {
+                                
+                                //Need to take stride in account
+                                /*mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData() + accumulated_index * 3 );
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[1] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 + 1);
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[2] = *(data->getPositions().getFloatValues()->getData()+ accumulated_index * 3 + 2);
+                                mesh->CurrenGeometrytTable[ accumulated_index ].position[3] = 1.0f;*/
+                                
+                                memcpy((void *)index_buffer->getpointerAtIndex( accumulated_index ), &accumulated_index, sizeof(unsigned int));
                                 
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 );
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[1] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 + 1);
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[2] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 + 2);
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[3] = 1.0f;
                                 
+                                printf( "%d\n", prim->getPositionIndices()[accumulated_index] );
+                                printf( "%f\t%f\t%f\t\n", mesh->CurrenGeometrytTable[ accumulated_index ].position[0], mesh->CurrenGeometrytTable[ accumulated_index ].position[1], mesh->CurrenGeometrytTable[ accumulated_index ].position[2] );
+                                
                                 mesh->CurrenGeometrytTable[ accumulated_index ].vertex_index = pos_indices[ accumulated_index ];
                                 
                                 if ( hasNormals ) {
                                     const COLLADAFW::UIntValuesArray & norm_indices = prim->getNormalIndices();
                                     
-                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[0] = *(data->getNormals().getFloatValues()->getData()+ norm_indices[ accumulated_index ] * 3);
-                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[1] = *(data->getNormals().getFloatValues()->getData()+ norm_indices[ accumulated_index ] * 3 + 1);
-                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[2] = *(data->getNormals().getFloatValues()->getData()+ norm_indices[ accumulated_index ] * 3 + 2);
+                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[0] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3);
+                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[1] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3 + 1);
+                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[2] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3 + 2);
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[3] = 1.0f;
                                 }
                                 
@@ -482,13 +493,15 @@
                                     
                                     mesh->CurrenGeometrytTable[ accumulated_index ].UV0[0] = *(data->getUVCoords().getFloatValues()->getData()+ uv_indices[accumulated_index ] * 2 );
                                     mesh->CurrenGeometrytTable[ accumulated_index ].UV0[1] = *(data->getUVCoords().getFloatValues()->getData()+ uv_indices[accumulated_index ] * 2 + 1);
+                                    
+                                    printf( "%f\t%f\n", mesh->CurrenGeometrytTable[ accumulated_index ].UV0[0], mesh->CurrenGeometrytTable[ accumulated_index ].UV0[1] );
                                 }
                                 
                                 ++accumulated_index;
                             }
                             
                             //@see http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
-                            if ( hasUV ) { // normal_mapping
+                            if ( hasUV && hasNormals ) { // normal_mapping
                                 // Shortcuts for vertices
                                 CORE_MATH_VECTOR v0(  mesh->CurrenGeometrytTable[ accumulated_index - 3 ].position );
                                 CORE_MATH_VECTOR v1( mesh->CurrenGeometrytTable[ accumulated_index - 2 ].position );
@@ -555,14 +568,14 @@
                                 
                             }
                             
-                            /*if( hasUV && hasNormals ) {
+                            if( hasUV && hasNormals ) {
                                 //WHY THIS????
                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].tangents[0]), 12 );
                                 offset+= 3;
                                 
                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].binormal[0]), 12 );
                                 offset+= 3;
-                            }*/
+                            }
                         }
                         
                         graphicObject->AddNewMesh( mesh );

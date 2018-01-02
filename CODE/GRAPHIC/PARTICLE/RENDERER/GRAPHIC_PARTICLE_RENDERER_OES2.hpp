@@ -22,8 +22,8 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     
     GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
     
-    CORE_MATH_MATRIX result = renderer.GetCamera().GetProjectionMatrix();
-    result *= renderer.GetCamera().GetViewMatrix();
+    CORE_MATH_MATRIX result = renderer.GetCamera()->GetProjectionMatrix();
+    result *= renderer.GetCamera()->GetViewMatrix();
     
     GRAPHIC_SHADER_ATTRIBUTE & attr = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
     

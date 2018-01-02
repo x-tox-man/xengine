@@ -9,9 +9,7 @@
 #include "GRAPHIC_UI_FRAME_LIST_ADAPTER.h"
 #include "GRAPHIC_UI_FRAME.h"
 
-
 // TODO : Refactor this to inherit from a scrollView
-
 GRAPHIC_UI_FRAME_LIST_ADAPTER::GRAPHIC_UI_FRAME_LIST_ADAPTER( GRAPHIC_UI_FRAME * frame, GRAPHIC_UI_ELEMENT * ui_template ) :
     GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER(),
     Frame( frame ),
@@ -19,7 +17,7 @@ GRAPHIC_UI_FRAME_LIST_ADAPTER::GRAPHIC_UI_FRAME_LIST_ADAPTER( GRAPHIC_UI_FRAME *
     VisibleItemsTable(),
     VisibleItemsCount( 0 ),
     Spacing(),
-    CellDimension(CORE_MATH_VECTOR::Zero) {
+    CellDimension( CORE_MATH_VECTOR::Zero ) {
     
 }
 
@@ -41,27 +39,29 @@ void GRAPHIC_UI_FRAME_LIST_ADAPTER::OnLayoutFrame( GRAPHIC_UI_FRAME * frame ) {
     GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnLayoutFrame( frame );
     
     int itemsOffset = VisibleItemsCount;
-    CellDimension = UITemplate->GetSize();
     VisibleItemsCount = CalculateVisibleItemsCount(frame);
     
     itemsOffset = VisibleItemsCount - itemsOffset;
     
     if ( itemsOffset ) {
+        
         VisibleItemsTable.clear();
         VisibleItemsTable.resize(VisibleItemsCount);
     }
     
-    if ( itemsOffset > 0)
-    {
+    if ( VisibleItemsCount > 0) {
+        
         ((GRAPHIC_UI_FRAME*)frame)->RemoveObjects();
         
-        for (int i = 0; i < VisibleItemsCount; i++) {
+        for (int i = 0; i < VisibleItemsCount; i++ ) {
             
             if( VisibleItemsTable[i] == NULL ) {
                 
-                VisibleItemsTable[i] = UITemplate->Copy();
-                ((GRAPHIC_UI_FRAME*)frame)->AddObject(VisibleItemsTable[i]);
+                VisibleItemsTable[i] = CreateItem();
+                VisibleItemsTable[i]->Initialize();
             }
+            
+            ((GRAPHIC_UI_FRAME*)frame)->AddObject(VisibleItemsTable[i]);
         }
     }
     
@@ -75,52 +75,60 @@ void GRAPHIC_UI_FRAME_LIST_ADAPTER::OnDragEnd() {
 void GRAPHIC_UI_FRAME_LIST_ADAPTER::OnDragged(GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & drag_offset) {
     
     GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnDragged( frame, drag_offset );
-    
-    UpdateOffset(frame, drag_offset);
 }
 
 void GRAPHIC_UI_FRAME_LIST_ADAPTER::OnScrolled(GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & scroll_offset) {
  
     GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnScrolled(frame, scroll_offset);
-    
-    UpdateOffset(frame, scroll_offset);
 }
 
 void GRAPHIC_UI_FRAME_LIST_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force) {
     
     Spacing = GetSpacing();
     
-    bool scroll_changed = false;
+    GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::UpdateOffset( frame, offset, force );
     
-    //if we can scroll
-    if ( GetScrollZone().Y() > 0.0f ) {
-        
-        GetTotalScrollOffset().Y(fminf(GetScrollZone().Y(),(offset.Y() + GetTotalScrollOffset().Y())));
-        
-        scroll_changed = true;
-    }
-    
-    if( scroll_changed || force ) {
-        
+    if ( !IsHorizontal() ) {
+            
         int base_offset = ceil(GetTotalScrollOffset().Y() / CellDimension.Y());
         
-        CORE_MATH_VECTOR position_offset = GetTotalScrollOffset();
+        CORE_MATH_VECTOR position_offset;// = GetTotalScrollOffset();
         
         for(int i = 0; i < VisibleItemsCount && i < GetItemsCount(); i++ ) {
-
+            
             VisibleItemsTable[i]->SetPosition(position_offset);
             position_offset.Y(position_offset.Y() - (CellDimension.Y() +Spacing));
             ConfigureItemLayoutFor(base_offset++, VisibleItemsTable[i]);
         }
     }
+    else {
+        
+        int base_offset = ceil(GetTotalScrollOffset().X() / CellDimension.X());
+        
+        CORE_MATH_VECTOR position_offset = GetTotalScrollOffset();
+        
+        for(int i = 0; i < VisibleItemsCount && i < GetItemsCount(); i++ ) {
+            
+            VisibleItemsTable[i]->SetPosition(position_offset);
+            position_offset.X( position_offset.X() - ( CellDimension.X() + Spacing ) );
+            ConfigureItemLayoutFor( base_offset++, VisibleItemsTable[i] );
+        }
+    }
 }
 
-CORE_MATH_VECTOR GRAPHIC_UI_FRAME_LIST_ADAPTER::CalculateFrameDimension( GRAPHIC_UI_ELEMENT * ) {
+CORE_MATH_VECTOR GRAPHIC_UI_FRAME_LIST_ADAPTER::CalculateFrameContentDimension( GRAPHIC_UI_ELEMENT * ) {
     
     return CellDimension * GetItemsCount();
 }
 
-int GRAPHIC_UI_FRAME_LIST_ADAPTER::CalculateVisibleItemsCount(GRAPHIC_UI_FRAME * frame) {
+int GRAPHIC_UI_FRAME_LIST_ADAPTER::CalculateVisibleItemsCount( GRAPHIC_UI_FRAME * frame ) {
     
-    return (int) fmin( ceil(frame->GetSize().Y() / CellDimension.Y()), GetItemsCount());
+    if ( IsHorizontal() ) {
+        
+        return (int) fmin( ceil(frame->GetSize().X() / CellDimension.X()), GetItemsCount());
+    }
+    else {
+        
+        return (int) fmin( ceil(frame->GetSize().Y() / CellDimension.Y()), GetItemsCount());
+    }
 }

@@ -14,12 +14,13 @@
 #include "SERVICE_NETWORK_LOBBY.h"
 #include "NETWORK_PLAYER.h"
 #include "CORE_TIMELINE.h"
-#include "SERVICE_NETWORK_CLIENT.h"
+#include "SERVICE_NETWORK_LOBBY_CLIENT.h"
 #include "CORE_FIXED_STATE_MACHINE.h"
 #include "CORE_FIXED_STATE_EVENT.h"
 #include "NETWORK_CLIENT_DELEGATE.h"
 #include "SERVICE_NETWORK_CONNECTION.h"
 #include "CORE_TIMELINE_EVENT.h"
+#include "GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.h"
 
 #define THIS_GAME_MAX_NETWORK_PLAYER_SIZE 8
 #define THIS_GAME_MAX_NETWORK_MESSAG_QUEUE_SIZE 512
@@ -101,30 +102,28 @@ XS_CLASS_BEGIN(NETWORK_CLIENT)
 
     void DispatchMessageToAllPlayers(SERVICE_NETWORK_COMMAND * command);
     void DispatchMessageToPlayer(NETWORK_PLAYER & player, CORE_DATA_STREAM & data_buffer);
+    void DispatchMessageToServer( SERVICE_NETWORK_COMMAND * command );
     void SelectServer(SERVICE_NETWORK_COMMAND *);
     void OnTcpConnection();
 
     void SendJoinRequestCommand();
-    void Disconnect();
+    void SendDisconnectCommand();
+    void SendReadyCommand( bool ready );
 
     void OnTCPDataReceived( SERVICE_NETWORK_COMMAND * command );
     void OnUDPDataReceived( SERVICE_NETWORK_COMMAND * command );
     void SetClientIsConnected(NETWORK_PLAYER * player);
 
-    inline void SetOnServerStatusCallback( const CORE_HELPERS_CALLBACK_1< SERVICE_NETWORK_COMMAND * > & callback) { OnServerStatusCallback = callback; }
-
-    inline SERVICE_NETWORK_CLIENT * GetClient() { return ClientInstance; }
+    inline SERVICE_NETWORK_LOBBY_CLIENT * GetClient() { return ClientInstance; }
     inline NETWORK_PLAYER & GetCurrentPlayer() { return CurrentPlayer; }
+    inline void SetDelegate( NETWORK_CLIENT_DELEGATE * delegate ) { Delegate = delegate; }
 
 private :
 
     void ProcessIncommingMessages();
     void ProcessAndSendOutgoingMessages();
 
-
-    CORE_HELPERS_CALLBACK_1< SERVICE_NETWORK_COMMAND * >
-        OnServerStatusCallback;
-    SERVICE_NETWORK_CLIENT
+    SERVICE_NETWORK_LOBBY_CLIENT
         * ClientInstance;
     std::array< SERVICE_NETWORK_COMMAND *, THIS_GAME_MAX_NETWORK_MESSAG_QUEUE_SIZE>
         IncommingMessageQueue;

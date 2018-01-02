@@ -25,7 +25,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME, GRAPHIC_UI_ELEMENT )
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GRAPHIC_UI_FRAME );
 
     virtual void Initialize() override;
-    virtual void Finalize()  override {}
+    virtual void Finalize() override;
 
     virtual void OnViewAppearing() {}
     virtual void OnViewDisappearing() {}
@@ -37,6 +37,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME, GRAPHIC_UI_ELEMENT )
     virtual void Click( const CORE_MATH_VECTOR & cursor_position ) override;
     virtual void Hover( const CORE_MATH_VECTOR & cursor_position ) override;
     virtual void Hover( const bool force_hover ) override;
+    virtual void Drag( const CORE_MATH_VECTOR & cursor_position ) override;
 
     virtual GRAPHIC_UI_ELEMENT * GetObjectForIdentifier( const CORE_HELPERS_IDENTIFIER & ) override;
     virtual GRAPHIC_UI_ELEMENT * GetObjectAtIndex(int index );

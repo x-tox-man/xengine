@@ -117,14 +117,14 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         attribute->AttributeName = ProjectionMatrix;
         
         setShaderAttribute(*attribute);
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelViewMatrix.GetTextValue() ); )
         attribute->AttributeName = ModelViewMatrix;
         
         setShaderAttribute(*attribute);
         
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ShadowMapMVP.GetTextValue() ); )
         
@@ -135,7 +135,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             setShaderAttribute(*attribute);
         }
         
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, MVPMatrix.GetTextValue() ); )
@@ -147,7 +147,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             setShaderAttribute(*attribute);
         }
         
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SkinningMatrixTable.GetTextValue() ); )
@@ -158,7 +158,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             setShaderAttribute(*attribute);
         }
         
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         
@@ -170,7 +170,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             setShaderAttribute(*attribute);
         }
         
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture.GetTextValue() ); )
@@ -182,7 +182,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             setShaderAttribute(*attribute);
         }
         
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture.GetTextValue() ); )
@@ -193,7 +193,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture1.GetTextValue() ); )
@@ -204,7 +204,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture2.GetTextValue() ); )
@@ -215,7 +215,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture3.GetTextValue() ); )
@@ -226,7 +226,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture4.GetTextValue() ); )
@@ -237,7 +237,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, NormalTexture.GetTextValue() ); )
@@ -248,7 +248,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DepthTexture.GetTextValue() ); )
@@ -259,7 +259,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         //AMBIENT
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
@@ -270,7 +270,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             attribute->AttributeName = AmbientLightColor;
             
             setShaderAttribute(*attribute);
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightAmbientIntensity.GetTextValue() ); )
@@ -281,7 +281,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightDiffuseIntensity.GetTextValue() ); )
@@ -292,7 +292,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
@@ -304,7 +304,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightDirection.GetTextValue() ); )
             
@@ -314,7 +314,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightDiffuseIntensity.GetTextValue() ); )
@@ -325,7 +325,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DirectionalLightAmbientIntensity.GetTextValue() ); )
@@ -336,11 +336,11 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         else {
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         
         // POINT LIGHT 0
@@ -354,7 +354,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Position.GetTextValue() ); )
             
@@ -364,7 +364,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0DiffuseIntensity.GetTextValue() ); )
@@ -375,7 +375,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0AmbientIntensity.GetTextValue() ); )
@@ -386,7 +386,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Exp.GetTextValue() ); )
@@ -397,7 +397,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Constant.GetTextValue() ); )
@@ -408,7 +408,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight0Linear.GetTextValue() ); )
@@ -419,11 +419,11 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         else {
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         
         // POINT LIGHT 1
@@ -437,7 +437,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Position.GetTextValue() ); )
             
@@ -447,7 +447,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1DiffuseIntensity.GetTextValue() ); )
@@ -458,7 +458,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1AmbientIntensity.GetTextValue() ); )
@@ -469,7 +469,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Exp.GetTextValue() ); )
@@ -480,7 +480,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Constant.GetTextValue() ); )
@@ -491,7 +491,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLight1Linear.GetTextValue() ); )
@@ -502,11 +502,11 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         else {
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         
         // SPOT 0
@@ -520,7 +520,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Position.GetTextValue() ); )
             
@@ -530,7 +530,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0DiffuseIntensity.GetTextValue() ); )
@@ -541,7 +541,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0AmbientIntensity.GetTextValue() ); )
@@ -552,7 +552,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Exp.GetTextValue() ); )
@@ -563,7 +563,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Constant.GetTextValue() ); )
@@ -574,7 +574,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Linear.GetTextValue() ); )
@@ -585,7 +585,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Direction.GetTextValue() ); )
@@ -596,7 +596,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight0Cutoff.GetTextValue() ); )
@@ -607,11 +607,11 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         else {
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         
         // SPOT 1
@@ -625,7 +625,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Position.GetTextValue() ); )
             
@@ -635,7 +635,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1DiffuseIntensity.GetTextValue() ); )
@@ -646,7 +646,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1AmbientIntensity.GetTextValue() ); )
@@ -657,7 +657,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Exp.GetTextValue() ); )
@@ -668,7 +668,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Constant.GetTextValue() ); )
@@ -679,7 +679,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Linear.GetTextValue() ); )
@@ -690,7 +690,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Direction.GetTextValue() ); )
@@ -701,7 +701,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
             
             attribute = new GRAPHIC_SHADER_ATTRIBUTE;
             GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLight1Cutoff.GetTextValue() ); )
@@ -712,11 +712,11 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
                 
                 setShaderAttribute(*attribute);
             }
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         else {
             
-            delete attribute;
+            CORE_MEMORY_ObjectSafeDeallocation( attribute );
         }
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
@@ -733,7 +733,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             setShaderAttribute(*attribute);
         }
         
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, LightSpecularPower.GetTextValue() ); )
@@ -744,7 +744,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, MaterialSpecularIntensity.GetTextValue() ); )
@@ -755,7 +755,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, TimeModulator.GetTextValue() ); )
@@ -766,7 +766,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
             
             setShaderAttribute(*attribute);
         }
-        delete attribute;
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
     }
 }
 

@@ -1,0 +1,454 @@
+
+----- pid 9750 at 2017-12-21 10:29:06 -----
+Cmd line: com.android.vending
+Build fingerprint: 'HUAWEI/PRA-LX1/HWPRA-H:7.0/HUAWEIPRA-LX1/C432B182:user/release-keys'
+ABI: 'arm'
+Build type: optimized
+Zygote loaded classes=4414 post zygote classes=868
+Intern table: 78553 strong; 309 weak
+JNI: CheckJNI is off; globals=493 (plus 91 weak)
+Libraries: /system/lib/libandroid.so /system/lib/libcompiler_rt.so /system/lib/libjavacrypto.so /system/lib/libjnigraphics.so /system/lib/libmedia_jni.so /system/lib/libwebviewchromium_loader.so libjavacore.so libopenjdk.so (8)
+Heap: 24% free, 2MB/2MB; 31047 objects
+Dumping cumulative Gc timings
+Start Dumping histograms for 4 iterations for partial concurrent mark sweep
+UpdateAndMarkImageModUnionTable:	Sum: 24.151ms 99% C.I. 0.431us-2863.999us Avg: 274.443us Max: 3124us
+ProcessMarkStack:	Sum: 19.520ms 99% C.I. 0.001ms-8.071ms Avg: 1.626ms Max: 8.071ms
+MarkConcurrentRoots:	Sum: 15.475ms 99% C.I. 0.006ms-3.966ms Avg: 1.934ms Max: 3.966ms
+MarkRootsCheckpoint:	Sum: 9.271ms 99% C.I. 0.180ms-5.344ms Avg: 1.158ms Max: 5.416ms
+UpdateAndMarkZygoteModUnionTable:	Sum: 8.834ms 99% C.I. 1.571ms-3.809ms Avg: 2.208ms Max: 3.809ms
+SweepMallocSpace:	Sum: 5.698ms 99% C.I. 2us-2315us Avg: 712.250us Max: 2315us
+ScanGrayAllocSpaceObjects:	Sum: 3.801ms 99% C.I. 0.500us-1792us Avg: 475.125us Max: 1797us
+ScanGrayImageSpaceObjects:	Sum: 3.302ms 99% C.I. 0.268us-1012.999us Avg: 37.522us Max: 1191us
+SweepLargeObjects:	Sum: 2.790ms 99% C.I. 341us-1073us Avg: 697.500us Max: 1073us
+(Paused)ScanGrayImageSpaceObjects:	Sum: 2.134ms 99% C.I. 0.261us-1073.999us Avg: 24.250us Max: 1793us
+ReMarkRoots:	Sum: 1.378ms 99% C.I. 261us-411us Avg: 344.500us Max: 411us
+MarkAllocStackAsLive:	Sum: 1.201ms 99% C.I. 136us-538us Avg: 300.250us Max: 538us
+BindBitmaps:	Sum: 859us 99% C.I. 140us-431us Avg: 214.750us Max: 431us
+SweepSystemWeaks:	Sum: 828us 99% C.I. 100us-524us Avg: 207us Max: 524us
+ImageModUnionClearCards:	Sum: 562us 99% C.I. 0.254us-66us Avg: 3.193us Max: 66us
+MarkNonThreadRoots:	Sum: 445us 99% C.I. 53us-65us Avg: 55.625us Max: 65us
+FinishPhase:	Sum: 269us 99% C.I. 45us-86us Avg: 67.250us Max: 86us
+AllocSpaceClearCards:	Sum: 260us 99% C.I. 0.266us-57us Avg: 16.250us Max: 57us
+MarkingPhase:	Sum: 219us 99% C.I. 41us-83us Avg: 54.750us Max: 83us
+RecursiveMark:	Sum: 202us 99% C.I. 3us-191us Avg: 50.500us Max: 191us
+(Paused)ScanGrayAllocSpaceObjects:	Sum: 198us 99% C.I. 0.285us-76us Avg: 24.750us Max: 76us
+(Paused)PausePhase:	Sum: 178us 99% C.I. 20us-88us Avg: 44.500us Max: 88us
+ProcessCards:	Sum: 126us 99% C.I. 13us-22us Avg: 15.750us Max: 22us
+InitializePhase:	Sum: 118us 99% C.I. 13us-76us Avg: 29.500us Max: 76us
+RevokeAllThreadLocalAllocationStacks:	Sum: 85us 99% C.I. 13us-36us Avg: 21.250us Max: 36us
+PreCleanCards:	Sum: 81us 99% C.I. 15us-30us Avg: 20.250us Max: 30us
+SwapBitmaps:	Sum: 79us 99% C.I. 12us-30us Avg: 19.750us Max: 30us
+ScanGrayZygoteSpaceObjects:	Sum: 76us 99% C.I. 9us-47us Avg: 19us Max: 47us
+ReclaimPhase:	Sum: 54us 99% C.I. 9us-18us Avg: 13.500us Max: 18us
+Sweep:	Sum: 49us 99% C.I. 9us-18us Avg: 12.250us Max: 18us
+EnqueueFinalizerReferences:	Sum: 44us 99% C.I. 6us-19us Avg: 11us Max: 19us
+(Paused)ScanGrayZygoteSpaceObjects:	Sum: 43us 99% C.I. 9us-15us Avg: 10.750us Max: 15us
+(Paused)ProcessMarkStack:	Sum: 31us 99% C.I. 0.250us-22us Avg: 7.750us Max: 22us
+MarkRoots:	Sum: 15us 99% C.I. 3us-5us Avg: 3.750us Max: 5us
+UnBindBitmaps:	Sum: 7us 99% C.I. 1us-2us Avg: 1.750us Max: 2us
+SwapStacks:	Sum: 6us 99% C.I. 1us-2us Avg: 1.500us Max: 2us
+SweepZygoteSpace:	Sum: 3us 99% C.I. 250ns-1000ns Avg: 750ns Max: 1000ns
+FindDefaultSpaceBitmap:	Sum: 2us 99% C.I. 250ns-1000ns Avg: 500ns Max: 1000ns
+PreSweepingGcVerification:	Sum: 1us 99% C.I. 250ns-1000ns Avg: 250ns Max: 1000ns
+Done Dumping histograms
+partial concurrent mark sweep paused:	Sum: 4.354ms 99% C.I. 0.564ms-2.470ms Avg: 1.088ms Max: 2.497ms
+partial concurrent mark sweep total time: 102.557ms mean time: 25.639ms
+partial concurrent mark sweep freed: 35112 objects with total size 5MB
+partial concurrent mark sweep throughput: 344235/s / 51MB/s
+Start Dumping histograms for 8 iterations for sticky concurrent mark sweep
+MarkConcurrentRoots:	Sum: 32.027ms 99% C.I. 0.003ms-4.310ms Avg: 2.001ms Max: 4.310ms
+ScanGrayAllocSpaceObjects:	Sum: 10.497ms 99% C.I. 0.470us-1618us Avg: 328.031us Max: 1639us
+ScanGrayImageSpaceObjects:	Sum: 8.784ms 99% C.I. 0.265us-1224us Avg: 24.954us Max: 1805us
+MarkRootsCheckpoint:	Sum: 7.276ms 99% C.I. 165us-1394us Avg: 454.750us Max: 1432us
+ProcessMarkStack:	Sum: 6.093ms 99% C.I. 0.421us-1276us Avg: 190.406us Max: 1288us
+FreeList:	Sum: 3.809ms 99% C.I. 5us-284us Avg: 112.029us Max: 284us
+ReMarkRoots:	Sum: 3.320ms 99% C.I. 257us-1213us Avg: 415us Max: 1213us
+SweepArray:	Sum: 2.108ms 99% C.I. 58us-558us Avg: 263.500us Max: 558us
+(Paused)ScanGrayAllocSpaceObjects:	Sum: 2.091ms 99% C.I. 0.444us-615us Avg: 130.687us Max: 615us
+MarkingPhase:	Sum: 1.726ms 99% C.I. 194us-239us Avg: 215.750us Max: 239us
+BindBitmaps:	Sum: 1.238ms 99% C.I. 138us-188us Avg: 154.750us Max: 188us
+ImageModUnionClearCards:	Sum: 1.116ms 99% C.I. 0.254us-58us Avg: 3.170us Max: 58us
+SweepSystemWeaks:	Sum: 915us 99% C.I. 100us-193us Avg: 114.375us Max: 193us
+MarkNonThreadRoots:	Sum: 888us 99% C.I. 52us-64us Avg: 55.500us Max: 64us
+(Paused)ScanGrayImageSpaceObjects:	Sum: 573us 99% C.I. 0.255us-73us Avg: 3.255us Max: 73us
+AllocSpaceClearCards:	Sum: 491us 99% C.I. 0.258us-50us Avg: 15.343us Max: 50us
+FinishPhase:	Sum: 355us 99% C.I. 29us-59us Avg: 44.375us Max: 59us
+ScanGrayZygoteSpaceObjects:	Sum: 348us 99% C.I. 8us-89us Avg: 21.750us Max: 89us
+ProcessCards:	Sum: 270us 99% C.I. 11us-25us Avg: 16.875us Max: 25us
+ReclaimPhase:	Sum: 266us 99% C.I. 9us-168us Avg: 33.250us Max: 168us
+ResetStack:	Sum: 199us 99% C.I. 15us-34us Avg: 24.875us Max: 34us
+(Paused)PausePhase:	Sum: 197us 99% C.I. 20us-30us Avg: 24.625us Max: 30us
+ZygoteModUnionClearCards:	Sum: 178us 99% C.I. 9us-14us Avg: 11.125us Max: 14us
+RevokeAllThreadLocalAllocationStacks:	Sum: 159us 99% C.I. 16us-27us Avg: 19.875us Max: 27us
+PreCleanCards:	Sum: 145us 99% C.I. 14us-27us Avg: 18.125us Max: 27us
+InitializePhase:	Sum: 140us 99% C.I. 13us-20us Avg: 17.500us Max: 20us
+(Paused)ScanGrayZygoteSpaceObjects:	Sum: 73us 99% C.I. 7us-11us Avg: 9.125us Max: 11us
+(Paused)ProcessMarkStack:	Sum: 67us 99% C.I. 2us-32us Avg: 8.375us Max: 32us
+ProcessReferences:	Sum: 61us 99% C.I. 3us-27us Avg: 7.625us Max: 27us
+SwapBitmaps:	Sum: 58us 99% C.I. 4us-11us Avg: 7.250us Max: 11us
+EnqueueFinalizerReferences:	Sum: 32us 99% C.I. 2us-9us Avg: 4us Max: 9us
+MarkRoots:	Sum: 30us 99% C.I. 3us-6us Avg: 3.750us Max: 6us
+UnBindBitmaps:	Sum: 25us 99% C.I. 2us-4us Avg: 3.125us Max: 4us
+ForwardSoftReferences:	Sum: 16us 99% C.I. 1us-6us Avg: 2us Max: 6us
+FindDefaultSpaceBitmap:	Sum: 8us 99% C.I. 1us-1us Avg: 1us Max: 1us
+SwapStacks:	Sum: 7us 99% C.I. 250ns-2000ns Avg: 875ns Max: 2000ns
+PreSweepingGcVerification:	Sum: 3us 99% C.I. 250ns-1000ns Avg: 375ns Max: 1000ns
+Done Dumping histograms
+sticky concurrent mark sweep paused:	Sum: 7.128ms 99% C.I. 455us-1436us Avg: 891us Max: 1436us
+sticky concurrent mark sweep total time: 85.597ms mean time: 10.699ms
+sticky concurrent mark sweep freed: 25476 objects with total size 2MB
+sticky concurrent mark sweep throughput: 299718/s / 28MB/s
+Start Dumping histograms for 1 iterations for marksweep + semispace
+ProcessMarkStack:	Sum: 9.736ms 99% C.I. 0.020ms-9.703ms Avg: 4.868ms Max: 9.716ms
+UpdateAndMarkImageModUnionTable:	Sum: 8.549ms 99% C.I. 0.550us-3447.499us Avg: 388.590us Max: 3732us
+MarkRoots:	Sum: 7.401ms 99% C.I. 7.401ms-7.401ms Avg: 7.401ms Max: 7.401ms
+ClearCardTable:	Sum: 5.384ms 99% C.I. 5.384ms-5.384ms Avg: 5.384ms Max: 5.384ms
+UpdateAndMarkZygoteModUnionTable:	Sum: 2.057ms 99% C.I. 2.057ms-2.057ms Avg: 2.057ms Max: 2.057ms
+SweepLargeObjects:	Sum: 673us 99% C.I. 673us-673us Avg: 673us Max: 673us
+RevokeAllThreadLocalBuffers:	Sum: 216us 99% C.I. 83us-133us Avg: 108us Max: 133us
+BindBitmaps:	Sum: 161us 99% C.I. 161us-161us Avg: 161us Max: 161us
+SweepSystemWeaks:	Sum: 121us 99% C.I. 121us-121us Avg: 121us Max: 121us
+ImageModUnionClearCards:	Sum: 80us 99% C.I. 0.250us-47us Avg: 3.636us Max: 47us
+MarkStackAsLive:	Sum: 73us 99% C.I. 73us-73us Avg: 73us Max: 73us
+FinishPhase:	Sum: 58us 99% C.I. 58us-58us Avg: 58us Max: 58us
+MarkReachableObjects:	Sum: 43us 99% C.I. 43us-43us Avg: 43us Max: 43us
+(Paused)EnqueueFinalizerReferences:	Sum: 23us 99% C.I. 23us-23us Avg: 23us Max: 23us
+(Paused)ProcessReferences:	Sum: 14us 99% C.I. 14us-14us Avg: 14us Max: 14us
+ZygoteModUnionClearCards:	Sum: 13us 99% C.I. 13us-13us Avg: 13us Max: 13us
+Sweep:	Sum: 9us 99% C.I. 9us-9us Avg: 9us Max: 9us
+MarkingPhase:	Sum: 6us 99% C.I. 6us-6us Avg: 6us Max: 6us
+InitializePhase:	Sum: 4us 99% C.I. 4us-4us Avg: 4us Max: 4us
+PreSweepingGcVerification:	Sum: 3us 99% C.I. 3us-3us Avg: 3us Max: 3us
+SweepZygoteSpace:	Sum: 2us 99% C.I. 2us-2us Avg: 2us Max: 2us
+PreGcVerificationPaused:	Sum: 1us 99% C.I. 1us-1us Avg: 1us Max: 1us
+PostGcVerificationPaused:	Sum: 0 99% C.I. 0ns-0ns Avg: 0ns Max: 0ns
+Done Dumping histograms
+marksweep + semispace paused:	Sum: 34.972ms 99% C.I. 34.972ms-34.972ms Avg: 34.972ms Max: 34.972ms
+marksweep + semispace total time: 34.686ms mean time: 34.686ms
+marksweep + semispace freed: 22579 objects with total size 2MB
+marksweep + semispace throughput: 664088/s / 60MB/s
+Total time spent in GC: 222.840ms
+Mean GC size throughput: 13MB/s
+Mean GC object throughput: 271720 objects/s
+Total number of allocations 91597
+Total bytes allocated 5MB
+Total bytes freed 3MB
+Free memory 670KB
+Free memory until GC 670KB
+Free memory until OOME 381MB
+Total memory 2MB
+Max memory 384MB
+Zygote space size 1092KB
+Total mutator paused time: 46.454ms
+Total time waiting for GC to complete: 11.979us
+Total GC count: 13
+Total GC time: 222.840ms
+Total blocking GC count: 0
+Total blocking GC time: 0
+/data/app/com.android.vending-2/oat/arm/base.odex: interpret-only
+Current JIT code cache size: 18KB
+Current JIT data cache size: 18KB
+Current JIT capacity: 64KB
+Current number of JIT code cache entries: 42
+Total number of JIT compilations: 42
+Total number of JIT compilations for on stack replacement: 1
+Total number of deoptimizations: 0
+Total number of JIT code cache collections: 0
+Memory used for stack maps: Avg: 296B Max: 3KB Min: 12B
+Memory used for compiled code: Avg: 425B Max: 3KB Min: 2B
+Memory used for profiling info: Avg: 136B Max: 952B Min: 16B
+Start Dumping histograms for 42 iterations for JIT timings
+Compiling:	Sum: 93.969ms 99% C.I. 0.099ms-30.156ms Avg: 2.237ms Max: 33.392ms
+TrimMaps:	Sum: 1.560ms 99% C.I. 5us-265us Avg: 37.142us Max: 265us
+Done Dumping histograms
+Memory used for compilation: Avg: 110KB Max: 1022KB Min: 10KB
+ProfileSaver total_bytes_written=0
+ProfileSaver total_number_of_writes=0
+ProfileSaver total_number_of_code_cache_queries=0
+ProfileSaver total_number_of_skipped_writes=0
+ProfileSaver total_number_of_failed_writes=0
+ProfileSaver total_ms_of_sleep=2000
+ProfileSaver total_ms_of_work=0
+ProfileSaver total_number_of_foreign_dex_marks=0
+ProfileSaver max_number_profile_entries_cached=2
+ProfileSaver total_number_of_hot_spikes=0
+ProfileSaver total_number_of_wake_ups=0
+
+suspend all histogram:	Sum: 1.697ms 99% C.I. 6us-402.239us Avg: 54.741us Max: 425us
+DALVIK THREADS (19):
+"Signal Catcher" daemon prio=5 tid=3 Runnable
+  | group="system" sCount=0 dsCount=0 obj=0x32c120d0 self=0xe23ce200
+  | sysTid=9756 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xeb921920
+  | state=R schedstat=( 32374474 11703135 112 ) utm=0 stm=3 core=2 HZ=100
+  | stack=0xeb825000-0xeb827000 stackSize=1014KB
+  | held mutexes= "mutator lock"(shared held)
+  (no managed stack frames)
+
+"main" prio=5 tid=1 Blocked
+  | group="main" sCount=1 dsCount=0 obj=0x76339000 self=0xec304f00
+  | sysTid=9750 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xef0f1534
+  | state=S schedstat=( 219068227 6748960 477 ) utm=15 stm=6 core=3 HZ=100
+  | stack=0xff148000-0xff14a000 stackSize=8MB
+  | held mutexes=
+  at com.google.b.a.a.a.a.a.c.a(SourceFile:13)
+  - waiting to lock <0x08071bf4> (a java.lang.Object) held by thread 13
+  at com.google.android.finsky.application.FinskyApplication.getResources(SourceFile:-1)
+  at com.google.android.finsky.bg.k.b(SourceFile:81)
+  at com.google.android.finsky.application.FinskyApplication.onCreate(SourceFile:318)
+  at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1028)
+  at android.app.ActivityThread.handleBindApplication(ActivityThread.java:5658)
+  at android.app.ActivityThread.-wrap2(ActivityThread.java:-1)
+  at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1637)
+  at android.os.Handler.dispatchMessage(Handler.java:105)
+  at android.os.Looper.loop(Looper.java:156)
+  at android.app.ActivityThread.main(ActivityThread.java:6523)
+  at java.lang.reflect.Method.invoke!(Native method)
+  at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:942)
+  at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:832)
+
+"Jit thread pool worker thread 0" prio=5 tid=2 Native (still starting up)
+  | group="" sCount=1 dsCount=0 obj=0x0 self=0xdf299500
+  | sysTid=9755 nice=9 cgrp=bg_non_interactive sched=0/0 handle=0xeba22920
+  | state=S schedstat=( 83309377 11544270 73 ) utm=8 stm=0 core=0 HZ=100
+  | stack=0xeb924000-0xeb926000 stackSize=1022KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9755/stack)
+  (no managed stack frames)
+
+"ReferenceQueueDaemon" daemon prio=5 tid=4 Waiting
+  | group="system" sCount=1 dsCount=0 obj=0x32c12160 self=0xe23cec00
+  | sysTid=9757 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xeb822920
+  | state=S schedstat=( 2799481 481770 29 ) utm=0 stm=0 core=3 HZ=100
+  | stack=0xeb720000-0xeb722000 stackSize=1038KB
+  | held mutexes=
+  at java.lang.Object.wait!(Native method)
+  - waiting on <0x08436f1d> (a java.lang.Class<java.lang.ref.ReferenceQueue>)
+  at java.lang.Daemons$ReferenceQueueDaemon.run(Daemons.java:150)
+  - locked <0x08436f1d> (a java.lang.Class<java.lang.ref.ReferenceQueue>)
+  at java.lang.Thread.run(Thread.java:776)
+
+"FinalizerDaemon" daemon prio=5 tid=5 Waiting
+  | group="system" sCount=1 dsCount=0 obj=0x32c121f0 self=0xe23cf100
+  | sysTid=9758 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xeb71d920
+  | state=S schedstat=( 3305206 203647 27 ) utm=0 stm=0 core=1 HZ=100
+  | stack=0xeb61b000-0xeb61d000 stackSize=1038KB
+  | held mutexes=
+  at java.lang.Object.wait!(Native method)
+  - waiting on <0x02b61b63> (a java.lang.Object)
+  at java.lang.Object.wait(Object.java:407)
+  at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:188)
+  - locked <0x02b61b63> (a java.lang.Object)
+  at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:209)
+  at java.lang.Daemons$FinalizerDaemon.run(Daemons.java:204)
+  at java.lang.Thread.run(Thread.java:776)
+
+"FinalizerWatchdogDaemon" daemon prio=5 tid=6 Waiting
+  | group="system" sCount=1 dsCount=0 obj=0x32c12280 self=0xec305900
+  | sysTid=9759 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xeb618920
+  | state=S schedstat=( 2322397 8187501 9 ) utm=0 stm=0 core=3 HZ=100
+  | stack=0xeb516000-0xeb518000 stackSize=1038KB
+  | held mutexes=
+  at java.lang.Object.wait!(Native method)
+  - waiting on <0x05740360> (a java.lang.Daemons$FinalizerWatchdogDaemon)
+  at java.lang.Daemons$FinalizerWatchdogDaemon.sleepUntilNeeded(Daemons.java:269)
+  - locked <0x05740360> (a java.lang.Daemons$FinalizerWatchdogDaemon)
+  at java.lang.Daemons$FinalizerWatchdogDaemon.run(Daemons.java:249)
+  at java.lang.Thread.run(Thread.java:776)
+
+"Binder:9750_1" prio=5 tid=7 Native
+  | group="main" sCount=1 dsCount=0 obj=0x32c12310 self=0xdda19000
+  | sysTid=9761 nice=0 cgrp=default sched=0/0 handle=0xeb310920
+  | state=S schedstat=( 5732293 21667706 51 ) utm=0 stm=0 core=3 HZ=100
+  | stack=0xeb214000-0xeb216000 stackSize=1014KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9761/stack)
+  (no managed stack frames)
+
+"HeapTaskDaemon" daemon prio=5 tid=8 Blocked
+  | group="system" sCount=1 dsCount=0 obj=0x32c123a0 self=0xec305e00
+  | sysTid=9760 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xeb513920
+  | state=S schedstat=( 219596878 11952084 219 ) utm=21 stm=0 core=0 HZ=100
+  | stack=0xeb411000-0xeb413000 stackSize=1038KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9760/stack)
+  at dalvik.system.VMRuntime.runHeapTasks(Native method)
+  - waiting to lock an unknown object
+  at java.lang.Daemons$HeapTaskDaemon.run(Daemons.java:433)
+  at java.lang.Thread.run(Thread.java:776)
+
+"Binder:9750_2" prio=5 tid=9 Native
+  | group="main" sCount=1 dsCount=0 obj=0x32c12430 self=0xdda1a400
+  | sysTid=9762 nice=0 cgrp=default sched=0/0 handle=0xeb211920
+  | state=S schedstat=( 3053124 20382815 44 ) utm=0 stm=0 core=2 HZ=100
+  | stack=0xeb115000-0xeb117000 stackSize=1014KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9762/stack)
+  (no managed stack frames)
+
+"Profile Saver" daemon prio=5 tid=10 Native
+  | group="system" sCount=1 dsCount=0 obj=0x32c124c0 self=0xdf29a900
+  | sysTid=9764 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xeb10e920
+  | state=S schedstat=( 8203125 0 6 ) utm=0 stm=0 core=3 HZ=100
+  | stack=0xeb012000-0xeb014000 stackSize=1014KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9764/stack)
+  (no managed stack frames)
+
+"Thread-3" prio=5 tid=11 Blocked
+  | group="main" sCount=1 dsCount=0 obj=0x32c12550 self=0xdda1b800
+  | sysTid=9765 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xead94920
+  | state=S schedstat=( 379767186 14777606 96 ) utm=36 stm=1 core=3 HZ=100
+  | stack=0xeac92000-0xeac94000 stackSize=1038KB
+  | held mutexes=
+  at com.google.b.a.a.a.a.a.c.a(SourceFile:13)
+  - waiting to lock <0x08071bf4> (a java.lang.Object) held by thread 13
+  at com.google.android.finsky.application.FinskyApplication.getResources(SourceFile:-1)
+  at com.google.android.play.a.h.b(SourceFile:208)
+  at com.google.android.play.a.h.a(SourceFile:133)
+  at com.google.android.play.a.h.a(SourceFile:129)
+  at com.google.android.finsky.d.j.a(SourceFile:280)
+  at com.google.android.finsky.d.j.a(SourceFile:231)
+  at com.google.android.finsky.d.j.a(SourceFile:986)
+  at com.google.android.finsky.d.w.a(SourceFile:84)
+  - locked <0x07ace019> (a com.google.android.finsky.d.w)
+  at com.google.android.finsky.application.d.a(SourceFile:1787)
+  at com.google.android.finsky.bx.a.a(SourceFile:6)
+  at com.google.b.a.a.a.a.a.b.a(SourceFile:132)
+  at com.google.b.a.a.a.a.a.b.a(SourceFile:39)
+  at com.google.b.a.a.a.a.a.b.a(SourceFile:27)
+  at com.google.b.a.a.a.a.a.b.<init>(SourceFile:4)
+  at com.google.b.a.a.a.a.a.d.a(SourceFile:2)
+  at com.google.b.a.a.a.a.a.d.call(SourceFile:6)
+  at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+  at java.lang.Thread.run(Thread.java:776)
+
+"pool-1-thread-1" prio=5 tid=12 Waiting
+  | group="main" sCount=1 dsCount=0 obj=0x32c125e0 self=0xdda1c200
+  | sysTid=9767 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xdd694920
+  | state=S schedstat=( 2711978 2560417 11 ) utm=0 stm=0 core=1 HZ=100
+  | stack=0xdd592000-0xdd594000 stackSize=1038KB
+  | held mutexes=
+  at java.lang.Object.wait!(Native method)
+  - waiting on <0x0a650abf> (a java.lang.Object)
+  at java.lang.Thread.parkFor$(Thread.java:2142)
+  - locked <0x0a650abf> (a java.lang.Object)
+  at sun.misc.Unsafe.park(Unsafe.java:325)
+  at java.util.concurrent.locks.LockSupport.park(LockSupport.java:161)
+  at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2035)
+  at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:413)
+  at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1058)
+  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1118)
+  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:607)
+  at java.lang.Thread.run(Thread.java:776)
+
+"FinskyApp" prio=5 tid=13 Waiting
+  | group="main" sCount=1 dsCount=0 obj=0x32c12670 self=0xdda1c700
+  | sysTid=9768 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xcec7d920
+  | state=S schedstat=( 3617709 6086457 16 ) utm=0 stm=0 core=0 HZ=100
+  | stack=0xceb7b000-0xceb7d000 stackSize=1038KB
+  | held mutexes=
+  at java.lang.Object.wait!(Native method)
+  - waiting on <0x0aa264d5> (a java.lang.Object)
+  at java.lang.Thread.parkFor$(Thread.java:2142)
+  - locked <0x0aa264d5> (a java.lang.Object)
+  at sun.misc.Unsafe.park(Unsafe.java:325)
+  at java.util.concurrent.locks.LockSupport.park(LockSupport.java:161)
+  at java.util.concurrent.FutureTask.awaitDone(FutureTask.java:421)
+  at java.util.concurrent.FutureTask.get(FutureTask.java:163)
+  at com.google.b.a.a.a.a.a.c.a(SourceFile:51)
+  at com.google.b.a.a.a.a.a.c.a(SourceFile:17)
+  at com.google.android.finsky.application.FinskyApplication.getResources(SourceFile:-1)
+  at org.chromium.net.i.a(SourceFile:11)
+  at org.chromium.net.f.<init>(SourceFile:1)
+  at com.google.android.finsky.utils.b.a.<init>(SourceFile:2)
+  at com.google.android.finsky.application.d.dF(SourceFile:149)
+  at com.google.android.finsky.application.d.dh(SourceFile:119)
+  at com.google.android.finsky.application.d.bl(SourceFile:207)
+  - locked <0x09e993db> (a java.lang.Object)
+  at com.google.android.finsky.application.dk.run(SourceFile:2)
+  at android.os.Handler.handleCallback(Handler.java:761)
+  at android.os.Handler.dispatchMessage(Handler.java:98)
+  at android.os.Looper.loop(Looper.java:156)
+  at android.os.HandlerThread.run(HandlerThread.java:61)
+
+"com.google.android.play.a.h" prio=5 tid=14 Native
+  | group="main" sCount=1 dsCount=0 obj=0x32c20100 self=0xdda1bd00
+  | sysTid=9769 nice=10 cgrp=bg_non_interactive sched=0/0 handle=0xceb78920
+  | state=S schedstat=( 4215105 289062 3 ) utm=0 stm=0 core=0 HZ=100
+  | stack=0xcea76000-0xcea78000 stackSize=1038KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9769/stack)
+  at android.os.MessageQueue.nativePollOnce(Native method)
+  at android.os.MessageQueue.next(MessageQueue.java:356)
+  at android.os.Looper.loop(Looper.java:138)
+  at android.os.HandlerThread.run(HandlerThread.java:61)
+
+"RefQueueWorker@com.google.android.volley.a.f@bfa7d5c" daemon prio=5 tid=15 Waiting
+  | group="main" sCount=1 dsCount=0 obj=0x32c12790 self=0xe50f0000
+  | sysTid=9771 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xcea73920
+  | state=S schedstat=( 229687 0 1 ) utm=0 stm=0 core=3 HZ=100
+  | stack=0xce971000-0xce973000 stackSize=1038KB
+  | held mutexes=
+  at java.lang.Object.wait!(Native method)
+  - waiting on <0x09e2de78> (a java.lang.Object)
+  at java.lang.Object.wait(Object.java:407)
+  at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:188)
+  - locked <0x09e2de78> (a java.lang.Object)
+  at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:209)
+  at org.apache.http.impl.conn.tsccm.RefQueueWorker.run(RefQueueWorker.java:107)
+  at java.lang.Thread.run(Thread.java:776)
+
+"libraries-thread" prio=5 tid=16 Native
+  | group="main" sCount=1 dsCount=0 obj=0x32c12820 self=0xe50f0500
+  | sysTid=9772 nice=10 cgrp=bg_non_interactive sched=0/0 handle=0xce87f920
+  | state=S schedstat=( 364062 118750 1 ) utm=0 stm=0 core=3 HZ=100
+  | stack=0xce77d000-0xce77f000 stackSize=1038KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9772/stack)
+  at android.os.MessageQueue.nativePollOnce(Native method)
+  at android.os.MessageQueue.next(MessageQueue.java:356)
+  at android.os.Looper.loop(Looper.java:138)
+  at android.os.HandlerThread.run(HandlerThread.java:61)
+
+"download-manager-thread" prio=5 tid=17 Native
+  | group="main" sCount=1 dsCount=0 obj=0x32c128b0 self=0xe50f0f00
+  | sysTid=9774 nice=10 cgrp=bg_non_interactive sched=0/0 handle=0xce77a920
+  | state=S schedstat=( 308854 46354 1 ) utm=0 stm=0 core=0 HZ=100
+  | stack=0xce678000-0xce67a000 stackSize=1038KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9774/stack)
+  at android.os.MessageQueue.nativePollOnce(Native method)
+  at android.os.MessageQueue.next(MessageQueue.java:356)
+  at android.os.Looper.loop(Looper.java:138)
+  at android.os.HandlerThread.run(HandlerThread.java:61)
+
+"NetworkQualityQueryThread" prio=5 tid=18 Native
+  | group="main" sCount=1 dsCount=0 obj=0x32c12940 self=0xe50f1400
+  | sysTid=9775 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xce675920
+  | state=S schedstat=( 294271 0 1 ) utm=0 stm=0 core=0 HZ=100
+  | stack=0xce573000-0xce575000 stackSize=1038KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9775/stack)
+  at android.os.MessageQueue.nativePollOnce(Native method)
+  at android.os.MessageQueue.next(MessageQueue.java:356)
+  at android.os.Looper.loop(Looper.java:138)
+  at android.os.HandlerThread.run(HandlerThread.java:61)
+
+"ConnectivityThread" prio=5 tid=19 Native
+  | group="main" sCount=1 dsCount=0 obj=0x32c129d0 self=0xe50f1900
+  | sysTid=9776 nice=0 cgrp=bg_non_interactive sched=0/0 handle=0xce570920
+  | state=S schedstat=( 254167 0 1 ) utm=0 stm=0 core=0 HZ=100
+  | stack=0xce46e000-0xce470000 stackSize=1038KB
+  | held mutexes=
+  kernel: (couldn't read /proc/self/task/9776/stack)
+  at android.os.MessageQueue.nativePollOnce(Native method)
+  at android.os.MessageQueue.next(MessageQueue.java:356)
+  at android.os.Looper.loop(Looper.java:138)
+  at android.os.HandlerThread.run(HandlerThread.java:61)
+
+----- end 9750 -----
+
+----- binder transactions -----
+9979:10027(issfoodservices:Thread-14) -> 1235:0(system_server:unknown) code: 1
+
+----- end binder transactions -----

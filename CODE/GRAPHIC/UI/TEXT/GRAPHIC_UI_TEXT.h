@@ -22,22 +22,18 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_UI_TEXT, GRAPHIC_UI_ELEMENT)
 
     virtual void Initialize() override;
 
-    void UpdateText( const char * text );
-    inline void SetText( const char * text ) { Text.SetText( text ); }
-    inline void SetColor( const CORE_HELPERS_COLOR & color ) { Color = color; }
-    inline void SetFont( GRAPHIC_FONT * font ) { Text.SetFont( font ); }
-    inline void SetSize( float text_size ) { Text.SetTextSize( text_size ); }
+    void UpdateText( const CORE_DATA_UTF8_TEXT & text );
+    inline void SetText( const CORE_DATA_UTF8_TEXT & text ) { Text->SetText( text ); }
+    inline void SetGraphicText(GRAPHIC_TEXT::PTR text ) { Text = text; }
+    inline void SetFont( GRAPHIC_FONT::PTR font ) { Text->SetFont( font ); }
+    inline void SetSize( float text_size ) { Text->SetTextSize( text_size ); }
 
     virtual GRAPHIC_UI_ELEMENT * Contains( const CORE_MATH_VECTOR & cursor_position ) override;
 
 private :
 
-    GRAPHIC_TEXT
+    GRAPHIC_TEXT::PTR
         Text;
-    CORE_HELPERS_COLOR
-        Color;
-    GRAPHIC_UI_RENDER_STYLE
-        * RenderStyle;
     CORE_MATH_SHAPE_RECTANGLE
         TextRectangle;
 

@@ -1,6 +1,6 @@
 //
 //  RUN3D_APPLICATION.cpp
-//  MULTIPOLY
+//  RUN3D
 //
 //  Created by Christophe Bernard on 19/02/17.
 //  Copyright © 2017 cbe. All rights reserved.
@@ -16,13 +16,23 @@
 #include "R3D_RESOURCES.h"
 #include "btBulletDynamicsCommon.h"
 #include "PHYSICS_COLLISION_FILTER.h"
-#include "R3D_UI_FRAME.h"
+#include "UI_MAIN_MENU.h"
+#include "TOOLS_LOCALE_SYSTEM.h"
+#include "CORE_DATA_UTF8_TEXT.h"
+#include "R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h"
 
 RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
     DefaultFileystem(),
     GameRenderer(),
-    Game() {
+    Game( NULL )
+#if DEBUG
+,ShipDirection(),
+LineEffect(),
+From(),
+To()
+#endif
+{
     
     #if PLATFORM_OSX
         DefaultFileystem.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
@@ -58,20 +68,44 @@ void RUN3D_APPLICATION::Initialize() {
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
     CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
     
+    Game = new R3D_GAMEPLAY_GAME;
+    Game->Initialize();
+    
+    InitializeSingleplayerGame();
+    
     CORE_ABSTRACT_PROGRAM_BINDER::GetInstance().BindRuntime<CORE_ABSTRACT_RUNTIME_LUA>( *runtime );
     
-    Game.Initialize();
-    
     AUDIO_SYSTEM::GetInstance().GetBank().Load();
+    TOOLS_LOCALE_SYSTEM::GetInstance().Initialize( "fr" );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Garage" ), CORE_DATA_UTF8_TEXT ( L"Garage\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Network" ), CORE_DATA_UTF8_TEXT( L"Réseau\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "CreateServer" ), CORE_DATA_UTF8_TEXT( L"Lancer le serveur\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Play" ), CORE_DATA_UTF8_TEXT( L"Jouer\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Back" ), CORE_DATA_UTF8_TEXT( L"Retour\0" ) );
+    TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Pause" ), CORE_DATA_UTF8_TEXT( L"Pause\0" ) );
     
-    auto frame = new R3D_UI_FRAME;
-    frame->Initialize();
-    GRAPHIC_UI_SYSTEM::GetInstance().RegisterView( frame, "main" );
+    GetNetworkManager().Initialize();
+    
+    UI_MAIN_MENU & main_window = ( UI_MAIN_MENU & ) GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().InitializeNavigation<UI_MAIN_MENU>("MainWindow");
+    main_window.Initialize();
+}
+
+void RUN3D_APPLICATION::InitializeSingleplayerGame() {
+    
+    Game->SetDelegate( new R3D_GAMEPLAY_GAME_DELEGATE );
+}
+
+void RUN3D_APPLICATION::InitializeMultiplayerGame() {
+    
+    Game->SetDelegate( new R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE );
 }
 
 void RUN3D_APPLICATION::Finalize() {
     
-    Game.Finalize();
+    if ( Game ) {
+        
+        Game->Finalize();
+    }
     
     AUDIO_SYSTEM::GetInstance().Finalize();
     AUDIO_SYSTEM::RemoveInstance();
@@ -105,17 +139,30 @@ void RUN3D_APPLICATION::Update( float time_step ) {
     while ( acc > step) {
         acc -= step;
         
-        Game.Update( step );
+        Game->Update( step );
         
         GRAPHIC_PARTICLE_SYSTEM::GetInstance().Update( time_step, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
     }
     
+    NetworkManager.Update( time_step );
     GRAPHIC_UI_SYSTEM::GetInstance().Update( time_step );
+    PERIPHERIC_INTERACTION_SYSTEM::GetInstance().Update();
 }
 
 void RUN3D_APPLICATION::Render() {
     
     GameRenderer.Render( GRAPHIC_RENDERER::GetInstance() );
+    
+#if DEBUG
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+    option;
+    
+    ShipDirection.SetFrom( From );
+    ShipDirection.SetTo( To );
+    ShipDirection.UpdateShape();
+    LineEffect->GetMaterial()->SetDiffuse( CORE_COLOR_Red );
+    ShipDirection.Render( GRAPHIC_RENDERER::GetInstance(), option, LineEffect );
+#endif
 }
 
 void RUN3D_APPLICATION::InitializeGraphics() {
@@ -128,6 +175,20 @@ void RUN3D_APPLICATION::InitializeGraphics() {
     R3D_RESOURCES::GetInstance().Initialize();
     
     GRAPHIC_UI_SYSTEM::GetInstance().Initialize();
+    R3D_UI::ScreenWidth = GetApplicationWindow().GetWidth();
+    R3D_UI::ScreenHeight = GetApplicationWindow().GetHeight();
+    R3D_UI::ScreenDensity = 1.0f;
+    
+#if DEBUG
+    LineEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", "OPENGL2" ) );
+    
+    ShipDirection.InitializeShape();
+    LineEffect->Initialize( ShipDirection.GetShaderBindParameter() );
+    auto mat = new GRAPHIC_MATERIAL();
+    mat->SetDiffuse( CORE_COLOR_Red );
+    LineEffect->SetMaterial( mat );
+#endif
+    
     
     GameRenderer.Initialize();
 }

@@ -28,6 +28,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER, GRAPHIC_UI_FR
     virtual void UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force);
     virtual void OnDragEnd() override;
 
+    inline void SetHorizontal() { Horizontal = true; }
+    inline void SetVerticlal() { Horizontal = false; }
+    inline bool IsHorizontal() const { return Horizontal; }
+
 protected:
 
     const CORE_MATH_VECTOR & GetScrollZone() const { return ScrollZone;}
@@ -43,6 +47,8 @@ private:
         ScrollZone,
         OverallFrameDimension,
         DragOffset;
+    bool
+        Horizontal;
 
 XS_CLASS_END
 
