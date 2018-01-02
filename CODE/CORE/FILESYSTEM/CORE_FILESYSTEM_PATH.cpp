@@ -76,6 +76,14 @@ CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const CORE_FILESYSTEM_PATH & other )
         
         return file_path;
     }
+
+    std::vector< CORE_FILESYSTEM_PATH> CORE_FILESYSTEM_PATH::FindAllFilePaths( const char * pattern, const char * extension, const char * directory ) {
+        std::vector< CORE_FILESYSTEM_PATH> files;
+        
+
+        
+        return files;
+    }
 #endif
 
 const char * CORE_FILESYSTEM_PATH::GetFileName() const {

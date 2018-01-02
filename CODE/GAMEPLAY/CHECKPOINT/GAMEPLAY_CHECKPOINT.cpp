@@ -36,6 +36,7 @@ bool GAMEPLAY_CHECKPOINT::ProcessCollision( GAMEPLAY_COMPONENT_ENTITY * entity )
         if ( it->Collides( entity ) ) {
             
             DeactivateFor( entity );
+            
             if ( Parent != NULL ) {
                 
                 Parent->DeactivateNextCheckpoints( entity );

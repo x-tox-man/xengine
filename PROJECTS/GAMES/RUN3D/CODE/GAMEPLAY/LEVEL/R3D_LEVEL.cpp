@@ -17,9 +17,10 @@
 
 R3D_LEVEL::R3D_LEVEL() :
     PlayerTable(),
-    Environment(),
+    Environment( NULL ),
     EndGameCallback( &Wrapper1<R3D_LEVEL, GAMEPLAY_COMPONENT_ENTITY *, &R3D_LEVEL::OnPlayerCompleted>, this ),
-    Checkpoints() {
+    Checkpoints(),
+    Info() {
     
 }
 
@@ -39,6 +40,8 @@ void R3D_LEVEL::OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity ) {
 
 void R3D_LEVEL::Finalize() {
     
+    PlayerTable.clear();
+    CORE_MEMORY_ObjectSafeDeallocation( Environment );
 }
 
 void R3D_LEVEL::Start() {
@@ -140,7 +143,8 @@ void R3D_LEVEL::CreateGround() {
     
     CORE_MATH_VECTOR p( -((height_map_object->GetXWidth()-1) * height_map_object->GetLength())*0.5f, -((height_map_object->GetYWidth()-1) * height_map_object->GetLength())*0.5f, -5.0f, 1.0f );
     
-    GAMEPLAY_HELPER::SetPhysicsGroundHeightMapObject( entity, p, 0.0f );
+    //GAMEPLAY_HELPER::SetPhysicsGroundHeightMapObject( entity, CORE_MATH_VECTOR::Zero, 0.0f );
+    GAMEPLAY_HELPER::SetPhysicsFlatGroundObject( entity, p, 0.0f, -2.0f );
     
     entity->SetPosition( p );
     

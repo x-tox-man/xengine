@@ -21,6 +21,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( UI_ENDGAME_PRESENTER, R3D_BASE_PRESENTER )
     virtual void Configure() override;
 
     void OnProceedButtonPressed( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state );
+    void OnRetryButtonPressed( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state );
 
 private:
 

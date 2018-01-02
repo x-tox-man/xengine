@@ -81,9 +81,9 @@ public :
             auto item = GetNextItemForNavigation<SCREEN_TYPE>( screen_name );
         
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
-            CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
-            item->GetFrame()->Initialize();
-            CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
+                item->GetFrame()->Initialize();
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
         
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GetUILockMutex() )
@@ -92,15 +92,13 @@ public :
                     item->SetParentNavigationItem( CurrentNavigationItem );
                     UnregisterView(CurrentNavigationItem->GetScreenName().c_str());
                     CurrentNavigationItem->GetFrame()->OnViewDisappearing();
+                    CurrentNavigationItem->GetFrame()->Finalize();
                     CurrentNavigationItem->GetNavigationChilds()[std::string(screen_name)] = item;
                 }
                 
                 CurrentNavigationItem = item;
             
                 RegisterView( CurrentNavigationItem->GetFrame(), screen_name);
-            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
-        
-            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
                 CurrentNavigationItem->GetFrame()->OnViewAppearing();
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
         CORE_PARALLEL_TASK_END()
@@ -129,14 +127,11 @@ private :
     template<typename SCREEN_TYPE>
     NAVIGATION_ITEM * GetNextItemForNavigation( const char * screen_name ) {
         
-        if ( NavigationItemsTable. ) {
-            
-        }
-        NAVIGATION_ITEM * item = CurrentNavigationItem->GetNavigationChilds()[screen_name];
+        NAVIGATION_ITEM * item = NavigationItemsTable[std::string( screen_name ) ];
         
         if ( item == NULL ) {
             
-            return CreateItemForNavigation<SCREEN_TYPE>( screen_name );
+            return CreateItemForNavigation< SCREEN_TYPE >( screen_name );
         }
         
         return item;

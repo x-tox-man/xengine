@@ -14,6 +14,7 @@
 #include "R3D_PLAYER.h"
 #include "CORE_HELPERS_CALLBACK.h"
 #include "GAMEPLAY_CHECKPOINT_SYSTEM.h"
+#include "R3D_GAME_LEVEL_INFO.h"
 
 XS_CLASS_BEGIN( R3D_LEVEL )
 
@@ -32,6 +33,7 @@ XS_CLASS_BEGIN( R3D_LEVEL )
 
     void OnCheckpointCollision( GAMEPLAY_COMPONENT_ENTITY * entity );
     void OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity );
+    inline const R3D_GAME_LEVEL_INFO & GetInfo(){ return Info; }
 
 private :
 
@@ -48,6 +50,8 @@ private :
         Checkpoints;
     CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_ENTITY * >
         EndGameCallback;
+    R3D_GAME_LEVEL_INFO
+        Info;
 
 XS_CLASS_END
 

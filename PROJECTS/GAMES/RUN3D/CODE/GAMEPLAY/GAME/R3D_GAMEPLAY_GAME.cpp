@@ -97,10 +97,11 @@ void MyNearCallback( btBroadphasePair & collision_pair, btCollisionDispatcher & 
 
 R3D_GAMEPLAY_GAME::R3D_GAMEPLAY_GAME() :
     StateMachine(),
-    Level(),
+    LevelManager(),
     Scene(),
     Tick( 0 ),
     ThisPlayerIndex( 0 ),
+    TimeMod( 0.0f ),
     BulletSystem( new GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION() ) {
         
 }
@@ -111,15 +112,15 @@ R3D_GAMEPLAY_GAME::~R3D_GAMEPLAY_GAME() {
 
 void R3D_GAMEPLAY_GAME::SetPlayers( const std::vector< GAME_PLAYER_MODEL > & players ) {
     
-    GetLevel().GetPlayerTable().resize( players.size() );
+    GetLevel()->GetPlayerTable().resize( players.size() );
     
     for (int i = 0; i < players.size(); i++ ) {
         
-        GetLevel().GetPlayerTable()[ i ] = players[ i ].GamePlayer;
-        GetLevel().GetPlayerTable()[ i ]->Initialize();
+        GetLevel()->GetPlayerTable()[ i ] = players[ i ].GamePlayer;
+        GetLevel()->GetPlayerTable()[ i ]->Initialize();
     }
     
-    Delegate->SetPlayers( & GetLevel().GetPlayerTable() );
+    Delegate->SetPlayers( & GetLevel()->GetPlayerTable() );
 }
 
 void R3D_GAMEPLAY_GAME::Initialize( ) {
@@ -137,12 +138,11 @@ void R3D_GAMEPLAY_GAME::Initialize( ) {
     BulletSystem->Initialize();
     BulletSystem->SetCollisionFilter( new PHYSICS_COLLISION_FILTER() );
     
-    
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     
     ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[0])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
-    Level.Initialize();
+    LevelManager.Initialize();
     
     CORE_FIXED_STATE_InitializeState( StateMachine, R3D_GAMEPLAY_GAME::IDLE_STATE, this );
 }
@@ -150,14 +150,28 @@ void R3D_GAMEPLAY_GAME::Initialize( ) {
 void R3D_GAMEPLAY_GAME::Restart() {
     
     Tick = 0;
-    Level.Restart();
+    #if DEBUG
+        assert( LevelManager.GetCurrentLevel() != NULL );
+    #endif
+    LevelManager.GetCurrentLevel()->Restart();
     
     StateMachine.ChangeState( GAME_STARTINGSTATE );
+    
+    TimeMod = 0.0f;
+}
+
+void R3D_GAMEPLAY_GAME::
+SelectLevel( const R3D_GAME_LEVEL_INFO & info ) {
+    
+    if ( LevelManager.GetCurrentLevel() == NULL || !(info == LevelManager.GetCurrentLevel()->GetInfo()) ) {
+        
+        LevelManager.LoadLevel( info );
+    }
 }
 
 void R3D_GAMEPLAY_GAME::Finalize() {
     
-    Level.Finalize();
+    LevelManager.GetCurrentLevel()->Finalize();
 }
 
 void R3D_GAMEPLAY_GAME::Render( GRAPHIC_RENDERER & renderer ) {
@@ -167,20 +181,7 @@ void R3D_GAMEPLAY_GAME::Render( GRAPHIC_RENDERER & renderer ) {
 
 void R3D_GAMEPLAY_GAME::Update( const float step ) {
     
-    static float TimeMod = 0.0f;
-    
-    TimeMod += step;
     StateMachine.DispatchEvent( UPDATE_EVENT( step ) );
-    
-    auto proxy = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ) );
-    GRAPHIC_SHADER_ATTRIBUTE & time_mod = proxy->GetResource< GRAPHIC_SHADER_EFFECT >()->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
-    
-    time_mod.AttributeValue.Value.FloatValue = sinf( TimeMod ) * 0.1f;
-    
-    for ( int i = 0; i < Level.GetPlayerTable().size(); i++ ) {
-        
-        Level.GetPlayerTable()[ i ]->GetShip()->Update( step );
-    }
 }
 
 void R3D_GAMEPLAY_GAME::OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity ) {
@@ -220,11 +221,11 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVEN
         
         t = 0.0f;
         
-        R3D_APP_PTR->SetCamera( &R3D_APP_PTR->GetGame()->GetLevel().GetPlayerTable()[ GetContext().ThisPlayerIndex ]->GetShip()->GetRear() );
+        R3D_APP_PTR->SetCamera( &GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[ GetContext().ThisPlayerIndex ]->GetShip()->GetRear() );
     }
     else {
         
-        const GRAPHIC_CAMERA & camera = R3D_APP_PTR->GetGame()->GetLevel().GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip()->GetRear();
+        const GRAPHIC_CAMERA & camera = GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip()->GetRear();
         
         float p = t / 2.0f;
         
@@ -250,7 +251,7 @@ CORE_FIXED_STATE_EndOfStateEvent()
 //-------------------------- GAME STATE    ----------------------------------------------//
 //---------------------------------------------------------------------------------------//
 CORE_FIXED_STATE_DefineStateEnterEvent( R3D_GAMEPLAY_GAME::GAME_STATE )
-    GetContext().GetLevel().Start();
+    GetContext().GetLevel()->Start();
 CORE_FIXED_STATE_EndOfStateEvent()
 
 
@@ -259,6 +260,18 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STATE, UPDATE_EVENT )
     GetContext().Tick++;
     GetContext().Scene.Update( event.GetEventData() );
     GetContext().InternalUpdateGame( event.GetEventData() );
+
+    GetContext().TimeMod += event.GetEventData();
+
+    auto proxy = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ) );
+    GRAPHIC_SHADER_ATTRIBUTE & time_mod = proxy->GetResource< GRAPHIC_SHADER_EFFECT >()->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
+
+    time_mod.AttributeValue.Value.FloatValue = sinf( GetContext().TimeMod ) * 0.1f;
+
+    for ( int i = 0; i < GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable().size(); i++ ) {
+        
+        GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[ i ]->GetShip()->Update( event.GetEventData() );
+    }
 
 CORE_FIXED_STATE_EndOfStateEvent()
 

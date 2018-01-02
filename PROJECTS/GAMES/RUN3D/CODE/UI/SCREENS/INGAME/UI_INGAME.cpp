@@ -23,7 +23,6 @@ UI_INGAME::~UI_INGAME() {
 
 void UI_INGAME::Initialize() {
     
-    R3D_APP_PTR->GetApplicationWindow().EnableBackgroundContext( true );
     R3D_UI_FRAME::SetBorderLess();
     
     auto pause_button = new UI_BASE_BUTTON;
@@ -53,7 +52,6 @@ void UI_INGAME::Initialize() {
     AddObject( pause_button );
     
     R3D_UI_FRAME::Initialize();
-    R3D_APP_PTR->GetApplicationWindow().EnableBackgroundContext( false );
 }
 
 void UI_INGAME::Update( float time_step ) {

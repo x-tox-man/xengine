@@ -64,6 +64,25 @@ GRAPHIC_UI_ELEMENT::~GRAPHIC_UI_ELEMENT() {
     }
 }
 
+void GRAPHIC_UI_ELEMENT::Finalize() {
+    
+    ActionCallback.Disconnect();
+    OnTextChangedCallback.Disconnect();
+    
+    if ( RenderStyleTable[0] != NULL ) {
+        CORE_MEMORY_ObjectSafeDeallocation( RenderStyleTable[0] );
+    }
+    if ( RenderStyleTable[1] != NULL ) {
+        CORE_MEMORY_ObjectSafeDeallocation( RenderStyleTable[0] );
+    }
+    if ( RenderStyleTable[2] != NULL ) {
+        CORE_MEMORY_ObjectSafeDeallocation( RenderStyleTable[0] );
+    }
+    if ( RenderStyleTable[3] != NULL ) {
+        CORE_MEMORY_ObjectSafeDeallocation( RenderStyleTable[0] );
+    }
+}
+
 void GRAPHIC_UI_ELEMENT::SetActionCallback( CORE_HELPERS_CALLBACK_2< GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT > & action_callback ) {
     
     ActionCallback = action_callback;

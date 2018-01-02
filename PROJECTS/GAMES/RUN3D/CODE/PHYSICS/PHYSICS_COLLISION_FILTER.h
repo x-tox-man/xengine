@@ -23,10 +23,11 @@ struct PHYSICS_COLLISION_FILTER : public btOverlapFilterCallback
     // return true when pairs need collision
     virtual bool needBroadphaseCollision(btBroadphaseProxy* proxy0,btBroadphaseProxy* proxy1) const
     {
-        bool collides = (proxy1->m_collisionFilterGroup & proxy0->m_collisionFilterMask);
+        bool needsBroadphase = (proxy1->m_collisionFilterGroup & proxy0->m_collisionFilterMask) ||
+            (proxy0->m_collisionFilterGroup & proxy1->m_collisionFilterMask);
         //add some additional logic here that modified 'collides'
         
-        if ( collides ) {
+        if ( needsBroadphase ) {
             
             unsigned int r = proxy0->m_collisionFilterGroup & PHYSICS_COLLISION_TYPE_TARGET;
             
@@ -41,7 +42,7 @@ struct PHYSICS_COLLISION_FILTER : public btOverlapFilterCallback
             }
         }
         
-        return collides;
+        return needsBroadphase;
     }
 };
 

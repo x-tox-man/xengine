@@ -21,7 +21,6 @@ UI_GARAGE::UI_GARAGE() :
 
 void UI_GARAGE::Initialize() {
     
-    R3D_APP_PTR->GetApplicationWindow().EnableBackgroundContext( true );
     R3D_UI_FRAME::Initialize();
     
     auto text = GRAPHIC_UI_HELPER::CreateTextElement( CORE_HELPERS_IDENTIFIER( "Texttest" ), L"Garage\0" );
@@ -48,6 +47,4 @@ void UI_GARAGE::Initialize() {
     AddObject( ship_frame );
     
     button->GetPlacement().SetAnchor( GRAPHIC_UI_BottomLeft );
-    
-    R3D_APP_PTR->GetApplicationWindow().EnableBackgroundContext( false );
 }

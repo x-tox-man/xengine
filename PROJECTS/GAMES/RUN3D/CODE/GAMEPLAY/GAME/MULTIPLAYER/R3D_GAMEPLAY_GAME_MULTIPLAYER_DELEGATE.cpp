@@ -74,11 +74,11 @@ void R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE::InitializePlayers() {
     
     if ( R3D_APP_PTR->GetNetworkManager().IsServer() ) {
         
-        R3D_APP_PTR->GetGame()->SetThisPlayerIndex( 1 );
+        R3D_APP_PTR->GetGame()->SetThisPlayerIndex( 0 );
     }
     else {
         
-        R3D_APP_PTR->GetGame()->SetThisPlayerIndex( 0 );
+        R3D_APP_PTR->GetGame()->SetThisPlayerIndex( 1 );
     }
 }
 

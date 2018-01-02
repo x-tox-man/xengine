@@ -25,7 +25,14 @@ RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
     DefaultFileystem(),
     GameRenderer(),
-    Game( NULL ) {
+    Game( NULL )
+#if DEBUG
+,ShipDirection(),
+LineEffect(),
+From(),
+To()
+#endif
+{
     
     #if PLATFORM_OSX
         DefaultFileystem.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
@@ -145,6 +152,17 @@ void RUN3D_APPLICATION::Update( float time_step ) {
 void RUN3D_APPLICATION::Render() {
     
     GameRenderer.Render( GRAPHIC_RENDERER::GetInstance() );
+    
+#if DEBUG
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+    option;
+    
+    ShipDirection.SetFrom( From );
+    ShipDirection.SetTo( To );
+    ShipDirection.UpdateShape();
+    LineEffect->GetMaterial()->SetDiffuse( CORE_COLOR_Red );
+    ShipDirection.Render( GRAPHIC_RENDERER::GetInstance(), option, LineEffect );
+#endif
 }
 
 void RUN3D_APPLICATION::InitializeGraphics() {
@@ -160,6 +178,17 @@ void RUN3D_APPLICATION::InitializeGraphics() {
     R3D_UI::ScreenWidth = GetApplicationWindow().GetWidth();
     R3D_UI::ScreenHeight = GetApplicationWindow().GetHeight();
     R3D_UI::ScreenDensity = 1.0f;
+    
+#if DEBUG
+    LineEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", "OPENGL2" ) );
+    
+    ShipDirection.InitializeShape();
+    LineEffect->Initialize( ShipDirection.GetShaderBindParameter() );
+    auto mat = new GRAPHIC_MATERIAL();
+    mat->SetDiffuse( CORE_COLOR_Red );
+    LineEffect->SetMaterial( mat );
+#endif
+    
     
     GameRenderer.Initialize();
 }

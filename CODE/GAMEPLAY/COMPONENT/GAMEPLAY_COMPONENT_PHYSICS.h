@@ -51,8 +51,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COM
     void ConfigureShapeBox( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & half_extent, const CORE_MATH_QUATERNION & orientation );
     void ConfigureHeightMap( const CORE_MATH_VECTOR & position, int width, int lenght, const void * heights, float spacing, float scale );
     void ConfigureShapeCylinder(const CORE_MATH_VECTOR & position, float radius, float width, const CORE_MATH_QUATERNION & orientation );
-    void ConfigureShapePlane( const CORE_MATH_VECTOR & position );
+    void ConfigureShapePlane( const CORE_MATH_VECTOR & position, float constant = 1.0f );
     void BulletConfigureConvexHullShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object );
+    void Enable( bool enable );
+
 #ifdef __BULLET_PHYSICS__
     void BulletConfigureBvhTriangleMeshShape( const CORE_MATH_VECTOR & position, btTriangleMesh * collision_mesh );
 #endif
@@ -72,8 +74,14 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COM
 
     void ApplyForce( const CORE_MATH_VECTOR & vector ) {
         #ifdef __BULLET_PHYSICS__
-            BulletRigidBody->activate();
             BulletRigidBody->applyCentralForce( btVector3( vector.X(), vector.Y(), vector.Z() ) );
+        #endif
+    }
+
+    void ApplyTorque( const CORE_MATH_VECTOR & vector ) {
+        #ifdef __BULLET_PHYSICS__
+            //https://stackoverflow.com/questions/16322080/what-does-having-an-inertia-tensor-of-zero-do-in-bullet
+            BulletRigidBody->setAngularVelocity( btVector3( vector.X(), vector.Y(), vector.Z() ) );
         #endif
     }
 

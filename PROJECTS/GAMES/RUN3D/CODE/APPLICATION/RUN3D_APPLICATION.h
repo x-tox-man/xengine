@@ -71,6 +71,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( RUN3D_APPLICATION, CORE_APPLICATION )
     void InitializeMultiplayerGame();
 
     inline APPLICATION_IDENTITY_MANAGER & GetPlayerIdentityManager() { return PlayerIdentityManager; }
+#if DEBUG
+    inline void SetFrom( const CORE_MATH_VECTOR & v ) { From = v; }
+    inline void SetTo( const CORE_MATH_VECTOR & v ) { To = v; }
+#endif
 
 private :
 
@@ -90,6 +94,15 @@ private :
         PlayerIdentityManager;
     int
         Seed;
+    #if DEBUG
+        GRAPHIC_OBJECT_SHAPE_LINE
+            ShipDirection;
+        GRAPHIC_SHADER_EFFECT::PTR
+            LineEffect;
+    CORE_MATH_VECTOR
+        From,
+        To;
+    #endif
 
 XS_CLASS_END
 

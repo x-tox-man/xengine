@@ -51,6 +51,7 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_FILESYSTEM_PATH )
     const char * GetFileName() const;
 
     static CORE_FILESYSTEM_PATH FindFilePath( const char * path, const char * extension, const char * directory, bool override_extension = false );
+    static std::vector< CORE_FILESYSTEM_PATH> FindAllFilePaths( const char * pattern, const char * extension, const char * directory );
 
     static CORE_FILESYSTEM_PATH NotExisting;
 

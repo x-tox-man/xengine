@@ -13,3 +13,9 @@ R3D_GAME_LEVEL_INFO::R3D_GAME_LEVEL_INFO() :
     LevelPicto( NULL ) {
     
 }
+
+R3D_GAME_LEVEL_INFO::R3D_GAME_LEVEL_INFO( const R3D_GAME_LEVEL_INFO & other ) :
+    LevelName( other.LevelName ),
+    LevelPicto( other.LevelPicto ) {
+    
+}

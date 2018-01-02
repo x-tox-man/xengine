@@ -80,7 +80,7 @@
         KEYBOARD_KEY_ARROW_RIGHT = 0x7C,
         KEYBOARD_KEY_ARROW_UP = 0x7E,
         KEYBOARD_KEY_ARROW_DOWN = 0x7D,
-        KEYBOARD_KEY_Count
+        KEYBOARD_KEY_Count = 0xFF
     };
 #elif PLATFORM_WINDOWS
     enum KEYBOARD_KEY {

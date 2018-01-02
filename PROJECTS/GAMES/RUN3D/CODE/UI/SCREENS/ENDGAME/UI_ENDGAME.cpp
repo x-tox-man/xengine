@@ -23,13 +23,17 @@ UI_ENDGAME::~UI_ENDGAME() {
 
 void UI_ENDGAME::Initialize() {
     
-    R3D_APP_PTR->GetApplicationWindow().EnableBackgroundContext( true );
-    
     auto proceed_button = new UI_BASE_BUTTON;
     proceed_button->GetPlacement().SetAnchor( GRAPHIC_UI_BottomRight );
     proceed_button->GetPlacement().SetSize( CORE_MATH_VECTOR( 128.0f, 32.0f ) );
     proceed_button->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( .0f, 16.0f ) );
     proceed_button->Initialize();
+    
+    auto retry_button = new UI_BASE_BUTTON;
+    retry_button->GetPlacement().SetAnchor( GRAPHIC_UI_Center );
+    retry_button->GetPlacement().SetSize( CORE_MATH_VECTOR( 128.0f, 32.0f ) );
+    retry_button->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( .0f, -32.0f ) );
+    retry_button->Initialize();
     
     auto end_text = GRAPHIC_UI_HELPER::CreateTextElement( CORE_HELPERS_IDENTIFIER( "end" ), L"End Game" );
     end_text->GetPlacement().SetAnchor( GRAPHIC_UI_Center );
@@ -38,6 +42,7 @@ void UI_ENDGAME::Initialize() {
     end_text->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     
     Presenter->BindAction<UI_ENDGAME_PRESENTER, &UI_ENDGAME_PRESENTER::OnProceedButtonPressed >( proceed_button, (UI_ENDGAME_PRESENTER*) Presenter);
+    Presenter->BindAction<UI_ENDGAME_PRESENTER, &UI_ENDGAME_PRESENTER::OnRetryButtonPressed >( retry_button, (UI_ENDGAME_PRESENTER*) Presenter);
     
     const wchar_t * duration = L"NULL";
     
@@ -45,10 +50,10 @@ void UI_ENDGAME::Initialize() {
     text->Initialize();
     text->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     
+    AddObject( proceed_button );
+    AddObject( retry_button );
     AddObject( text );
     AddObject( end_text );
-    AddObject( proceed_button );
     
     R3D_UI_FRAME::Initialize();
-    R3D_APP_PTR->GetApplicationWindow().EnableBackgroundContext( false );
 }

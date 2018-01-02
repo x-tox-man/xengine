@@ -35,7 +35,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
     virtual ~GRAPHIC_UI_ELEMENT();
 
     virtual void Initialize() {}
-    virtual void Finalize() {}
+    virtual void Finalize();
 
     virtual void Update( const float );
     virtual void Render( GRAPHIC_RENDERER & );

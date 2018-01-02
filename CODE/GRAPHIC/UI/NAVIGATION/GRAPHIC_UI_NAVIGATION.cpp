@@ -39,16 +39,24 @@ bool GRAPHIC_UI_NAVIGATION::NavigateBackAsync() {
         
         CORE_PARALLEL_TASK_BEGIN(this, item)
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_UI_SYSTEM::GetInstance().GetLockMutex())
-            if ( this->CurrentNavigationItem != NULL ) {
-                
-                GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(this->CurrentNavigationItem->GetScreenName().c_str());
-                this->CurrentNavigationItem->GetFrame()->OnViewDisappearing();
-            }
+                if ( this->CurrentNavigationItem != NULL ) {
+                    
+                    GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(this->CurrentNavigationItem->GetScreenName().c_str());
+                    this->CurrentNavigationItem->GetFrame()->OnViewDisappearing();
+                    this->CurrentNavigationItem->GetFrame()->Finalize();
+                }
         
-            this->CurrentNavigationItem = item;
-            this->CurrentNavigationItem->GetFrame()->OnViewAppearing();
+                this->CurrentNavigationItem = item;
         
-            GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(this->CurrentNavigationItem->GetFrame(), CurrentNavigationItem->GetScreenName().c_str());
+                CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+                    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
+                    this->CurrentNavigationItem->GetFrame()->Initialize();
+                    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
+        
+                    this->CurrentNavigationItem->GetFrame()->OnViewAppearing();
+        
+                    GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(this->CurrentNavigationItem->GetFrame(), CurrentNavigationItem->GetScreenName().c_str());
+                CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
         CORE_PARALLEL_TASK_END()
         

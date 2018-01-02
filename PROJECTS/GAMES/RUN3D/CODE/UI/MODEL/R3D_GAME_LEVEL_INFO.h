@@ -23,9 +23,14 @@ XS_CLASS_BEGIN_WITH_COPY( R3D_GAME_LEVEL_INFO )
         abort();
     }
 
-const char
-    * LevelName,
-    * LevelPicto;
+    bool operator == ( const R3D_GAME_LEVEL_INFO & other ) const {
+        
+        return LevelName != NULL && other.LevelName != NULL && strcmp(LevelName, other.LevelName ) == 0;
+    }
+
+    char
+        * LevelName,
+        * LevelPicto;
 
 XS_CLASS_END
 

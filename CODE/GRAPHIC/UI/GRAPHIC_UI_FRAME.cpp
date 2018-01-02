@@ -61,6 +61,25 @@ void GRAPHIC_UI_FRAME::Initialize() {
     }
 }
 
+void GRAPHIC_UI_FRAME::Finalize() {
+    
+    std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
+    
+    OnPlacementPropertyChanged();
+    
+    while ( it != ElementTable.end() ) {
+        
+        (*it)->Finalize();
+        
+        it++;
+        
+    }
+    
+    ElementTable.clear();
+    
+    GRAPHIC_UI_ELEMENT::Finalize();
+}
+
 GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::Contains( const CORE_MATH_VECTOR & cursor_position ) {
     
     if ( GRAPHIC_UI_ELEMENT::Contains( cursor_position ) ) {

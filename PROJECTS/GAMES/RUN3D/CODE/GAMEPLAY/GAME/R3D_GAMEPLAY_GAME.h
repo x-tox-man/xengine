@@ -20,6 +20,7 @@
 #include "GAME_PLAYER_MODEL.h"
 #include "R3D_GAMEPLAY_GAME_DELEGATE.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
+#include "R3D_LEVEL_MANAGER.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
@@ -39,19 +40,21 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
         if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_UP ) ) {
             
             thrust = 1.0f;
+            printf( "up pressed\n" );
         }
         else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_DOWN ) ) {
             
             thrust = -1.0f;
+            printf( "down pressed\n" );
         }
         
         if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_LEFT ) ) {
             
-            orientation = -1.0f;
+            orientation = 1.0f;
         }
         else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_RIGHT ) ) {
             
-            orientation = 1.0f;
+            orientation = -1.0f;
         }
         
 #if PLATFORM_IOS || PLATFORM_ANDROID
@@ -71,14 +74,16 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     void Initialize();
     void Finalize();
     void Restart();
+    void SelectLevel( const R3D_GAME_LEVEL_INFO & info );
 
     inline int GetTick() const { return Tick; }
-    inline R3D_LEVEL & GetLevel() { return Level; }
+    inline R3D_LEVEL::PTR GetLevel() { return LevelManager.GetCurrentLevel(); }
     inline GAMEPLAY_SCENE & GetScene() { return Scene; }
     inline GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * GetBulletSystem() { return BulletSystem; }
     inline R3D_GAMEPLAY_GAME_DELEGATE * GetDelegate() { return Delegate; }
     inline void SetDelegate( R3D_GAMEPLAY_GAME_DELEGATE * delegate ) { Delegate = delegate; }
     inline void SetThisPlayerIndex( int index ) { ThisPlayerIndex = index; }
+    inline R3D_LEVEL_MANAGER & GetLevelManager() { return LevelManager; }
 
     inline float GetGameDuration() const { return Tick * 0.033f; }
 
@@ -114,8 +119,8 @@ protected:
 
     CORE_FIXED_STATE_MACHINE<GAME_BASE_STATE, R3D_GAMEPLAY_GAME>
         StateMachine;
-    R3D_LEVEL
-        Level;
+    R3D_LEVEL_MANAGER
+        LevelManager;
     GAMEPLAY_SCENE
         Scene;
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION
@@ -123,6 +128,8 @@ protected:
     int
         Tick,
         ThisPlayerIndex;
+    float
+        TimeMod;
     R3D_GAMEPLAY_GAME_DELEGATE::PTR
         Delegate;
 

@@ -19,5 +19,5 @@ R3D_GAMEPLAY_GAME_DELEGATE::R3D_GAMEPLAY_GAME_DELEGATE() :
 
 void R3D_GAMEPLAY_GAME_DELEGATE::OnEndGame() {
     
-    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_ENDGAME >( "Garage" );
+    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_ENDGAME >( "UI_ENDGAME" );
 }

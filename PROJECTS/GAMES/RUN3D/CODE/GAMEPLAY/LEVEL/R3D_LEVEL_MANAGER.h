@@ -24,13 +24,17 @@ XS_CLASS_BEGIN( R3D_LEVEL_MANAGER )
 
     void Initialize();
 
-    R3D_LEVEL::PTR LoadLevel( const char level_name );
-    std::vector< R3D_GAME_LEVEL_INFO > & GetAllLevels();
+    inline R3D_LEVEL::PTR GetCurrentLevel() { return CurrentLevel; }
+    inline std::vector< R3D_GAME_LEVEL_INFO > & GetAllLevels() { return AllLevels; }
+
+    R3D_LEVEL::PTR LoadLevel( const R3D_GAME_LEVEL_INFO & info );
 
 private:
 
     std::vector< R3D_GAME_LEVEL_INFO >
         AllLevels;
+    R3D_LEVEL::PTR
+        CurrentLevel;
 
 XS_CLASS_END
 

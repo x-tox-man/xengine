@@ -51,7 +51,6 @@ void R3D_PLAYER_SHIP::Initialize() {
     GAMEPLAY_HELPER::SetScript(this, CORE_FILESYSTEM_PATH::FindFilePath("spaceship", "lua", "SCRIPTS" ) );
 #endif
     
-    q.RotateZ( M_PI_2 );
     q.Normalize();
     
     CORE_MATH_VECTOR
@@ -59,11 +58,12 @@ void R3D_PLAYER_SHIP::Initialize() {
     
     //GAMEPLAY_HELPER::SetPhysicsSphereObject( this, start_position, q, 1.0f );
     GAMEPLAY_HELPER::SetPhysicsBoxObject( this, start_position, CORE_MATH_VECTOR(0.1f,0.1f,0.1f, 0.0f), q, 1.0f );
-    SetOrientation( q );
     
-    GAMEPLAY_HELPER::AddToPhysics( this, PHYSICS_COLLISION_TYPE_SHIP, PHYSICS_COLLISION_TYPE_ALL );
+    GAMEPLAY_HELPER::AddToPhysics( this, PHYSICS_COLLISION_TYPE_SHIP, PHYSICS_COLLISION_TYPE_ALL, true );
     GAMEPLAY_HELPER::AddToScripts( this );
     GAMEPLAY_HELPER::AddToWorld( this );
+    
+    SetOrientation( q );
     
     GAMEPLAY_HELPER::InitializeCamera( start_position, q, Front );
     GAMEPLAY_HELPER::InitializeCamera( start_position, q, Rear);
@@ -97,22 +97,31 @@ void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, con
 
 void R3D_PLAYER_SHIP::Update( float step ) {
     
-    static const CORE_MATH_VECTOR f(0.0f, 0.1f, 0.01f, 0.0f );
-    static const CORE_MATH_VECTOR r(0.0f, -0.5f, 0.04f, 0.0f );
-    static const CORE_MATH_VECTOR t(0.0f, 0.0f, 5.0f, 0.0f );
-    
-    CORE_MATH_QUATERNION
-        q, q2;
-    
-    q.RotateX( M_PI_2 );
-    q.Normalize();
+    CORE_MATH_VECTOR f(0.0f, 0.1f, 0.01f, 0.0f );
+    CORE_MATH_VECTOR r(0.0f, -1.0f, 0.0f, 0.0f );
+    CORE_MATH_VECTOR t(0.0f, 0.0f, 1.5f, 0.0f );
     
     auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     auto phys = (GAMEPLAY_COMPONENT_PHYSICS::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    CORE_MATH_QUATERNION
+        q = pos->GetOrientation(),
+        q2 = pos->GetOrientation(),
+        q3;
     
-    Front.UpdateCamera( pos->GetPosition() + f, q );
-    Rear.UpdateCamera( pos->GetPosition() + r, q );
-    Top.UpdateCamera( pos->GetPosition() + t, q2 );
+    q2.Normalize();
+    q.Normalize();
+    
+    CORE_MATH_MATRIX m;
+    q.RotateY( M_PI_2 );
+    q.RotateY( M_PI_2 );
+    q.ToMatrix( m.GetRow(0) );
+    CORE_MATH_VECTOR vv = r * m;
+    
+    q2.RotateX( M_PI_2 );
+    
+    Front.UpdateCamera( pos->GetPosition() - (f * q), q2 );
+    Rear.UpdateCamera( pos->GetPosition() + vv, q2 );
+    Top.UpdateCamera( pos->GetPosition() + t, q3 );
     
     Steam.SetPosition( pos->GetPosition() );
     Steam.SetVelocity( phys->GetVelocity() );
@@ -152,11 +161,35 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     }
     
     auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    auto comp_pos = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     CORE_MATH_VECTOR v = comp->GetVelocity();
+    CORE_MATH_QUATERNION orientation = comp_pos->GetOrientation();
     
-    v.Y( GetThrust() * 5.0f );
+    R3D_APP_PTR->SetFrom( comp_pos->GetPosition() );
+    R3D_APP_PTR->SetTo( comp_pos->GetPosition() + v * 10.0f);
     
-    comp->ApplyForce( v );
+        CORE_MATH_VECTOR x( 0.0f, 1.0f );
+        CORE_MATH_VECTOR dir = orientation * (x * (GetThrust() * 5.0f) );
+        
+        comp->ApplyForce( dir );
+    
+        v = comp->GetVelocity();
+        CORE_MATH_QUATERNION qr, qr2;
+        qr.RotateZ( M_PI_4 * GetRotation() * step );
+        qr2.RotateZ( -M_PI_4 * GetRotation() * step );
+        CORE_MATH_MATRIX
+            mm;
+    
+        qr.ToMatrix( mm.GetRow( 0 ) );
+    
+        CORE_MATH_VECTOR v2 = v * mm;
+        comp->SetVelocity( v2 );
+    
+        CORE_MATH_QUATERNION qrtot = comp_pos->GetOrientation() * qr2;
+        qrtot.Normalize();
+    
+        SetOrientation( qrtot );
+    //}
 }
 
 void R3D_PLAYER_SHIP::Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation ) {
