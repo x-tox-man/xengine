@@ -31,62 +31,65 @@ class GRAPHIC_MESH;
 
 XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
 
-~GRAPHIC_SYSTEM();
+    ~GRAPHIC_SYSTEM();
 
-static void EnableScissor( bool enable );
-static void SetScissorRectangle(float x, float y, float width, float height);
+    static void Initialize( const char * app_name, int app_version );
+    static void Finalize();
 
-static void EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination );
-static void DisableBlend();
+    static void EnableScissor( bool enable );
+    static void SetScissorRectangle(float x, float y, float width, float height);
 
-static void EnableStencilTest();
-static void DisableStencil();
+    static void EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination );
+    static void DisableBlend();
 
-static void EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end );
-static void DisableDepthTest();
+    static void EnableStencilTest();
+    static void DisableStencil();
 
-static void EnableAlpha();
-static void DisableAlpha();
+    static void EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end );
+    static void DisableDepthTest();
 
-static void EnableBackfaceCulling();
-static void DisableFaceCulling();
+    static void EnableAlpha();
+    static void DisableAlpha();
 
-static void UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER & data );
+    static void EnableBackfaceCulling();
+    static void DisableFaceCulling();
 
-static void ReleaseTexture( GRAPHIC_TEXTURE * texture );
+    static void UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER & data );
 
-static void CreateTexture( GRAPHIC_TEXTURE * texture );
-static void CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type );
-static void CreateTexture( GRAPHIC_TEXTURE * texture, const void * texture_data, bool generate_mipmap );
-static void CreateSubTexture( GRAPHIC_TEXTURE * sub_texture, const GRAPHIC_TEXTURE & texture, const CORE_MATH_VECTOR & offset, const CORE_MATH_VECTOR & size, const void * data );
-static void ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
-static void ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
-static void DiscardTexture( GRAPHIC_TEXTURE * texture );
+    static void ReleaseTexture( GRAPHIC_TEXTURE * texture );
 
-static void SetPolygonMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE fill_mode );
+    static void CreateTexture( GRAPHIC_TEXTURE * texture );
+    static void CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type );
+    static void CreateTexture( GRAPHIC_TEXTURE * texture, const void * texture_data, bool generate_mipmap );
+    static void CreateSubTexture( GRAPHIC_TEXTURE * sub_texture, const GRAPHIC_TEXTURE & texture, const CORE_MATH_VECTOR & offset, const CORE_MATH_VECTOR & size, const void * data );
+    static void ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
+    static void ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
+    static void DiscardTexture( GRAPHIC_TEXTURE * texture );
 
-static void ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program );
-static void ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program );
-static void ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index );
-static void ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index );
+    static void SetPolygonMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE fill_mode );
 
-static void ApplyShaderAttributeVector( const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute );
-static void ApplyShaderAttributeFloat( const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute );
-static void ApplyShaderAttributeMatrix( const float * matrixs, GRAPHIC_SHADER_ATTRIBUTE & attribute );
+    static void ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program );
+    static void ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program );
+    static void ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index );
+    static void ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index );
 
-static void CreateVertexBuffer( GRAPHIC_MESH & mesh );
-static void CreateIndexBuffer( GRAPHIC_MESH & mesh );
-static void ReleaseBuffers(GRAPHIC_MESH &mesh);
-static void ApplyBuffers(GRAPHIC_MESH &mesh);
-static const char * GetShaderDirectoryPath() { return ShaderDirectoryPath; }
-static void SetClearColor( CORE_HELPERS_COLOR & color ) { ClearColor = color; }
+    static void ApplyShaderAttributeVector( const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute );
+    static void ApplyShaderAttributeFloat( const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute );
+    static void ApplyShaderAttributeMatrix( const float * matrixs, GRAPHIC_SHADER_ATTRIBUTE & attribute );
 
-static CORE_PARALLEL_LOCK_MUTEX
-    GraphicSystemLock;
-static const char *
-    ShaderDirectoryPath;
-static CORE_HELPERS_COLOR
-    ClearColor;
+    static void CreateVertexBuffer( GRAPHIC_MESH & mesh );
+    static void CreateIndexBuffer( GRAPHIC_MESH & mesh );
+    static void ReleaseBuffers(GRAPHIC_MESH &mesh);
+    static void ApplyBuffers(GRAPHIC_MESH &mesh);
+    static const char * GetShaderDirectoryPath() { return ShaderDirectoryPath; }
+    static void SetClearColor( CORE_HELPERS_COLOR & color ) { ClearColor = color; }
+
+    static CORE_PARALLEL_LOCK_MUTEX
+        GraphicSystemLock;
+    static const char *
+        ShaderDirectoryPath;
+    static CORE_HELPERS_COLOR
+        ClearColor;
 
 XS_CLASS_END
 

@@ -24,8 +24,12 @@
 
     }
 
-    void OPENGL_3_Initialize() {
+    void GRAPHIC_SYSTEM::Initialize( const char * app_name, int app_version ) {
         
+    }
+
+    void GRAPHIC_SYSTEM::Finalize() {
+
     }
 
     GLint OPENGL_3_GetTextureFormat( GRAPHIC_TEXTURE_IMAGE_TYPE image_tye ) {

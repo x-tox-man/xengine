@@ -45,27 +45,30 @@
         }
 #endif
 
-void OPENGL_3_Initialize();
+    GLint OPENGL_3_GetTextureFormat( GRAPHIC_TEXTURE_IMAGE_TYPE image_tye );
 
-GLint OPENGL_3_GetTextureFormat( GRAPHIC_TEXTURE_IMAGE_TYPE image_tye );
+    GLenum OPENGL_3_GetCompareOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation );
 
-GLenum OPENGL_3_GetCompareOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation );
+    GLenum OPENGL_3_GetBlendOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation );
 
-GLenum OPENGL_3_GetBlendOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation );
+    GLenum OPENGL_3_GetFillMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE mode );
 
-GLenum OPENGL_3_GetFillMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE mode );
+    #define GRAPHIC_SYSTEM_ApplyMatrix(index, size, transpose, array) \
+        GFX_CHECK( glUniformMatrix4fv( \
+            index, \
+            size, \
+            transpose, \
+            (const GLfloat * )array); )
 
-#define GRAPHIC_SYSTEM_ApplyMatrix(index, size, transpose, array) \
-    GFX_CHECK( glUniformMatrix4fv( \
-        index, \
-        size, \
-        transpose, \
-        (const GLfloat * )array); )
+    #define GRAPHIC_SYSTEM_ApplyVector(index, size, array) \
+        GFX_CHECK( glUniform4fv( \
+            index, \
+            size, \
+            (const GLfloat * )array); )
 
-#define GRAPHIC_SYSTEM_ApplyVector(index, size, array) \
-    GFX_CHECK( glUniform4fv( \
-        index, \
-        size, \
-        (const GLfloat * )array); )
+    #define GRAPHIC_SYSTEM_ApplyFloat(index, value) \
+            GFX_CHECK( glUniform1f( \
+                index, \
+                value ); )
 
 #endif /* defined(__GAME_ENGINE_REBORN__OPENGL_2__) */

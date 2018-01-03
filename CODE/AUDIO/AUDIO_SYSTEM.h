@@ -15,6 +15,7 @@
 #include "CORE_ABSTRACT_PROGRAM_MANAGER.h"
 #include "CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.h"
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
+#include "CORE_MATH_VECTOR.h"
 #include "AUDIO_SOUND.h"
 #include "AUDIO_INTERFACE.h"
 #include "AUDIO_BANK.h"
@@ -49,19 +50,22 @@ XS_CLASS_BEGIN( AUDIO_SYSTEM )
     inline AUDIO_SOUND_BANK & GetBank() { return Bank; }
     inline const AUDIO_SOUND_BANK & GetBank() const { return Bank; }
     inline AUDIO_SOUND * GetPlayingMusic() { return PlayingMusic; }
+    inline void SetPosition( const CORE_MATH_VECTOR & v ) { Position = v; }
 
 private:
 
-#if __AUDIO_OPENAL__
-    AUDIO_INTERFACE< AUDIO_OPENAL >
-#elif __AUDIO_OPENSL__
-    AUDIO_INTERFACE< AUDIO_OPENSL >
-#endif
-    * Interface;
-AUDIO_SOUND_BANK
-    Bank;
-AUDIO_SOUND
-    * PlayingMusic;
+    #if __AUDIO_OPENAL__
+        AUDIO_INTERFACE< AUDIO_OPENAL >
+    #elif __AUDIO_OPENSL__
+        AUDIO_INTERFACE< AUDIO_OPENSL >
+    #endif
+        * Interface;
+    AUDIO_SOUND_BANK
+        Bank;
+    AUDIO_SOUND
+        * PlayingMusic;
+    CORE_MATH_VECTOR
+        Position;
 
 XS_CLASS_END
 

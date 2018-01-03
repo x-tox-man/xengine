@@ -11,6 +11,7 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "AUDIO_SOUND.h"
+#include "CORE_MATH_VECTOR.h"
 
 template <typename __AUDIO_INTERFACE__>
 class AUDIO_INTERFACE {
@@ -51,9 +52,9 @@ public :
         ( ( __AUDIO_INTERFACE__ * ) this )->ResumeSound( sound );
     }
 
-    void Update( const float time_step ) {
+    void Update( const float time_step, const CORE_MATH_VECTOR & position ) {
         
-        ( ( __AUDIO_INTERFACE__ * ) this )->Update( time_step );
+        ( ( __AUDIO_INTERFACE__ * ) this )->Update( time_step, position );
     }
 
     void Suspend() {

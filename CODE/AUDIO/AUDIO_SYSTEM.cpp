@@ -49,6 +49,8 @@ void AUDIO_SYSTEM::Initialize() {
     #endif
     
     PlayingMusic = NULL;
+
+    Position = CORE_MATH_VECTOR::Zero;
 }
 
 void AUDIO_SYSTEM::PlaySound( AUDIO_SOUND & sound) {
@@ -111,7 +113,7 @@ void AUDIO_SYSTEM::OnSoundIsRead() {
 
 void AUDIO_SYSTEM::Update( const float time_step ) {
     
-    Interface->Update( time_step );
+    Interface->Update( time_step, Position );
 }
 
 void AUDIO_SYSTEM::Finalize() {

@@ -50,6 +50,8 @@ private:
     #include "GRAPHIC_PARTICLE_RENDERER_OPENGL.hpp"
 #elif OPENGLES2
     #include "GRAPHIC_PARTICLE_RENDERER_OES2.hpp"
+#elif X_VK
+    #include "GRAPHIC_PARTICLE_RENDERER_VK.hpp"
 #else
     #error "Implement Platforms"
 #endif

@@ -9,11 +9,11 @@
 // online ref//sample : http://benbritten.com/2010/05/04/streaming-in-openal/
 
 #include "AUDIO_OPENAL.h"
-#include "GRAPHIC_RENDERER.h"
 #include "AUDIO_SYSTEM.h"
 #include "AUDIO_LOADER.h"
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "CORE_MEMORY.h"
+#include "CORE_MATH_VECTOR.h"
 
 AUDIO_OPENAL::AUDIO_OPENAL() :
     AUDIO_INTERFACE() {
@@ -72,10 +72,9 @@ void AUDIO_OPENAL::Finalize() {
 }
 
 
-void AUDIO_OPENAL::Update( const float time_step ) {
+void AUDIO_OPENAL::Update( const float time_step, const CORE_MATH_VECTOR & position ) {
     
     #if __AUDIO_OPENAL__
-        const CORE_MATH_VECTOR & position = GRAPHIC_RENDERER::GetInstance().GetCamera()->GetPosition();
     
         AUDIO_CHECK( alListener3f(AL_POSITION, position[0], position[1], position[2]); )
         

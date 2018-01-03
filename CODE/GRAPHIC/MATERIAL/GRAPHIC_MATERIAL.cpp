@@ -13,6 +13,7 @@
 #include "RESOURCE_IMAGE.h"
 #include "GRAPHIC_SHADER_PROGRAM_DATA_PROXY.h"
 #include "CORE_DATA_JSON.h"
+#include "GRAPHIC_SYSTEM.h"
 
 typedef std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * > TEX_TAB_TYPE;
 
@@ -82,7 +83,7 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
     
     if ( renderer.IsColorEnabled() && Diffuse[3] > 0.0f ) {
-        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1, (const GLfloat * ) &Diffuse[0] )
+        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1,  &Diffuse[0] )
     }
     
     ApplyTexture( shader );

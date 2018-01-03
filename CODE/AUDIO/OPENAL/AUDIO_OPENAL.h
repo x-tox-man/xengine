@@ -19,7 +19,6 @@
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
 #include "SERVICE_LOGGER.h"
 
-
 #include <math.h>
 
 #if __AUDIO_OPENAL__ && DEBUG
@@ -52,7 +51,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( AUDIO_OPENAL, AUDIO_INTERFACE< AUDIO_OPENAL > )
 
     void PauseSound( AUDIO_SOUND & sound);
 
-    void Update( const float time_step );
+    void Update( const float time_step, const CORE_MATH_VECTOR & position );
 
     void Suspend();
 

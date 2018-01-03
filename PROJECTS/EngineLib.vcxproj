@@ -148,6 +148,7 @@
     <IntDir>obj\Win32\Debug-VK\</IntDir>
     <TargetName>EngineLib</TargetName>
     <TargetExt>.lib</TargetExt>
+    <IncludePath>C:\VulkanSDK\1.0.39.1\Include;$(IncludePath)</IncludePath>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">
@@ -155,6 +156,7 @@
     <IntDir>obj\Win32\Release-VK\</IntDir>
     <TargetName>EngineLib</TargetName>
     <TargetExt>.lib</TargetExt>
+    <IncludePath>C:\VulkanSDK\1.0.39.1\Include;$(IncludePath)</IncludePath>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DX12|Win32'">
@@ -218,7 +220,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;__BULLET_PHYSICS__;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;__BULLET_PHYSICS__;X_VK=1;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\DATA\UTF8;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\NAVIGATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\SERVICE\NETWORK\LOBBY\CLIENT;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\TOOLS_LOCALE;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision;..\LIBRARY\COMMON\BULLET\src\Bullet3Common;..\LIBRARY\COMMON\BULLET\src\Bullet3Dynamics;..\LIBRARY\COMMON\BULLET\src\Bullet3Geometry;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL;..\LIBRARY\COMMON\BULLET\src\Bullet3Serialize;..\LIBRARY\COMMON\BULLET\src\BulletCollision;..\LIBRARY\COMMON\BULLET\src\BulletDynamics;..\LIBRARY\COMMON\BULLET\src\BulletInverseDynamics;..\LIBRARY\COMMON\BULLET\src\BulletSoftBody;..\LIBRARY\COMMON\BULLET\src\clew;..\LIBRARY\COMMON\BULLET\src\LinearMath;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision\BroadPhaseCollision;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision\NarrowPhaseCollision;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision\BroadPhaseCollision\shared;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision\NarrowPhaseCollision\shared;..\LIBRARY\COMMON\BULLET\src\Bullet3Common\shared;..\LIBRARY\COMMON\BULLET\src\Bullet3Dynamics\ConstraintSolver;..\LIBRARY\COMMON\BULLET\src\Bullet3Dynamics\shared;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\BroadphaseCollision;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\Initialize;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\NarrowphaseCollision;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\ParallelPrimitives;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\Raycast;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\RigidBody;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\BroadphaseCollision\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\NarrowphaseCollision\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\ParallelPrimitives\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\Raycast\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\RigidBody\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3Serialize\Bullet2FileLoader;..\LIBRARY\COMMON\BULLET\src\Bullet3Serialize\Bullet2FileLoader\autogenerated;..\LIBRARY\COMMON\BULLET\src\BulletCollision\BroadphaseCollision;..\LIBRARY\COMMON\BULLET\src\BulletCollision\CollisionDispatch;..\LIBRARY\COMMON\BULLET\src\BulletCollision\CollisionShapes;..\LIBRARY\COMMON\BULLET\src\BulletCollision\Gimpact;..\LIBRARY\COMMON\BULLET\src\BulletCollision\NarrowPhaseCollision;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\Character;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\ConstraintSolver;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\Dynamics;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\Featherstone;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\MLCPSolvers;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\Vehicle;..\LIBRARY\COMMON\BULLET\src\BulletInverseDynamics\details;..\LIBRARY\COMMON\BULLET\src;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -243,7 +245,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;__BULLET_PHYSICS__;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;__BULLET_PHYSICS__;X_VK=1;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\CODE\AUDIO;..\CODE\CORE;..\CODE\GAMEPLAY;..\CODE\GRAPHIC;..\CODE\NETWORK;..\CODE\PERIPHERIC;..\CODE\PHYSICS;..\CODE\RESOURCE;..\CODE\SERVICE;..\CODE\TOOLS;..\CODE\AUDIO\BANK;..\CODE\AUDIO\OPENAL;..\CODE\AUDIO\OPENSL;..\CODE\AUDIO\SOUND;..\CODE\CORE\ABSTRACT;..\CODE\CORE\APPLICATION;..\CODE\CORE\DATA;..\CODE\CORE\FACTORY;..\CODE\CORE\FILESYSTEM;..\CODE\CORE\FIXED_STATE;..\CODE\CORE\HELPERS;..\CODE\CORE\MATH;..\CODE\CORE\MEMORY;..\CODE\CORE\OBSERVABLE;..\CODE\CORE\PARALLEL;..\CODE\CORE\RUNTIME_ENVIRONMENT;..\CODE\CORE\TIMELINE;..\CODE\CORE\ABSTRACT\PROGRAM;..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\CODE\CORE\DATA\ARRAY;..\CODE\CORE\DATA\BUFFER;..\CODE\CORE\DATA\JSON;..\CODE\CORE\DATA\LOADER;..\CODE\CORE\DATA\STREAM;..\CODE\CORE\DATA\UTF8;..\CODE\CORE\FILESYSTEM\WATCHER;..\CODE\CORE\HELPERS\CALLBACK;..\CODE\CORE\HELPERS\CLASS;..\CODE\CORE\HELPERS\IDENTIFIER;..\CODE\CORE\HELPERS\SCALAR;..\CODE\CORE\HELPERS\STATIC;..\CODE\CORE\HELPERS\UNIQUE;..\CODE\CORE\MATH\MATRIX;..\CODE\CORE\MATH\POSE;..\CODE\CORE\MATH\QUATERNION;..\CODE\CORE\MATH\RAY;..\CODE\CORE\MATH\SHAPE;..\CODE\CORE\MATH\VECTOR;..\CODE\CORE\MEMORY\ALLOCATOR;..\CODE\CORE\PARALLEL\LOCK;..\CODE\CORE\PARALLEL\TASK;..\CODE\CORE\PARALLEL\THREAD;..\CODE\CORE\PARALLEL\THREAD\POSIX;..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\CODE\CORE\TIMELINE\COMMAND;..\CODE\CORE\TIMELINE\EVENT;..\CODE\GAMEPLAY\ACTION;..\CODE\GAMEPLAY\CHECKPOINT;..\CODE\GAMEPLAY\COMPONENT;..\CODE\GAMEPLAY\SCENE;..\CODE\GAMEPLAY\ACTION\COMMAND;..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\CODE\GRAPHIC\CAMERA;..\CODE\GRAPHIC\MATERIAL;..\CODE\GRAPHIC\MESH;..\CODE\GRAPHIC\OBJECT;..\CODE\GRAPHIC\PARTICLE;..\CODE\GRAPHIC\RENDERER;..\CODE\GRAPHIC\RENDER_TARGET;..\CODE\GRAPHIC\SHADER;..\CODE\GRAPHIC\SYSTEM;..\CODE\GRAPHIC\TEXT;..\CODE\GRAPHIC\TEXTURE;..\CODE\GRAPHIC\UI;..\CODE\GRAPHIC\WINDOW;..\CODE\GRAPHIC\MESH\ANIMATION;..\CODE\GRAPHIC\OBJECT\SHAPE;..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\CODE\GRAPHIC\PARTICLE\RENDERER;..\CODE\GRAPHIC\SHADER\EFFECT;..\CODE\GRAPHIC\SHADER\LIGHT;..\CODE\GRAPHIC\SHADER\PROGRAM;..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\CODE\GRAPHIC\UI\ADAPTER;..\CODE\GRAPHIC\UI\ANIMATION;..\CODE\GRAPHIC\UI\NAVIGATION;..\CODE\GRAPHIC\UI\PRESENTER;..\CODE\GRAPHIC\UI\SCRIPTED;..\CODE\GRAPHIC\UI\TEXT;..\CODE\PERIPHERIC\INTERRACTION;..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\CODE\RESOURCE\IMAGE;..\CODE\RESOURCE\MESH;..\CODE\RESOURCE\SOUND;..\CODE\RESOURCE\IMAGE\PNG;..\CODE\RESOURCE\SOUND\MP3;..\CODE\SERVICE\LOGGER;..\CODE\SERVICE\NETWORK;..\CODE\SERVICE\NETWORK\LOBBY;..\CODE\SERVICE\NETWORK\LOBBY\CLIENT;..\CODE\TOOLS\ASSET_COMPILER;..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\CODE\TOOLS\DEBUG_DRAW_LINE;..\CODE\TOOLS\FONT_EDITOR;..\CODE\TOOLS\MATH_TOOLBOX;..\CODE\TOOLS\TOOLS_LOCALE;..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision;..\LIBRARY\COMMON\BULLET\src\Bullet3Common;..\LIBRARY\COMMON\BULLET\src\Bullet3Dynamics;..\LIBRARY\COMMON\BULLET\src\Bullet3Geometry;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL;..\LIBRARY\COMMON\BULLET\src\Bullet3Serialize;..\LIBRARY\COMMON\BULLET\src\BulletCollision;..\LIBRARY\COMMON\BULLET\src\BulletDynamics;..\LIBRARY\COMMON\BULLET\src\BulletInverseDynamics;..\LIBRARY\COMMON\BULLET\src\BulletSoftBody;..\LIBRARY\COMMON\BULLET\src\clew;..\LIBRARY\COMMON\BULLET\src\LinearMath;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision\BroadPhaseCollision;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision\NarrowPhaseCollision;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision\BroadPhaseCollision\shared;..\LIBRARY\COMMON\BULLET\src\Bullet3Collision\NarrowPhaseCollision\shared;..\LIBRARY\COMMON\BULLET\src\Bullet3Common\shared;..\LIBRARY\COMMON\BULLET\src\Bullet3Dynamics\ConstraintSolver;..\LIBRARY\COMMON\BULLET\src\Bullet3Dynamics\shared;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\BroadphaseCollision;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\Initialize;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\NarrowphaseCollision;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\ParallelPrimitives;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\Raycast;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\RigidBody;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\BroadphaseCollision\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\NarrowphaseCollision\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\ParallelPrimitives\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\Raycast\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3OpenCL\RigidBody\kernels;..\LIBRARY\COMMON\BULLET\src\Bullet3Serialize\Bullet2FileLoader;..\LIBRARY\COMMON\BULLET\src\Bullet3Serialize\Bullet2FileLoader\autogenerated;..\LIBRARY\COMMON\BULLET\src\BulletCollision\BroadphaseCollision;..\LIBRARY\COMMON\BULLET\src\BulletCollision\CollisionDispatch;..\LIBRARY\COMMON\BULLET\src\BulletCollision\CollisionShapes;..\LIBRARY\COMMON\BULLET\src\BulletCollision\Gimpact;..\LIBRARY\COMMON\BULLET\src\BulletCollision\NarrowPhaseCollision;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\Character;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\ConstraintSolver;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\Dynamics;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\Featherstone;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\MLCPSolvers;..\LIBRARY\COMMON\BULLET\src\BulletDynamics\Vehicle;..\LIBRARY\COMMON\BULLET\src\BulletInverseDynamics\details;..\LIBRARY\COMMON\BULLET\src;..\LIBRARY\WINDOWS\INCLUDES\LUA;..\LIBRARY\WINDOWS\INCLUDES\PNG;..\LIBRARY\WINDOWS\INCLUDES\UV;..\LIBRARY\WINDOWS\INCLUDES\Z;..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -639,10 +641,12 @@
     <ClInclude Include="..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER.h" />
     <ClInclude Include="..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER_OES2.hpp" />
     <ClInclude Include="..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER_OPENGL.hpp" />
+    <ClInclude Include="..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER_VK.hpp" />
     <ClInclude Include="..\CODE\GRAPHIC\RENDERER\GRAPHIC_RENDERER.h" />
     <ClInclude Include="..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET.h" />
     <ClInclude Include="..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET_OES2.hpp" />
     <ClInclude Include="..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET_OPENGL.hpp" />
+    <ClInclude Include="..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET_VK.hpp" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.h" />
@@ -656,12 +660,14 @@
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_OES2.hpp" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_OPENGL.hpp" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_TYPE.h" />
+    <ClInclude Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_VK.hpp" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\LIGHT\GRAPHIC_SHADER_LIGHT.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\LIGHT\GRAPHIC_SHADER_LIGHT_TYPE.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_DATA_PROXY.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_OES2.hpp" />
     <ClInclude Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_OPENGL.hpp" />
+    <ClInclude Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_VK.hpp" />
     <ClInclude Include="..\CODE\GRAPHIC\SYSTEM\GRAPHIC_SYSTEM.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SYSTEM\GRAPHIC_SYSTEM_BLEND_OPERATION.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SYSTEM\GRAPHIC_SYSTEM_COMPARE_OPERATION.h" />
@@ -669,6 +675,7 @@
     <ClInclude Include="..\CODE\GRAPHIC\SYSTEM\GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SYSTEM\OPENGLES_2.h" />
     <ClInclude Include="..\CODE\GRAPHIC\SYSTEM\OPENGL_3.h" />
+    <ClInclude Include="..\CODE\GRAPHIC\SYSTEM\VK.h" />
     <ClInclude Include="..\CODE\GRAPHIC\TEXT\GRAPHIC_FONT.h" />
     <ClInclude Include="..\CODE\GRAPHIC\TEXT\GRAPHIC_FONT_MANAGER.h" />
     <ClInclude Include="..\CODE\GRAPHIC\TEXT\GRAPHIC_GLYPH.h" />
@@ -868,7 +875,10 @@
     <ClCompile Include="..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_SUB_SKELETON.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\MESH\GRAPHIC_MESH.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_MANAGER.cpp" />
-    <ClCompile Include="..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_OPENGL.cpp" />
+    <ClCompile Include="..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_OPENGL.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_POLYGON_RENDER_MODE.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT.cpp" />
@@ -891,16 +901,28 @@
     <ClCompile Include="..\CODE\GRAPHIC\PARTICLE\MODIFIER\GRAPHIC_PARTICLE_MODIFIER_GRAVITY.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER_OES2.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-GL4|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-GL4|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER_OPENGL.cpp" />
+    <ClCompile Include="..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER_OPENGL.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER_VK.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\RENDERER\GRAPHIC_RENDERER.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET_OES2.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-GL4|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-GL4|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET_OPENGL.cpp" />
+    <ClCompile Include="..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET_OPENGL.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET_VK.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp" />
@@ -912,25 +934,43 @@
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_ATTRIBUTE.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_BIND.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_OES2.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-GL4|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-GL4|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_OPENGL.cpp" />
+    <ClCompile Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_OPENGL.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_VK.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\LIGHT\GRAPHIC_SHADER_LIGHT.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_OES2.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-GL4|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-GL4|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_OPENGL.cpp" />
+    <ClCompile Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_OPENGL.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_VK.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\SYSTEM\OPENGLES_2.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DX12|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-DX12|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-GL4|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-GL4|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\CODE\GRAPHIC\SYSTEM\OPENGL_3.cpp" />
+    <ClCompile Include="..\CODE\GRAPHIC\SYSTEM\OPENGL_3.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\CODE\GRAPHIC\SYSTEM\VK.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\TEXT\GRAPHIC_FONT.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\TEXT\GRAPHIC_FONT_MANAGER.cpp" />
     <ClCompile Include="..\CODE\GRAPHIC\TEXT\GRAPHIC_GLYPH.cpp" />

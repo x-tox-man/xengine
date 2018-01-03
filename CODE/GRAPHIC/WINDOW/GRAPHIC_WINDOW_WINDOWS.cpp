@@ -12,7 +12,10 @@
 #include "GRAPHIC_RENDERER.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 
-#include <GL/glew.h>
+#if OPENGL3 || OPENGL4
+    #include <GL/glew.h>
+#endif
+
 #include <time.h>
 #include <Winbase.h>
 
@@ -63,10 +66,14 @@ void GRAPHIC_WINDOW_WINDOWS::Initialize() {
 
 void GRAPHIC_WINDOW_WINDOWS::EnableBackgroundContext( bool enable ) {
 
-    if ( !wglMakeCurrent( GetDC( hWnd ), OGLBackgroundContext ) ) {
+    #if OPENGL2PLUS || OPENGLES2
+        if ( !wglMakeCurrent( GetDC( hWnd ), OGLBackgroundContext ) ) {
 
-        CORE_RUNTIME_Abort();
-    }
+            CORE_RUNTIME_Abort();
+        }
+    #else
+        abort();
+    #endif
 }
 
 void GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS::Display() {
@@ -89,13 +96,17 @@ void GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS::Display() {
 
         if ( msg.message != WM_QUIT ) {
 
+#if OPENGL2PLUS || OPENGLES2
             if ( !wglMakeCurrent( GetDC( hWnd ), OGLContext ) ) {
 
                 CORE_RUNTIME_Abort();
             }
 
-            glClearColor(GRAPHIC_SYSTEM::ClearColor.GetX(), GRAPHIC_SYSTEM::ClearColor.GetY(), GRAPHIC_SYSTEM::ClearColor.GetZ(), 1.0f );
+            glClearColor( GRAPHIC_SYSTEM::ClearColor.GetX(), GRAPHIC_SYSTEM::ClearColor.GetY(), GRAPHIC_SYSTEM::ClearColor.GetZ(), 1.0f );
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+#else
+            abort();
+#endif
 
             GRAPHIC_RENDERER::GetInstance().BeginFrame();
             GRAPHIC_RENDERER::GetInstance().Render();
@@ -164,7 +175,12 @@ BOOL GRAPHIC_WINDOW_WINDOWS::InitInstance( HINSTANCE hInstance, int nCmdShow ) {
         return FALSE;
     }
 
-    CreateOpenGlContext( GetDC( hWnd ) );
+    #if OPENGL2PLUS || OPENGLES2
+        CreateOpenGlContext( GetDC( hWnd ) );
+    #else
+        abort();
+    #endif
+
     CORE_APPLICATION::GetApplicationInstance().Initialize();
 
     ShowWindow( hWnd, nCmdShow );
@@ -333,8 +349,9 @@ void CreateOpenGlContext( HDC hdc ) {
         CORE_RUNTIME_Abort();
     }
 
-    OGLContext = wglCreateContext( hdc );
-    OGLBackgroundContext = wglCreateContext( hdc );
+#if OPENGL2PLUS || OPENGLES2
+    OGLContext=wglCreateContext( hdc );
+    OGLBackgroundContext=wglCreateContext( hdc );
 
     if ( !wglMakeCurrent( hdc, OGLContext ) ) {
 
@@ -349,6 +366,11 @@ void CreateOpenGlContext( HDC hdc ) {
         printf( "ERROR: %s\n", error );
         exit( EXIT_FAILURE );
     }
+#else
+    abort();
+#endif
+
+    
 
     /*if ( GLEW_VERSION_4_0 )
     {

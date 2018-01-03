@@ -36,6 +36,8 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
     #include "GRAPHIC_RENDER_TARGET_OPENGL.hpp"
 #elif OPENGLES2
     #include "GRAPHIC_RENDER_TARGET_OES2.hpp"
+#elif X_VK
+    #include "GRAPHIC_RENDER_TARGET_VK.hpp"
 #else
     #error "Must implement graphic system"
 #endif

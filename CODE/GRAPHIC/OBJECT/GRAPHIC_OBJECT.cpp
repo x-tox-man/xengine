@@ -106,8 +106,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         
         if ( time_mod.AttributeIndex > 0 ) {
             
-            GFX_CHECK( glUniform1f( time_mod.AttributeIndex,
-                                   time_mod.AttributeValue.Value.FloatValue); )
+            GRAPHIC_SYSTEM_ApplyFloat( mvp_matrix->AttributeIndex, 1, 0, &result[ 0 ] )
         }
         
         if ( depth.AttributeIndex > 0 && renderer.GetDepthTexture() ) {

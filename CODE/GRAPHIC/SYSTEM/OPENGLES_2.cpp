@@ -25,7 +25,11 @@ GRAPHIC_SYSTEM::~GRAPHIC_SYSTEM() {
 
 }
 
-void OPENGLES_2_Initialize() {
+void GRAPHIC_SYSTEM::Initialize( const char * app_name, int app_version  ) {
+
+}
+
+void GRAPHIC_SYSTEM::Finalize() {
 
 }
 

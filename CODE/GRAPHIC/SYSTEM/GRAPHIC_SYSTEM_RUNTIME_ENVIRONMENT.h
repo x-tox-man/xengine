@@ -18,6 +18,12 @@
     #define OPENGL2PLUS 0
 #endif
 
+#ifdef X_VK
+    #define X_VK 1
+#else
+    #define X_VK 0
+#endif
+
 #ifdef OPENGL4
     #define OPENGL4 1
     #define OPENGL2PLUS 1
@@ -60,8 +66,8 @@
 
 #if OPENGL3 || OPENGL4
     #include "OPENGL_3.h"
-#endif
-
-#if OPENGLES2
+#elif OPENGLES2
     #include "OPENGLES_2.h"
+#elif X_VK
+    #include "VK.h"
 #endif

@@ -7,6 +7,7 @@
 //
 
 #include "GRAPHIC_MESH.h"
+#include "GRAPHIC_SYSTEM.h"
 #include "CORE_DATA_STREAM.h"
 #include "CORE_DATA_JSON.h"
 #include "CORE_MEMORY.h"

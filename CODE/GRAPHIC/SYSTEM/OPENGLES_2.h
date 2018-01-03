@@ -48,8 +48,6 @@
     }
 #endif
 
-    void OPENGLES_2_Initialize();
-
     GLint OPENGLES_2_GetTextureFormat( GRAPHIC_TEXTURE_IMAGE_TYPE image_tye );
 
     GLenum OPENGLES_2_GetCompareOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation );
@@ -65,10 +63,15 @@
         transpose, \
         (const GLfloat * )array); )
 
-#define GRAPHIC_SYSTEM_ApplyVector(index, size, array) \
-    GFX_CHECK( glUniform4fv( \
-        index, \
-        size, \
-        (const GLfloat * )array); )
+    #define GRAPHIC_SYSTEM_ApplyVector(index, size, array) \
+        GFX_CHECK( glUniform4fv( \
+            index, \
+            size, \
+            (const GLfloat * )array); )
+
+    #define GRAPHIC_SYSTEM_ApplyFloat(index, value) \
+        GFX_CHECK( glUniform1f( \
+            index, \
+            value ); )
 
 #endif /* defined(__GAME_ENGINE_REBORN__OPENGL_2__) */

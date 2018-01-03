@@ -85,6 +85,13 @@ project "EngineLib"
 	filter "configurations:*DX12"
 		removefiles { "../CODE/**/*GLES*", "../CODE/**/*GL2*", "../CODE/**/*GL3*", "../CODE/**/*GL4*" }
 		defines { "DIRECTX12=1" }
+		
+	filter "configurations:*VK"
+		removefiles { "../CODE/**/*DX12*", "../CODE/**/*GLES*", "../CODE/**/*OPENGL*", "../CODE/**/*OES2*", "../CODE/**/*GL2*", "../CODE/**/*GL3*", "../CODE/**/*GL4*" }
+		defines { "X_VK=1" }
+		sysincludedirs {
+			"C:/VulkanSDK/1.0.39.1/Include"
+			}
 
 	filter "configurations:Debug*"
 		defines { "DEBUG", "_DEBUG" }

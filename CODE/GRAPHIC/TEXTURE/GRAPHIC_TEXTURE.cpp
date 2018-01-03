@@ -76,50 +76,62 @@ void GRAPHIC_TEXTURE::Discard() {
 
 void GRAPHIC_TEXTURE::SaveDepthTo( const CORE_FILESYSTEM_PATH & path ) {
     
-    RESOURCE_IMAGE_PNG_WRITER writer;
-    
-    RESOURCE_IMAGE img;
+    RESOURCE_IMAGE_PNG_WRITER
+        writer;
+    RESOURCE_IMAGE
+        img;
     
     int size = GetTextureInfo().Width * GetTextureInfo().Height;
-    float * pixels = new GLfloat [size];
+
+    #if OPENGL2PLUS
+        float * pixels = new GLfloat [size];
     
-    GFX_CHECK( glReadPixels(0, 0, GetTextureInfo().Width, GetTextureInfo().Height, GL_DEPTH_COMPONENT, GL_FLOAT, pixels); )
+        GFX_CHECK( glReadPixels(0, 0, GetTextureInfo().Width, GetTextureInfo().Height, GL_DEPTH_COMPONENT, GL_FLOAT, pixels); )
     
-    img.SetImageRawData(pixels);
-    img.GetImageInfo().Height = GetTextureInfo().Height;
-    img.GetImageInfo().Width = GetTextureInfo().Width;
-    img.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16;
-    img.GetImageInfo().PixelSize = 4;
+        img.SetImageRawData(pixels);
+        img.GetImageInfo().Height = GetTextureInfo().Height;
+        img.GetImageInfo().Width = GetTextureInfo().Width;
+        img.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16;
+        img.GetImageInfo().PixelSize = 4;
     
-    writer.Write(path, &img);
+        writer.Write(path, &img);
     
-    delete[] pixels;
+        delete[] pixels;
+    #else
+        abort();//implement
+    #endif
     
     img.SetImageRawData( NULL );
 }
 
 void GRAPHIC_TEXTURE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
     
-    RESOURCE_IMAGE_PNG_WRITER writer;
-    
-    RESOURCE_IMAGE img;
+    RESOURCE_IMAGE_PNG_WRITER
+        writer;
+    RESOURCE_IMAGE
+        img;
     
     int size = GetTextureInfo().Width * GetTextureInfo().Height * 4;
-    float * pixels = new GLfloat [size];
+
+    #if OPENGL2PLUS
+        float * pixels = new GLfloat [size];
     
-    GFX_CHECK( glReadPixels(0, 0, GetTextureInfo().Width, GetTextureInfo().Height, GL_RGBA, GL_UNSIGNED_BYTE, pixels); )
+        GFX_CHECK( glReadPixels(0, 0, GetTextureInfo().Width, GetTextureInfo().Height, GL_RGBA, GL_UNSIGNED_BYTE, pixels); )
     
-    img.SetImageRawData(pixels);
+        img.SetImageRawData(pixels);
     
-    img.GetImageInfo().Height = GetTextureInfo().Height;
-    img.GetImageInfo().Width = GetTextureInfo().Width;
-    img.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;
-    img.GetImageInfo().PixelSize = 0;
-    img.GetImageInfo().ColorChannelWidth = 0;
+        img.GetImageInfo().Height = GetTextureInfo().Height;
+        img.GetImageInfo().Width = GetTextureInfo().Width;
+        img.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;
+        img.GetImageInfo().PixelSize = 0;
+        img.GetImageInfo().ColorChannelWidth = 0;
     
-    writer.Write( path, &img );
+        writer.Write( path, &img );
     
-    delete[] pixels;
+        delete[] pixels;
+    #else
+        abort();//implement
+    #endif
     
     img.SetImageRawData( NULL );
 }

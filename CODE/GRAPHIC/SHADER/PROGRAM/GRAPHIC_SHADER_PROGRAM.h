@@ -115,6 +115,8 @@ static const CORE_HELPERS_IDENTIFIER
     #include "GRAPHIC_SHADER_PROGRAM_OPENGL.hpp"
 #elif OPENGL4
 	#include "GRAPHIC_SHADER_PROGRAM_OPENGL.hpp"
+#elif X_VK
+    #include "GRAPHIC_SHADER_PROGRAM_VK.hpp"
 #else
     #error "Must include file to match graphic runtime"
 #endif
