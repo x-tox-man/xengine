@@ -56,10 +56,11 @@ private:
 
     #if __AUDIO_OPENAL__
         AUDIO_INTERFACE< AUDIO_OPENAL >
+            * Interface;
     #elif __AUDIO_OPENSL__
         AUDIO_INTERFACE< AUDIO_OPENSL >
+            * Interface;
     #endif
-        * Interface;
     AUDIO_SOUND_BANK
         Bank;
     AUDIO_SOUND

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VKSandbox", "VKSandbox.vcxproj", "{7503992A-E16D-4DA1-2AAC-FE4696552BF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug-VK|Win32 = Debug-VK|Win32
+		Release-VK|Win32 = Release-VK|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7503992A-E16D-4DA1-2AAC-FE4696552BF6}.Debug-VK|Win32.ActiveCfg = Debug-VK|Win32
+		{7503992A-E16D-4DA1-2AAC-FE4696552BF6}.Debug-VK|Win32.Build.0 = Debug-VK|Win32
+		{7503992A-E16D-4DA1-2AAC-FE4696552BF6}.Release-VK|Win32.ActiveCfg = Release-VK|Win32
+		{7503992A-E16D-4DA1-2AAC-FE4696552BF6}.Release-VK|Win32.Build.0 = Release-VK|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

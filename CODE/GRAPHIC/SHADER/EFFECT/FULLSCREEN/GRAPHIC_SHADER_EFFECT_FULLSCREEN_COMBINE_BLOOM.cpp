@@ -46,8 +46,16 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
     
     GRAPHIC_SHADER_EFFECT::BindAttributes();
     
-    GRAPHIC_SHADER_ATTRIBUTE * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BloomIntensityIdentifier.GetTextValue() ); )
+    GRAPHIC_SHADER_ATTRIBUTE
+        * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    
+#if OPENGL2PLUS
+        GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BloomIntensityIdentifier.GetTextValue() ); )
+#elif X_VK
+        abort();
+#else
+        abort();
+#endif
     
     if ( attribute->AttributeIndex != -1 ) {
         
@@ -62,7 +70,14 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
     }
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BaseIntensityIdentifier.GetTextValue() ); )
+
+#if OPENGL2PLUS
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BaseIntensityIdentifier.GetTextValue() ); )
+#elif X_VK
+    abort();
+#else
+    abort();
+#endif
     
     if ( attribute->AttributeIndex != -1 ) {
         
@@ -77,7 +92,14 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
     }
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BloomSaturationIdentifier.GetTextValue() ); )
+    
+#if OPENGL2PLUS
+        GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BloomSaturationIdentifier.GetTextValue() ); )
+#elif X_VK
+        abort();
+#else
+        abort();
+#endif
     
     if ( attribute->AttributeIndex != -1 ) {
         
@@ -92,7 +114,13 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
     }
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BaseSaturationIdentifier.GetTextValue() ); )
+#if OPENGL2PLUS
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BaseSaturationIdentifier.GetTextValue() ); )
+#elif X_VK
+        abort();
+#else
+        abort();
+#endif
     
     if ( attribute->AttributeIndex != -1 ) {
         

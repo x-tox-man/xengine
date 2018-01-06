@@ -11,9 +11,14 @@
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_RENDERER.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
+#include "GRAPHIC_SYSTEM.h"
 
 #if OPENGL3 || OPENGL4
     #include <GL/glew.h>
+#elif X_VK
+    #include <vulkan\vulkan.h>
+    #include "vulkan\vk_platform.h"
+    #include "vulkan\vk_sdk_platform.h"
 #endif
 
 #include <time.h>
@@ -33,8 +38,17 @@ LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
 void CreateOpenGlContext( HDC hdc );
 void DeleteOpenGlContext( HDC hdc );
 
+void CreateVkContext( HWND, HINSTANCE);
+void DeleteVkContext();
+
 HGLRC OGLContext = NULL;
 HGLRC OGLBackgroundContext = NULL;
+
+#if X_VK
+    VkSurfaceKHR
+        GraphicVkSurface;
+#endif
+
 GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS() :
     GRAPHIC_WINDOW(),
     hInstance(),
@@ -177,6 +191,8 @@ BOOL GRAPHIC_WINDOW_WINDOWS::InitInstance( HINSTANCE hInstance, int nCmdShow ) {
 
     #if OPENGL2PLUS || OPENGLES2
         CreateOpenGlContext( GetDC( hWnd ) );
+    #elif X_VK
+        CreateVkContext(hWnd, hInstance );
     #else
         abort();
     #endif
@@ -370,8 +386,6 @@ void CreateOpenGlContext( HDC hdc ) {
     abort();
 #endif
 
-    
-
     /*if ( GLEW_VERSION_4_0 )
     {
         Yay! OpenGL 1.3 is supported!
@@ -379,8 +393,25 @@ void CreateOpenGlContext( HDC hdc ) {
 }
 
 void DeleteOpenGlContext( HDC hdc ) {
-
+#if OPENGL2PLUS || OPENGLES2
     wglMakeCurrent( hdc, NULL );
+#endif
+}
+
+void CreateVkContext( HWND hwnd, HINSTANCE hinstance ) {
+
+    GRAPHIC_SYSTEM::Initialize( "VKSandbox", 1 );
+    VkWin32SurfaceCreateInfoKHR info = {};
+    info.sType=VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
+    info.pNext = NULL;
+    info.hinstance = hinstance;
+    info.hwnd = hwnd;
+
+    GFX_CHECK( vkCreateWin32SurfaceKHR( GetGraphicVKInstance(), &info, NULL,  &GraphicVkSurface ); )
+}
+
+void DeleteVkContext() {
+
 }
 
 void GRAPHIC_WINDOW_WINDOWS::Resize( int width, int height ) {
