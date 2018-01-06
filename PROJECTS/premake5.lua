@@ -87,11 +87,10 @@ project "EngineLib"
 		defines { "DIRECTX12=1" }
 		
 	filter "configurations:*VK"
-		removefiles { "../CODE/**/*DX12*", "../CODE/**/*GLES*", "../CODE/**/*OPENGL*", "../CODE/**/*OES2*", "../CODE/**/*GL2*", "../CODE/**/*GL3*", "../CODE/**/*GL4*" }
-		defines { "X_VK=1" }
-		sysincludedirs {
-			"C:/VulkanSDK/1.0.39.1/Include"
-			}
+		removefiles { "../../CODE/**/*DX12*", "../../CODE/**/*GLES*", "../../CODE/**/*OPENGL*", "../../CODE/**/*OES2*", "../../CODE/**/*GL2*", "../../CODE/**/*GL3*", "../../CODE/**/*GL4*" }
+		defines { "X_VK=1", "VK_USE_PLATFORM_WIN32_KHR" }
+		sysincludedirs { "C:/VulkanSDK/1.0.65.1/Include" }
+		links { "vulkan-1" }
 
 	filter "configurations:Debug*"
 		defines { "DEBUG", "_DEBUG" }

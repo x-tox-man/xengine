@@ -1,0 +1,614 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug-VK|Win32">
+      <Configuration>Debug-VK</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-VK|Win32">
+      <Configuration>Release-VK</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7503992A-E16D-4DA1-2AAC-FE4696552BF6}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>VKSandbox</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>bin\Debug-VK\</OutDir>
+    <IntDir>obj\Win32\Debug-VK\</IntDir>
+    <TargetName>VKSandbox</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <IncludePath>C:\VulkanSDK\1.0.39.1\Include;$(IncludePath)</IncludePath>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>bin\Release-VK\</OutDir>
+    <IntDir>obj\Win32\Release-VK\</IntDir>
+    <TargetName>VKSandbox</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <IncludePath>C:\VulkanSDK\1.0.65.1\Include;$(IncludePath)</IncludePath>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;X_VK=1;VK_USE_PLATFORM_WIN32_KHR;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\CODE\AUDIO;..\..\CODE\CORE;..\..\CODE\GAMEPLAY;..\..\CODE\GRAPHIC;..\..\CODE\NETWORK;..\..\CODE\PERIPHERIC;..\..\CODE\PHYSICS;..\..\CODE\RESOURCE;..\..\CODE\SERVICE;..\..\CODE\TOOLS;..\..\CODE\AUDIO\BANK;..\..\CODE\AUDIO\OPENAL;..\..\CODE\AUDIO\OPENSL;..\..\CODE\AUDIO\SOUND;..\..\CODE\CORE\ABSTRACT;..\..\CODE\CORE\APPLICATION;..\..\CODE\CORE\DATA;..\..\CODE\CORE\FACTORY;..\..\CODE\CORE\FILESYSTEM;..\..\CODE\CORE\FIXED_STATE;..\..\CODE\CORE\HELPERS;..\..\CODE\CORE\MATH;..\..\CODE\CORE\MEMORY;..\..\CODE\CORE\OBSERVABLE;..\..\CODE\CORE\PARALLEL;..\..\CODE\CORE\RUNTIME_ENVIRONMENT;..\..\CODE\CORE\TIMELINE;..\..\CODE\CORE\ABSTRACT\PROGRAM;..\..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\..\CODE\CORE\DATA\ARRAY;..\..\CODE\CORE\DATA\BUFFER;..\..\CODE\CORE\DATA\JSON;..\..\CODE\CORE\DATA\LOADER;..\..\CODE\CORE\DATA\STREAM;..\..\CODE\CORE\DATA\UTF8;..\..\CODE\CORE\FILESYSTEM\WATCHER;..\..\CODE\CORE\HELPERS\CALLBACK;..\..\CODE\CORE\HELPERS\CLASS;..\..\CODE\CORE\HELPERS\IDENTIFIER;..\..\CODE\CORE\HELPERS\SCALAR;..\..\CODE\CORE\HELPERS\STATIC;..\..\CODE\CORE\HELPERS\UNIQUE;..\..\CODE\CORE\MATH\MATRIX;..\..\CODE\CORE\MATH\POSE;..\..\CODE\CORE\MATH\QUATERNION;..\..\CODE\CORE\MATH\RAY;..\..\CODE\CORE\MATH\SHAPE;..\..\CODE\CORE\MATH\VECTOR;..\..\CODE\CORE\MEMORY\ALLOCATOR;..\..\CODE\CORE\PARALLEL\LOCK;..\..\CODE\CORE\PARALLEL\TASK;..\..\CODE\CORE\PARALLEL\THREAD;..\..\CODE\CORE\PARALLEL\THREAD\POSIX;..\..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\..\CODE\CORE\TIMELINE\COMMAND;..\..\CODE\CORE\TIMELINE\EVENT;..\..\CODE\GAMEPLAY\ACTION;..\..\CODE\GAMEPLAY\CHECKPOINT;..\..\CODE\GAMEPLAY\COMPONENT;..\..\CODE\GAMEPLAY\SCENE;..\..\CODE\GAMEPLAY\ACTION\COMMAND;..\..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\..\CODE\GRAPHIC\CAMERA;..\..\CODE\GRAPHIC\MATERIAL;..\..\CODE\GRAPHIC\MESH;..\..\CODE\GRAPHIC\OBJECT;..\..\CODE\GRAPHIC\PARTICLE;..\..\CODE\GRAPHIC\RENDERER;..\..\CODE\GRAPHIC\RENDER_TARGET;..\..\CODE\GRAPHIC\SHADER;..\..\CODE\GRAPHIC\SYSTEM;..\..\CODE\GRAPHIC\TEXT;..\..\CODE\GRAPHIC\TEXTURE;..\..\CODE\GRAPHIC\UI;..\..\CODE\GRAPHIC\WINDOW;..\..\CODE\GRAPHIC\MESH\ANIMATION;..\..\CODE\GRAPHIC\OBJECT\SHAPE;..\..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\..\CODE\GRAPHIC\PARTICLE\RENDERER;..\..\CODE\GRAPHIC\SHADER\EFFECT;..\..\CODE\GRAPHIC\SHADER\LIGHT;..\..\CODE\GRAPHIC\SHADER\PROGRAM;..\..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\..\CODE\GRAPHIC\UI\ADAPTER;..\..\CODE\GRAPHIC\UI\ANIMATION;..\..\CODE\GRAPHIC\UI\NAVIGATION;..\..\CODE\GRAPHIC\UI\PRESENTER;..\..\CODE\GRAPHIC\UI\SCRIPTED;..\..\CODE\GRAPHIC\UI\TEXT;..\..\CODE\PERIPHERIC\INTERRACTION;..\..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\..\CODE\RESOURCE\IMAGE;..\..\CODE\RESOURCE\MESH;..\..\CODE\RESOURCE\SOUND;..\..\CODE\RESOURCE\IMAGE\PNG;..\..\CODE\RESOURCE\SOUND\MP3;..\..\CODE\SERVICE\LOGGER;..\..\CODE\SERVICE\NETWORK;..\..\CODE\SERVICE\NETWORK\LOBBY;..\..\CODE\SERVICE\NETWORK\LOBBY\CLIENT;..\..\CODE\TOOLS\ASSET_COMPILER;..\..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\..\CODE\TOOLS\DEBUG_DRAW_LINE;..\..\CODE\TOOLS\FONT_EDITOR;..\..\CODE\TOOLS\MATH_TOOLBOX;..\..\CODE\TOOLS\TOOLS_LOCALE;..\..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;..\..\LIBRARY\WINDOWS\INCLUDES\LUA;..\..\LIBRARY\WINDOWS\INCLUDES\PNG;..\..\LIBRARY\WINDOWS\INCLUDES\UV;..\..\LIBRARY\WINDOWS\INCLUDES\Z;..\..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;vulkan-1.lib;VKstatic.1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\VulkanSDK\1.0.39.1\Bin32;..\..\LIBRARY\WINDOWS\DEBUG;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
+      <GenerateMapFile>true</GenerateMapFile>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-VK|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <PreprocessorDefinitions>__X_APP__;__PLATFORM_WINDOWS__;__AUDIO_OPENAL__;_USE_MATH_DEFINES;WIN32;_WINDOWS;X_VK=1;VK_USE_PLATFORM_WIN32_KHR;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\CODE\AUDIO;..\..\CODE\CORE;..\..\CODE\GAMEPLAY;..\..\CODE\GRAPHIC;..\..\CODE\NETWORK;..\..\CODE\PERIPHERIC;..\..\CODE\PHYSICS;..\..\CODE\RESOURCE;..\..\CODE\SERVICE;..\..\CODE\TOOLS;..\..\CODE\AUDIO\BANK;..\..\CODE\AUDIO\OPENAL;..\..\CODE\AUDIO\OPENSL;..\..\CODE\AUDIO\SOUND;..\..\CODE\CORE\ABSTRACT;..\..\CODE\CORE\APPLICATION;..\..\CODE\CORE\DATA;..\..\CODE\CORE\FACTORY;..\..\CODE\CORE\FILESYSTEM;..\..\CODE\CORE\FIXED_STATE;..\..\CODE\CORE\HELPERS;..\..\CODE\CORE\MATH;..\..\CODE\CORE\MEMORY;..\..\CODE\CORE\OBSERVABLE;..\..\CODE\CORE\PARALLEL;..\..\CODE\CORE\RUNTIME_ENVIRONMENT;..\..\CODE\CORE\TIMELINE;..\..\CODE\CORE\ABSTRACT\PROGRAM;..\..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8;..\..\CODE\CORE\ABSTRACT\PROGRAM\LUA;..\..\CODE\CORE\DATA\ARRAY;..\..\CODE\CORE\DATA\BUFFER;..\..\CODE\CORE\DATA\JSON;..\..\CODE\CORE\DATA\LOADER;..\..\CODE\CORE\DATA\STREAM;..\..\CODE\CORE\DATA\UTF8;..\..\CODE\CORE\FILESYSTEM\WATCHER;..\..\CODE\CORE\HELPERS\CALLBACK;..\..\CODE\CORE\HELPERS\CLASS;..\..\CODE\CORE\HELPERS\IDENTIFIER;..\..\CODE\CORE\HELPERS\SCALAR;..\..\CODE\CORE\HELPERS\STATIC;..\..\CODE\CORE\HELPERS\UNIQUE;..\..\CODE\CORE\MATH\MATRIX;..\..\CODE\CORE\MATH\POSE;..\..\CODE\CORE\MATH\QUATERNION;..\..\CODE\CORE\MATH\RAY;..\..\CODE\CORE\MATH\SHAPE;..\..\CODE\CORE\MATH\VECTOR;..\..\CODE\CORE\MEMORY\ALLOCATOR;..\..\CODE\CORE\PARALLEL\LOCK;..\..\CODE\CORE\PARALLEL\TASK;..\..\CODE\CORE\PARALLEL\THREAD;..\..\CODE\CORE\PARALLEL\THREAD\POSIX;..\..\CODE\CORE\PARALLEL\THREAD\WINDOWS;..\..\CODE\CORE\RUNTIME_ENVIRONMENT\ANDROID;..\..\CODE\CORE\RUNTIME_ENVIRONMENT\IOS;..\..\CODE\CORE\RUNTIME_ENVIRONMENT\OSX;..\..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS;..\..\CODE\CORE\TIMELINE\COMMAND;..\..\CODE\CORE\TIMELINE\EVENT;..\..\CODE\GAMEPLAY\ACTION;..\..\CODE\GAMEPLAY\CHECKPOINT;..\..\CODE\GAMEPLAY\COMPONENT;..\..\CODE\GAMEPLAY\SCENE;..\..\CODE\GAMEPLAY\ACTION\COMMAND;..\..\CODE\GAMEPLAY\COMPONENT\CAMERA;..\..\CODE\GAMEPLAY\COMPONENT\LIGHT;..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM;..\..\CODE\GRAPHIC\CAMERA;..\..\CODE\GRAPHIC\MATERIAL;..\..\CODE\GRAPHIC\MESH;..\..\CODE\GRAPHIC\OBJECT;..\..\CODE\GRAPHIC\PARTICLE;..\..\CODE\GRAPHIC\RENDERER;..\..\CODE\GRAPHIC\RENDER_TARGET;..\..\CODE\GRAPHIC\SHADER;..\..\CODE\GRAPHIC\SYSTEM;..\..\CODE\GRAPHIC\TEXT;..\..\CODE\GRAPHIC\TEXTURE;..\..\CODE\GRAPHIC\UI;..\..\CODE\GRAPHIC\WINDOW;..\..\CODE\GRAPHIC\MESH\ANIMATION;..\..\CODE\GRAPHIC\OBJECT\SHAPE;..\..\CODE\GRAPHIC\PARTICLE\MODIFIER;..\..\CODE\GRAPHIC\PARTICLE\RENDERER;..\..\CODE\GRAPHIC\SHADER\EFFECT;..\..\CODE\GRAPHIC\SHADER\LIGHT;..\..\CODE\GRAPHIC\SHADER\PROGRAM;..\..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN;..\..\CODE\GRAPHIC\UI\ADAPTER;..\..\CODE\GRAPHIC\UI\ANIMATION;..\..\CODE\GRAPHIC\UI\NAVIGATION;..\..\CODE\GRAPHIC\UI\PRESENTER;..\..\CODE\GRAPHIC\UI\SCRIPTED;..\..\CODE\GRAPHIC\UI\TEXT;..\..\CODE\PERIPHERIC\INTERRACTION;..\..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR;..\..\CODE\RESOURCE\IMAGE;..\..\CODE\RESOURCE\MESH;..\..\CODE\RESOURCE\SOUND;..\..\CODE\RESOURCE\IMAGE\PNG;..\..\CODE\RESOURCE\SOUND\MP3;..\..\CODE\SERVICE\LOGGER;..\..\CODE\SERVICE\NETWORK;..\..\CODE\SERVICE\NETWORK\LOBBY;..\..\CODE\SERVICE\NETWORK\LOBBY\CLIENT;..\..\CODE\TOOLS\ASSET_COMPILER;..\..\CODE\TOOLS\BULLET_GL_DEBUGGER;..\..\CODE\TOOLS\DEBUG_DRAW_LINE;..\..\CODE\TOOLS\FONT_EDITOR;..\..\CODE\TOOLS\MATH_TOOLBOX;..\..\CODE\TOOLS\TOOLS_LOCALE;..\..\CODE\TOOLS\MATH_TOOLBOX\Applications;..\..\CODE\TOOLS\MATH_TOOLBOX\LowLevel;..\..\CODE\TOOLS\MATH_TOOLBOX\Mathematics;XCODE\GAME-ENGINE;..\..\LIBRARY\WINDOWS\INCLUDES\LUA;..\..\LIBRARY\WINDOWS\INCLUDES\PNG;..\..\LIBRARY\WINDOWS\INCLUDES\UV;..\..\LIBRARY\WINDOWS\INCLUDES\Z;..\..\LIBRARY\WINDOWS\INCLUDES\OPENAL;..\..\LIBRARY\WINDOWS\INCLUDES\FREETYPE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;shaderc_combined.lib;VkLayer_screenshot.lib;VkLayer_monitor.lib;VkLayer_api_dump.lib;vulkan-1.lib;VkLayer_unique_objects.lib;VkLayer_threading.lib;VkLayer_parameter_validation.lib;VkLayer_object_tracker.lib;VkLayer_core_validation.lib;VkLayer_utils.lib;VKstatic.1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\VulkanSDK\1.0.65.1\Lib;..\..\LIBRARY\WINDOWS\RELEASE;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
+      <GenerateMapFile>true</GenerateMapFile>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\CODE\AUDIO\AUDIO_INTERFACE.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\AUDIO_LOADER.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\AUDIO_LOADER_WINDOWS.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\AUDIO_SOUND_LOADER_MPG123.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\AUDIO_SYSTEM.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\BANK\AUDIO_BANK.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\BANK\AUDIO_BANK_SOUND.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\BANK\AUDIO_BANK_SOUND_LOAD_OPTION.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\OPENAL\AUDIO_OPENAL.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\SOUND\AUDIO_SOUND.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\SOUND\AUDIO_SOUND_CHUNK.h" />
+    <ClInclude Include="..\..\CODE\AUDIO\SOUND\AUDIO_SOUND_OSX.hpp" />
+    <ClInclude Include="..\..\CODE\AUDIO\SOUND\AUDIO_SOUND_WINDOWS.hpp" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_FUNCTION.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_FUNCTION_PARAMETER.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_BINDER.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_BINDER_MODE.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_FACTORY.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_MANAGER.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_RUNTIME.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_RUNTIME_TYPE.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_STATE.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8\CORE_ABSTRACT_PROGRAM_V8.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8\CORE_ABSTRACT_RUNTIME_V8.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\LUA\CORE_ABSTRACT_PROGRAM_LUA.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\LUA\CORE_ABSTRACT_PROGRAM_LUA_HELPERS.h" />
+    <ClInclude Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\LUA\CORE_ABSTRACT_RUNTIME_LUA.h" />
+    <ClInclude Include="..\..\CODE\CORE\APPLICATION\CORE_APPLICATION.h" />
+    <ClInclude Include="..\..\CODE\CORE\DATA\ARRAY\CORE_DATA_FAST_ARRAY.h" />
+    <ClInclude Include="..\..\CODE\CORE\DATA\BUFFER\CORE_DATA_BUFFER.h" />
+    <ClInclude Include="..\..\CODE\CORE\DATA\CORE_DATA_MODEL.h" />
+    <ClInclude Include="..\..\CODE\CORE\DATA\CORE_DATA_TYPES.h" />
+    <ClInclude Include="..\..\CODE\CORE\DATA\JSON\CORE_DATA_JSON.h" />
+    <ClInclude Include="..\..\CODE\CORE\DATA\LOADER\CORE_DATA_LOADER.h" />
+    <ClInclude Include="..\..\CODE\CORE\DATA\STREAM\CORE_DATA_STREAM.h" />
+    <ClInclude Include="..\..\CODE\CORE\DATA\UTF8\CORE_DATA_UTF8_TEXT.h" />
+    <ClInclude Include="..\..\CODE\CORE\FACTORY\CORE_HELPERS_FACTORY.h" />
+    <ClInclude Include="..\..\CODE\CORE\FILESYSTEM\CORE_FILESYSTEM.h" />
+    <ClInclude Include="..\..\CODE\CORE\FILESYSTEM\CORE_FILESYSTEM_FILE.h" />
+    <ClInclude Include="..\..\CODE\CORE\FILESYSTEM\CORE_FILESYSTEM_PATH.h" />
+    <ClInclude Include="..\..\CODE\CORE\FILESYSTEM\WATCHER\CORE_FILESYSTEM_FILE_WATCHER.h" />
+    <ClInclude Include="..\..\CODE\CORE\FIXED_STATE\CORE_FIXED_STATE.h" />
+    <ClInclude Include="..\..\CODE\CORE\FIXED_STATE\CORE_FIXED_STATE_EVENT.h" />
+    <ClInclude Include="..\..\CODE\CORE\FIXED_STATE\CORE_FIXED_STATE_MACHINE.h" />
+    <ClInclude Include="..\..\CODE\CORE\HELPERS\CALLBACK\CORE_HELPERS_CALLBACK.h" />
+    <ClInclude Include="..\..\CODE\CORE\HELPERS\CLASS\CORE_HELPERS_CLASS.h" />
+    <ClInclude Include="..\..\CODE\CORE\HELPERS\CORE_HELPERS_COLOR.h" />
+    <ClInclude Include="..\..\CODE\CORE\HELPERS\IDENTIFIER\CORE_HELPERS_IDENTIFIER.h" />
+    <ClInclude Include="..\..\CODE\CORE\HELPERS\IDENTIFIER\CORE_HELPERS_IDENTIFIER_SYSTEM.h" />
+    <ClInclude Include="..\..\CODE\CORE\HELPERS\IDENTIFIER\CORE_HELPERS_UNIQUE_IDENTIFIER.h" />
+    <ClInclude Include="..\..\CODE\CORE\HELPERS\SCALAR\CORE_HELPERS_SCALAR.h" />
+    <ClInclude Include="..\..\CODE\CORE\HELPERS\STATIC\CORE_HELPERS_STATIC.h" />
+    <ClInclude Include="..\..\CODE\CORE\HELPERS\UNIQUE\CORE_HELPERS_UNIQUE.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\CORE_MATH.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\MATRIX\CORE_MATH_MATRIX.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\POSE\CORE_MATH_POSE.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\QUATERNION\CORE_MATH_QUATERNION.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\RAY\CORE_MATH_RAY.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\RAY\CORE_MATH_RAY_SEGMENT.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE_BOX.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE_RECTANGLE.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE_SPHERE.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE_TYPE.h" />
+    <ClInclude Include="..\..\CODE\CORE\MATH\VECTOR\CORE_MATH_VECTOR.h" />
+    <ClInclude Include="..\..\CODE\CORE\MEMORY\ALLOCATOR\CORE_MEMORY.h" />
+    <ClInclude Include="..\..\CODE\CORE\MEMORY\ALLOCATOR\CORE_MEMORY_ALLOCATOR.h" />
+    <ClInclude Include="..\..\CODE\CORE\OBSERVABLE\CORE_HELPERS_OBSERVABLE.h" />
+    <ClInclude Include="..\..\CODE\CORE\PARALLEL\CORE_PARALLEL.h" />
+    <ClInclude Include="..\..\CODE\CORE\PARALLEL\LOCK\CORE_PARALLEL_LOCK.h" />
+    <ClInclude Include="..\..\CODE\CORE\PARALLEL\LOCK\CORE_PARALLEL_LOCK_MUTEX.h" />
+    <ClInclude Include="..\..\CODE\CORE\PARALLEL\LOCK\CORE_PARALLEL_LOCK_WINDOWS.hpp" />
+    <ClInclude Include="..\..\CODE\CORE\PARALLEL\TASK\CORE_PARALLEL_TASK.h" />
+    <ClInclude Include="..\..\CODE\CORE\PARALLEL\THREAD\CORE_PARALLEL_THREAD.h" />
+    <ClInclude Include="..\..\CODE\CORE\PARALLEL\THREAD\WINDOWS\CORE_PARALLEL_THREAD_WINDOWS.hpp" />
+    <ClInclude Include="..\..\CODE\CORE\RUNTIME_ENVIRONMENT\CORE_RUNTIME_ENVIRONMENT.h" />
+    <ClInclude Include="..\..\CODE\CORE\RUNTIME_ENVIRONMENT\WINDOWS\CORE_RUNTIME_ENVIRONMENT_WINDOWS.h" />
+    <ClInclude Include="..\..\CODE\CORE\TIMELINE\COMMAND\CORE_TIMELINE_COMMAND.h" />
+    <ClInclude Include="..\..\CODE\CORE\TIMELINE\CORE_TIMELINE.h" />
+    <ClInclude Include="..\..\CODE\CORE\TIMELINE\EVENT\CORE_TIMELINE_EVENT.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_READY.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_SERVER_INFO.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_START_GAME.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\GAMEPLAY_ACTION.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\GAMEPLAY_ACTION_SYSTEM.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\ACTION\GAMEPLAY_ACTION_TYPE.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\CHECKPOINT\GAMEPLAY_CHECKPOINT.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\CHECKPOINT\GAMEPLAY_CHECKPOINT_PLAYER_DATA.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\CHECKPOINT\GAMEPLAY_CHECKPOINT_SYSTEM.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\CAMERA\GAMEPLAY_CAMERA.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ACTION.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ANIMATION.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_BASE_ENTITY.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ENTITY.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ENTITY_HANDLE.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ENTITY_PROXY.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_HANDLE.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_MANAGER.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_PHYSICS.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_POSITION.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_RENDER.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_SCRIPT.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_TYPE.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\LIGHT\GAMEPLAY_LIGHT.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\PHYSICS_UTILS.hpp" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_PICKING.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.h" />
+    <ClInclude Include="..\..\CODE\GAMEPLAY\SCENE\GAMEPLAY_SCENE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\CAMERA\GRAPHIC_CAMERA.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\CAMERA\GRAPHIC_CAMERA_BILLBOARD.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\CAMERA\GRAPHIC_CAMERA_FUSTRUM.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\CAMERA\GRAPHIC_CAMERA_ORTHOGONAL.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MATERIAL\GRAPHIC_MATERIAL.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MATERIAL\GRAPHIC_MATERIAL_COLLECTION.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MATERIAL\GRAPHIC_MATERIAL_RESOURCE_LOADER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION_CONTROLLER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION_JOINT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION_MODE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION_SKELETON.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_SUB_SKELETON.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_MANAGER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_POLYGON_RENDER_MODE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_SURFACE_RENDER_MODE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT_ANIMATED.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT_RENDER_OPTIONS.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT_RESOURCE_LOADER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_AXIS.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_CUBE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_FRAME.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_GRID.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_LINE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_PLAN.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_SPHERE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE_EMITER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE_MANAGER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE_MODIFIER_APPLY_ORIENTATION.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE_MODIFIER_APPLY_VELOCITY.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE_MODIFIER_COLOR.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE_SYSTEM.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\MODIFIER\GRAPHIC_PARTICLE_MODIFIER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\MODIFIER\GRAPHIC_PARTICLE_MODIFIER_GRAVITY.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER_VK.hpp" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\RENDERER\GRAPHIC_RENDERER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET_VK.hpp" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\GRAPHIC_SHADER_EFFECT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\GRAPHIC_SHADER_EFFECT_LOADER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\GRAPHIC_SHADER_EFFECT_SPEEDBLUR.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_ATTRIBUTE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_BIND.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_TYPE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_VK.hpp" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\LIGHT\GRAPHIC_SHADER_LIGHT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\LIGHT\GRAPHIC_SHADER_LIGHT_TYPE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_DATA_PROXY.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_VK.hpp" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SYSTEM\GRAPHIC_SYSTEM.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SYSTEM\GRAPHIC_SYSTEM_BLEND_OPERATION.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SYSTEM\GRAPHIC_SYSTEM_COMPARE_OPERATION.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SYSTEM\GRAPHIC_SYSTEM_POLYGON_FILL_MODE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SYSTEM\GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\SYSTEM\VK.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\TEXT\GRAPHIC_FONT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\TEXT\GRAPHIC_FONT_MANAGER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\TEXT\GRAPHIC_GLYPH.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\TEXT\GRAPHIC_TEXT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE_ATLAS.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE_BLOCK.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE_INFO.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE_LOADER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_BASE_ADAPTER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_ADAPTER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_LIST_ADAPTER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_TEXT_ADAPTER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\ANIMATION\GRAPHIC_UI_ANIMATION.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_ELEMENT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_ELEMENT_STATE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_FRAME.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_HELPER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_PLACEMENT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_PLACEMENT_ANCHOR.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_RENDER_STYLE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_RENDER_STYLE_BUILDER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_SCREEN_REFERENCE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_SYSTEM.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\NAVIGATION\GRAPHIC_UI_ELEMENT_EVENT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\NAVIGATION\GRAPHIC_UI_NAVIGATION.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\PRESENTER\GRAPHIC_UI_PRESENTER.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\SCRIPTED\GRAPHIC_UI_ELEMENT_SCRIPTED.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\UI\TEXT\GRAPHIC_UI_TEXT.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\WINDOW\GRAPHIC_WINDOW.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\WINDOW\GRAPHIC_WINDOW_OSX_VIEW.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\WINDOW\GRAPHIC_WINDOW_WINDOWS.h" />
+    <ClInclude Include="..\..\CODE\NETWORK\NETWORK_CLIENT.h" />
+    <ClInclude Include="..\..\CODE\NETWORK\NETWORK_CLIENT_DELEGATE.h" />
+    <ClInclude Include="..\..\CODE\NETWORK\NETWORK_MANAGER.h" />
+    <ClInclude Include="..\..\CODE\NETWORK\NETWORK_PLAYER.h" />
+    <ClInclude Include="..\..\CODE\NETWORK\NETWORK_SERVER.h" />
+    <ClInclude Include="..\..\CODE\NETWORK\NETWORK_SERVER_DELEGATE.h" />
+    <ClInclude Include="..\..\CODE\NETWORK\NETWORK_SERVER_INFO.h" />
+    <ClInclude Include="..\..\CODE\PERIPHERIC\INTERRACTION\KEYBOARD_KEY.h" />
+    <ClInclude Include="..\..\CODE\PERIPHERIC\INTERRACTION\PERIPHERIC_INTERACTION_KEYBOARD.h" />
+    <ClInclude Include="..\..\CODE\PERIPHERIC\INTERRACTION\PERIPHERIC_INTERACTION_MOUSE.h" />
+    <ClInclude Include="..\..\CODE\PERIPHERIC\INTERRACTION\PERIPHERIC_INTERACTION_SYSTEM.h" />
+    <ClInclude Include="..\..\CODE\PERIPHERIC\INTERRACTION\PERIPHERIC_INTERACTION_TOUCH.h" />
+    <ClInclude Include="..\..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR\PERIPHERIC_INTERRACTION_VIBRATOR.h" />
+    <ClInclude Include="..\..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR\PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.h" />
+    <ClInclude Include="..\..\CODE\PHYSICS\PHYSICS_UTILS.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\IMAGE\PNG\RESOURCE_IMAGE_PNG_LOADER.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\IMAGE\PNG\RESOURCE_IMAGE_PNG_WRITER.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\IMAGE\RESOURCE_IMAGE.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\IMAGE\RESOURCE_IMAGE_ATLAS_COMPILER.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\MESH\GRAPHIC_MESH_LOADER_COLLADA.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\RESOURCE.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\RESOURCE_CACHE.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\RESOURCE_COMPILER.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\RESOURCE_CONTAINER.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\RESOURCE_LOADER.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\RESOURCE_PROXY.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\RESOURCE_REPRESENTATION.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\RESOURCE_TYPE.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\SOUND\MP3\RESOURCE_SOUND_MP3_LOADER.h" />
+    <ClInclude Include="..\..\CODE\RESOURCE\SOUND\RESOURCE_SOUND.h" />
+    <ClInclude Include="..\..\CODE\SERVICE\LOGGER\SERVICE_LOGGER.h" />
+    <ClInclude Include="..\..\CODE\SERVICE\NETWORK\LOBBY\CLIENT\SERVICE_NETWORK_LOBBY_CLIENT.h" />
+    <ClInclude Include="..\..\CODE\SERVICE\NETWORK\LOBBY\SERVICE_NETWORK_LOBBY.h" />
+    <ClInclude Include="..\..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_COMMAND.h" />
+    <ClInclude Include="..\..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_CONNECTION.h" />
+    <ClInclude Include="..\..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_CONNECTION_INFO.h" />
+    <ClInclude Include="..\..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_CONNECTION_TYPE.h" />
+    <ClInclude Include="..\..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_SYSTEM.h" />
+    <ClInclude Include="CODE\APPLICATION.h" />
+    <ClInclude Include="CODE\VKSandboxWindows.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\CODE\AUDIO\AUDIO_INTERFACE.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\AUDIO_LOADER.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\AUDIO_LOADER_WINDOWS.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\AUDIO_SOUND_LOADER_MPG123.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\AUDIO_SYSTEM.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\BANK\AUDIO_BANK.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\BANK\AUDIO_BANK_SOUND.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\BANK\AUDIO_BANK_SOUND_LOAD_OPTION.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\OPENAL\AUDIO_OPENAL.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\SOUND\AUDIO_SOUND.cpp" />
+    <ClCompile Include="..\..\CODE\AUDIO\SOUND\AUDIO_SOUND_CHUNK.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_FUNCTION.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_FUNCTION_PARAMETER.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_BINDER.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_FACTORY.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_MANAGER.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_RUNTIME.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\CORE_ABSTRACT_PROGRAM_STATE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8\CORE_ABSTRACT_PROGRAM_V8.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\GOOGLE_CHROME_V8\CORE_ABSTRACT_RUNTIME_V8.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\LUA\CORE_ABSTRACT_PROGRAM_LUA.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\LUA\CORE_ABSTRACT_PROGRAM_LUA_HELPERS.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\LUA\CORE_ABSTRACT_PROGRAM_LUA_HELPERS_CALLBACK_UI.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\ABSTRACT\PROGRAM\LUA\CORE_ABSTRACT_RUNTIME_LUA.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\APPLICATION\CORE_APPLICATION.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\DATA\ARRAY\CORE_DATA_FAST_ARRAY.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\DATA\BUFFER\CORE_DATA_BUFFER.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\DATA\CORE_DATA_MODEL.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\DATA\JSON\CORE_DATA_JSON.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\DATA\LOADER\CORE_DATA_LOADER.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\DATA\STREAM\CORE_DATA_STREAM.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\DATA\UTF8\CORE_DATA_UTF8_TEXT.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\FILESYSTEM\CORE_FILESYSTEM.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\FILESYSTEM\CORE_FILESYSTEM_FILE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\FILESYSTEM\CORE_FILESYSTEM_PATH.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\FILESYSTEM\WATCHER\CORE_FILESYSTEM_FILE_WATCHER.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\HELPERS\CALLBACK\CORE_HELPERS_CALLBACK.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\HELPERS\CLASS\CORE_HELPERS_CLASS.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\HELPERS\IDENTIFIER\CORE_HELPERS_IDENTIFIER.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\HELPERS\IDENTIFIER\CORE_HELPERS_IDENTIFIER_SYSTEM.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\HELPERS\IDENTIFIER\CORE_HELPERS_UNIQUE_IDENTIFIER.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\HELPERS\SCALAR\CORE_HELPERS_SCALAR.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\HELPERS\STATIC\CORE_HELPERS_STATIC.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\HELPERS\UNIQUE\CORE_HELPERS_UNIQUE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\MATRIX\CORE_MATH_MATRIX.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\POSE\CORE_MATH_POSE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\QUATERNION\CORE_MATH_QUATERNION.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\RAY\CORE_MATH_RAY.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\RAY\CORE_MATH_RAY_SEGMENT.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE_BOX.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE_RECTANGLE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE_SPHERE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\SHAPE\CORE_MATH_SHAPE_TYPE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MATH\VECTOR\CORE_MATH_VECTOR.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MEMORY\ALLOCATOR\CORE_MEMORY.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\MEMORY\ALLOCATOR\CORE_MEMORY_ALLOCATOR.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\OBSERVABLE\CORE_HELPERS_OBSERVABLE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\PARALLEL\LOCK\CORE_PARALLEL_LOCK.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\PARALLEL\LOCK\CORE_PARALLEL_LOCK_MUTEX.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\PARALLEL\LOCK\CORE_PARALLEL_LOCK_WINDOWS.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\PARALLEL\TASK\CORE_PARALLEL_TASK.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\PARALLEL\THREAD\CORE_PARALLEL_THREAD.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\PARALLEL\THREAD\WINDOWS\CORE_PARALLEL_THREAD_WINDOWS.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\TIMELINE\COMMAND\CORE_TIMELINE_COMMAND.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\TIMELINE\CORE_TIMELINE.cpp" />
+    <ClCompile Include="..\..\CODE\CORE\TIMELINE\EVENT\CORE_TIMELINE_EVENT.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_READY.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\COMMAND\GAMEPLAY_ACTION_COMMAND_START_GAME.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\GAMEPLAY_ACTION.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\ACTION\GAMEPLAY_ACTION_SYSTEM.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\CHECKPOINT\GAMEPLAY_CHECKPOINT.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\CHECKPOINT\GAMEPLAY_CHECKPOINT_PLAYER_DATA.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\CHECKPOINT\GAMEPLAY_CHECKPOINT_SYSTEM.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\CAMERA\GAMEPLAY_CAMERA.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ACTION.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ANIMATION.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_BASE_ENTITY.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ENTITY.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ENTITY_HANDLE.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_ENTITY_PROXY.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_HANDLE.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_MANAGER.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_PHYSICS.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_POSITION.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_RENDER.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\GAMEPLAY_COMPONENT_SCRIPT.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\LIGHT\GAMEPLAY_LIGHT.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\PHYSICS_UTILS.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_RENDERER.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\COMPONENT\SYSTEM\GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp" />
+    <ClCompile Include="..\..\CODE\GAMEPLAY\SCENE\GAMEPLAY_SCENE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\CAMERA\GRAPHIC_CAMERA.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\CAMERA\GRAPHIC_CAMERA_BILLBOARD.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\CAMERA\GRAPHIC_CAMERA_FUSTRUM.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\CAMERA\GRAPHIC_CAMERA_ORTHOGONAL.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MATERIAL\GRAPHIC_MATERIAL.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MATERIAL\GRAPHIC_MATERIAL_COLLECTION.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MATERIAL\GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION_JOINT.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION_MODE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_ANIMATION_SKELETON.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\ANIMATION\GRAPHIC_MESH_SUB_SKELETON.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_MANAGER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_POLYGON_RENDER_MODE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT_ANIMATED.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT_RENDER_OPTIONS.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT_RESOURCE_LOADER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_AXIS.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_CUBE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_FRAME.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_GRID.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_LINE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_PLAN.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\OBJECT\SHAPE\GRAPHIC_OBJECT_SHAPE_SPHERE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE_EMITER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE_MANAGER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\PARTICLE\GRAPHIC_PARTICLE_SYSTEM.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\PARTICLE\MODIFIER\GRAPHIC_PARTICLE_MODIFIER_GRAVITY.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\PARTICLE\RENDERER\GRAPHIC_PARTICLE_RENDERER_VK.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\RENDERER\GRAPHIC_RENDERER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\RENDER_TARGET\GRAPHIC_RENDER_TARGET_VK.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\FULLSCREEN\GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\GRAPHIC_SHADER_EFFECT.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\GRAPHIC_SHADER_EFFECT_LOADER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\EFFECT\GRAPHIC_SHADER_EFFECT_SPEEDBLUR.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_ATTRIBUTE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_BIND.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\GRAPHIC_SHADER_VK.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\LIGHT\GRAPHIC_SHADER_LIGHT.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SHADER\PROGRAM\GRAPHIC_SHADER_PROGRAM_VK.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\SYSTEM\VK.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\TEXT\GRAPHIC_FONT.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\TEXT\GRAPHIC_FONT_MANAGER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\TEXT\GRAPHIC_GLYPH.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\TEXT\GRAPHIC_TEXT.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE_ATLAS.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE_BLOCK.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE_INFO.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\TEXTURE\GRAPHIC_TEXTURE_LOADER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_BASE_ADAPTER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_ADAPTER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\ADAPTER\GRAPHIC_UI_TEXT_ADAPTER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\ANIMATION\GRAPHIC_UI_ANIMATION.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_ELEMENT.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_FRAME.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_HELPER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_PLACEMENT.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_RENDER_STYLE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_SCREEN_REFERENCE.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\GRAPHIC_UI_SYSTEM.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\NAVIGATION\GRAPHIC_UI_NAVIGATION.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\PRESENTER\GRAPHIC_UI_PRESENTER.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\SCRIPTED\GRAPHIC_UI_ELEMENT_SCRIPTED.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\UI\TEXT\GRAPHIC_UI_TEXT.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\WINDOW\GRAPHIC_WINDOW.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\WINDOW\GRAPHIC_WINDOW_OSX_VIEW.cpp" />
+    <ClCompile Include="..\..\CODE\GRAPHIC\WINDOW\GRAPHIC_WINDOW_WINDOWS.cpp" />
+    <ClCompile Include="..\..\CODE\NETWORK\NETWORK_CLIENT.cpp" />
+    <ClCompile Include="..\..\CODE\NETWORK\NETWORK_MANAGER.cpp" />
+    <ClCompile Include="..\..\CODE\NETWORK\NETWORK_PLAYER.cpp" />
+    <ClCompile Include="..\..\CODE\NETWORK\NETWORK_SERVER.cpp" />
+    <ClCompile Include="..\..\CODE\NETWORK\NETWORK_SERVER_INFO.cpp" />
+    <ClCompile Include="..\..\CODE\PERIPHERIC\INTERRACTION\PERIPHERIC_INTERACTION_KEYBOARD.cpp" />
+    <ClCompile Include="..\..\CODE\PERIPHERIC\INTERRACTION\PERIPHERIC_INTERACTION_MOUSE.cpp" />
+    <ClCompile Include="..\..\CODE\PERIPHERIC\INTERRACTION\PERIPHERIC_INTERACTION_SYSTEM.cpp" />
+    <ClCompile Include="..\..\CODE\PERIPHERIC\INTERRACTION\PERIPHERIC_INTERACTION_TOUCH.cpp" />
+    <ClCompile Include="..\..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR\PERIPHERIC_INTERRACTION_VIBRATOR.cpp" />
+    <ClCompile Include="..\..\CODE\PERIPHERIC\INTERRACTION\VIBRATOR\PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp" />
+    <ClCompile Include="..\..\CODE\PHYSICS\PHYSICS_UTILS.cpp">
+      <ObjectFileName>$(IntDir)\PHYSICS_UTILS1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\CODE\RESOURCE\IMAGE\PNG\RESOURCE_IMAGE_PNG_LOADER.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\IMAGE\PNG\RESOURCE_IMAGE_PNG_WRITER.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\IMAGE\RESOURCE_IMAGE.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\IMAGE\RESOURCE_IMAGE_ATLAS_COMPILER.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\MESH\GRAPHIC_MESH_LOADER_COLLADA.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\CODE\RESOURCE\RESOURCE.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\RESOURCE_CACHE.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\RESOURCE_COMPILER.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\RESOURCE_CONTAINER.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\RESOURCE_LOADER.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\RESOURCE_PROXY.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\RESOURCE_REPRESENTATION.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\RESOURCE_TYPE.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\SOUND\MP3\RESOURCE_SOUND_MP3_LOADER.cpp" />
+    <ClCompile Include="..\..\CODE\RESOURCE\SOUND\RESOURCE_SOUND.cpp" />
+    <ClCompile Include="..\..\CODE\SERVICE\LOGGER\SERVICE_LOGGER.cpp" />
+    <ClCompile Include="..\..\CODE\SERVICE\NETWORK\LOBBY\CLIENT\SERVICE_NETWORK_LOBBY_CLIENT.cpp" />
+    <ClCompile Include="..\..\CODE\SERVICE\NETWORK\LOBBY\SERVICE_NETWORK_LOBBY.cpp" />
+    <ClCompile Include="..\..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_COMMAND.cpp" />
+    <ClCompile Include="..\..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_CONNECTION.cpp" />
+    <ClCompile Include="..\..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_CONNECTION_INFO.cpp" />
+    <ClCompile Include="..\..\CODE\SERVICE\NETWORK\SERVICE_NETWORK_SYSTEM.cpp" />
+    <ClCompile Include="CODE\APPLICATION.cpp" />
+    <ClCompile Include="CODE\VKSandboxWindows.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

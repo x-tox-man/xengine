@@ -101,7 +101,9 @@ void GRAPHIC_TEXTURE_ATLAS::Load( const CORE_FILESYSTEM_PATH & atlas_path, const
 void GRAPHIC_TEXTURE_ATLAS::AddTexture( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_MATH_VECTOR & size, const CORE_MATH_VECTOR & offset ) {
     
     TextureBlockTable[ identifier ].SetTexture( new GRAPHIC_TEXTURE );
-    TextureBlockTable[ identifier ].GetTexture()->SetTextureHandle( GetTextureHandle() );
+    #if OPENGL2PLUS
+        TextureBlockTable[ identifier ].GetTexture()->SetTextureHandle( GetTextureHandle() );
+    #endif
     TextureBlockTable[ identifier ].GetTexture()->SetTextureInfo( GetTextureInfo() );
     
     TextureBlockTable[ identifier ].SetOffset( offset );

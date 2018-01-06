@@ -1,7 +1,8 @@
 #pragma once
-#if V_VK
+
+#if X_VK
 
     private:
 
-        bool GRAPHIC_SHADER::CompileShader( const CORE_FILESYSTEM_PATH & path );
+        bool CompileShader( const CORE_FILESYSTEM_PATH & path );
 #endif
