@@ -11,6 +11,8 @@
 
 R3D_PLAYER::R3D_PLAYER() :
     Ship( NULL ),
+    VirtualCredits( 0 ),
+    RealMoney( 0 ),
     TotalRunTime( 0.0f ) {
     
 }
@@ -53,4 +55,16 @@ std::vector< R3D_PLAYER_SHIP_MODEL::PTR > R3D_PLAYER::GetAllShipsOwned() {
     
 
     return all_ships;
+}
+
+bool R3D_PLAYER::Buy( int amount ) {
+    
+    if ( VirtualCredits >= amount ) {
+        
+        VirtualCredits -= amount;
+        
+        return true;
+    }
+    
+    return false;
 }

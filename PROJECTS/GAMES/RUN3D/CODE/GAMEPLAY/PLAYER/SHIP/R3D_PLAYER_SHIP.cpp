@@ -62,7 +62,7 @@ void R3D_PLAYER_SHIP::Initialize() {
     GAMEPLAY_HELPER::AddToPhysics( this, PHYSICS_COLLISION_TYPE_SHIP, PHYSICS_COLLISION_TYPE_ALL, true );
     GAMEPLAY_HELPER::AddToScripts( this );
     GAMEPLAY_HELPER::AddToWorld( this );
-    
+
     SetOrientation( q );
     
     GAMEPLAY_HELPER::InitializeCamera( start_position, q, Front );
@@ -168,28 +168,27 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     R3D_APP_PTR->SetFrom( comp_pos->GetPosition() );
     R3D_APP_PTR->SetTo( comp_pos->GetPosition() + v * 10.0f);
     
-        CORE_MATH_VECTOR x( 0.0f, 1.0f );
-        CORE_MATH_VECTOR dir = orientation * (x * (GetThrust() * 5.0f) );
-        
-        comp->ApplyForce( dir );
+    CORE_MATH_VECTOR x( 0.0f, 1.0f );
+    CORE_MATH_VECTOR dir = orientation * (x * (GetThrust() * 5.0f) );
     
-        v = comp->GetVelocity();
-        CORE_MATH_QUATERNION qr, qr2;
-        qr.RotateZ( M_PI_4 * GetRotation() * step );
-        qr2.RotateZ( -M_PI_4 * GetRotation() * step );
-        CORE_MATH_MATRIX
-            mm;
-    
-        qr.ToMatrix( mm.GetRow( 0 ) );
-    
-        CORE_MATH_VECTOR v2 = v * mm;
-        comp->SetVelocity( v2 );
-    
-        CORE_MATH_QUATERNION qrtot = comp_pos->GetOrientation() * qr2;
-        qrtot.Normalize();
-    
-        SetOrientation( qrtot );
-    //}
+    comp->ApplyForce( dir );
+
+    v = comp->GetVelocity();
+    CORE_MATH_QUATERNION qr, qr2;
+    qr.RotateZ( M_PI_4 * GetRotation() * step );
+    qr2.RotateZ( M_PI_4 * GetRotation() * step );
+    CORE_MATH_MATRIX
+        mm;
+
+    qr.ToMatrix( mm.GetRow( 0 ) );
+
+    CORE_MATH_VECTOR v2 = v * mm;
+    comp->SetVelocity( v2 );
+
+    CORE_MATH_QUATERNION qrtot = comp_pos->GetOrientation() * qr2;
+    qrtot.Normalize();
+
+    SetOrientation( qrtot );
 }
 
 void R3D_PLAYER_SHIP::Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation ) {

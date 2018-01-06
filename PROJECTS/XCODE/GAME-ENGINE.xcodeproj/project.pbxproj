@@ -4116,19 +4116,11 @@
 			isa = PBXGroup;
 			children = (
 				3238F3E41E90E80400838C62 /* CORE_PARALLEL.h */,
-				3238F3E51E90E80400838C62 /* JOB */,
 				3238F3E61E90E80400838C62 /* LOCK */,
 				3238F3EF1E90E80400838C62 /* TASK */,
 				3238F3F21E90E80400838C62 /* THREAD */,
 			);
 			path = PARALLEL;
-			sourceTree = "<group>";
-		};
-		3238F3E51E90E80400838C62 /* JOB */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = JOB;
 			sourceTree = "<group>";
 		};
 		3238F3E61E90E80400838C62 /* LOCK */ = {
@@ -4160,26 +4152,10 @@
 			children = (
 				3238F3F31E90E80400838C62 /* CORE_PARALLEL_THREAD.cpp */,
 				3238F3F41E90E80400838C62 /* CORE_PARALLEL_THREAD.h */,
-				3238F3F51E90E80400838C62 /* IOS */,
-				3238F3F61E90E80400838C62 /* OSX */,
 				3238F3F71E90E80400838C62 /* POSIX */,
 				3238F3FA1E90E80400838C62 /* WINDOWS */,
 			);
 			path = THREAD;
-			sourceTree = "<group>";
-		};
-		3238F3F51E90E80400838C62 /* IOS */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = IOS;
-			sourceTree = "<group>";
-		};
-		3238F3F61E90E80400838C62 /* OSX */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = OSX;
 			sourceTree = "<group>";
 		};
 		3238F3F71E90E80400838C62 /* POSIX */ = {

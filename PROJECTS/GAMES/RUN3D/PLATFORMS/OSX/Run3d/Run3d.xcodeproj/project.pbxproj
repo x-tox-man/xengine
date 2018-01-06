@@ -86,6 +86,8 @@
 		5F8A76B11FAF2759005DD2DD /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8A76B01FAF2759005DD2DD /* libuv.a */; };
 		5F8A76B31FAF276F005DD2DD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8A76B21FAF276E005DD2DD /* libz.tbd */; };
 		5F8B0B0B1FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F8B0B091FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.cpp */; };
+		5F92753B1FFFA315008604E4 /* R3D_GAUGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9275391FFFA315008604E4 /* R3D_GAUGE.cpp */; };
+		5F92753C1FFFA315008604E4 /* R3D_GAUGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9275391FFFA315008604E4 /* R3D_GAUGE.cpp */; };
 		5F92D9191F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D9171F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp */; };
 		5F92D91C1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D91A1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp */; };
 		5F92D91F1F12E0C400292A99 /* R3D_LEVEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F92D91D1F12E0C400292A99 /* R3D_LEVEL.cpp */; };
@@ -460,6 +462,8 @@
 		5F8A76B21FAF276E005DD2DD /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.1.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		5F8B0B091FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_MAIN_MENU_PRESENTER.cpp; sourceTree = "<group>"; };
 		5F8B0B0A1FD6074D0080CC50 /* UI_MAIN_MENU_PRESENTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_MAIN_MENU_PRESENTER.h; sourceTree = "<group>"; };
+		5F9275391FFFA315008604E4 /* R3D_GAUGE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAUGE.cpp; sourceTree = "<group>"; };
+		5F92753A1FFFA315008604E4 /* R3D_GAUGE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_GAUGE.h; sourceTree = "<group>"; };
 		5F92D9171F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAMEPLAY_GAME.cpp; sourceTree = "<group>"; };
 		5F92D9181F12E09500292A99 /* R3D_GAMEPLAY_GAME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_GAMEPLAY_GAME.h; sourceTree = "<group>"; };
 		5F92D91A1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAMEPLAY_GAME_PROGRESSION.cpp; sourceTree = "<group>"; };
@@ -1036,6 +1040,7 @@
 		5F76D06E1F71B48B004BEF48 /* COMPONENTS */ = {
 			isa = PBXGroup;
 			children = (
+				5F9275381FFFA315008604E4 /* GAUGE */,
 				5F0C3D0E1FDF367800B761A2 /* BASE_BUTTON */,
 				5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */,
 				5F4DEA731F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.h */,
@@ -1109,6 +1114,15 @@
 				5FA9F1E41FDD2CF000D2869F /* PHYSICS_COLLISION_NEAR_FILTER.h */,
 			);
 			path = PHYSICS;
+			sourceTree = "<group>";
+		};
+		5F9275381FFFA315008604E4 /* GAUGE */ = {
+			isa = PBXGroup;
+			children = (
+				5F9275391FFFA315008604E4 /* R3D_GAUGE.cpp */,
+				5F92753A1FFFA315008604E4 /* R3D_GAUGE.h */,
+			);
+			path = GAUGE;
 			sourceTree = "<group>";
 		};
 		5F92D8F81F12A59600292A99 /* AUDIO */ = {
@@ -1938,6 +1952,7 @@
 				5FA9F1E81FDDEE0C00D2869F /* UI_GARAGE.cpp in Sources */,
 				5F9C83B91FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp in Sources */,
 				5F92D9281F12E0F000292A99 /* R3D_LEVEL_TRACK.cpp in Sources */,
+				5F92753B1FFFA315008604E4 /* R3D_GAUGE.cpp in Sources */,
 				5F193BA01FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp in Sources */,
 				5F0C3CEE1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp in Sources */,
 				5F4DEA771F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp in Sources */,
@@ -1992,6 +2007,7 @@
 				5FD956F61FAE238B00FB9376 /* R3D_AUDIO_MUSIC_MANAGER.cpp in Sources */,
 				5FCED0CF1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp in Sources */,
 				5F193B9D1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp in Sources */,
+				5F92753C1FFFA315008604E4 /* R3D_GAUGE.cpp in Sources */,
 				5F9C83BA1FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp in Sources */,
 				5FCED0D41FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */,
 				5FD956F71FAE238B00FB9376 /* GAMEPLAY_HELPER.cpp in Sources */,

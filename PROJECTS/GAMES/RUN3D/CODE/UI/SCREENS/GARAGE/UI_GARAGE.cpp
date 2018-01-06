@@ -12,6 +12,7 @@
 #include "RUN3D_APPLICATION.h"
 #include "R3D_GARAGE_SHIPS_ADAPTER.h"
 #include "UI_GARAGE_SHIP_CELL.h"
+#include "R3D_GAUGE.h"
 
 UI_GARAGE::UI_GARAGE() :
     R3D_UI_FRAME() {
@@ -42,9 +43,28 @@ void UI_GARAGE::Initialize() {
     button->Initialize();
     ((R3D_BASE_PRESENTER::PTR) Presenter)->BindAction<R3D_BASE_PRESENTER, &R3D_BASE_PRESENTER::Back>(button, (R3D_BASE_PRESENTER*) Presenter);
     
+    CreateStatsFrame();
+    
     AddObject( button );
     AddObject( text );
     AddObject( ship_frame );
     
     button->GetPlacement().SetAnchor( GRAPHIC_UI_BottomLeft );
 }
+
+void UI_GARAGE::CreateStatsFrame() {
+    
+    auto stats = GRAPHIC_UI_HELPER::CreateFrame( Stats );
+    stats->GetPlacement().SetSize( CORE_MATH_VECTOR( 512.0f, 256.0f ) );
+    stats->GetPlacement().SetAnchor( GRAPHIC_UI_Bottom );
+    
+    auto g = new R3D_GAUGE;
+    g->Initialize();
+    g->SetPercent( 1.0f );
+    
+    stats->AddObject( g );
+    AddObject( stats );
+}
+
+CORE_HELPERS_IDENTIFIER
+    UI_GARAGE::Stats( "stats" );
