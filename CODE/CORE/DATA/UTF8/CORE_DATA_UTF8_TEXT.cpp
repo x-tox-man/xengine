@@ -22,7 +22,7 @@ CORE_DATA_UTF8_TEXT::CORE_DATA_UTF8_TEXT( const wchar_t * string ) :
     String( NULL ) {
         
     String = ( wchar_t * )  malloc( sizeof(wchar_t) * (wcslen( string ) + 1) );
-    wcscpy( String, string );
+    CORE_DATA_COPY_WIDE_STRING( String, string );
 }
 
 CORE_DATA_UTF8_TEXT::CORE_DATA_UTF8_TEXT( const CORE_DATA_UTF8_TEXT & other ) :

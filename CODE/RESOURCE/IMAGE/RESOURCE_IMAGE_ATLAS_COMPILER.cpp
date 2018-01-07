@@ -68,8 +68,8 @@ RESOURCE_IMAGE_ATLAS_COMPILER::NODE * RESOURCE_IMAGE_ATLAS_COMPILER::NODE::Inser
             Childs[ 0 ] = new RESOURCE_IMAGE_ATLAS_COMPILER::NODE();
             Childs[ 1 ] = new RESOURCE_IMAGE_ATLAS_COMPILER::NODE();
             
-            int dw = Rec.Size[ 0 ] - img->GetImageInfo().Width;
-            int dh = Rec.Size[ 1 ] - img->GetImageInfo().Height;
+            int dw = int( Rec.Size[ 0 ] - img->GetImageInfo().Width );
+            int dh = int( Rec.Size[ 1 ] - img->GetImageInfo().Height );
             
             CORE_MATH_VECTOR
                 center,
@@ -80,7 +80,7 @@ RESOURCE_IMAGE_ATLAS_COMPILER::NODE * RESOURCE_IMAGE_ATLAS_COMPILER::NODE::Inser
                 center[0] = Rec.Center[0] - Rec.Size[0] * 0.5f + img->GetImageInfo().Width * 0.5f;
                 center[1] = Rec.Center[1];
                 
-                size[0] = img->GetImageInfo().Width;
+                size[0] = ( float ) img->GetImageInfo().Width;
                 size[1] = Rec.Size[ 1 ];
                 
                 Childs[0]->Rec.Center = center;
@@ -90,7 +90,7 @@ RESOURCE_IMAGE_ATLAS_COMPILER::NODE * RESOURCE_IMAGE_ATLAS_COMPILER::NODE::Inser
                 center[0] = Rec.Center[0] + Rec.Size[0] * 0.5f - dw * 0.5f + 1;
                 center[1] = Rec.Center[1] + 1;
                 
-                size[0] = dw;
+                size[0] = ( float ) dw;
                 size[1] = Rec.Size[ 1 ];
                 
                 Childs[1]->Rec.Center = center;
@@ -102,7 +102,7 @@ RESOURCE_IMAGE_ATLAS_COMPILER::NODE * RESOURCE_IMAGE_ATLAS_COMPILER::NODE::Inser
                 center[1] = Rec.Center[1] - Rec.Size[1] * 0.5f + img->GetImageInfo().Height * 0.5f;
                 
                 size[0] = Rec.Size[ 0 ];
-                size[1] = img->GetImageInfo().Height;
+                size[1] = ( float ) img->GetImageInfo().Height;
                 
                 Childs[0]->Rec.Center = center;
                 Childs[0]->Rec.Size = size;
@@ -112,7 +112,7 @@ RESOURCE_IMAGE_ATLAS_COMPILER::NODE * RESOURCE_IMAGE_ATLAS_COMPILER::NODE::Inser
                 center[1] = Rec.Center[1] + Rec.Size[1] * 0.5f - dh * 0.5f + 1;
                 
                 size[0] = Rec.Size[ 0 ];
-                size[1] = dh;
+                size[1] = ( float ) dh;
                 
                 Childs[1]->Rec.Center = center;
                 Childs[1]->Rec.Size = size;
@@ -178,7 +178,7 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
     
     std::sort( SortedImageTable.begin(), SortedImageTable.end(), SortFunction );
     
-    for ( int i = 0; i < SortedImageTable.size(); i++ ) {
+    for ( size_t i = 0; i < SortedImageTable.size(); i++ ) {
         
         const GRAPHIC_TEXTURE_INFO & image_info = SortedImageTable[ i ]->GetImageInfo();
         
@@ -195,11 +195,11 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
         pixels_total += image_info.Width * image_info.Height;
     }
     
-    pixels_total += pixels_total * 0.1f;
+    pixels_total += (int) ( pixels_total * 0.1f );
     
     RootNode = new RESOURCE_IMAGE_ATLAS_COMPILER::NODE;
     
-    int side_size = sqrt( ( double ) pixels_total );
+    int side_size = (int) sqrt( ( double ) pixels_total );
     
     side_size--;
     side_size |= side_size >> 1;
@@ -221,11 +221,11 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
     atlas_texture->GetImageInfo().ColorChannelWidth = 8;
     
     RootNode->Rec.Center = CORE_MATH_VECTOR( side_size * 0.5f, side_size * 0.5f );
-    RootNode->Rec.Size = CORE_MATH_VECTOR( side_size, side_size );
+    RootNode->Rec.Size = CORE_MATH_VECTOR( ( float ) side_size, ( float ) side_size );
     
     GRAPHIC_TEXTURE_ATLAS atlas;
     
-    for ( int i = 0; i < SortedImageTable.size(); i++ ) {
+    for ( size_t i = 0; i < SortedImageTable.size(); i++ ) {
         
         NODE * result = RootNode->Insert( SortedImageTable[i] );
         
@@ -233,8 +233,8 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
             
             atlas_texture->Blit(
                 SortedImageTable[i],
-                result->Rec.Center[0] - result->Rec.Size[0] * 0.5f,
-                result->Rec.Center[1] - result->Rec.Size[1] * 0.5f,
+                ( int ) ( result->Rec.Center[0] - result->Rec.Size[0] * 0.5f ),
+                ( int ) ( result->Rec.Center[1] - result->Rec.Size[1] * 0.5f ),
                 result->Image->GetImageInfo().Width,
                 result->Image->GetImageInfo().Height,
                 0 );
@@ -281,8 +281,8 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
     
     char * destination_extention = (char *) CORE_MEMORY_ALLOCATOR_Allocate( strlen( destination_path ) + 4 );
 
-    strcpy(destination_extention, destination_path);
-    strcat(destination_extention, ".iax\0" );
+    CORE_DATA_COPY_STRING(destination_extention, destination_path);
+    CORE_DATA_STRING_CONCAT(destination_extention, ".iax\0" );
     
     FILE * file = fopen( destination_extention, "wb" );
     
@@ -304,8 +304,8 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
     
     char * destination_extention2 = (char *) CORE_MEMORY_ALLOCATOR_Allocate( strlen( destination_path ) + 4 );
     
-    strcpy(destination_extention2, destination_path);
-    strcat(destination_extention2, ".png" );
+    CORE_DATA_COPY_STRING( destination_extention2, destination_path );
+    CORE_DATA_STRING_CONCAT(destination_extention2, ".png" );
     
     writer.Write( destination_extention2, atlas_texture );
 

@@ -63,9 +63,9 @@ void GRAPHIC_MESH_ANIMATION::Initialize( std::vector<GRAPHIC_MESH_ANIMATION_JOIN
         JointTable.resize( IndexTable.size() );
     }
     
-    if (joints_table.size() ) {
+    if ( joints_table.size() ) {
 
-        for ( int i = 0; i < IndexTable.size(); i++ ) {
+        for ( size_t i = 0; i < IndexTable.size(); i++ ) {
             
             JointTable[i] = joints_table[ IndexTable[i] ];
         }
@@ -81,7 +81,7 @@ void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForTime( const float time
     Skeleton.ComputeWorldPose( time );
     //Skeleton.ComputeWorldMatrix( time );
     
-    for( int i = 0; i < JointTable.size(); i++ ) {
+    for ( size_t i = 0; i < JointTable.size(); i++ ) {
         
         float * ptr = (float *)JointTable[i]->GetInterPolatedMatrix();
         const CORE_MATH_POSE & pose = JointTable[i]->GetInterPolatedPose();

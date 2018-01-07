@@ -11,6 +11,7 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_MEMORY.h"
+#include "CORE_DATA_TYPES.h"
 
 XS_CLASS_BEGIN_WITH_COPY( CORE_HELPERS_UNIQUE_IDENTIFIER )
 
@@ -32,7 +33,11 @@ XS_DEFINE_SERIALIZABLE
         
         CheckSum = other.CheckSum;
 
+#if PLATFORM_WINDOWS
+        strncpy_s( Identifier, other.Identifier, 31 );
+#else
         strncpy( Identifier, other.Identifier, 31 );
+#endif
         
         Identifier[31] = '\0';
         

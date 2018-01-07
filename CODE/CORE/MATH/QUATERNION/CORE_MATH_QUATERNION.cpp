@@ -60,12 +60,12 @@ void CORE_MATH_QUATERNION::FromMatrix( const float * matrix  ) {
      * qz = (m10 - m01)/( 4 *qw)
      */
     
-    Value[3] = sqrtf( 1.0f + (double)matrix[0] + (double)matrix[5] + (double)matrix[10] ) / 2.0f;
+    Value[3] = sqrtf( 1.0f + matrix[0] + matrix[5] + matrix[10] ) * 0.5f;
     double w4 = (4.0 * (double)Value[3]);
     
-    Value[0] = ( (double)matrix[9] - (double)matrix[6] ) / w4;
-    Value[1] = ( (double)matrix[2] - (double)matrix[8] ) / w4;
-    Value[2] = ( (double)matrix[4] - (double)matrix[1] ) / w4;
+    Value[0] = ( float ) ( ( (double)matrix[9] - (double)matrix[6] ) / w4 );
+    Value[1] = ( float ) ( ( (double)matrix[2] - (double)matrix[8] ) / w4 );
+    Value[2] = ( float ) ( ( (double)matrix[4] - (double)matrix[1] ) / w4 );
 }
 
 /*

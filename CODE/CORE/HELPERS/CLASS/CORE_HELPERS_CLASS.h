@@ -11,6 +11,7 @@
 
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "CORE_MEMORY.h"
+#include "CORE_DATA_TYPES.h"
 
 class CORE_DATA_STREAM;
 class CORE_DATA_JSON;
@@ -203,7 +204,7 @@ public : \
     \
         unsigned int array_size = size; \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_STREAM >::Serialize< std::true_type >( "array_size", array_size, stream ); \
-        for ( int __std_v_index = 0; __std_v_index < array_size; __std_v_index++ ) \
+        for ( size_t __std_v_index = 0; __std_v_index < array_size; __std_v_index++ ) \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::true_type >( "", type[ __std_v_index ], stream ); \
     } \
     template<> template<>\
@@ -212,7 +213,7 @@ public : \
         unsigned int array_size; \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_STREAM >::Serialize< std::false_type >( "array_size", array_size, stream ); \
         type = (__TYPE__ *) CORE_MEMORY_ALLOCATOR::Allocate( array_size * sizeof( __TYPE__ ) ); \
-        for ( int __std_v_index = 0; __std_v_index < array_size; __std_v_index++ ) \
+        for ( size_t __std_v_index = 0; __std_v_index < array_size; __std_v_index++ ) \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::false_type >( #__TYPE__, type[ __std_v_index ], stream ); \
     } \
     void __TYPE__::UnSerialize( const char * member_name, CORE_DATA_STREAM & stream ) { \
@@ -317,7 +318,7 @@ public : \
         unsigned int array_size = size; \
         stream.PushArray( member_name ); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_JSON >::Serialize< std::true_type >( "array_size", array_size, stream ); \
-        for ( int __std_v_index = 0; __std_v_index < array_size; __std_v_index++ ) \
+        for ( size_t __std_v_index = 0; __std_v_index < array_size; __std_v_index++ ) \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::true_type >( "", type[ __std_v_index ], stream ); \
         stream.PopArray(); \
     } \
@@ -329,7 +330,7 @@ public : \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_JSON >::Serialize< std::false_type >( "array_size", array_size, stream ); \
         if ( array_size > 0 ) { \
             type = (__TYPE__ *) CORE_MEMORY_ALLOCATOR::Allocate( array_size * sizeof( __TYPE__ ) ); \
-            for ( int __std_v_index = 0; __std_v_index < array_size; __std_v_index++ ) { \
+            for ( size_t __std_v_index = 0; __std_v_index < array_size; __std_v_index++ ) { \
                 XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::false_type >( #__TYPE__, type[ __std_v_index ], stream ); \
             } \
         } \
@@ -352,21 +353,21 @@ public : \
     void XS_CLASS_SERIALIZER< std::vector< __TYPE__ >, CORE_DATA_STREAM >::Serialize< std::true_type >( const char * member_name, std::vector< __TYPE__ > & type, CORE_DATA_STREAM & stream ) { \
         unsigned int vector_size = (int) type.size(); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_STREAM >::Serialize< std::true_type >( "vector_size", vector_size, stream ); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::true_type >( #__TYPE__, type[ __std_v_index ], stream ); \
     } \
     template <> template <> \
     void XS_CLASS_SERIALIZER< std::vector< __TYPE__ >, CORE_DATA_STREAM >::Serialize< std::true_type >( const char * member_name, std::vector< __TYPE__ > * & type, CORE_DATA_STREAM & stream ) { \
         unsigned int vector_size = (int) type->size(); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_STREAM >::Serialize< std::true_type >( "vector_size", vector_size, stream ); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::true_type >( #__TYPE__, (*type)[ __std_v_index ], stream ); \
     } \
     template <> template <> \
     void XS_CLASS_SERIALIZER< std::vector< __TYPE__ >, CORE_DATA_STREAM >::Serialize< std::true_type >( const char * member_name, std::vector< __TYPE__ > ** type, CORE_DATA_STREAM & stream ) { \
         unsigned int vector_size = (int) (*type)->size(); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_STREAM >::Serialize< std::true_type >( "vector_size", vector_size, stream ); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::true_type >( #__TYPE__, (*(*type))[ __std_v_index ], stream ); \
     } \
     template <> template <> \
@@ -374,7 +375,7 @@ public : \
         unsigned int vector_size = (int) type.size(); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_STREAM >::Serialize< std::false_type >( "vector_size", vector_size, stream ); \
         type.resize( vector_size ); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::false_type >( #__TYPE__, type[ __std_v_index ], stream ); \
     } \
     template <> template <> \
@@ -382,7 +383,7 @@ public : \
         unsigned int vector_size = (int) type->size(); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_STREAM >::Serialize< std::false_type >( "vector_size", vector_size, stream ); \
         type->resize( vector_size ); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::false_type >( #__TYPE__, (*type)[ __std_v_index ], stream ); \
     } \
     template <> template <> \
@@ -390,7 +391,7 @@ public : \
         unsigned int vector_size = (int) (*type)->size(); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_STREAM >::Serialize< std::false_type >( "vector_size", vector_size, stream ); \
         (*type)->resize( vector_size ); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::false_type >( #__TYPE__, (*(*type))[ __std_v_index ], stream ); \
     } \
     \
@@ -401,7 +402,7 @@ public : \
         stream.PushObject( "" ); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_JSON >::Serialize< std::true_type >( "vector_size", vector_size, stream ); \
         stream.PopObject(); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
             stream.AppendMember(); \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::true_type >( NULL, type[ __std_v_index ], stream ); \
         } \
@@ -414,7 +415,7 @@ public : \
         stream.PushObject( "" ); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_JSON >::Serialize< std::true_type >( "vector_size", vector_size, stream ); \
         stream.PopObject(); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
             stream.AppendMember(); \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::true_type >( NULL, (*type)[ __std_v_index ], stream ); \
         } \
@@ -427,7 +428,7 @@ public : \
         stream.PushObject( "" ); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_JSON >::Serialize< std::true_type >( "vector_size", vector_size, stream ); \
         stream.PopObject(); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
             stream.AppendMember(); \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::true_type >( NULL, (*(*type))[ __std_v_index ], stream ); \
         } \
@@ -441,7 +442,7 @@ public : \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_JSON >::Serialize< std::false_type >( "vector_size", vector_size, stream ); \
         stream.ReadEndObject(); \
         type.resize( vector_size ); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
             stream.ReadMember(); \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::false_type >( NULL, type[ __std_v_index ], stream ); \
         } \
@@ -455,7 +456,7 @@ public : \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_JSON >::Serialize< std::false_type >( "vector_size", vector_size, stream ); \
         stream.ReadEndObject(); \
         type->resize( vector_size ); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
             stream.ReadMember(); \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::false_type >( NULL, (*type)[ __std_v_index ], stream ); \
         } \
@@ -469,7 +470,7 @@ public : \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_JSON >::Serialize< std::false_type >( "vector_size", vector_size, stream ); \
         stream.ReadEndObject(); \
         (*type)->resize( vector_size ); \
-        for ( int __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
+        for ( size_t __std_v_index = 0; __std_v_index < vector_size; __std_v_index++ ) {\
             stream.ReadMember(); \
             XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::false_type >( NULL, (*(*type))[ __std_v_index ], stream ); \
         } \
@@ -503,7 +504,7 @@ public : \
     void XS_CLASS_SERIALIZER< std::map< __KEY__, __TYPE__ >, CORE_DATA_STREAM >::Serialize< std::false_type >( const char * member_name, std::map< __KEY__, __TYPE__ > & type, CORE_DATA_STREAM & stream ) { \
         unsigned int map_size = (int) type.size(); \
         XS_CLASS_SERIALIZER< unsigned int, CORE_DATA_STREAM >::Serialize< std::false_type >( "map_size", map_size, stream ); \
-        for ( int __std_v_index = 0; __std_v_index < map_size; __std_v_index++ ) { \
+        for ( size_t __std_v_index = 0; __std_v_index < map_size; __std_v_index++ ) { \
             __KEY__ key; \
             __TYPE__ item; \
             XS_CLASS_SERIALIZER< __KEY__, CORE_DATA_STREAM >::Serialize< std::false_type >( #__KEY__, key, stream ); \

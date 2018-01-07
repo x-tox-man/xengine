@@ -1,13 +1,13 @@
 //
-//  OPENGL_2.h
+//  OPENGL_4.h
 //  GAME-ENGINE
 //
 //  Created by Christophe Bernard on 1/12/13.
 //  Copyright (c) 2013 Christophe Bernard. All rights reserved.
 //
 
-#ifndef __GAME_ENGINE_REBORN__OPENGL_2__
-#define __GAME_ENGINE_REBORN__OPENGL_2__
+#ifndef __GAME_ENGINE_REBORN__OPENGL_4__
+#define __GAME_ENGINE_REBORN__OPENGL_4__
 
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
@@ -21,7 +21,7 @@
 	#include <glext.h>
     
 #else
-	#include <OpenGL/gl3.h>
+	#include <OpenGL/gl4.h>
 	//#include <GLUT/GLUT.h>
 #endif
 
@@ -45,13 +45,13 @@
         }
 #endif
 
-    GLint OPENGL_3_GetTextureFormat( GRAPHIC_TEXTURE_IMAGE_TYPE image_tye );
+    GLint OPENGL_4_GetTextureFormat( GRAPHIC_TEXTURE_IMAGE_TYPE image_tye );
 
-    GLenum OPENGL_3_GetCompareOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation );
+    GLenum OPENGL_4_GetCompareOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation );
 
-    GLenum OPENGL_3_GetBlendOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation );
+    GLenum OPENGL_4_GetBlendOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation );
 
-    GLenum OPENGL_3_GetFillMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE mode );
+    GLenum OPENGL_4_GetFillMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE mode );
 
     #define GRAPHIC_SYSTEM_ApplyMatrix(index, size, transpose, array) \
         GFX_CHECK( glUniformMatrix4fv( \

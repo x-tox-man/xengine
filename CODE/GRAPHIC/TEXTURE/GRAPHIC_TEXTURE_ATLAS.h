@@ -25,7 +25,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_2( GRAPHIC_TEXTURE_ATLAS, GRAPHIC_TEXTURE, RESOURCE
 
     XS_DEFINE_SERIALIZABLE
 
-    virtual void Initialize( const void * texture_data );
+    virtual void Initialize( void * texture_data );
     void Load( const CORE_FILESYSTEM_PATH & atlas_path, const CORE_FILESYSTEM_PATH & image_path );
 
     void AddTexture( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_MATH_VECTOR & size, const CORE_MATH_VECTOR & offset );

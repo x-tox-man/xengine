@@ -101,8 +101,8 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::computePoint( float * data_pointer, float long
     static float base_vector[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
     CORE_MATH_MATRIX rotation_matrix ( CORE_MATH_MATRIX::Identity );
     
-    rotation_matrix.XRotate( -longi_ratio * M_PI );
-    rotation_matrix.YRotate( lati_ratio * M_PI * 2.0f );
+    rotation_matrix.XRotate( ( float ) ( -longi_ratio * M_PI ) );
+    rotation_matrix.YRotate( ( float ) ( lati_ratio * M_PI * 2.0f ) );
     
     CORE_SCALAR vector;
     

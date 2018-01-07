@@ -10,12 +10,15 @@
 #define GAME_ENGINE_REBORN_GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT_h
 
 #ifdef OPENGL3
-    #define OPENGL3 1
-    #define OPENGL2PLUS 1
-    #define GRAPHIC_SYSTEM_NAME OPENGL_3
-#else
-    #define OPENGL3 0
-    #define OPENGL2PLUS 0
+   #error "UNSUPPORTED OLD API"
+#endif
+
+#ifdef OPENGL
+    #error "UNSUPPORTED OLD API"
+#endif
+
+#ifdef OPENGL2
+    #error "UNSUPPORTED OLD API"
 #endif
 
 #ifdef X_VK
@@ -26,7 +29,6 @@
 
 #ifdef OPENGL4
     #define OPENGL4 1
-    #define OPENGL2PLUS 1
     #define GRAPHIC_SYSTEM_NAME OPENGL_4
 #else
     #define OPENGL4 0
@@ -55,17 +57,21 @@
 
 #ifdef OPENGLES2
     #define OPENGLES2 1
-    #define OPENGL2PLUS 0
     #define GRAPHIC_SYSTEM_NAME OPENGLES_2
-    #undef OPENGL2PLUS
 #else
     #define OPENGLES2 0
 #endif
 
+#if OPENGL4 || OPENGL3 || OPENGL3 || OPENGLES2
+    #define OPENGL2PLUS 1
+#else
+    #define OPENGL2PLUS 0
 #endif
 
-#if OPENGL3 || OPENGL4
-    #include "OPENGL_3.h"
+#endif
+
+#if OPENGL4
+    #include "OPENGL_4.h"
 #elif OPENGLES2
     #include "OPENGLES_2.h"
 #elif X_VK

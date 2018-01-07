@@ -25,7 +25,7 @@ GRAPHIC_FONT::GRAPHIC_FONT() :
     GlyphTable(),
     Texture() {
     
-        strcpy( Name, "HELLO" );
+    CORE_DATA_COPY_STRING( Name, "HELLO" );
 }
 
 GRAPHIC_FONT::~GRAPHIC_FONT() {

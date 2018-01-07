@@ -251,7 +251,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;LinearMath.lib;EngineLib.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet3Geometry.lib;Bullet3Dynamics.lib;BulletCollision.lib;BulletDynamics.lib;BulletInverseDynamics.lib;BulletInverseDynamicsUtils.lib;BulletSoftBody.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;EFX-Util.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;OpenGL32.lib;glew32s.lib;glew32.lib;GlU32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\libs;..\..\..\..\..\mylibs;..\..\..\..\bin\Debug-DX12;..\..\..\..\bin\Debug-GL4;..\..\..\..\..\LIBRARY\WINDOWS\DEBUG;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\bin\Debug-GL4;..\..\..\..\..\LIBRARY\WINDOWS\DEBUG;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <GenerateMapFile>true</GenerateMapFile>
     </Link>

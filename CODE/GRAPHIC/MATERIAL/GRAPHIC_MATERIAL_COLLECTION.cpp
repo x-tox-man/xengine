@@ -48,11 +48,10 @@ void GRAPHIC_MATERIAL_COLLECTION::LoadMaterialForName( const char * name ) {
     
     char normal_name[256], tesselation_name[256];
     
-    strcpy(normal_name, name);
-    strcat(normal_name, "-normal");
-    strcpy(tesselation_name, name);
-    strcat(tesselation_name, "-tesselation");
-    
+    CORE_DATA_COPY_STRING( normal_name, name );
+    CORE_DATA_STRING_CONCAT( normal_name, "-normal" );
+    CORE_DATA_COPY_STRING( tesselation_name, name );
+    CORE_DATA_STRING_CONCAT( tesselation_name, "-tesselation" );
     
     CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath(name, "png", "TEXTURES" );
     

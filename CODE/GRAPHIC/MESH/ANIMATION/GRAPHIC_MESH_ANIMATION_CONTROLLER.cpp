@@ -58,7 +58,7 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Initialize() {
     
     ThisFrameAnimationMatrixArrayTable.resize( MeshAnimationTable.size() );
     
-    for ( int i = 0; i < MeshAnimationTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
         
         ThisFrameAnimationMatrixArrayTable[ i ] = (float *) CORE_MEMORY_ALLOCATOR::Allocate( MeshAnimationTable[i]->GetJointTable().size() * sizeof(float) * 16 );
     }
@@ -76,7 +76,7 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Update( const float time ) {
     
     CurrentTimeFrame += time;
     
-    for ( int i = 0; i < MeshAnimationTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
         
         MeshAnimationTable[i]->ComputeSkinningMatrixTableForTime( CurrentTimeFrame, ThisFrameAnimationMatrixArrayTable[ i ] );
     }
@@ -86,7 +86,7 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Reset() {
     
     CurrentTimeFrame = 0.0f;
     
-    for ( int i = 0; i < MeshAnimationTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
         
         MeshAnimationTable[i]->ComputeSkinningMatrixTableForTime( CurrentTimeFrame, ThisFrameAnimationMatrixArrayTable[ i ] );
     }

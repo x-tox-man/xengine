@@ -28,12 +28,12 @@ CORE_FILESYSTEM_PATH::~CORE_FILESYSTEM_PATH() {
 CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const char * path ) :
     Path() {
     
-    strcpy( Path, path );
+    CORE_DATA_COPY_STRING( Path, path );
 }
 
 CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const CORE_FILESYSTEM_PATH & other ) {
     
-    strcpy(Path, other.Path);
+    CORE_DATA_COPY_STRING( Path, other.Path );
 }
 
 #if !PLATFORM_ANDROID && !PLATFORM_IOS
@@ -46,15 +46,15 @@ CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const CORE_FILESYSTEM_PATH & other )
         
         path_buffer[0] = '\0';
         
-        strcpy( path_buffer, CORE_FILESYSTEM::GetDefaultFilesystem().GetBaseDirectoryPath() );
+        CORE_DATA_COPY_STRING( path_buffer, CORE_FILESYSTEM::GetDefaultFilesystem().GetBaseDirectoryPath() );
         
         if ( strlen(directory ) ) {
             
-            strcat( path_buffer, directory );
-            strcat( path_buffer, CORE_FILESYSTEM::GetDirectorySeparator() );
+            CORE_DATA_STRING_CONCAT( path_buffer, directory );
+            CORE_DATA_STRING_CONCAT( path_buffer, CORE_FILESYSTEM::GetDirectorySeparator() );
         }
         
-        strcat( path_buffer, path );
+        CORE_DATA_STRING_CONCAT( path_buffer, path );
         
         // Need to check if extension is already present in path
         // if it is then override it
@@ -62,12 +62,12 @@ CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const CORE_FILESYSTEM_PATH & other )
         
         if ( (dot == NULL|| !override_extension) && strlen( extension )  ) {
             
-            strcat( path_buffer, "." );
-            strcat( path_buffer, extension );
+            CORE_DATA_STRING_CONCAT( path_buffer, "." );
+            CORE_DATA_STRING_CONCAT( path_buffer, extension );
         }
         else if ( strlen( extension ) && override_extension ) {
             
-            strcpy( ++dot, extension );
+            CORE_DATA_COPY_STRING( ++dot, extension );
             dot+= strlen(extension);
             *dot = '\0';
         }
@@ -100,7 +100,8 @@ const char * CORE_FILESYSTEM_PATH::GetFileName() const {
     return last_occurence;
 }
 
-CORE_FILESYSTEM_PATH CORE_FILESYSTEM_PATH::NotExisting( "" );
+CORE_FILESYSTEM_PATH
+    CORE_FILESYSTEM_PATH::NotExisting( "\0" );
 
 bool operator < (const CORE_FILESYSTEM_PATH & first, const CORE_FILESYSTEM_PATH & second ) {
     

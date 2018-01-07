@@ -55,18 +55,18 @@ GRAPHIC_OBJECT::~GRAPHIC_OBJECT() {
     
     Release();
     
-    for( int i = 0; i < MeshTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
 
         CORE_MEMORY_ObjectSafeDeallocation( MeshTable[ i ] );
     }
 
-    for ( int i=0; i < JointTable.size(); i++ ) {
+    for ( size_t i = 0; i < JointTable.size(); i++ ) {
 
         CORE_MEMORY_ObjectSafeDeallocation( JointTable[ i ] );
     }
     
     #if __COMPILE_WITH__COLLADA__
-        for ( int i = 0; i < AnimationTable.size(); i++ ) {
+        for ( size_t i = 0; i < AnimationTable.size(); i++ ) {
             
             CORE_MEMORY_ObjectSafeDeallocation( AnimationTable[ i ] );
         }
@@ -80,7 +80,7 @@ void GRAPHIC_OBJECT::AddNewMesh( GRAPHIC_MESH * mesh ) {
 
 void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
-    for ( int i = 0; i < MeshTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
         
         CORE_MATH_MATRIX
             result,
@@ -99,6 +99,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
         
         if ( model_matrix->AttributeIndex > 0 ) {
+
             GRAPHIC_SYSTEM_ApplyMatrix(model_matrix->AttributeIndex, 1, 0, &object[0])
         }
 
@@ -106,26 +107,26 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         
         if ( time_mod.AttributeIndex > 0 ) {
             
-            GRAPHIC_SYSTEM_ApplyFloat( mvp_matrix->AttributeIndex, 1, 0, &result[ 0 ] )
+            GRAPHIC_SYSTEM_ApplyFloat( mvp_matrix->AttributeIndex, time_mod.AttributeValue.Value.FloatValue )
         }
         
         if ( depth.AttributeIndex > 0 && renderer.GetDepthTexture() ) {
             
             CORE_MATH_MATRIX
-            depthMVP,
-            depthBias;
+                depthMVP,
+                depthBias;
             
-            assert( depth.AttributeIndex > 0 );
-            
-            GRAPHIC_SHADER_ATTRIBUTE * shadowmap_mvp = &effect->GetProgram().getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ShadowMapMVP );
+            GRAPHIC_SHADER_ATTRIBUTE
+                * shadowmap_mvp = &effect->GetProgram().getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ShadowMapMVP );
             
             renderer.GetDepthTexture()->ApplyDepth(0, depth.AttributeIndex );
             
-            CORE_MATH_MATRIX biasMatrix(0.5f, 0.0f, 0.0f, 0.5f,
-                                        0.0f, 0.5f, 0.0f, 0.5f,
-                                        0.0f, 0.0f, 0.5f, 0.5f,
-                                        0.0f, 0.0f, 0.0f, 1.0f
-                                        );
+            CORE_MATH_MATRIX
+                biasMatrix(
+                    0.5f, 0.0f, 0.0f, 0.5f,
+                    0.0f, 0.5f, 0.0f, 0.5f,
+                    0.0f, 0.0f, 0.5f, 0.5f,
+                    0.0f, 0.0f, 0.0f, 1.0f );
             
             depthMVP = renderer.GetShadowMapCamera().GetProjectionMatrix();
             depthMVP *= renderer.GetShadowMapCamera().GetViewMatrix();
@@ -183,7 +184,7 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
 
 void GRAPHIC_OBJECT::Release() {
     
-    for ( int i = 0; i < MeshTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
         
         MeshTable[i]->ReleaseBuffers();
     }

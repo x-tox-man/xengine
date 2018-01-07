@@ -90,7 +90,7 @@ void GRAPHIC_UI_FRAME_LIST_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, co
     
     if ( !IsHorizontal() ) {
             
-        int base_offset = ceil(GetTotalScrollOffset().Y() / CellDimension.Y());
+        int base_offset = ( int ) ceil(GetTotalScrollOffset().Y() / CellDimension.Y());
         
         CORE_MATH_VECTOR position_offset;// = GetTotalScrollOffset();
         
@@ -103,7 +103,7 @@ void GRAPHIC_UI_FRAME_LIST_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, co
     }
     else {
         
-        int base_offset = ceil(GetTotalScrollOffset().X() / CellDimension.X());
+        int base_offset = ( int ) ceil(GetTotalScrollOffset().X() / CellDimension.X());
         
         CORE_MATH_VECTOR position_offset = GetTotalScrollOffset();
         
@@ -118,7 +118,7 @@ void GRAPHIC_UI_FRAME_LIST_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, co
 
 CORE_MATH_VECTOR GRAPHIC_UI_FRAME_LIST_ADAPTER::CalculateFrameContentDimension( GRAPHIC_UI_ELEMENT * ) {
     
-    return CellDimension * GetItemsCount();
+    return CellDimension * (float) GetItemsCount();
 }
 
 int GRAPHIC_UI_FRAME_LIST_ADAPTER::CalculateVisibleItemsCount( GRAPHIC_UI_FRAME * frame ) {

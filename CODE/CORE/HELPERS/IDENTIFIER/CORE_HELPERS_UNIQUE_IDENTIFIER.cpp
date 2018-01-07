@@ -38,7 +38,11 @@ CORE_HELPERS_UNIQUE_IDENTIFIER::CORE_HELPERS_UNIQUE_IDENTIFIER( const CORE_HELPE
     
     CheckSum = other.CheckSum;
     
+#if PLATFORM_WINDOWS
+    strncpy_s( Identifier, other.Identifier, 31 );
+#else
     strncpy( Identifier, other.Identifier, 31 );
+#endif
     
     Identifier[31] = '\0';
 }
@@ -49,13 +53,18 @@ CORE_HELPERS_UNIQUE_IDENTIFIER::~CORE_HELPERS_UNIQUE_IDENTIFIER() {
 
 void CORE_HELPERS_UNIQUE_IDENTIFIER::Generate( const char * value ) {
     
-    #if DEBUG
+#if DEBUG
     if ( strlen( value ) > 31 ) {
-        
+
         SERVICE_LOGGER_Info( "CORE_HELPERS_UNIQUE_IDENTIFIER::Generate too long %s\n", value );
     }
-    #endif
+#endif
+    
+#if PLATFORM_WINDOWS
+    strncpy_s( Identifier, value, 31 );
+#else
     strncpy( Identifier, value, 31 );
+#endif
     
     CheckSum = 31;
     

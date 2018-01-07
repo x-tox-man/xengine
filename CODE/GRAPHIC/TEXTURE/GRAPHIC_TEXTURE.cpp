@@ -24,6 +24,12 @@ GRAPHIC_TEXTURE::GRAPHIC_TEXTURE() :
 #if OPENGL2PLUS || OPENGLES2
     ,TextureHandle( 0 )
     ,DepthTextureHandle( 0 )
+#elif X_VK
+    ,Sampler(),
+    Image(),
+    ImageLayout(),
+    Memory(),
+    Imageview()
 #endif
 {
 
@@ -34,7 +40,7 @@ GRAPHIC_TEXTURE::~GRAPHIC_TEXTURE() {
     GRAPHIC_SYSTEM::ReleaseTexture( this );
 }
 
-void GRAPHIC_TEXTURE::Initialize( const void * texture_data, bool generate_mip_map ) {
+void GRAPHIC_TEXTURE::Initialize( void * texture_data, bool generate_mip_map ) {
     
     GRAPHIC_SYSTEM::CreateTexture( this, texture_data, generate_mip_map );
 }

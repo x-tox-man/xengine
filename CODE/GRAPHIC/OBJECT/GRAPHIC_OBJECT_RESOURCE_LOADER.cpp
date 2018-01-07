@@ -62,7 +62,7 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( const CORE_FILESYSTEM_PAT
     
     stream.Close();
     
-    for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+    for ( size_t i = 0; i < object->GetMeshTable().size(); i++ ) {
         
         object->GetMeshTable()[ i ]->CreateBuffers();
     }
@@ -79,7 +79,7 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( CORE_DATA_STREAM & stream
     
     XS_CLASS_SERIALIZER< GRAPHIC_OBJECT, CORE_DATA_STREAM >::Serialize<std::false_type>( "object", *object, stream );
     
-    for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+    for ( size_t i = 0; i < object->GetMeshTable().size(); i++ ) {
         
         object->GetMeshTable()[ i ]->CreateBuffers();
     }
@@ -260,7 +260,7 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::LoadObject( const CORE_FILESYST
             
             stream.Close();
             
-            for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+            for ( size_t i = 0; i < object->GetMeshTable().size(); i++ ) {
                 
                 object->GetMeshTable()[ i ]->CreateBuffers();
             }

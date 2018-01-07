@@ -55,7 +55,7 @@ void GAMEPLAY_COMPONENT_SCRIPT::SaveToStream( CORE_DATA_STREAM & stream ) {
         
         stream << InternalVector->size();
         
-        for ( int i = 0; i< InternalVector->size(); i++ ) {
+        for ( size_t i = 0; i< InternalVector->size(); i++ ) {
             
             stream.InputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, sizeof(GAMEPLAY_COMPONENT_SCRIPT) * GAMEPLAY_COMPONENT_BASE_COUNT );
             
@@ -74,7 +74,7 @@ void GAMEPLAY_COMPONENT_SCRIPT::LoadFromStream( CORE_DATA_STREAM & stream ) {
     
     InternalVector->resize( size );
     
-    for ( int i = 0; i< size; i++ ) {
+    for ( size_t i = 0; i< size; i++ ) {
         
         InitializeMemory<INTERNAL_ARRAY_S, GAMEPLAY_COMPONENT_SCRIPT>( *InternalVector, i );
         

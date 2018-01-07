@@ -47,6 +47,8 @@ HGLRC OGLBackgroundContext = NULL;
 #if X_VK
     VkSurfaceKHR
         GraphicVkSurface;
+    VkWin32SurfaceCreateInfoKHR
+        WindowInfo = {};
 #endif
 
 GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS() :
@@ -92,9 +94,10 @@ void GRAPHIC_WINDOW_WINDOWS::EnableBackgroundContext( bool enable ) {
 
 void GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS::Display() {
 
-    MSG msg;
+    MSG
+        msg = {};
     
-    long long elapsed =  0.0f;
+    double elapsed =  0.0f;
 
     while ( msg.message != WM_QUIT ) {
     
@@ -104,7 +107,7 @@ void GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS::Display() {
             DispatchMessage( &msg );
         }
 
-        elapsed = (float)( clock() - StartTime );
+        elapsed = ( double ) ( clock() - StartTime );
 
         StartTime = clock();
 
@@ -300,12 +303,18 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
         case WM_CLOSE:
         case WM_DESTROY:
             GRAPHIC_RENDERER::GetInstance().SetRenderCallback(new CORE_HELPERS_CALLBACK());
+
             PostQuitMessage( 0 );
+
             if ( WaitForSingleObject( hWnd, 1000 ) == WAIT_TIMEOUT ) {
                 
                 TerminateProcess( hWnd, 0 );
             }
 
+            #if X_VK
+                vkDestroySurfaceKHR( GetGraphicVKInstance(), GraphicVkSurface, NULL );
+            #endif
+            GRAPHIC_SYSTEM::Finalize();
             CORE_APPLICATION::GetApplicationInstance().Finalize();
             
             break;
@@ -400,14 +409,16 @@ void DeleteOpenGlContext( HDC hdc ) {
 
 void CreateVkContext( HWND hwnd, HINSTANCE hinstance ) {
 
+#if X_VK
     GRAPHIC_SYSTEM::Initialize( "VKSandbox", 1 );
-    VkWin32SurfaceCreateInfoKHR info = {};
-    info.sType=VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-    info.pNext = NULL;
-    info.hinstance = hinstance;
-    info.hwnd = hwnd;
 
-    GFX_CHECK( vkCreateWin32SurfaceKHR( GetGraphicVKInstance(), &info, NULL,  &GraphicVkSurface ); )
+    WindowInfo.sType=VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
+    WindowInfo.pNext=NULL;
+    WindowInfo.hinstance=hinstance;
+    WindowInfo.hwnd=hwnd;
+
+    GFX_CHECK( vkCreateWin32SurfaceKHR( GetGraphicVKInstance(), &WindowInfo, NULL,  &GraphicVkSurface ); )
+#endif
 }
 
 void DeleteVkContext() {

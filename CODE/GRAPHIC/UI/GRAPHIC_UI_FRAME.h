@@ -40,7 +40,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME, GRAPHIC_UI_ELEMENT )
     virtual void Drag( const CORE_MATH_VECTOR & cursor_position ) override;
 
     virtual GRAPHIC_UI_ELEMENT * GetObjectForIdentifier( const CORE_HELPERS_IDENTIFIER & ) override;
-    virtual GRAPHIC_UI_ELEMENT * GetObjectAtIndex(int index );
+    virtual GRAPHIC_UI_ELEMENT * GetObjectAtIndex( size_t index );
     virtual GRAPHIC_UI_ELEMENT * Contains( const CORE_MATH_VECTOR & cursor_position ) override;
     virtual void SetObjectForIdentifier( const CORE_HELPERS_IDENTIFIER &, GRAPHIC_UI_ELEMENT * element);
     virtual void OnPlacementPropertyChanged() override;

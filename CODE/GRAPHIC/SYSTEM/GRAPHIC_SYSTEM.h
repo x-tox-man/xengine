@@ -60,7 +60,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
 
     static void CreateTexture( GRAPHIC_TEXTURE * texture );
     static void CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type );
-    static void CreateTexture( GRAPHIC_TEXTURE * texture, const void * texture_data, bool generate_mipmap );
+    static void CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_data, bool generate_mipmap );
     static void CreateSubTexture( GRAPHIC_TEXTURE * sub_texture, const GRAPHIC_TEXTURE & texture, const CORE_MATH_VECTOR & offset, const CORE_MATH_VECTOR & size, const void * data );
     static void ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
     static void ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );

@@ -278,7 +278,7 @@ void NETWORK_CLIENT::ProcessIncommingMessages() {
     SERVICE_NETWORK_COMMAND * command = NULL;
     CORE_TIMELINE_EVENT * event = NULL;
     
-    for (int i = 0; i < IncommingMessageQueue.size(); i++ ) {
+    for ( size_t i = 0; i < IncommingMessageQueue.size(); i++ ) {
         
         command = IncommingMessageQueue[i];
         

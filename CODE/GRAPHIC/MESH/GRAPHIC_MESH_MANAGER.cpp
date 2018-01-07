@@ -81,7 +81,7 @@ GRAPHIC_OBJECT * GRAPHIC_MESH_MANAGER::LoadObject( const CORE_FILESYSTEM_PATH & 
             
             stream.Close();
             
-            for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+            for ( size_t i = 0; i < object->GetMeshTable().size(); i++ ) {
                 
                 object->GetMeshTable()[ i ]->CreateBuffers();
             }
@@ -122,7 +122,7 @@ GRAPHIC_OBJECT_ANIMATED * GRAPHIC_MESH_MANAGER::LoadObjectAnimated( const CORE_F
         {
             CORE_DATA_LOADER< GRAPHIC_OBJECT >::Load( object, path );
             
-            for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+            for ( size_t i = 0; i < object->GetMeshTable().size(); i++ ) {
                 
                 object->GetMeshTable()[ i ]->CreateBuffers();
             }
