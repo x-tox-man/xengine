@@ -76,6 +76,17 @@ void GRAPHIC_UI_HELPER::CreateFrameStyleWithBorderAndContentTexture( GRAPHIC_UI_
     AddStyleToElementWithMask( element, style, state_mask );
 }
 
+void GRAPHIC_UI_HELPER::CreateElementStyleWithContentColor( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, int state_mask ) {
+    
+    GRAPHIC_UI_RENDER_STYLE * style = GRAPHIC_UI_RENDER_STYLE_BUILDER::NewStyle()
+        .CreateStyle( color )
+        .Build();
+    
+    element->SetOpacity( color.W() );
+    
+    AddStyleToElementWithMask( element, style, state_mask );
+}
+
 void GRAPHIC_UI_HELPER::CreateElementStyleWithContentTexture( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, const CORE_HELPERS_IDENTIFIER & content_texture_identifier, int state_mask ) {
     
     GRAPHIC_UI_RENDER_STYLE * style = GRAPHIC_UI_RENDER_STYLE_BUILDER::NewStyle()

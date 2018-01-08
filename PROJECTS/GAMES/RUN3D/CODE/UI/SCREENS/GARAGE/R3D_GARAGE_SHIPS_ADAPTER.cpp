@@ -9,9 +9,12 @@
 #include "R3D_GARAGE_SHIPS_ADAPTER.h"
 #include "GRAPHIC_UI_HELPER.h"
 #include "UI_GARAGE_SHIP_CELL.h"
+#include "UI_GARAGE.h"
+#include "R3D_GAUGE.h"
+#include "GRAPHIC_UI_SYSTEM.h"
 
 R3D_GARAGE_SHIPS_ADAPTER::R3D_GARAGE_SHIPS_ADAPTER( GRAPHIC_UI_FRAME * frame ) :
-    GRAPHIC_UI_FRAME_LIST_ADAPTER( frame, CreateTemplate() ),
+    GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER( frame, CreateTemplate() ),
     PlayerShips( NULL ) {
     
 }
@@ -44,4 +47,20 @@ GRAPHIC_UI_ELEMENT::PTR R3D_GARAGE_SHIPS_ADAPTER::CreateTemplate() {
     GRAPHIC_UI_FRAME::PTR template_element = GRAPHIC_UI_HELPER::CreateFrame( "ship_template" );
     
     return template_element;
+}
+
+void R3D_GARAGE_SHIPS_ADAPTER::OnBaseIndexChanged( int index ) {
+    
+    if ( index > 0 ) {
+        
+        auto frame = (R3D_UI_FRAME::PTR) GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().GetCurrentNavigationItem()->GetFrame();
+        auto stats = (GRAPHIC_UI_FRAME::PTR) frame->GetObjectForIdentifier( UI_GARAGE::Stats );
+        auto g1 = (R3D_GAUGE::PTR) stats->GetObjectAtIndex( 0 );
+        auto g2 = (R3D_GAUGE::PTR) stats->GetObjectAtIndex( 1 );
+        auto g3 = (R3D_GAUGE::PTR) stats->GetObjectAtIndex( 2 );
+        
+        g1->SetPercentAnimated( (rand() % 100 ) * 0.01f );
+        g2->SetPercentAnimated( (rand() % 100 ) * 0.01f );
+        g3->SetPercentAnimated( (rand() % 100 ) * 0.01f );
+    }
 }

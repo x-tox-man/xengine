@@ -21,7 +21,7 @@
 	#include <glext.h>
     
 #else
-	#include <OpenGL/gl4.h>
+	#include <OpenGL/gl3.h>
 	//#include <GLUT/GLUT.h>
 #endif
 

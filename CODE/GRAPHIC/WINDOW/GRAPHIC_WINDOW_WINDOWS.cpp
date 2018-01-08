@@ -13,7 +13,7 @@
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 #include "GRAPHIC_SYSTEM.h"
 
-#if OPENGL3 || OPENGL4
+#if OPENGL4
     #include <GL/glew.h>
 #elif X_VK
     #include <vulkan\vulkan.h>

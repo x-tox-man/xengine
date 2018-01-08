@@ -30,8 +30,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     void ResetOffset();
     inline void SetOffset( int offset ) { Offset = offset; }
 
-    inline int GetSize() const { return Size; }
-    inline int GetAllocatedBytes() const { return AllocatedBytes; }
+    inline size_t GetSize() const { return Size; }
+    inline size_t GetAllocatedBytes() const { return AllocatedBytes; }
 
     template <typename __TYPE__ >
     void operator << ( const __TYPE__ & data ) {
@@ -89,7 +89,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
 
     void operator >> ( wchar_t ** data ) {
         
-        size_t length;
+        size_t
+            length;
         
         memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(size_t) );
         Offset  += sizeof(size_t);
@@ -104,11 +105,12 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     inline const void * GetMemoryBuffer() const { return MemoryBuffer; }
     inline void * GetMemoryBuffer() { return MemoryBuffer; }
 
-    inline const int GetOffset() { return Offset; }
+    inline size_t GetOffset() { return Offset; }
 
     void InputBytesWithoutSize( const char * pointer, int size ) {
         
-        size_t length = size * sizeof( char );
+        size_t
+            length = size * sizeof( char );
         
         if ( AllocatedBytes - Offset < (size_t) size ) {
             
@@ -133,7 +135,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     template < typename __TYPE__ >
     void InputBytes(__TYPE__ ** pointer, int size ) {
         
-        size_t length = size * sizeof( __TYPE__ );
+        size_t
+            length = size * sizeof( __TYPE__ );
         
         if ( AllocatedBytes - Offset < length + sizeof(size_t) ) {
             
@@ -158,7 +161,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     template < typename __TYPE__ >
     void OutputBytes(__TYPE__ ** pointer, int & size ) {
         
-        int length;
+        size_t
+            length;
         
         memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(size_t) );
         Offset  += sizeof(size_t);
@@ -200,7 +204,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     template < typename __TYPE__ >
     void InputBytes(__TYPE__ * & pointer, int size ) {
         
-        size_t length = size * sizeof( __TYPE__ );
+        size_t
+            length = size * sizeof( __TYPE__ );
         
         if ( AllocatedBytes - Offset < length + sizeof(size_t) ) {
             
@@ -225,7 +230,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     template < typename __TYPE__ >
     void OutputBytes(__TYPE__ * & pointer, int & size ) {
         
-        int length;
+        size_t
+            length;
         
         memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(size_t) );
         Offset  += sizeof(size_t);
@@ -242,7 +248,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     template < typename __TYPE__ >
     void OutputBytes(__TYPE__ * pointer, size_t & size ) {
         
-        int length;
+        size_t
+            length;
         
         memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(size_t) );
         Offset  += sizeof(size_t);

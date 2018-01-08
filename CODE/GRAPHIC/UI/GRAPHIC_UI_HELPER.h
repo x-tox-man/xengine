@@ -37,6 +37,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_HELPER )
     static void CreateFrameStyleWithBorderAndContentTexture( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_IDENTIFIER & content_texture_identifier, const CORE_HELPERS_IDENTIFIER & border_texture_identifier, int state_mask = ALL_STATES );
     static void CreateFrameStyleWithBorderAndContentColor( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, const CORE_HELPERS_IDENTIFIER & border_texture_identifier, int state_mask = ALL_STATES );
     static void CreateElementStyleWithContentTexture( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, const CORE_HELPERS_IDENTIFIER & content_texture_identifier, int state_mask = ALL_STATES );
+    static void CreateElementStyleWithContentColor( GRAPHIC_UI_ELEMENT * element, const CORE_HELPERS_COLOR & color, int state_mask = ALL_STATES );
 
     static GRAPHIC_UI_ELEMENT * CreateTextElement( const CORE_HELPERS_IDENTIFIER & identifier, const CORE_DATA_UTF8_TEXT & text, int state_mask = ALL_STATES );
     static GRAPHIC_UI_ELEMENT * CreateTextElement( const char * identifier, const CORE_DATA_UTF8_TEXT & text, int state_mask = ALL_STATES );

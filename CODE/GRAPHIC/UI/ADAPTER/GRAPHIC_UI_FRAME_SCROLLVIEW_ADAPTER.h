@@ -38,7 +38,9 @@ protected:
     const CORE_MATH_VECTOR & GetTotalScrollOffset() const { return TotalScrollOffset;}
     const CORE_MATH_VECTOR & GetOverallFrameDimension() const { return OverallFrameDimension;}
 
-    CORE_MATH_VECTOR & GetTotalScrollOffset() { return TotalScrollOffset;}
+    inline CORE_MATH_VECTOR & GetTotalScrollOffset() { return TotalScrollOffset;}
+    inline void SetTotalOffset( CORE_MATH_VECTOR & offset ) { TotalScrollOffset = offset; }
+
 
 private:
 

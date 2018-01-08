@@ -11,6 +11,7 @@
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 
 GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER() :
+    GRAPHIC_UI_FRAME_ADAPTER(),
     TotalScrollOffset( CORE_MATH_VECTOR::Zero ),
     ScrollZone( CORE_MATH_VECTOR::Zero ),
     DragOffset( CORE_MATH_VECTOR::Zero ),
@@ -50,7 +51,7 @@ void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnDragged(GRAPHIC_UI_ELEMENT * element
     
     if ( DragOffset == CORE_MATH_VECTOR::Zero ) {
         
-        if (  Horizontal ) {
+        if ( Horizontal ) {
             
             DragOffset.X( offset.X() );
             DragOffset.Y( 0.0f );
@@ -62,7 +63,7 @@ void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnDragged(GRAPHIC_UI_ELEMENT * element
         }
     }
     
-    if (  Horizontal ) {
+    if ( Horizontal ) {
         
         CORE_MATH_VECTOR current_offset(offset.X() - DragOffset.X(), 0.0f );
         
@@ -88,7 +89,7 @@ void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnScrolled(GRAPHIC_UI_ELEMENT * elemen
 
 void GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force) {
     
-    if (  Horizontal ) {
+    if ( Horizontal ) {
         
         if ( ScrollZone.X() > 0.0f ) {
             

@@ -129,13 +129,12 @@
         
         if ( texture->GetTextureHandle() ) {
 
-            GFX_CHECK( glDeleteTextures( 1, &texture->GetTextureHandle()); )
+            GFX_CHECK( glDeleteTextures( 1, &texture->GetTextureHandle() ); )
         }
         
         if ( texture->GetDepthTextureHandle() ) {
             
-            GFX_CHECK( glDeleteTextures( 1, &texture->GetDepthTextureHandle()
-                                        ); )
+            GFX_CHECK( glDeleteTextures( 1, &texture->GetDepthTextureHandle() ); )
         }
     }
 
@@ -415,40 +414,40 @@
         
         if ( components & GRAPHIC_SHADER_BIND_Position ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_Position); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Position, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*) vertex_offset); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_Position); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Position, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*) vertex_offset); )
             
             vertex_offset += 4;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_Normal ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_Normal); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Normal, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_Normal); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Normal, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 4;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_Texcoord0 ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0); )
-            GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_Texcoord0); )
+            GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 2;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_SkinWeight ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_JointIndices ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_JointIndices); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
                       )
             
             vertex_offset += 3;
@@ -456,16 +455,16 @@
         
         if ( components & GRAPHIC_SHADER_BIND_Tangents ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_Tangents); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_Tangents); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_Bitangents ) {
             
-            GFX_CHECK( glEnableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_Bitangents); )
-            GFX_CHECK( glVertexAttribPointer( GRAPHIC_SHADER_BIND_OPENGL3_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_Bitangents); )
+            GFX_CHECK( glVertexAttribPointer( GRAPHIC_SHADER_BIND_OPENGL4_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
@@ -482,10 +481,10 @@
         GFX_CHECK( glBufferData( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexCoreBuffer()->GetSize(), mesh.GetIndexCoreBuffer()->getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
     }
 
-    void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
+    void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH & mesh) {
         
         GFX_CHECK( glBindVertexArray( mesh.GetVertexArrays()); )
-        GFX_CHECK(glBindBuffer(GL_ARRAY_BUFFER, mesh.GetVertexBuffer()); )
+        GFX_CHECK( glBindBuffer(GL_ARRAY_BUFFER, mesh.GetVertexBuffer()); )
         
         int vertex_offset = 0;
         GRAPHIC_SHADER_BIND component = mesh.GetVertexComponent();
@@ -493,35 +492,35 @@
         
         if ( component & GRAPHIC_SHADER_BIND_Position ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Position, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*) 0); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Position, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*) 0); )
             
             vertex_offset += 4;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_Normal ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Normal, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Normal, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 4;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_Texcoord0 ) {
             
-            GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 2;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_SkinWeight ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_JointIndices ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
                       )
             
             vertex_offset += 3;
@@ -529,14 +528,14 @@
         
         if ( component & GRAPHIC_SHADER_BIND_Tangents ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_Bitangents ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
@@ -550,10 +549,10 @@
         GFX_CHECK( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexBuffer()) ; )
         
         GFX_CHECK( glDrawElements(
-            GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpengl3( mesh.GetPolygonRenderMode() ),      // mode
-            mesh.GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int ),    // count
+            GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpengl4( mesh.GetPolygonRenderMode() ),      // mode
+            (int) (mesh.GetIndexCoreBuffer()->GetSize() / sizeof( size_t ) ) * 2,    // count
             GL_UNSIGNED_INT,   // type
-            (void*)0); )
+            (void*) 0); )
     }
 
     void GRAPHIC_SYSTEM::ReleaseBuffers(GRAPHIC_MESH &mesh) {
@@ -562,11 +561,11 @@
         GFX_CHECK( glDeleteBuffers(1, &mesh.GetVertexBuffer()); )
         
         //TODO : check current state
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_Position ); )
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_Normal ); )
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0 ); )
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_JointIndices ); )
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_Position ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_Normal ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_Texcoord0 ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_JointIndices ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight ); )
     }
 
 #endif

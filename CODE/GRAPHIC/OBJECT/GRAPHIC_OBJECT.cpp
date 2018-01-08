@@ -90,24 +90,24 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         
         effect->Apply( renderer );
         
-        GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE * model_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelViewMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelViewMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & time_mod = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
         
         CompteModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
-        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
+        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix.AttributeIndex, 1, 0, &result[0])
         
-        if ( model_matrix->AttributeIndex > 0 ) {
-
-            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix->AttributeIndex, 1, 0, &object[0])
+        if ( model_matrix.AttributeIndex > 0 ) {
+            
+            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix.AttributeIndex, 1, 0, &object[0])
         }
 
         GRAPHIC_SHADER_ATTRIBUTE & depth = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
         
         if ( time_mod.AttributeIndex > 0 ) {
             
-            GRAPHIC_SYSTEM_ApplyFloat( mvp_matrix->AttributeIndex, time_mod.AttributeValue.Value.FloatValue )
+            GRAPHIC_SYSTEM_ApplyFloat( time_mod.AttributeIndex, time_mod.AttributeValue.Value.FloatValue )
         }
         
         if ( depth.AttributeIndex > 0 && renderer.GetDepthTexture() ) {
@@ -116,8 +116,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
                 depthMVP,
                 depthBias;
             
-            GRAPHIC_SHADER_ATTRIBUTE
-                * shadowmap_mvp = &effect->GetProgram().getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ShadowMapMVP );
+            GRAPHIC_SHADER_ATTRIBUTE & shadowmap_mvp = effect->GetProgram().getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ShadowMapMVP );
             
             renderer.GetDepthTexture()->ApplyDepth(0, depth.AttributeIndex );
             
@@ -134,7 +133,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             
             depthBias = biasMatrix * depthMVP;
             
-            GRAPHIC_SYSTEM_ApplyMatrix( shadowmap_mvp->AttributeIndex, 1, 0, &depthBias[0] )
+            GRAPHIC_SYSTEM_ApplyMatrix( shadowmap_mvp.AttributeIndex, 1, 0, &depthBias[0] )
         }
         
         MeshTable[ i ]->ApplyBuffers();

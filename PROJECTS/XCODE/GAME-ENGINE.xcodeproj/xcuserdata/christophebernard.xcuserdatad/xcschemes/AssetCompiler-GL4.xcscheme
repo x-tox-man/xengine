@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0910"
+   LastUpgradeVersion = "0920"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -65,7 +65,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/flat.dae"
+            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/spaceship.dae"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

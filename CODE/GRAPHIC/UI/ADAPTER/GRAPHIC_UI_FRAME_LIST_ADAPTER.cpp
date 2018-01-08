@@ -16,6 +16,7 @@ GRAPHIC_UI_FRAME_LIST_ADAPTER::GRAPHIC_UI_FRAME_LIST_ADAPTER( GRAPHIC_UI_FRAME *
     UITemplate( ui_template ),
     VisibleItemsTable(),
     VisibleItemsCount( 0 ),
+    BaseIndex( 0 ),
     Spacing(),
     CellDimension( CORE_MATH_VECTOR::Zero ) {
     
@@ -70,6 +71,7 @@ void GRAPHIC_UI_FRAME_LIST_ADAPTER::OnLayoutFrame( GRAPHIC_UI_FRAME * frame ) {
 
 void GRAPHIC_UI_FRAME_LIST_ADAPTER::OnDragEnd() {
     
+    GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER::OnDragEnd();
 }
 
 void GRAPHIC_UI_FRAME_LIST_ADAPTER::OnDragged(GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & drag_offset) {
@@ -91,6 +93,13 @@ void GRAPHIC_UI_FRAME_LIST_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, co
     if ( !IsHorizontal() ) {
             
         int base_offset = ( int ) ceil(GetTotalScrollOffset().Y() / CellDimension.Y());
+        
+        if ( BaseIndex != base_offset ) {
+            
+            BaseIndex = base_offset;
+            
+            OnBaseIndexChanged( BaseIndex );
+        }
         
         CORE_MATH_VECTOR position_offset;// = GetTotalScrollOffset();
         

@@ -31,6 +31,7 @@ GRAPHIC_UI_ELEMENT::GRAPHIC_UI_ELEMENT() :
     RenderStyleTable(),
     Identifier( CORE_HELPERS_IDENTIFIER::Empty ),
     CurrentState( GRAPHIC_UI_ELEMENT_STATE_Default ),
+    Animation(),
     Enabled( true ),
     Visible( true ),
     Adapter( NULL ),
@@ -44,6 +45,7 @@ GRAPHIC_UI_ELEMENT::GRAPHIC_UI_ELEMENT(const CORE_HELPERS_IDENTIFIER & identifie
     RenderStyleTable(),
     Identifier( identifier ),
     CurrentState( GRAPHIC_UI_ELEMENT_STATE_Default ),
+    Animation(),
     Enabled( true ),
     Visible( true ),
     Adapter( NULL ),
@@ -110,6 +112,8 @@ void GRAPHIC_UI_ELEMENT::Update( const float time_step ) {
         default:
             break;
     }
+    
+    Animation.Update( time_step );
 }
 
 void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
@@ -217,7 +221,6 @@ GRAPHIC_UI_ELEMENT * GRAPHIC_UI_ELEMENT::Copy() {
     newElement->Enabled = Enabled;
     newElement->Visible = Visible;
     newElement->Adapter = Adapter;
-    Animation.Copy(newElement->Animation );
     
     return newElement;
 }

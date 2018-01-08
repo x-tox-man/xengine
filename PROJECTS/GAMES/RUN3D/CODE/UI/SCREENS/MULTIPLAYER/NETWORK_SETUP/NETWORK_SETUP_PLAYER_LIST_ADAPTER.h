@@ -35,6 +35,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PLAYER_LIST_ADAPTER, GRAPHIC_UI_FRAM
     virtual GRAPHIC_UI_ELEMENT::PTR CreateItem() override {
         return new NETWORK_SETUP_PLAYER_CELL;
     }
+    virtual void OnBaseIndexChanged( int index ) override {}
 
     
 private:

@@ -20,6 +20,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( UI_GARAGE, R3D_UI_FRAME )
 
     virtual void Initialize() override;
 
+    static CORE_HELPERS_IDENTIFIER
+        Stats;
+
+private:
+
+    void CreateStatsFrame();
+
 XS_CLASS_END
 
 #endif /* UI_GARAGE_hpp */

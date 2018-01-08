@@ -29,13 +29,13 @@ typedef wchar_t ** WCHAR_ARRAY_POINTER_POINTER;
 
 #else
 #define CORE_DATA_COPY_STRING(__DESTINATION__, __SOURCE__) \
-    { size_t ___s = (strlen(__SOURCE__) ); if ( ___s++ ) strcpy(__DESTINATION__, __SOURCE__, ___s); }
+    { size_t ___s = (strlen(__SOURCE__) ); if ( ___s++ ) strcpy(__DESTINATION__, __SOURCE__ ); }
 #define CORE_DATA_COPY_STRING_WITH_SIZE(__DESTINATION__, __SOURCE__, __SIZE__) \
-    { if ( __SIZE__ ) strcpy(__DESTINATION__, __SOURCE__, __SIZE__); }
+    { if ( __SIZE__ ) strcpy(__DESTINATION__, __SOURCE__ ); }
 #define CORE_DATA_STRING_CONCAT( __DESTINATION__, __SOURCE__) \
     { strcat(__DESTINATION__, __SOURCE__); }
 #define CORE_DATA_COPY_WIDE_STRING(__DESTINATION__, __SOURCE__) \
-    { size_t ___s = (wcslen(__SOURCE__) ); if ( ___s++ ) wcscpy(__DESTINATION__, ___s, __SOURCE__); }
+    { size_t ___s = (wcslen(__SOURCE__) ); if ( ___s++ ) wcscpy(__DESTINATION__, __SOURCE__); }
 #endif
 
 #endif

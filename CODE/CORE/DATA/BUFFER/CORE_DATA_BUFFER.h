@@ -27,7 +27,7 @@ public:
 
     void setMarkerAtIndex( const CORE_HELPERS_IDENTIFIER * identifier, int section_index, int offset = 0, size_t item_size = 0 );
 
-    void * getpointerAtIndex( unsigned int byte_offset, int section );
+    void * getpointerAtIndex( size_t byte_offset, int section );
 //    void * getpointerAtIndex( unsigned int byte_offset, const CORE_HELPERS_IDENTIFIER & section );
 
     int getSectionSize( int section_index );

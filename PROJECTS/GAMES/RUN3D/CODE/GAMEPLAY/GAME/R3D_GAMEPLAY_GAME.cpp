@@ -171,7 +171,10 @@ SelectLevel( const R3D_GAME_LEVEL_INFO & info ) {
 
 void R3D_GAMEPLAY_GAME::Finalize() {
     
-    LevelManager.GetCurrentLevel()->Finalize();
+    if ( LevelManager.GetCurrentLevel() != NULL ) {
+        
+        LevelManager.GetCurrentLevel()->Finalize();
+    }
 }
 
 void R3D_GAMEPLAY_GAME::Render( GRAPHIC_RENDERER & renderer ) {
