@@ -36,7 +36,13 @@ GRAPHIC_MESH::GRAPHIC_MESH() :
     VertexStride( 0 ),
     PolygonRenderMode( GRAPHIC_MESH_POLYGON_RENDER_MODE_TriangleList ),
     SurfaceRenderMode( GRAPHIC_MESH_SURFACE_RENDER_MODE_Wireframe ),
-    Transform() {
+    Transform()
+    #if X_VK
+    , Buffer(),
+    Memory(),
+    BufferInfo()
+    #endif
+    {
         
         GLOBAL_IDENTITY_MATRIX( &Transform[0] );
         

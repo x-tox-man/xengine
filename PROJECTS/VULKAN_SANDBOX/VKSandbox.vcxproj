@@ -15,6 +15,7 @@
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>VKSandbox</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-VK|Win32'" Label="Configuration">
@@ -73,7 +74,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;vulkan-1.lib;VKstatic.1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng16.lib;liblua.lib;libuv.lib;zlib.lib;OpenAL32.lib;kernel32.lib;Userenv.lib;freetype262.lib;ws2_32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Iphlpapi.lib;Psapi.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\VulkanSDK\1.0.39.1\Bin32;..\..\LIBRARY\WINDOWS\DEBUG;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <GenerateMapFile>true</GenerateMapFile>
@@ -250,6 +251,7 @@
     <ClInclude Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_MANAGER.h" />
     <ClInclude Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_POLYGON_RENDER_MODE.h" />
     <ClInclude Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_SURFACE_RENDER_MODE.h" />
+    <ClInclude Include="..\..\CODE\GRAPHIC\MESH\GRAPHIC_MESH_VK.h" />
     <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT.h" />
     <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT_ANIMATED.h" />
     <ClInclude Include="..\..\CODE\GRAPHIC\OBJECT\GRAPHIC_OBJECT_RENDER_OPTIONS.h" />

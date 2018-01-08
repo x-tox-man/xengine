@@ -137,11 +137,6 @@ struct GRAPHIC_VK_ENGINE_INFO {
         VkDescriptorImageInfo image_info;
     } texture_data;
 
-    struct {
-        VkBuffer buf;
-        VkDeviceMemory mem;
-        VkDescriptorBufferInfo buffer_info;
-    } vertex_buffer;
     VkVertexInputBindingDescription vi_binding;
     VkVertexInputAttributeDescription vi_attribs[ 2 ];
 

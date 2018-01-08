@@ -444,9 +444,68 @@
         abort();
     }
 
-    void GRAPHIC_SYSTEM::CreateVertexBuffer( GRAPHIC_MESH &mesh ) {
+    void GRAPHIC_SYSTEM::CreateVertexBuffer( GRAPHIC_MESH & mesh ) {
         
-        abort();
+        bool
+            pass;
+        VkBufferCreateInfo
+            buf_info={};
+
+        buf_info.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+        buf_info.pNext = NULL;
+        buf_info.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+        buf_info.size = mesh.GetVertexCoreBuffer()->GetSize();
+        buf_info.queueFamilyIndexCount = 0;
+        buf_info.pQueueFamilyIndices = NULL;
+        buf_info.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+        buf_info.flags = 0;
+
+        GFX_CHECK( vkCreateBuffer( GraphicVKInfo.device, &buf_info, NULL, &mesh.GetVkBuffer() ); )
+
+        VkMemoryRequirements
+            mem_reqs;
+
+        vkGetBufferMemoryRequirements( GraphicVKInfo.device, mesh.GetVkBuffer(), &mem_reqs );
+
+        VkMemoryAllocateInfo
+            alloc_info = {};
+
+        alloc_info.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+        alloc_info.pNext = NULL;
+        alloc_info.memoryTypeIndex = 0;
+        alloc_info.allocationSize = mem_reqs.size;
+
+        pass = GRAPHIC_VK_memory_type_from_properties( GraphicVKInfo, mem_reqs.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &alloc_info.memoryTypeIndex );
+        assert( pass && "No mappable, coherent memory" );
+
+        GFX_CHECK( vkAllocateMemory( GraphicVKInfo.device, &alloc_info, NULL, &( mesh.GetVkMemory() ) ); )
+
+        mesh.GetVkBufferInfo().range = mem_reqs.size;
+        mesh.GetVkBufferInfo().offset = 0;
+
+        uint8_t *pData;
+        GFX_CHECK( vkMapMemory( GraphicVKInfo.device, mesh.GetVkMemory(), 0, mem_reqs.size, 0, ( void ** ) &pData ); )
+
+        memcpy( pData, mesh.GetVertexCoreBuffer()->getpointerAtIndex( 0 ), mesh.GetVertexCoreBuffer()->GetSize() );
+
+        vkUnmapMemory( GraphicVKInfo.device, mesh.GetVkMemory() );
+
+        GFX_CHECK( vkBindBufferMemory( GraphicVKInfo.device, mesh.GetVkBuffer(), mesh.GetVkMemory(), 0 ); )
+
+        /*
+        TODO:
+        info.vi_binding.binding = 0;
+        info.vi_binding.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+        info.vi_binding.stride = dataStride;
+
+        info.vi_attribs[ 0 ].binding = 0;
+        info.vi_attribs[ 0 ].location = 0;
+        info.vi_attribs[ 0 ].format = VK_FORMAT_R32G32B32A32_SFLOAT;
+        info.vi_attribs[ 0 ].offset = 0;
+        info.vi_attribs[ 1 ].binding = 0;
+        info.vi_attribs[ 1 ].location = 1;
+        info.vi_attribs[ 1 ].format= use_texture ? VK_FORMAT_R32G32_SFLOAT : VK_FORMAT_R32G32B32A32_SFLOAT;
+        info.vi_attribs[ 1 ].offset=16;*/
     }
 
     void GRAPHIC_SYSTEM::CreateIndexBuffer( GRAPHIC_MESH &mesh ) {
@@ -459,9 +518,10 @@
         abort();
     }
 
-    void GRAPHIC_SYSTEM::ReleaseBuffers( GRAPHIC_MESH &mesh ) {
+    void GRAPHIC_SYSTEM::ReleaseBuffers( GRAPHIC_MESH & mesh ) {
 
-        abort();
+        vkDestroyBuffer( GraphicVKInfo.device, mesh.GetVkBuffer(), NULL );
+        vkFreeMemory( GraphicVKInfo.device, mesh.GetVkMemory(), NULL );
     }
 
     /*

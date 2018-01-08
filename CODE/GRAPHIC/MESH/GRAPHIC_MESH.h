@@ -119,8 +119,8 @@ private :
         BoundingShape;
     std::string
         MeshName;
-
-    int VertexStride;
+    int
+        VertexStride;
 
 // :Hold the values for specific rendering systems
 
@@ -128,6 +128,8 @@ private :
     #include "GRAPHIC_MESH_OPENGL_2.h"
 #elif OPENGLES2
     #include "GRAPHIC_MESH_OES2.h"
+#elif X_VK
+    #include "GRAPHIC_MESH_VK.h"
 #elif DX11
 
 #endif
