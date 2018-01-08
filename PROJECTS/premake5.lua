@@ -75,15 +75,15 @@ project "EngineLib"
 		removefiles { "**WINDOWS*", "**OSX*", "**IOS*" }
 	
 	filter "configurations:*GL4"
-		removefiles { "../CODE/**/*DX12*", "../CODE/**/*GLES*", "../CODE/**/*OES2*" }
+		removefiles { "../CODE/**/*DX12*", "../CODE/**/*GLES*", "../CODE/**/*OES2*", "../CODE/**/*VK*" }
 		defines { "OPENGL4=1" }
 		
 	filter "configurations:*GLES2"
-		removefiles { "../CODE/**/*DX12*", "../CODE/**/*GL2*", "../CODE/**/*GL3*", "../CODE/**/*GL4*" }
+		removefiles { "../CODE/**/*DX12*", "../CODE/**/*GL2*", "../CODE/**/*GL3*", "../CODE/**/*GL4*", "../CODE/**/*VK*" }
 		defines { "OPENGLES2=1" }
 		
 	filter "configurations:*DX12"
-		removefiles { "../CODE/**/*GLES*", "../CODE/**/*GL2*", "../CODE/**/*GL3*", "../CODE/**/*GL4*" }
+		removefiles { "../CODE/**/*GLES*", "../CODE/**/*GL2*", "../CODE/**/*GL3*", "../CODE/**/*GL4*", "../CODE/**/*VK*" }
 		defines { "DIRECTX12=1" }
 		
 	filter "configurations:*VK"

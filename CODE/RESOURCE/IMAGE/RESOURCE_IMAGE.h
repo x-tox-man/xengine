@@ -31,6 +31,7 @@ class RESOURCE_IMAGE : public RESOURCE< RESOURCE_IMAGE, RESOURCE_IMAGE_PNG_LOADE
     inline const GRAPHIC_TEXTURE_INFO & GetImageInfo() const { return TextureInfo; }
     inline void SetImageRawData( void * raw_data) { RawData = raw_data; }
     inline const void * GetImageRawData() const { return RawData; }
+    inline void * GetImageRawData() { return RawData; }
 
     void Blit( RESOURCE_IMAGE * image, int x_offset, int y_offset, int rows, int columns, int mask );
 

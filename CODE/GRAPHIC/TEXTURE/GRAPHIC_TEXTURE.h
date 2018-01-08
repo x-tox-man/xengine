@@ -34,9 +34,21 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_TEXTURE, GR_T_ANCESTOR_TYPE )
         GLuint & GetDepthTextureHandle() { return DepthTextureHandle; }
         void SetTextureHandle( GLuint handle ) { TextureHandle = handle; }
         void SetDepthTextureHandle( GLuint handle ) { DepthTextureHandle = handle; }
+    #elif X_VK
+        inline VkSampler & GetVkSampler() { return Sampler; }
+        inline VkImage & GetVkImage() { return Image; }
+        inline VkImageLayout & GetVkImageLayout() { return ImageLayout; }
+        inline VkDeviceMemory & GetVkMemory() { return Memory; }
+        inline VkImageView & GetVkImageview() { return Imageview; }
+
+        inline void SetVkSampler( VkSampler & sampler ) { Sampler = sampler; }
+        inline void SetVkImage( VkImage & image ) { Image = image; }
+        inline void SetVkImageLayout( VkImageLayout layout ) { ImageLayout = layout; }
+        inline void SetVkDeviceMemory( VkDeviceMemory & memory ) { Memory = memory; }
+        inline void SetVkImageView( VkImageView & view ) { Imageview = view; }
     #endif
 
-    virtual void Initialize( const void * texture_data, bool generate_mip_map );
+    virtual void Initialize( void * texture_data, bool generate_mip_map );
     void Initialize( bool it_creates_depth = false, GRAPHIC_TEXTURE_IMAGE_TYPE depth_type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
     void InitializeDepth( GRAPHIC_TEXTURE_IMAGE_TYPE type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
 
@@ -62,6 +74,17 @@ private :
         GLuint
             TextureHandle,
             DepthTextureHandle;
+    #elif X_VK
+        VkSampler
+            Sampler;
+        VkImage
+            Image;
+        VkImageLayout
+            ImageLayout;
+        VkDeviceMemory
+            Memory;
+        VkImageView
+            Imageview;
     #endif
 
 XS_CLASS_END

@@ -2237,7 +2237,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"OPENGL3=1",
+					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
 					"__AUDIO_OPENAL__=1",

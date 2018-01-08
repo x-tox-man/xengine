@@ -31,8 +31,8 @@ CORE_FILESYSTEM::~CORE_FILESYSTEM() {
 }
 
 void CORE_FILESYSTEM::Initialize( const char * base_directory_path ) {
-    
-    strcpy( BaseDirectoryPath, base_directory_path );
+
+    CORE_DATA_COPY_STRING( BaseDirectoryPath, base_directory_path );
 }
 
 void CORE_FILESYSTEM::Finalize() {

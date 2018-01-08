@@ -421,7 +421,7 @@ void NETWORK_SERVER::Finalize() {
         }
     }
     
-    for (int i = 0; i < IncommingMessageQueue.size(); i++ ) {
+    for ( size_t i = 0; i < IncommingMessageQueue.size(); i++ ) {
         
         auto command = IncommingMessageQueue[i];
         
@@ -461,7 +461,7 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
     SERVICE_NETWORK_COMMAND * command = NULL;
     CORE_TIMELINE_EVENT * event = NULL;
     
-    for (int i = 0; i < IncommingMessageQueue.size(); i++ ) {
+    for ( size_t i = 0; i < IncommingMessageQueue.size(); i++ ) {
         
         command = IncommingMessageQueue[i];
         

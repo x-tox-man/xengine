@@ -33,7 +33,7 @@ private :
 
 #if OPENGLES2
     #include "GRAPHIC_SHADER_OES2.hpp"
-#elif OPENGL4 || OPENGL3
+#elif OPENGL4
 	#include "GRAPHIC_SHADER_OPENGL.hpp"
 #elif X_VK
     #include "GRAPHIC_SHADER_VK.hpp"

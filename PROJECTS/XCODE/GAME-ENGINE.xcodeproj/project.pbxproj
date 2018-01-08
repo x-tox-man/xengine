@@ -694,10 +694,6 @@
 		3238F8AF1E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4E11E90E80400838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp */; };
 		3238F8B11E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4E11E90E80400838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp */; };
 		3238F8B21E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4E11E90E80400838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp */; };
-		3238F8B31E90E80600838C62 /* OPENGL_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4E91E90E80400838C62 /* OPENGL_3.cpp */; };
-		3238F8B41E90E80600838C62 /* OPENGL_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4E91E90E80400838C62 /* OPENGL_3.cpp */; };
-		3238F8B61E90E80600838C62 /* OPENGL_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4E91E90E80400838C62 /* OPENGL_3.cpp */; };
-		3238F8B71E90E80600838C62 /* OPENGL_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4E91E90E80400838C62 /* OPENGL_3.cpp */; };
 		3238F8BA1E90E80600838C62 /* OPENGLES_2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4EB1E90E80400838C62 /* OPENGLES_2.cpp */; };
 		3238F8BD1E90E80600838C62 /* GRAPHIC_FONT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4EE1E90E80400838C62 /* GRAPHIC_FONT.cpp */; };
 		3238F8BE1E90E80600838C62 /* GRAPHIC_FONT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4EE1E90E80400838C62 /* GRAPHIC_FONT.cpp */; };
@@ -1576,7 +1572,6 @@
 		5F92DB441F16415F00292A99 /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4DB1E90E80400838C62 /* GRAPHIC_SHADER_PROGRAM.cpp */; };
 		5F92DB451F16415F00292A99 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4DD1E90E80400838C62 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp */; };
 		5F92DB471F16415F00292A99 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4E11E90E80400838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp */; };
-		5F92DB481F16415F00292A99 /* OPENGL_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4E91E90E80400838C62 /* OPENGL_3.cpp */; };
 		5F92DB4A1F16415F00292A99 /* GRAPHIC_FONT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4EE1E90E80400838C62 /* GRAPHIC_FONT.cpp */; };
 		5F92DB4B1F16415F00292A99 /* GRAPHIC_FONT_MANAGER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4F01E90E80400838C62 /* GRAPHIC_FONT_MANAGER.cpp */; };
 		5F92DB4C1F16415F00292A99 /* GRAPHIC_GLYPH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F4F21E90E80400838C62 /* GRAPHIC_GLYPH.cpp */; };
@@ -1748,7 +1743,6 @@
 		5FB512F71FBD67E50025AAAF /* NETWORK_GAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB512871FBD67E50025AAAF /* NETWORK_GAME.cpp */; };
 		5FB512F81FBD67E50025AAAF /* NETWORK_GAME_PLAYER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB5128A1FBD67E50025AAAF /* NETWORK_GAME_PLAYER.cpp */; };
 		5FB512F91FBD67E50025AAAF /* GAME_PLAYER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB5128D1FBD67E50025AAAF /* GAME_PLAYER.cpp */; };
-		5FB512FA1FBD67E50025AAAF /* GAME-ENGINE-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FB5128F1FBD67E50025AAAF /* GAME-ENGINE-Info.plist */; };
 		5FB512FB1FBD67E50025AAAF /* GLOBAL_RESOURCES.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB512911FBD67E50025AAAF /* GLOBAL_RESOURCES.cpp */; };
 		5FB512FC1FBD67E50025AAAF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FB512931FBD67E50025AAAF /* Images.xcassets */; };
 		5FB512FD1FBD67E50025AAAF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB512941FBD67E50025AAAF /* main.m */; };
@@ -1789,7 +1783,6 @@
 		5FB513231FBD67F60025AAAF /* RESOURCE_TEST.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB512611FBD67E40025AAAF /* RESOURCE_TEST.m */; };
 		5FB513241FBD67F60025AAAF /* TIMELINE_TEST.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB512621FBD67E40025AAAF /* TIMELINE_TEST.m */; };
 		5FB513251FBD68010025AAAF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5FB512571FBD67E40025AAAF /* InfoPlist.strings */; };
-		5FB513261FBD68040025AAAF /* GAME-ENGINE-Tests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FB512591FBD67E40025AAAF /* GAME-ENGINE-Tests-Info.plist */; };
 		5FB513271FBD6C0F0025AAAF /* ScriptEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB512C51FBD67E50025AAAF /* ScriptEntity.cpp */; };
 		5FB5132A1FBD6C540025AAAF /* TestClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB512D11FBD67E50025AAAF /* TestClass.cpp */; };
 		5FB5132B1FBD6C540025AAAF /* TestClass2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB512D31FBD67E50025AAAF /* TestClass2.cpp */; };
@@ -1832,6 +1825,12 @@
 		5FCC3D6120018A9800A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D5B2001884B00A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp */; };
 		5FCC3D6220018A9800A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D5B2001884B00A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp */; };
 		5FCC3D6320018A9900A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D5B2001884B00A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp */; };
+		5FCC3D6F2002F01900A698B8 /* OPENGL_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D6D2002F01800A698B8 /* OPENGL_4.cpp */; };
+		5FCC3D702002F01900A698B8 /* OPENGL_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D6D2002F01800A698B8 /* OPENGL_4.cpp */; };
+		5FCC3D712002F01900A698B8 /* OPENGL_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D6D2002F01800A698B8 /* OPENGL_4.cpp */; };
+		5FCC3D722002F01900A698B8 /* OPENGL_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D6D2002F01800A698B8 /* OPENGL_4.cpp */; };
+		5FCC3D732002F01900A698B8 /* OPENGL_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D6D2002F01800A698B8 /* OPENGL_4.cpp */; };
+		5FCC3D742002F01900A698B8 /* OPENGL_4.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FCC3D6E2002F01900A698B8 /* OPENGL_4.h */; };
 		5FD11D271F18EBF20092E3A7 /* GteLogToFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5991E90E80400838C62 /* GteLogToFile.cpp */; };
 		5FD11D281F18EBF70092E3A7 /* GteEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F58F1E90E80400838C62 /* GteEnvironment.cpp */; };
 		5FD957ED1FAE35CF00FB9376 /* LIBIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD957EC1FAE35CF00FB9376 /* LIBIOS.m */; };
@@ -2677,8 +2676,6 @@
 		3238F4E61E90E80400838C62 /* GRAPHIC_SYSTEM_COMPARE_OPERATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SYSTEM_COMPARE_OPERATION.h; sourceTree = "<group>"; };
 		3238F4E71E90E80400838C62 /* GRAPHIC_SYSTEM_POLYGON_FILL_MODE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SYSTEM_POLYGON_FILL_MODE.h; sourceTree = "<group>"; };
 		3238F4E81E90E80400838C62 /* GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h; sourceTree = "<group>"; };
-		3238F4E91E90E80400838C62 /* OPENGL_3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OPENGL_3.cpp; sourceTree = "<group>"; };
-		3238F4EA1E90E80400838C62 /* OPENGL_3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPENGL_3.h; sourceTree = "<group>"; };
 		3238F4EB1E90E80400838C62 /* OPENGLES_2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OPENGLES_2.cpp; sourceTree = "<group>"; };
 		3238F4EC1E90E80400838C62 /* OPENGLES_2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPENGLES_2.h; sourceTree = "<group>"; };
 		3238F4EE1E90E80400838C62 /* GRAPHIC_FONT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_FONT.cpp; sourceTree = "<group>"; };
@@ -3217,6 +3214,8 @@
 		5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CORE_FILESYSTEM_FILE_WATCHER_OSX.m; sourceTree = "<group>"; };
 		5FCC3D5B2001884B00A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp; sourceTree = "<group>"; };
 		5FCC3D5C2001884B00A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.h; sourceTree = "<group>"; };
+		5FCC3D6D2002F01800A698B8 /* OPENGL_4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OPENGL_4.cpp; sourceTree = "<group>"; };
+		5FCC3D6E2002F01900A698B8 /* OPENGL_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPENGL_4.h; sourceTree = "<group>"; };
 		5FD957E91FAE35CF00FB9376 /* libLIBIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLIBIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FD957EB1FAE35CF00FB9376 /* LIBIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LIBIOS.h; sourceTree = "<group>"; };
 		5FD957EC1FAE35CF00FB9376 /* LIBIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LIBIOS.m; sourceTree = "<group>"; };
@@ -4659,8 +4658,8 @@
 				3238F4E61E90E80400838C62 /* GRAPHIC_SYSTEM_COMPARE_OPERATION.h */,
 				3238F4E71E90E80400838C62 /* GRAPHIC_SYSTEM_POLYGON_FILL_MODE.h */,
 				3238F4E81E90E80400838C62 /* GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h */,
-				3238F4E91E90E80400838C62 /* OPENGL_3.cpp */,
-				3238F4EA1E90E80400838C62 /* OPENGL_3.h */,
+				5FCC3D6D2002F01800A698B8 /* OPENGL_4.cpp */,
+				5FCC3D6E2002F01900A698B8 /* OPENGL_4.h */,
 				3238F4EB1E90E80400838C62 /* OPENGLES_2.cpp */,
 				3238F4EC1E90E80400838C62 /* OPENGLES_2.h */,
 			);
@@ -5962,6 +5961,7 @@
 				5FD9B7E01F52EBED00708B8D /* TOOL_BULLET_GL_DEBUGGER.h in Headers */,
 				5F7987C71FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.h in Headers */,
 				5F0C3D0D1FDF35BD00B761A2 /* NETWORK_MANAGER.h in Headers */,
+				5FCC3D742002F01900A698B8 /* OPENGL_4.h in Headers */,
 				5FA9F1F81FDDEFED00D2869F /* GRAPHIC_UI_NAVIGATION.h in Headers */,
 				5FF8B5A01FC56AD40010A6BB /* GAMEPLAY_CHECKPOINT_PLAYER_DATA.h in Headers */,
 				5F92DAA21F16413800292A99 /* LIB.h in Headers */,
@@ -6101,7 +6101,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Christophe Bernard";
 				TargetAttributes = {
 					321911DE1E5331B200CF29A2 = {
@@ -6294,7 +6294,6 @@
 				3249C8F91B0A0054009F1832 /* LineShader.fsh in Resources */,
 				3249D2D01B376905007E3314 /* UIShaderTextured.fsh in Resources */,
 				323DDF751C0DC82A006D1BCE /* Rammstein-Du-Hast.mp3 in Resources */,
-				5FB512FA1FBD67E50025AAAF /* GAME-ENGINE-Info.plist in Resources */,
 				323F0F741CE7EAFB00F8CA96 /* mesh2.Controller1.abx1 in Resources */,
 				323F0FAE1CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx1 in Resources */,
 				323F0FA81CE7EAFB00F8CA96 /* DefenderLingerie00.DE_Lingerie00_Skeleto.abx4 in Resources */,
@@ -6335,7 +6334,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FB513261FBD68040025AAAF /* GAME-ENGINE-Tests-Info.plist in Resources */,
 				5FB513251FBD68010025AAAF /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6516,7 +6514,6 @@
 				3238F7F41E90E80500838C62 /* GRAPHIC_OBJECT_ANIMATED.cpp in Sources */,
 				32AFED011EB919EE006664AB /* MainSplitViewController.m in Sources */,
 				3238F7B81E90E80500838C62 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
-				3238F8B71E90E80600838C62 /* OPENGL_3.cpp in Sources */,
 				3238F8D01E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
 				3238F8081E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
 				3238F9981E90E80700838C62 /* RESOURCE.cpp in Sources */,
@@ -6607,6 +6604,7 @@
 				3238FA6F1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */,
 				32E0A1A81E9D43EC00B14365 /* AUDIO_SYSTEM.cpp in Sources */,
 				5FAFD0551F75597A00113D6E /* PHYSICS_UTILS.cpp in Sources */,
+				5FCC3D722002F01900A698B8 /* OPENGL_4.cpp in Sources */,
 				3238F8E91E90E80600838C62 /* GRAPHIC_UI_BASE_ADAPTER.cpp in Sources */,
 				3253DB3F1EBDFF8900DF1797 /* ASSET_TYPE.cpp in Sources */,
 				3238F7721E90E80500838C62 /* GAMEPLAY_COMPONENT_POSITION.cpp in Sources */,
@@ -6671,7 +6669,6 @@
 				3238F9511E90E80600838C62 /* NETWORK_CLIENT.cpp in Sources */,
 				3238F6091E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp in Sources */,
 				3238F9601E90E80600838C62 /* PERIPHERIC_INTERACTION_KEYBOARD.cpp in Sources */,
-				3238F8B61E90E80600838C62 /* OPENGL_3.cpp in Sources */,
 				3238F60E1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_FACTORY.cpp in Sources */,
 				3238F9921E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				3238F9A61E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
@@ -6682,6 +6679,7 @@
 				3238F9AB1E90E80700838C62 /* RESOURCE_SOUND_MP3_LOADER.cpp in Sources */,
 				5F193B7E1FEB1A3200F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp in Sources */,
 				3253DB361EBDA2A900DF1797 /* RESOURCE_CONTAINER.cpp in Sources */,
+				5FCC3D702002F01900A698B8 /* OPENGL_4.cpp in Sources */,
 				3238F7E41E90E80500838C62 /* GRAPHIC_MESH_POLYGON_RENDER_MODE.cpp in Sources */,
 				3238F8E31E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
 				3238F65E1E90E80500838C62 /* CORE_DATA_STREAM.cpp in Sources */,
@@ -7178,6 +7176,7 @@
 				5F02EC751F9E97A4001A6AA4 /* GRAPHIC_CAMERA_FUSTRUM.cpp in Sources */,
 				3238F9121E90E80600838C62 /* GRAPHIC_UI_PLACEMENT.cpp in Sources */,
 				3238F92B1E90E80600838C62 /* GRAPHIC_UI_TEXT.cpp in Sources */,
+				5FCC3D6F2002F01900A698B8 /* OPENGL_4.cpp in Sources */,
 				3238F8C21E90E80600838C62 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
 				5FC19B6E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238FA481E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
@@ -7357,7 +7356,6 @@
 				3238F8E01E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
 				5FAE70E31ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				3238F7C81E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
-				3238F8B31E90E80600838C62 /* OPENGL_3.cpp in Sources */,
 				5F7987C11FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp in Sources */,
 				5FB5130E1FBD67E50025AAAF /* APPLICATION_HUD_PRESENTER.cpp in Sources */,
 				3238F9BC1E90E80700838C62 /* SERVICE_NETWORK_LOBBY.cpp in Sources */,
@@ -7521,6 +7519,7 @@
 				3238F6841E90E80500838C62 /* CORE_HELPERS_UNIQUE.cpp in Sources */,
 				3238F88C1E90E80600838C62 /* GRAPHIC_SHADER_BIND.cpp in Sources */,
 				5F193B7F1FEB1A3200F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp in Sources */,
+				5FCC3D712002F01900A698B8 /* OPENGL_4.cpp in Sources */,
 				5F5EC1741EF9DA3C00F4939D /* GAMEPLAY_COMPONENT_ENTITY_PROXY.cpp in Sources */,
 				3238F7DD1E90E80500838C62 /* GRAPHIC_MESH_OPENGL.cpp in Sources */,
 				3238FA4E1E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */,
@@ -7627,7 +7626,6 @@
 				3238F8001E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
 				3238F8E11E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
 				3238F7C91E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
-				3238F8B41E90E80600838C62 /* OPENGL_3.cpp in Sources */,
 				5FB5132A1FBD6C540025AAAF /* TestClass.cpp in Sources */,
 				5FA227941EF71567007BC5A1 /* GAMEPLAY_COMPONENT_HANDLE.cpp in Sources */,
 				5F5661EA1ED9C8EE00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
@@ -7906,7 +7904,6 @@
 				5F70E7A41FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
 				5F92DB451F16415F00292A99 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
 				5F92DB471F16415F00292A99 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */,
-				5F92DB481F16415F00292A99 /* OPENGL_3.cpp in Sources */,
 				5F92DB4A1F16415F00292A99 /* GRAPHIC_FONT.cpp in Sources */,
 				5F92DB4B1F16415F00292A99 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
 				5F92DB4C1F16415F00292A99 /* GRAPHIC_GLYPH.cpp in Sources */,
@@ -7956,6 +7953,7 @@
 				5F92DB771F16415F00292A99 /* RESOURCE.cpp in Sources */,
 				5F92DB791F16415F00292A99 /* RESOURCE_COMPILER.cpp in Sources */,
 				5F92DB7A1F16415F00292A99 /* RESOURCE_LOADER.cpp in Sources */,
+				5FCC3D732002F01900A698B8 /* OPENGL_4.cpp in Sources */,
 				5F92DB7B1F16415F00292A99 /* RESOURCE_TYPE.cpp in Sources */,
 				5F92DB7C1F16415F00292A99 /* RESOURCE_REPRESENTATION.cpp in Sources */,
 				5F92DB7D1F16415F00292A99 /* RESOURCE_SOUND_MP3_LOADER.cpp in Sources */,
@@ -8285,7 +8283,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"OPENGL3=1",
+					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
 					"__AUDIO_OPENAL__=1",
@@ -8347,7 +8345,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"OPENGL3=1",
+					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
 					"__AUDIO_OPENAL__=1",
@@ -8413,7 +8411,7 @@
 					"$(inherited)",
 					"ASSET_COMPILER=1",
 					__PLATFORM_OSX__,
-					"OPENGL3=1",
+					"OPENGL4=1",
 					GTE_DISABLE_PCH,
 					__COMPILE_WITH__COLLADA__,
 					"__AUDIO_OPENAL__=1",
@@ -8472,7 +8470,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"ASSET_COMPILER=1",
 					__PLATFORM_OSX__,
-					"OPENGL3=1",
+					"OPENGL4=1",
 					GTE_DISABLE_PCH,
 					__COMPILE_WITH__COLLADA__,
 				);
@@ -8739,7 +8737,7 @@
 				GCC_PREFIX_HEADER = "GAME-ENGINE/GAME-ENGINE-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"OPENGL3=1",
+					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
 					"__AUDIO_OPENAL__=1",
@@ -8787,7 +8785,7 @@
 				GCC_PREFIX_HEADER = "GAME-ENGINE/GAME-ENGINE-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"OPENGL3=1",
+					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
 					"__AUDIO_OPENAL__=1",
@@ -8836,7 +8834,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					__COMPILE_WITH__COLLADA__,
 					"$(inherited)",
-					"OPENGL3=1",
+					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
 					GTE_DISABLE_PCH,
@@ -8889,7 +8887,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					__COMPILE_WITH__COLLADA__,
 					"$(inherited)",
-					"OPENGL3=1",
+					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
 					GTE_DISABLE_PCH,
@@ -8944,7 +8942,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"OPENGL3=1",
+					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
 					"__AUDIO_OPENAL__=1",
@@ -9006,7 +9004,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"OPENGL3=1",
+					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
 					"__AUDIO_OPENAL__=1",

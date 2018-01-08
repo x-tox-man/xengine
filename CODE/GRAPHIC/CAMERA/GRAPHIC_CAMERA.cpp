@@ -74,7 +74,7 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
     const float half_height = height * 0.5f;
     
     float aspect = fabsf(half_width / half_height);
-    float fovyRadians =  30.0f * (M_PI / 180);
+    float fovyRadians = ( float ) ( 30.0f * (M_PI / 180) );
     float cotan = 1.0f / tanf(fovyRadians * 0.5f);
     
     ProjectionMatrix[0] = cotan / aspect;

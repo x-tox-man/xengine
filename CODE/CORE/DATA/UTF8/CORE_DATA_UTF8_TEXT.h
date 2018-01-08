@@ -29,7 +29,7 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_DATA_UTF8_TEXT )
         if ( other.String ) {
             
             String = ( wchar_t * )  malloc( sizeof(wchar_t) * ( wcslen( other.String ) + 1 ) );
-            wcscpy( String, other.String );
+            CORE_DATA_COPY_WIDE_STRING( String, other.String );
         }
     }
 
@@ -48,7 +48,7 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_DATA_UTF8_TEXT )
         return formatted;
     }
 
-    wchar_t operator[] (const int index ) const {
+    wchar_t operator[] (const unsigned int index ) const {
 #if DEBUG
         assert( String != NULL );
         assert( wcslen( String ) > index );

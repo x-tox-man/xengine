@@ -34,7 +34,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_PLACEMENT )
     inline CORE_MATH_VECTOR & GetAbsolutePosition() { return AbsolutePosition; }
     inline CORE_MATH_VECTOR & GetSize() { return Size; }
     inline int GetAnchor() { return Anchor; }
-    inline int GetRotation() { return Rotation; }
+    inline float GetRotation() { return Rotation; }
 
     void Initialize( const GRAPHIC_UI_PLACEMENT * ParentPlacement, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & size, int anchor );
 

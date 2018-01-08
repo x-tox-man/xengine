@@ -44,7 +44,7 @@ GRAPHIC_TEXTURE_ATLAS::~GRAPHIC_TEXTURE_ATLAS() {
     GRAPHIC_TEXTURE::Finalize();
 }
 
-void GRAPHIC_TEXTURE_ATLAS::Initialize( const void * texture_data ) {
+void GRAPHIC_TEXTURE_ATLAS::Initialize( void * texture_data ) {
     
     GRAPHIC_TEXTURE::Initialize( texture_data, true );
 }

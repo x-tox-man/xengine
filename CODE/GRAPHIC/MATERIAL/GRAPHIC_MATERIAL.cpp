@@ -14,6 +14,7 @@
 #include "GRAPHIC_SHADER_PROGRAM_DATA_PROXY.h"
 #include "CORE_DATA_JSON.h"
 #include "GRAPHIC_SYSTEM.h"
+#include "CORE_DATA_TYPES.h"
 
 typedef std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * > TEX_TAB_TYPE;
 
@@ -177,9 +178,9 @@ void GRAPHIC_MATERIAL::TryAndFillFor( const char * file_path, const char * exten
 #endif
         
         char * id = ( char * ) malloc( strlen(file_path) + strlen(extension));
-        strcpy(id, file_path );
-        id[strlen(file_path)] = 0;
-        strcat(id, extension );
+        CORE_DATA_COPY_STRING( id, file_path );
+        id[ strlen( file_path ) ] = 0;
+        CORE_DATA_STRING_CONCAT( id, extension );
         
         GRAPHIC_TEXTURE_BLOCK * tb = new GRAPHIC_TEXTURE_BLOCK( GRAPHIC_TEXTURE::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER(), path ));
 

@@ -30,7 +30,7 @@ public:
         
             MethodName = (char * ) CORE_MEMORY_ALLOCATOR_Allocate( ( int ) strlen( method_name ) );
             
-            strcpy( MethodName, method_name );
+            CORE_DATA_COPY_STRING( MethodName, method_name );
             
             Program = CORE_ABSTRACT_PROGRAM_FACTORY::CurrentProgram;
     }

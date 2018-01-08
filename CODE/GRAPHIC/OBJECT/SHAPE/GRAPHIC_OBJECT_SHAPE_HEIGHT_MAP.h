@@ -23,7 +23,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP, GRAPHIC_OBJECT_SHA
 
     inline int GetXWidth() const { return XWidth; }
     inline int GetYWidth() const { return YWidth; }
-    inline int GetLength() const { return Length; }
+    inline float GetLength() const { return Length; }
     inline float GetHeightScale() const { return HeightScale; }
     inline void SetHeightScale( const float scale) { HeightScale = scale; }
     inline const float * GetHeights() { return (const float *) Heights; }

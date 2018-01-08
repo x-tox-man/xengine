@@ -30,7 +30,7 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC
     
     effect->Apply( renderer );
     
-    for ( int i = 0; i < MeshTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
         
         CORE_MATH_MATRIX
             result,
@@ -64,7 +64,7 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC
         
         int offset = 0;
         
-        for (int mi = 0; mi < AnimationController->GetAnimation( i )->GetJointTable().size(); mi++ ) {
+        for ( size_t mi = 0; mi < AnimationController->GetAnimation( i )->GetJointTable().size(); mi++ ) {
             
             GLOBAL_MULTIPLY_MATRIX(float_matrix_array_copy + offset, ptr + offset );
             

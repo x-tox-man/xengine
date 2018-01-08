@@ -154,7 +154,7 @@ void AUDIO_OPENAL::PlaySound( AUDIO_SOUND & sound ) {
             // attach OpenAL Buffer to OpenAL Source
             AUDIO_CHECK( alSourcei( sources, AL_BUFFER, 0 ); )
             
-            for ( int i = 0; i < sound.GetSoundChunksTable().size(); i++ ) {
+            for ( size_t i = 0; i < sound.GetSoundChunksTable().size(); i++ ) {
                 
                 sound.GetSoundChunksTable()[i]->SetChunkBufferName( buffers[i] );
                 
@@ -219,7 +219,7 @@ void AUDIO_OPENAL::StopSound( AUDIO_SOUND & sound) {
     #if __AUDIO_OPENAL__
         AUDIO_CHECK( alSourceStop( sound.GetSource() ); )
         
-        for ( int i = 0; i < sound.GetSoundChunksTable().size(); i++ ) {
+        for ( size_t i = 0; i < (int) sound.GetSoundChunksTable().size(); i++ ) {
             
             AUDIO_CHECK( alDeleteBuffers(1, &sound.GetSoundChunksTable()[ i ]->GetChunkBufferName()); )
         }

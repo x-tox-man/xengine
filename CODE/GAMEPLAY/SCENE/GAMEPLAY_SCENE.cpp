@@ -51,13 +51,13 @@ GAMEPLAY_SCENE::~GAMEPLAY_SCENE() {
     
     Clear();
 
-    for (int i = 0; i < UpdatableSystemTable.size(); i++ ) {
+    for ( size_t i = 0; i < UpdatableSystemTable.size(); i++ ) {
         
         UpdatableSystemTable[ i ]->Finalize();
         CORE_MEMORY_ObjectSafeDeallocation( UpdatableSystemTable[ i ] );
     }
     
-    for (int i = 0; i < RenderableSystemTable.size(); i++ ) {
+    for ( size_t i = 0; i < RenderableSystemTable.size(); i++ ) {
         
         RenderableSystemTable[ i ]->Finalize();
         CORE_MEMORY_ObjectSafeDeallocation( RenderableSystemTable[ i ] );
@@ -76,7 +76,7 @@ void GAMEPLAY_SCENE::InsertRenderableSystem( GAMEPLAY_COMPONENT_SYSTEM * system 
 
 void GAMEPLAY_SCENE::Update( float time_step ) {
     
-    for (int i = 0; i < UpdatableSystemTable.size(); i++ ) {
+    for ( size_t i = 0; i < UpdatableSystemTable.size(); i++ ) {
         
         UpdatableSystemTable[ i ]->Update( time_step );
     }
@@ -88,7 +88,7 @@ void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
     GRAPHIC_SYSTEM::EnableBackfaceCulling();
     GRAPHIC_SYSTEM::SetPolygonMode( GRAPHIC_SYSTEM_POLYGON_FILL_MODE_Full );
     
-    for (int i = 0; i < RenderableSystemTable.size(); i++ ) {
+    for ( size_t i = 0; i < RenderableSystemTable.size(); i++ ) {
         
         RenderableSystemTable[ 0 ]->Render( renderer );
     }

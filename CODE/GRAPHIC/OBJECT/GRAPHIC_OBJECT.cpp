@@ -55,18 +55,18 @@ GRAPHIC_OBJECT::~GRAPHIC_OBJECT() {
     
     Release();
     
-    for( int i = 0; i < MeshTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
 
         CORE_MEMORY_ObjectSafeDeallocation( MeshTable[ i ] );
     }
 
-    for ( int i=0; i < JointTable.size(); i++ ) {
+    for ( size_t i = 0; i < JointTable.size(); i++ ) {
 
         CORE_MEMORY_ObjectSafeDeallocation( JointTable[ i ] );
     }
     
     #if __COMPILE_WITH__COLLADA__
-        for ( int i = 0; i < AnimationTable.size(); i++ ) {
+        for ( size_t i = 0; i < AnimationTable.size(); i++ ) {
             
             CORE_MEMORY_ObjectSafeDeallocation( AnimationTable[ i ] );
         }
@@ -80,7 +80,7 @@ void GRAPHIC_OBJECT::AddNewMesh( GRAPHIC_MESH * mesh ) {
 
 void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
-    for ( int i = 0; i < MeshTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
         
         CORE_MATH_MATRIX
             result,
@@ -113,20 +113,19 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         if ( depth.AttributeIndex > 0 && renderer.GetDepthTexture() ) {
             
             CORE_MATH_MATRIX
-            depthMVP,
-            depthBias;
-            
-            assert( depth.AttributeIndex > 0 );
+                depthMVP,
+                depthBias;
             
             GRAPHIC_SHADER_ATTRIBUTE & shadowmap_mvp = effect->GetProgram().getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ShadowMapMVP );
             
             renderer.GetDepthTexture()->ApplyDepth(0, depth.AttributeIndex );
             
-            CORE_MATH_MATRIX biasMatrix(0.5f, 0.0f, 0.0f, 0.5f,
-                                        0.0f, 0.5f, 0.0f, 0.5f,
-                                        0.0f, 0.0f, 0.5f, 0.5f,
-                                        0.0f, 0.0f, 0.0f, 1.0f
-                                        );
+            CORE_MATH_MATRIX
+                biasMatrix(
+                    0.5f, 0.0f, 0.0f, 0.5f,
+                    0.0f, 0.5f, 0.0f, 0.5f,
+                    0.0f, 0.0f, 0.5f, 0.5f,
+                    0.0f, 0.0f, 0.0f, 1.0f );
             
             depthMVP = renderer.GetShadowMapCamera().GetProjectionMatrix();
             depthMVP *= renderer.GetShadowMapCamera().GetViewMatrix();
@@ -184,7 +183,7 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
 
 void GRAPHIC_OBJECT::Release() {
     
-    for ( int i = 0; i < MeshTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
         
         MeshTable[i]->ReleaseBuffers();
     }

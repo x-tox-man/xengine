@@ -57,6 +57,9 @@
               <folding />
             </state>
           </provider>
+          <provider editor-type-id="android-manifest">
+            <state />
+          </provider>
         </entry>
       </file>
       <file leaf-file-name="local.properties" pinned="false" current-in-tab="false">
@@ -1974,7 +1977,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514493420186" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515371954694" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2074,7 +2077,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514493420191" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515371954699" />
       </method>
     </configuration>
     <list size="1">

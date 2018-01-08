@@ -50,7 +50,7 @@ void SERVICE_NETWORK_LOBBY::Initialize( int max_pool_size, const char * discover
     
     UpdateDiscoverMessage( discover_message );
     
-    for ( int i = 0; i < ConnectionPool.size(); i++ ) {
+    for ( size_t i = 0; i < ConnectionPool.size(); i++ ) {
         
         ConnectionPool[ i ] = NULL;
     }
@@ -61,7 +61,7 @@ void SERVICE_NETWORK_LOBBY::Initialize( int max_pool_size, const char * discover
 void SERVICE_NETWORK_LOBBY::UpdateDiscoverMessage( const char * discover_message ) {
     
     char * t = (char*) CORE_MEMORY_ALLOCATOR_Allocate((int) strlen(discover_message));
-    strcpy(t, discover_message);
+    CORE_DATA_COPY_STRING(t, discover_message);
     
     UDPBroadcastMessage.Open();
     UDPBroadcastMessage.InputBytes( (char*) t, (int) strlen( discover_message ) );
@@ -91,7 +91,7 @@ void SERVICE_NETWORK_LOBBY::Finalize() {
     
     //SERVICE_NETWORK_SYSTEM::GetInstance().Update( false );
     
-    for ( int i = 0; i < ConnectionPool.size(); i++ ) {
+    for ( size_t i = 0; i < ConnectionPool.size(); i++ ) {
         
         if ( ConnectionPool[ i ] ) {
             
@@ -138,7 +138,7 @@ void SERVICE_NETWORK_LOBBY::StopTCPListen() {
     
     SERVICE_NETWORK_SYSTEM::GetInstance().OnNewTCPConnectionCallback = NULL;
     
-    for ( int i = 0; i < ConnectionPool.size(); i++ ) {
+    for ( size_t i = 0; i < ConnectionPool.size(); i++ ) {
         
         if ( ConnectionPool[ i ] != NULL ) {
             

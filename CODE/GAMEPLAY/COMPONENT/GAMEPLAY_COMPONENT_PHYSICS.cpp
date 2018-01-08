@@ -257,17 +257,16 @@ btTriangleMesh * GAMEPLAY_COMPONENT_PHYSICS::CreateBvhTriangleMesh( GRAPHIC_OBJE
 
     btTriangleMesh* collision_mesh = new btTriangleMesh();
     
-    for ( int i = 0; i < object->GetMeshTable().size(); i++ ) {
+    for ( size_t i = 0; i < object->GetMeshTable().size(); i++ ) {
         
-        int size = object->GetMeshTable()[i]->GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int );
+        size_t size = object->GetMeshTable()[i]->GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int );
         int * indice_ptr = object->GetMeshTable()[i]->GetIndexCoreBuffer()->getpointerAtIndex( 0 );
         float * vertex_ptr = (float * )object->GetMeshTable()[i]->GetVertexCoreBuffer()->getpointerAtIndex( 0 );
         
         GRAPHIC_SHADER_BIND bind = object->GetMeshTable()[i]->GetVertexComponent();
         int stride = GRAPHIC_MESH::ComputeVertexStride( bind );
 
-        
-        for (int j = 0; j < size ; j += 3 ) {
+        for ( size_t j = 0; j < size ; j += 3 ) {
             
             float x1 = vertex_ptr[(indice_ptr[j] * stride ) + 0];
             float y1 = vertex_ptr[(indice_ptr[j] * stride ) + 1];
@@ -373,9 +372,7 @@ void GAMEPLAY_COMPONENT_PHYSICS::SetOrientation( const CORE_MATH_QUATERNION & ro
 #endif
 }
 
-void GAMEPLAY_COMPONENT_PHYSICS::ApplyMotionModificator(
-                                                        const CORE_MATH_VECTOR & position,
-                                                        const CORE_MATH_VECTOR & direction) {
+void GAMEPLAY_COMPONENT_PHYSICS::ApplyMotionModificator( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & direction) {
     
     #ifdef __BULLET_PHYSICS__
         BulletRigidBody->getMotionState()->setWorldTransform(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position[0], position[1], position[2])));
@@ -404,7 +401,7 @@ void GAMEPLAY_COMPONENT_PHYSICS::SaveToStream( CORE_DATA_STREAM & stream ) {
         
         stream << InternalVector->size();
         
-        for ( int i = 0; i< InternalVector->size(); i++ ) {
+        for ( size_t i = 0; i< InternalVector->size(); i++ ) {
             
             stream.InputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, sizeof(GAMEPLAY_COMPONENT_PHYSICS) * GAMEPLAY_COMPONENT_BASE_COUNT );
             
@@ -421,7 +418,7 @@ void GAMEPLAY_COMPONENT_PHYSICS::LoadFromStream( CORE_DATA_STREAM & stream ) {
     
     InternalVector->resize( size );
     
-    for ( int i = 0; i< size; i++ ) {
+    for ( size_t i = 0; i< size; i++ ) {
         
         InitializeMemory<INTERNAL_ARRAY_P, GAMEPLAY_COMPONENT_PHYSICS>( *InternalVector, i );
         

@@ -126,7 +126,7 @@ void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
         }
         else {
             
-            for (int i = 0; i< RenderStyleTable.size(); i++) {
+            for ( size_t i = 0; i< RenderStyleTable.size(); i++) {
                 
                 if ( RenderStyleTable[ i ] != NULL ) {
                     

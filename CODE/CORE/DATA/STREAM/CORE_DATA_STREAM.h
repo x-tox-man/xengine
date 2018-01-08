@@ -30,8 +30,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     void ResetOffset();
     inline void SetOffset( int offset ) { Offset = offset; }
 
-    inline int GetSize() const { return Size; }
-    inline int GetAllocatedBytes() const { return AllocatedBytes; }
+    inline size_t GetSize() const { return Size; }
+    inline size_t GetAllocatedBytes() const { return AllocatedBytes; }
 
     template <typename __TYPE__ >
     void operator << ( const __TYPE__ & data ) {
@@ -89,10 +89,10 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
 
     void operator >> ( wchar_t ** data ) {
         
-        unsigned int length;
+        size_t length;
         
-        memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
-        Offset  += sizeof(unsigned int);
+        memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(size_t) );
+        Offset  += sizeof(size_t);
         
         *data = (wchar_t *) CORE_MEMORY_ALLOCATOR::Allocate( length );
         
@@ -104,13 +104,13 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     inline const void * GetMemoryBuffer() const { return MemoryBuffer; }
     inline void * GetMemoryBuffer() { return MemoryBuffer; }
 
-    inline const int GetOffset() { return Offset; }
+    inline size_t GetOffset() { return Offset; }
 
     void InputBytesWithoutSize( const char * pointer, int size ) {
         
-        unsigned int length = size * sizeof( char );
+        size_t length = size * sizeof( char );
         
-        if ( AllocatedBytes - Offset < size ) {
+        if ( AllocatedBytes - Offset < (size_t) size ) {
             
             AllocatedBytes += AllocatedBytes + size;
             
@@ -133,11 +133,11 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     template < typename __TYPE__ >
     void InputBytes(__TYPE__ ** pointer, int size ) {
         
-        unsigned int length = size * sizeof( __TYPE__ );
+        size_t length = size * sizeof( __TYPE__ );
         
-        if ( AllocatedBytes - Offset < length + sizeof(unsigned int) ) {
+        if ( AllocatedBytes - Offset < length + sizeof(size_t) ) {
             
-            AllocatedBytes += AllocatedBytes + length + sizeof(unsigned int);
+            AllocatedBytes += AllocatedBytes + length + sizeof(size_t);
             
             MemoryBuffer = realloc( MemoryBuffer, AllocatedBytes );
             
@@ -149,8 +149,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     #endif
         }
         
-        memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(unsigned int) );
-        Offset  += sizeof(unsigned int);
+        memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(size_t) );
+        Offset  += sizeof(size_t);
         memcpy( ((( char* )MemoryBuffer) + Offset), *pointer, length );
         Offset += length;
     }
@@ -160,8 +160,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
         
         int length;
         
-        memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
-        Offset  += sizeof(unsigned int);
+        memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(size_t) );
+        Offset  += sizeof(size_t);
         
         *pointer = ( __TYPE__ *) CORE_MEMORY_ALLOCATOR::Allocate( length * sizeof( __TYPE__ ) );
         
@@ -177,9 +177,9 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
         
         unsigned long length = size * sizeof( __TYPE__ );
         
-        if ( AllocatedBytes - Offset < length + sizeof(unsigned int) ) {
+        if ( AllocatedBytes - Offset < length + sizeof(size_t) ) {
             
-            AllocatedBytes += AllocatedBytes + length + sizeof(unsigned int);
+            AllocatedBytes += AllocatedBytes + length + sizeof(size_t);
             
             MemoryBuffer = realloc( MemoryBuffer, AllocatedBytes );
             
@@ -191,8 +191,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     #endif
         }
         
-        memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(unsigned int) );
-        Offset  += sizeof(unsigned int);
+        memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(size_t) );
+        Offset  += sizeof(size_t);
         memcpy( ((( char* )MemoryBuffer) + Offset), (void*)pointer, length );
         Offset += length;
     }
@@ -200,11 +200,11 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     template < typename __TYPE__ >
     void InputBytes(__TYPE__ * & pointer, int size ) {
         
-        unsigned int length = size * sizeof( __TYPE__ );
+        size_t length = size * sizeof( __TYPE__ );
         
-        if ( AllocatedBytes - Offset < length + sizeof(unsigned int) ) {
+        if ( AllocatedBytes - Offset < length + sizeof(size_t) ) {
             
-            AllocatedBytes += AllocatedBytes + length + sizeof(unsigned int);
+            AllocatedBytes += AllocatedBytes + length + sizeof(size_t);
             
             MemoryBuffer = realloc( MemoryBuffer, AllocatedBytes );
             
@@ -216,8 +216,8 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     #endif
         }
         
-        memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(unsigned int) );
-        Offset  += sizeof(unsigned int);
+        memcpy( ((( char* )MemoryBuffer) + Offset), &length, sizeof(size_t) );
+        Offset  += sizeof(size_t);
         memcpy( ((( char* )MemoryBuffer) + Offset), (void*)pointer, length );
         Offset += length;
     }
@@ -227,12 +227,12 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
         
         int length;
         
-        memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
-        Offset  += sizeof(unsigned int);
+        memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(size_t) );
+        Offset  += sizeof(size_t);
         
         pointer = ( __TYPE__ *) CORE_MEMORY_ALLOCATOR::Allocate( length * sizeof( __TYPE__ ) );
         
-        memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (unsigned int) length );
+        memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (size_t) length );
         
         Offset  += length;
         size = length;
@@ -244,10 +244,10 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
         
         int length;
         
-        memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(unsigned int) );
-        Offset  += sizeof(unsigned int);
+        memcpy( &length, (( char* )MemoryBuffer + Offset), sizeof(size_t) );
+        Offset  += sizeof(size_t);
         
-        memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (unsigned int) length );
+        memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (size_t) length );
         
         Offset  += length;
         
@@ -257,7 +257,7 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     template < typename __TYPE__ >
     void OutputBytesWithoutSize(__TYPE__ * pointer, size_t & size ) {
         
-        memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (unsigned int) sizeof( __TYPE__ ) );
+        memcpy( (void*)pointer, ((( char* )MemoryBuffer) + Offset), (size_t) sizeof( __TYPE__ ) );
         
         Offset  += sizeof( __TYPE__ );
         
@@ -273,7 +273,8 @@ private :
 
     void
         * MemoryBuffer;
-    int AllocatedBytes,
+    size_t
+        AllocatedBytes,
         Offset,
         Size;
 

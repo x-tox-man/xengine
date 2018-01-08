@@ -16,6 +16,23 @@ VkInstance & GetGraphicVKInstance();
 
 // From VULKAN UTIL.HPP
 
+/* Number of descriptor sets needs to be the same at alloc,       */
+/* pipeline layout creation, and descriptor set layout creation   */
+#define NUM_DESCRIPTOR_SETS 1
+
+/* Number of samples needs to be the same at image creation,      */
+/* renderpass creation and pipeline creation.                     */
+#define NUM_SAMPLES VK_SAMPLE_COUNT_1_BIT
+
+/* Number of viewports and number of scissors have to be the same */
+/* at pipeline creation and in any call to set them dynamically   */
+/* They also have to be the same as each other                    */
+#define NUM_VIEWPORTS 1
+#define NUM_SCISSORS NUM_VIEWPORTS
+
+/* Amount of time, in nanoseconds, to wait for a command buffer to complete */
+#define FENCE_TIMEOUT 100000000
+
 /*
 * structure to track all objects related to a texture.
 */
@@ -55,9 +72,7 @@ typedef struct {
 struct GRAPHIC_VK_ENGINE_INFO {
 #ifdef _WIN32
 #define APP_NAME_STR_LEN 80
-    HINSTANCE connection;        // hInstance - Windows Instance
     char name[ APP_NAME_STR_LEN ]; // Name to put on the window/icon
-    HWND window;                 // hWnd - window handle
 #elif defined(__ANDROID__)
     PFN_vkCreateAndroidSurfaceKHR fpCreateAndroidSurfaceKHR;
 #else  // _WIN32
@@ -66,16 +81,20 @@ struct GRAPHIC_VK_ENGINE_INFO {
     xcb_window_t window;
     xcb_intern_atom_reply_t *atom_wm_delete_window;
 #endif // _WIN32
-    VkSurfaceKHR surface;
     bool prepared;
     bool use_staging_buffer;
     bool save_images;
 
-    std::vector<const char *> instance_layer_names;
-    std::vector<const char *> instance_extension_names;
-    std::vector<layer_properties> instance_layer_properties;
-    std::vector<VkExtensionProperties> instance_extension_properties;
-    VkInstance inst;
+    std::vector<const char *>
+        instance_layer_names;
+    std::vector<const char *>
+        instance_extension_names;
+    std::vector<layer_properties>
+        instance_layer_properties;
+    std::vector<VkExtensionProperties>
+        instance_extension_properties;
+    VkInstance
+        VkInstance;
 
     std::vector<const char *> device_extension_names;
     std::vector<VkExtensionProperties> device_extension_properties;
@@ -108,8 +127,6 @@ struct GRAPHIC_VK_ENGINE_INFO {
         VkImageView view;
     } depth;
 
-    std::vector<struct texture_object> textures;
-
     struct {
         VkBuffer buf;
         VkDeviceMemory mem;
@@ -119,8 +136,6 @@ struct GRAPHIC_VK_ENGINE_INFO {
     struct {
         VkDescriptorImageInfo image_info;
     } texture_data;
-    VkDeviceMemory stagingMemory;
-    VkImage stagingImage;
 
     struct {
         VkBuffer buf;
@@ -242,3 +257,35 @@ void GRAPHIC_VK_init_device( struct GRAPHIC_VK_ENGINE_INFO &info );
 void GRAPHIC_VK_init_enumerate_device( struct GRAPHIC_VK_ENGINE_INFO &info, uint32_t gpu_count=1 );
 void GRAPHIC_VK_init_connection( struct GRAPHIC_VK_ENGINE_INFO &info );
 void GRAPHIC_VK_init_queue_family_index( struct GRAPHIC_VK_ENGINE_INFO &info );
+
+
+void GRAPHIC_VK_destroy_pipeline( struct GRAPHIC_VK_ENGINE_INFO &info );
+void GRAPHIC_VK_destroy_pipeline_cache( struct GRAPHIC_VK_ENGINE_INFO &info );
+void GRAPHIC_VK_destroy_descriptor_pool( struct GRAPHIC_VK_ENGINE_INFO &info );
+
+/*
+//TODO : graphic vertex buffer
+void destroy_vertex_buffer( struct sample_info &info );
+//TODO : graphic texture
+void destroy_textures( struct sample_info &info );
+//TODO : graphic render target
+void destroy_framebuffers( struct sample_info &info );
+//TODO : graphic shader
+void destroy_shaders( struct sample_info &info );
+//TODO : ???
+void destroy_renderpass( struct sample_info &info );
+
+
+//TODO : ??
+void destroy_descriptor_and_pipeline_layouts( struct GRAPHIC_VK_ENGINE_INFO & info );
+void destroy_uniform_buffer( struct GRAPHIC_VK_ENGINE_INFO & info );
+*/
+void GRAPHIC_VK_destroy_depth_buffer( struct GRAPHIC_VK_ENGINE_INFO & info );
+void GRAPHIC_VK_destroy_swap_chain( struct GRAPHIC_VK_ENGINE_INFO & info );
+void GRAPHIC_VK_destroy_command_buffer( struct GRAPHIC_VK_ENGINE_INFO & info );
+void GRAPHIC_VK_destroy_command_pool( struct GRAPHIC_VK_ENGINE_INFO & info );
+void GRAPHIC_VK_destroy_device( struct GRAPHIC_VK_ENGINE_INFO & info );
+void GRAPHIC_VK_destroy_instance( struct GRAPHIC_VK_ENGINE_INFO & info );
+
+bool GRAPHIC_VK_memory_type_from_properties( struct GRAPHIC_VK_ENGINE_INFO &info, uint32_t typeBits, VkFlags requirements_mask, uint32_t *typeIndex );
+void GRAPHIC_VK_set_image_layout( struct GRAPHIC_VK_ENGINE_INFO &info, VkImage image, VkImageAspectFlags aspectMask, VkImageLayout old_image_layout, VkImageLayout new_image_layout, VkPipelineStageFlags src_stages, VkPipelineStageFlags dest_stages );

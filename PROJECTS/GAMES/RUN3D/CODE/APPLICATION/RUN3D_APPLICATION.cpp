@@ -33,7 +33,6 @@ From(),
 To()
 #endif
 {
-    
     #if PLATFORM_OSX
         DefaultFileystem.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
     #elif PLATFORM_IOS

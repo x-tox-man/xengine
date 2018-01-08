@@ -126,8 +126,8 @@ void GRAPHIC_UI_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
     
     if ( IsVisible() ) {
         
-        int base_x = GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().X() * 0.5f + (GetPlacement().GetAbsolutePosition().X() - GetPlacement().GetSize().X() * 0.5f );
-        int base_y = GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().Y() * 0.5f + (GetPlacement().GetAbsolutePosition().Y() - GetPlacement().GetSize().Y() * 0.5f );
+        int base_x = ( int ) ( GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().X() * 0.5f + (GetPlacement().GetAbsolutePosition().X() - GetPlacement().GetSize().X() * 0.5f ) );
+        int base_y = ( int ) ( GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize().Y() * 0.5f + (GetPlacement().GetAbsolutePosition().Y() - GetPlacement().GetSize().Y() * 0.5f ) );
         
         GRAPHIC_UI_ELEMENT::Render( renderer );
         
@@ -135,10 +135,10 @@ void GRAPHIC_UI_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
         CORE_MATH_VECTOR scissor_rectangle = renderer.GetScissorRectangle();
         
         
-        renderer.SetScissorRectangle(CORE_MATH_VECTOR(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y() ) );
+        renderer.SetScissorRectangle( CORE_MATH_VECTOR( (float) base_x, ( float ) base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y() ) );
         renderer.EnableScissor( false );
         
-        GRAPHIC_SYSTEM::SetScissorRectangle(base_x, base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y());
+        GRAPHIC_SYSTEM::SetScissorRectangle( ( float ) base_x, ( float ) base_y, GetPlacement().GetSize().X(), GetPlacement().GetSize().Y());
         
         std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();
         
@@ -252,7 +252,7 @@ void GRAPHIC_UI_FRAME::Drag( const CORE_MATH_VECTOR & cursor_position ) {
     }
 }
 
-GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::GetObjectAtIndex(int index ) {
+GRAPHIC_UI_ELEMENT * GRAPHIC_UI_FRAME::GetObjectAtIndex( size_t index ) {
     
 #if DEBUG
     assert( index < ElementTable.size() );

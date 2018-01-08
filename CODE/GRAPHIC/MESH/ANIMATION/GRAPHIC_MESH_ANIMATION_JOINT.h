@@ -15,6 +15,7 @@
 #include "CORE_HELPERS_SCALAR.h"
 #include "CORE_MATH_POSE.h"
 #include "CORE_MEMORY.h"
+#include "CORE_DATA_TYPES.h"
 
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_JOINT )
 
@@ -28,7 +29,7 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_JOINT )
     inline float * GetMatrixBuffer() { return (float *) FloatMatrixBuffer.getpointerAtIndex( 0, 0 ); }
     inline CORE_MATH_POSE * GetPoseBuffer() { return (CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( 0, 0 ); }
 
-    inline void SetJointName( const char * name ) { strcpy(JointName, name); }
+    inline void SetJointName( const char * name ) { CORE_DATA_COPY_STRING(JointName, name); }
 
     inline void * GetFloatMatrixBuffer( int offset = 0 ) { return FloatMatrixBuffer.getpointerAtIndex( offset, 0); }
     inline CORE_DATA_BUFFER &  GetTimeTableBuffer() { return TimeTableBuffer; }

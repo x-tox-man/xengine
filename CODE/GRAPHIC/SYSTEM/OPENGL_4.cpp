@@ -14,10 +14,10 @@
 #include "GRAPHIC_SHADER_PROGRAM.h"
 #include "GRAPHIC_MESH.h"
 
-#if OPENGL3 || OPENGL4
+#if OPENGL4
 
     CORE_PARALLEL_LOCK_MUTEX GRAPHIC_SYSTEM::GraphicSystemLock;
-    const char * GRAPHIC_SYSTEM::ShaderDirectoryPath = "OPENGL2";
+    const char * GRAPHIC_SYSTEM::ShaderDirectoryPath = "OPENGL4";
     CORE_HELPERS_COLOR GRAPHIC_SYSTEM::ClearColor = CORE_COLOR_Blue;
 
     GRAPHIC_SYSTEM::~GRAPHIC_SYSTEM() {
@@ -32,28 +32,28 @@
 
     }
 
-    GLint OPENGL_3_GetTextureFormat( GRAPHIC_TEXTURE_IMAGE_TYPE image_tye ) {
+    GLint OPENGL_4_GetTextureFormat( GRAPHIC_TEXTURE_IMAGE_TYPE image_tye ) {
         
         static GLint image_type_mapping[] = { GL_RGB, GL_RGBA, -1, -1, GL_DEPTH_COMPONENT16, GL_DEPTH_COMPONENT24, GL_DEPTH_COMPONENT32 };
         
         return image_type_mapping[ image_tye ];
     }
 
-    GLenum OPENGL_3_GetCompareOperation( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation ) {
+    GLenum OPENGL_4_GetCompareOperation( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation ) {
         
         static GLenum compare_operation[] { GL_NEVER, GL_LESS, GL_EQUAL, GL_LEQUAL, GL_GREATER, GL_NOTEQUAL, GL_GEQUAL, GL_ALWAYS, 0, 0 };
         
         return compare_operation[ operation ];
     }
 
-    GLenum OPENGL_3_GetBlendOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation ) {
+    GLenum OPENGL_4_GetBlendOperation( const GRAPHIC_SYSTEM_BLEND_OPERATION operation ) {
         
         static GLint blend_operation[] = { GL_ZERO, GL_ONE, GL_SRC_ALPHA, GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA };
             
         return blend_operation[ operation ];
     }
 
-    GLenum OPENGL_3_GetFillMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE mode ) {
+    GLenum OPENGL_4_GetFillMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE mode ) {
         
         static GLenum fill_mode[] { GL_POINT, GL_LINE, GL_FILL };
         
@@ -78,7 +78,7 @@
     void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination ) {
         
         GFX_CHECK( glEnable( GL_BLEND ); )
-        GFX_CHECK( glBlendFunc( OPENGL_3_GetBlendOperation( source ), OPENGL_3_GetBlendOperation( destination ) ); )
+        GFX_CHECK( glBlendFunc( OPENGL_4_GetBlendOperation( source ), OPENGL_4_GetBlendOperation( destination ) ); )
     }
 
     void GRAPHIC_SYSTEM::DisableBlend() {
@@ -90,7 +90,7 @@
     
         GFX_CHECK( glEnable( GL_DEPTH_TEST ); )
         
-        GFX_CHECK( glDepthFunc( OPENGL_3_GetCompareOperation( operation ) ); )
+        GFX_CHECK( glDepthFunc( OPENGL_4_GetCompareOperation( operation ) ); )
         GFX_CHECK( glDepthMask( mask ? GL_TRUE : GL_FALSE ); )
         GFX_CHECK( glDepthRange(range_begin, range_end); )
     }
@@ -149,7 +149,7 @@
         
         GRAPHIC_TEXTURE_INFO & info = texture->GetTextureInfo();
         
-        GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_3_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_3_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, 0 ); )
+        GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_4_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, 0 ); )
         
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
@@ -165,7 +165,7 @@
         GFX_CHECK( glGenTextures(1, &texture->GetDepthTextureHandle() ); )
         GFX_CHECK( glBindTexture(GL_TEXTURE_2D, texture->GetDepthTextureHandle() ); )
         
-        GFX_CHECK( glTexImage2D(GL_TEXTURE_2D, 0, OPENGL_3_GetTextureFormat( type ), info.Width, info.Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL); )
+        GFX_CHECK( glTexImage2D(GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat( type ), info.Width, info.Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL); )
         
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST ); )
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST ); )
@@ -174,7 +174,7 @@
         GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); )
     }
 
-    void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, const void * texture_data, bool generate_mipmap ) {
+    void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_data, bool generate_mipmap ) {
         
         GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
         GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )
@@ -187,7 +187,7 @@
         
         GRAPHIC_TEXTURE_INFO & info = texture->GetTextureInfo();
         
-        GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_3_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_3_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, texture_data ); )
+        GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_4_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, texture_data ); )
         //GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data ); )
         
         // TODO : generate mipmap -> disable for interface elements
@@ -225,7 +225,7 @@
                                    offset[1],
                                    size[0],
                                    size[1],
-                                   OPENGL_3_GetTextureFormat( texture.GetTextureInfo().ImageType ),
+                                   OPENGL_4_GetTextureFormat( texture.GetTextureInfo().ImageType ),
                                    GL_UNSIGNED_BYTE,
                                    data ); )
     }
@@ -415,40 +415,40 @@
         
         if ( components & GRAPHIC_SHADER_BIND_Position ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_Position); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Position, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*) vertex_offset); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_Position); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Position, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*) vertex_offset); )
             
             vertex_offset += 4;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_Normal ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_Normal); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Normal, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_Normal); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Normal, 4, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 4;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_Texcoord0 ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0); )
-            GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_Texcoord0); )
+            GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride* sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 2;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_SkinWeight ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_JointIndices ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_JointIndices); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
                       )
             
             vertex_offset += 3;
@@ -456,16 +456,16 @@
         
         if ( components & GRAPHIC_SHADER_BIND_Tangents ) {
             
-            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL3_Tangents); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_Tangents); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_Bitangents ) {
             
-            GFX_CHECK( glEnableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_Bitangents); )
-            GFX_CHECK( glVertexAttribPointer( GRAPHIC_SHADER_BIND_OPENGL3_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glEnableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_Bitangents); )
+            GFX_CHECK( glVertexAttribPointer( GRAPHIC_SHADER_BIND_OPENGL4_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
@@ -493,35 +493,35 @@
         
         if ( component & GRAPHIC_SHADER_BIND_Position ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Position, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*) 0); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Position, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*) 0); )
             
             vertex_offset += 4;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_Normal ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Normal, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Normal, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 4;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_Texcoord0 ) {
             
-            GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK( glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Texcoord0, 2, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 2;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_SkinWeight ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_JointIndices ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
                       )
             
             vertex_offset += 3;
@@ -529,14 +529,14 @@
         
         if ( component & GRAPHIC_SHADER_BIND_Tangents ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Tangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_Bitangents ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL3_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
         }
@@ -550,7 +550,7 @@
         GFX_CHECK( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexBuffer()) ; )
         
         GFX_CHECK( glDrawElements(
-            GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpengl3( mesh.GetPolygonRenderMode() ),      // mode
+            GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpengl4( mesh.GetPolygonRenderMode() ),      // mode
             mesh.GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int ),    // count
             GL_UNSIGNED_INT,   // type
             (void*)0); )
@@ -562,11 +562,11 @@
         GFX_CHECK( glDeleteBuffers(1, &mesh.GetVertexBuffer()); )
         
         //TODO : check current state
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_Position ); )
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_Normal ); )
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0 ); )
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_JointIndices ); )
-        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_Position ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_Normal ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_Texcoord0 ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_JointIndices ); )
+        GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight ); )
     }
 
 #endif

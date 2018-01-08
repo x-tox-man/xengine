@@ -15,6 +15,7 @@
 #include "CORE_FILESYSTEM.h"
 #include "GRAPHIC_TEXTURE.h"
 #include "GRAPHIC_TEXTURE_LOADER.h"
+#include "CORE_DATA_TYPES.h"
 
 typedef std::map< char, GRAPHIC_GLYPH > GLYPH_TABLE;
 
@@ -30,7 +31,7 @@ XS_CLASS_BEGIN( GRAPHIC_FONT )
     inline GLYPH_TABLE & GetGlyphTable() { return GlyphTable; }
     inline void SetTexture( GRAPHIC_TEXTURE * texture ) { Texture = texture; }
     inline GRAPHIC_TEXTURE * GetTexture() { return Texture; }
-    inline void SetName( const char * name ) { strcpy(Name, name ); }
+    inline void SetName( const char * name ) { CORE_DATA_COPY_STRING( Name, name ); }
 
     void Initialize();
     void Load( const CORE_FILESYSTEM_PATH & path, const CORE_FILESYSTEM_PATH & image_path );

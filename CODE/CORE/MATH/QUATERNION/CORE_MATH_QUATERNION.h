@@ -31,14 +31,6 @@ XS_CLASS_BEGIN_WITH_COPY(CORE_MATH_QUATERNION)
 
     XS_DEFINE_SERIALIZABLE
 
-    CORE_MATH_QUATERNION( CORE_MATH_QUATERNION & other ) {
-        
-        X( other.X() );
-        Y( other.Y() );
-        Z( other.Z() );
-        W( other.W() );
-    }
-
     CORE_MATH_QUATERNION() : Value() {
         
         X( 0.0f );

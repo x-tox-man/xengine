@@ -65,47 +65,47 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_Position ) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Position, "position" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_Position, "position" ); )
     }
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_Normal ) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Normal, "normal" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_Normal, "normal" ); )
     }
         
     if ( shader_bind & GRAPHIC_SHADER_BIND_Texcoord0) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Texcoord0, "tex0" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_Texcoord0, "tex0" ); )
     }
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_Texcoord1) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Texcoord1, "tex1" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_Texcoord1, "tex1" ); )
     }
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_SkinWeight ) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_SkinWeight, "weights" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight, "weights" ); )
     }
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_JointIndices ) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_JointIndices, "joint_indices" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_JointIndices, "joint_indices" ); )
     }
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_Tangents ) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Tangents, "tangent" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_Tangents, "tangent" ); )
     }
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_Bitangents ) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Bitangents, "bitangent" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_Bitangents, "bitangent" ); )
     }
     
     if ( shader_bind & GRAPHIC_SHADER_BIND_Color ) {
         
-        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL3_Color, "color" ); )
+        GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_Color, "color" ); )
     }
     
     //TODO : color

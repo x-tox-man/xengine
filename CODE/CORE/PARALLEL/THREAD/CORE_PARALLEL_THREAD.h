@@ -66,7 +66,7 @@ public:
 void Initialize( const char * thread_name, __TASK_TYPE & task ) {
     
     ThreadName = (char *) CORE_MEMORY_ALLOCATOR::Allocate(strlen( thread_name ) );
-    strcpy( ThreadName, thread_name );
+    CORE_DATA_COPY_STRING( ThreadName, thread_name );
     
     TypedTask = &task;
 }
