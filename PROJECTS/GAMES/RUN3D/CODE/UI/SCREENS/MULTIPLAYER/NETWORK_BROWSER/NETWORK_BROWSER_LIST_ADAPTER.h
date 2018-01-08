@@ -32,6 +32,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(NETWORK_BROWSER_LIST_ADAPTER, GRAPHIC_UI_FRAME_LIST
     virtual GRAPHIC_UI_ELEMENT::PTR CreateItem() override {
         return new NETWORK_BROWSER_LOBBY_CELL;
     }
+
+    virtual void OnBaseIndexChanged( int index ) override {}
     
 private:
     

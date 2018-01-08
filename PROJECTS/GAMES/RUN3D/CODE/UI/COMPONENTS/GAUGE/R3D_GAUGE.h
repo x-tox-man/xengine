@@ -10,7 +10,6 @@
 #define R3D_GAUGE_hpp
 
 #include "GRAPHIC_UI_FRAME.h"
-#include "CORE_DATA_UTF8_TEXT.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_GAUGE, GRAPHIC_UI_FRAME )
 
@@ -18,12 +17,18 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_GAUGE, GRAPHIC_UI_FRAME )
 
     virtual void Initialize() override;
 
-    inline void SetPercent( float percent ) { Percent = percent; }
+    void SetPercent( float percent );
+    void SetColor( const CORE_HELPERS_COLOR & color );
+
+    void SetPercentAnimated( float percent );
+    void SetColorAnimated( const CORE_HELPERS_COLOR & color );
 
 private:
 
     float
         Percent;
+    static CORE_HELPERS_IDENTIFIER
+        Gauge;
 
 XS_CLASS_END
 

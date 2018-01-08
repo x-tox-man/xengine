@@ -185,9 +185,11 @@
         
         descriptor.Size = 12;
         
-        int string_size = strlen( " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-" );
-        char * string = (char *) CORE_MEMORY_ALLOCATOR_Allocate (string_size);
-        memcpy(string, " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-", string_size );
+        const char * characters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-.";
+        
+        int string_size = strlen( characters );
+        char * string = (char *) CORE_MEMORY_ALLOCATOR_Allocate( string_size );
+        memcpy(string, characters, string_size );
         
         descriptor.CharacterSet.resize( string_size );
         

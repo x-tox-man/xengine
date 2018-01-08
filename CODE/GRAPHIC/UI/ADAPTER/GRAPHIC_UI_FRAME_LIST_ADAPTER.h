@@ -28,6 +28,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_UI_FRAME_LIST_ADAPTER, GRAPHIC_UI_FRAME_SC
     virtual void OnCollectionChanged();
     virtual void OnDragEnd() override;
     inline void SetCellDimension( const CORE_MATH_VECTOR & dimension ) {CellDimension = dimension; }
+    inline const CORE_MATH_VECTOR & GetCellDimension() { return CellDimension; }
+    inline int GetVisibleItemsCount() { return VisibleItemsCount; }
+    inline std::vector<GRAPHIC_UI_ELEMENT *> & GetVisibleItemsTable() { return VisibleItemsTable; }
+    inline GRAPHIC_UI_FRAME * GetFrame() { return Frame; }
 
 protected:
 
@@ -35,6 +39,10 @@ protected:
     virtual int GetSpacing() = 0;
     virtual void ConfigureItemLayoutFor(int , GRAPHIC_UI_ELEMENT *) = 0;
     virtual GRAPHIC_UI_ELEMENT::PTR CreateItem() = 0;
+    virtual void OnBaseIndexChanged( int index ) = 0;
+
+    int
+        BaseIndex;
 
 private:
 

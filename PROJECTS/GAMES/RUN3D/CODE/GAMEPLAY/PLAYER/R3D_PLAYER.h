@@ -13,6 +13,7 @@
 #include "R3D_PLAYER_SHIP.h"
 #include "R3D_PLAYER_SHIP_MODEL.h"
 #include "CORE_DATA_UTF8_TEXT.h"
+#include "R3D_PLAYER_MODIFIER.h"
 
 XS_CLASS_BEGIN( R3D_PLAYER )
 
@@ -40,6 +41,8 @@ private :
         RealMoney; //
     float
         TotalRunTime;
+    std::map< CORE_HELPERS_IDENTIFIER, R3D_PLAYER_MODIFIER >
+        ModifiersMap;
 
 XS_CLASS_END
 

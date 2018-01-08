@@ -114,6 +114,8 @@ public :
         return *CurrentNavigationItem->GetFrame();
     }
 
+    inline NAVIGATION_ITEM * GetCurrentNavigationItem() { return CurrentNavigationItem; }
+
 private :
 
     void RegisterView( GRAPHIC_UI_FRAME * view, const char * screen_name );

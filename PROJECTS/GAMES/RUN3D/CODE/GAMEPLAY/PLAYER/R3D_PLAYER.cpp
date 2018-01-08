@@ -13,7 +13,8 @@ R3D_PLAYER::R3D_PLAYER() :
     Ship( NULL ),
     VirtualCredits( 0 ),
     RealMoney( 0 ),
-    TotalRunTime( 0.0f ) {
+    TotalRunTime( 0.0f ),
+    ModifiersMap() {
     
 }
 

@@ -25,6 +25,7 @@
 #include "CORE_ABSTRACT_RUNTIME_LUA.h"
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
 #include "GRAPHIC_UI_BASE_ADAPTER.h"
+#include "GRAPHIC_UI_ANIMATION.h"
 
 XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
 
@@ -55,11 +56,11 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
     inline const CORE_MATH_VECTOR & GetPosition() const { return Placement.GetAbsolutePosition(); }
     inline const CORE_MATH_VECTOR & GetSize() const { return Placement.GetSize(); }
     inline const GRAPHIC_UI_PLACEMENT & GetPlacement() const { return Placement; }
-    inline const GRAPHIC_UI_ELEMENT_SCRIPTED & GetAnimation() const { return Animation; }
+    inline const GRAPHIC_UI_ANIMATION & GetAnimation() const { return Animation; }
     inline const CORE_HELPERS_IDENTIFIER & GetIdentifier() { return Identifier; }
 
     inline GRAPHIC_UI_PLACEMENT & GetPlacement() { return Placement; }
-    inline GRAPHIC_UI_ELEMENT_SCRIPTED & GetAnimation() { return Animation; }
+    inline GRAPHIC_UI_ANIMATION & GetAnimation() { return Animation; }
 
     inline void SetPosition( const CORE_MATH_VECTOR & position ) { Placement.SetRelativePosition( position );OnPlacementPropertyChanged(); }
 
@@ -120,7 +121,7 @@ protected:
         Identifier;
     GRAPHIC_UI_ELEMENT_STATE
         CurrentState;
-    GRAPHIC_UI_ELEMENT_SCRIPTED
+    GRAPHIC_UI_ANIMATION
         Animation;
     std::array< GRAPHIC_UI_RENDER_STYLE *, 4 >
         RenderStyleTable;

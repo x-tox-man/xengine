@@ -315,6 +315,10 @@
 		5FA9F1FB1FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1F91FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp */; };
 		5FA9F1FC1FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1F91FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp */; };
 		5FB7C0DA1F8C1AA900DF7472 /* RESOURCE_CACHE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7C0D91F8C1AA100DF7472 /* RESOURCE_CACHE.cpp */; };
+		5FCC3D67200198E600A698B8 /* R3D_PLAYER_MODIFIER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D65200198E600A698B8 /* R3D_PLAYER_MODIFIER.cpp */; };
+		5FCC3D68200198E600A698B8 /* R3D_PLAYER_MODIFIER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D65200198E600A698B8 /* R3D_PLAYER_MODIFIER.cpp */; };
+		5FCC3D6B2002B58D00A698B8 /* R3D_GAUGE_ANIMATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D692002B58D00A698B8 /* R3D_GAUGE_ANIMATION.cpp */; };
+		5FCC3D6C2002B58D00A698B8 /* R3D_GAUGE_ANIMATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D692002B58D00A698B8 /* R3D_GAUGE_ANIMATION.cpp */; };
 		5FCED0CE1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCED0CC1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp */; };
 		5FCED0CF1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCED0CC1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp */; };
 		5FCED0D31FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCED0D21FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp */; };
@@ -705,6 +709,10 @@
 		5FA9F1F91FDDF25E00D2869F /* R3D_BASE_PRESENTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_BASE_PRESENTER.cpp; sourceTree = "<group>"; };
 		5FA9F1FA1FDDF25E00D2869F /* R3D_BASE_PRESENTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_BASE_PRESENTER.h; sourceTree = "<group>"; };
 		5FB7C0D91F8C1AA100DF7472 /* RESOURCE_CACHE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = RESOURCE_CACHE.cpp; path = ../../../../CODE/RESOURCE/RESOURCE_CACHE.cpp; sourceTree = "<group>"; };
+		5FCC3D65200198E600A698B8 /* R3D_PLAYER_MODIFIER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_PLAYER_MODIFIER.cpp; sourceTree = "<group>"; };
+		5FCC3D66200198E600A698B8 /* R3D_PLAYER_MODIFIER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_PLAYER_MODIFIER.h; sourceTree = "<group>"; };
+		5FCC3D692002B58D00A698B8 /* R3D_GAUGE_ANIMATION.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAUGE_ANIMATION.cpp; sourceTree = "<group>"; };
+		5FCC3D6A2002B58D00A698B8 /* R3D_GAUGE_ANIMATION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_GAUGE_ANIMATION.h; sourceTree = "<group>"; };
 		5FCED0CC1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_BROWSER_LOBBY_CELL.cpp; sourceTree = "<group>"; };
 		5FCED0CD1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_BROWSER_LOBBY_CELL.h; sourceTree = "<group>"; };
 		5FCED0D11FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NETWORK_SETUP_PLAYER_CELL.h; sourceTree = "<group>"; };
@@ -1121,6 +1129,8 @@
 			children = (
 				5F9275391FFFA315008604E4 /* R3D_GAUGE.cpp */,
 				5F92753A1FFFA315008604E4 /* R3D_GAUGE.h */,
+				5FCC3D692002B58D00A698B8 /* R3D_GAUGE_ANIMATION.cpp */,
+				5FCC3D6A2002B58D00A698B8 /* R3D_GAUGE_ANIMATION.h */,
 			);
 			path = GAUGE;
 			sourceTree = "<group>";
@@ -1191,6 +1201,7 @@
 		5F92D8FE1F12DCD000292A99 /* PLAYER */ = {
 			isa = PBXGroup;
 			children = (
+				5FCC3D64200198DA00A698B8 /* MODIFIER */,
 				5FD11D101F1795400092E3A7 /* INPUT */,
 				5F92D9141F12DEA700292A99 /* PARTS */,
 				5F92D9151F12DEA700292A99 /* SHIP */,
@@ -1598,6 +1609,15 @@
 			path = GARAGE;
 			sourceTree = "<group>";
 		};
+		5FCC3D64200198DA00A698B8 /* MODIFIER */ = {
+			isa = PBXGroup;
+			children = (
+				5FCC3D65200198E600A698B8 /* R3D_PLAYER_MODIFIER.cpp */,
+				5FCC3D66200198E600A698B8 /* R3D_PLAYER_MODIFIER.h */,
+			);
+			path = MODIFIER;
+			sourceTree = "<group>";
+		};
 		5FCED0CB1FE10FF400CFA7EF /* CELL */ = {
 			isa = PBXGroup;
 			children = (
@@ -1941,6 +1961,7 @@
 				32F248241EA433F200D19613 /* main.m in Sources */,
 				5F92D91C1F12E0A400292A99 /* R3D_GAMEPLAY_GAME_PROGRESSION.cpp in Sources */,
 				5F0C3CC81FDF1F1C00B761A2 /* R3D_GARAGE_SHIPS_ADAPTER.cpp in Sources */,
+				5FCC3D67200198E600A698B8 /* R3D_PLAYER_MODIFIER.cpp in Sources */,
 				5F237FBC1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp in Sources */,
 				5F92D92B1F12E11600292A99 /* R3D_PLAYER.cpp in Sources */,
 				5FD11D131F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp in Sources */,
@@ -1982,6 +2003,7 @@
 				5F0F94981FEA523E00EEA01D /* R3D_BROWSER_NETWORK_CLIENT_DELEGATE.cpp in Sources */,
 				5F0F94911FEA522700EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp in Sources */,
 				5F4330491FF5A0E50028DDD6 /* UI_ENDGAME.cpp in Sources */,
+				5FCC3D6B2002B58D00A698B8 /* R3D_GAUGE_ANIMATION.cpp in Sources */,
 				32F24BA31EA4345000D19613 /* RUN3D_APPLICATION.cpp in Sources */,
 				5FD11D0F1F16A1AF0092E3A7 /* TERRAIN.cpp in Sources */,
 				5F76D0761F71B49C004BEF48 /* UI_MAIN_MENU.cpp in Sources */,
@@ -2006,7 +2028,9 @@
 				5FD956F51FAE238B00FB9376 /* RUN3D_APPLICATION.cpp in Sources */,
 				5FD956F61FAE238B00FB9376 /* R3D_AUDIO_MUSIC_MANAGER.cpp in Sources */,
 				5FCED0CF1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp in Sources */,
+				5FCC3D6C2002B58D00A698B8 /* R3D_GAUGE_ANIMATION.cpp in Sources */,
 				5F193B9D1FF0138E00F5DB4B /* R3D_COMMAND_GAME_STATUS.cpp in Sources */,
+				5FCC3D68200198E600A698B8 /* R3D_PLAYER_MODIFIER.cpp in Sources */,
 				5F92753C1FFFA315008604E4 /* R3D_GAUGE.cpp in Sources */,
 				5F9C83BA1FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp in Sources */,
 				5FCED0D41FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */,
