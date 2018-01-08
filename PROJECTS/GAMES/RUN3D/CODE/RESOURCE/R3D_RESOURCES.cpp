@@ -74,11 +74,11 @@ void R3D_RESOURCES::Initialize() {
     Resources->AddResource( text_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "UIShaderTextured" ) );
     
     GRAPHIC_FONT_MANAGER::GetInstance().LoadFont(
-                                                 CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ),
-                                                 CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "fxb", "FONTS/" ),
-                                                 CORE_FILESYSTEM_PATH::FindFilePath( "arial_black_12" , "png", "FONTS/" ) );
+                                                 CORE_HELPERS_UNIQUE_IDENTIFIER( "stellar-light_32" ),
+                                                 CORE_FILESYSTEM_PATH::FindFilePath( "stellar-light_32" , "fxb", "FONTS/" ),
+                                                 CORE_FILESYSTEM_PATH::FindFilePath( "stellar-light_32" , "png", "FONTS/" ) );
     
-    GRAPHIC_FONT * font = GRAPHIC_FONT_MANAGER::GetInstance().GetFont( CORE_HELPERS_UNIQUE_IDENTIFIER( "arial_black_12" ) );
+    GRAPHIC_FONT * font = GRAPHIC_FONT_MANAGER::GetInstance().GetFont( CORE_HELPERS_UNIQUE_IDENTIFIER( "stellar-light_32" ) );
     
     GRAPHIC_UI_HELPER::DefaultFont = font;
 }

@@ -70,7 +70,7 @@ private :
     GRAPHIC_TEXTURE_INFO
         TextureInfo;
 
-    #if OPENGL2PLUS || OPENGLES2 || OPENGL3 || OPENGL4
+    #if OPENGL2PLUS
         GLuint
             TextureHandle,
             DepthTextureHandle;

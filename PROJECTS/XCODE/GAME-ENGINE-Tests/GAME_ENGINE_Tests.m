@@ -247,6 +247,52 @@
     }
 }
 
+-(void) testFonts3 {
+    
+    NSString
+        * font_name = [NSString stringWithFormat:@"stellar-bold" ];
+    NSArray
+        * dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/Library/Fonts" error:nil];
+    NSArray
+        * fonts = [dirs filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self contains[cd] %@", font_name ]];
+    
+    if ( [fonts count] > 0 ) {
+        
+        FONT_EDITOR
+            editor;
+        FONT_DESCRIPTOR
+            descriptor;
+        
+        CORE_FILESYSTEM_PATH
+        image_target_path( CORE_FILESYSTEM_PATH::FindFilePath( "stellar-light_32", "png", "FONTS" ) ),
+        font_target_path( CORE_FILESYSTEM_PATH::FindFilePath( "stellar-light_32", "fxb", "FONTS" ) );
+        
+        descriptor.color[0] = 255;
+        descriptor.color[1] = 255;
+        descriptor.color[2] = 255;
+        descriptor.color[3] = 255;
+        
+        descriptor.Size = 32;
+        
+        const char * characters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-.";
+        int string_size = strlen( characters );
+        char * string = (char *) CORE_MEMORY_ALLOCATOR_Allocate (string_size);
+        memcpy(string, characters, string_size );
+        
+        descriptor.CharacterSet.resize( string_size );
+        
+        for (int i = 0; i < string_size; i++ ) {
+            
+            descriptor.CharacterSet[ i ] = string[i];
+        }
+        
+        NSString * filename = [NSString stringWithFormat:@"/Library/Fonts/"];
+        filename = [filename stringByAppendingString:[fonts objectAtIndex:0] ];
+        
+        editor.CompileFont(512, 1024, [filename cStringUsingEncoding:NSASCIIStringEncoding], descriptor, image_target_path, font_target_path );
+    }
+}
+
 -(void) testTextureAtlas {
     
     std::vector< RESOURCE_IMAGE *> images;

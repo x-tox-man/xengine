@@ -129,13 +129,12 @@
         
         if ( texture->GetTextureHandle() ) {
 
-            GFX_CHECK( glDeleteTextures( 1, &texture->GetTextureHandle()); )
+            GFX_CHECK( glDeleteTextures( 1, &texture->GetTextureHandle() ); )
         }
         
         if ( texture->GetDepthTextureHandle() ) {
             
-            GFX_CHECK( glDeleteTextures( 1, &texture->GetDepthTextureHandle()
-                                        ); )
+            GFX_CHECK( glDeleteTextures( 1, &texture->GetDepthTextureHandle() ); )
         }
     }
 
@@ -482,10 +481,10 @@
         GFX_CHECK( glBufferData( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexCoreBuffer()->GetSize(), mesh.GetIndexCoreBuffer()->getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
     }
 
-    void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
+    void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH & mesh) {
         
         GFX_CHECK( glBindVertexArray( mesh.GetVertexArrays()); )
-        GFX_CHECK(glBindBuffer(GL_ARRAY_BUFFER, mesh.GetVertexBuffer()); )
+        GFX_CHECK( glBindBuffer(GL_ARRAY_BUFFER, mesh.GetVertexBuffer()); )
         
         int vertex_offset = 0;
         GRAPHIC_SHADER_BIND component = mesh.GetVertexComponent();
@@ -551,9 +550,9 @@
         
         GFX_CHECK( glDrawElements(
             GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpengl4( mesh.GetPolygonRenderMode() ),      // mode
-            mesh.GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int ),    // count
+            (int) (mesh.GetIndexCoreBuffer()->GetSize() / sizeof( size_t ) ) * 2,    // count
             GL_UNSIGNED_INT,   // type
-            (void*)0); )
+            (void*) 0); )
     }
 
     void GRAPHIC_SYSTEM::ReleaseBuffers(GRAPHIC_MESH &mesh) {

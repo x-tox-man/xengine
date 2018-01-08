@@ -29,16 +29,19 @@ int main(int argc, const char * argv[]) {
         }
         else if ( argc > 1 ) {
             
-            const char * source_path = argv[1];
-            char * destination_dir = (char *) malloc( sizeof( char ) * strlen( argv[1] ) );
-            const char * options = argv[3] == NULL ? "" : argv[3];
-            
+            const char
+                * source_path = argv[1];
+            char
+                * destination_dir = (char *) malloc( sizeof( char ) * strlen( argv[1] ) );
+            const char
+                * options = argv[3] == NULL ? "" : argv[3];
             CORE_FILESYSTEM fs;
-            fs.Initialize( GetCurrentDir() );
+                fs.Initialize( GetCurrentDir() );
             
-            int last_occ = (strrchr(source_path, fs.GetDirectorySeparatorChar() ) - source_path )+1;
+            int
+                last_occ = (strrchr(source_path, fs.GetDirectorySeparatorChar() ) - source_path )+1;
             
-            strncpy(destination_dir, source_path, last_occ);
+            strncpy( destination_dir, source_path, last_occ );
             
             TOOL_ASSET_COMPILER(source_path, destination_dir, options);
             
