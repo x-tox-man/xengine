@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../CODE/RESOURCE/MESH/GRAPHIC_MESH_LOADER_COLLADA.cpp"
-            timestampString = "534065631.601586"
+            timestampString = "537095789.661485"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "893"
-            endingLineNumber = "893"
+            startingLineNumber = "894"
+            endingLineNumber = "894"
             landmarkName = "COLLADA_LOADER_WRITER::writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData )"
             landmarkType = "7">
          </BreakpointContent>
@@ -55,14 +55,30 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../CODE/GAMEPLAY/CHECKPOINT/GAMEPLAY_CHECKPOINT.cpp"
-            timestampString = "536524331.43029"
+            filePath = "../../CODE/GAMEPLAY/CHECKPOINT/GAMEPLAY_CHECKPOINT_SYSTEM.cpp"
+            timestampString = "537138379.4065911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "GAMEPLAY_CHECKPOINT::ProcessCollision( GAMEPLAY_COMPONENT_ENTITY * entity )"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "GAMEPLAY_CHECKPOINT_SYSTEM::OnCheckpointCollision( GAMEPLAY_COMPONENT_ENTITY * checkpoint, GAMEPLAY_COMPONENT_ENTITY * entity )"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../CODE/GRAPHIC/UI/ANIMATION/GRAPHIC_UI_ANIMATION.h"
+            timestampString = "537241542.3699189"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

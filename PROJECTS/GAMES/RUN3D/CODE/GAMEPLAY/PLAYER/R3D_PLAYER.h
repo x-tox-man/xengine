@@ -37,8 +37,10 @@ private :
     CORE_DATA_UTF8_TEXT
         PlayerName;
     int
-        VirtualCredits, //
-        RealMoney; //
+        VirtualCredits,
+        RealMoney,
+        TotalExperience,
+        Level;
     float
         TotalRunTime;
     std::map< CORE_HELPERS_IDENTIFIER, R3D_PLAYER_MODIFIER >

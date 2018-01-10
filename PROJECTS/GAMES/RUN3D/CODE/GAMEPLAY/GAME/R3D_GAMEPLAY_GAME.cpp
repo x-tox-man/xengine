@@ -12,9 +12,12 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
+#include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "PHYSICS_COLLISION_FILTER.h"
 #include "R3D_RESOURCES.h"
 #include "btInternalEdgeUtility.h"
+#include "RUN3D_APPLICATION.h"
+#include "PHYSICS_UTILS.h"
 #include "RUN3D_APPLICATION.h"
 
 //https://github.com/libgdx/libgdx/issues/2534
@@ -22,16 +25,42 @@
 //https://github.com/bulletphysics/bullet3/issues/288
 //btAdjustInternalEdgeContacts
 
-/*extern ContactAddedCallback gContactAddedCallback;
+extern ContactAddedCallback gContactAddedCallback;
+extern ContactStartedCallback gContactStartedCallback;
+
+void CustomContactStartedCallback(btPersistentManifold* const &manifold) {
+    
+    CORE_MATH_VECTOR
+        position,
+        normal;
+    CORE_MATH_RAY_SEGMENT
+        ray;
+    
+    auto player = R3D_APP_PTR->GetGame()->GetLevel()->GetPlayerTable()[0];
+    
+    const CORE_MATH_VECTOR & pos = ((GAMEPLAY_COMPONENT_POSITION::PTR) player->GetShip()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position ) )->GetPosition();
+    ray.SetOrigin( pos );
+    ray.SetDestination(pos + CORE_MATH_VECTOR(0.0f, 0.0f, -2.0f, 0.0f) );
+    
+    PHYSICS_UTILS::FindCollisionInRayFromWorld( R3D_APP_PTR->GetGame()->GetBulletSystem()->GetDynamicsWorld(), position, normal, ray );
+    
+    for (int i = 0; i < manifold->getNumContacts(); i++ ) {
+        
+        printf( "%.2f, %.2f, %.2f\n", manifold->getContactPoint(i).m_normalWorldOnB.x(), manifold->getContactPoint(i).m_normalWorldOnB.y(), manifold->getContactPoint(i).m_normalWorldOnB.z() );
+    }
+}
 
 bool CustomMaterialCombinerCallback(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
 {
     
     if (true)
     {
-        btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId1,index1);
-        //btAdjustInternalEdgeContacts(cp,colObj1,colObj0, partId1,index1, BT_TRIANGLE_CONVEX_BACKFACE_MODE);
-        //btAdjustInternalEdgeContacts(cp,colObj1,colObj0, partId1,index1, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
+        //btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId1,index1);
+        btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId1,index1, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
+        btAdjustInternalEdgeContacts(cp,colObj0Wrap,colObj1Wrap, partId0,index0, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
+        btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId0,index1, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
+        btAdjustInternalEdgeContacts(cp,colObj0Wrap,colObj1Wrap, partId1,index0, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
+        //btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId1,index1, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
     }
     
     float friction0 = colObj0Wrap->getCollisionObject()->getFriction();
@@ -41,14 +70,14 @@ bool CustomMaterialCombinerCallback(btManifoldPoint& cp,    const btCollisionObj
     
     if (colObj0Wrap->getCollisionObject()->getCollisionFlags() & btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK)
     {
-        friction0 = 1.0;//partId0,index0
+        friction0 = 0.0;//partId0,index0
         restitution0 = 0.f;
     }
     if (colObj1Wrap->getCollisionObject()->getCollisionFlags() & btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK)
     {
         if (index1&1)
         {
-            friction1 = 1.0f;//partId1,index1
+            friction1 = 0.0f;//partId1,index1
         } else
         {
             friction1 = 0.f;
@@ -56,12 +85,12 @@ bool CustomMaterialCombinerCallback(btManifoldPoint& cp,    const btCollisionObj
         restitution1 = 0.f;
     }
     
-    //cp.m_combinedFriction = calculateCombinedFriction(friction0,friction1);
-    //cp.m_combinedRestitution = calculateCombinedRestitution(restitution0,restitution1);
+    cp.m_combinedFriction = 0.0f;
+    cp.m_combinedRestitution = 0.0f;
     
     //this return value is currently ignored, but to be on the safe side: return false if you don't calculate friction
-    return true;
-}*/
+    return false;
+}
 
 void MyNearCallback( btBroadphasePair & collision_pair, btCollisionDispatcher & dispatcher, const btDispatcherInfo & info ) {
     
@@ -126,6 +155,7 @@ void R3D_GAMEPLAY_GAME::SetPlayers( const std::vector< GAME_PLAYER_MODEL > & pla
 void R3D_GAMEPLAY_GAME::Initialize( ) {
     
     //gContactAddedCallback = CustomMaterialCombinerCallback;
+    gContactStartedCallback = CustomContactStartedCallback;
     
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION );
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_ANIMATING );

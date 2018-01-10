@@ -14,8 +14,9 @@
 #include "R3D_PLAYER_PARTS_COLLECTION.h"
 #include "GRAPHIC_CAMERA.h"
 #include "GRAPHICS_STEAM_ENGINE.h"
+#include "R3D_PLAYER_MODIFIER.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_PLAYER_SHIP, GAMEPLAY_COMPONENT_ENTITY)
+XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_PLAYER_SHIP, GAMEPLAY_COMPONENT_ENTITY )
 
     XS_DEFINE_SERIALIZABLE
 
@@ -39,6 +40,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_PLAYER_SHIP, GAMEPLAY_COMPONENT_ENTITY)
     inline void SetRotation( float orientation ) { Rotation = orientation; }
     inline float GetThrust() const { return Thrust; }
     inline float GetRotation() const { return Rotation; }
+    inline std::map< CORE_HELPERS_IDENTIFIER, R3D_PLAYER_MODIFIER > & GetModifiersMap() { return ModifiersMap; }
 
     void ApplyInputParamters( float thrust, float orientation ) {
         
@@ -59,6 +61,8 @@ private:
     float
         Thrust,
         Rotation;
+    std::map< CORE_HELPERS_IDENTIFIER, R3D_PLAYER_MODIFIER >
+        ModifiersMap;
 
 XS_CLASS_END
 

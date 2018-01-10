@@ -9,6 +9,7 @@
 #include "R3D_UI_FRAME.h"
 #include "GRAPHIC_UI_HELPER.h"
 #include "GRAPHIC_UI_SYSTEM.h"
+#include "R3D_UI_FRAME_ANIMATION.h"
 
 R3D_UI_FRAME::R3D_UI_FRAME() :
     GRAPHIC_UI_FRAME(),

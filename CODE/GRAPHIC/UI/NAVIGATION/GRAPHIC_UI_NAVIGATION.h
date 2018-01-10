@@ -32,27 +32,22 @@ class NAVIGATION_ITEM {
         CORE_MEMORY_ObjectSafeDeallocation( Window );
     }
     
-    std::map<std::string, NAVIGATION_ITEM * > GetNavigationChilds() { return NavigationChilds; }
-    
-    GRAPHIC_UI_FRAME * GetFrame() {
-        
-        return Window;
-    }
-    
-    void SetFrame( GRAPHIC_UI_FRAME * frame ) {
-        
-        Window = frame;
-    }
+    inline std::map<std::string, NAVIGATION_ITEM * > GetNavigationChilds() { return NavigationChilds; }
+    inline GRAPHIC_UI_FRAME * GetFrame() { return Window; }
+    inline void SetFrame( GRAPHIC_UI_FRAME * frame ) { Window = frame; }
     
     void Release() {
         
         CORE_MEMORY_ObjectSafeDeallocation( Window );
     }
     
-    NAVIGATION_ITEM * GetParentNavigationItem() { return ParentNavigationItem; }
-    void SetParentNavigationItem(NAVIGATION_ITEM * item) { ParentNavigationItem = item; }
+    inline NAVIGATION_ITEM * GetParentNavigationItem() { return ParentNavigationItem; }
+    inline void SetParentNavigationItem(NAVIGATION_ITEM * item) { ParentNavigationItem = item; }
+    inline std::string GetScreenName() { return ScreenName; }
     
-    std::string GetScreenName() { return ScreenName; }
+    inline void SetOpenAnimation( const GRAPHIC_UI_ANIMATION & animation ) { OpenAnimation = animation; }
+    inline const GRAPHIC_UI_ANIMATION & GetOpenAnimation() const { return OpenAnimation; }
+    inline GRAPHIC_UI_ANIMATION & GetOpenAnimation() { return OpenAnimation; }
     
     private :
     
@@ -64,6 +59,8 @@ class NAVIGATION_ITEM {
         NavigationChilds;
     std::string
         ScreenName;
+    GRAPHIC_UI_ANIMATION
+        OpenAnimation;
 };
 
 XS_CLASS_BEGIN( GRAPHIC_UI_NAVIGATION )
@@ -72,7 +69,10 @@ public :
 
     GRAPHIC_UI_NAVIGATION();
     ~GRAPHIC_UI_NAVIGATION();
+
     bool NavigateBackAsync();
+    bool NavigateBackAsyncWithAnimation( const GRAPHIC_UI_ANIMATION & close_animation, const GRAPHIC_UI_ANIMATION & open_animation );
+    void NavigationBackAsyncActionCompletedAnimation( GRAPHIC_UI_ANIMATION * animation );
 
     template<typename SCREEN_TYPE>
     void NavigateToAsync(const char * screen_name ) {
@@ -100,6 +100,55 @@ public :
             
                 RegisterView( CurrentNavigationItem->GetFrame(), screen_name);
                 CurrentNavigationItem->GetFrame()->OnViewAppearing();
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+        CORE_PARALLEL_TASK_END()
+    }
+
+    void NavigationAsyncActionCompletedAnimation( GRAPHIC_UI_ANIMATION * animation ) {
+        
+        // We are during Update loop
+        CORE_PARALLEL_TASK_BEGIN(this)
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GetUILockMutex() )
+                //TODO : check page is correctly loaded
+                if ( CurrentNavigationItem != NULL ) {
+                    
+                    NewNavigationItem->SetParentNavigationItem( CurrentNavigationItem );
+                    UnregisterView(CurrentNavigationItem->GetScreenName().c_str());
+                    CurrentNavigationItem->GetFrame()->OnViewDisappearing();
+                    CurrentNavigationItem->GetFrame()->Finalize();
+                    CurrentNavigationItem->GetNavigationChilds()[ std::string( NewNavigationItem->GetScreenName() )] = NewNavigationItem;
+                }
+        
+                CurrentNavigationItem = NewNavigationItem;
+                RegisterView( CurrentNavigationItem->GetFrame(), NewNavigationItem->GetScreenName().c_str() );
+                CurrentNavigationItem->GetOpenAnimation().SetElement( CurrentNavigationItem->GetFrame() );
+        CurrentNavigationItem->GetOpenAnimation().Update( 0.0f );
+                CurrentNavigationItem->GetFrame()->SetAnimation( CurrentNavigationItem->GetOpenAnimation() );
+        
+                NewNavigationItem = NULL;
+        
+                CurrentNavigationItem->GetFrame()->OnViewAppearing();
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+        CORE_PARALLEL_TASK_END()
+    }
+
+    template<typename SCREEN_TYPE>
+    void NavigateToAsyncWithAnimation( const char * screen_name, const GRAPHIC_UI_ANIMATION & close_animation, const GRAPHIC_UI_ANIMATION & open_animation ) {
+        
+        CORE_PARALLEL_TASK_BEGIN(this, screen_name, close_animation, open_animation )
+            CORE_HELPERS_CALLBACK_1<GRAPHIC_UI_ANIMATION *>
+            callback( &Wrapper1<GRAPHIC_UI_NAVIGATION, GRAPHIC_UI_ANIMATION *, &GRAPHIC_UI_NAVIGATION::NavigationAsyncActionCompletedAnimation>, this );
+        
+            NewNavigationItem = GetNextItemForNavigation<SCREEN_TYPE>( screen_name );
+            NewNavigationItem->SetOpenAnimation( open_animation );
+        
+            CurrentNavigationItem->GetFrame()->SetAnimation( close_animation );
+            CurrentNavigationItem->GetFrame()->GetAnimation().SetCallback( callback );
+        
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
+                NewNavigationItem->GetFrame()->Initialize();
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
         CORE_PARALLEL_TASK_END()
     }
@@ -151,8 +200,9 @@ private :
         return item;
     }
 
-    NAVIGATION_ITEM *
-        CurrentNavigationItem;
+    NAVIGATION_ITEM
+        * CurrentNavigationItem,
+        * NewNavigationItem;
     std::map<std::string, NAVIGATION_ITEM * >
         NavigationItemsTable;
 

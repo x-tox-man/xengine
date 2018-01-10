@@ -12,6 +12,7 @@
 #include "GRAPHIC_UI_SYSTEM.h"
 #include "NETWORK_BROWSER_PAGE.h"
 #include "UI_INGAME.h"
+#include "R3D_UI_FRAME_ANIMATION.h"
 
 UI_MAIN_MENU_PRESENTER::UI_MAIN_MENU_PRESENTER( GRAPHIC_UI_FRAME * view ) :
     R3D_BASE_PRESENTER( view ) {
@@ -35,7 +36,8 @@ void UI_MAIN_MENU_PRESENTER::OnClickStartGame( GRAPHIC_UI_ELEMENT * element, GRA
         R3D_APP_PTR->GetGame()->SelectLevel( (*R3D_APP_PTR->GetGame()->GetLevelManager().GetAllLevels().begin()) );
         R3D_APP_PTR->GetGame()->SetPlayers( players_model );
         R3D_APP_PTR->GetGame()->Restart();
-        GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_INGAME >( "UI_INGAME" );
+        
+        OpenAnimated< UI_INGAME >( "UI_INGAME" );
     }
 }
 
@@ -43,7 +45,7 @@ void UI_MAIN_MENU_PRESENTER::OnClickToGarage( GRAPHIC_UI_ELEMENT * element, GRAP
     
     if ( state == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
         
-        GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_GARAGE >( "UI_GARAGE" );
+        OpenAnimated< UI_GARAGE >( "UI_GARAGE" );
     }
 }
 
@@ -51,6 +53,6 @@ void UI_MAIN_MENU_PRESENTER::OnNetworkButtonPressed(GRAPHIC_UI_ELEMENT * element
     
     if ( state == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
         
-        GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< NETWORK_BROWSER_PAGE >( "NETWORK_BROWSER_PAGE" );
+        OpenAnimated< NETWORK_BROWSER_PAGE >( "NETWORK_BROWSER_PAGE" );
     }
 }

@@ -216,6 +216,7 @@ void GAMEPLAY_HELPER::AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSI
     
     auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     comp->Enable( enable );
+    comp->GetBulletRigidBody()->setCollisionFlags( btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK );
 }
 
 void GAMEPLAY_HELPER::AddStaticToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with ) {
@@ -321,12 +322,12 @@ void GAMEPLAY_HELPER::SetPhysicsFlatGroundObject( GAMEPLAY_COMPONENT_ENTITY::PTR
 
 void GAMEPLAY_HELPER::InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, GRAPHIC_CAMERA & camera ) {
     
-    camera.Reset( 1.0f, 100.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, orientation );
+    camera.Reset( 0.5f, 100.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, orientation );
 }
 
 CORE_MATH_VECTOR GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    CORE_MATH_VECTOR elevation;
+    CORE_MATH_VECTOR elevation, normal;
     auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     auto bullet = R3D_APP_PTR->GetGame()->GetBulletSystem();
@@ -335,7 +336,7 @@ CORE_MATH_VECTOR GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR e
     ray.SetOrigin( pos->GetPosition() );
     ray.SetDestination( pos->GetPosition() + CORE_MATH_VECTOR( 0.0f, 0.0f, -10.0f, 0.0f) );
     
-    if ( PHYSICS_UTILS::FindCollisionInRayFromWorld(bullet->GetDynamicsWorld(), elevation, ray ) ) {
+    if ( PHYSICS_UTILS::FindCollisionInRayFromWorld(bullet->GetDynamicsWorld(), elevation, normal, ray ) ) {
         
         return pos->GetPosition() - elevation;
     }

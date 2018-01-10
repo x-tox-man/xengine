@@ -95,7 +95,7 @@ void NETWORK_BROWSER_PRESENTER::ConnectToServer( NETWORK_REMOTE_SERVER_INFO * in
 void NETWORK_BROWSER_PRESENTER::OnserverConnected() {
     
     //TODO : Navigate on connexion success
-    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< NETWORK_SETUP_PAGE >( "NETWORK_SETUP_PAGE" );
+    OpenAnimated< NETWORK_SETUP_PAGE >( "NETWORK_SETUP_PAGE" );
 }
 
 void NETWORK_BROWSER_PRESENTER::OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event ) {
@@ -104,7 +104,7 @@ void NETWORK_BROWSER_PRESENTER::OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicke
 
         R3D_APP_PTR->GetNetworkManager().FinalizeClient();
         
-        GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateBackAsync();
+        BackAnimated();
     }
 }
 
@@ -116,6 +116,6 @@ void NETWORK_BROWSER_PRESENTER::OnStartLobbyButtonPressed( GRAPHIC_UI_ELEMENT * 
         R3D_APP_PTR->GetNetworkManager().SetServer( true );
         R3D_APP_PTR->GetNetworkManager().InitializeServer( R3D_APP_PTR->GetSeed() );
         
-        GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< NETWORK_SETUP_PAGE >( "NETWORK_SETUP_PAGE" );
+        OpenAnimated< NETWORK_SETUP_PAGE >( "NETWORK_SETUP_PAGE" );
     }
 }

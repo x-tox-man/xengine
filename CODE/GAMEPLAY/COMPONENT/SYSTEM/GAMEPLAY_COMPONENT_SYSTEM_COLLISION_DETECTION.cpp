@@ -38,7 +38,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         
         // Set up the collision configuration and dispatcher
         btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-        btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+        btCollisionDispatcher * dispatcher = new btCollisionDispatcher(collisionConfiguration);
     
         if ( HasNearCallback ) {
             
@@ -53,7 +53,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         
         DynamicsWorld->setGravity(btVector3(0.0f, 0.0f, Gravity));
     
-        #if DEBUG  && !defined(PLATFORM_WINDOWS)
+        #if DEBUG
             Debugger.Initialize();
             Debugger.setDebugMode(btIDebugDraw::DBG_DrawWireframe); // so does this
     

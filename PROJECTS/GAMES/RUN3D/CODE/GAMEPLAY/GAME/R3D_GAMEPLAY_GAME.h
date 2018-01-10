@@ -40,12 +40,10 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
         if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_UP ) ) {
             
             thrust = 1.0f;
-            printf( "up pressed\n" );
         }
         else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_DOWN ) ) {
             
             thrust = -1.0f;
-            printf( "down pressed\n" );
         }
         
         if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_LEFT ) ) {

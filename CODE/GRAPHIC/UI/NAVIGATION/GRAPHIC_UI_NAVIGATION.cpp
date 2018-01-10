@@ -10,7 +10,10 @@
 #include "GRAPHIC_UI_ANIMATION.h"
 #include "GRAPHIC_UI_SYSTEM.h"
 
-GRAPHIC_UI_NAVIGATION::GRAPHIC_UI_NAVIGATION() {
+GRAPHIC_UI_NAVIGATION::GRAPHIC_UI_NAVIGATION() :
+    CurrentNavigationItem( NULL ),
+    NewNavigationItem( NULL ),
+    NavigationItemsTable() {
     
 }
 
@@ -26,6 +29,58 @@ GRAPHIC_UI_NAVIGATION::~GRAPHIC_UI_NAVIGATION() {
     }
     
     NavigationItemsTable.clear();
+}
+
+bool GRAPHIC_UI_NAVIGATION::NavigateBackAsyncWithAnimation( const GRAPHIC_UI_ANIMATION & close_animation, const GRAPHIC_UI_ANIMATION & open_animation ) {
+    
+    NewNavigationItem = GetPreviousItem();
+    
+    if ( NewNavigationItem == NULL ) {
+        
+        return false;
+    }
+    else {
+        
+        CORE_HELPERS_CALLBACK_1<GRAPHIC_UI_ANIMATION *>
+            callback( &Wrapper1<GRAPHIC_UI_NAVIGATION, GRAPHIC_UI_ANIMATION *, &GRAPHIC_UI_NAVIGATION::NavigationAsyncActionCompletedAnimation>, this );
+        
+        CurrentNavigationItem->GetFrame()->SetAnimation( close_animation );
+        CurrentNavigationItem->GetFrame()->GetAnimation().SetCallback( callback );
+        NewNavigationItem->SetOpenAnimation( open_animation );
+        
+        CORE_PARALLEL_TASK_BEGIN( this )
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
+                this->NewNavigationItem->GetFrame()->Initialize();
+                CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
+            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+        CORE_PARALLEL_TASK_END()
+    }
+    
+    return true;
+}
+    
+void GRAPHIC_UI_NAVIGATION::NavigationBackAsyncActionCompletedAnimation( GRAPHIC_UI_ANIMATION * animation ) {
+    
+    CORE_PARALLEL_TASK_BEGIN( this )
+        CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_UI_SYSTEM::GetInstance().GetLockMutex())
+    
+            //TODO : check page is correctly loaded
+            if ( this->CurrentNavigationItem != NULL ) {
+                
+                GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(this->CurrentNavigationItem->GetScreenName().c_str());
+                this->CurrentNavigationItem->GetFrame()->OnViewDisappearing();
+                this->CurrentNavigationItem->GetFrame()->Finalize();
+            }
+    
+            this->CurrentNavigationItem = NewNavigationItem;
+    
+            this->CurrentNavigationItem->GetFrame()->OnViewAppearing();
+    
+            GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(this->CurrentNavigationItem->GetFrame(), CurrentNavigationItem->GetScreenName().c_str());
+    
+        CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+    CORE_PARALLEL_TASK_END()
 }
 
 bool GRAPHIC_UI_NAVIGATION::NavigateBackAsync() {
@@ -48,15 +103,17 @@ bool GRAPHIC_UI_NAVIGATION::NavigateBackAsync() {
         
                 this->CurrentNavigationItem = item;
         
-                CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
-                    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
-                    this->CurrentNavigationItem->GetFrame()->Initialize();
-                    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
+                CORE_PARALLEL_TASK_BEGIN(this)
+                    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
+                        CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
+                        this->CurrentNavigationItem->GetFrame()->Initialize();
+                        CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);
         
-                    this->CurrentNavigationItem->GetFrame()->OnViewAppearing();
-        
-                    GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(this->CurrentNavigationItem->GetFrame(), CurrentNavigationItem->GetScreenName().c_str());
-                CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+                        this->CurrentNavigationItem->GetFrame()->OnViewAppearing();
+
+                        GRAPHIC_UI_SYSTEM::GetInstance().RegisterView(this->CurrentNavigationItem->GetFrame(), CurrentNavigationItem->GetScreenName().c_str());
+                    CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+                CORE_PARALLEL_TASK_END()
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
         CORE_PARALLEL_TASK_END()
         

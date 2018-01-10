@@ -12,7 +12,7 @@
 
 UI_BASE_BUTTON::UI_BASE_BUTTON() :
     GRAPHIC_UI_FRAME(),
-    Title( L"\0" ) {
+    Title( L"Test\0" ) {
 
 }
 

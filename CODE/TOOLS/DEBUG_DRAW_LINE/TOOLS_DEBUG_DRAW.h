@@ -42,6 +42,7 @@ void DrawLine( GRAPHIC_RENDERER & renderer, const CORE_MATH_VECTOR & from, const
     Line->SetFrom( from );
     Line->SetTo( to );
     Line->UpdateShape();
+    Shader->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     Line->Render( renderer, option, Shader );
     
 #endif
@@ -52,7 +53,7 @@ static TOOLS_DEBUG_DRAW::PTR Instance;
 private:
 
 #if DEBUG
-GRAPHIC_OBJECT_SHAPE_LINE::PTR
+    GRAPHIC_OBJECT_SHAPE_LINE::PTR
         Line;
     GRAPHIC_SHADER_EFFECT::PTR
         Shader;

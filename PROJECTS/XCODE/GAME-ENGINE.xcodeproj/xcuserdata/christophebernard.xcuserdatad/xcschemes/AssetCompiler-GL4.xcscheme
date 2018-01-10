@@ -65,7 +65,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/spaceship.dae"
+            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/flat.dae"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

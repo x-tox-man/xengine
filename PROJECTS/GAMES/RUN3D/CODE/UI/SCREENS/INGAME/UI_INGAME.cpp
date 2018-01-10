@@ -37,7 +37,7 @@ void UI_INGAME::Initialize() {
     
     auto text = GRAPHIC_UI_HELPER::CreateTextElement( SpeedText, speed );
     text->GetPlacement().SetAnchor( GRAPHIC_UI_BottomLeft );
-    text->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( .0f, 12.0f ) );
+    text->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( .0f, 32.0f ) );
     text->Initialize();
     text->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     

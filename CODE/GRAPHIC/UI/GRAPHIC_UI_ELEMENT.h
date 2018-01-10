@@ -61,6 +61,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
 
     inline GRAPHIC_UI_PLACEMENT & GetPlacement() { return Placement; }
     inline GRAPHIC_UI_ANIMATION & GetAnimation() { return Animation; }
+    inline void SetAnimation( const GRAPHIC_UI_ANIMATION & animation ) { Animation = animation; }
 
     inline void SetPosition( const CORE_MATH_VECTOR & position ) { Placement.SetRelativePosition( position );OnPlacementPropertyChanged(); }
 

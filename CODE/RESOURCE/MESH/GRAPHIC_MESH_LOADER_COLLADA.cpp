@@ -377,10 +377,10 @@
                             hasNormals = ComputeBufferSizeForItem( buffer_size, section_count, data->getNormals() ),
                             hasUV = ComputeBufferSizeForItem( buffer_size, section_count, data->getUVCoords() ),
                             hasColors = false;//calculateBufferSizeForItem( buffer_size, section_count, data->getColors() );
-                        
-                        mesh->SetName( mesh_name );
                         int
                             vertex_size = 0;
+                        
+                        mesh->SetName( mesh_name );
                         
                         {
                             //TODO : all vertices will have x-y-z components. when collada supports it, enable this
@@ -459,6 +459,7 @@
                         for (int face = 0; face < prim->getFaceCount(); face++ ) {
                             
                             for ( int v_index = 0; v_index < prim->getGroupedVerticesVertexCount( face ); v_index++ ) {
+                                const COLLADAFW::UIntValuesArray & arr = prim->getPositionIndices();
                                 
                                 //Need to take stride in account
                                 /*mesh->CurrenGeometrytTable[ accumulated_index ].position[0] = *(data->getPositions().getFloatValues()->getData() + accumulated_index * 3 );

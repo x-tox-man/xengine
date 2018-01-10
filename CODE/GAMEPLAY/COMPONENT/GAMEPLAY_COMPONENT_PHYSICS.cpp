@@ -14,6 +14,7 @@
 
 #ifdef __BULLET_PHYSICS__
     #include "btHeightfieldTerrainShape.h"
+    #include "CollisionDispatch/btInternalEdgeUtility.h"
 #endif
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GAMEPLAY_COMPONENT_PHYSICS )
@@ -237,7 +238,10 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE
     TriangleMesh = collision_mesh;
     
     BulletShape = new btBvhTriangleMeshShape( collision_mesh, true );
-    BulletShape->setMargin( 0.01f );
+    BulletShape->setMargin( 0.0f );
+    
+    btTriangleInfoMap* triangleInfoMap = new btTriangleInfoMap();
+    btGenerateInternalEdgeInfo( (btBvhTriangleMeshShape*) BulletShape, triangleInfoMap);
     
     btDefaultMotionState* motion_state = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position[0], position[1], position[2])));
     

@@ -156,10 +156,6 @@ void GRAPHIC_UI_FRAME::Render( GRAPHIC_RENDERER & renderer ) {
 
 void GRAPHIC_UI_FRAME::Click( const CORE_MATH_VECTOR & cursor_position ) {
     
-    if ( Adapter ) {
-        printf( "test" );
-    }
-    
     if ( GRAPHIC_UI_ELEMENT::Contains( cursor_position ) ) {
         
         std::vector<GRAPHIC_UI_ELEMENT *>::iterator it = ElementTable.begin();

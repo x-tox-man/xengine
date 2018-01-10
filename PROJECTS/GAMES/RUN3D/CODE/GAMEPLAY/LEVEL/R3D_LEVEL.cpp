@@ -29,7 +29,7 @@ void R3D_LEVEL::Initialize() {
     Checkpoints.SetPlayerFinishedCallback( EndGameCallback );
     
     CreateTracks();
-    CreateGround();
+    //CreateGround();
 }
 
 

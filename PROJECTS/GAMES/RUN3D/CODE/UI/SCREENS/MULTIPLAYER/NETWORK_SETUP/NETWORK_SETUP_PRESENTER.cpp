@@ -75,14 +75,14 @@ void NETWORK_SETUP_PRESENTER::ClientGameStarted( std::vector<NETWORK_PLAYER *> &
     R3D_APP_PTR->GetGame()->SetPlayers( players_model );
     R3D_APP_PTR->GetGame()->Restart();
     
-    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_INGAME >( "UI_INGAME" );
+    OpenAnimated< UI_INGAME >( "UI_INGAME" );
 }
 
 void NETWORK_SETUP_PRESENTER::ServerGameStarted() {
     
-    R3D_APP_PTR->GetGame()->SelectLevel( *(R3D_APP_PTR->GetGame()->GetLevelManager().GetAllLevels().begin()) );
     R3D_APP_PTR->GetGame()->Restart();
-    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_INGAME >( "UI_INGAME" );
+
+    OpenAnimated< UI_INGAME >( "UI_INGAME" );
 }
 
 void NETWORK_SETUP_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event ) {
@@ -137,7 +137,7 @@ void NETWORK_SETUP_PRESENTER::OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_
             R3D_APP_PTR->GetNetworkManager().GetClient()->SendDisconnectCommand();
         }
         
-        GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateBackAsync();
+        BackAnimated();
     }
 }
 
@@ -169,7 +169,7 @@ void NETWORK_SETUP_PRESENTER::OnClientDisconnected(NETWORK_PLAYER * player) {
 
 void NETWORK_SETUP_PRESENTER::OnServerDisconnected() {
     
-    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateBackAsync();
+    BackAnimated();
 }
 
 void NETWORK_SETUP_PRESENTER::UpdateClientReady( NETWORK_PLAYER * player, bool ready ) {

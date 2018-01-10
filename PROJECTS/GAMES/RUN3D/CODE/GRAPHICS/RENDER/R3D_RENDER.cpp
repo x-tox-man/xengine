@@ -145,6 +145,9 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         renderer.SetLightingIsEnabled( false );
         Camera->GetFustrum().DebugDraw( *Camera);
         renderer.SetLightingIsEnabled( true );
+        //auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4]);
+        
+        //detect->DebugDrawWorld();
 #endif
     
         renderer.SetLightingIsEnabled( false );
@@ -208,8 +211,4 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     GRAPHIC_SYSTEM::DisableDepthTest();
     renderer.SetCamera( InterfaceCamera );
     GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
-    
-    auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4]);
-    
-    //detect->DebugDrawWorld();
 }

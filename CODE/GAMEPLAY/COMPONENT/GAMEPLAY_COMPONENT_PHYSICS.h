@@ -80,7 +80,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COM
 
     void ApplyTorque( const CORE_MATH_VECTOR & vector ) {
         #ifdef __BULLET_PHYSICS__
-            //https://stackoverflow.com/questions/16322080/what-does-having-an-inertia-tensor-of-zero-do-in-bullet
+            //
+    s://stackoverflow.com/questions/16322080/what-does-having-an-inertia-tensor-of-zero-do-in-bullet
             BulletRigidBody->setAngularVelocity( btVector3( vector.X(), vector.Y(), vector.Z() ) );
         #endif
     }
