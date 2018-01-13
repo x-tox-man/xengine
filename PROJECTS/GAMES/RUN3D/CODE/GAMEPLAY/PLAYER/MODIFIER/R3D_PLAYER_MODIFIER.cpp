@@ -32,4 +32,6 @@ CORE_HELPERS_IDENTIFIER
     R3D_PLAYER_MODIFIER::WeaponReloadTimeModifier( "WeaponReloadTimeModifier" ),
     R3D_PLAYER_MODIFIER::GravityModifier( "GravityModifier" ),
     R3D_PLAYER_MODIFIER::MassModifier( "MassModifier" ),
-    R3D_PLAYER_MODIFIER::ExperienceGainModifier( "ExperienceGainModifier" );
+    R3D_PLAYER_MODIFIER::SteeringModifier( "SteeringModifier" ),
+    R3D_PLAYER_MODIFIER::ExperienceGainModifier( "ExperienceGainModifier" ),
+    R3D_PLAYER_MODIFIER::BrakeModifier( "BrakeModifier" );

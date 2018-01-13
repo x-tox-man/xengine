@@ -29,6 +29,8 @@ XS_CLASS_BEGIN_WITH_COPY( GAME_PLAYER_MODEL )
         NetworkPlayer;
     R3D_PLAYER::PTR
         GamePlayer;
+    CORE_HELPERS_UNIQUE_IDENTIFIER
+        Identifier;
 
 XS_CLASS_END
 

@@ -80,8 +80,9 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     inline GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * GetBulletSystem() { return BulletSystem; }
     inline R3D_GAMEPLAY_GAME_DELEGATE * GetDelegate() { return Delegate; }
     inline void SetDelegate( R3D_GAMEPLAY_GAME_DELEGATE * delegate ) { Delegate = delegate; }
-    inline void SetThisPlayerIndex( int index ) { ThisPlayerIndex = index; }
+    inline void SetThisPlayerIndex( const CORE_HELPERS_UNIQUE_IDENTIFIER & index ) { ThisPlayerIndex = index; }
     inline R3D_LEVEL_MANAGER & GetLevelManager() { return LevelManager; }
+    inline CORE_HELPERS_UNIQUE_IDENTIFIER & GetThisPlayerIndex() { return ThisPlayerIndex; }
 
     inline float GetGameDuration() const { return Tick * 0.033f; }
 
@@ -124,7 +125,8 @@ protected:
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION
         * BulletSystem;
     int
-        Tick,
+        Tick;
+    CORE_HELPERS_UNIQUE_IDENTIFIER
         ThisPlayerIndex;
     float
         TimeMod;

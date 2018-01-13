@@ -52,33 +52,18 @@ void R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE::InternalUpdateGame( const float ste
 
 void R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE::SetPlayerUpdate( R3D_COMMAND_PLAYER_UPDATE::PTR player_update ) {
     
-    for ( int i = 0; i < Command.PlayersUpdates.size(); i++ ) {
-        
-        if ( Command.PlayersUpdates[i].UniqueId.GetChecksum() == 0 ) {
-            
-            Command.PlayersUpdates[i].Set( *player_update );
-            break;
-        }
-        if ( Command.PlayersUpdates[i].UniqueId == player_update->UniqueId ) {
-            
-            Command.PlayersUpdates[i].Set( *player_update );
-            
-            break;
-        }
-    }
+    Command.PlayersUpdates[ player_update->UniqueId ].Set( *player_update );
 }
 
 void R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE::InitializePlayers() {
     
-    Command.PlayersUpdates.resize( PlayersList->size() );
-    
     if ( R3D_APP_PTR->GetNetworkManager().IsServer() ) {
         
-        R3D_APP_PTR->GetGame()->SetThisPlayerIndex( 0 );
+        R3D_APP_PTR->GetGame()->SetThisPlayerIndex( R3D_APP_PTR->GetNetworkManager().GetServer()->GetCurrentPlayer().GetUniqueId() );
     }
     else {
         
-        R3D_APP_PTR->GetGame()->SetThisPlayerIndex( 1 );
+        R3D_APP_PTR->GetGame()->SetThisPlayerIndex( R3D_APP_PTR->GetNetworkManager().GetClient()->GetCurrentPlayer().GetUniqueId() );
     }
 }
 

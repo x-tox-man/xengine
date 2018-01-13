@@ -37,6 +37,7 @@ out vec4 o_normal;
 out DirectionalLight directional_light_out;
 out vec4 ShadowCoord;
 out vec2 texCoord;
+out mat3 TBNMatrix_p;
 
 uniform mat4 MVPMatrix;
 uniform mat4 ShadowMapMVP;
@@ -56,4 +57,13 @@ void main()
     
     ShadowCoord = position * ShadowMapMVP;
     gl_Position = position * MVPMatrix;
+
+    mat3 TBNMatrix = transpose(
+        mat3(
+        tangent,
+        bitangent,
+        normal
+        ));
+
+    TBNMatrix_p = TBNMatrix;
 }

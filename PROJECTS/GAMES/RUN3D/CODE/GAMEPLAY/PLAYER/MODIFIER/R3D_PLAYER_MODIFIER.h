@@ -31,7 +31,9 @@ XS_CLASS_BEGIN( R3D_PLAYER_MODIFIER )
         WeaponReloadTimeModifier,
         GravityModifier,
         MassModifier,
-        ExperienceGainModifier;
+        SteeringModifier,
+        ExperienceGainModifier,
+        BrakeModifier;
 
 private:
 

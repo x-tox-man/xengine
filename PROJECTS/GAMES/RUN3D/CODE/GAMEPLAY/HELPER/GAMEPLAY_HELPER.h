@@ -31,6 +31,7 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
     static GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR Set3DHeighFieldObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     static void SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     static void SetTexture( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::ColorTexture );
+    static void SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::NormalTexture );
 
     static void SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_FILESYSTEM_PATH & path );
 
@@ -51,7 +52,7 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
 
     static void InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, GRAPHIC_CAMERA & camera );
 
-    static CORE_MATH_VECTOR GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    static void GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity, CORE_MATH_VECTOR & out_position, CORE_MATH_VECTOR & out_normal );
 
 XS_CLASS_END
 

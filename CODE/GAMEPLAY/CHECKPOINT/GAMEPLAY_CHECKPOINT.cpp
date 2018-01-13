@@ -55,7 +55,8 @@ bool GAMEPLAY_CHECKPOINT::ProcessCollision( GAMEPLAY_COMPONENT_ENTITY * entity )
 
 void GAMEPLAY_CHECKPOINT::ActivateFor( GAMEPLAY_COMPONENT_ENTITY * entity ) {
     
-    std::vector< GAMEPLAY_CHECKPOINT_PLAYER_DATA >::iterator it = PlayerData.begin();
+    std::vector< GAMEPLAY_CHECKPOINT_PLAYER_DATA >::iterator
+        it = PlayerData.begin();
     
     while (it != PlayerData.end() ) {
         
@@ -65,6 +66,8 @@ void GAMEPLAY_CHECKPOINT::ActivateFor( GAMEPLAY_COMPONENT_ENTITY * entity ) {
             
             return;
         }
+        
+        it++;
     }
 
     GAMEPLAY_CHECKPOINT_PLAYER_DATA
@@ -88,6 +91,8 @@ void GAMEPLAY_CHECKPOINT::DeactivateFor( GAMEPLAY_COMPONENT_ENTITY * entity ) {
             
             return;
         }
+        
+        it++;
     }
 }
 

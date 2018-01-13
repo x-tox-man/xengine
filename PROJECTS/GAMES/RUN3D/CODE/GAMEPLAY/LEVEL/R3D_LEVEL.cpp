@@ -16,11 +16,14 @@
 #include "RUN3D_APPLICATION.h"
 
 R3D_LEVEL::R3D_LEVEL() :
+    MaxPlayerCount( 16 ),
+    Reverse( false ),
     PlayerTable(),
     Environment( NULL ),
     EndGameCallback( &Wrapper1<R3D_LEVEL, GAMEPLAY_COMPONENT_ENTITY *, &R3D_LEVEL::OnPlayerCompleted>, this ),
     Checkpoints(),
-    Info() {
+    Info(),
+    Gravity( -2.81f ) {
     
 }
 
@@ -29,7 +32,8 @@ void R3D_LEVEL::Initialize() {
     Checkpoints.SetPlayerFinishedCallback( EndGameCallback );
     
     CreateTracks();
-    //CreateGround();
+    CreateGround();
+    CreateSky();
 }
 
 
@@ -48,11 +52,11 @@ void R3D_LEVEL::Start() {
     
     std::vector<GAMEPLAY_COMPONENT_ENTITY *> players_table;
     
-    std::vector<R3D_PLAYER::PTR>::iterator it = PlayerTable.begin();
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR >::iterator it = PlayerTable.begin();
     
     while ( it != PlayerTable.end() ) {
         
-        players_table.push_back( (*it)->GetShip() );
+        players_table.push_back( it->second->GetShip() );
         it++;
     }
     
@@ -63,11 +67,11 @@ void R3D_LEVEL::Restart() {
     
     Checkpoints.Reset();
     
-    std::vector<R3D_PLAYER::PTR>::iterator it = PlayerTable.begin();
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR >::iterator it = PlayerTable.begin();
     
     while ( it != PlayerTable.end() ) {
         
-        (*it)->Reset( CORE_MATH_VECTOR( 0.0f, 0.0f, 1.6f, 1.0f), CORE_MATH_QUATERNION( 0.0f, 0.0f, 0.0f, 1.0f ));
+        it->second->Reset( CORE_MATH_VECTOR( 0.0f, 0.0f, 1.6f, 1.0f), CORE_MATH_QUATERNION( 0.0f, 0.0f, 0.0f, 1.0f ));
         it++;
     }
 }
@@ -89,26 +93,7 @@ void R3D_LEVEL::CreateTracks() {
     auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
     base_entity->Initialize( p1 );
     
-    /*for ( int i = 0; i < 30; i++) {
-        
-        CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
-        
-        if ( i > 0 && i % 10 == 0 ) {
-            
-            auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_CHECKPOINT >();
-            entity->Initialize( p );
-        }
-        
-        base_entity->SetPosition( p );
-        
-        auto entity = (R3D_LEVEL_TRACK*)GAMEPLAY_COMPONENT_MANAGER::GetInstance().CloneEntity< R3D_LEVEL_TRACK >( base_entity );
-        entity->AddToSystems();
-        
-        auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
-        base_entity->Initialize( p );
-    }*/
-    
-    for ( int i = 0; i < 11; i++) {
+    for ( int i = 0; i < 21; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         
@@ -126,8 +111,8 @@ void R3D_LEVEL::CreateTracks() {
         auto entity = (R3D_LEVEL_TRACK*)GAMEPLAY_COMPONENT_MANAGER::GetInstance().CloneEntity< R3D_LEVEL_TRACK >( base_entity );
         entity->AddToSystems();
         
-        auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
-        base_entity->Initialize( p );
+        /*auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
+        base_entity->Initialize( p );*/
     }
 }
 
@@ -149,5 +134,19 @@ void R3D_LEVEL::CreateGround() {
     entity->SetPosition( p );
     
     GAMEPLAY_HELPER::AddStaticToPhysics( entity, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_WEAPONSHIP );
+    GAMEPLAY_HELPER::AddToWorld( entity );
+}
+
+void R3D_LEVEL::CreateSky() {
+    
+    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_BASE_ENTITY >();
+    
+    GAMEPLAY_HELPER::CreateComponent_PositionRender( entity );
+    
+    GAMEPLAY_HELPER::Set3DObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "skydome" ) );
+    GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
+    auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "space_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "high-resolution-space-1", "png", "TEXTURES" ) );
+    GAMEPLAY_HELPER::SetTexture( entity, "space_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "high-resolution-space-1", "png", "TEXTURES" ) );
+    
     GAMEPLAY_HELPER::AddToWorld( entity );
 }

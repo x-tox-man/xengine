@@ -69,6 +69,17 @@ void NETWORK_SETUP_PRESENTER::ClientGameStarted( std::vector<NETWORK_PLAYER *> &
     for (int i = 0; i < players.size(); i++) {
         
         players_model[i].NetworkPlayer = players[ i ];
+        
+        if ( players_model[i].NetworkPlayer->GetUniqueId() == R3D_APP_PTR->GetNetworkManager().GetClient()->GetCurrentPlayer().GetUniqueId() ) {
+            
+            players_model[i].GamePlayer = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer();
+        }
+        else {
+            players_model[i].GamePlayer = new R3D_PLAYER();
+            players_model[i].GamePlayer->Initialize();
+        }
+        
+        players_model[i].Identifier = players[i]->GetUniqueId();
     }
 
     R3D_APP_PTR->GetGame()->SelectLevel( ( *R3D_APP_PTR->GetGame()->GetLevelManager().GetAllLevels().begin() ) );
@@ -89,9 +100,11 @@ void NETWORK_SETUP_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * click
     
     if ( R3D_APP_PTR->GetNetworkManager().GetServer() && event == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
         
-        int i = 0;
-        auto * view = (NETWORK_SETUP_PAGE * ) GetView();
-        std::vector< NETWORK_PLAYER * >::iterator it = view->GetPlayersList().begin();
+        int
+            i = 0;
+        auto view = (NETWORK_SETUP_PAGE * ) GetView();
+        std::vector< NETWORK_PLAYER * >::iterator
+            it = view->GetPlayersList().begin();
         std::vector< GAME_PLAYER_MODEL >
             players_model;
         
@@ -104,7 +117,19 @@ void NETWORK_SETUP_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * click
             }
             else {
                 players_model[i].NetworkPlayer = *it;
-                players_model[i].GamePlayer = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer();
+                
+                if ( players_model[i].NetworkPlayer->GetUniqueId() == R3D_APP_PTR->GetNetworkManager().GetServer()->GetCurrentPlayer().GetUniqueId() ) {
+                    
+                    players_model[i].GamePlayer = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer();
+                }
+                else {
+                    players_model[i].GamePlayer = new R3D_PLAYER();
+                    players_model[i].GamePlayer->Initialize();
+                }
+                
+                players_model[i].Identifier = players_model[i].NetworkPlayer->GetUniqueId();
+                
+                i++;
             }
             
             it++;
@@ -199,8 +224,10 @@ void NETWORK_SETUP_PRESENTER::OnStoppedGameStarting() {
 
 void NETWORK_SETUP_PRESENTER::OnServerInfo( GAMEPLAY_ACTION_COMMAND_SERVER_INFO * info ) {
     
-    auto * view = (NETWORK_SETUP_PAGE * ) GetView();
-    std::vector< NETWORK_PLAYER * >::iterator it = info->Players.begin();
+    auto view = (NETWORK_SETUP_PAGE * ) GetView();
+    std::vector< NETWORK_PLAYER * >::iterator
+        it = info->Players.begin();
+    
     view->GetPlayersList().clear();
     
     while (it != info->Players.end() ) {

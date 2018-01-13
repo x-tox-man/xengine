@@ -122,7 +122,7 @@ public :
                 CurrentNavigationItem = NewNavigationItem;
                 RegisterView( CurrentNavigationItem->GetFrame(), NewNavigationItem->GetScreenName().c_str() );
                 CurrentNavigationItem->GetOpenAnimation().SetElement( CurrentNavigationItem->GetFrame() );
-        CurrentNavigationItem->GetOpenAnimation().Update( 0.0f );
+                CurrentNavigationItem->GetOpenAnimation().Update( 0.0f );
                 CurrentNavigationItem->GetFrame()->SetAnimation( CurrentNavigationItem->GetOpenAnimation() );
         
                 NewNavigationItem = NULL;

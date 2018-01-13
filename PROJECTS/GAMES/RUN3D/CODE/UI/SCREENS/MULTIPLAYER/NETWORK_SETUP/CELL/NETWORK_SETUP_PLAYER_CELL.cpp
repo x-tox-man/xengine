@@ -25,9 +25,11 @@ NETWORK_SETUP_PLAYER_CELL::~NETWORK_SETUP_PLAYER_CELL() {
 void NETWORK_SETUP_PLAYER_CELL::Initialize() {
     
     IsReady = false;
-    
+
     CORE_HELPERS_CALLBACK_2<GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT>
         callback( Wrapper2< NETWORK_SETUP_PLAYER_CELL, GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT , &NETWORK_SETUP_PLAYER_CELL::OnClick>,  this );
+    
+    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext( true );
     
     GetPlacement().SetSize( CORE_MATH_VECTOR( 500.0f, 32.0f ) );
     GRAPHIC_UI_FRAME::Initialize();
@@ -45,6 +47,7 @@ void NETWORK_SETUP_PLAYER_CELL::Initialize() {
     SetActionCallback( callback );
     
     SetObjectForIdentifier( ButtonId, button );
+    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext( false );
 }
 
 void NETWORK_SETUP_PLAYER_CELL::OnClick( GRAPHIC_UI_ELEMENT *, GRAPHIC_UI_ELEMENT_EVENT event ) {

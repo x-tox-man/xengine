@@ -30,8 +30,11 @@ void UI_MAIN_MENU_PRESENTER::OnClickStartGame( GRAPHIC_UI_ELEMENT * element, GRA
         std::vector< GAME_PLAYER_MODEL >
             players_model;
         
-        players_model.resize( 1 );
+        players_model.resize( 2 );
         players_model[ 0 ].GamePlayer = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer();
+        players_model[ 0 ].Identifier = R3D_APP_PTR->GetGame()->GetThisPlayerIndex();
+        players_model[ 1 ].GamePlayer = new R3D_PLAYER();
+        players_model[ 1 ].Identifier = CORE_HELPERS_UNIQUE_IDENTIFIER( "BOT0" );
         
         R3D_APP_PTR->GetGame()->SelectLevel( (*R3D_APP_PTR->GetGame()->GetLevelManager().GetAllLevels().begin()) );
         R3D_APP_PTR->GetGame()->SetPlayers( players_model );

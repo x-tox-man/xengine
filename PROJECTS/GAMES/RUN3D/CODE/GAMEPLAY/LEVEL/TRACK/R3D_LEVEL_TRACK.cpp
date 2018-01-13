@@ -22,8 +22,10 @@ void R3D_LEVEL_TRACK::Initialize( const CORE_MATH_VECTOR & position ) {
     GAMEPLAY_HELPER::Set3DObject( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "flat" ) );
     GAMEPLAY_HELPER::SetEffect( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
     GAMEPLAY_HELPER::SetTexture( this, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
+    GAMEPLAY_HELPER::SetNormal( this, "spaceship1_normal", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-normal", "png", "TEXTURES" ) );
     
     GAMEPLAY_HELPER::SetPhysicsObject( this, position, 0.0f );
+    //GAMEPLAY_HELPER::SetPhysicsBoxObject(this, position   , CORE_MATH_VECTOR( 0.5f, 0.5f, 0.5f, 0.0f), CORE_MATH_QUATERNION(), 0.0f);
     //GAMEPLAY_HELPER::SetPhysicsCustomMaterialCallback( this );
     
     SetPosition( position );

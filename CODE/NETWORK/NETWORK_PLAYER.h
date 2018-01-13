@@ -50,7 +50,7 @@ private :
         Name;
     CORE_DATA_STREAM
         OutGoingMessage;
-    std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE>
+    std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE >
         OutGoingMessageQueue;
     SERVICE_NETWORK_CONNECTION
         * CurrentNewtorkStream;

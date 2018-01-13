@@ -33,12 +33,15 @@ void R3D_RESOURCES::Initialize() {
     RESOURCE_PROXY::PTR capsule_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR particle_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR text_proxy = new RESOURCE_PROXY;
+    RESOURCE_PROXY::PTR skydome_proxy = new RESOURCE_PROXY;
     
     spaceship1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("spaceship", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     track_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("flat", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     weapon1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("weapon1", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     checkpoint_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("checkpoint", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     capsule_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("capsule", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
+    skydome_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("skydome", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
+    
     
     auto effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto basic_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicGeometryShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
@@ -70,6 +73,7 @@ void R3D_RESOURCES::Initialize() {
     Resources->AddResource( checkpoint_effect_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ) );
     Resources->AddResource( checkpoint_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "checkpoint" ) );
     Resources->AddResource( capsule_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "capsule" ) );
+    Resources->AddResource( skydome_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "skydome" ) );
     Resources->AddResource( particle_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ) );
     Resources->AddResource( text_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "UIShaderTextured" ) );
     

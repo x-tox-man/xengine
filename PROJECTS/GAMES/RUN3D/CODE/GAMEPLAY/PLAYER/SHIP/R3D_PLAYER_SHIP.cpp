@@ -36,8 +36,9 @@ R3D_PLAYER_SHIP::R3D_PLAYER_SHIP() :
     ModifiersMap[ R3D_PLAYER_MODIFIER::WeaponReloadTimeModifier ].SetValue( 1.0f );
     ModifiersMap[ R3D_PLAYER_MODIFIER::GravityModifier ].SetValue( 1.0f );
     ModifiersMap[ R3D_PLAYER_MODIFIER::MassModifier ].SetValue( 1.0f );
+    ModifiersMap[ R3D_PLAYER_MODIFIER::SteeringModifier ].SetValue( 1.0f );
     ModifiersMap[ R3D_PLAYER_MODIFIER::ExperienceGainModifier ].SetValue( 1.0f );
-    
+    ModifiersMap[ R3D_PLAYER_MODIFIER::BrakeModifier ].SetValue( 1.0f );
 }
 
 R3D_PLAYER_SHIP::~R3D_PLAYER_SHIP() {
@@ -65,8 +66,8 @@ void R3D_PLAYER_SHIP::Initialize() {
     CORE_MATH_VECTOR
         start_position(0.0f, 0.0f, 1.6f, 0.0f );
     
-    //GAMEPLAY_HELPER::SetPhysicsSphereObject( this, start_position, q, 1.0f );
-    GAMEPLAY_HELPER::SetPhysicsBoxObject( this, start_position, CORE_MATH_VECTOR(0.1f,0.1f,0.1f, 0.0f), q, 1.0f );
+    GAMEPLAY_HELPER::SetPhysicsSphereObject( this, start_position, q, 100.0f );
+    //GAMEPLAY_HELPER::SetPhysicsBoxObject( this, start_position, CORE_MATH_VECTOR(0.1f,0.1f,0.1f, 0.0f), q, 1.0f );
     
     GAMEPLAY_HELPER::AddToPhysics( this, PHYSICS_COLLISION_TYPE_SHIP, PHYSICS_COLLISION_TYPE_ALL, true );
     GAMEPLAY_HELPER::AddToScripts( this );
@@ -135,20 +136,26 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     Steam.SetPosition( pos->GetPosition() );
     Steam.SetVelocity( phys->GetVelocity() );
     
-    CORE_MATH_VECTOR elevation = GAMEPLAY_HELPER::GetElevation( this );
+    CORE_MATH_VECTOR
+        elevation,
+        normal;
     
-    if ( elevation.GetZ() < 0.5f ) {
+    GAMEPLAY_HELPER::GetElevation( this, elevation, normal );
+    
+    auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    auto comp_pos = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    CORE_MATH_VECTOR v = comp->GetVelocity();
+    CORE_MATH_QUATERNION orientation = comp_pos->GetOrientation();
+    
+    if ( elevation.GetZ() <= 0.1f && normal != CORE_MATH_VECTOR::Zero ) {
         
         CORE_MATH_VECTOR vel = phys->GetVelocity();
         
-        if ( elevation.GetZ() <  0.105f ) {
+        vel.Y( 0.0f );
+        vel.X( 0.0f );
+        vel.Z( 400.81f * cosf( 0.5f - elevation.GetZ() * 2.0f ) );
         
-            phys->ForcePosition( pos->GetPosition() + CORE_MATH_VECTOR( 0.0f, 0.0f, 0.5f, 0.0f ) );
-        }
-        
-        vel.Z( vel.Z() * 0.9f + 2.81f * step );
-        
-        phys->SetVelocity( vel );
+        comp->ApplyForce( vel );
     }
     
     #if PLATFORM_IOS || PLATFORM_ANDROID
@@ -172,18 +179,13 @@ void R3D_PLAYER_SHIP::Update( float step ) {
         Reset(CORE_MATH_VECTOR( 0.0f, 0.0f, 2.5f, 0.0f), CORE_MATH_QUATERNION());
     }
     
-    auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
-    auto comp_pos = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-    CORE_MATH_VECTOR v = comp->GetVelocity();
-    CORE_MATH_QUATERNION orientation = comp_pos->GetOrientation();
-    
     R3D_APP_PTR->SetFrom( comp_pos->GetPosition() );
     R3D_APP_PTR->SetTo( comp_pos->GetPosition() + v * 10.0f);
     
     CORE_MATH_VECTOR x( 0.0f, 1.0f );
     
     float actual_speed = v.ComputeLength();
-    CORE_MATH_VECTOR dir = orientation * (x * (GetThrust() * (5.0f - actual_speed ) ) );
+    CORE_MATH_VECTOR dir = orientation * (x * (GetThrust() * (500.0f - actual_speed ) ) );
     
     comp->ApplyForce( dir );
 

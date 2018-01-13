@@ -25,6 +25,7 @@ R3D_PLAYER::R3D_PLAYER() :
     ModifiersMap[ R3D_PLAYER_MODIFIER::GravityModifier ].SetValue( 0.0f );
     ModifiersMap[ R3D_PLAYER_MODIFIER::MassModifier ].SetValue( 0.0f );
     ModifiersMap[ R3D_PLAYER_MODIFIER::ExperienceGainModifier ].SetValue( 0.0f );
+    ModifiersMap[ R3D_PLAYER_MODIFIER::BrakeModifier ].SetValue( 0.0f );
 }
 
 void R3D_PLAYER::Initialize() {
@@ -40,6 +41,7 @@ void R3D_PLAYER::Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATE
 }
 
 std::vector< R3D_PLAYER_SHIP_MODEL::PTR > R3D_PLAYER::GetAllShipsOwned() {
+    
     std::vector< R3D_PLAYER_SHIP_MODEL::PTR > all_ships;
     
     auto ship = new R3D_PLAYER_SHIP_MODEL;

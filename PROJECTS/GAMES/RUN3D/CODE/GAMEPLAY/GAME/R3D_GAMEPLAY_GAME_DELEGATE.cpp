@@ -9,6 +9,7 @@
 #include "R3D_GAMEPLAY_GAME_DELEGATE.h"
 #include "GRAPHIC_UI_SYSTEM.h"
 #include "UI_ENDGAME.h"
+#include "RUN3D_APPLICATION.h"
 
 R3D_GAMEPLAY_GAME_DELEGATE::R3D_GAMEPLAY_GAME_DELEGATE() :
     PlayersList( NULL ),
@@ -20,4 +21,9 @@ R3D_GAMEPLAY_GAME_DELEGATE::R3D_GAMEPLAY_GAME_DELEGATE() :
 void R3D_GAMEPLAY_GAME_DELEGATE::OnEndGame() {
     
     GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< UI_ENDGAME >( "UI_ENDGAME" );
+}
+
+void R3D_GAMEPLAY_GAME_DELEGATE::InternalUpdateGame( const float step ) {
+    
+    (*PlayersList)[ R3D_APP_PTR->GetGame()->GetThisPlayerIndex() ]->GetShip()->ApplyInputParamters( Thrust, Orientation );
 }

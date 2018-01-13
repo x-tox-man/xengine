@@ -75,10 +75,10 @@ class __CLASS_NAME__: public __ANCESTOR__ \
 { \
     private : \
     __CLASS_NAME__( const __ANCESTOR__ & other ); \
-    void operator =( const __CLASS_NAME__ & other ); \
-    void operator =( const __ANCESTOR__ & other ); \
     public : \
     __CLASS_NAME__( const __CLASS_NAME__ & other ); \
+    void operator =( const __CLASS_NAME__ & other ); \
+    void operator =( const __ANCESTOR__ & other ); \
     friend class XS_CLASS_SERIALIZER< __CLASS_NAME__, CORE_DATA_STREAM >; \
     friend class XS_CLASS_SERIALIZER< __CLASS_NAME__, CORE_DATA_JSON >; \
     typedef __CLASS_NAME__ * PTR; \

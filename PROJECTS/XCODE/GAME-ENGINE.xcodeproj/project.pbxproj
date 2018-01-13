@@ -5435,13 +5435,13 @@
 				32ADAB251B123DB8000038F5 /* AUDIO */,
 				32AED6F11A74FB610050A919 /* MODELS */,
 				3297475C1A1BFDA9006BBF77 /* SCRIPTS */,
-				32EB475E19EFD04500123D8C /* OPENGL2 */,
+				32EB475E19EFD04500123D8C /* OPENGL4 */,
 			);
 			name = RESOURCES;
 			path = ../../RESOURCES;
 			sourceTree = "<group>";
 		};
-		32EB475E19EFD04500123D8C /* OPENGL2 */ = {
+		32EB475E19EFD04500123D8C /* OPENGL4 */ = {
 			isa = PBXGroup;
 			children = (
 				326F18C51BDCCABB003DDD98 /* FullscreenCombinePostProcess.fsh */,
@@ -5478,7 +5478,7 @@
 				32E97A1B1D87584400C2E00C /* BasicParticleShader.fsh */,
 				32E97A1F1D87585500C2E00C /* BasicParticleShader.vsh */,
 			);
-			path = OPENGL2;
+			path = OPENGL4;
 			sourceTree = "<group>";
 		};
 		5F0C3D131FDF38D000B761A2 /* TOOLS_LOCALE */ = {

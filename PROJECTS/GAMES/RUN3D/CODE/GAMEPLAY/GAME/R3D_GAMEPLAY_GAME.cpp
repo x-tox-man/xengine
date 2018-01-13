@@ -46,7 +46,11 @@ void CustomContactStartedCallback(btPersistentManifold* const &manifold) {
     
     for (int i = 0; i < manifold->getNumContacts(); i++ ) {
         
-        printf( "%.2f, %.2f, %.2f\n", manifold->getContactPoint(i).m_normalWorldOnB.x(), manifold->getContactPoint(i).m_normalWorldOnB.y(), manifold->getContactPoint(i).m_normalWorldOnB.z() );
+        if ( fabs( manifold->getContactPoint(i).m_normalWorldOnB.z() - 1.0f ) > 0.001f || fabs( manifold->getContactPoint(i).m_normalWorldOnB.x()  ) > 0.001f || fabs( manifold->getContactPoint(i).m_normalWorldOnB.y()  ) > 0.001f ) {
+            
+            printf( "%.2f, %.2f, %.2f\n", manifold->getContactPoint(i).m_normalWorldOnB.x(), manifold->getContactPoint(i).m_normalWorldOnB.y(), manifold->getContactPoint(i).m_normalWorldOnB.z() );
+            manifold->removeContactPoint( i );
+        }
     }
 }
 
@@ -129,7 +133,7 @@ R3D_GAMEPLAY_GAME::R3D_GAMEPLAY_GAME() :
     LevelManager(),
     Scene(),
     Tick( 0 ),
-    ThisPlayerIndex( 0 ),
+    ThisPlayerIndex( "DefaultPlayer" ),
     TimeMod( 0.0f ),
     BulletSystem( new GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION() ) {
         
@@ -141,12 +145,10 @@ R3D_GAMEPLAY_GAME::~R3D_GAMEPLAY_GAME() {
 
 void R3D_GAMEPLAY_GAME::SetPlayers( const std::vector< GAME_PLAYER_MODEL > & players ) {
     
-    GetLevel()->GetPlayerTable().resize( players.size() );
-    
     for (int i = 0; i < players.size(); i++ ) {
         
-        GetLevel()->GetPlayerTable()[ i ] = players[ i ].GamePlayer;
-        GetLevel()->GetPlayerTable()[ i ]->Initialize();
+        GetLevel()->GetPlayerTable()[ players[ i ].Identifier ] = players[ i ].GamePlayer;
+        GetLevel()->GetPlayerTable()[ players[ i ].Identifier ]->Initialize();
     }
     
     Delegate->SetPlayers( & GetLevel()->GetPlayerTable() );
@@ -155,7 +157,7 @@ void R3D_GAMEPLAY_GAME::SetPlayers( const std::vector< GAME_PLAYER_MODEL > & pla
 void R3D_GAMEPLAY_GAME::Initialize( ) {
     
     //gContactAddedCallback = CustomMaterialCombinerCallback;
-    gContactStartedCallback = CustomContactStartedCallback;
+    //gContactStartedCallback = CustomContactStartedCallback;
     
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION );
     Scene.InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_ANIMATING );
@@ -220,7 +222,6 @@ void R3D_GAMEPLAY_GAME::Update( const float step ) {
 void R3D_GAMEPLAY_GAME::OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity ) {
     
     StateMachine.ChangeState( END_GAME_STATESTATE );
-    Delegate->OnEndGame();
 }
 
 //---------------------------------------------------------------------------------------//
@@ -244,7 +245,7 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVENT )
     static float t = 0.0f;
-    static GRAPHIC_CAMERA local_camera( 1.0f, 100.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
+    static GRAPHIC_CAMERA local_camera( 1.0f, 1500.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
     static const CORE_MATH_VECTOR & position = R3D_APP_PTR->GetCamera()->GetPosition();
     static const CORE_MATH_QUATERNION & orientation = R3D_APP_PTR->GetCamera()->GetOrientation();
 
@@ -301,9 +302,13 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STATE, UPDATE_EVENT )
 
     time_mod.AttributeValue.Value.FloatValue = sinf( GetContext().TimeMod ) * 0.1f;
 
-    for ( int i = 0; i < GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable().size(); i++ ) {
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR >::iterator it = GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable().begin();
+
+    while( it != GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable().end() ) {
         
-        GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[ i ]->GetShip()->Update( event.GetEventData() );
+        it->second->GetShip()->Update( event.GetEventData() );
+        
+        it++;
     }
 
 CORE_FIXED_STATE_EndOfStateEvent()

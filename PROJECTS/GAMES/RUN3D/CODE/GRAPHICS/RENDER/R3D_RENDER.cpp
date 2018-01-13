@@ -48,7 +48,7 @@ void R3D_RENDER::Initialize() {
     
     auto Window = &R3D_APP_PTR->GetApplicationWindow();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 100.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, Lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 1500.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, Lookat );
     
     CORE_MATH_QUATERNION
         interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f ),
@@ -103,6 +103,10 @@ void R3D_RENDER::Initialize() {
 #if DEBUG
     TOOLS_DEBUG_DRAW::Instance = new TOOLS_DEBUG_DRAW;
 #endif
+    
+    auto light = new GRAPHIC_SHADER_LIGHT;
+    light->InitializeAmbient( CORE_COLOR_White, 0.2f, 0.2f );
+    GRAPHIC_RENDERER::GetInstance().SetAmbientLight( light );
 }
 
 void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {

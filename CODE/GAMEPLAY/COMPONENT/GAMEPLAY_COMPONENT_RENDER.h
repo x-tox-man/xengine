@@ -40,12 +40,14 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
         GAMEPLAY_COMPONENT_RENDER * MemoryArray;
     };
 
-    void SetObject( RESOURCE_PROXY & object ) { ObjectProxy = object; }
-    void SetEffect( RESOURCE_PROXY & effect ) { EffectProxy = effect; }
-    void SetShadowmapEffect( RESOURCE_PROXY & effect ) { ShadowmapEffectProxy = effect; }
+    inline void SetObject( RESOURCE_PROXY & object ) { ObjectProxy = object; }
+    inline void SetEffect( RESOURCE_PROXY & effect ) { EffectProxy = effect; }
+    inline void SetMaterial( RESOURCE_PROXY & material ) { MaterialProxy = material; }
+    inline void SetShadowmapEffect( RESOURCE_PROXY & effect ) { ShadowmapEffectProxy = effect; }
 
-    RESOURCE_PROXY & GetObject() { return ObjectProxy; }
-    RESOURCE_PROXY & GetEffect() { return EffectProxy; }
+    inline RESOURCE_PROXY & GetObject() { return ObjectProxy; }
+    inline RESOURCE_PROXY & GetEffect() { return EffectProxy; }
+    inline RESOURCE_PROXY & GetMaterial() { return MaterialProxy; }
 
     inline void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
 
@@ -67,6 +69,7 @@ private :
     RESOURCE_PROXY
         ObjectProxy,
         EffectProxy,
+        MaterialProxy,
         ShadowmapEffectProxy;
     CORE_MATH_SHAPE
         BoundingObject;

@@ -28,7 +28,7 @@ XS_CLASS_BEGIN( R3D_LEVEL )
 
     void Update( const float time_step );
 
-    inline std::vector<R3D_PLAYER::PTR> & GetPlayerTable() { return PlayerTable; }
+    inline std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR > & GetPlayerTable() { return PlayerTable; }
     inline GAMEPLAY_CHECKPOINT_SYSTEM & GetCheckpoints() { return Checkpoints; }
 
     void OnCheckpointCollision( GAMEPLAY_COMPONENT_ENTITY * entity );
@@ -41,8 +41,15 @@ private :
 
     void CreateTracks();
     void CreateGround();
+    void CreateSky();
 
-    std::vector< R3D_PLAYER::PTR >
+    float
+        Gravity;
+    int
+        MaxPlayerCount;
+    bool
+        Reverse;
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR >
         PlayerTable;
     LEVEL_ENVIRONMENT::PTR
         Environment;

@@ -16,6 +16,7 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     GAMEPLAY_COMPONENT(),
     ObjectProxy(),
     EffectProxy(),
+    MaterialProxy(),
     ShadowmapEffectProxy(),
     BoundingObject(),
     ScaleFactor( 1.0f ) {
@@ -26,6 +27,7 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER( const GAMEPLAY_COMPONENT_R
     GAMEPLAY_COMPONENT(),
     ObjectProxy( other.ObjectProxy ),
     EffectProxy( other.EffectProxy ),
+    MaterialProxy( other.MaterialProxy ),
     ShadowmapEffectProxy( other.ShadowmapEffectProxy ),
     BoundingObject( other.BoundingObject ),
     ScaleFactor( other.ScaleFactor ) {
@@ -57,6 +59,8 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     GRAPHIC_OBJECT_RENDER_OPTIONS
         options,
         * parent_options = NULL;
+    GRAPHIC_SHADER_EFFECT
+        * effect = EffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
     
     options.SetPosition( component->GetPosition() + component->GetPositionOffset() );
     options.SetOrientation(component->GetOrientation() );
@@ -74,7 +78,8 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
 
     if ( renderer.GetPassIndex() == 0 ) {
         
-        object->Render( renderer, options, EffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >() );
+        effect->SetMaterial( MaterialProxy.GetResource< GRAPHIC_MATERIAL >() );
+        object->Render( renderer, options, effect );
     }
     else if ( renderer.GetPassIndex() == 1 ) {
         

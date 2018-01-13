@@ -137,11 +137,26 @@ void GAMEPLAY_HELPER::SetTexture( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const c
     
     GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
     
-    auto mat = render->GetEffect().GetResource< GRAPHIC_SHADER_EFFECT >()->GetMaterial();
+    auto mat = new GRAPHIC_MATERIAL();
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( texture_name ), path );
     
     mat->SetTexture( identifier, new GRAPHIC_TEXTURE_BLOCK( text ) );
+    
+    RESOURCE_PROXY
+        proxy( mat );
+    
+    render->SetMaterial( proxy );
 }
+
+void GAMEPLAY_HELPER::SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_IDENTIFIER & identifier  ) {
+    
+    GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( texture_name ), path );
+    
+    render->GetMaterial().GetResource< GRAPHIC_MATERIAL >()->SetTexture( identifier, new GRAPHIC_TEXTURE_BLOCK( text ) );
+}
+
 void GAMEPLAY_HELPER::SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
@@ -150,7 +165,10 @@ void GAMEPLAY_HELPER::SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CO
     
     auto mat = new GRAPHIC_MATERIAL;
     
-    render->GetEffect().GetResource< GRAPHIC_SHADER_EFFECT >()->SetMaterial( mat );
+    RESOURCE_PROXY
+        proxy( mat );
+    
+    render->SetMaterial( proxy );
 }
 
 void GAMEPLAY_HELPER::SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_FILESYSTEM_PATH & path ) {
@@ -322,27 +340,36 @@ void GAMEPLAY_HELPER::SetPhysicsFlatGroundObject( GAMEPLAY_COMPONENT_ENTITY::PTR
 
 void GAMEPLAY_HELPER::InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, GRAPHIC_CAMERA & camera ) {
     
-    camera.Reset( 0.5f, 100.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, orientation );
+    camera.Reset( 0.5f, 1500.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, orientation );
 }
 
-CORE_MATH_VECTOR GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
+void GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity, CORE_MATH_VECTOR & out_position, CORE_MATH_VECTOR & out_normal ) {
     
-    CORE_MATH_VECTOR elevation, normal;
+    CORE_MATH_VECTOR
+        elevation;
     auto pos = ( GAMEPLAY_COMPONENT_POSITION::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-    
     auto bullet = R3D_APP_PTR->GetGame()->GetBulletSystem();
+    const CORE_MATH_QUATERNION &
+        q = pos->GetOrientation();
+    CORE_MATH_MATRIX
+        m;
+    CORE_MATH_RAY_SEGMENT
+        ray;
     
-    CORE_MATH_RAY_SEGMENT ray;
+    q.ToMatrix( &m[0] );
+    
+    CORE_MATH_VECTOR orr = CORE_MATH_VECTOR( 0.0f, 0.0f, -10.0f, 0.0f) * m;
+    
     ray.SetOrigin( pos->GetPosition() );
-    ray.SetDestination( pos->GetPosition() + CORE_MATH_VECTOR( 0.0f, 0.0f, -10.0f, 0.0f) );
+    ray.SetDestination( pos->GetPosition() + orr );
     
-    if ( PHYSICS_UTILS::FindCollisionInRayFromWorld(bullet->GetDynamicsWorld(), elevation, normal, ray ) ) {
+    if ( PHYSICS_UTILS::FindCollisionInRayFromWorld( bullet->GetDynamicsWorld(), elevation, out_normal, ray ) ) {
         
-        return pos->GetPosition() - elevation;
+        out_position =  pos->GetPosition() - elevation;
     }
     else {
         
-        return CORE_MATH_VECTOR::Zero;
+        out_position = CORE_MATH_VECTOR::Zero;
     }
 }
 

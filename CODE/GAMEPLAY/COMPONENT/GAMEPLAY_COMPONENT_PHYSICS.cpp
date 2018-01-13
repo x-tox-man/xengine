@@ -238,9 +238,10 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE
     TriangleMesh = collision_mesh;
     
     BulletShape = new btBvhTriangleMeshShape( collision_mesh, true );
-    BulletShape->setMargin( 0.0f );
+    BulletShape->setMargin( 0.01f );
     
     btTriangleInfoMap* triangleInfoMap = new btTriangleInfoMap();
+    triangleInfoMap->m_maxEdgeAngleThreshold = 1.0f;
     btGenerateInternalEdgeInfo( (btBvhTriangleMeshShape*) BulletShape, triangleInfoMap);
     
     btDefaultMotionState* motion_state = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position[0], position[1], position[2])));
@@ -248,7 +249,7 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE
     btRigidBody::btRigidBodyConstructionInfo construction_info(1.0, motion_state, BulletShape, btVector3(0, 0, 0));
 
     BulletRigidBody = new btRigidBody( construction_info );
-    BulletRigidBody->setRestitution( 1.0f );
+    BulletRigidBody->setRestitution( 0.0f );
     BulletRigidBody->setFriction( 1.0f );
     BulletRigidBody->setRollingFriction( 1.0f );
     BulletRigidBody->setSpinningFriction( 1.0f );
