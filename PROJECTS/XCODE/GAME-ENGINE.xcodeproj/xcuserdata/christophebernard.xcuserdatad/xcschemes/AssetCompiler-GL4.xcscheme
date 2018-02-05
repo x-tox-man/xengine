@@ -52,7 +52,7 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "NO">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
@@ -65,12 +65,8 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/flat.dae"
+            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/TEXTURES_BASE/waves.png"
             isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/"
-            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

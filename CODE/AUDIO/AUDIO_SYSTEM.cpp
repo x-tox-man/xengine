@@ -21,7 +21,7 @@ CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( AUDIO_SYSTEM )
 AUDIO_SYSTEM::~AUDIO_SYSTEM() {
 
 #if __AUDIO_OPENAL__ || __AUDIO_OPENSL__
-    Interface=new AUDIO_OPENAL();
+    
     if ( Interface ) {
         
         CORE_MEMORY_ObjectSafeDeallocation( Interface );

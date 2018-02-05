@@ -26,7 +26,7 @@ XS_CLASS_BEGIN( GRAPHIC_UI_RENDER_STYLE )
     GRAPHIC_UI_RENDER_STYLE( GRAPHIC_OBJECT_SHAPE * shape, GRAPHIC_SHADER_EFFECT * effect, const CORE_HELPERS_COLOR & color, GRAPHIC_OBJECT_SHAPE * decorating_shape = NULL, GRAPHIC_SHADER_EFFECT * decorating_effect = NULL );
     ~GRAPHIC_UI_RENDER_STYLE();
 
-    void Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity );
+    void Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement );
 
     inline void SetShape( GRAPHIC_OBJECT_SHAPE * shape ) { Shape = shape; }
     inline void SetDecoratingShape( GRAPHIC_OBJECT_SHAPE * shape ) { DecoratingShape = shape; }

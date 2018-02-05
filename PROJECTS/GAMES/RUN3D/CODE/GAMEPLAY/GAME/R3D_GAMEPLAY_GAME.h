@@ -72,7 +72,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     void Initialize();
     void Finalize();
     void Restart();
-    void SelectLevel( const R3D_GAME_LEVEL_INFO & info );
+    void SelectLevel( R3D_GAME_LEVEL_INFO::PTR info );
 
     inline int GetTick() const { return Tick; }
     inline R3D_LEVEL::PTR GetLevel() { return LevelManager.GetCurrentLevel(); }

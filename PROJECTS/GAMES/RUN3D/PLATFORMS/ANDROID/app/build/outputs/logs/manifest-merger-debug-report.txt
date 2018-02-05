@@ -1,12 +1,12 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-38:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-38:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-38:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-38:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-38:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-38:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-38:12
+ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
 	package
 		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:2:11-33
 		INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml
@@ -75,16 +75,28 @@ uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:33:5-79
 	android:name
 		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:33:22-76
-uses-feature#0x00020000
-ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:36:5-78
-	android:glEsVersion
-		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:36:19-51
-	android:required
-		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:36:52-75
-uses-feature#android.hardware.wifi
-ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:37:5-58
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:34:5-76
 	android:name
-		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:37:19-55
+		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:34:22-73
+uses-permission#android.permission.CHANGE_WIFI_MULTICAST_STATE
+ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:35:5-86
+	android:name
+		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:35:22-83
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:36:5-76
+	android:name
+		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:36:22-73
+uses-feature#0x00020000
+ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:38:5-78
+	android:glEsVersion
+		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:38:19-51
+	android:required
+		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:38:52-75
+uses-feature#android.hardware.wifi
+ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:39:5-58
+	android:name
+		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:39:19-55
 uses-sdk
 INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml

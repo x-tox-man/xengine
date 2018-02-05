@@ -17,6 +17,7 @@ NETWORK_SETUP_PLAYER_LIST_ADAPTER::NETWORK_SETUP_PLAYER_LIST_ADAPTER(GRAPHIC_UI_
 
 int NETWORK_SETUP_PLAYER_LIST_ADAPTER::GetItemsCount() {
     
+    SERVICE_LOGGER_Error( "NETWORK_SETUP_PLAYER_LIST_ADAPTER count : %d\n", (int) ItemsTable->size() );
     return (int) ItemsTable->size();
 }
 

@@ -54,7 +54,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( AUDIO_OPENSL, AUDIO_INTERFACE< AUDIO_OPENSL > )
 
     void PauseSound( AUDIO_SOUND & sound);
 
-    void Update( const float time_step );
+    void Update( const float time_step, const CORE_MATH_VECTOR & );
 
     void Suspend();
 

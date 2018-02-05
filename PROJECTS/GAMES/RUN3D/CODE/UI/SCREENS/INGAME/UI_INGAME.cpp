@@ -47,6 +47,16 @@ void UI_INGAME::Initialize() {
     time->Initialize();
     time->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     
+/*#if DEBUG
+    auto fps = GRAPHIC_UI_HELPER::CreateTextElement( FPSText, speed );
+    text->GetPlacement().SetAnchor( GRAPHIC_UI_TopLeft );
+    text->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( -32.0f, -32.0f ) );
+    text->Initialize();
+    text->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_Green );
+    
+    AddObject( fps );
+#endif*/
+    
     AddObject( text );
     AddObject( time );
     AddObject( pause_button );
@@ -57,6 +67,16 @@ void UI_INGAME::Initialize() {
 void UI_INGAME::Update( float time_step ) {
     
     R3D_UI_FRAME::Update( time_step );
+    
+#if DEBUG
+    /*static CORE_DATA_UTF8_TEXT fps_text( L"%d");
+    
+    static int local_fps = 0;
+    
+    local_fps++;
+    
+    GetObjectForIdentifier( FPSText )->SetTextValue( fps_text.Format( local_fps ) );*/
+#endif
     ((UI_INGAME_PRESENTER::PTR) GetPresenter())->Update( time_step );
 }
 
@@ -79,4 +99,5 @@ void UI_INGAME::SetEllapsedTime( float time ) {
 
 CORE_HELPERS_IDENTIFIER
     UI_INGAME::SpeedText( "SpeedText" ),
-    UI_INGAME::TimeText( "TimeText" );
+    UI_INGAME::TimeText( "TimeText" ),
+    UI_INGAME::FPSText( "FPS" );

@@ -238,7 +238,7 @@ void AUDIO_OPENSL::PauseSound( AUDIO_SOUND & sound) {
 #endif
 }
 
-void AUDIO_OPENSL::Update( const float time_step ) {
+void AUDIO_OPENSL::Update( const float time_step, const CORE_MATH_VECTOR & vector ) {
 #if __AUDIO_OPENSL__
     
 #endif

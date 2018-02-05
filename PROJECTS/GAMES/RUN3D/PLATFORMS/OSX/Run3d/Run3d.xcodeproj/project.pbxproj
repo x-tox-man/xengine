@@ -69,6 +69,8 @@
 		5F4DEA7A1F7922C100173EDA /* UI_COMPONENT_ITEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA781F7922C100173EDA /* UI_COMPONENT_ITEM.cpp */; };
 		5F4DEA7D1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA7B1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.cpp */; };
 		5F4DEA801F79230B00173EDA /* UI_SCREEN_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA7E1F79230B00173EDA /* UI_SCREEN_LOADER.cpp */; };
+		5F51F3BF2011573400F1B4E5 /* R3D_LEVEL_HELPER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F51F3BD2011573400F1B4E5 /* R3D_LEVEL_HELPER.cpp */; };
+		5F51F3C02011573400F1B4E5 /* R3D_LEVEL_HELPER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F51F3BD2011573400F1B4E5 /* R3D_LEVEL_HELPER.cpp */; };
 		5F70E7931FABA87200D90632 /* R3D_UI_FRAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7911FABA87200D90632 /* R3D_UI_FRAME.cpp */; };
 		5F70E7B71FAE235A00D90632 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7B61FAE235A00D90632 /* AppDelegate.m */; };
 		5F70E7BA1FAE235A00D90632 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7B91FAE235A00D90632 /* ViewController.m */; };
@@ -259,6 +261,8 @@
 		5F9E76081FAF55D7003DA3CD /* tulips.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9E753C1FAF55D7003DA3CD /* tulips.png */; };
 		5F9E76091FAF55D7003DA3CD /* waves.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9E753D1FAF55D7003DA3CD /* waves.png */; };
 		5F9E760A1FAF55D7003DA3CD /* Xbox_360_X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9E753E1FAF55D7003DA3CD /* Xbox_360_X.png */; };
+		5FA7FB6A20135F4600C7A829 /* LEVEL_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA7FB6820135F4600C7A829 /* LEVEL_CELL.cpp */; };
+		5FA7FB6B20135F4600C7A829 /* LEVEL_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA7FB6820135F4600C7A829 /* LEVEL_CELL.cpp */; };
 		5FA9F1E81FDDEE0C00D2869F /* UI_GARAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1E61FDDEE0C00D2869F /* UI_GARAGE.cpp */; };
 		5FA9F1E91FDDEE0C00D2869F /* UI_GARAGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1E61FDDEE0C00D2869F /* UI_GARAGE.cpp */; };
 		5FA9F1EC1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9F1EA1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp */; };
@@ -279,7 +283,6 @@
 		5FCED0D31FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCED0D21FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp */; };
 		5FCED0D41FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCED0D21FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp */; };
 		5FD11D0C1F16A1A70092E3A7 /* SKYDOME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D0A1F16A1A70092E3A7 /* SKYDOME.cpp */; };
-		5FD11D0F1F16A1AF0092E3A7 /* TERRAIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D0D1F16A1AF0092E3A7 /* TERRAIN.cpp */; };
 		5FD11D131F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D111F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp */; };
 		5FD11D2C1F1B7EA90092E3A7 /* R3D_RENDER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D2A1F1B7EA90092E3A7 /* R3D_RENDER.cpp */; };
 		5FD11D2F1F1B820B0092E3A7 /* R3D_RESOURCES.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D2D1F1B820B0092E3A7 /* R3D_RESOURCES.cpp */; };
@@ -305,7 +308,6 @@
 		5FD957061FAE238B00FB9376 /* GRAPHICS_STEAM_ENGINE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F237FBA1F9374C60099BC15 /* GRAPHICS_STEAM_ENGINE.cpp */; };
 		5FD957071FAE238B00FB9376 /* R3D_RENDER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D2A1F1B7EA90092E3A7 /* R3D_RENDER.cpp */; };
 		5FD957081FAE238B00FB9376 /* SKYDOME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D0A1F16A1A70092E3A7 /* SKYDOME.cpp */; };
-		5FD957091FAE238B00FB9376 /* TERRAIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D0D1F16A1AF0092E3A7 /* TERRAIN.cpp */; };
 		5FD9570A1FAE238B00FB9376 /* R3D_RESOURCES.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD11D2D1F1B820B0092E3A7 /* R3D_RESOURCES.cpp */; };
 		5FD9570B1FAE238B00FB9376 /* UI_COMPONENT_SHIP_LARGE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA721F7922A600173EDA /* UI_COMPONENT_SHIP_LARGE.cpp */; };
 		5FD9570C1FAE238B00FB9376 /* UI_COMPONENT_SHIP_SMALL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA751F7922B600173EDA /* UI_COMPONENT_SHIP_SMALL.cpp */; };
@@ -314,6 +316,9 @@
 		5FD9570F1FAE238B00FB9376 /* R3D_UI_FRAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F70E7911FABA87200D90632 /* R3D_UI_FRAME.cpp */; };
 		5FD957101FAE238B00FB9376 /* UI_SCREEN_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DEA7E1F79230B00173EDA /* UI_SCREEN_LOADER.cpp */; };
 		5FD957111FAE238B00FB9376 /* UI_MAIN_MENU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F76D0741F71B49C004BEF48 /* UI_MAIN_MENU.cpp */; };
+		5FF47272200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF47270200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.cpp */; };
+		5FFC73372018708F00DF4339 /* R3D_RENDERTERRAIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FFC73362018708F00DF4339 /* R3D_RENDERTERRAIN.cpp */; };
+		5FFC73382018709400DF4339 /* R3D_RENDERTERRAIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FFC73362018708F00DF4339 /* R3D_RENDERTERRAIN.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -395,6 +400,8 @@
 		5F4DEA7C1F7922CF00173EDA /* UI_COMPONENT_CHARACTERISTICS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_COMPONENT_CHARACTERISTICS.h; sourceTree = "<group>"; };
 		5F4DEA7E1F79230B00173EDA /* UI_SCREEN_LOADER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_SCREEN_LOADER.cpp; sourceTree = "<group>"; };
 		5F4DEA7F1F79230B00173EDA /* UI_SCREEN_LOADER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_SCREEN_LOADER.h; sourceTree = "<group>"; };
+		5F51F3BD2011573400F1B4E5 /* R3D_LEVEL_HELPER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_LEVEL_HELPER.cpp; sourceTree = "<group>"; };
+		5F51F3BE2011573400F1B4E5 /* R3D_LEVEL_HELPER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_LEVEL_HELPER.h; sourceTree = "<group>"; };
 		5F70E7911FABA87200D90632 /* R3D_UI_FRAME.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_UI_FRAME.cpp; sourceTree = "<group>"; };
 		5F70E7921FABA87200D90632 /* R3D_UI_FRAME.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_UI_FRAME.h; sourceTree = "<group>"; };
 		5F70E7B31FAE235A00D90632 /* IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -656,6 +663,8 @@
 		5F9E753C1FAF55D7003DA3CD /* tulips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tulips.png; sourceTree = "<group>"; };
 		5F9E753D1FAF55D7003DA3CD /* waves.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waves.png; sourceTree = "<group>"; };
 		5F9E753E1FAF55D7003DA3CD /* Xbox_360_X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Xbox_360_X.png; sourceTree = "<group>"; };
+		5FA7FB6820135F4600C7A829 /* LEVEL_CELL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LEVEL_CELL.cpp; sourceTree = "<group>"; };
+		5FA7FB6920135F4600C7A829 /* LEVEL_CELL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEVEL_CELL.h; sourceTree = "<group>"; };
 		5FA9F1E41FDD2CF000D2869F /* PHYSICS_COLLISION_NEAR_FILTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHYSICS_COLLISION_NEAR_FILTER.h; sourceTree = "<group>"; };
 		5FA9F1E61FDDEE0C00D2869F /* UI_GARAGE.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_GARAGE.cpp; sourceTree = "<group>"; };
 		5FA9F1E71FDDEE0C00D2869F /* UI_GARAGE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_GARAGE.h; sourceTree = "<group>"; };
@@ -717,8 +726,6 @@
 		5FCED0D21FE1103500CFA7EF /* NETWORK_SETUP_PLAYER_CELL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NETWORK_SETUP_PLAYER_CELL.cpp; sourceTree = "<group>"; };
 		5FD11D0A1F16A1A70092E3A7 /* SKYDOME.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SKYDOME.cpp; sourceTree = "<group>"; };
 		5FD11D0B1F16A1A70092E3A7 /* SKYDOME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKYDOME.h; sourceTree = "<group>"; };
-		5FD11D0D1F16A1AF0092E3A7 /* TERRAIN.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TERRAIN.cpp; sourceTree = "<group>"; };
-		5FD11D0E1F16A1AF0092E3A7 /* TERRAIN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TERRAIN.h; sourceTree = "<group>"; };
 		5FD11D111F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_PLAYER_INPUT.cpp; sourceTree = "<group>"; };
 		5FD11D121F17954C0092E3A7 /* R3D_PLAYER_INPUT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_PLAYER_INPUT.h; sourceTree = "<group>"; };
 		5FD11D2A1F1B7EA90092E3A7 /* R3D_RENDER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_RENDER.cpp; sourceTree = "<group>"; };
@@ -728,6 +735,10 @@
 		5FD11D311F1B9DB00092E3A7 /* GAMEPLAY_HELPER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_HELPER.cpp; sourceTree = "<group>"; };
 		5FD11D321F1B9DB00092E3A7 /* GAMEPLAY_HELPER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_HELPER.h; sourceTree = "<group>"; };
 		5FEA3F771F739ABE0085DDB5 /* PHYSICS_COLLISION_TYPE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHYSICS_COLLISION_TYPE.h; sourceTree = "<group>"; };
+		5FF47270200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_LEVEL_TRACK_TURN.cpp; sourceTree = "<group>"; };
+		5FF47271200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_LEVEL_TRACK_TURN.h; sourceTree = "<group>"; };
+		5FFC73352018708F00DF4339 /* R3D_RENDERTERRAIN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_RENDERTERRAIN.h; sourceTree = "<group>"; };
+		5FFC73362018708F00DF4339 /* R3D_RENDERTERRAIN.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_RENDERTERRAIN.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1006,12 +1017,22 @@
 		5F43305E1FF70F990028DDD6 /* SOLO_CAMPAIGN */ = {
 			isa = PBXGroup;
 			children = (
+				5FA7FB6720135F4000C7A829 /* LEVEL_CELL */,
 				5F43305F1FF70FAE0028DDD6 /* SELECT_LEVEL.cpp */,
 				5F4330601FF70FAE0028DDD6 /* SELECT_LEVEL.h */,
 				5F4330631FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.cpp */,
 				5F4330641FF70FD60028DDD6 /* SELECT_LEVEL_PRESENTER.h */,
 			);
 			path = SOLO_CAMPAIGN;
+			sourceTree = "<group>";
+		};
+		5F51F3BC2011572700F1B4E5 /* HELPER */ = {
+			isa = PBXGroup;
+			children = (
+				5F51F3BD2011573400F1B4E5 /* R3D_LEVEL_HELPER.cpp */,
+				5F51F3BE2011573400F1B4E5 /* R3D_LEVEL_HELPER.h */,
+			);
+			path = HELPER;
 			sourceTree = "<group>";
 		};
 		5F70E7901FABA86300D90632 /* BASE */ = {
@@ -1186,6 +1207,7 @@
 		5F92D8FD1F12DCD000292A99 /* LEVEL */ = {
 			isa = PBXGroup;
 			children = (
+				5F51F3BC2011572700F1B4E5 /* HELPER */,
 				5F92D93C1F12E64400292A99 /* ENVIRONMENT */,
 				5F92D9111F12DDAA00292A99 /* CHECKPOINT */,
 				5F92D9121F12DDAA00292A99 /* STARTER */,
@@ -1236,6 +1258,8 @@
 			children = (
 				5F92D9261F12E0F000292A99 /* R3D_LEVEL_TRACK.cpp */,
 				5F92D9271F12E0F000292A99 /* R3D_LEVEL_TRACK.h */,
+				5FF47270200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.cpp */,
+				5FF47271200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.h */,
 			);
 			path = TRACK;
 			sourceTree = "<group>";
@@ -1597,6 +1621,15 @@
 			path = TEXTURES;
 			sourceTree = "<group>";
 		};
+		5FA7FB6720135F4000C7A829 /* LEVEL_CELL */ = {
+			isa = PBXGroup;
+			children = (
+				5FA7FB6820135F4600C7A829 /* LEVEL_CELL.cpp */,
+				5FA7FB6920135F4600C7A829 /* LEVEL_CELL.h */,
+			);
+			path = LEVEL_CELL;
+			sourceTree = "<group>";
+		};
 		5FA9F1E51FDDEDFC00D2869F /* GARAGE */ = {
 			isa = PBXGroup;
 			children = (
@@ -1696,10 +1729,10 @@
 		5FD11D091F16A1940092E3A7 /* BACKGROUND */ = {
 			isa = PBXGroup;
 			children = (
+				5FFC73362018708F00DF4339 /* R3D_RENDERTERRAIN.cpp */,
+				5FFC73352018708F00DF4339 /* R3D_RENDERTERRAIN.h */,
 				5FD11D0A1F16A1A70092E3A7 /* SKYDOME.cpp */,
 				5FD11D0B1F16A1A70092E3A7 /* SKYDOME.h */,
-				5FD11D0D1F16A1AF0092E3A7 /* TERRAIN.cpp */,
-				5FD11D0E1F16A1AF0092E3A7 /* TERRAIN.h */,
 			);
 			path = BACKGROUND;
 			sourceTree = "<group>";
@@ -1953,6 +1986,7 @@
 				5FA9F1EC1FDDEE4800D2869F /* UI_GARAGE_PRESENTER.cpp in Sources */,
 				5FCC3E2120041BC600A698B8 /* GAME_COMPONENT.cpp in Sources */,
 				32F248271EA433F200D19613 /* ViewController.m in Sources */,
+				5F51F3BF2011573400F1B4E5 /* R3D_LEVEL_HELPER.cpp in Sources */,
 				5F0C3CF41FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp in Sources */,
 				5F9C83BD1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp in Sources */,
 				5FD11D2C1F1B7EA90092E3A7 /* R3D_RENDER.cpp in Sources */,
@@ -1975,6 +2009,8 @@
 				5F92D92B1F12E11600292A99 /* R3D_PLAYER.cpp in Sources */,
 				5FD11D131F17954C0092E3A7 /* R3D_PLAYER_INPUT.cpp in Sources */,
 				5F193B8B1FEEA2A600F5DB4B /* NETWORK_REMOTE_GAME_INFO.cpp in Sources */,
+				5FA7FB6A20135F4600C7A829 /* LEVEL_CELL.cpp in Sources */,
+				5FF47272200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.cpp in Sources */,
 				5F193B981FEFC8B800F5DB4B /* R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.cpp in Sources */,
 				5F43305C1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp in Sources */,
 				5FCED0CE1FE10FF400CFA7EF /* NETWORK_BROWSER_LOBBY_CELL.cpp in Sources */,
@@ -1982,6 +2018,7 @@
 				5FA9F1E81FDDEE0C00D2869F /* UI_GARAGE.cpp in Sources */,
 				5F9C83B91FE6B96B0085CF18 /* UI_GARAGE_SHIP_CELL.cpp in Sources */,
 				5F92D9281F12E0F000292A99 /* R3D_LEVEL_TRACK.cpp in Sources */,
+				5FFC73372018708F00DF4339 /* R3D_RENDERTERRAIN.cpp in Sources */,
 				5F92753B1FFFA315008604E4 /* R3D_GAUGE.cpp in Sources */,
 				5F193BA01FF01CF600F5DB4B /* R3D_COMMAND_PLAYER_UPDATE.cpp in Sources */,
 				5F0C3CEE1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp in Sources */,
@@ -2015,7 +2052,6 @@
 				5F4330491FF5A0E50028DDD6 /* UI_ENDGAME.cpp in Sources */,
 				5FCC3D6B2002B58D00A698B8 /* R3D_GAUGE_ANIMATION.cpp in Sources */,
 				32F24BA31EA4345000D19613 /* RUN3D_APPLICATION.cpp in Sources */,
-				5FD11D0F1F16A1AF0092E3A7 /* TERRAIN.cpp in Sources */,
 				5F76D0761F71B49C004BEF48 /* UI_MAIN_MENU.cpp in Sources */,
 				5F0C3CF61FDF315F00B761A2 /* NETWORK_SETUP_PLAYER_LIST_ADAPTER.cpp in Sources */,
 				5FD11D0C1F16A1A70092E3A7 /* SKYDOME.cpp in Sources */,
@@ -2060,11 +2096,13 @@
 				5FD956FD1FAE238B00FB9376 /* R3D_LEVEL_STARTER.cpp in Sources */,
 				5F9C83C71FE71EF90085CF18 /* UI_INGAME.cpp in Sources */,
 				5F9C83BE1FE6EECD0085CF18 /* R3D_PLAYER_SHIP_MODEL.cpp in Sources */,
+				5F51F3C02011573400F1B4E5 /* R3D_LEVEL_HELPER.cpp in Sources */,
 				5F43304A1FF5A0E50028DDD6 /* UI_ENDGAME.cpp in Sources */,
 				5F0F94921FEA522700EEA01D /* R3D_SETUP_NETWORK_SERVER_DELEGATE.cpp in Sources */,
 				5FD956FE1FAE238B00FB9376 /* R3D_LEVEL_TRACK.cpp in Sources */,
 				5FD956FF1FAE238B00FB9376 /* R3D_LEVEL.cpp in Sources */,
 				5FD957001FAE238B00FB9376 /* R3D_PLAYER_INPUT.cpp in Sources */,
+				5FA7FB6B20135F4600C7A829 /* LEVEL_CELL.cpp in Sources */,
 				5FD957011FAE238B00FB9376 /* R3D_PLAYER_PART.cpp in Sources */,
 				5FD957021FAE238B00FB9376 /* R3D_PLAYER_PARTS_COLLECTION.cpp in Sources */,
 				5F0C3CF51FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp in Sources */,
@@ -2078,7 +2116,6 @@
 				5FD957071FAE238B00FB9376 /* R3D_RENDER.cpp in Sources */,
 				5FA9F1E91FDDEE0C00D2869F /* UI_GARAGE.cpp in Sources */,
 				5FD957081FAE238B00FB9376 /* SKYDOME.cpp in Sources */,
-				5FD957091FAE238B00FB9376 /* TERRAIN.cpp in Sources */,
 				5FD9570A1FAE238B00FB9376 /* R3D_RESOURCES.cpp in Sources */,
 				5F0C3CF91FDF315F00B761A2 /* NETWORK_SETUP_PRESENTER.cpp in Sources */,
 				5F43305D1FF649D10028DDD6 /* R3D_GAME_LEVEL_INFO.cpp in Sources */,
@@ -2103,6 +2140,7 @@
 				5F70E7C51FAE235A00D90632 /* main.m in Sources */,
 				5F70E7B71FAE235A00D90632 /* AppDelegate.m in Sources */,
 				5F193BA51FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp in Sources */,
+				5FFC73382018709400DF4339 /* R3D_RENDERTERRAIN.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2306,6 +2344,15 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"OPENGL4=1",
+					__X_APP__,
+					__PLATFORM_OSX__,
+					"__AUDIO_OPENAL__=1",
+					GTE_DISABLE_PCH,
+					__BULLET_PHYSICS__,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

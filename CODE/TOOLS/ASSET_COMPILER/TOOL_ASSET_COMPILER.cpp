@@ -12,6 +12,9 @@
 #include "CORE_FILESYSTEM_FILE.h"
 #include "RESOURCE.h"
 #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
+#include "RESOURCE_IMAGE.h"
+#include "RESOURCE_IMAGE_PNG_LOADER.h"
+#include "RESOURCE_IMAGE_PNG_WRITER.h"
 
 TOOL_ASSET_COMPILER::TOOL_ASSET_COMPILER(const char * source_path, const char * destination_dir, const char * options) {
     
@@ -57,13 +60,29 @@ TOOL_ASSET_COMPILER::TOOL_ASSET_COMPILER(const char * source_path, const char * 
         
         abort();
     }
-    else if ( strcmp( ext, "atlas" ) ) {
+    else if ( strcmp( ext, "atlas" ) == 0 ) {
         
         abort();
     }
-    else if ( strcmp( ext, "png" ) ) {
+    else if ( strcmp( ext, "png" ) == 0 ) {
         
-        abort();
+        RESOURCE_IMAGE_PNG_LOADER
+            loader;
+        RESOURCE_IMAGE_PNG_WRITER
+            writer;
+        
+        RESOURCE_IMAGE * image = loader.Load(source_file_path);
+        
+        char * buffer = (char*) malloc( strlen( destination_dir ) + strlen( source_file_path.GetFileName() + 5 ) );
+        
+        CORE_DATA_COPY_STRING(buffer, destination_dir );
+        CORE_DATA_STRING_CONCAT( buffer, source_file_path.GetFileName() );
+        CORE_DATA_STRING_CONCAT( buffer, ".png" );
+        
+        CORE_FILESYSTEM_PATH file_name_without_extension( buffer );
+        
+        image->Premultiply();
+        writer.Write( file_name_without_extension, image );
     }
 }
 

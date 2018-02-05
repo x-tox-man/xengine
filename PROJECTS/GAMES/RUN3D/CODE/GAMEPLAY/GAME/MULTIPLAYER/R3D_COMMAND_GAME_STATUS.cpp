@@ -13,7 +13,7 @@
 typedef std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_COMMAND_PLAYER_UPDATE > PLAYER_UPDATE_TYPE;
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( R3D_COMMAND_GAME_STATUS )
-    XS_DEFINE_ClassMember( "Tick", int, Tick )
+    XS_DEFINE_ClassMember( "Tick", unsigned int, Tick )
     XS_DEFINE_ClassMember( "PlayersUpdates", PLAYER_UPDATE_TYPE, PlayersUpdates )
 XS_END_INTERNAL_MEMORY_LAYOUT
 

@@ -28,7 +28,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( R3D_COMMAND_PLAYER_UPDATE, GAMEPLAY_ACTI
 
     SimpleTrickForSerialization()
 
-    int
+    unsigned int
         Tick;
     float
         Thrust,

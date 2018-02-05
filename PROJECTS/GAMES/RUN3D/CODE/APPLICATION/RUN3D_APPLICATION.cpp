@@ -58,6 +58,17 @@ RUN3D_APPLICATION::~RUN3D_APPLICATION() {
 
 void RUN3D_APPLICATION::Initialize() {
     
+    SERVICE_LOGGER_Error( "int %d\n", (int) sizeof( int ) );
+    SERVICE_LOGGER_Error( "unsigned int %d\n", (int) sizeof( unsigned int ) );
+    SERVICE_LOGGER_Error( "size_t %d\n", (int) sizeof( size_t ) );
+    SERVICE_LOGGER_Error( "bool %d\n", (int) sizeof( bool ) );
+    SERVICE_LOGGER_Error( "float %d\n", (int) sizeof( float ) );
+    SERVICE_LOGGER_Error( "double %d\n", (int) sizeof( double ) );
+    SERVICE_LOGGER_Error( "SCALAR %d\n", (int) sizeof( SCALAR ) );
+    SERVICE_LOGGER_Error( "unsigned long %d\n", (int) sizeof( unsigned long ) );
+    SERVICE_LOGGER_Error( "long int %d\n", (int) sizeof( long int ) );
+    SERVICE_LOGGER_Error( "long long %d\n", (int) sizeof( long long ) );
+    
     InitializeGraphics();
     
     InitializeGameConfiguration();
@@ -67,12 +78,12 @@ void RUN3D_APPLICATION::Initialize() {
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
     CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
     
+    CORE_ABSTRACT_PROGRAM_BINDER::GetInstance().BindRuntime<CORE_ABSTRACT_RUNTIME_LUA>( *runtime );
+    
     Game = new R3D_GAMEPLAY_GAME;
     Game->Initialize();
     
     InitializeSingleplayerGame();
-    
-    CORE_ABSTRACT_PROGRAM_BINDER::GetInstance().BindRuntime<CORE_ABSTRACT_RUNTIME_LUA>( *runtime );
     
     AUDIO_SYSTEM::GetInstance().GetBank().Load();
     TOOLS_LOCALE_SYSTEM::GetInstance().Initialize( "fr" );
@@ -129,13 +140,22 @@ void RUN3D_APPLICATION::Finalize() {
 void RUN3D_APPLICATION::Update( float time_step ) {
     
     static float acc = 0.0f;
-    const float step = 1.0f / 60.0f;
+    const float step = 1.0f / 30.0f;
     
     AUDIO_SYSTEM::GetInstance().Update( time_step );
     
     acc += time_step;
+    
+#if DEBUG
+    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_P ) ) {
+        
+        static bool active = true;
+        GameRenderer.SetDebugRenderActive( active );
+        active = !active;
+    }
+#endif
 
-    while ( acc > step) {
+    while ( acc >= step) {
         acc -= step;
         
         Game->Update( step );

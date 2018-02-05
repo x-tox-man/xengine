@@ -33,6 +33,20 @@ void GRAPHIC_SYSTEM::Finalize() {
 
 }
 
+GLenum OPENGLES_2_GetFiltermode( const GRAPHIC_TEXTURE_FILTERING mode ) {
+    
+    static GLenum filter_mode[] { GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_LINEAR };
+    
+    return filter_mode[ mode ];
+}
+
+GLenum OPENGLES_2_GetWrapMode( const GRAPHIC_TEXTURE_WRAP mode ) {
+    
+    static GLenum filter_mode[] { GL_CLAMP_TO_EDGE, GL_REPEAT, GL_MIRRORED_REPEAT };
+    
+    return filter_mode[ mode ];
+}
+
 GLint OPENGLES_2_GetTextureFormat( GRAPHIC_TEXTURE_IMAGE_TYPE image_tye ) {
     
     static GLint image_type_mapping[] = { GL_RGB, GL_RGBA, -1, -1, -1 };
@@ -83,9 +97,9 @@ void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION ope
 
 void GRAPHIC_SYSTEM::EnableBackfaceCulling() {
     
-    GFX_CHECK( glDisable( GL_CULL_FACE ); )
-    //GFX_CHECK( glCullFace( GL_BACK ); )
-    //GFX_CHECK( glFrontFace( GL_CCW ); )
+    GFX_CHECK( glEnable( GL_CULL_FACE ); )
+    GFX_CHECK( glCullFace( GL_BACK ); )
+    GFX_CHECK( glFrontFace( GL_CCW ); )
 }
 
 void GRAPHIC_SYSTEM::DisableFaceCulling() {
@@ -139,7 +153,7 @@ void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXT
     GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); )
 }
 
-void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, const void * texture_data, bool generate_mipmap ) {
+void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_data, bool generate_mipmap ) {
     
     GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
     GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )
@@ -197,9 +211,21 @@ void GRAPHIC_SYSTEM::CreateSubTexture( GRAPHIC_TEXTURE * sub_texture, const GRAP
 
 void GRAPHIC_SYSTEM::ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index ) {
     
-    GFX_CHECK( glActiveTexture( texture_index == 0 ? GL_TEXTURE0 : GL_TEXTURE1 ); )
+    GFX_CHECK( glActiveTexture( GL_TEXTURE0 + texture_index ); )
     GFX_CHECK( glBindTexture( GL_TEXTURE_2D, texture->GetTextureHandle() ); )
     GFX_CHECK( glUniform1i( shader_texture_attribute_index, texture_index ); )
+}
+
+void GRAPHIC_SYSTEM::SetTextureOptions( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_FILTERING filtering, GRAPHIC_TEXTURE_WRAP wrap ) {
+    
+    GLenum filter = OPENGLES_2_GetFiltermode( filtering );
+    GLenum wrap_mode = OPENGLES_2_GetWrapMode( wrap );
+    
+    GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
+    GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+    
+    GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_mode ); )
+    GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_mode ); )
 }
 
 void GRAPHIC_SYSTEM::DiscardTexture( GRAPHIC_TEXTURE * texture ) {

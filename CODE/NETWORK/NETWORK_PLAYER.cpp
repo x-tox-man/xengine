@@ -79,6 +79,9 @@ CORE_DATA_STREAM & NETWORK_PLAYER::PrepareMessage() {
     
     OutGoingMessage.Reset();
     OutGoingMessage.Open();
+    unsigned int size = 0;
+    
+    OutGoingMessage << size;
     
     for( int i = 0; i < OUTGOING_MESSAGE_QUEUE_SIZE; i++ ) {
         
@@ -95,6 +98,9 @@ CORE_DATA_STREAM & NETWORK_PLAYER::PrepareMessage() {
             CORE_MEMORY_ObjectSafeDeallocation( OutGoingMessageQueue[i] );
         }
     }
+    
+    size = (unsigned int) OutGoingMessage.GetOffset();
+    memcpy( OutGoingMessage.GetMemoryBuffer(), &size, sizeof( unsigned int) );
     
     return OutGoingMessage;
 }

@@ -17,6 +17,8 @@ typedef char ** CHAR_ARRAY_POINTER_POINTER;
 typedef wchar_t * WCHAR_ARRAY_POINTER;
 typedef wchar_t ** WCHAR_ARRAY_POINTER_POINTER;
 
+typedef long long X_VERY_LONG;
+
 #if PLATFORM_WINDOWS
 #define CORE_DATA_COPY_STRING(__DESTINATION__, __SOURCE__) \
     { size_t ___s = (strlen(__SOURCE__) ); if ( ___s++ ) strcpy_s(__DESTINATION__, ___s, __SOURCE__); }

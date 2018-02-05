@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../CODE/RESOURCE/MESH/GRAPHIC_MESH_LOADER_COLLADA.cpp"
-            timestampString = "537315682.209463"
+            filePath = "../../CODE/SERVICE/NETWORK/LOBBY/CLIENT/SERVICE_NETWORK_LOBBY_CLIENT.cpp"
+            timestampString = "539461384.8452851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "894"
-            endingLineNumber = "894"
-            landmarkName = "COLLADA_LOADER_WRITER::writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData )"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "SERVICE_NETWORK_LOBBY_CLIENT::SendTcpCommand( CORE_DATA_STREAM &amp; data_to_send, SERVICE_NETWORK_CONNECTION * connexion )"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,60 +25,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GAME-ENGINE/COMMANDS/APPLICATION_GAMEPLAY_COMMAND_GAME_STARTING.cpp"
-            timestampString = "535819830.140277"
+            filePath = "../../CODE/SERVICE/NETWORK/LOBBY/CLIENT/SERVICE_NETWORK_LOBBY_CLIENT.cpp"
+            timestampString = "539461429.310111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GAME-ENGINE/AppDelegate.m"
-            timestampString = "536086612.494896"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "-applicationDidBecomeActive:"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "SERVICE_NETWORK_LOBBY_CLIENT::SendTcpCommand( CORE_DATA_STREAM &amp; data_to_send, SERVICE_NETWORK_CONNECTION * connexion )"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../CODE/GAMEPLAY/CHECKPOINT/GAMEPLAY_CHECKPOINT_SYSTEM.cpp"
-            timestampString = "537315682.210163"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "GAMEPLAY_CHECKPOINT_SYSTEM::OnCheckpointCollision( GAMEPLAY_COMPONENT_ENTITY * checkpoint, GAMEPLAY_COMPONENT_ENTITY * entity )"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../CODE/GRAPHIC/UI/ANIMATION/GRAPHIC_UI_ANIMATION.h"
-            timestampString = "537315682.210253"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "unknown"
-            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

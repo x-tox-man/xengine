@@ -33,7 +33,7 @@ GRAPHIC_UI_RENDER_STYLE::~GRAPHIC_UI_RENDER_STYLE() {
 
 }
 
-void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement, float opacity ) {
+void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_UI_PLACEMENT & placement ) {
     
     GRAPHIC_OBJECT_RENDER_OPTIONS
         option;
@@ -52,7 +52,6 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_
         
         option.SetOrientation( orientation );
         
-        Material->GetDiffuse().W( opacity );
         Effect->SetMaterial( Material );
         
         Shape->Render( renderer, option, Effect );
@@ -63,7 +62,6 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_
         option.SetPosition( placement.GetAbsolutePosition() );
         option.SetScaleFactor( placement.GetSize() );
         
-        DecoratingMaterial->GetDiffuse().W( opacity );
         DecoratingEffect->SetMaterial( DecoratingMaterial );
         
         DecoratingShape->Render( renderer, option, DecoratingEffect );

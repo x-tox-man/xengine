@@ -7,8 +7,7 @@ mkdir BUILDIR-ANDROID
 
 cd ../../COMMON/UV/
 #cd BUILDIR-ANDROID
-export NDK_DIR_LOC=/Users/CBE/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle
-
+export NDK_DIR_LOC=/Users/christophebernard/Library/Android/sdk/ndk-bundle
 export TOOLCHAIN=$PWD/android-toolchain
 mkdir -p $TOOLCHAIN
 $NDK_DIR_LOC/build/tools/make-standalone-toolchain.sh \

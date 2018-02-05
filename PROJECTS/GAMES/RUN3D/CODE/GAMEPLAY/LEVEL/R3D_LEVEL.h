@@ -15,12 +15,14 @@
 #include "CORE_HELPERS_CALLBACK.h"
 #include "GAMEPLAY_CHECKPOINT_SYSTEM.h"
 #include "R3D_GAME_LEVEL_INFO.h"
+#include "CORE_ABSTRACT_PROGRAM_FACTORY.h"
 
 XS_CLASS_BEGIN( R3D_LEVEL )
 
     R3D_LEVEL();
 
     void Initialize();
+    void Initialize( const CORE_FILESYSTEM_PATH & path );
     void Finalize();
 
     void Start();
@@ -33,7 +35,8 @@ XS_CLASS_BEGIN( R3D_LEVEL )
 
     void OnCheckpointCollision( GAMEPLAY_COMPONENT_ENTITY * entity );
     void OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity );
-    inline const R3D_GAME_LEVEL_INFO & GetInfo(){ return Info; }
+    inline R3D_GAME_LEVEL_INFO::PTR GetInfo() { return Info; }
+    inline void SetInfo( R3D_GAME_LEVEL_INFO::PTR info ) { Info = info; }
 
 private :
 
@@ -42,6 +45,7 @@ private :
     void CreateTracks();
     void CreateGround();
     void CreateSky();
+    void CreateMoon();
 
     float
         Gravity;
@@ -57,8 +61,17 @@ private :
         Checkpoints;
     CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_ENTITY * >
         EndGameCallback;
-    R3D_GAME_LEVEL_INFO
+    R3D_GAME_LEVEL_INFO::PTR
         Info;
+    CORE_ABSTRACT_PROGRAM_FACTORY
+        * Script;
+    GAMEPLAY_COMPONENT_ENTITY::PTR
+        Sky;
+#if DEBUG
+    CORE_FILESYSTEM_FILE_WATCHER
+        * Watcher;
+#endif
+
 
 XS_CLASS_END
 

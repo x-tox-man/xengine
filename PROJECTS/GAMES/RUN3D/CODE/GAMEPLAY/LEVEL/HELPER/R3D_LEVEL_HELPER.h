@@ -1,0 +1,38 @@
+//
+//  R3D_LEVEL_HELPER.hpp
+//  Run3d
+//
+//  Created by Christophe Bernard on 18/01/18.
+//  Copyright © 2018 IGZ. All rights reserved.
+//
+
+#ifndef R3D_LEVEL_HELPER_hpp
+#define R3D_LEVEL_HELPER_hpp
+
+#include "CORE_HELPERS_CLASS.h"
+#include "CORE_ABSTRACT_RUNTIME_LUA.h"
+#include "CORE_ABSTRACT_PROGRAM_BINDER.h"
+#include "CORE_FILESYSTEM.h"
+#include "CORE_ABSTRACT_PROGRAM_FACTORY.h"
+#include "CORE_ABSTRACT_PROGRAM_LUA.h"
+#include "CORE_ABSTRACT_RUNTIME_LUA.h"
+#include "CORE_ABSTRACT_PROGRAM_MANAGER.h"
+#include "CORE_ABSTRACT_PROGRAM_BINDER.h"
+#include "CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.h"
+#include "GAMEPLAY_COMPONENT_ENTITY.h"
+
+XS_CLASS_BEGIN( R3D_LEVEL_HELPER )
+
+    R3D_LEVEL_HELPER();
+    ~R3D_LEVEL_HELPER();
+
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( R3D_LEVEL_HELPER );
+
+    static void AddToSystemRenderAndPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR );
+    static void AddToSystemRender( GAMEPLAY_COMPONENT_ENTITY::PTR );
+    static GAMEPLAY_COMPONENT_ENTITY::PTR Create( const char *, const CORE_MATH_VECTOR & );
+    static GAMEPLAY_COMPONENT_ENTITY::PTR Clone( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+
+XS_CLASS_END
+
+#endif /* R3D_LEVEL_HELPER_hpp */

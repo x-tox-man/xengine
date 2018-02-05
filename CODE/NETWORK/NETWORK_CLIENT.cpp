@@ -292,15 +292,18 @@ void NETWORK_CLIENT::ProcessIncommingMessages() {
         int type = ((GAMEPLAY_ACTION*) event->GetCommand())->GetCommandType();
             
         if ( type == (int) GAMEPLAY_ACTION_TYPE_ServerQuit ) {
-                
+            
+            SERVICE_LOGGER_Warning( "NETWORK_CLIENT Received Server Quit\n" );
             StateMachine.DispatchEvent( SERVER_DISCONNECTED_EVENT() );
         }
         else if ( type == (int) GAMEPLAY_ACTION_TYPE_ServerInfo ) {
             
+            SERVICE_LOGGER_Warning( "NETWORK_CLIENT Received Server Info\n" );
             Delegate->OnServerInfo( ((GAMEPLAY_ACTION_COMMAND_SERVER_INFO*) event->GetCommand()) );
         }
         else {
             
+            SERVICE_LOGGER_Warning( "NETWORK_CLIENT Received Game event\n" );
             StateMachine.DispatchEvent(GAME_EVENT(event));
         }
         

@@ -60,15 +60,17 @@ void SERVICE_NETWORK_LOBBY::Initialize( int max_pool_size, const char * discover
 
 void SERVICE_NETWORK_LOBBY::UpdateDiscoverMessage( const char * discover_message ) {
     
-    char * t = (char*) CORE_MEMORY_ALLOCATOR_Allocate((int) strlen(discover_message));
+    char * t = (char*) CORE_MEMORY_ALLOCATOR_Allocate((int) strlen(discover_message) + 1 );
     CORE_DATA_COPY_STRING(t, discover_message);
     
     UDPBroadcastMessage.Open();
-    UDPBroadcastMessage.InputBytes( (char*) t, (int) strlen( discover_message ) );
+    UDPBroadcastMessage.InputBytes( (char*) t, (int) strlen( discover_message ) + 1 );
     UDPBroadcastMessage.Close();
     UDPBroadcastMessage.ResetOffset();
     
     CORE_MEMORY_ALLOCATOR_Free( t );
+    
+    SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION udp boardcast message %d %d %d %x\n", (int) UDPBroadcastMessage.GetOffset(), UDPBroadcastMessage.GetSize(), (int) UDPBroadcastMessage.GetAllocatedBytes(), ((char*)UDPBroadcastMessage.GetMemoryBuffer()) );
 }
 void SERVICE_NETWORK_LOBBY::Finalize() {
     
@@ -111,9 +113,7 @@ void SERVICE_NETWORK_LOBBY::Update( const float time_step ) {
         accumulated_interval += time_step;
         
         if ( accumulated_interval > UdpBroadcastMinimumInterval ) {
-            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( SERVICE_NETWORK_SYSTEM::NetworkLock )
-                UDPBroadcastConnection->Send( UDPBroadcastMessage );
-            CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
+            UDPBroadcastConnection->Send( UDPBroadcastMessage );
             accumulated_interval = 0.0f;
         }
     }
@@ -149,6 +149,7 @@ void SERVICE_NETWORK_LOBBY::StopTCPListen() {
 
 void SERVICE_NETWORK_LOBBY::StartBroadcast() {
     
+    SERVICE_LOGGER_Error( "udp start broadcast " );
     UDPBroadcastConnection = SERVICE_NETWORK_SYSTEM::GetInstance().CreateConnection(
         SERVICE_NETWORK_CONNECTION_TYPE_Udp,
         SERVICE_NETWORK_SYSTEM::AllBroadcastAddress,

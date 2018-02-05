@@ -56,6 +56,10 @@
 
     GLenum OPENGLES_2_GetFillMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE mode );
 
+    GLenum OPENGLES_2_GetFiltermode( const GRAPHIC_TEXTURE_FILTERING mode );
+
+    GLenum OPENGLES_2_GetWrapMode( const GRAPHIC_TEXTURE_WRAP mode );
+
     #define GRAPHIC_SYSTEM_ApplyMatrix(index, size, transpose, array) \
         GFX_CHECK( glUniformMatrix4fv( \
         index, \

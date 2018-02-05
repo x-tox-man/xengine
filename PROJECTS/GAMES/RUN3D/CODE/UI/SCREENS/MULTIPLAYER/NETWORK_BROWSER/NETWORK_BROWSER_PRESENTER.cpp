@@ -52,6 +52,14 @@ void NETWORK_BROWSER_PRESENTER::SetServer( SERVICE_NETWORK_COMMAND * server_conn
     std::vector< NETWORK_REMOTE_SERVER_INFO * >::iterator
         it = ServersList.begin();
     
+    if ( server_connection_command->Address[0] == 0 &&
+        server_connection_command->Address[1]  == 0 &&
+        server_connection_command->Address[2]  == 0 &&
+        server_connection_command->Address[3] == 0 ) {
+        
+        return;
+    }
+    
     if ( it == ServersList.end() ) {
         
         NETWORK_REMOTE_SERVER_INFO
@@ -59,6 +67,8 @@ void NETWORK_BROWSER_PRESENTER::SetServer( SERVICE_NETWORK_COMMAND * server_conn
         
         ServersList.push_back( info );
         ListAdapter->OnCollectionChanged();
+        
+        return;
     }
     else {
         
@@ -87,6 +97,8 @@ void NETWORK_BROWSER_PRESENTER::SetServer( SERVICE_NETWORK_COMMAND * server_conn
 void NETWORK_BROWSER_PRESENTER::ConnectToServer( NETWORK_REMOTE_SERVER_INFO * info ) {
     
     assert( Client );
+    
+    SERVICE_LOGGER_Error( "NETWORK_BROWSER_PRESENTER::ConnectToServer" );
 
     Client->SelectServer( info->GetServerConnexionCommand() );
     R3D_APP_PTR->GetNetworkManager().SetServer( false );

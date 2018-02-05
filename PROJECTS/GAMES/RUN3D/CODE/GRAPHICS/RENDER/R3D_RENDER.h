@@ -32,6 +32,13 @@ XS_CLASS_BEGIN( R3D_RENDER )
     inline GRAPHIC_CAMERA * GetCamera() { return Camera; }
     inline void SetCamera( GRAPHIC_CAMERA::PTR camera ) { Camera = camera; }
 
+    inline void SetDebugRenderActive( bool active ) {
+    #if DEBUG
+        DebugRenderActive = active;
+    #endif
+    }
+
+
 private :
 
     CORE_MATH_QUATERNION
@@ -66,6 +73,10 @@ private :
         CombineBloomEffect;
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::PTR
         BloomEffect;
+#if DEBUG
+    bool
+        DebugRenderActive;
+#endif
 
 XS_CLASS_END
 

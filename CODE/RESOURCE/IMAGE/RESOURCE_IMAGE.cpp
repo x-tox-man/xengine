@@ -7,6 +7,7 @@
 //
 
 #include "RESOURCE_IMAGE.h"
+#include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "CORE_MEMORY.h"
 #include "CORE_DATA_JSON.h"
 
@@ -44,6 +45,13 @@ GRAPHIC_TEXTURE * RESOURCE_IMAGE::CreateTextureObject( bool generate_mip_map ) {
     
     texture->Initialize( RawData, generate_mip_map );
     
+    if ( RawData ) {
+        
+        CORE_MEMORY_ALLOCATOR_Free( RawData );
+    }
+    
+    RawData = NULL;
+    
     return texture;
 }
 
@@ -68,5 +76,23 @@ void RESOURCE_IMAGE::Blit( RESOURCE_IMAGE * image, int x_offset, int y_offset, i
         ptr_dest += GetImageInfo().Width;
         
         ptr_src += rows;
+    }
+}
+
+void RESOURCE_IMAGE::Premultiply() {
+    
+    float * table = (float *) GetImageRawData();
+    
+    for (int i = 0; i < GetImageInfo().Width; i++ ) {
+        
+        for (int j = 0; j < GetImageInfo().Height; j++ ) {
+            
+            int pixel_index = ( (i * GetImageInfo().Width ) + j );
+            uint8_t * pixel = (uint8_t *) &table[ pixel_index ];
+            
+            pixel[ 0 ] = (pixel[ 0 ] * pixel[ 3 ]) / 255;
+            pixel[ 1 ] = (pixel[ 1 ] * pixel[ 3 ]) / 255;
+            pixel[ 2 ] = (pixel[ 2 ] * pixel[ 3 ]) / 255;
+        }
     }
 }

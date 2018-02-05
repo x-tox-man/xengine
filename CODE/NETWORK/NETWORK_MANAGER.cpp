@@ -51,7 +51,7 @@ void NETWORK_MANAGER::InitializeServer(int seed, float refresh_rate) {
     assert( Server == NULL );
     
     Server = new NETWORK_SERVER;
-    Server->Initialize( refresh_rate, "XS_SERVER_ACCEPTS_CONNECTIONS" );
+    Server->Initialize( refresh_rate, "XS_SERVER_ACCEPTS_CONNECTIONS\0" );
     Server->SetSeed( seed );
     
     Multiplayer = true;

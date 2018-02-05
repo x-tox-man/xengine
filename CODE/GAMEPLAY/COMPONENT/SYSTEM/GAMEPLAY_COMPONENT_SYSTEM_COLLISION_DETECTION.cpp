@@ -77,9 +77,10 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::DebugDrawWorld() {
 void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
     
     #ifdef __BULLET_PHYSICS__
+        const float fixed_ts = 1.0f / 30.0f;
         btTransform transformation;
         
-        DynamicsWorld->stepSimulation(time_step);
+        DynamicsWorld->stepSimulation( time_step, 10 );
     
         std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     

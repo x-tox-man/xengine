@@ -1,4 +1,3 @@
-//
 //  CORE_ABSTRACT_PROGRAM_LUA.cpp
 //  GAME-ENGINE
 //
@@ -36,9 +35,7 @@ CORE_ABSTRACT_PROGRAM_LUA::~CORE_ABSTRACT_PROGRAM_LUA() {
 
 void CORE_ABSTRACT_PROGRAM_LUA::Load( const char * path, const CORE_ABSTRACT_BASE_PROGRAM_RUNTIME & runtime ) {
     
-    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 1" );
     CORE_ABSTRACT_RUNTIME_LUA & luaRuntime = * ((CORE_ABSTRACT_RUNTIME_LUA*) &runtime);
-    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 2" );
     
     CORE_FILESYSTEM_FILE
         file( path );
@@ -50,7 +47,6 @@ void CORE_ABSTRACT_PROGRAM_LUA::Load( const char * path, const CORE_ABSTRACT_BAS
     file.Close();
     
     int s = luaL_loadstring( luaRuntime.getLuaState(), content );
-    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 3 %s", content );
     
     free( content );
     
@@ -71,11 +67,8 @@ void CORE_ABSTRACT_PROGRAM_LUA::Load( const char * path, const CORE_ABSTRACT_BAS
 
 void CORE_ABSTRACT_PROGRAM_LUA::Reload() {
     
-    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 1" );
     CORE_ABSTRACT_RUNTIME_LUA & luaRuntime = * ((CORE_ABSTRACT_RUNTIME_LUA*) Runtime);
-    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 2" );
     int s = luaL_loadfile( luaRuntime.getLuaState(), Path.GetPath() );
-    SERVICE_LOGGER_Error( "CORE_ABSTRACT_PROGRAM_LUA::Load 3" );
     
     if( s != 0 ) {
         
@@ -116,7 +109,6 @@ void CORE_ABSTRACT_PROGRAM_LUA::ExecuteFunction( const char * function, int args
     }
     else if ( args == 2 ) {
         
-        lua_pushvalue( Runtime->getLuaState(), -3 );
         lua_pushvalue( Runtime->getLuaState(), -3 );
     }
     

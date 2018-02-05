@@ -12,7 +12,7 @@
 #include "R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( R3D_COMMAND_PLAYER_UPDATE )
-    XS_DEFINE_ClassMember( "Tick", int, Tick )
+    XS_DEFINE_ClassMember( "Tick", unsigned int, Tick )
     XS_DEFINE_ClassMember( "Thrust", float, Thrust )
     XS_DEFINE_ClassMember( "Orientation", float, Orientation )
     XS_DEFINE_ClassMember( "UniqueId", CORE_HELPERS_UNIQUE_IDENTIFIER, UniqueId )

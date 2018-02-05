@@ -25,10 +25,10 @@
 //https://github.com/bulletphysics/bullet3/issues/288
 //btAdjustInternalEdgeContacts
 
-extern ContactAddedCallback gContactAddedCallback;
-extern ContactStartedCallback gContactStartedCallback;
+//extern ContactAddedCallback gContactAddedCallback;
+//extern ContactStartedCallback gContactStartedCallback;
 
-void CustomContactStartedCallback(btPersistentManifold* const &manifold) {
+/*void CustomContactStartedCallback(btPersistentManifold* const &manifold) {
     
     CORE_MATH_VECTOR
         position,
@@ -52,9 +52,9 @@ void CustomContactStartedCallback(btPersistentManifold* const &manifold) {
             manifold->removeContactPoint( i );
         }
     }
-}
+}*/
 
-bool CustomMaterialCombinerCallback(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
+/*bool CustomMaterialCombinerCallback(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
 {
     
     if (true)
@@ -94,7 +94,7 @@ bool CustomMaterialCombinerCallback(btManifoldPoint& cp,    const btCollisionObj
     
     //this return value is currently ignored, but to be on the safe side: return false if you don't calculate friction
     return false;
-}
+}*/
 
 void MyNearCallback( btBroadphasePair & collision_pair, btCollisionDispatcher & dispatcher, const btDispatcherInfo & info ) {
     
@@ -192,10 +192,9 @@ void R3D_GAMEPLAY_GAME::Restart() {
     TimeMod = 0.0f;
 }
 
-void R3D_GAMEPLAY_GAME::
-SelectLevel( const R3D_GAME_LEVEL_INFO & info ) {
+void R3D_GAMEPLAY_GAME::SelectLevel( R3D_GAME_LEVEL_INFO::PTR info ) {
     
-    if ( LevelManager.GetCurrentLevel() == NULL || !(info == LevelManager.GetCurrentLevel()->GetInfo()) ) {
+    if ( LevelManager.GetCurrentLevel() == NULL || !( *info == *LevelManager.GetCurrentLevel()->GetInfo()) ) {
         
         LevelManager.LoadLevel( info );
     }
@@ -249,7 +248,7 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVEN
     static const CORE_MATH_VECTOR & position = R3D_APP_PTR->GetCamera()->GetPosition();
     static const CORE_MATH_QUATERNION & orientation = R3D_APP_PTR->GetCamera()->GetOrientation();
 
-    if ( t > 2.0f ) {
+    if ( t > 1.0f ) {
         
         CORE_FIXED_STATE_MACHINE_ChangeState( GetContext().StateMachine, GetContext().GAME_STATE )
         
@@ -261,7 +260,7 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVEN
         
         const GRAPHIC_CAMERA & camera = GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip()->GetRear();
         
-        float p = t / 2.0f;
+        float p = t;
         
         CORE_MATH_QUATERNION q = camera.GetOrientation() * p + orientation * (1.0f - p);
         q.Normalize();
@@ -288,7 +287,6 @@ CORE_FIXED_STATE_DefineStateEnterEvent( R3D_GAMEPLAY_GAME::GAME_STATE )
     GetContext().GetLevel()->Start();
 CORE_FIXED_STATE_EndOfStateEvent()
 
-
 CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STATE, UPDATE_EVENT )
 
     GetContext().Tick++;
@@ -310,6 +308,8 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STATE, UPDATE_EVENT )
         
         it++;
     }
+
+    GetContext().GetLevel()->Update( event.GetEventData() );
 
 CORE_FIXED_STATE_EndOfStateEvent()
 
@@ -347,7 +347,9 @@ CORE_FIXED_STATE_EndOfStateEvent()
 //-------------------------- END GAME STATE    ------------------------------------------//
 //---------------------------------------------------------------------------------------//
 CORE_FIXED_STATE_DefineStateEnterEvent( R3D_GAMEPLAY_GAME::END_GAME_STATE )
+    GetContext().LevelManager.HandleLevelComplete();
     GetContext().Delegate->OnEndGame();
+
 CORE_FIXED_STATE_EndOfStateEvent()
 
 

@@ -97,6 +97,8 @@ CORE_FIXED_STATE_EndOfStateEvent()
             command( player_table, GetContext().Seed );
 
         GetContext().DispatchMessageToAllPlayers( GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand(command));
+        SERVICE_LOGGER_Warning( "NETWORK_SERVER Sending Start Game\n" );
+
         GetContext().SetAcceptsConnexions(false);
     CORE_FIXED_STATE_EndOfStateEvent()
 
@@ -346,9 +348,19 @@ void NETWORK_SERVER::AcceptPlayerFromConnection( SERVICE_NETWORK_CONNECTION * co
             player = PlayerTable[i];
             PlayerTable[i]->SetNetworkConnexion( connection );
             
+            SERVICE_LOGGER_Warning( "NETWORK_SERVER Sending Accepted\n" );
+            
+            GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED
+                accepted_command( PlayerTable[i] );
+            
+            auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand<GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED > ( accepted_command );
+            
+            PlayerTable[i]->AppendMessage( network_message );
+            
             if ( Delegate ) {
                 
                 Delegate->OnClientConnected( player );
+                ServerChanged();
             }
 #if DEBUG
             else {
@@ -357,16 +369,6 @@ void NETWORK_SERVER::AcceptPlayerFromConnection( SERVICE_NETWORK_CONNECTION * co
 #endif
             break;
         }
-    }
-    
-    if ( player != NULL ) {
-
-        GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED
-            accepted_command( player );
-
-        auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand<GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED > ( accepted_command );
-        
-        player->AppendMessage( network_message );
     }
     
     /*TODO: elswhere :
@@ -478,6 +480,8 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
             
             if ( type == (int) GAMEPLAY_ACTION_TYPE_ClientQuit ) {
                 
+                SERVICE_LOGGER_Warning( "NETWORK_SERVER Received Client Quit\n" );
+                
                 for ( int pi = 0; pi < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; pi++ ) {
                     
                     if ( PlayerTable[ pi ] != NULL && PlayerTable[ pi ]->GetUniqueId() == ( ( GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT::PTR ) event->GetCommand() )->GetClientIdentifier() ) {
@@ -496,6 +500,7 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
             }
             else if ( type >= (int) GAMEPLAY_ACTION_TYPE_Custom_1 && command ) {
                 
+                SERVICE_LOGGER_Warning( "NETWORK_SERVER Received Custom event\n" );
                 // Assign the command to the player
                 
                 StateMachine.DispatchEvent( GAME_EVENT( event ) );
@@ -508,6 +513,8 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
             
             if ( type == (int) GAMEPLAY_ACTION_TYPE_ClientConnected ) {
                 
+                SERVICE_LOGGER_Warning( "NETWORK_SERVER Received Client connected\n" );
+                
                 if ( AcceptsConnections() ) {
                     
                     AcceptPlayerFromConnection( command->Connection );
@@ -518,6 +525,8 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
                 }
             }
             else if ( type == (int) GAMEPLAY_ACTION_TYPE_ClientReady ) {
+                
+                SERVICE_LOGGER_Warning( "NETWORK_SERVER Received Client ready\n" );
                 
                 if ( Delegate ) {
                     auto cmd = ( ( GAMEPLAY_ACTION_COMMAND_CLIENT_READY::PTR ) event->GetCommand() );
@@ -602,7 +611,7 @@ void NETWORK_SERVER::StartCountDown() {
 void NETWORK_SERVER::ServerChanged() {
     
     LobbyInstance->UpdateDiscoverMessage( "XS_SERVER_ACCEPTS_CONNECTIONS" );
-    
+    SERVICE_LOGGER_Warning( "NETWORK_SERVER Sending Server changed\n" );
     DispatchMessageToAllPlayers( CreateInfo() );
 }
 
@@ -684,6 +693,7 @@ void NETWORK_SERVER::DisconnectAll() {
         
         if ( PlayerTable[ i ] != NULL && PlayerTable[ i ]->GetUniqueId() != CurrentPlayer.GetUniqueId()) {
             
+            SERVICE_LOGGER_Warning( "NETWORK_SERVER Sending Disconnect All\n" );
             PlayerTable[i]->AppendMessage( network_message );
         }
     }

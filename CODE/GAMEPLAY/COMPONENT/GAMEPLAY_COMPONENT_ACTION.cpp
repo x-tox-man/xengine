@@ -82,8 +82,8 @@ void GAMEPLAY_COMPONENT_ACTION::LoadFromStream( CORE_DATA_STREAM & stream ) {
         
         InitializeMemory<INTERNAL_ARRAY, GAMEPLAY_COMPONENT_ACTION>( *InternalVector, i );
         
-        size_t b = sizeof(GAMEPLAY_COMPONENT_ACTION) * GAMEPLAY_COMPONENT_BASE_COUNT;
-        stream.OutputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, b );
+        X_VERY_LONG b = (X_VERY_LONG) sizeof(GAMEPLAY_COMPONENT_ACTION) * GAMEPLAY_COMPONENT_BASE_COUNT;
+        stream.OutputBytes((char *) (*InternalVector)[ i ].MemoryArray, b );
         
         stream >> (*InternalVector)[ i ].LastIndex;
         

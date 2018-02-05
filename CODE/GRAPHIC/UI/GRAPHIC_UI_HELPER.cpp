@@ -82,8 +82,6 @@ void GRAPHIC_UI_HELPER::CreateElementStyleWithContentColor( GRAPHIC_UI_ELEMENT *
         .CreateStyle( color )
         .Build();
     
-    element->SetOpacity( color.W() );
-    
     AddStyleToElementWithMask( element, style, state_mask );
 }
 
@@ -102,8 +100,6 @@ void GRAPHIC_UI_HELPER::CreateFrameStyleWithBorderAndContentColor( GRAPHIC_UI_EL
         .CreateStyle( color )
         .CreateDecoratingFrameBorder( element->GetSize(), CORE_HELPERS_UNIQUE_IDENTIFIER( border_texture_identifier.GetTextValue() ) )
         .Build();
-    
-    element->SetOpacity( color.W() );
     
     AddStyleToElementWithMask( element, style, state_mask );
 }

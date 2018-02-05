@@ -84,7 +84,7 @@ void GAMEPLAY_SCENE::Update( float time_step ) {
 
 void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
     
-    GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_LessOrEqual, true, 0.0f, 1.0f);
+    GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_LessOrEqual, true );
     GRAPHIC_SYSTEM::EnableBackfaceCulling();
     GRAPHIC_SYSTEM::SetPolygonMode( GRAPHIC_SYSTEM_POLYGON_FILL_MODE_Full );
     

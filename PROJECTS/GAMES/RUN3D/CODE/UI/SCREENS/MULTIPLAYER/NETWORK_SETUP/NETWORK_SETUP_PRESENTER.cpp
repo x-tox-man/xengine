@@ -111,11 +111,11 @@ void NETWORK_SETUP_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * click
         players_model.resize( view->GetPlayersList().size() );
         
         while (it != view->GetPlayersList().end() ) {
-            if ( !(*it)->Ready() ) {
+            /*if ( !(*it)->Ready() ) {
                 
                 return;
             }
-            else {
+            else {*/
                 players_model[i].NetworkPlayer = *it;
                 
                 if ( players_model[i].NetworkPlayer->GetUniqueId() == R3D_APP_PTR->GetNetworkManager().GetServer()->GetCurrentPlayer().GetUniqueId() ) {
@@ -130,7 +130,7 @@ void NETWORK_SETUP_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * click
                 players_model[i].Identifier = players_model[i].NetworkPlayer->GetUniqueId();
                 
                 i++;
-            }
+            //}
             
             it++;
         }

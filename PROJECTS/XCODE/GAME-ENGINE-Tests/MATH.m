@@ -737,5 +737,35 @@
     XCTAssert( intersection );
 }
 
+-(void) testMatrixQuaternionRotation2 {
 
+    CORE_MATH_QUATERNION
+    q1, q2, qresult;
+    CORE_MATH_MATRIX
+    m1,m2, mresult, mcombined;
+    
+    q1.RotateX( 0.1f);
+    q1.RotateY( 0.2f);
+    q1.RotateZ( -0.3f);
+    
+    q2.RotateX( 0.3f);
+    q2.RotateY( -0.5f);
+    q2.RotateZ( 0.2f);
+    
+    qresult = q1 * q2;
+    qresult.ToMatrix( mresult.GetRow(0) );
+    
+    
+    m1.XRotate( 0.1f );
+    m1.YRotate( 0.2f );
+    m1.ZRotate( -0.3f );
+    
+    m2.XRotate( 0.3f );
+    m2.YRotate( -0.5f );
+    m2.ZRotate( 0.2f );
+    
+    mcombined = m1 * m2;
+    
+    XCTAssert( mcombined == mresult );
+}
 @end

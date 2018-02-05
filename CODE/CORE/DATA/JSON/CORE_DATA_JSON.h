@@ -126,7 +126,7 @@ XS_CLASS_BEGIN( CORE_DATA_JSON )
 
     //Stupid fix with size_t
     template < typename __TYPE__ >
-    void InputBytes( const char * name, __TYPE__ * pointer, size_t size ) {
+    void InputBytes( const char * name, __TYPE__ * pointer, X_VERY_LONG size ) {
         
         char tmp[256];
         

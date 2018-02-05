@@ -46,7 +46,7 @@ public:
 private:
     GRAPHIC_SHADER_BIND VertexComponent;
     
-#if OPENGL2PLUS
+#if OPENGL4
     #include "GRAPHIC_PARTICLE_RENDERER_OPENGL.hpp"
 #elif OPENGLES2
     #include "GRAPHIC_PARTICLE_RENDERER_OES2.hpp"

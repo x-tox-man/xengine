@@ -88,6 +88,38 @@
     writer.Write( CORE_FILESYSTEM_PATH::FindFilePath( "map_test", "png", "MAP" ), &img );
 }
 
+-(void) testPremultipliedAlpha {
+    
+    RESOURCE_IMAGE_PNG_LOADER
+    loader;
+    RESOURCE_IMAGE_PNG_WRITER
+    writer;
+    
+    RESOURCE_IMAGE destination, * img = loader.Load( CORE_FILESYSTEM_PATH::FindFilePath( "waves", "png", "TEXTURES_BASE" ) );
+    
+    float * table = (float *) img->GetImageRawData();
+    
+    for (int i = 0; i < img->GetImageInfo().Width; i++ ) {
+        
+        for (int j = 0; j < img->GetImageInfo().Height; j++ ) {
+            
+            int pixel_index = ( (i * img->GetImageInfo().Width ) + j );
+            uint8 * pixel = (uint8 *) &table[ pixel_index ];
+            
+            pixel[ 0 ] = (pixel[ 0 ] * pixel[ 3 ]) / 255;
+            pixel[ 1 ] = (pixel[ 1 ] * pixel[ 3 ]) / 255;
+            pixel[ 2 ] = (pixel[ 2 ] * pixel[ 3 ]) / 255;
+        }
+    }
+    
+    destination.GetImageInfo().Height = img->GetImageInfo().Height;
+    destination.GetImageInfo().Width = img->GetImageInfo().Width;
+    destination.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;
+    destination.SetImageRawData( table );
+    
+    writer.Write( CORE_FILESYSTEM_PATH::FindFilePath( "waves", "png", "TEXTURES" ), &destination );
+}
+
 -(void) testUTF8 {
     
     wchar_t * tt = NULL;
@@ -185,7 +217,7 @@
         
         descriptor.Size = 12;
         
-        const char * characters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-.";
+        const char * characters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-.?;:=+¨*%£`=/";
         
         int string_size = strlen( characters );
         char * string = (char *) CORE_MEMORY_ALLOCATOR_Allocate( string_size );
@@ -274,7 +306,7 @@
         
         descriptor.Size = 32;
         
-        const char * characters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-.";
+        const char * characters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&é\"'\(§è!çà)-.?;:=+¨*%£`=/";
         int string_size = strlen( characters );
         char * string = (char *) CORE_MEMORY_ALLOCATOR_Allocate (string_size);
         memcpy(string, characters, string_size );

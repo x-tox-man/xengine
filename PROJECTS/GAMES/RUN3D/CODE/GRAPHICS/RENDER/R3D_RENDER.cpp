@@ -102,6 +102,7 @@ void R3D_RENDER::Initialize() {
     
 #if DEBUG
     TOOLS_DEBUG_DRAW::Instance = new TOOLS_DEBUG_DRAW;
+    DebugRenderActive = false;
 #endif
     
     auto light = new GRAPHIC_SHADER_LIGHT;
@@ -133,6 +134,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
 #if PLATFORM_OSX
         PrimaryRenderTarget.Apply();
 #endif
+        
 #if PLATFORM_IOS || PLATFORM_ANDROID
         renderer.SetLightingIsEnabled( false );
 #else
@@ -140,7 +142,6 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
 #endif
         Lookat.Normalize();
         
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_LessOrEqual, true, 0.0f, 1.0f);
         R3D_APP_PTR->GetGame()->Render( renderer );
         
         GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
@@ -149,9 +150,12 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         renderer.SetLightingIsEnabled( false );
         Camera->GetFustrum().DebugDraw( *Camera);
         renderer.SetLightingIsEnabled( true );
-        //auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4]);
         
-        //detect->DebugDrawWorld();
+        if ( DebugRenderActive ) {
+            auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4]);
+            
+            detect->DebugDrawWorld();
+        }
 #endif
     
         renderer.SetLightingIsEnabled( false );
@@ -173,6 +177,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         BloomRenderTarget.Apply();
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, BloomEffect );
         BloomRenderTarget.Discard();
+        delete mat;
     }
     
     {
@@ -185,6 +190,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         GaussianRenderTarget1.Apply();
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, HorizontalBlurEffect );
         GaussianRenderTarget1.Discard();
+        delete mat;
     }
     
     {
@@ -197,6 +203,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         GaussianRenderTarget2.Apply();
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, VerticalBlurEffect );
         GaussianRenderTarget2.Discard();
+        delete mat;
     }
     
     {
@@ -209,6 +216,8 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         CombineBloomEffect->SetMaterial( mat );
         
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, CombineBloomEffect );
+        
+        delete mat;
     }
 #endif
     

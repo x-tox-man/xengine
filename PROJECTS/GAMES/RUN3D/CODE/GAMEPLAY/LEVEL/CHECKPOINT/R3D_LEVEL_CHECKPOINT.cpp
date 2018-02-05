@@ -30,9 +30,4 @@ void R3D_LEVEL_CHECKPOINT::Initialize( const CORE_MATH_VECTOR & position ) {
     
     GAMEPLAY_HELPER::AddStaticToPhysics( this, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_SHIP );
     GAMEPLAY_HELPER::AddToWorld( this );
-    
-    auto child = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT>();
-    child->Initialize( position );
-    
-    SetChild( child, 0 );
 }

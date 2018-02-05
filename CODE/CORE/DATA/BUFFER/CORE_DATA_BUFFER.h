@@ -21,13 +21,13 @@ public:
     CORE_DATA_BUFFER();
     ~CORE_DATA_BUFFER();
 
-    void Initialize( size_t size, int section_count = 0 );
-    void InitializeWithMemory( size_t size, int section_count, void * memory );
+    void Initialize( X_VERY_LONG size, int section_count = 0 );
+    void InitializeWithMemory( X_VERY_LONG size, int section_count, void * memory );
     void Finalize();
 
-    void setMarkerAtIndex( const CORE_HELPERS_IDENTIFIER * identifier, int section_index, int offset = 0, size_t item_size = 0 );
+    void setMarkerAtIndex( const CORE_HELPERS_IDENTIFIER * identifier, int section_index, int offset = 0, X_VERY_LONG item_size = 0 );
 
-    void * getpointerAtIndex( size_t byte_offset, int section );
+    void * getpointerAtIndex( X_VERY_LONG byte_offset, int section );
 //    void * getpointerAtIndex( unsigned int byte_offset, const CORE_HELPERS_IDENTIFIER & section );
 
     int getSectionSize( int section_index );
@@ -37,7 +37,7 @@ public:
     int getSectionItemOffset( const CORE_HELPERS_IDENTIFIER * section = NULL );
 
     Scalar_SGet( int, Sections );
-    Scalar_SGet( size_t, Size );
+    Scalar_SGet( unsigned int, Size );
 
     template<typename __SCALAR__>
     __SCALAR__ * getpointerAtIndex( __SCALAR__ offset )

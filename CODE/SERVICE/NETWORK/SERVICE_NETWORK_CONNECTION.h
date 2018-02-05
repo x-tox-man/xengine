@@ -20,6 +20,8 @@
 
 struct UVTCP {
     
+    uv_buf_t
+        Buffer;
     uv_tcp_t
         TCPSocket;
     uv_write_t
@@ -28,12 +30,12 @@ struct UVTCP {
         TCPConnect;
     uv_stream_t
         * TCPServer;
-    uv_buf_t
-        Buffer;
 };
 
 struct UVUDP {
     
+    uv_buf_t
+        Buffer;
     uv_udp_send_t
         UDPRequest;
     uv_udp_t

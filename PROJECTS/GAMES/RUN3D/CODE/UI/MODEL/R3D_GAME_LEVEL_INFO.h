@@ -25,12 +25,17 @@ XS_CLASS_BEGIN_WITH_COPY( R3D_GAME_LEVEL_INFO )
 
     bool operator == ( const R3D_GAME_LEVEL_INFO & other ) const {
         
-        return LevelName != NULL && other.LevelName != NULL && strcmp(LevelName, other.LevelName ) == 0;
+        return LevelName != NULL && other.LevelName != NULL && wcscmp(LevelName, other.LevelName ) == 0;
     }
 
+    wchar_t
+        * LevelName;
     char
-        * LevelName,
         * LevelPicto;
+    float
+        Scores[4];
+    float
+        PlayerBest;
 
 XS_CLASS_END
 

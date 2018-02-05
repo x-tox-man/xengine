@@ -28,7 +28,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_COMMAND_GAME_STATUS, GAMEPLAY_ACTION )
 
     SimpleTrickForSerialization()
 
-    int
+    unsigned int
         Tick;
     std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_COMMAND_PLAYER_UPDATE >
         PlayersUpdates;

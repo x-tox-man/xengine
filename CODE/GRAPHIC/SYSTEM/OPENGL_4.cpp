@@ -60,6 +60,20 @@
         return fill_mode[ mode ];
     }
 
+    GLenum OPENGL_4_GetFiltermode( const GRAPHIC_TEXTURE_FILTERING mode ) {
+        
+        static GLenum filter_mode[] { GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_LINEAR };
+        
+        return filter_mode[ mode ];
+    }
+
+    GLenum OPENGL_4_GetWrapMode( const GRAPHIC_TEXTURE_WRAP mode ) {
+        
+        static GLenum filter_mode[] { GL_CLAMP_TO_EDGE, GL_REPEAT, GL_MIRRORED_REPEAT };
+        
+        return filter_mode[ mode ];
+    }
+
     void GRAPHIC_SYSTEM::EnableScissor(bool enable) {
         if ( enable ) {
             
@@ -97,9 +111,9 @@
 
     void GRAPHIC_SYSTEM::EnableBackfaceCulling() {
         
-        GFX_CHECK( glDisable( GL_CULL_FACE ); )
-        //GFX_CHECK( glCullFace( GL_BACK ); )
-        //GFX_CHECK( glFrontFace( GL_CW ); )
+        GFX_CHECK( glEnable( GL_CULL_FACE ); )
+        GFX_CHECK( glCullFace( GL_BACK ); )
+        GFX_CHECK( glFrontFace( GL_CCW ); )
     }
 
     void GRAPHIC_SYSTEM::DisableFaceCulling() {
@@ -150,11 +164,27 @@
         
         GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_4_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, 0 ); )
         
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+        //SetTextureFiltering( texture, GRAPHIC_TEXTURE_FILTERING );
         
         GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); )
         GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); )
+        
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+    }
+
+    //https://www.khronos.org/registry/OpenGL-Refpages/es2.0/xhtml/glTexParameter.xml
+    //https://open.gl/textures
+    void GRAPHIC_SYSTEM::SetTextureOptions( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_FILTERING filtering, GRAPHIC_TEXTURE_WRAP wrap ) {
+        
+        GLenum filter = OPENGL_4_GetFiltermode( filtering );
+        GLenum wrap_mode = OPENGL_4_GetWrapMode( wrap );
+        
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter ); )
+        
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_mode ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_mode ); )
     }
 
     void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {
@@ -190,7 +220,7 @@
         //GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data ); )
         
         // TODO : generate mipmap -> disable for interface elements
-        if ( generate_mipmap ) {
+        if ( true ) {
             
             GFX_CHECK( glGenerateMipmap(GL_TEXTURE_2D); )
         }

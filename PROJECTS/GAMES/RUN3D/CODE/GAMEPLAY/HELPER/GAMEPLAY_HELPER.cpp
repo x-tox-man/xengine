@@ -137,15 +137,20 @@ void GAMEPLAY_HELPER::SetTexture( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const c
     
     GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
     
-    auto mat = new GRAPHIC_MATERIAL();
+    auto mat = render->GetMaterial().GetResource< GRAPHIC_MATERIAL >();
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( texture_name ), path );
     
+    if ( mat == NULL ) {
+        RESOURCE_PROXY
+            proxy( mat );
+        
+        render->SetMaterial( proxy );
+        
+        SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetTexture create mat\n" );
+    }
+    
     mat->SetTexture( identifier, new GRAPHIC_TEXTURE_BLOCK( text ) );
-    
-    RESOURCE_PROXY
-        proxy( mat );
-    
-    render->SetMaterial( proxy );
+    SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetTexture ok %s\n", texture_name );
 }
 
 void GAMEPLAY_HELPER::SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_IDENTIFIER & identifier  ) {
@@ -155,6 +160,15 @@ void GAMEPLAY_HELPER::SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const ch
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( texture_name ), path );
     
     render->GetMaterial().GetResource< GRAPHIC_MATERIAL >()->SetTexture( identifier, new GRAPHIC_TEXTURE_BLOCK( text ) );
+}
+
+void GAMEPLAY_HELPER::SetTextureRepeating(GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_IDENTIFIER & identifier) {
+    
+    GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    auto mat = render->GetMaterial().GetResource< GRAPHIC_MATERIAL >();
+    
+    GRAPHIC_SYSTEM::SetTextureOptions( mat->GetTexture( identifier )->GetTexture(), GRAPHIC_TEXTURE_FILTERING_LinearMipmapLinear, GRAPHIC_TEXTURE_WRAP_RepeatMirror );
 }
 
 void GAMEPLAY_HELPER::SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
@@ -174,7 +188,11 @@ void GAMEPLAY_HELPER::SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CO
 void GAMEPLAY_HELPER::SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_FILESYSTEM_PATH & path ) {
     
     CORE_ABSTRACT_PROGRAM_LUA * program = new CORE_ABSTRACT_PROGRAM_LUA();
-    CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
+    
+    CORE_ABSTRACT_RUNTIME_LUA * runtime = new CORE_ABSTRACT_RUNTIME_LUA;
+    runtime->Initialize();
+    
+    CORE_ABSTRACT_PROGRAM_BINDER::GetInstance().BindRuntime<CORE_ABSTRACT_RUNTIME_LUA>( *runtime );
     
 #if DEBUG
     CORE_FILESYSTEM_FILE_WATCHER * watcher =  new CORE_FILESYSTEM_FILE_WATCHER;
@@ -188,16 +206,15 @@ void GAMEPLAY_HELPER::SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CO
     
     strncpy(vsh_path, path.GetPath(), l);
     vsh_path[l] = '\0';
-    vsh_path[strlen(vsh_path) - 3 ] ='f';
-    vsh_path[strlen(vsh_path) - 2 ] ='s';
-    vsh_path[strlen(vsh_path) - 1 ] ='h';
+    vsh_path[strlen(vsh_path) - 3 ] ='l';
+    vsh_path[strlen(vsh_path) - 2 ] ='u';
+    vsh_path[strlen(vsh_path) - 1 ] ='a';
     
     
     watcher->Setup( path.GetPath(), *callback );
 #endif
     
     program->Load( path.GetPath(), *runtime );
-    program->Execute();
     
     GAMEPLAY_COMPONENT_SCRIPT::PTR script = (GAMEPLAY_COMPONENT_SCRIPT::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Script );
 
@@ -220,7 +237,13 @@ void GAMEPLAY_HELPER::AddToWorld( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
 
 void GAMEPLAY_HELPER::AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[3]->AddEntity(entity->GetHandle(), entity );
+    GAMEPLAY_COMPONENT_SCRIPT::PTR script = (GAMEPLAY_COMPONENT_SCRIPT::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Script );
+    
+    if ( script != NULL ) {
+        
+        script->GetScript()->Execute();
+        R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[3]->AddEntity(entity->GetHandle(), entity );
+    }
 }
 
 void GAMEPLAY_HELPER::AddToAnimations( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {

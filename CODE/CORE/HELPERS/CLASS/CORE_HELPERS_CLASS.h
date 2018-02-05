@@ -655,12 +655,12 @@ void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::false_ty
 stream.OutputBytes( (__TYPE__ * &) type, size ); \
 } \
 template<> template<>\
-void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::true_type >( const char * member_name, __TYPE__ * type, CORE_DATA_STREAM & stream, size_t size ) { \
+void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::true_type >( const char * member_name, __TYPE__ * type, CORE_DATA_STREAM & stream, X_VERY_LONG size ) { \
 \
 stream.InputBytes( (__TYPE__ *) type, size ); \
 } \
 template<> template<>\
-void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::false_type >( const char * member_name, __TYPE__ * type, CORE_DATA_STREAM & stream, size_t size ) { \
+void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_STREAM >::Serialize< std::false_type >( const char * member_name, __TYPE__ * type, CORE_DATA_STREAM & stream, X_VERY_LONG size ) { \
 \
     stream.OutputBytes( (__TYPE__ *) type, size ); \
 } \
@@ -679,7 +679,7 @@ template<> template<>\
 void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::true_type >( const char * member_name, __TYPE__ * & type, CORE_DATA_JSON & stream ) { \
 \
     stream.AppendMember(); \
-    stream.InputBytes( member_name, type, sizeof( __TYPE__ ) ); \
+    stream.InputBytes( member_name, type, (int) sizeof( __TYPE__ ) ); \
 } \
 template<> template<>\
 void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::false_type >( const char * member_name, __TYPE__ * & type, CORE_DATA_JSON & stream ) { \
@@ -701,13 +701,13 @@ void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::false_type
     stream.OutputBytes( member_name, type, size ); \
 } \
 template<> template<>\
-void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::true_type >( const char * member_name, __TYPE__ * type, CORE_DATA_JSON & stream, size_t size ) { \
+void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::true_type >( const char * member_name, __TYPE__ * type, CORE_DATA_JSON & stream, X_VERY_LONG size ) { \
 \
     stream.AppendMember(); \
-    stream.InputBytes( member_name, type, size ); \
+    stream.InputBytes( member_name, type, (X_VERY_LONG) size ); \
 } \
 template<> template<>\
-void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::false_type >( const char * member_name, __TYPE__ * type, CORE_DATA_JSON & stream, size_t size ) { \
+void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::false_type >( const char * member_name, __TYPE__ * type, CORE_DATA_JSON & stream, X_VERY_LONG size ) { \
 \
     int size_read = 0; \
     stream.ReadMember(); \
@@ -742,7 +742,7 @@ template<> template<>\
 void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::true_type >( const char * member_name, __TYPE__ ** type, CORE_DATA_JSON & stream ) { \
 \
     stream.AppendMember(); \
-    stream.InputBytes( member_name, type, sizeof( __TYPE__ ) ); \
+    stream.InputBytes( member_name, type, (int) sizeof( __TYPE__ ) ); \
 } \
 template<> template<>\
 void XS_CLASS_SERIALIZER< __TYPE__, CORE_DATA_JSON >::Serialize< std::false_type >( const char * member_name, __TYPE__ ** type, CORE_DATA_JSON & stream ) { \
@@ -768,7 +768,7 @@ public:
     static void Serialize( const char * member_name, __CLASS_TYPE__ * & type, __STREAM__TYPE_ & stream, int size );
     
     template<typename __BOOLEAN_TYPE__ >
-    static void Serialize( const char * member_name, __CLASS_TYPE__ * type, __STREAM__TYPE_ & stream, size_t size );
+    static void Serialize( const char * member_name, __CLASS_TYPE__ * type, __STREAM__TYPE_ & stream, X_VERY_LONG size );
     
     template<typename __BOOLEAN_TYPE__ >
     static void Serialize( const char * member_name, __CLASS_TYPE__ ** type, __STREAM__TYPE_ & stream );
