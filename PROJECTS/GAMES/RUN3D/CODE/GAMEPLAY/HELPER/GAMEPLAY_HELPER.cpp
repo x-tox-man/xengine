@@ -157,9 +157,20 @@ void GAMEPLAY_HELPER::SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const ch
     
     GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
     
+    auto mat = render->GetMaterial().GetResource< GRAPHIC_MATERIAL >();
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( texture_name ), path );
     
-    render->GetMaterial().GetResource< GRAPHIC_MATERIAL >()->SetTexture( identifier, new GRAPHIC_TEXTURE_BLOCK( text ) );
+    if ( mat == NULL ) {
+        RESOURCE_PROXY
+            proxy( mat );
+        
+        render->SetMaterial( proxy );
+        
+        SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetTexture create mat\n" );
+    }
+    
+    mat->SetTexture( identifier, new GRAPHIC_TEXTURE_BLOCK( text ) );
+    SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetNormal ok %s\n", texture_name );
 }
 
 void GAMEPLAY_HELPER::SetTextureRepeating(GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_IDENTIFIER & identifier) {
@@ -183,6 +194,15 @@ void GAMEPLAY_HELPER::SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CO
         proxy( mat );
     
     render->SetMaterial( proxy );
+}
+
+void GAMEPLAY_HELPER::SetShadowmapEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
+    
+    static CORE_HELPERS_UNIQUE_IDENTIFIER identifier( "SHADER::ShadowMapEffect");
+    
+    GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    render->SetShadowmapEffect( *R3D_RESOURCES::GetInstance().FindResourceProxy( identifier ) );
 }
 
 void GAMEPLAY_HELPER::SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_FILESYSTEM_PATH & path ) {
@@ -233,6 +253,11 @@ void GAMEPLAY_HELPER::SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CO
 void GAMEPLAY_HELPER::AddToWorld( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
     R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[0]->AddEntity( entity->GetHandle(), entity );
+}
+
+void GAMEPLAY_HELPER::AddToWorldTransparent( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
+    
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[1]->AddEntity( entity->GetHandle(), entity );
 }
 
 void GAMEPLAY_HELPER::AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {

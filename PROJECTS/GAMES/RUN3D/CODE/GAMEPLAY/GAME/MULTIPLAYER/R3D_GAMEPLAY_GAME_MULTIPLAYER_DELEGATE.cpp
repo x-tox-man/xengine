@@ -33,10 +33,15 @@ void R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE::InternalUpdateGame( const float ste
         
         command.Thrust = Thrust;
         command.Orientation = Orientation;
+        command.ShipOrientation = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetOrientation();
+        command.Position = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition();
         command.UniqueId = R3D_APP_PTR->GetNetworkManager().GetServer()->GetCurrentPlayer().GetUniqueId();
         
+        
         SetPlayerUpdate( &command );
-        R3D_APP_PTR->GetNetworkManager().GetServer()->DispatchMessageToAllPlayers( GAMEPLAY_ACTION_SYSTEM::GetInstance().CreateNetworkCommand( Command ) );
+        auto net_command = GAMEPLAY_ACTION_SYSTEM::GetInstance().CreateNetworkCommand( Command, (GAMEPLAY_ACTION_SYSTEM::GetInstance().GetTimeline().GetTick() + ComputeMinimumTickLag() ) );
+        
+        R3D_APP_PTR->GetNetworkManager().GetServer()->DispatchMessageToAllPlayers( net_command );
     }
     else {
         R3D_COMMAND_PLAYER_UPDATE
@@ -44,9 +49,11 @@ void R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE::InternalUpdateGame( const float ste
         
         command.Thrust = Thrust;
         command.Orientation = Orientation;
+        command.ShipOrientation = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetOrientation();
+        command.Position = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition();
         command.UniqueId = R3D_APP_PTR->GetNetworkManager().GetClient()->GetCurrentPlayer().GetUniqueId();
         
-        R3D_APP_PTR->GetNetworkManager().GetClient()->DispatchMessageToServer( GAMEPLAY_ACTION_SYSTEM::GetInstance().CreateNetworkCommand( command ) );
+        R3D_APP_PTR->GetNetworkManager().GetClient()->DispatchMessageToServer( GAMEPLAY_ACTION_SYSTEM::GetInstance().CreateNetworkCommand( command, 0 ) );
     }
 }
 
@@ -67,3 +74,20 @@ void R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE::InitializePlayers() {
     }
 }
 
+unsigned int R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE::ComputeMinimumTickLag() {
+    
+    float lag = 1.0f / 30.0f;
+    
+    for( int i = 0; i < R3D_APP_PTR->GetNetworkManager().GetServer()->GetPlayerTable().size(); i++ ) {
+        
+        if ( R3D_APP_PTR->GetNetworkManager().GetServer()->GetPlayerTable()[ i ] != NULL ) {
+            
+            if ( R3D_APP_PTR->GetNetworkManager().GetServer()->GetPlayerTable()[ i ]->GetPing() - lag > 0.001f ) {
+                
+                lag = R3D_APP_PTR->GetNetworkManager().GetServer()->GetPlayerTable()[ i ]->GetPing();
+            }
+        }
+    }
+    
+    return (unsigned int) ( lag * 30.0f );
+}

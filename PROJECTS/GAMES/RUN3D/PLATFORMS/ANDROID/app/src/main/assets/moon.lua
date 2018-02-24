@@ -11,7 +11,7 @@ function Update( object_parameter )
 	ori = comp_pos:GetOrientation()
 	pos = comp_pos:GetPosition()
 
-	ori:RotateZ( 0.001 )
+	ori:RotateZ( 0.002 )
 
 	pos:X( 500.0 )
 	pos:Y( -400.0 )

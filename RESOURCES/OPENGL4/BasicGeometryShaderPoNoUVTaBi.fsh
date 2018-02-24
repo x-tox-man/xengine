@@ -46,17 +46,17 @@ void main()
 
     float nxDir = max(0.1, dot( NewNormal.xyz, directional_light_out.Direction.xyz));
     vec4 diffuse = directional_light_out.Color * nxDir;
-    diffuse += ambient_light.Color * ambient_light.AmbientIntensity;
+    
     
     float visibility = 1.0;
 
     if ( texture( d_texture, ShadowCoord.xy ).x < (ShadowCoord.z -0.005) ) {
         visibility = 0.5;
     }
+
+    diffuse += ambient_light.Color * ambient_light.AmbientIntensity * visibility;
     
-    //colorOut.x = texture( d_texture, ShadowCoord.xy ).x;//texture( d_texture, ShadowCoord.xz ).x;//ShadowCoord.x;//texture( d_texture, ShadowCoord.xz ).x;
-    //colorOut.y = 0.0;//texture( d_texture, ShadowCoord.xz ).x - ShadowCoord.y;//texture( d_texture, ShadowCoord.xz ).
-    
+
     colorOut.rgb = texture( c_texture, texCoord ).rgb * diffuse.rgb;
 
     colorOut.a = 1.0;

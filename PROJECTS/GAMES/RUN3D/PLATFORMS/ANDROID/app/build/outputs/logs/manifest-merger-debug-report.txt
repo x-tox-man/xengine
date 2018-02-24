@@ -1,12 +1,12 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
-INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-40:12
+ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-41:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-41:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-41:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-41:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-41:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-41:12
+INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:1:1-41:12
 	package
 		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:2:11-33
 		INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml
@@ -97,6 +97,10 @@ uses-feature#android.hardware.wifi
 ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:39:5-58
 	android:name
 		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:39:19-55
+uses-feature#android.hardware.audio.low_latency
+ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:40:5-71
+	android:name
+		ADDED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml:40:19-68
 uses-sdk
 INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/src/main/AndroidManifest.xml

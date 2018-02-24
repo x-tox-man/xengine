@@ -42,9 +42,9 @@ void LEVEL_CELL::Initialize() {
     time->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     time->SetVisible( false );
 
-    GRAPHIC_UI_HELPER::CreateElementStyleWithContentTexture(element, CORE_COLOR_White, CORE_HELPERS_IDENTIFIER( "Level1_picto" ) );
+    //GRAPHIC_UI_HELPER::CreateElementStyleWithContentTexture(element, CORE_COLOR_White, CORE_HELPERS_IDENTIFIER( "Level1_picto" ) );
     
-    AddObject( element );
+    //AddObject( element );
     AddObject( text );
     AddObject( time );
     
@@ -62,13 +62,13 @@ void LEVEL_CELL::SetLevelModel( R3D_GAME_LEVEL_INFO::PTR info ) {
     
     CORE_PARALLEL_TASK_BEGIN(this)
         CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )
-            CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext( true );
+            //CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext( true );
             if ( LevelModel->PlayerBest != -1.0f ) {
-                GetObjectForIdentifier( BestTime )->SetTextValue( CORE_DATA_UTF8_TEXT( L"%.2f").Format( LevelModel->PlayerBest ) );
-                GetObjectForIdentifier( BestTime )->SetVisible( true );
+                //GetObjectForIdentifier( BestTime )->SetTextValue( CORE_DATA_UTF8_TEXT( L"%.2f").Format( LevelModel->PlayerBest ) );
+                //GetObjectForIdentifier( BestTime )->SetVisible( true );
             }
-            GetObjectForIdentifier( LevelName )->SetTextValue( LevelModel->LevelName );
-            CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext( false );
+            //GetObjectForIdentifier( LevelName )->SetTextValue( LevelModel->LevelName );
+            //CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext( false );
         CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
     CORE_PARALLEL_TASK_END()
 }

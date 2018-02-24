@@ -14,6 +14,8 @@
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_READY.h"
 #include "GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT.h"
 #include "GAMEPLAY_ACTION_COMMAND_SERVER_INFO.h"
+#include "GAMEPLAY_ACTION_COMMAND_LOAD_GAME.h"
+#include "GAMEPLAY_ACTION_COMMAND_CLOCK.h"
 
 //--State EVENT
 CORE_FIXED_STATE_DefineStateEnterEvent( NETWORK_CLIENT::INITIAL_STATE )
@@ -163,7 +165,6 @@ NETWORK_CLIENT::NETWORK_CLIENT() :
     ClientInstance( NULL ),
     IncommingMessageQueue(),
     IncommingMessageQueueIterator(0),
-    NetworkEventsTimeLine(),
     CurrentPlayer( 0, true ),
     NetworkRefreshRate(0.1f),
     AccumulatedRemaining( 0.0f ),
@@ -290,8 +291,22 @@ void NETWORK_CLIENT::ProcessIncommingMessages() {
         GAMEPLAY_ACTION_SYSTEM::GetInstance().DeSerializeNetworkCommand( command, &event );
         
         int type = ((GAMEPLAY_ACTION*) event->GetCommand())->GetCommandType();
+        
+        
+        if ( type == (int) GAMEPLAY_ACTION_TYPE_LoadGame ) {
             
-        if ( type == (int) GAMEPLAY_ACTION_TYPE_ServerQuit ) {
+            auto cmd = ((GAMEPLAY_ACTION_COMMAND_LOAD_GAME*) event->GetCommand());
+            Delegate->OnLoadGame( cmd->Players );
+        }
+        else if ( type == (int) GAMEPLAY_ACTION_TYPE_GameStarting ) {
+            
+            event->Complete();
+        }
+        else if ( type == (int) GAMEPLAY_ACTION_TYPE_GameStarting ) {
+            
+            event->Complete();
+        }
+        else if ( type == (int) GAMEPLAY_ACTION_TYPE_ServerQuit ) {
             
             SERVICE_LOGGER_Warning( "NETWORK_CLIENT Received Server Quit\n" );
             StateMachine.DispatchEvent( SERVER_DISCONNECTED_EVENT() );
@@ -301,9 +316,24 @@ void NETWORK_CLIENT::ProcessIncommingMessages() {
             SERVICE_LOGGER_Warning( "NETWORK_CLIENT Received Server Info\n" );
             Delegate->OnServerInfo( ((GAMEPLAY_ACTION_COMMAND_SERVER_INFO*) event->GetCommand()) );
         }
+        else if ( type == (int) GAMEPLAY_ACTION_TYPE_Clock ) {
+            
+            GAMEPLAY_ACTION_COMMAND_CLOCK
+                clock_command;
+            auto from_command = (GAMEPLAY_ACTION_COMMAND_CLOCK::PTR)((GAMEPLAY_ACTION*) event->GetCommand());
+            
+            clock_command.Player = from_command->Player;
+            clock_command.SentTick = from_command->SentTick;
+            
+            Delegate->OnPingUpdated( from_command->AveragePing );
+            
+            auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( clock_command, -1 );
+            
+            CurrentPlayer.AppendMessage( network_message );
+        }
         else {
             
-            SERVICE_LOGGER_Warning( "NETWORK_CLIENT Received Game event\n" );
+            SERVICE_LOGGER_Warning( "NETWORK_CLIENT Received Game event Local tick : %d - Remote tick : %d\n", GAMEPLAY_ACTION_SYSTEM::GetInstance().GetTimeline().GetTick(), event->GetTick() );
             StateMachine.DispatchEvent(GAME_EVENT(event));
         }
         
@@ -325,7 +355,7 @@ void NETWORK_CLIENT::SendJoinRequestCommand() {
     
     command.SetPlayer( &CurrentPlayer );
     
-    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command );
+    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command, 0 );
     
     CurrentPlayer.AppendMessage( network_message );
 }
@@ -335,7 +365,7 @@ void NETWORK_CLIENT::SendDisconnectCommand() {
     GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT
         command( CurrentPlayer.GetUniqueId() );
     
-    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command );
+    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command, 0 );
     
     StateMachine.ChangeState( INITIAL_STATESTATE );
     
@@ -350,7 +380,7 @@ void NETWORK_CLIENT::SendReadyCommand( bool ready ) {
     command.Player = &CurrentPlayer;
     command.Ready = ready;
     
-    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command );
+    auto network_message = GAMEPLAY_ACTION_SYSTEM::CreateNetworkCommand( command, 0 );
     
     CurrentPlayer.AppendMessage( network_message );
 }

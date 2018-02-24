@@ -112,8 +112,8 @@ void AUDIO_SYSTEM::PlayMusic( const CORE_HELPERS_IDENTIFIER & sound_identifier )
         AUDIO_LOADER_Open( sound.SoundPath, sound.SoundFileType, *sound.Sound, *sound.Option );
         
         AUDIO_LOADER_ReadChunk( *sound.Sound, 0 );
-        AUDIO_LOADER_ReadChunk( *sound.Sound, 1 );
-        AUDIO_LOADER_ReadChunk( *sound.Sound, 2 );
+        //AUDIO_LOADER_ReadChunk( *sound.Sound, 1 );
+        //AUDIO_LOADER_ReadChunk( *sound.Sound, 2 );
     }
 #if __AUDIO_OPENAL__ || __AUDIO_OPENSL__
     Interface->PlaySound( *sound.Sound );

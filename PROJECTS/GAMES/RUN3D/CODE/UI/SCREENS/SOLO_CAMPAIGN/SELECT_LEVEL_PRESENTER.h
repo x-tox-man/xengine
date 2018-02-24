@@ -26,6 +26,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_2( SELECT_LEVEL_PRESENTER, R3D_BASE_PRESENTER, GRAP
     virtual void ConfigureItemLayoutFor(int , GRAPHIC_UI_ELEMENT *) override;
     virtual void OnBaseIndexChanged( int index ) override;
 
+    void OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event );
+
     virtual GRAPHIC_UI_ELEMENT::PTR CreateItem() override {
         return new LEVEL_CELL;
     }

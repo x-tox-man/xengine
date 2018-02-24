@@ -150,8 +150,8 @@ void GAMEPLAY_COMPONENT_PHYSICS::ConfigureShapeCylinder(const CORE_MATH_VECTOR &
     
     btRigidBody::btRigidBodyConstructionInfo construction_info( mass, motion_state, BulletShape, fall_inertia );
     BulletRigidBody = new btRigidBody( construction_info );
-    BulletRigidBody->setRestitution( 0.1f );
-    BulletRigidBody->setFriction( 1.0f );
+    BulletRigidBody->setRestitution( 0.0f );
+    BulletRigidBody->setFriction( 0.0f );
     BulletRigidBody->setRollingFriction( 0.1f );
     BulletRigidBody->setSpinningFriction( 0.0f );
     BulletRigidBody->setAngularFactor( 0.0f );
@@ -169,8 +169,8 @@ void GAMEPLAY_COMPONENT_PHYSICS::ConfigureShapePlane( const CORE_MATH_VECTOR & p
         btRigidBody::btRigidBodyConstructionInfo construction_info(0, motion_state, BulletShape, btVector3(0, 0, 0));
     
         BulletRigidBody = new btRigidBody( construction_info );
-        BulletRigidBody->setRestitution( 0.1f );
-        BulletRigidBody->setFriction( 0.1f );
+        BulletRigidBody->setRestitution( 0.0f );
+        BulletRigidBody->setFriction( 0.0f );
         BulletRigidBody->setRollingFriction( 0.0f );
         BulletRigidBody->setSpinningFriction( 0.0f );
         BulletRigidBody->setAngularFactor( 0.0f );
@@ -222,8 +222,8 @@ void GAMEPLAY_COMPONENT_PHYSICS::ConfigureHeightMap( const CORE_MATH_VECTOR & po
     btRigidBody::btRigidBodyConstructionInfo construction_info(0, motion_state, BulletShape, btVector3(0, 0, 0));
     
     BulletRigidBody = new btRigidBody( construction_info );
-    BulletRigidBody->setRestitution( 1.0f );
-    BulletRigidBody->setFriction( 1.0f );
+    BulletRigidBody->setRestitution( 0.0f );
+    BulletRigidBody->setFriction( 0.0f );
     BulletRigidBody->setRollingFriction( 1.0f );
     BulletRigidBody->setSpinningFriction( 1.0f );
     BulletRigidBody->setAngularFactor( 0.0f );
@@ -250,7 +250,7 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE
 
     BulletRigidBody = new btRigidBody( construction_info );
     BulletRigidBody->setRestitution( 0.0f );
-    BulletRigidBody->setFriction( 1.0f );
+    BulletRigidBody->setFriction( 0.0f );
     BulletRigidBody->setRollingFriction( 1.0f );
     BulletRigidBody->setSpinningFriction( 1.0f );
     BulletRigidBody->setAngularFactor( 0.0f );
@@ -480,7 +480,7 @@ void GAMEPLAY_COMPONENT_PHYSICS::Enable( bool enable ) {
 }
 
 void GAMEPLAY_COMPONENT_PHYSICS::EnableCCD() {
-    
+    //https://gamedev.stackexchange.com/questions/11961/how-can-i-enable-ccd-in-bullet-physics
 #ifdef __BULLET_PHYSICS__
     BulletRigidBody->setCcdMotionThreshold( 0.01f);
     BulletRigidBody->setCcdSweptSphereRadius(0.2f);

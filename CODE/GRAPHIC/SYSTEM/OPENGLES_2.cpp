@@ -128,13 +128,13 @@ void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture ) {
     
     GRAPHIC_TEXTURE_INFO & info = texture->GetTextureInfo();
     
-    GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGLES_2_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGLES_2_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, 0 ); )
-    
     GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
     GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
     
     GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); )
     GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); )
+    
+    GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGLES_2_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGLES_2_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, NULL ); )
 }
 
 void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {
@@ -144,13 +144,13 @@ void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXT
     GFX_CHECK( glGenTextures(1, &texture->GetDepthTextureHandle() ); )
     GFX_CHECK( glBindTexture(GL_TEXTURE_2D, texture->GetDepthTextureHandle() ); )
     
-    GFX_CHECK( glTexImage2D(GL_TEXTURE_2D, 0, OPENGLES_2_GetTextureFormat( type ), info.Width, info.Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL); )
-    
     GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST ); )
     GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST ); )
     
-    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); )
-    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); )
+    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); )
+    GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); )
+    
+    GFX_CHECK( glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, info.Width, info.Height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL); )
 }
 
 void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_data, bool generate_mipmap ) {
@@ -170,15 +170,15 @@ void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_da
     //GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data ); )
     
     // TODO : generate mipmap -> disable for interface elements
-    if ( generate_mipmap ) {
+    if ( false ) { //generate_mipmap ) {
         
-        GFX_CHECK( glGenerateMipmap(GL_TEXTURE_2D); )
+        //GFX_CHECK( glGenerateMipmap(GL_TEXTURE_2D); )
     }
     
     
     GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
     
-    if ( generate_mipmap ) {
+    if ( false ) { //generate_mipmap ) {
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST ); )
     }
     else {

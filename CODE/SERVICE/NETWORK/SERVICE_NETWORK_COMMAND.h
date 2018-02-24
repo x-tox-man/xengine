@@ -46,7 +46,6 @@ XS_CLASS_BEGIN( SERVICE_NETWORK_COMMAND )
         * Data;
     SERVICE_NETWORK_CONNECTION
         * Connection;
-
     static float
         ServiceVersion;
 

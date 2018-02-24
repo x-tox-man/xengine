@@ -129,8 +129,6 @@ private :
         IncommingMessageQueue;
     int
         IncommingMessageQueueIterator;
-    CORE_TIMELINE
-        NetworkEventsTimeLine;
     NETWORK_PLAYER
         CurrentPlayer;
     float

@@ -10,6 +10,7 @@
 #include "UI_INGAME_PRESENTER.h"
 #include "GRAPHIC_UI_HELPER.h"
 #include "RUN3D_APPLICATION.h"
+#include "GAMEPLAY_ACTION_COMMAND_GAME_LOADED.h"
 
 UI_INGAME::UI_INGAME() :
     R3D_UI_FRAME() {
@@ -95,6 +96,19 @@ void UI_INGAME::SetEllapsedTime( float time ) {
     int msec = (time - min - sec) * 100;
     
     GetObjectForIdentifier( TimeText )->SetTextValue( text.Format( min, sec, msec ) );
+}
+
+void UI_INGAME::OnViewAppearing() {
+    
+    if ( R3D_APP_PTR->GetNetworkManager().GetClient() != NULL ) {
+        
+        GAMEPLAY_ACTION_COMMAND_GAME_LOADED
+            command;
+        
+        command.Player = &R3D_APP_PTR->GetNetworkManager().GetClient()->GetCurrentPlayer() ;
+        
+        R3D_APP_PTR->GetNetworkManager().GetClient()->DispatchMessageToServer( GAMEPLAY_ACTION_SYSTEM::GetInstance().CreateNetworkCommand( command, 0 ) );
+    }
 }
 
 CORE_HELPERS_IDENTIFIER

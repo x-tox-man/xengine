@@ -25,7 +25,8 @@ RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
     DefaultFileystem(),
     GameRenderer(),
-    Game( NULL )
+    Game( NULL ),
+    AudioManager()
 #if DEBUG
 ,ShipDirection(),
 LineEffect(),
@@ -46,10 +47,6 @@ To()
     CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );
     
     SetApplicationInstance( *this );
-    
-    #if !PLATFORM_ANDROID
-        AUDIO_SYSTEM::GetInstance().Initialize();
-    #endif
 }
 
 RUN3D_APPLICATION::~RUN3D_APPLICATION() {
@@ -85,7 +82,9 @@ void RUN3D_APPLICATION::Initialize() {
     
     InitializeSingleplayerGame();
     
-    AUDIO_SYSTEM::GetInstance().GetBank().Load();
+    AudioManager.Initialize();
+    AUDIO_SYSTEM::GetInstance().PlayMusic( R3D_AUDIO_MUSIC_MANAGER::MusicPulse );
+    
     TOOLS_LOCALE_SYSTEM::GetInstance().Initialize( "fr" );
     TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Garage" ), CORE_DATA_UTF8_TEXT ( L"Garage\0" ) );
     TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Network" ), CORE_DATA_UTF8_TEXT( L"Réseau\0" ) );
@@ -198,8 +197,10 @@ void RUN3D_APPLICATION::InitializeGraphics() {
     R3D_UI::ScreenHeight = GetApplicationWindow().GetHeight();
     R3D_UI::ScreenDensity = 1.0f;
     
+    SERVICE_LOGGER_Error( "screen size %f %f \n", R3D_UI::ScreenWidth, R3D_UI::ScreenHeight);
+    
 #if DEBUG
-    LineEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", "OPENGL2" ) );
+    LineEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
     ShipDirection.InitializeShape();
     LineEffect->Initialize( ShipDirection.GetShaderBindParameter() );

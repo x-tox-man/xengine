@@ -8,6 +8,9 @@
 
 #include "R3D_SETUP_NETWORK_CLIENT_DELEGATE.h"
 #include "NETWORK_SETUP_PRESENTER.h"
+#include "GAME_PLAYER_MODEL.h"
+#include "UI_INGAME.h"
+#include "RUN3D_APPLICATION.h"
 
 R3D_SETUP_NETWORK_CLIENT_DELEGATE::R3D_SETUP_NETWORK_CLIENT_DELEGATE() :
     NETWORK_CLIENT_DELEGATE(),
@@ -38,5 +41,14 @@ void R3D_SETUP_NETWORK_CLIENT_DELEGATE::OnServerInfo( GAMEPLAY_ACTION_COMMAND_SE
 }
 
 void R3D_SETUP_NETWORK_CLIENT_DELEGATE::OnGameStarted() {
+    
+}
+
+void R3D_SETUP_NETWORK_CLIENT_DELEGATE::OnLoadGame( std::vector<NETWORK_PLAYER *> & players ) {
+    
+    Presenter->ClientLoadGame( players );
+}
+
+void R3D_SETUP_NETWORK_CLIENT_DELEGATE::OnPingUpdated( float ping ) {
     
 }

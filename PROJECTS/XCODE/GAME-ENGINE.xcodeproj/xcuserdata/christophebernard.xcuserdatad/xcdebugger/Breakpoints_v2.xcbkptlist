@@ -2,38 +2,4 @@
 <Bucket
    type = "1"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../CODE/SERVICE/NETWORK/LOBBY/CLIENT/SERVICE_NETWORK_LOBBY_CLIENT.cpp"
-            timestampString = "539461384.8452851"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "SERVICE_NETWORK_LOBBY_CLIENT::SendTcpCommand( CORE_DATA_STREAM &amp; data_to_send, SERVICE_NETWORK_CONNECTION * connexion )"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../CODE/SERVICE/NETWORK/LOBBY/CLIENT/SERVICE_NETWORK_LOBBY_CLIENT.cpp"
-            timestampString = "539461429.310111"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "SERVICE_NETWORK_LOBBY_CLIENT::SendTcpCommand( CORE_DATA_STREAM &amp; data_to_send, SERVICE_NETWORK_CONNECTION * connexion )"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>

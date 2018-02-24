@@ -278,7 +278,7 @@ void NETWORK_CLIENT::SendJoinRequestCommand() {
     
     command.Player = &CurrentPlayer;
     
-    auto network_message = APPLICATION_COMMAND_MANAGER::CreateNetworkCommand( command );
+    auto network_message = APPLICATION_COMMAND_MANAGER::CreateNetworkCommand( command, 0 );
     
     CurrentPlayer.AppendMessage( network_message );
 }

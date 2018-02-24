@@ -30,6 +30,7 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
     static void Set3DObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     static GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR Set3DHeighFieldObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     static void SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
+    static void SetShadowmapEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void SetTexture( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::ColorTexture );
     static void SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const
                           CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::NormalTexture );
@@ -37,6 +38,7 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
     static void SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_FILESYSTEM_PATH & path );
 
     static void AddToWorld( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    static void AddToWorldTransparent( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToAnimations( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with, bool enable = false );

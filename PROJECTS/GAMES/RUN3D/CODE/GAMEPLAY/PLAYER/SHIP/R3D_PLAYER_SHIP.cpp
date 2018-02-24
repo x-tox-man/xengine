@@ -52,6 +52,7 @@ void R3D_PLAYER_SHIP::Initialize() {
     
     GAMEPLAY_HELPER::Set3DObject( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     GAMEPLAY_HELPER::SetEffect( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
+    GAMEPLAY_HELPER::SetShadowmapEffect( this );
     GAMEPLAY_HELPER::SetTexture(this, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
 #if PLATFORM_IOS || PLATFORM_ANDROID
     GAMEPLAY_HELPER::SetScript(this, CORE_FILESYSTEM_PATH::FindFilePath("spaceship-touch", "lua", "SCRIPTS" ) );
@@ -80,30 +81,78 @@ void R3D_PLAYER_SHIP::Initialize() {
     GAMEPLAY_HELPER::InitializeCamera( start_position, q, Rear);
     GAMEPLAY_HELPER::InitializeCamera( start_position, q, Top);
     
-    //CreateWeaponSystem(start_position, q);
+    CreateWeaponSystem( start_position, q );
     
     Steam.Initialize();
 }
 
 void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation ) {
     
-    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
-    GAMEPLAY_HELPER::CreateComponent_PositionRender( entity );
+    {
+        auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
+        GAMEPLAY_HELPER::CreateComponent_PositionRender( entity );
+        
+        GAMEPLAY_HELPER::Set3DObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "weapon1" ) );
+        GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
+        GAMEPLAY_HELPER::SetShadowmapEffect( entity );
+        GAMEPLAY_HELPER::SetTexture(entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
+        
+        CORE_MATH_VECTOR
+            offset(0.05f, 0.0f, 0.0f, 0.0f );
+        
+        CORE_MATH_QUATERNION q;
+        q.RotateZ( M_PI_2 );
+        
+        entity->SetOrientation( q );
+        entity->SetPosition( offset );
+        
+        GAMEPLAY_HELPER::AddToWorld( entity );
+        SetChild(entity, 0);
+    }
     
-    GAMEPLAY_HELPER::Set3DObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "weapon1" ) );
-    GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
-    GAMEPLAY_HELPER::SetTexture(entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
-    //GAMEPLAY_HELPER::SetScript(this, CORE_FILESYSTEM_PATH::FindFilePath("spaceship", "lua", "SCRIPTS" ) );
+    {
+        auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
+        GAMEPLAY_HELPER::CreateComponent_PositionRender( entity );
+        
+        GAMEPLAY_HELPER::Set3DObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "weapon1" ) );
+        GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
+        GAMEPLAY_HELPER::SetShadowmapEffect( entity );
+        GAMEPLAY_HELPER::SetTexture(entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
+        
+        CORE_MATH_VECTOR
+        offset(-0.05f, 0.0f, 0.0f, 0.0f );
+        
+        CORE_MATH_QUATERNION q;
+        q.RotateZ( M_PI_2 );
+        
+        entity->SetOrientation( q );
+        entity->SetPosition( offset );
+        
+        GAMEPLAY_HELPER::AddToWorld( entity );
+        SetChild(entity, 1);
+    }
     
-    CORE_MATH_VECTOR
-        offset(0.1f, 2.0f, -0.1f, 0.0f );
-    
-    entity->SetOrientation( CORE_MATH_QUATERNION() );
-    entity->SetPosition( offset );
-    
-    //GAMEPLAY_HELPER::AddToScripts( this );
-    GAMEPLAY_HELPER::AddToWorld( entity );
-    SetChild(entity, 0);
+    {
+        auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
+        GAMEPLAY_HELPER::CreateComponent_PositionRender( entity );
+        
+        GAMEPLAY_HELPER::Set3DObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "thruster" ) );
+        GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
+        GAMEPLAY_HELPER::SetShadowmapEffect( entity );
+        GAMEPLAY_HELPER::SetTexture(entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
+        
+        CORE_MATH_VECTOR
+        offset(0.0f, -0.03f, 0.01f, 0.0f );
+        
+        CORE_MATH_QUATERNION q;
+        q.RotateZ( M_PI_2 );
+        
+        entity->SetOrientation( q );
+        entity->SetPosition( offset );
+        
+        GAMEPLAY_HELPER::AddToWorld( entity );
+        SetChild(entity, 2);
+    }
 }
 
 void R3D_PLAYER_SHIP::Update( float step ) {
@@ -120,10 +169,12 @@ void R3D_PLAYER_SHIP::Update( float step ) {
         qrtot;
     CORE_MATH_MATRIX
         mm;
+    static float
+        previous_rotation = 0.0f,
+        previous_thrust = 0.0f;
+    
     auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     auto phys = (GAMEPLAY_COMPONENT_PHYSICS::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
-    
-    UpdateCamera( step, pos, phys );
     
     GAMEPLAY_HELPER::GetElevation( this, elevation, normal );
     
@@ -142,25 +193,45 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     float
         actual_speed = velocity.ComputeLength();
     
+    CORE_MATH_MATRIX
+        inv;
+    
     orientation.ToMatrix( mm.GetRow( 0 ) );
+    mm.GetInverse( inv );
 
-    dir = x * mm;
+    dir = x * inv;
     
     phys->ApplyForce( dir * (GetThrust() * (500.0f - actual_speed ) ) );
     velocity = phys->GetVelocity();
 
     qr.RotateZ( GetRotation() * step );
-
-    qrtot = pos->GetOrientation() * qr;
+    
+    CORE_MATH_QUATERNION reset_pos = pos->GetOrientation();
+    
+    reset_pos.RotateX( previous_rotation * 0.1f );
+    reset_pos.RotateY( - previous_thrust * 0.1f );
+    
+    
+    qrtot = reset_pos * qr;
     qrtot.Normalize();
     
     qr.RotateZ( -GetRotation() * step );
     qr.RotateZ( -GetRotation() * step );
+    
     qr.ToMatrix( mm.GetRow( 0 ) );
     
     velocity = velocity * mm;
     phys->SetVelocity( velocity );
+
+    qrtot.Normalize();
+    SetOrientation( qrtot );
     
+    UpdateCamera( step, pos, phys );
+    
+    qrtot.RotateY( GetThrust() * 0.1f );
+    qrtot.RotateX( -GetRotation() * 0.1f );
+    
+    qrtot.Normalize();
     SetOrientation( qrtot );
     
 #if DEBUG
@@ -170,13 +241,16 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     
     Steam.SetPosition( pos->GetPosition() );
     Steam.SetVelocity( phys->GetVelocity() );
+    
+    previous_rotation = GetRotation();
+    previous_thrust = GetThrust();
 }
 
 void R3D_PLAYER_SHIP::UpdateCamera( float step, GAMEPLAY_COMPONENT_POSITION::PTR pos, GAMEPLAY_COMPONENT_PHYSICS::PTR phys ) {
     
     static CORE_MATH_VECTOR
         f(0.0f, 0.1f, 0.01f, 0.0f ),
-        r(0.0f, -0.5f, -0.1f, 0.0f ),
+        r(0.0f, -0.6f, -0.15f, 0.0f ),
         t(0.0f, 0.0f, 1.5f, 0.0f );
     CORE_MATH_QUATERNION
         q = pos->GetOrientation(),

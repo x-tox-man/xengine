@@ -108,6 +108,7 @@ static int engine_init_display(struct engine* engine) {
     {
     EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
     EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+    EGL_BIND_TO_TEXTURE_RGBA, EGL_TRUE,
     EGL_BLUE_SIZE, 8,
     EGL_GREEN_SIZE, 8,
     EGL_RED_SIZE, 8,
@@ -185,7 +186,7 @@ static int engine_init_display(struct engine* engine) {
 
     // Initialize GL state.
     //glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
-    glEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
     //glShadeModel(GL_SMOOTH);
     glDisable(GL_DEPTH_TEST);
 
@@ -387,14 +388,17 @@ static void engine_handle_cmd(struct android_app* app, int32_t cmd) {
 void android_main(struct android_app* state) {
     struct engine engine;
 
-    // Make sure glue isn't stripped.
-    app_dummy();
-
     memset(&engine, 0, sizeof(engine));
     state->userData = &engine;
     state->onAppCmd = engine_handle_cmd;
     state->onInputEvent = engine_handle_input;
     engine.app = state;
+    //clock_t begin_time = clock();
+    struct timeval Time;
+    gettimeofday(&Time, NULL);
+
+    double last_tick_ = Time.tv_sec + Time.tv_usec * 1.0 / 1000000.0;
+    float sec = 0.0f;
 
     // Prepare to monitor accelerometer
     engine.sensorManager = ASensorManager_getInstance();
@@ -458,18 +462,34 @@ void android_main(struct android_app* state) {
 
         if (engine.animating) {
             // Done with events; draw next animation frame.
-            static clock_t begin_time = clock();
             // do something
-            clock_t current_clock = clock();  
+            /*clock_t current_clock = clock();  
 
-            float delta = ((current_clock - begin_time) * (1000000 / CLOCKS_PER_SEC ));
-            delta = delta * 0.000001f;
-            begin_time = current_clock;
+            float delta = ((float)(current_clock - begin_time) / CLOCKS_PER_SEC );
 
-            LOGI("NDK DELTA : %f", delta );
+            begin_time = current_clock;*/
 
-            PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().Update( delta, x, y, z );
-            CORE_APPLICATION::GetApplicationInstance().Update( delta );
+            gettimeofday(&Time, NULL);
+
+            double time = Time.tv_sec + Time.tv_usec * 1.0 / 1000000.0;
+            double tick = time - last_tick_;
+            last_tick_ = time;
+
+            sec += tick;
+
+            if ( sec >= 1.0f ) {
+
+                LOGI("-- NDK SEC : %f", sec );
+                sec -= 1.0f;
+            }
+            else {
+                LOGI("NDK DELTA : %f", tick );
+            }
+
+
+
+            PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().Update( tick, x, y, z );
+            CORE_APPLICATION::GetApplicationInstance().Update( tick );
 
 
             // Drawing is throttled to the screen update rate, so there

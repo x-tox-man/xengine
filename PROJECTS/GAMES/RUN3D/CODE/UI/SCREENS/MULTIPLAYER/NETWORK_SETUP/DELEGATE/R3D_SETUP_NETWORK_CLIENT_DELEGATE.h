@@ -26,6 +26,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_SETUP_NETWORK_CLIENT_DELEGATE, NETWORK_CLIENT_
     virtual void OnServerAccepted( NETWORK_PLAYER * player ) override;
     virtual void OnServerDisconnected() override;
     virtual void OnGameStarted() override;
+    virtual void OnLoadGame( std::vector<NETWORK_PLAYER *> & players ) override;
+    virtual void OnPingUpdated( float ping ) override;
 
     NETWORK_SETUP_PRESENTER * Presenter;
 

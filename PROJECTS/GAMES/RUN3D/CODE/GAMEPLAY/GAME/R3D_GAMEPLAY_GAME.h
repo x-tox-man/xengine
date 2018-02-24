@@ -21,6 +21,7 @@
 #include "R3D_GAMEPLAY_GAME_DELEGATE.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 #include "R3D_LEVEL_MANAGER.h"
+#include "GAMEPLAY_ACTION_SYSTEM.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
@@ -57,8 +58,25 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
         
 #if PLATFORM_IOS || PLATFORM_ANDROID
         
-        Delegate->SetThrust( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetY() );
-        //Delegate->SetOrientation( orientation );
+        float tthrust = PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetZ() + 0.25f;
+        float trot = -PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetY();
+        
+        if ( tthrust > 1.0f ) {
+            tthrust = 1.0f;
+        }
+        else if ( tthrust > 1.0f ) {
+            tthrust = -1.0f;
+        }
+        
+        if ( trot > 1.0f ) {
+            trot = 1.0f;
+        }
+        else if ( trot > 1.0f ) {
+            trot = -1.0f;
+        }
+        
+        Delegate->SetThrust( tthrust );
+        Delegate->SetOrientation( trot );
 #else
         Delegate->SetThrust( thrust );
         Delegate->SetOrientation( orientation );
@@ -74,7 +92,6 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     void Restart();
     void SelectLevel( R3D_GAME_LEVEL_INFO::PTR info );
 
-    inline int GetTick() const { return Tick; }
     inline R3D_LEVEL::PTR GetLevel() { return LevelManager.GetCurrentLevel(); }
     inline GAMEPLAY_SCENE & GetScene() { return Scene; }
     inline GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * GetBulletSystem() { return BulletSystem; }
@@ -84,7 +101,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     inline R3D_LEVEL_MANAGER & GetLevelManager() { return LevelManager; }
     inline CORE_HELPERS_UNIQUE_IDENTIFIER & GetThisPlayerIndex() { return ThisPlayerIndex; }
 
-    inline float GetGameDuration() const { return Tick * 0.033f; }
+    float GetGameDuration() const { return GAMEPLAY_ACTION_SYSTEM::GetInstance().GetTimeline().GetTick() * 0.033f; }
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, const float )
     CORE_FIXED_STATE_MACHINE_DefineEventVoid( PAUSE_EVENT )
@@ -124,8 +141,6 @@ protected:
         Scene;
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION
         * BulletSystem;
-    int
-        Tick;
     CORE_HELPERS_UNIQUE_IDENTIFIER
         ThisPlayerIndex;
     float

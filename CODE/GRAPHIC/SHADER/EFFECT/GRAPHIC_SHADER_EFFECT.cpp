@@ -72,6 +72,11 @@ void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer ) {
     MaterialCollection->Apply(renderer, &GetProgram() );
 }
 
+void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer, bool activate_material ) {
+    
+    GetProgram().Enable();
+}
+
 void GRAPHIC_SHADER_EFFECT::SelectMaterial( std::string & material_name ) {
     
     auto material = MaterialCollection->GetMaterialForName( material_name );

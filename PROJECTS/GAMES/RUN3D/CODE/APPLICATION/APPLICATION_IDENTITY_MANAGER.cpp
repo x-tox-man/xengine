@@ -9,6 +9,7 @@
 #include "APPLICATION_IDENTITY_MANAGER.h"
 
 APPLICATION_IDENTITY_MANAGER::APPLICATION_IDENTITY_MANAGER() :
-    Player( new R3D_PLAYER ) {
+    Player( new R3D_PLAYER ),
+    PlayerId( "SoloPlayerId" ) {
     
 }

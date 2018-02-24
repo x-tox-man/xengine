@@ -1,3 +1,4 @@
+
 //
 //  R3D_PLAYER.hpp
 //  Run3d
@@ -29,6 +30,9 @@ XS_CLASS_BEGIN( R3D_PLAYER )
 
     bool Buy( int amount );
     std::vector<R3D_PLAYER_SHIP_MODEL::PTR> GetAllShipsOwned();
+
+    const CORE_MATH_QUATERNION & GetOrientation();
+    const CORE_MATH_VECTOR & GetPosition();
 
 private :
 

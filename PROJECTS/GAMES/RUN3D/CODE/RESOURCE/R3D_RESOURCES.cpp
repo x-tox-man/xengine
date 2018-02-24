@@ -35,6 +35,7 @@ void R3D_RESOURCES::Initialize() {
     RESOURCE_PROXY::PTR text_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR skydome_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR sky_effect_proxy = new RESOURCE_PROXY;
+    RESOURCE_PROXY::PTR shadow_map_proxy = new RESOURCE_PROXY;
     
     spaceship1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("spaceship", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     track_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("flat", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
@@ -50,6 +51,8 @@ void R3D_RESOURCES::Initialize() {
     auto particle_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicParticleShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto text_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderTextured"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     auto sky_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SkyEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "BackgroundSky" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    auto shadow_map_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowMapEffect"), CORE_FILESYSTEM_PATH::FindFilePath( "ShadowMapEffect" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    
     
     effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     basic_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
@@ -58,6 +61,7 @@ void R3D_RESOURCES::Initialize() {
     particle_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     text_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     sky_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    shadow_map_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
     shader_proxy->SetResource( effect );
     basic_geometry_shader_proxy->SetResource( basic_effect );
@@ -66,6 +70,7 @@ void R3D_RESOURCES::Initialize() {
     particle_proxy->SetResource( particle_effect );
     text_proxy->SetResource( text_effect );
     sky_effect_proxy->SetResource( sky_effect );
+    shadow_map_proxy->SetResource( shadow_map_effect );
     
     Resources->AddResource( spaceship1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     Resources->AddResource( track_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "flat" ) );
@@ -80,11 +85,13 @@ void R3D_RESOURCES::Initialize() {
     Resources->AddResource( particle_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ) );
     Resources->AddResource( text_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "UIShaderTextured" ) );
     Resources->AddResource( sky_effect_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SkyEffect" ) );
+    Resources->AddResource( shadow_map_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowMapEffect" ) );
     
     CreateModel( "moon", CORE_HELPERS_UNIQUE_IDENTIFIER( "moon" ) );
     CreateModel( "turn", CORE_HELPERS_UNIQUE_IDENTIFIER( "turn" ) );
     CreateModel( "jump", CORE_HELPERS_UNIQUE_IDENTIFIER( "jump" ) );
     CreateModel( "flat_ground", CORE_HELPERS_UNIQUE_IDENTIFIER( "flat_ground" ) );
+    CreateModel( "thruster", CORE_HELPERS_UNIQUE_IDENTIFIER( "thruster" ) );
     
     GRAPHIC_FONT_MANAGER::GetInstance().LoadFont(
                                                  CORE_HELPERS_UNIQUE_IDENTIFIER( "stellar-light_32" ),
@@ -92,6 +99,8 @@ void R3D_RESOURCES::Initialize() {
                                                  CORE_FILESYSTEM_PATH::FindFilePath( "stellar-light_32" , "png", "FONTS/" ) );
     
     GRAPHIC_FONT * font = GRAPHIC_FONT_MANAGER::GetInstance().GetFont( CORE_HELPERS_UNIQUE_IDENTIFIER( "stellar-light_32" ) );
+    
+    RESOURCE_IMAGE::FlushCache();
     
     GRAPHIC_UI_HELPER::DefaultFont = font;
 }

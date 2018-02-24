@@ -37,4 +37,5 @@
 
     <uses-feature android:glEsVersion="0x00020000" android:required="true" />
     <uses-feature android:name="android.hardware.wifi" />
+    <uses-feature android:name="android.hardware.audio.low_latency" />
 </manifest>

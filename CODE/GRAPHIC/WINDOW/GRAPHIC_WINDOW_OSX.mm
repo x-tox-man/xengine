@@ -109,6 +109,7 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
         
         NSOpenGLPixelFormatAttribute attributes[] = {
             NSOpenGLPFAAccelerated,
+            NSOpenGLPFADoubleBuffer,
             NSOpenGLPFAColorSize, (NSOpenGLPixelFormatAttribute )32,
             NSOpenGLPFADepthSize, (NSOpenGLPixelFormatAttribute )24,
             NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
@@ -218,7 +219,8 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
     GFX_CHECK( glFlush(); )
     
     [[self openGLContext] flushBuffer];
-    [NSOpenGLContext clearCurrentContext];
+    //Not sure what it does??
+    //[NSOpenGLContext clearCurrentContext];
 }
 
 -(void) startUpdate {

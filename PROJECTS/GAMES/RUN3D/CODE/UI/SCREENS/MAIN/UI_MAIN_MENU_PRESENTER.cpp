@@ -14,6 +14,8 @@
 #include "UI_INGAME.h"
 #include "R3D_UI_FRAME_ANIMATION.h"
 #include "SELECT_LEVEL.h"
+#include "AUDIO_SYSTEM.h"
+#include "R3D_AUDIO_MUSIC_MANAGER.h"
 
 UI_MAIN_MENU_PRESENTER::UI_MAIN_MENU_PRESENTER( GRAPHIC_UI_FRAME * view ) :
     R3D_BASE_PRESENTER( view ) {
@@ -28,6 +30,10 @@ void UI_MAIN_MENU_PRESENTER::OnClickStartGame( GRAPHIC_UI_ELEMENT * element, GRA
     
     if ( state == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
         
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().Vibrate( 0.1f );
+        
+        AUDIO_SYSTEM::GetInstance().PlaySound( R3D_AUDIO_MUSIC_MANAGER::ATone );
+        
         OpenAnimated< SELECT_LEVEL >( "SELECT_LEVEL" );
     }
 }
@@ -36,6 +42,10 @@ void UI_MAIN_MENU_PRESENTER::OnClickToGarage( GRAPHIC_UI_ELEMENT * element, GRAP
     
     if ( state == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
         
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().Vibrate( 0.1f );
+        
+        AUDIO_SYSTEM::GetInstance().PlaySound( R3D_AUDIO_MUSIC_MANAGER::ATone );
+        
         OpenAnimated< UI_GARAGE >( "UI_GARAGE" );
     }
 }
@@ -43,6 +53,10 @@ void UI_MAIN_MENU_PRESENTER::OnClickToGarage( GRAPHIC_UI_ELEMENT * element, GRAP
 void UI_MAIN_MENU_PRESENTER::OnNetworkButtonPressed(GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state ) {
     
     if ( state == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
+        
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().Vibrate( 0.1f );
+        
+        AUDIO_SYSTEM::GetInstance().PlaySound( R3D_AUDIO_MUSIC_MANAGER::ATone );
         
         OpenAnimated< NETWORK_BROWSER_PAGE >( "NETWORK_BROWSER_PAGE" );
     }

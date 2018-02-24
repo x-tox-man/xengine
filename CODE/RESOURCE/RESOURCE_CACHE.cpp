@@ -41,7 +41,6 @@ GRAPHIC_SHADER_EFFECT * RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
         
         delete( callback );
         
-        
         CORE_MEMORY_ALLOCATOR_Free( vsh_path );
     }
     

@@ -61,6 +61,16 @@ void NETWORK_SETUP_PRESENTER::Configure() {
 
 void NETWORK_SETUP_PRESENTER::ClientGameStarted( std::vector<NETWORK_PLAYER *> & players, int seed) {
     
+    R3D_APP_PTR->GetGame()->Restart();
+}
+
+void NETWORK_SETUP_PRESENTER::ServerGameStarted() {
+    
+    R3D_APP_PTR->GetGame()->Restart();
+}
+
+void NETWORK_SETUP_PRESENTER::ClientLoadGame( std::vector<NETWORK_PLAYER *> & players ) {
+    
     std::vector< GAME_PLAYER_MODEL >
         players_model;
     
@@ -81,18 +91,10 @@ void NETWORK_SETUP_PRESENTER::ClientGameStarted( std::vector<NETWORK_PLAYER *> &
         
         players_model[i].Identifier = players[i]->GetUniqueId();
     }
-
+    
     R3D_APP_PTR->GetGame()->SelectLevel( ( *R3D_APP_PTR->GetGame()->GetLevelManager().GetAllLevels().begin() ) );
     R3D_APP_PTR->GetGame()->SetPlayers( players_model );
-    R3D_APP_PTR->GetGame()->Restart();
     
-    OpenAnimated< UI_INGAME >( "UI_INGAME" );
-}
-
-void NETWORK_SETUP_PRESENTER::ServerGameStarted() {
-    
-    R3D_APP_PTR->GetGame()->Restart();
-
     OpenAnimated< UI_INGAME >( "UI_INGAME" );
 }
 
@@ -141,6 +143,8 @@ void NETWORK_SETUP_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * click
         R3D_APP_PTR->GetNetworkManager().GetServer()->SetGameStartedCallback( callback );
         R3D_APP_PTR->GetGame()->SetPlayers( players_model );
         R3D_APP_PTR->GetNetworkManager().GetServer()->StartCountDown();
+        
+        OpenAnimated< UI_INGAME >( "UI_INGAME" );
     }
 }
 

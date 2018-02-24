@@ -58,7 +58,7 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
         * object = ObjectProxy.GetResource< GRAPHIC_OBJECT >();
     GRAPHIC_OBJECT_RENDER_OPTIONS
         options,
-        * parent_options = NULL;
+        parent_options;
     GRAPHIC_SHADER_EFFECT
         * effect = EffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
     
@@ -68,12 +68,11 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     
     if ( parent != NULL ) {
         
-        parent_options = new GRAPHIC_OBJECT_RENDER_OPTIONS;
-        parent_options->SetPosition( parent->GetPosition() + parent->GetPositionOffset() );
-        parent_options->SetOrientation(parent->GetOrientation() );
-        parent_options->SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
+        parent_options.SetPosition( parent->GetPosition() + parent->GetPositionOffset() );
+        parent_options.SetOrientation(parent->GetOrientation() );
+        parent_options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
         
-        options.SetParent( parent_options );
+        options.SetParent( &parent_options );
     }
 
     if ( renderer.GetPassIndex() == 0 ) {
@@ -83,11 +82,12 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     }
     else if ( renderer.GetPassIndex() == 1 ) {
         
-        object->Render( renderer, options, ShadowmapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >() );
-    }
-    
-    if ( parent_options != NULL  ) {
-        delete parent_options;
+        auto effect = ShadowmapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
+        options.SetTexturing( false );
+        
+        if ( effect ) {
+            object->Render( renderer, options, effect );
+        }
     }
 }
 

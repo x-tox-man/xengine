@@ -66,5 +66,9 @@ void R3D_BASE_PRESENTER::BackAnimated() {
     open_animation.GetInterpolationData().push_back( data_open );
     
     GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateBackAsyncWithAnimation( close_animation, open_animation );
+    
+    PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().Vibrate( 0.1f );
+    
+    AUDIO_SYSTEM::GetInstance().PlaySound( R3D_AUDIO_MUSIC_MANAGER::ATone );
 }
 

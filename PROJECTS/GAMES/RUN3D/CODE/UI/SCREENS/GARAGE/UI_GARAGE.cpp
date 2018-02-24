@@ -72,7 +72,6 @@ void UI_GARAGE::CreateStatsFrame() {
     g->SetColor( CORE_HELPERS_COLOR(0.9f, 0.22f, 0.08f, 1.0f ) );
     g->SetPercent( 0.5f );
     
-    
     auto g2 = new R3D_GAUGE;
     g2->GetPlacement().SetRelativePosition( CORE_MATH_VECTOR( 0.0f, 0.0f ) );
     g2->Initialize();

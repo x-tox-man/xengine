@@ -23,6 +23,8 @@ GAMEPLAY_COMPONENT_ENTITY::PTR R3D_RENDERTERRAIN::CreateTerrain() {
     GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "TerrainShader" ) );
     GAMEPLAY_HELPER::SetTexture(entity, "map-color", CORE_FILESYSTEM_PATH::FindFilePath("map_color_0", "png", "MAP" ) );
     
+    GAMEPLAY_HELPER::SetShadowmapEffect( entity );
+    
     text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "map-color-grass" ), CORE_FILESYSTEM_PATH::FindFilePath("map-color-grass", "png", "TEXTURES" ) );
     GAMEPLAY_HELPER::SetTexture(entity, "map-color-grass", CORE_FILESYSTEM_PATH::FindFilePath("map-color-grass", "png", "TEXTURES" ), GRAPHIC_SHADER_PROGRAM::ColorTexture1 );
     GAMEPLAY_HELPER::SetTextureRepeating( entity, GRAPHIC_SHADER_PROGRAM::ColorTexture1 );

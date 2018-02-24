@@ -18,10 +18,14 @@ XS_CLASS_BEGIN( CORE_TIMELINE )
 
     XS_DEFINE_SERIALIZABLE
 
-    CORE_TIMELINE();
+    CORE_TIMELINE( const float fixed_time_step = 1.0f / 30.0f );
     ~CORE_TIMELINE();
 
+    inline void SetFixedTimeStep( const float fixed_time_step ) { FixedTimeStep = fixed_time_step; }
+    inline unsigned int GetTick() const { return Tick; }
+
     void Update( float time_step );
+    void Update(); //tick
     void Reset();
     void InsertNewEvent( CORE_TIMELINE_EVENT * event );
     void CancelEvent( CORE_TIMELINE_EVENT * item );
@@ -34,9 +38,15 @@ private :
     void InsertNextEvent( CORE_TIMELINE_EVENT * event, std::list< CORE_TIMELINE_EVENT * >::iterator existing_event );
     void InsertPreviousEvent( CORE_TIMELINE_EVENT * event, std::list< CORE_TIMELINE_EVENT * >::iterator existing_event );
 
-    float TimeOffset;
-    std::list< CORE_TIMELINE_EVENT * > EventTable;
-    std::list< CORE_TIMELINE_EVENT * >::iterator CurrentItem;
+    float
+        TimeOffset,
+        FixedTimeStep;
+    unsigned int
+        Tick;
+    std::list< CORE_TIMELINE_EVENT * >
+        EventTable;
+    std::list< CORE_TIMELINE_EVENT * >::iterator
+        CurrentItem;
     CORE_HELPERS_CALLBACK_1< CORE_TIMELINE_EVENT * >
         OnEventAddedCallback,
         OnEventCancelledCallback;

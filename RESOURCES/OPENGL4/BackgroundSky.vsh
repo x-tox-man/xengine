@@ -35,12 +35,10 @@ uniform AmbientLight ambient_light;
 out vec4 colorVarying;
 out vec4 o_normal;
 out DirectionalLight directional_light_out;
-out vec4 ShadowCoord;
 out vec2 texCoord;
 out mat3 TBNMatrix_p;
 
 uniform mat4 MVPMatrix;
-uniform mat4 ShadowMapMVP;
 uniform vec4 geometryColor;
 
 void main()
@@ -55,7 +53,6 @@ void main()
     texCoord = tex0;
     colorVarying = position;
     
-    ShadowCoord = position * ShadowMapMVP;
     gl_Position = position * MVPMatrix;
     gl_Position.z = gl_Position.w;
 

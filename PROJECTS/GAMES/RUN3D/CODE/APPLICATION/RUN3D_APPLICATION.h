@@ -45,6 +45,7 @@
 #include "NETWORK_MANAGER.h"
 #include "GAME_PLAYER_MODEL.h"
 #include "APPLICATION_IDENTITY_MANAGER.h"
+#include "R3D_AUDIO_MUSIC_MANAGER.h"
 
 #define R3D_APP_VERSION 1
 
@@ -92,6 +93,8 @@ private :
         NetworkManager;
     APPLICATION_IDENTITY_MANAGER
         PlayerIdentityManager;
+    R3D_AUDIO_MUSIC_MANAGER
+        AudioManager;
     int
         Seed;
     #if DEBUG

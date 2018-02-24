@@ -28,6 +28,7 @@ void SELECT_LEVEL::Initialize() {
     
     level_frame->GetPlacement().SetSize(CORE_MATH_VECTOR( 768.0f, 256.0f ) );
     level_frame->SetAdapter( presenter_adapter );
+    level_frame->Initialize();
     
     auto back_button = new UI_BASE_BUTTON;
     back_button->GetPlacement().SetAnchor( GRAPHIC_UI_BottomLeft );
@@ -36,10 +37,10 @@ void SELECT_LEVEL::Initialize() {
     back_button->SetTitle( TOOLS_LOCALE_SYSTEM::GetInstance().FindTranslation( CORE_HELPERS_UNIQUE_IDENTIFIER( "Back" ) ) );
     back_button->Initialize();
     
+    Presenter->BindAction<SELECT_LEVEL_PRESENTER, &SELECT_LEVEL_PRESENTER::OnBackButtonClicked>( back_button, (SELECT_LEVEL_PRESENTER*) Presenter);
+    
     AddObject( level_frame );
     AddObject( back_button );
-    
-    level_frame->Initialize();
     
     R3D_UI_FRAME::Initialize();
     

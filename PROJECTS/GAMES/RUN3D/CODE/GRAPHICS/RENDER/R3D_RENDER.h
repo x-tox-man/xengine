@@ -20,7 +20,8 @@
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.h"
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h"
-#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h" 
+#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h"
+#include "GRAPHIC_SHADER_EFFECT_SPEEDBLUR.h"
 
 XS_CLASS_BEGIN( R3D_RENDER )
 
@@ -47,7 +48,8 @@ private :
         * Camera;
     GRAPHIC_CAMERA_ORTHOGONAL
         * InterfaceCamera,
-        * RenderTargetCamera;
+        * RenderTargetCamera,
+        * LightShadowCamera;
     GRAPHIC_SHADER_LIGHT
         Directional,
         Ambient;
@@ -60,7 +62,8 @@ private :
         SpecularRenderTarget,
         GaussianRenderTarget1,
         GaussianRenderTarget2,
-        BloomRenderTarget;
+        BloomRenderTarget,
+        ShadowMapRenderTarget;
     GRAPHIC_TEXTURE_BLOCK::PTR
         TextureBlock,
         TextureBlock2,
@@ -73,6 +76,8 @@ private :
         CombineBloomEffect;
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::PTR
         BloomEffect;
+    GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR
+        SpeedBlurEffect;
 #if DEBUG
     bool
         DebugRenderActive;

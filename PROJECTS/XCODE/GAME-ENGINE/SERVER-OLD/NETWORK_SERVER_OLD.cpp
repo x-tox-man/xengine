@@ -413,7 +413,7 @@ void NETWORK_SERVER::RejectPlayer( SERVICE_NETWORK_CONNECTION * connection ) {
     CORE_DATA_STREAM
         stream;
     
-    auto network_message = APPLICATION_COMMAND_MANAGER::CreateNetworkCommand( command );
+    auto network_message = APPLICATION_COMMAND_MANAGER::CreateNetworkCommand( command, 0 );
     
     stream.Open();
     network_message->Serialize( stream );

@@ -39,7 +39,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
     void Release();
 
     inline GRAPHIC_SHADER_PROGRAM_DATA_PROXY & GetProgram() { return Program; }
-    inline const GRAPHIC_SHADER_BIND & GetSahderBind() { return Bind; }
+    inline const GRAPHIC_SHADER_BIND & GetShaderBind() { return Bind; }
 
     inline GRAPHIC_MATERIAL_COLLECTION::PTR GetMaterialCollection() { return MaterialCollection; }
     inline void SetMaterial( GRAPHIC_MATERIAL::PTR material, const char * name = "DefaultMaterial" ) { MaterialCollection->SetMaterialForName( material, name ); }
@@ -48,6 +48,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
     inline void SetDiffuse( const CORE_HELPERS_COLOR & color ) { MaterialCollection->SetDiffuse( color ); }
 
     virtual void Apply( GRAPHIC_RENDERER & renderer );
+    virtual void Apply( GRAPHIC_RENDERER & renderer, bool activate_material );
     void SelectMaterial( std::string & material_name );
     virtual void Discard();
     virtual void BindAttributes();

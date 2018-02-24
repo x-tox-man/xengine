@@ -132,7 +132,6 @@ R3D_GAMEPLAY_GAME::R3D_GAMEPLAY_GAME() :
     StateMachine(),
     LevelManager(),
     Scene(),
-    Tick( 0 ),
     ThisPlayerIndex( "DefaultPlayer" ),
     TimeMod( 0.0f ),
     BulletSystem( new GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION() ) {
@@ -171,8 +170,10 @@ void R3D_GAMEPLAY_GAME::Initialize( ) {
     BulletSystem->SetCollisionFilter( new PHYSICS_COLLISION_FILTER() );
     
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
+    Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     
     ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[0])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[1])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
     LevelManager.Initialize();
     
@@ -181,7 +182,8 @@ void R3D_GAMEPLAY_GAME::Initialize( ) {
 
 void R3D_GAMEPLAY_GAME::Restart() {
     
-    Tick = 0;
+    GAMEPLAY_ACTION_SYSTEM::GetInstance().GetTimeline().Reset();
+    
     #if DEBUG
         assert( LevelManager.GetCurrentLevel() != NULL );
     #endif
@@ -258,15 +260,18 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVEN
     }
     else {
         
-        const GRAPHIC_CAMERA & camera = GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip()->GetRear();
-        
-        float p = t;
-        
-        CORE_MATH_QUATERNION q = camera.GetOrientation() * p + orientation * (1.0f - p);
-        q.Normalize();
-        
-        local_camera.UpdateCamera(camera.GetPosition() * p + position * (1.0f - p), q );
-        R3D_APP_PTR->SetCamera( &local_camera );
+        if( GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex] != NULL &&  GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip() != NULL ) {
+            
+            const GRAPHIC_CAMERA & camera = GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip()->GetRear();
+            
+            float p = t;
+            
+            CORE_MATH_QUATERNION q = camera.GetOrientation() * p + orientation * (1.0f - p);
+            q.Normalize();
+            
+            local_camera.UpdateCamera(camera.GetPosition() * p + position * (1.0f - p), q );
+            R3D_APP_PTR->SetCamera( &local_camera );
+        }
     }
 
     t += event.GetEventData();
@@ -289,10 +294,9 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STATE, UPDATE_EVENT )
 
-    GetContext().Tick++;
-    GetContext().Scene.Update( event.GetEventData() );
     GetContext().InternalUpdateGame( event.GetEventData() );
-
+    GAMEPLAY_ACTION_SYSTEM::GetInstance().GetTimeline().Update( event.GetEventData() );
+    GetContext().Scene.Update( event.GetEventData() );
     GetContext().TimeMod += event.GetEventData();
 
     auto proxy = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ) );

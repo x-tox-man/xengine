@@ -88,9 +88,22 @@ void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
     GRAPHIC_SYSTEM::EnableBackfaceCulling();
     GRAPHIC_SYSTEM::SetPolygonMode( GRAPHIC_SYSTEM_POLYGON_FILL_MODE_Full );
     
+    bool it_does_blend = false;
+    
     for ( size_t i = 0; i < RenderableSystemTable.size(); i++ ) {
         
-        RenderableSystemTable[ 0 ]->Render( renderer );
+        if ( it_does_blend ) {
+            
+            GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+        }
+        else {
+            
+            GRAPHIC_SYSTEM::DisableBlend();
+        }
+        
+        RenderableSystemTable[ i ]->Render( renderer );
+        
+        it_does_blend = true;
     }
 }
 

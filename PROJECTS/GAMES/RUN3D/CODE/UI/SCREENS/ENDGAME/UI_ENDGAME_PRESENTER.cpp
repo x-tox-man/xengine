@@ -25,6 +25,10 @@ void UI_ENDGAME_PRESENTER::OnProceedButtonPressed( GRAPHIC_UI_ELEMENT * element,
     
     if ( state == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
         
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().Vibrate( 0.1f );
+        
+        AUDIO_SYSTEM::GetInstance().PlaySound( R3D_AUDIO_MUSIC_MANAGER::ATone );
+        
         OpenAnimated< UI_MAIN_MENU >( "UI_MAIN_MENU" );
     }
 }
@@ -32,6 +36,10 @@ void UI_ENDGAME_PRESENTER::OnProceedButtonPressed( GRAPHIC_UI_ELEMENT * element,
 void UI_ENDGAME_PRESENTER::OnRetryButtonPressed( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state ) {
     
     if ( state == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
+        
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().Vibrate( 0.1f );
+        
+        AUDIO_SYSTEM::GetInstance().PlaySound( R3D_AUDIO_MUSIC_MANAGER::ATone );
         
         R3D_APP_PTR->GetGame()->Restart();
         

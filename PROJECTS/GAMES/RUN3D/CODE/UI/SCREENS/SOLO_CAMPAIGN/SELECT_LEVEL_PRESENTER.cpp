@@ -57,6 +57,10 @@ void SELECT_LEVEL_PRESENTER::OnLevelSelected( GRAPHIC_UI_ELEMENT * element, GRAP
         
         auto cell = (LEVEL_CELL::PTR) element;
         
+        PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetVibrator().Vibrate( 0.1f );
+        
+        AUDIO_SYSTEM::GetInstance().PlaySound( R3D_AUDIO_MUSIC_MANAGER::ATone );
+        
         OpenAnimated< UI_INGAME >( "UI_INGAME" );
         
         std::vector< GAME_PLAYER_MODEL >
@@ -71,5 +75,13 @@ void SELECT_LEVEL_PRESENTER::OnLevelSelected( GRAPHIC_UI_ELEMENT * element, GRAP
         R3D_APP_PTR->GetGame()->SelectLevel( cell->GetLevelModel() );
         R3D_APP_PTR->GetGame()->SetPlayers( players_model );
         R3D_APP_PTR->GetGame()->Restart();
+    }
+}
+
+void SELECT_LEVEL_PRESENTER::OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event ) {
+    
+    if ( event == GRAPHIC_UI_ELEMENT_EVENT_OnTouchOut ) {
+        
+        BackAnimated();
     }
 }

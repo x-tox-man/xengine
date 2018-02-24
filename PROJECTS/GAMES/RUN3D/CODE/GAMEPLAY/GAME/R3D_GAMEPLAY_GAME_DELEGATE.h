@@ -11,6 +11,7 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "R3D_PLAYER.h"
+#include "R3D_COMMAND_PLAYER_UPDATE.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME_DELEGATE )
 
@@ -32,6 +33,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME_DELEGATE )
     }
 
     virtual void OnEndGame();
+    virtual void SetPlayerUpdate( R3D_COMMAND_PLAYER_UPDATE::PTR player_update );
 
     inline std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR > * GetPlayers() { return PlayersList; }
     inline void SetThrust( float thrust ) { Thrust = thrust; }

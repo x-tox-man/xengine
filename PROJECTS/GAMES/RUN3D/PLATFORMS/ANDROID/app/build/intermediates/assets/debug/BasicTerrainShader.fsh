@@ -35,8 +35,15 @@ void main()
 
     mediump vec4 decalsWeights = texture2D(c_texture, texCoord);
     
-    colorOut = ( texture2D( c_texture_1, texCoord * 512.0 ) * decalsWeights.x + texture2D( c_texture_2, texCoord * 128.0) * decalsWeights.y + texture2D( c_texture_3, texCoord * 128.0) * decalsWeights.z );
-    colorOut.a = 1.0;
+    /*if ( decalsWeights.x > 0.0 ) {
+        colorOut += texture2D( c_texture_1, texCoord * 512.0 ) * decalsWeights.x;
+    }
+    if ( decalsWeights.z > 0.0 ) {
+        colorOut += texture2D( c_texture_2, texCoord * 512.0 ) * decalsWeights.y;
+    }
+    if ( decalsWeights.z > 0.0 ) {
+        colorOut += texture2D( c_texture_3, texCoord * 512.0 ) * decalsWeights.z;
+    }*/
 
-    gl_FragColor = colorOut;
+    gl_FragColor = vec4(0.3, 0.3, 0.3, 1.0);
 }

@@ -40,4 +40,14 @@ void R3D_BROWSER_NETWORK_CLIENT_DELEGATE::OnServerInfo( GAMEPLAY_ACTION_COMMAND_
 
 void R3D_BROWSER_NETWORK_CLIENT_DELEGATE::OnGameStarted() {
     
+    abort();
+}
+
+void R3D_BROWSER_NETWORK_CLIENT_DELEGATE::OnLoadGame( std::vector<NETWORK_PLAYER *> & players ) {
+    
+    abort();
+}
+
+void R3D_BROWSER_NETWORK_CLIENT_DELEGATE::OnPingUpdated( float ping ) {
+    
 }

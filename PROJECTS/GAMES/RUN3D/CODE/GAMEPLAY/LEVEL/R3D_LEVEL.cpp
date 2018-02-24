@@ -35,10 +35,10 @@ void R3D_LEVEL::Initialize() {
     
     Checkpoints.SetPlayerFinishedCallback( EndGameCallback );
     
+    CreateTracks();
     CreateGround();
     CreateMoon();
     CreateSky();
-    //CreateTracks();
 }
 
 void R3D_LEVEL::Initialize( const CORE_FILESYSTEM_PATH & path ) {
@@ -137,7 +137,7 @@ void R3D_LEVEL::CreateTracks() {
     auto base_entity_turn = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK_TURN >();
     auto base_entity_jump = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK_JUMP >();
     
-    for ( int i = 0; i < 21; i++) {
+    for ( int i = 0; i < 11; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         
@@ -167,7 +167,7 @@ void R3D_LEVEL::CreateSky() {
     GAMEPLAY_HELPER::CreateComponent_PositionRender( Sky );
     
     GAMEPLAY_HELPER::Set3DObject( Sky, CORE_HELPERS_UNIQUE_IDENTIFIER( "skydome" ) );
-    GAMEPLAY_HELPER::SetEffect( Sky, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
+    GAMEPLAY_HELPER::SetEffect( Sky, CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SkyEffect" ) );
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "space_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "high-resolution-space-1", "png", "TEXTURES" ) );
     GAMEPLAY_HELPER::SetTexture( Sky, "space_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "high-resolution-space-1", "png", "TEXTURES" ) );
     
