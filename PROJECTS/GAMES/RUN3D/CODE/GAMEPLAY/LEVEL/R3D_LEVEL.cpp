@@ -117,9 +117,9 @@ void R3D_LEVEL::Restart() {
 
 void R3D_LEVEL::Update( const float time_step ) {
     
-    auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) Sky->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-    pos->SetPosition( R3D_APP_PTR->GetCamera()->GetPosition() );
-    ComputeCollisions( time_step );
+    //auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) Sky->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    //pos->SetPosition( R3D_APP_PTR->GetCamera()->GetPosition() );
+    //ComputeCollisions( time_step );
 }
 
 void R3D_LEVEL::ComputeCollisions( const float time_step ) {
@@ -137,7 +137,7 @@ void R3D_LEVEL::CreateTracks() {
     auto base_entity_turn = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK_TURN >();
     auto base_entity_jump = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK_JUMP >();
     
-    for ( int i = 0; i < 11; i++) {
+    for ( int i = 0; i < 31; i++) {
         
         CORE_MATH_VECTOR p( 0.0f, 1.0f * i, 1.0f, 1.0f );
         
@@ -157,7 +157,7 @@ void R3D_LEVEL::CreateTracks() {
 
 void R3D_LEVEL::CreateGround() {
     
-    R3D_RENDERTERRAIN::CreateTerrain();
+    R3D_RENDERTERRAIN::Create();
 }
 
 void R3D_LEVEL::CreateSky() {

@@ -38,6 +38,8 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         
         // Set up the collision configuration and dispatcher
         btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+
+        //collisionConfiguration->setPlaneConvexMultipointIterations();
         btCollisionDispatcher * dispatcher = new btCollisionDispatcher(collisionConfiguration);
     
         if ( HasNearCallback ) {
@@ -46,7 +48,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         }
         
         // The actual physics solver
-        btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+        btSequentialImpulseConstraintSolver* solver = new btMultiBodyConstraintSolver;
         
         // The world.
         DynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
@@ -77,7 +79,6 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::DebugDrawWorld() {
 void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
     
     #ifdef __BULLET_PHYSICS__
-        const float fixed_ts = 1.0f / 30.0f;
         btTransform transformation;
         
         DynamicsWorld->stepSimulation( time_step, 10 );

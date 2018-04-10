@@ -15,7 +15,7 @@
 
         inline GLuint GetShaderProgram() { return ShaderProgram; }
 
-        void BindAttribute( GRAPHIC_SHADER_ATTRIBUTE & shader_attribute, CORE_HELPERS_IDENTIFIER & identifier );
+        void BindAttribute( GRAPHIC_SHADER_ATTRIBUTE & shader_attribute, const CORE_HELPERS_IDENTIFIER & identifier );
 
         private :
 

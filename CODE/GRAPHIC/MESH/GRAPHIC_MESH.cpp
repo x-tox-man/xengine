@@ -97,6 +97,11 @@ int GRAPHIC_MESH::ComputeVertexStride(GRAPHIC_SHADER_BIND bind) {
         stride += 3;
     }
     
+    if ( bind & GRAPHIC_SHADER_BIND_CustomFloat ) {
+        
+        stride += 1;
+    }
+    
     return stride;
 }
 
@@ -137,6 +142,11 @@ void GRAPHIC_MESH::ActivateBufferComponent( GRAPHIC_SHADER_BIND attribute ) {
     if ( attribute & GRAPHIC_SHADER_BIND_Bitangents ) {
         
         VertexStride += 3;
+    }
+    
+    if ( attribute & GRAPHIC_SHADER_BIND_CustomFloat ) {
+        
+        VertexStride += 1;
     }
 }
 

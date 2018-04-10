@@ -16,6 +16,7 @@ struct GRAPHIC_PARTICLE {
     
     CORE_MATH_VECTOR Position;
     CORE_MATH_QUATERNION Orientation;
+    float Life;
 };
 
 struct GRAPHIC_PARTICLE_STATIC_ATTRIBUTES {

@@ -66,6 +66,11 @@ void GRAPHIC_SHADER_EFFECT::BindAttributes() {
 
 }
 
+void GRAPHIC_SHADER_EFFECT::BindAttribute( GRAPHIC_SHADER_ATTRIBUTE &shader_attribute, const CORE_HELPERS_IDENTIFIER & identifier ) {
+    
+    Program.GetProgram()->BindAttribute( shader_attribute, identifier);
+}
+
 void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer ) {
     
     GetProgram().Enable();

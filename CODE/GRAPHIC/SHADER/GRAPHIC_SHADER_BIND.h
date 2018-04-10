@@ -23,9 +23,11 @@ enum GRAPHIC_SHADER_BIND
     GRAPHIC_SHADER_BIND_JointIndices =  64,
     GRAPHIC_SHADER_BIND_Tangents =      128,
     GRAPHIC_SHADER_BIND_Bitangents =    256,
+    GRAPHIC_SHADER_BIND_CustomFloat =    512,
 };
 
 extern GRAPHIC_SHADER_BIND GRAPHIC_SHADER_BIND_PositionNormal;
+extern GRAPHIC_SHADER_BIND GRAPHIC_SHADER_BIND_PositionNormalCustom;
 extern GRAPHIC_SHADER_BIND GRAPHIC_SHADER_BIND_PositionTexture;
 extern GRAPHIC_SHADER_BIND GRAPHIC_SHADER_BIND_PositionNormalTexture;
 extern GRAPHIC_SHADER_BIND GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent;
@@ -41,6 +43,7 @@ extern GRAPHIC_SHADER_BIND GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitan
         GRAPHIC_SHADER_BIND_OPENGL4_JointIndices,
         GRAPHIC_SHADER_BIND_OPENGL4_Tangents,
         GRAPHIC_SHADER_BIND_OPENGL4_Bitangents,
+        GRAPHIC_SHADER_BIND_OPENGL4_CustomFloat
     };
 #endif
 
@@ -55,6 +58,7 @@ extern GRAPHIC_SHADER_BIND GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitan
         GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices,
         GRAPHIC_SHADER_BIND_OPENGLES2_Tangents,
         GRAPHIC_SHADER_BIND_OPENGLES2_Bitangents,
+        GRAPHIC_SHADER_BIND_OPENGLES2_CustomFloat
     };
 #endif
 

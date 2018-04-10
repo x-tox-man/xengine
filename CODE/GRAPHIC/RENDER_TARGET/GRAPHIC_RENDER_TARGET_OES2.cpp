@@ -41,7 +41,7 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
     if ( ItUsesDepth ) {
         GFX_CHECK( glGenRenderbuffers(1, &DepthrenderBuffer ); )
         GFX_CHECK( glBindRenderbuffer(GL_RENDERBUFFER, DepthrenderBuffer ); )
-        GFX_CHECK( glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height ); )
+        GFX_CHECK( glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height ); )
     }
     
     
@@ -53,11 +53,8 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
     }
     
     GLenum ret_val = glCheckFramebufferStatus( GL_FRAMEBUFFER );
-    if( ret_val == GL_FRAMEBUFFER_COMPLETE ) {
-        
-        SERVICE_LOGGER_Error( "GRAPHIC_RENDER_TARGET GL_FRAMEBUFFER_COMPLETE" );
-    }
-    else if( ret_val == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS ) {
+    
+    if( ret_val == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS ) {
         
         SERVICE_LOGGER_Error( "GRAPHIC_RENDER_TARGET GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS" );
         CORE_RUNTIME_Abort();
@@ -148,11 +145,8 @@ void GRAPHIC_RENDER_TARGET::Apply() {
     GFX_CHECK( glViewport( 0, 0, TargetTexture->GetTextureInfo().Width, TargetTexture->GetTextureInfo().Height); ) // Render on the whole framebuffer, complete from the lower left corner to the upper right
     
     GLenum ret_val = glCheckFramebufferStatus( GL_FRAMEBUFFER );
-    if( ret_val == GL_FRAMEBUFFER_COMPLETE ) {
-        
-        SERVICE_LOGGER_Error( "GRAPHIC_RENDER_TARGET GL_FRAMEBUFFER_COMPLETE" );
-    }
-    else if( ret_val == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS ) {
+    
+    if( ret_val == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS ) {
         
         SERVICE_LOGGER_Error( "GRAPHIC_RENDER_TARGET GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS" );
         CORE_RUNTIME_Abort();

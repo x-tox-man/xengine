@@ -68,6 +68,8 @@ private :
         TextureBlock,
         TextureBlock2,
         TextureBlock3;
+    GRAPHIC_SHADER_EFFECT::PTR
+        UIShaderTextured;
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::PTR
         HorizontalBlurEffect;
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::PTR

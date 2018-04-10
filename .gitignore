@@ -1,6 +1,8 @@
 .DS_Store
 .DS_Store/
 *.DS_Store/
+profile-*.json
+profile-*.rawproto
 CODE/HEADERS/
 armv7armv7sarm64/
 *.sdf

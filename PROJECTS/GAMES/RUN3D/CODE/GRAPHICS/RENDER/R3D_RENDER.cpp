@@ -12,6 +12,7 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
 #include "GRAPHIC_PARTICLE_SYSTEM.h"
 #include "TOOLS_DEBUG_DRAW.h"
+#include "APPLICATION_CONFIGURATION.h"
 
 R3D_RENDER::R3D_RENDER() :
     Lookat(),
@@ -93,6 +94,9 @@ void R3D_RENDER::Initialize() {
     SpeedBlurEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     ((GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR) SpeedBlurEffect)->BindAttributes();
 #endif
+    
+    int divider = APPLICATION_CONFIGURATION_OPTIONS::GetInstance().GetGraphicsOptionRenderTargetResolutionDivider();
+    
     PrimaryRenderTarget.Initialize( Window->GetWidth() / 2, Window->GetHeight() / 2, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 0 );
     
 #if PLATFORM_OSX
@@ -196,8 +200,19 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
             Lookat.Normalize();
             
             R3D_APP_PTR->GetGame()->Render( renderer );
-            
             GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
+            
+#if DEBUG
+            renderer.SetLightingIsEnabled( false );
+            Camera->GetFustrum().DebugDraw( *Camera);
+            renderer.SetLightingIsEnabled( true );
+            
+            if ( DebugRenderActive ) {
+                auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4]);
+                
+                detect->DebugDrawWorld();
+            }
+#endif
             
             PrimaryRenderTarget.Discard();
             
@@ -205,24 +220,12 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
             GRAPHIC_RENDERER::GetInstance().SetDepthTexture( NULL );
         }
         
-#if DEBUG
-        renderer.SetLightingIsEnabled( false );
-        Camera->GetFustrum().DebugDraw( *Camera);
-        renderer.SetLightingIsEnabled( true );
-        
-        if ( DebugRenderActive ) {
-            auto detect = ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4]);
-            
-            detect->DebugDrawWorld();
-        }
-#endif
-        
         renderer.SetLightingIsEnabled( false );
 #if PLATFORM_OSX
     }
 #endif
     
-#if PLATFORM_OSX && 0
+#if PLATFORM_OSX
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
     {
         TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
@@ -302,15 +305,16 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
 #else
     {
         GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
-        auto last_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderTextured"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+        
+        UIShaderTextured = GRAPHIC_SHADER_EFFECT::GetResourceForIdentifier( CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderTextured") );
         
         TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
         
         auto mat = new GRAPHIC_MATERIAL;
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
-        last_effect->SetMaterial( mat );
+        UIShaderTextured->SetMaterial( mat );
         
-        PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, last_effect );
+        PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, UIShaderTextured );
         
         delete mat;
     }

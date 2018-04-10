@@ -11,7 +11,7 @@ function init()
 	turn = R3D_LEVEL_HELPER:Create( "turn", vec )
 
 	vec:Y( -1.0 )
-	for i= 0, 1, 1 do
+	for i= 0, 10, 1 do
 		vec:Y( vec:GetY() + 1.0 )
 		base:SetPosition( vec )
 		
@@ -32,7 +32,7 @@ function init()
 	vec:X( vec:GetX() + 1.0 )
 	vec:Y( vec:GetY() + 1.0 )
 
-	for i= 0, 1, 1 do
+	for i= 0, 10, 1 do
 		vec:X( vec:GetX() + 1.0 )
 		base:SetPosition( vec )	
 		

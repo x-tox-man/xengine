@@ -33,57 +33,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
     void OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity );
 
-    void InternalUpdateGame( const float step) {
-        
-        float thrust = 0.0f;
-        float orientation = 0.0f;
-        
-        if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_UP ) ) {
-            
-            thrust = 1.0f;
-        }
-        else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_DOWN ) ) {
-            
-            thrust = -1.0f;
-        }
-        
-        if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_LEFT ) ) {
-            
-            orientation = 1.0f;
-        }
-        else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_RIGHT ) ) {
-            
-            orientation = -1.0f;
-        }
-        
-#if PLATFORM_IOS || PLATFORM_ANDROID
-        
-        float tthrust = PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetZ() + 0.25f;
-        float trot = -PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetY();
-        
-        if ( tthrust > 1.0f ) {
-            tthrust = 1.0f;
-        }
-        else if ( tthrust > 1.0f ) {
-            tthrust = -1.0f;
-        }
-        
-        if ( trot > 1.0f ) {
-            trot = 1.0f;
-        }
-        else if ( trot > 1.0f ) {
-            trot = -1.0f;
-        }
-        
-        Delegate->SetThrust( tthrust );
-        Delegate->SetOrientation( trot );
-#else
-        Delegate->SetThrust( thrust );
-        Delegate->SetOrientation( orientation );
-#endif
-        
-        Delegate->InternalUpdateGame( step );
-    }
+    void InternalUpdateGame( const float step);
 
     void SetPlayers( const std::vector< GAME_PLAYER_MODEL > & players );
 
@@ -111,7 +61,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     CORE_FIXED_STATE_MACHINE_End()
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, IDLE_STATE )
-
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
     CORE_FIXED_STATE_MACHINE_EndDefineState( IDLE_STATE )
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, GAME_STARTING )

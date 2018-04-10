@@ -10,19 +10,18 @@
 
 in vec4 position;
 in vec4 normal;
-in vec2 tex0;
-in vec4 color;
+in float time;
 
-out vec2 textureCoordinates;
+out float oTime;
 
 uniform mat4 MVPMatrix;
 uniform vec4 geometryColor;
+uniform vec4 ScaleFactor;
 
 void main()
 {
-    textureCoordinates = tex0;
-    
-    vec4 t = normal;
+    oTime = normal.x;
     
     gl_Position = position * MVPMatrix;
+    gl_PointSize = oTime * ScaleFactor.x;
 }

@@ -20,6 +20,7 @@
 #include "TOOLS_LOCALE_SYSTEM.h"
 #include "CORE_DATA_UTF8_TEXT.h"
 #include "R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h"
+#include "MENU_SCENE.h"
 
 RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
@@ -79,6 +80,18 @@ void RUN3D_APPLICATION::Initialize() {
     
     Game = new R3D_GAMEPLAY_GAME;
     Game->Initialize();
+    
+    MENU_SCENE
+        scene;
+    
+    CORE_MATH_QUATERNION
+        q;
+    
+    q.RotateX( M_PI_2 );
+    
+    GetCamera()->UpdateCamera( CORE_MATH_VECTOR(-0.0f, -6.0f, 2.0f, 1.0f ), q );
+    
+    scene.Initialize();
     
     InitializeSingleplayerGame();
     
@@ -146,7 +159,7 @@ void RUN3D_APPLICATION::Update( float time_step ) {
     acc += time_step;
     
 #if DEBUG
-    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_P ) ) {
+    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyReleased( KEYBOARD_KEY_CHAR_P ) ) {
         
         static bool active = true;
         GameRenderer.SetDebugRenderActive( active );
@@ -187,10 +200,10 @@ void RUN3D_APPLICATION::InitializeGraphics() {
     
     CORE_HELPERS_CALLBACK * myCallback = new CORE_HELPERS_CALLBACK( &Wrapper<CORE_APPLICATION, &CORE_APPLICATION::Render>, this );
     
+    R3D_RESOURCES::GetInstance().Initialize();
+    
     GRAPHIC_RENDERER::GetInstance().Initialize();
     GRAPHIC_RENDERER::GetInstance().SetRenderCallback( myCallback );
-    
-    R3D_RESOURCES::GetInstance().Initialize();
     
     GRAPHIC_UI_SYSTEM::GetInstance().Initialize();
     R3D_UI::ScreenWidth = GetApplicationWindow().GetWidth();

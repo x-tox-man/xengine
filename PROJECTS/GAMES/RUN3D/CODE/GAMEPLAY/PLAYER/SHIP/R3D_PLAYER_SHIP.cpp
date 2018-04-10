@@ -65,11 +65,13 @@ void R3D_PLAYER_SHIP::Initialize() {
     CORE_MATH_VECTOR
         start_position(0.0f, 0.0f, 1.6f, 0.0f );
     
-    GAMEPLAY_HELPER::SetPhysicsSphereObject( this, start_position, q, 100.0f );
-    //GAMEPLAY_HELPER::SetPhysicsBoxObject( this, start_position, CORE_MATH_VECTOR(0.1f,0.1f,0.1f, 0.0f), q, 1.0f );
+    GAMEPLAY_HELPER::SetPhysicsSphereObject( this, start_position, q, 1.0f );
+    GAMEPLAY_HELPER::SetPhysicsBoxObject( this, start_position, CORE_MATH_VECTOR(0.04f,0.15f,0.03f, 0.0f), q, 1.0f );
     
     auto phys = ( GAMEPLAY_COMPONENT_PHYSICS::PTR) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     phys->EnableCCD();
+    
+    //GAMEPLAY_HELPER::ConfigureGroundSpring( this );
     
     GAMEPLAY_HELPER::AddToPhysics( this, PHYSICS_COLLISION_TYPE_SHIP, PHYSICS_COLLISION_TYPE_ALL, true );
     GAMEPLAY_HELPER::AddToScripts( this );
@@ -181,13 +183,14 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     velocity = phys->GetVelocity();
     orientation = pos->GetOrientation();
     
-    if ( elevation.GetZ() <= 0.1f && normal != CORE_MATH_VECTOR::Zero ) {
+    if ( elevation.GetZ() <= 1.0f && normal != CORE_MATH_VECTOR::Zero ) {
         
         velocity.Y( 0.0f );
         velocity.X( 0.0f );
-        velocity.Z( 400.81f * cosf( 0.5f - elevation.GetZ() * 2.0f ) );
+        velocity.Z( 2.f * (1.0f - elevation.GetZ() ) );
         
         phys->ApplyForce( velocity );
+        SetPosition( pos->GetPosition() + CORE_MATH_VECTOR( 0.0f, 0.0f, fmax( 0.0f, 0.15f - elevation.GetZ() ), 0.0f ) );
     }
     
     float
@@ -201,15 +204,15 @@ void R3D_PLAYER_SHIP::Update( float step ) {
 
     dir = x * inv;
     
-    phys->ApplyForce( dir * (GetThrust() * (500.0f - actual_speed ) ) );
+    phys->ApplyForce( dir * (GetThrust() * (10.0f - actual_speed ) ) );
     velocity = phys->GetVelocity();
 
     qr.RotateZ( GetRotation() * step );
     
     CORE_MATH_QUATERNION reset_pos = pos->GetOrientation();
     
-    reset_pos.RotateX( previous_rotation * 0.1f );
-    reset_pos.RotateY( - previous_thrust * 0.1f );
+    reset_pos.RotateY( previous_rotation * 0.1f );
+    reset_pos.RotateX( - previous_thrust * 0.1f );
     
     
     qrtot = reset_pos * qr;
@@ -228,8 +231,8 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     
     UpdateCamera( step, pos, phys );
     
-    qrtot.RotateY( GetThrust() * 0.1f );
-    qrtot.RotateX( -GetRotation() * 0.1f );
+    qrtot.RotateX( GetThrust() * 0.1f );
+    qrtot.RotateY( -GetRotation() * 0.1f );
     
     qrtot.Normalize();
     SetOrientation( qrtot );
@@ -244,13 +247,15 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     
     previous_rotation = GetRotation();
     previous_thrust = GetThrust();
+    
+    Steam.Update( step );
 }
 
 void R3D_PLAYER_SHIP::UpdateCamera( float step, GAMEPLAY_COMPONENT_POSITION::PTR pos, GAMEPLAY_COMPONENT_PHYSICS::PTR phys ) {
     
     static CORE_MATH_VECTOR
         f(0.0f, 0.1f, 0.01f, 0.0f ),
-        r(0.0f, -0.6f, -0.15f, 0.0f ),
+        r(0.0f, -0.75f, -0.15f, 0.0f ),
         t(0.0f, 0.0f, 1.5f, 0.0f );
     CORE_MATH_QUATERNION
         q = pos->GetOrientation(),

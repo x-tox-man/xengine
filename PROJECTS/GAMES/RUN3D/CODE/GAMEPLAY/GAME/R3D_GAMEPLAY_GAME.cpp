@@ -26,9 +26,9 @@
 //btAdjustInternalEdgeContacts
 
 //extern ContactAddedCallback gContactAddedCallback;
-//extern ContactStartedCallback gContactStartedCallback;
+extern ContactStartedCallback gContactStartedCallback;
 
-/*void CustomContactStartedCallback(btPersistentManifold* const &manifold) {
+void CustomContactStartedCallback(btPersistentManifold* const &manifold) {
     
     CORE_MATH_VECTOR
         position,
@@ -36,7 +36,7 @@
     CORE_MATH_RAY_SEGMENT
         ray;
     
-    auto player = R3D_APP_PTR->GetGame()->GetLevel()->GetPlayerTable()[0];
+    auto player = (R3D_APP_PTR->GetGame()->GetLevel()->GetPlayerTable().begin())->second;
     
     const CORE_MATH_VECTOR & pos = ((GAMEPLAY_COMPONENT_POSITION::PTR) player->GetShip()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position ) )->GetPosition();
     ray.SetOrigin( pos );
@@ -44,30 +44,35 @@
     
     PHYSICS_UTILS::FindCollisionInRayFromWorld( R3D_APP_PTR->GetGame()->GetBulletSystem()->GetDynamicsWorld(), position, normal, ray );
     
-    for (int i = 0; i < manifold->getNumContacts(); i++ ) {
+    printf( "\t\t\t\tmanifold->getNumContacts() %d\n", manifold->getNumContacts());
+    
+    /*for (int i = 0; i < manifold->getNumContacts(); i++ ) {
         
         if ( fabs( manifold->getContactPoint(i).m_normalWorldOnB.z() - 1.0f ) > 0.001f || fabs( manifold->getContactPoint(i).m_normalWorldOnB.x()  ) > 0.001f || fabs( manifold->getContactPoint(i).m_normalWorldOnB.y()  ) > 0.001f ) {
             
             printf( "%.2f, %.2f, %.2f\n", manifold->getContactPoint(i).m_normalWorldOnB.x(), manifold->getContactPoint(i).m_normalWorldOnB.y(), manifold->getContactPoint(i).m_normalWorldOnB.z() );
             manifold->removeContactPoint( i );
         }
-    }
-}*/
+    }*/
+}
 
-/*bool CustomMaterialCombinerCallback(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
+bool CustomMaterialCombinerCallback(btManifoldPoint& cp,    const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
 {
     
     if (true)
     {
         //btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId1,index1);
-        btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId1,index1, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
-        btAdjustInternalEdgeContacts(cp,colObj0Wrap,colObj1Wrap, partId0,index0, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
-        btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId0,index1, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
-        btAdjustInternalEdgeContacts(cp,colObj0Wrap,colObj1Wrap, partId1,index0, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
+        //btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId1,index1);
+        //btAdjustInternalEdgeContacts(cp,colObj0Wrap,colObj1Wrap, partId0,index0, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
+        //btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId0,index1, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
+        //btAdjustInternalEdgeContacts(cp,colObj0Wrap,colObj1Wrap, partId1,index0, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
         //btAdjustInternalEdgeContacts(cp,colObj1Wrap,colObj0Wrap, partId1,index1, BT_TRIANGLE_CONVEX_DOUBLE_SIDED+BT_TRIANGLE_CONCAVE_DOUBLE_SIDED);
     }
     
-    float friction0 = colObj0Wrap->getCollisionObject()->getFriction();
+    printf( "1CustomMaterialCombinerCallback %f %f %f\n", cp.getPositionWorldOnA().x(), cp.getPositionWorldOnA().y(), cp.getPositionWorldOnA().z());
+    printf( "2CustomMaterialCombinerCallback %f %f %f\n", cp.getPositionWorldOnB().x(), cp.getPositionWorldOnB().y(), cp.getPositionWorldOnB().z());
+    
+    /*float friction0 = colObj0Wrap->getCollisionObject()->getFriction();
     float friction1 = colObj1Wrap->getCollisionObject()->getFriction();
     float restitution0 = colObj0Wrap->getCollisionObject()->getRestitution();
     float restitution1 = colObj1Wrap->getCollisionObject()->getRestitution();
@@ -90,11 +95,11 @@
     }
     
     cp.m_combinedFriction = 0.0f;
-    cp.m_combinedRestitution = 0.0f;
+    cp.m_combinedRestitution = 0.0f;*/
     
     //this return value is currently ignored, but to be on the safe side: return false if you don't calculate friction
-    return false;
-}*/
+    return true;
+}
 
 void MyNearCallback( btBroadphasePair & collision_pair, btCollisionDispatcher & dispatcher, const btDispatcherInfo & info ) {
     
@@ -198,6 +203,7 @@ void R3D_GAMEPLAY_GAME::SelectLevel( R3D_GAME_LEVEL_INFO::PTR info ) {
     
     if ( LevelManager.GetCurrentLevel() == NULL || !( *info == *LevelManager.GetCurrentLevel()->GetInfo()) ) {
         
+        Scene.Clear();
         LevelManager.LoadLevel( info );
     }
 }
@@ -225,11 +231,75 @@ void R3D_GAMEPLAY_GAME::OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity ) 
     StateMachine.ChangeState( END_GAME_STATESTATE );
 }
 
+void R3D_GAMEPLAY_GAME::InternalUpdateGame( const float step) {
+    
+    float thrust = 0.0f;
+    float orientation = 0.0f;
+    
+    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_UP ) ) {
+        
+        thrust = 1.0f;
+    }
+    else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_DOWN ) ) {
+        
+        thrust = -1.0f;
+    }
+    
+    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_LEFT ) ) {
+        
+        orientation = 1.0f;
+    }
+    else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_RIGHT ) ) {
+        
+        orientation = -1.0f;
+    }
+    
+#if PLATFORM_IOS || PLATFORM_ANDROID
+    
+    float tthrust = PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetZ() + 0.45f;
+    float trot = -PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetY();
+    
+    if ( tthrust > 1.0f ) {
+        tthrust = 1.0f;
+    }
+    else if ( tthrust < -1.0f ) {
+        tthrust = -1.0f;
+    }
+    
+    if ( trot > 1.0f ) {
+        trot = 1.0f;
+    }
+    else if ( trot < -1.0f ) {
+        trot = -1.0f;
+    }
+    
+    float total_thrust = LevelManager.GetCurrentLevel()->GetPlayerTable()[ ThisPlayerIndex]->GetShip()->GetThrust() * 0.9f + tthrust * 0.1f;
+    float total_rotation = LevelManager.GetCurrentLevel()->GetPlayerTable()[ ThisPlayerIndex]->GetShip()->GetRotation() * 0.9f + trot * 0.1f;
+    
+    
+    Delegate->SetThrust( total_thrust );
+    Delegate->SetOrientation( total_rotation );
+#else
+    
+    float total_thrust = LevelManager.GetCurrentLevel()->GetPlayerTable()[ ThisPlayerIndex]->GetShip()->GetThrust() * 0.9f + thrust * 0.1f;
+    float total_rotation = LevelManager.GetCurrentLevel()->GetPlayerTable()[ ThisPlayerIndex]->GetShip()->GetRotation() * 0.9f + orientation * 0.1f;
+    
+    Delegate->SetThrust( total_thrust );
+    Delegate->SetOrientation( total_rotation );
+#endif
+    
+    Delegate->InternalUpdateGame( step );
+}
+
 //---------------------------------------------------------------------------------------//
 //-------------------------- GAME IDLE_STATE ----------------------------------------------//
 //---------------------------------------------------------------------------------------//
 CORE_FIXED_STATE_DefineStateEnterEvent( R3D_GAMEPLAY_GAME::IDLE_STATE )
 
+CORE_FIXED_STATE_EndOfStateEvent()
+
+CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::IDLE_STATE, UPDATE_EVENT )
+    GetContext().Scene.Update( event.GetEventData() );
 CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateLeaveEvent( R3D_GAMEPLAY_GAME::IDLE_STATE )

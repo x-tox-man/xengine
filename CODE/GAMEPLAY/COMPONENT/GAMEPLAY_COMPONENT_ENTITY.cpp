@@ -79,14 +79,11 @@ void GAMEPLAY_COMPONENT_ENTITY::SetOrientation( const CORE_MATH_QUATERNION & ori
     GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     GAMEPLAY_COMPONENT_PHYSICS * physics_component = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     
-    CORE_MATH_QUATERNION q = orientation;
-    q.Normalize();
-    
-    position_component->SetOrientation(q);
+    position_component->SetOrientation( orientation );
     
     if ( physics_component) {
         
-        physics_component->SetOrientation( q );
+        physics_component->SetOrientation( orientation );
     }
     
     /*for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {

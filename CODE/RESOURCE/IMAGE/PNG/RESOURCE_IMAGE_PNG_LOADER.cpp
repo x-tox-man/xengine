@@ -217,8 +217,9 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
     image_resource->SetIdentifier( identifier );
     
     png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-    file.Close();
+    png_destroy_info_struct(png_ptr, &info_ptr);
     
+    file.Close();
     
     return image_resource;
 }

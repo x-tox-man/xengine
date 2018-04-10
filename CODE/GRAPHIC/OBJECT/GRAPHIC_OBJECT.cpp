@@ -165,11 +165,6 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
         object_matrix.Translate( options.GetParent()->GetPosition() );
         object_matrix *= orientation_mat;
         
-        if ( !transform.IsIdentity() ) {
-            
-            object_matrix *= transform;
-        }
-        
         orientation_mat.GetInverse( inverse );
         
         CORE_MATH_VECTOR cp = options.GetPosition() * inverse;
@@ -179,19 +174,24 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
         object_matrix.Scale( options.GetScaleFactor() );
         object_matrix.Translate( cp );
         object_matrix *= orientation_mat;
-    }
-    else {
         
         if ( !transform.IsIdentity() ) {
             
             object_matrix *= transform;
         }
+    }
+    else {
         
         options.GetOrientation().ToMatrix( &orientation_mat[0] );
         
         object_matrix.Scale( options.GetScaleFactor() );
         object_matrix.Translate( options.GetPosition() );
         object_matrix *= orientation_mat;
+        
+        if ( !transform.IsIdentity() ) {
+            
+            object_matrix *= transform;
+        }
     }
     
     

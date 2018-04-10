@@ -21,7 +21,7 @@ XS_CLASS_BEGIN( R3D_RENDERTERRAIN )
         
     }
 
-    static GAMEPLAY_COMPONENT_ENTITY::PTR CreateTerrain();
+    static GAMEPLAY_COMPONENT_ENTITY::PTR Create();
 
 XS_CLASS_END
 

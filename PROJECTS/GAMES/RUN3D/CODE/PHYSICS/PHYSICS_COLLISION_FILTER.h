@@ -42,9 +42,6 @@ struct PHYSICS_COLLISION_FILTER : public btOverlapFilterCallback
                 
                 return false;
             }
-            else {
-                
-            }
         }
         
         return needsBroadphase;

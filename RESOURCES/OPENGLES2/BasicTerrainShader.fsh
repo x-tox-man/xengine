@@ -28,22 +28,23 @@ uniform AmbientLight ambient_light;
 
 void main()
 {
-    mediump vec4 colorOut;
+    mediump vec4 colorOut = vec4(0.0, 0.0, 0.0, 1.0 );
     mediump float nxDir = max(0.1, dot( o_normal.xyz, directional_light.Direction.xyz));
     mediump vec4 diffuse = (directional_light.Color) * nxDir;
     diffuse += ambient_light.Color * ambient_light.AmbientIntensity;
 
     mediump vec4 decalsWeights = texture2D(c_texture, texCoord);
     
-    /*if ( decalsWeights.x > 0.0 ) {
+    if ( decalsWeights.x > 0.0 ) {
         colorOut += texture2D( c_texture_1, texCoord * 512.0 ) * decalsWeights.x;
     }
-    if ( decalsWeights.z > 0.0 ) {
+    if ( decalsWeights.y > 0.0 ) {
         colorOut += texture2D( c_texture_2, texCoord * 512.0 ) * decalsWeights.y;
     }
     if ( decalsWeights.z > 0.0 ) {
         colorOut += texture2D( c_texture_3, texCoord * 512.0 ) * decalsWeights.z;
-    }*/
+    }
 
-    gl_FragColor = vec4(0.3, 0.3, 0.3, 1.0);
+    gl_FragColor = colorOut;
+    colorOut.a = 1.0;
 }

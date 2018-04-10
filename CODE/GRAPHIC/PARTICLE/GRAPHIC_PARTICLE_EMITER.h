@@ -98,8 +98,10 @@ public :
     inline const CORE_MATH_VECTOR & GetPosition() { return Position; }
     inline const CORE_MATH_VECTOR & GetVelocity() { return Velocity; }
     
-    std::array< PARTICLE_TYPE, PARTICLE_ARRAY_SIZE > & GetParticleTable() { return ParticleTable; }
-    std::array< PARTICLE_TYPE_ATTRIBUTE, PARTICLE_ARRAY_SIZE > & GetParticleAttributeTable() { return ParticleAttributeTable; }
+    inline std::array< PARTICLE_TYPE, PARTICLE_ARRAY_SIZE > & GetParticleTable() { return ParticleTable; }
+    inline std::array< PARTICLE_TYPE_ATTRIBUTE, PARTICLE_ARRAY_SIZE > & GetParticleAttributeTable() { return ParticleAttributeTable; }
+    
+    inline GRAPHIC_PARTICLE_RENDERER<PARTICLE_TYPE, PARTICLE_ARRAY_SIZE> & GetRenderer() { return Renderer; }
     
 private:
     

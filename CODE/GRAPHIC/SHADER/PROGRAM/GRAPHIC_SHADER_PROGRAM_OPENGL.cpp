@@ -833,7 +833,7 @@ void GRAPHIC_SHADER_PROGRAM::Disable() {
     
 }
 
-void GRAPHIC_SHADER_PROGRAM::BindAttribute( GRAPHIC_SHADER_ATTRIBUTE & shader_attribute, CORE_HELPERS_IDENTIFIER & identifier ) {
+void GRAPHIC_SHADER_PROGRAM::BindAttribute( GRAPHIC_SHADER_ATTRIBUTE & shader_attribute, const CORE_HELPERS_IDENTIFIER & identifier ) {
     
     GFX_CHECK(
 		shader_attribute.AttributeIndex = glGetUniformLocation( ShaderProgram, identifier.GetTextValue() );
@@ -841,7 +841,7 @@ void GRAPHIC_SHADER_PROGRAM::BindAttribute( GRAPHIC_SHADER_ATTRIBUTE & shader_at
     
     if ( shader_attribute.AttributeIndex != -1 ) {
         
-        shader_attribute.AttributeName = GeometryColor;
+        shader_attribute.AttributeName = identifier;
         
         setShaderAttribute( shader_attribute );
     }

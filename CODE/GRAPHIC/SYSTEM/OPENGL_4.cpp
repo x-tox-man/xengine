@@ -499,6 +499,14 @@
             vertex_offset += 3;
         }
         
+        if ( components & GRAPHIC_SHADER_BIND_CustomFloat ) {
+            
+            GFX_CHECK( glEnableVertexAttribArray( 2); )
+            GFX_CHECK( glVertexAttribPointer( 2, 1, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            
+            vertex_offset += 1;
+        }
+        
     #if DEBUG
         assert( vertex_offset >= 0 );
     #endif
@@ -568,6 +576,13 @@
             GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Bitangents, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
             vertex_offset += 3;
+        }
+        
+        if ( component & GRAPHIC_SHADER_BIND_CustomFloat ) {
+            
+            GFX_CHECK( glVertexAttribPointer( 2, 1, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            
+            vertex_offset += 1;
         }
         
         #if DEBUG

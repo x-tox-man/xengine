@@ -19,6 +19,7 @@
 
 #ifdef __BULLET_PHYSICS__
     #include "btBulletDynamicsCommon.h"
+    #include "btMultiBodyConstraintSolver.h"
 #endif
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAMEPLAY_COMPONENT_SYSTEM )

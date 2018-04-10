@@ -238,11 +238,11 @@ void GAMEPLAY_COMPONENT_PHYSICS::BulletConfigureBvhTriangleMeshShape( const CORE
     TriangleMesh = collision_mesh;
     
     BulletShape = new btBvhTriangleMeshShape( collision_mesh, true );
-    BulletShape->setMargin( 0.05f );
+    BulletShape->setMargin( 0.04f );
     
-    btTriangleInfoMap* triangleInfoMap = new btTriangleInfoMap();
-    triangleInfoMap->m_maxEdgeAngleThreshold = 1.0f;
-    btGenerateInternalEdgeInfo( (btBvhTriangleMeshShape*) BulletShape, triangleInfoMap);
+    //btTriangleInfoMap* triangleInfoMap = new btTriangleInfoMap();
+
+    //btGenerateInternalEdgeInfo( (btBvhTriangleMeshShape*) BulletShape, triangleInfoMap);
     
     btDefaultMotionState* motion_state = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position[0], position[1], position[2])));
     
@@ -483,7 +483,7 @@ void GAMEPLAY_COMPONENT_PHYSICS::EnableCCD() {
     //https://gamedev.stackexchange.com/questions/11961/how-can-i-enable-ccd-in-bullet-physics
 #ifdef __BULLET_PHYSICS__
     BulletRigidBody->setCcdMotionThreshold( 0.01f);
-    BulletRigidBody->setCcdSweptSphereRadius(0.2f);
+    BulletRigidBody->setCcdSweptSphereRadius(0.05f);
 #endif
     //body->setCcdMotionThreshold(...); and body->setCcdSweptSphereRadius(0.2f);
 }

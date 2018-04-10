@@ -30,10 +30,13 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Update( float time_step ) {
         
         GAMEPLAY_COMPONENT_POSITION * position = ( GAMEPLAY_COMPONENT_POSITION *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
         
-        position->SetPosition( position->GetPosition() * position->GetVelocity() * time_step );
-        position->SetOrientation( position->GetOrientation() * position->GetSpin()  * time_step );
+        position->SetPosition( position->GetPosition() + position->GetVelocity() * time_step );
         
-        //position->Orientation.Normalize();
+        position->GetOrientation().RotateZ( position->GetSpin().Z() * time_step );
+        position->GetOrientation().RotateY( position->GetSpin().Y() * time_step );
+        position->GetOrientation().RotateX( position->GetSpin().X() * time_step );
+        
+        position->GetOrientation().Normalize();
         
         it++;
     }

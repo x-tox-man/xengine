@@ -52,6 +52,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
     void SelectMaterial( std::string & material_name );
     virtual void Discard();
     virtual void BindAttributes();
+    void BindAttribute( GRAPHIC_SHADER_ATTRIBUTE &shader_attribute, const CORE_HELPERS_IDENTIFIER & identifier );
 
     protected :
 
