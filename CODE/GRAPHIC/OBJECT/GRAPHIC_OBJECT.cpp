@@ -86,9 +86,15 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             result,
             object;
         
-        GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+        if ( options.IsTexturingEnabled() ) {
+            
+            effect->Apply( renderer );
+        }
+        else {
+            
+            effect->Apply( renderer, false );
+        }
         
-        effect->Apply( renderer );
         
         GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelViewMatrix );
@@ -118,7 +124,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             
             GRAPHIC_SHADER_ATTRIBUTE & shadowmap_mvp = effect->GetProgram().getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ShadowMapMVP );
             
-            renderer.GetDepthTexture()->ApplyDepth(0, depth.AttributeIndex );
+            renderer.GetDepthTexture()->ApplyDepth(effect->GetMaterial()->GetTextureCount(), depth.AttributeIndex );
             
             CORE_MATH_MATRIX
                 biasMatrix(
@@ -150,26 +156,43 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
         parent_matrix;
     
     CORE_MATH_MATRIX
-        orientation_mat;
+        orientation_mat,
+        inverse;
     
     if ( options.GetParent() ) {
         
         options.GetParent()->GetOrientation().ToMatrix( &orientation_mat[0] );
-        
         object_matrix.Translate( options.GetParent()->GetPosition() );
         object_matrix *= orientation_mat;
-    }
-    
-    if ( !transform.IsIdentity() ) {
         
-        object_matrix *= transform;
+        orientation_mat.GetInverse( inverse );
+        
+        CORE_MATH_VECTOR cp = options.GetPosition() * inverse;
+        
+        options.GetOrientation().ToMatrix( &orientation_mat[0] );
+        
+        object_matrix.Scale( options.GetScaleFactor() );
+        object_matrix.Translate( cp );
+        object_matrix *= orientation_mat;
+        
+        if ( !transform.IsIdentity() ) {
+            
+            object_matrix *= transform;
+        }
     }
-    
-    options.GetOrientation().ToMatrix( &orientation_mat[0] );
-    
-    object_matrix.Scale( options.GetScaleFactor() );
-    object_matrix.Translate( options.GetPosition() );
-    object_matrix *= orientation_mat;
+    else {
+        
+        options.GetOrientation().ToMatrix( &orientation_mat[0] );
+        
+        object_matrix.Scale( options.GetScaleFactor() );
+        object_matrix.Translate( options.GetPosition() );
+        object_matrix *= orientation_mat;
+        
+        if ( !transform.IsIdentity() ) {
+            
+            object_matrix *= transform;
+        }
+    }
     
     
     //---------------

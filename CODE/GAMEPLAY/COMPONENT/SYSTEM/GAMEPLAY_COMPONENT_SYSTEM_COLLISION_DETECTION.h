@@ -13,12 +13,13 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM.h"
 #include "GRAPHIC_RENDERER.h"
 #include "CORE_HELPERS_UNIQUE.h"
-#ifndef PLATFORM_WINDOWS
+#if DEBUG
     #include "TOOL_BULLET_GL_DEBUGGER.h"
 #endif
 
 #ifdef __BULLET_PHYSICS__
     #include "btBulletDynamicsCommon.h"
+    #include "btMultiBodyConstraintSolver.h"
 #endif
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAMEPLAY_COMPONENT_SYSTEM )
@@ -68,7 +69,7 @@ private :
     btNearCallback
         NearCallback;
 
-    #if DEBUG && !defined(PLATFORM_WINDOWS)
+    #if DEBUG
         TOOL_BULLET_GL_DEBUGGER
             Debugger;
     #endif

@@ -7,9 +7,9 @@
 #include "GRAPHIC_WINDOW_WINDOWS.h"
 //https://support.microsoft.com/en-us/help/125750/you-receive-an-unresolved-external-symbol-winmain-16-error-message-whe
 
-int APIENTRY wWinMain( _In_ HINSTANCE hInstance,
+int CALLBACK WinMain( _In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
-    _In_ LPWSTR    lpCmdLine,
+    _In_ LPSTR    lpCmdLine,
     _In_ int       nCmdShow ) {
 
     UNREFERENCED_PARAMETER( hPrevInstance );
@@ -36,7 +36,7 @@ int APIENTRY wWinMain( _In_ HINSTANCE hInstance,
     window->SetPositionY( 0 );
 
     window->SetHInstance( hInstance );
-    window->SetCommandLine( lpCmdLine );
+    //window->SetCommandLine( &lpCmdLine );
     window->SetCommandShow( nCmdShow );
 
     window->Initialize();

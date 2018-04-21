@@ -20,7 +20,8 @@
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.h"
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h"
-#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h" 
+#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h"
+#include "GRAPHIC_SHADER_EFFECT_SPEEDBLUR.h"
 
 XS_CLASS_BEGIN( R3D_RENDER )
 
@@ -32,6 +33,13 @@ XS_CLASS_BEGIN( R3D_RENDER )
     inline GRAPHIC_CAMERA * GetCamera() { return Camera; }
     inline void SetCamera( GRAPHIC_CAMERA::PTR camera ) { Camera = camera; }
 
+    inline void SetDebugRenderActive( bool active ) {
+    #if DEBUG
+        DebugRenderActive = active;
+    #endif
+    }
+
+
 private :
 
     CORE_MATH_QUATERNION
@@ -40,7 +48,8 @@ private :
         * Camera;
     GRAPHIC_CAMERA_ORTHOGONAL
         * InterfaceCamera,
-        * RenderTargetCamera;
+        * RenderTargetCamera,
+        * LightShadowCamera;
     GRAPHIC_SHADER_LIGHT
         Directional,
         Ambient;
@@ -53,11 +62,14 @@ private :
         SpecularRenderTarget,
         GaussianRenderTarget1,
         GaussianRenderTarget2,
-        BloomRenderTarget;
+        BloomRenderTarget,
+        ShadowMapRenderTarget;
     GRAPHIC_TEXTURE_BLOCK::PTR
         TextureBlock,
         TextureBlock2,
         TextureBlock3;
+    GRAPHIC_SHADER_EFFECT::PTR
+        UIShaderTextured;
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::PTR
         HorizontalBlurEffect;
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::PTR
@@ -66,6 +78,12 @@ private :
         CombineBloomEffect;
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::PTR
         BloomEffect;
+    GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR
+        SpeedBlurEffect;
+#if DEBUG
+    bool
+        DebugRenderActive;
+#endif
 
 XS_CLASS_END
 

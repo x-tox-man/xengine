@@ -60,7 +60,7 @@ void GRAPHIC_SHADER_EFFECT_LOADER::ReloadResource( GRAPHIC_SHADER_EFFECT * resou
     resource_to_reload->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( resource_to_reload->GetPath().GetFileName(), "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath(), true ), GRAPHIC_SHADER_Vertex );
     resource_to_reload->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( resource_to_reload->GetPath().GetFileName(), "fsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath(), true ), GRAPHIC_SHADER_Pixel );
     
-    resource_to_reload->Initialize( resource_to_reload->GetSahderBind() );
+    resource_to_reload->Initialize( resource_to_reload->GetShaderBind() );
     
     
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);

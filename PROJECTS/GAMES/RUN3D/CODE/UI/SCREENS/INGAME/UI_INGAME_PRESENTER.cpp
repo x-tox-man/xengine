@@ -13,7 +13,8 @@
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 
 UI_INGAME_PRESENTER::UI_INGAME_PRESENTER( GRAPHIC_UI_FRAME * view ) :
-    R3D_BASE_PRESENTER( view ) {
+    R3D_BASE_PRESENTER( view ),
+    CurrentPlayer( NULL ) {
     
 }
 
@@ -24,13 +25,20 @@ void UI_INGAME_PRESENTER::Configure() {
 
 void UI_INGAME_PRESENTER::Update( float time_step ) {
     
-    auto cmp = (GAMEPLAY_COMPONENT_PHYSICS::PTR) CurrentPlayer->GetShip()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
-    
-    const CORE_MATH_VECTOR & v = cmp->GetVelocity();
-    float speed = v.ComputeLength();
-    //((UI_INGAME::PTR) GetView())->SetSpeed( speed );
-    //float gd = R3D_APP_PTR->GetGame()->GetGameDuration();
-    //((UI_INGAME::PTR) GetView())->SetEllapsedTime( gd );
+    if ( CurrentPlayer != NULL && CurrentPlayer->GetShip() != NULL ) {
+        
+        auto cmp = (GAMEPLAY_COMPONENT_PHYSICS::PTR) CurrentPlayer->GetShip()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+        
+        const CORE_MATH_VECTOR & v = cmp->GetVelocity();
+        float speed = v.ComputeLength();
+        ((UI_INGAME::PTR) GetView())->SetSpeed( speed );
+        float gd = R3D_APP_PTR->GetGame()->GetGameDuration();
+        ((UI_INGAME::PTR) GetView())->SetEllapsedTime( gd );
+    }
+    else {
+        
+        CurrentPlayer = R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer();
+    }
 }
 
 void UI_INGAME_PRESENTER::OnPauseButtonPressed( GRAPHIC_UI_ELEMENT * element, GRAPHIC_UI_ELEMENT_EVENT state ) {

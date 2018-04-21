@@ -34,6 +34,7 @@ class RESOURCE_IMAGE : public RESOURCE< RESOURCE_IMAGE, RESOURCE_IMAGE_PNG_LOADE
     inline void * GetImageRawData() { return RawData; }
 
     void Blit( RESOURCE_IMAGE * image, int x_offset, int y_offset, int rows, int columns, int mask );
+    void Premultiply();
 
     GRAPHIC_TEXTURE * CreateTextureObject( bool generate_mip_map );
 

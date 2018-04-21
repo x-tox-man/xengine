@@ -20,6 +20,7 @@
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
 #include "GRAPHIC_MATERIAL.h"
 #include "GRAPHIC_PARTICLE.h"
+#include "GRAPHIC_SHADER_ATTRIBUTE.h"
 
 template< typename __PARTICLE_TYPE__>
 GRAPHIC_SHADER_BIND GetVertexComponent() {
@@ -40,13 +41,17 @@ public:
         InternalInitialize( effect );
     }
     
+    GRAPHIC_SHADER_ATTRIBUTE & GetScaleFactorAttribute() { return ScaleFactorAttribute; }
+    
     // contract :
     //void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table );
 
 private:
-    GRAPHIC_SHADER_BIND VertexComponent;
-    
-#if OPENGL2PLUS
+    GRAPHIC_SHADER_BIND
+        VertexComponent;
+    GRAPHIC_SHADER_ATTRIBUTE
+        ScaleFactorAttribute;
+#if OPENGL4
     #include "GRAPHIC_PARTICLE_RENDERER_OPENGL.hpp"
 #elif OPENGLES2
     #include "GRAPHIC_PARTICLE_RENDERER_OES2.hpp"

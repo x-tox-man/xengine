@@ -54,6 +54,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COM
     void ConfigureShapePlane( const CORE_MATH_VECTOR & position, float constant = 1.0f );
     void BulletConfigureConvexHullShape( const CORE_MATH_VECTOR & position, GRAPHIC_OBJECT * object );
     void Enable( bool enable );
+    void EnableCCD();
 
 #ifdef __BULLET_PHYSICS__
     void BulletConfigureBvhTriangleMeshShape( const CORE_MATH_VECTOR & position, btTriangleMesh * collision_mesh );

@@ -27,6 +27,7 @@ UI_GARAGE_SHIP_CELL::~UI_GARAGE_SHIP_CELL() {
 
 void UI_GARAGE_SHIP_CELL::Initialize() {
     
+    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext( true );
     Accumulated = (rand() % 100) * 0.01f * M_PI_2;
     
     GetPlacement().SetSize( CORE_MATH_VECTOR( 128.0f, 128.0f ) );
@@ -41,6 +42,8 @@ void UI_GARAGE_SHIP_CELL::Initialize() {
     style->SetMaterial( m );
     
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
+    auto text2 = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1_normal" ), CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-normal", "png", "TEXTURES" ) );
+    
     m->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( text ) );
     
     auto element = GRAPHIC_UI_HELPER::CreateElement( "ship" );
@@ -58,6 +61,7 @@ void UI_GARAGE_SHIP_CELL::Initialize() {
     GRAPHIC_UI_HELPER::CreateFrameStyleWithBorderAndContentColor(this, CORE_HELPERS_COLOR( 0.5f, 0.5f, 0.5f, 0.5f ), "frameBorder3" );
     
     GRAPHIC_UI_FRAME::Initialize();
+    CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext( false );
 }
 
 void UI_GARAGE_SHIP_CELL::Update(const float time_step ) {

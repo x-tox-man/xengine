@@ -26,7 +26,7 @@ XS_CLASS_BEGIN_WITH_COPY( CORE_DATA_UTF8_TEXT )
             String = NULL;
         }
         
-        if ( other.String ) {
+        if ( other.String && wcslen( other.String ) ) {
             
             String = ( wchar_t * )  malloc( sizeof(wchar_t) * ( wcslen( other.String ) + 1 ) );
             CORE_DATA_COPY_WIDE_STRING( String, other.String );

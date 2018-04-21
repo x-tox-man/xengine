@@ -77,13 +77,15 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const char * image_path ) :
 
 GRAPHIC_MATERIAL::~GRAPHIC_MATERIAL() {
     
+    TextureTable.clear();
 }
 
 void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader ) {
     
     GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
     
-    if ( renderer.IsColorEnabled() && Diffuse[3] > 0.0f ) {
+    if ( renderer.IsColorEnabled() && color_attribute.AttributeIndex != 0 ) {
+        
         GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1,  &Diffuse[0] )
     }
     

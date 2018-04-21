@@ -43,6 +43,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(NETWORK_PLAYER, CORE_DATA_MODEL)
     inline void SetIsReady( bool ready ) { IsReady = ready; }
     inline bool Ready() const { return IsReady; }
     inline std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE> & GetOutGoingMessageQueue() { return OutGoingMessageQueue; }
+    inline void SetPing( float ping ) { Ping = ping; };
+    inline float GetPing() const { return Ping; }
+
+    inline void SetLoaded( bool loaded ) { GameLoaded = loaded; }
+    inline bool IsGameLoaded() const { return GameLoaded; }
 
 private :
 
@@ -50,7 +55,7 @@ private :
         Name;
     CORE_DATA_STREAM
         OutGoingMessage;
-    std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE>
+    std::array< SERVICE_NETWORK_COMMAND *, OUTGOING_MESSAGE_QUEUE_SIZE >
         OutGoingMessageQueue;
     SERVICE_NETWORK_CONNECTION
         * CurrentNewtorkStream;
@@ -61,7 +66,10 @@ private :
     bool
         IsActive,
         IsHost,
-        IsReady;
+        IsReady,
+        GameLoaded;
+    float
+        Ping;
 
 XS_CLASS_END
 

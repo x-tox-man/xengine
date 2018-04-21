@@ -124,7 +124,7 @@ private :
 
 // :Hold the values for specific rendering systems
 
-#if OPENGL2PLUS
+#if OPENGL4
     #include "GRAPHIC_MESH_OPENGL_2.h"
 #elif OPENGLES2
     #include "GRAPHIC_MESH_OES2.h"

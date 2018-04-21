@@ -32,10 +32,10 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
     inline void SetTargetTexture( GRAPHIC_TEXTURE * texture ) { TargetTexture= texture; }
     inline void SetItUsesDepth( bool uses ) { ItUsesDepth = uses; }
 
-#if OPENGL2PLUS
-    #include "GRAPHIC_RENDER_TARGET_OPENGL.hpp"
-#elif OPENGLES2
+#if OPENGLES2
     #include "GRAPHIC_RENDER_TARGET_OES2.hpp"
+#elif OPENGL2PLUS
+    #include "GRAPHIC_RENDER_TARGET_OPENGL.hpp"
 #elif X_VK
     #include "GRAPHIC_RENDER_TARGET_VK.hpp"
 #else

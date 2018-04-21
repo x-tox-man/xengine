@@ -10,7 +10,9 @@
 
 R3D_GAME_LEVEL_INFO::R3D_GAME_LEVEL_INFO() :
     LevelName( NULL ),
-    LevelPicto( NULL ) {
+    LevelPicto( NULL ),
+    Scores(),
+    PlayerBest( -1.0f ) {
     
 }
 

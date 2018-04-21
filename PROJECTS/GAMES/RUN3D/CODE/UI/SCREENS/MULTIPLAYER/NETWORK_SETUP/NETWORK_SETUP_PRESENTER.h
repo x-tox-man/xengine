@@ -28,6 +28,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( NETWORK_SETUP_PRESENTER, R3D_BASE_PRESENTER)
 
     void ServerGameStarted();
     void ClientGameStarted( std::vector<NETWORK_PLAYER *> & players, int seed);
+    void ClientLoadGame( std::vector<NETWORK_PLAYER *> & players );
 
     void StartGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event );
     void SelectGameButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event );

@@ -20,7 +20,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_LEVEL_TRACK, GAMEPLAY_COMPONENT_ENTITY )
     void Initialize( const CORE_MATH_VECTOR & position );
     void AddToSystems();
 
-    virtual GAMEPLAY_COMPONENT_ENTITY * Clone() const {
+    virtual GAMEPLAY_COMPONENT_ENTITY * Clone() const override {
         
         return new GAMEPLAY_COMPONENT_ENTITY();
     }

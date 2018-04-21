@@ -38,7 +38,9 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         
         // Set up the collision configuration and dispatcher
         btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-        btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+
+        //collisionConfiguration->setPlaneConvexMultipointIterations();
+        btCollisionDispatcher * dispatcher = new btCollisionDispatcher(collisionConfiguration);
     
         if ( HasNearCallback ) {
             
@@ -46,14 +48,14 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         }
         
         // The actual physics solver
-        btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+        btSequentialImpulseConstraintSolver* solver = new btMultiBodyConstraintSolver;
         
         // The world.
         DynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
         
         DynamicsWorld->setGravity(btVector3(0.0f, 0.0f, Gravity));
     
-        #if DEBUG  && !defined(PLATFORM_WINDOWS)
+        #if DEBUG
             Debugger.Initialize();
             Debugger.setDebugMode(btIDebugDraw::DBG_DrawWireframe); // so does this
     
@@ -79,7 +81,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
     #ifdef __BULLET_PHYSICS__
         btTransform transformation;
         
-        DynamicsWorld->stepSimulation(time_step);
+        DynamicsWorld->stepSimulation( time_step, 10 );
     
         std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     

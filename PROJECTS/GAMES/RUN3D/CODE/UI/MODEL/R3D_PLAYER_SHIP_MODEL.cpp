@@ -9,10 +9,10 @@
 #include "R3D_PLAYER_SHIP_MODEL.h"
 
 R3D_PLAYER_SHIP_MODEL::R3D_PLAYER_SHIP_MODEL() :
-    BaseMass( 1.0f ),
-    BaseEnergyCapacity( 1.0f ),
-    BasePowerBoost( 1.0f ),
-    BaseSteering( 1.0f ),
+    BaseMass( 1.0f + ((rand() % 10) - 5) * 0.1f ),
+    BaseEnergyCapacity( 1.0f + ((rand() % 10) - 5) * 0.1f ),
+    BasePowerBoost( 1.0f + ((rand() % 10) - 5) * 0.1f  ),
+    BaseSteering( 1.0f + ((rand() % 10) - 5) * 0.1f ),
     Gears(),
     ModelName( "spaceship1" ),
     TextureName( "BitsUV2048" ) {

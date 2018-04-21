@@ -13,8 +13,10 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_TIMELINE )
     XS_DEFINE_ClassMember( "TimeOffset", float, TimeOffset )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
-CORE_TIMELINE::CORE_TIMELINE() :
+CORE_TIMELINE::CORE_TIMELINE( const float fixed_time_step ) :
     TimeOffset( 0.0f ),
+    FixedTimeStep( fixed_time_step ),
+    Tick( 1 ),
     EventTable(),
     CurrentItem(),
     OnEventAddedCallback(),
@@ -30,25 +32,56 @@ CORE_TIMELINE::~CORE_TIMELINE() {
 void CORE_TIMELINE::Update( float time_step ) {
     
     TimeOffset += time_step;
+    ++Tick;
+    
+#if DEBUG
+    
+#endif
+    
+    if ( FixedTimeStep == 0.0f ) {
+        
+        TimeOffset += time_step;
+    }
+    else {
+        TimeOffset += FixedTimeStep;
+    }
     
     // GetEvents to trigger
     
-    std::list< CORE_TIMELINE_EVENT * >::iterator update_iterator = CurrentItem;
+    std::list< CORE_TIMELINE_EVENT * >::iterator update_iterator = CurrentItem , previous_iterator = CurrentItem;
     
     while ( update_iterator != EventTable.end() ) {
         
-        if ( !(*update_iterator)->HasEnded() && (*update_iterator)->GetEnd() <= TimeOffset ) {
+        if ( !(*update_iterator)->HasEnded() && (*update_iterator)->GetTick() > 0 ) {
+            if ( (*update_iterator)->GetTick() <= Tick ) {
+                
+                (*update_iterator)->Complete();
+            }
+            else if ( (*update_iterator)->GetTick() > Tick ){
+                break;
+            }
+        }
+        else if ( (*update_iterator)->GetTick() > Tick || (*update_iterator)->GetEnd() > TimeOffset ) {
+            
+            break;
+        }
+        else if ( !(*update_iterator)->HasEnded() && (*update_iterator)->GetEnd() <= TimeOffset ) {
             
             (*update_iterator)->Complete();
         }
         
+        previous_iterator = update_iterator;
         update_iterator++;
     }
+    
+    CurrentItem = previous_iterator;
 }
 
 void CORE_TIMELINE::Reset() {
     
     TimeOffset = 0.0f;
+    
+    Tick = 1;
     
     EventTable.clear();
     
@@ -62,9 +95,18 @@ void CORE_TIMELINE::InsertNewEvent( CORE_TIMELINE_EVENT * event ) {
         EventTable.push_back( event );
         
         CurrentItem = EventTable.begin();
+        
+        return;
     }
     
-    if ( (*CurrentItem)->GetStart() > event->GetStart() ) {
+    if ( event->GetTick() > 0 ) {
+        
+        EventTable.push_back( event );
+        
+        return;
+    }
+    
+    if (  (*CurrentItem)->GetStart() > event->GetStart() ) {
         
         InsertPreviousEvent( event, CurrentItem );
     }

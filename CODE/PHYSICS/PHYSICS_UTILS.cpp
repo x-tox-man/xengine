@@ -13,7 +13,7 @@
 #endif
 
 #ifdef __BULLET_PHYSICS__
-bool PHYSICS_UTILS::FindCollisionInRayFromWorld( btDiscreteDynamicsWorld * world, CORE_MATH_VECTOR & result, const CORE_MATH_RAY_SEGMENT & ray ) {
+bool PHYSICS_UTILS::FindCollisionInRayFromWorld( btDiscreteDynamicsWorld * world, CORE_MATH_VECTOR & result, CORE_MATH_VECTOR & normal, const CORE_MATH_RAY_SEGMENT & ray ) {
     
     btVector3 start = ray.GetOrigin().toBt();
     btVector3 end = ray.GetDestination().toBt();
@@ -24,15 +24,15 @@ bool PHYSICS_UTILS::FindCollisionInRayFromWorld( btDiscreteDynamicsWorld * world
     world->rayTest( start, end, result_callback );
     
     if( result_callback.hasHit() ) {
-        
-        btVector3 end_pos = result_callback.m_hitPointWorld;
-        btVector3 end_normal = result_callback.m_hitNormalWorld;
-        
         // Do some clever stuff here
         
-        result[0] = end_pos.x();
-        result[1] = end_pos.y();
-        result[2] = end_pos.z();
+        result[0] = result_callback.m_hitPointWorld.x();
+        result[1] = result_callback.m_hitPointWorld.y();
+        result[2] = result_callback.m_hitPointWorld.z();
+        
+        normal[0] = result_callback.m_hitNormalWorld.x();
+        normal[1] = result_callback.m_hitNormalWorld.y();
+        normal[2] = result_callback.m_hitNormalWorld.z();
         
         return true;
     }

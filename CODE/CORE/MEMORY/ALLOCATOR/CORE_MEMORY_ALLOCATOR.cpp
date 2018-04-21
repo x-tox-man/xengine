@@ -15,8 +15,14 @@ void * operator new( size_t size )
     return p;
 }
 
+void operator delete( void * p ) {
+    
+    free( p );
+}
+
 void * CORE_MEMORY_ALLOCATOR::Allocate( size_t size ) {
 
+    if ( size > 1024 * 5 ) printf( "%d ko\n", size / 1024 );
     return (void *) malloc( size );
 }
 

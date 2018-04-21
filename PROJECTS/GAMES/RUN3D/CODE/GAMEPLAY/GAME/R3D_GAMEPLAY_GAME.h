@@ -21,6 +21,7 @@
 #include "R3D_GAMEPLAY_GAME_DELEGATE.h"
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 #include "R3D_LEVEL_MANAGER.h"
+#include "GAMEPLAY_ACTION_SYSTEM.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
@@ -32,60 +33,25 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
     void OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity );
 
-    void InternalUpdateGame( const float step) {
-        
-        float thrust = 0.0f;
-        float orientation = 0.0f;
-        
-        if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_UP ) ) {
-            
-            thrust = 1.0f;
-            printf( "up pressed\n" );
-        }
-        else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_DOWN ) ) {
-            
-            thrust = -1.0f;
-            printf( "down pressed\n" );
-        }
-        
-        if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_LEFT ) ) {
-            
-            orientation = 1.0f;
-        }
-        else if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_ARROW_RIGHT ) ) {
-            
-            orientation = -1.0f;
-        }
-        
-#if PLATFORM_IOS || PLATFORM_ANDROID
-        
-        Delegate->SetThrust( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetTouch().GetY() );
-        //Delegate->SetOrientation( orientation );
-#else
-        Delegate->SetThrust( thrust );
-        Delegate->SetOrientation( orientation );
-#endif
-        
-        Delegate->InternalUpdateGame( step );
-    }
+    void InternalUpdateGame( const float step);
 
     void SetPlayers( const std::vector< GAME_PLAYER_MODEL > & players );
 
     void Initialize();
     void Finalize();
     void Restart();
-    void SelectLevel( const R3D_GAME_LEVEL_INFO & info );
+    void SelectLevel( R3D_GAME_LEVEL_INFO::PTR info );
 
-    inline int GetTick() const { return Tick; }
     inline R3D_LEVEL::PTR GetLevel() { return LevelManager.GetCurrentLevel(); }
     inline GAMEPLAY_SCENE & GetScene() { return Scene; }
     inline GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * GetBulletSystem() { return BulletSystem; }
     inline R3D_GAMEPLAY_GAME_DELEGATE * GetDelegate() { return Delegate; }
     inline void SetDelegate( R3D_GAMEPLAY_GAME_DELEGATE * delegate ) { Delegate = delegate; }
-    inline void SetThisPlayerIndex( int index ) { ThisPlayerIndex = index; }
+    inline void SetThisPlayerIndex( const CORE_HELPERS_UNIQUE_IDENTIFIER & index ) { ThisPlayerIndex = index; }
     inline R3D_LEVEL_MANAGER & GetLevelManager() { return LevelManager; }
+    inline CORE_HELPERS_UNIQUE_IDENTIFIER & GetThisPlayerIndex() { return ThisPlayerIndex; }
 
-    inline float GetGameDuration() const { return Tick * 0.033f; }
+    float GetGameDuration() const { return GAMEPLAY_ACTION_SYSTEM::GetInstance().GetTimeline().GetTick() * 0.033f; }
 
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, const float )
     CORE_FIXED_STATE_MACHINE_DefineEventVoid( PAUSE_EVENT )
@@ -95,7 +61,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     CORE_FIXED_STATE_MACHINE_End()
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, IDLE_STATE )
-
+        CORE_FIXED_STATE_MACHINE_DefineHandleEvent( UPDATE_EVENT )
     CORE_FIXED_STATE_MACHINE_EndDefineState( IDLE_STATE )
 
     CORE_FIXED_STATE_MACHINE_DefineState( GAME_BASE_STATE, GAME_STARTING )
@@ -125,8 +91,7 @@ protected:
         Scene;
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION
         * BulletSystem;
-    int
-        Tick,
+    CORE_HELPERS_UNIQUE_IDENTIFIER
         ThisPlayerIndex;
     float
         TimeMod;

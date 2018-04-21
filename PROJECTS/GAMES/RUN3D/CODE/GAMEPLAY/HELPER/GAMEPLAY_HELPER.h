@@ -29,12 +29,22 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
 
     static void Set3DObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     static GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR Set3DHeighFieldObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
-    static void SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
-    static void SetTexture( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::ColorTexture );
+    static void Set3DPlane( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & size );
+    static void Scale3dObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, float scale );
 
+    static void SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
+    static void SetShadowmapEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    static void SetTexture( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::ColorTexture );
+    static void SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const
+                          CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::NormalTexture );
+    static void SetTextureRepeating(GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_IDENTIFIER & identifier);
     static void SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_FILESYSTEM_PATH & path );
 
+    static void ConfigureGroundSpring( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+
     static void AddToWorld( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    static void AddToWorldTransparent( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    static void AddToMotion( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToAnimations( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with, bool enable = false );
@@ -51,7 +61,7 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
 
     static void InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, GRAPHIC_CAMERA & camera );
 
-    static CORE_MATH_VECTOR GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    static void GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity, CORE_MATH_VECTOR & out_position, CORE_MATH_VECTOR & out_normal );
 
 XS_CLASS_END
 

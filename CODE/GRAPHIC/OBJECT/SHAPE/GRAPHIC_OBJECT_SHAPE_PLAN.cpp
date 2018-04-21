@@ -45,7 +45,7 @@ GRAPHIC_OBJECT_SHAPE_PLAN::~GRAPHIC_OBJECT_SHAPE_PLAN() {
 
 void GRAPHIC_OBJECT_SHAPE_PLAN::InitializeShape() {
     
-    static unsigned int index_data[] = { 0, 1, 2, 2, 3, 0 };
+    static unsigned int index_data[] = { 0, 2, 1, 2, 0, 3 };
     
     GRAPHIC_MESH * mesh = new GRAPHIC_MESH();
     

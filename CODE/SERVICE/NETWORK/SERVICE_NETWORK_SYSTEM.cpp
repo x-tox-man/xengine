@@ -118,6 +118,8 @@ SERVICE_NETWORK_CONNECTION * SERVICE_NETWORK_SYSTEM::CreateConnection(
             if ( connection->Info.ItBroadcasts ) {
                 
                 UV_CHECK_ERROR( uv_udp_bind( &connection->UVConnection.UDPType.UDPSocket, (const struct sockaddr *) &connection->BroadcastAddress, flag ); )
+                
+                SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION udp Create 1 - %x %x %x %x\n", connection, &connection->UVConnection.UDPType.UDPRequest, &connection->UVConnection.UDPType.UDPSocket, connection->UVConnection.TCPType.Buffer, &connection->SocketConnectionAddress.sin_port );
             }
             else {
                 UV_CHECK_ERROR( uv_udp_bind( &connection->UVConnection.UDPType.UDPSocket, (const struct sockaddr *) &connection->SocketConnectionAddress, flag ); )
@@ -146,6 +148,8 @@ SERVICE_NETWORK_CONNECTION * SERVICE_NETWORK_SYSTEM::CreateConnection(
                 
                 UV_CHECK_ERROR( uv_tcp_connect( &connection->UVConnection.TCPType.TCPConnect, &connection->UVConnection.TCPType.TCPSocket, (const struct sockaddr *) &connection->SocketConnectionAddress, SERVICE_NETWORK_CONNECTION::TCPConnectionCallback ); )
             }
+            
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION tcp Create 1 %d %d %d\n", connection->UVConnection.TCPType.TCPConnect, connection->UVConnection.TCPType.TCPSocket, connection->SocketConnectionAddress.sin_port );
             
             break;
         }

@@ -16,6 +16,16 @@ AUDIO_SOUND::AUDIO_SOUND() :
     SLPlayerVolume(),
     PlayerBufferQueue(),
 #endif
+#if AUDIO_OGG
+    OGGSyncState(),
+    OGGStreamState(),
+    OGGPage(),
+    OGGPacket(),
+    VorbisInfo(),
+    VorbisComment(),
+    VorbisDspState(),
+    VorbisBlock(),
+#endif
     Data( NULL ),
     Mono( false ),
     Compressed( false ),

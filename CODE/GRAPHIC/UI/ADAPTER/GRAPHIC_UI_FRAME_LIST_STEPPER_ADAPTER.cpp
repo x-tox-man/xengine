@@ -14,7 +14,7 @@ GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER::GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER( GR
     
 }
 
-void GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force) {
+void GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force ) {
     
     float spacing = GetSpacing();
     

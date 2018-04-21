@@ -28,9 +28,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE, R3D_GAMEPL
 
     virtual void InternalUpdateGame( const float step ) override;
     virtual void InitializePlayers() override;
-    void SetPlayerUpdate( R3D_COMMAND_PLAYER_UPDATE::PTR player_update );
+    virtual void SetPlayerUpdate( R3D_COMMAND_PLAYER_UPDATE::PTR player_update ) override;
 
 private:
+
+    unsigned int ComputeMinimumTickLag();
 
     NETWORK_REMOTE_GAME_INFO
         Info;

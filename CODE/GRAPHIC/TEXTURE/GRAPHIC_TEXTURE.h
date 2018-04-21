@@ -61,7 +61,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_TEXTURE, GR_T_ANCESTOR_TYPE )
     void SaveTo( const CORE_FILESYSTEM_PATH & path );
     void SaveDepthTo( const CORE_FILESYSTEM_PATH & path );
 
-    GRAPHIC_TEXTURE_INFO & GetTextureInfo() { return TextureInfo; }
+    inline GRAPHIC_TEXTURE_INFO & GetTextureInfo() { return TextureInfo; }
     inline void SetTextureInfo( const GRAPHIC_TEXTURE_INFO & texture_info ) { TextureInfo = texture_info; }
     inline const GRAPHIC_TEXTURE_INFO & GetTextureInfo() const  { return TextureInfo; }
 

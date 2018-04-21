@@ -23,6 +23,8 @@ struct GRAPHIC_UI_ANIMATION_INTERPOLATION_DATA {
         To;
 };
 
+void GRAPHIC_UI_ANIMATION_Default(GRAPHIC_UI_ELEMENT *);
+
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_UI_ANIMATION )
 
     GRAPHIC_UI_ANIMATION();
@@ -30,8 +32,8 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_UI_ANIMATION )
         GRAPHIC_UI_ELEMENT * element,
         std::function<void (GRAPHIC_UI_ELEMENT *, std::vector< GRAPHIC_UI_ANIMATION_INTERPOLATION_DATA > &, float)> update,
         float time_modulator = 1.0f,
-        std::function<void (GRAPHIC_UI_ELEMENT *)> begin = std::function<void (GRAPHIC_UI_ELEMENT *)>(),
-        std::function<void (GRAPHIC_UI_ELEMENT *)> end = std::function<void (GRAPHIC_UI_ELEMENT *)>() );
+        std::function<void (GRAPHIC_UI_ELEMENT *)> begin = GRAPHIC_UI_ANIMATION_Default,
+        std::function<void (GRAPHIC_UI_ELEMENT *)> end = GRAPHIC_UI_ANIMATION_Default );
 
     ~GRAPHIC_UI_ANIMATION();
 
@@ -53,6 +55,7 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_UI_ANIMATION )
     void Update( float time_step );
     inline void SetCallback( CORE_HELPERS_CALLBACK_1<GRAPHIC_UI_ANIMATION *> & callback ) { EndAnimationCallback = callback; }
     inline std::vector< GRAPHIC_UI_ANIMATION_INTERPOLATION_DATA > & GetInterpolationData() { return InterpolationData; }
+    inline void SetElement( GRAPHIC_UI_ELEMENT * element ) { Element = element; }
 
 private :
 

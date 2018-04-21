@@ -59,7 +59,7 @@ void GRAPHIC_FONT::Load( const CORE_FILESYSTEM_PATH & font_path, const CORE_FILE
     stream.Close();
     stream.ResetOffset();
     
-    auto img  = ((RESOURCE_IMAGE*) loader.Load( image_path ));
+    auto img  = (RESOURCE_IMAGE*) loader.Load( image_path );
     
     Texture = img->CreateTextureObject( true );
     

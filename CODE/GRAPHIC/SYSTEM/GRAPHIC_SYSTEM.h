@@ -21,6 +21,8 @@
 #include "GRAPHIC_TEXTURE_INFO.h"
 #include "CORE_PARALLEL_LOCK_MUTEX.h"
 #include "CORE_HELPERS_COLOR.h"
+#include "GRAPHIC_TEXTURE_FILTERING.h"
+#include "GRAPHIC_TEXTURE_WRAP.h"
 
 class GRAPHIC_TEXTURE;
 class GRAPHIC_RENDER_TARGET;
@@ -45,7 +47,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void EnableStencilTest();
     static void DisableStencil();
 
-    static void EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end );
+    static void EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin = 0.0f, float range_end = 1.0f );
     static void DisableDepthTest();
 
     static void EnableAlpha();
@@ -65,6 +67,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
     static void ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
     static void DiscardTexture( GRAPHIC_TEXTURE * texture );
+    static void SetTextureOptions( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_FILTERING filtering, GRAPHIC_TEXTURE_WRAP wrap );
 
     static void SetPolygonMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE fill_mode );
 

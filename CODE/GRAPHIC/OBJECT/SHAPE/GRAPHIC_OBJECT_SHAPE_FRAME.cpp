@@ -39,7 +39,7 @@ void Static_GetPlanIndexDataAdapted(unsigned int * base_index_data ) {
     
     for (int i = 0; i < 8; i++ ) {
         unsigned int offset = (unsigned int) i * 4;
-        unsigned int index_data[] = { 0+offset, 1+offset, 2+offset, 2+offset, 3+offset, 0+offset };
+        unsigned int index_data[] = { 0+offset, 2+offset, 1+offset, 2+offset, 0+offset, 3+offset };
         
         memcpy((void*)data_offset, (void*)index_data, 6* sizeof(unsigned int));
         data_offset += 6;

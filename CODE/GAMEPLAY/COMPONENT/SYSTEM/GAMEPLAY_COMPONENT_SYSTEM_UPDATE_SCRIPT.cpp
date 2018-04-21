@@ -22,8 +22,6 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Initialize() {
 
 void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Update( float time_step ) {
     
-    CORE_ABSTRACT_RUNTIME_LUA::PTR runtime = ( CORE_ABSTRACT_RUNTIME_LUA::PTR ) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[CORE_ABSTRACT_PROGRAM_RUNTIME_Lua];
-    
     std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     
     while (it != EntitiesTable.end() ) {
@@ -32,7 +30,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Update( float time_step ) {
         
         CORE_ABSTRACT_PROGRAM_FACTORY * abstract_script = script->GetScript();
         
-        CORE_ABSTRACT_RUNTIME_LUA::InnerTypeForPushObjectOrPointer<GAMEPLAY_COMPONENT_ENTITY *, std::is_pointer< GAMEPLAY_COMPONENT_ENTITY * >::value >::PushObjectOrPointer((GAMEPLAY_COMPONENT_ENTITY *) it->second->GetEntity(), runtime->getLuaState() );
+        CORE_ABSTRACT_RUNTIME_LUA::InnerTypeForPushObjectOrPointer<GAMEPLAY_COMPONENT_ENTITY *, std::is_pointer< GAMEPLAY_COMPONENT_ENTITY * >::value >::PushObjectOrPointer((GAMEPLAY_COMPONENT_ENTITY *) it->second->GetEntity(), ((CORE_ABSTRACT_PROGRAM_LUA*)script->GetScript())->GetRuntime()->getLuaState() );
         
         abstract_script->ExecuteFunction( "Update", 1, 0, 0 );
         

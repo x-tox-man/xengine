@@ -83,7 +83,6 @@
     Window->SetWidth( 1024 );
     
     Window->Initialize();
-    //Window->EnableBackgroundContext( true );
     
     CORE_MATH_QUATERNION lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     

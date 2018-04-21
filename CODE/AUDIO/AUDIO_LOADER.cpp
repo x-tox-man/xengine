@@ -12,12 +12,14 @@
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "RESOURCE_SOUND.h"
 
+
 #if PLATFORM_OSX
     #include "AUDIO_LOADER_OSX.h"
 #elif PLATFORM_IOS
     #include "AUDIO_LOADER_IOS.h"
 #elif PLATFORM_WINDOWS
-	#include "AUDIO_LOADER_WINDOWS.h"
+    //#include "lame.h"
+    #include "AUDIO_OGG_LOADER.h"
 #elif PLATFORM_ANDROID
     #include "AUDIO_LOADER_ANDROID.h"
     #include "AUDIO_SOUND_LOADER_MPG123.h"
@@ -30,10 +32,62 @@
     #include <OpenAL/alc.h>
 #endif
 
+lame_global_flags *gfp = lame_init();
+
 void AUDIO_LOADER_Open( const CORE_FILESYSTEM_PATH & file_path, const char * extension, AUDIO_SOUND & sound, const AUDIO_BANK_SOUND_LOAD_OPTION & option ) {
     
     #if PLATFORM_ANDROID && defined AUDIO_MPG
         MPG_123_Open( file_path, sound );
+    #elif PLATFORM_WINDOWS && __AUDIO_OPENAL__
+        OGG_Open( file_path, sound );
+    /*CORE_FILESYSTEM_FILE
+        * file = new CORE_FILESYSTEM_FILE( file_path );
+
+        if ( !file->OpenOutput() ) {
+
+            return;
+        }
+
+        sound.Hip = hip_decode_init();
+        sound.SetFile( file );
+
+        void * bytes=malloc( 4096 );
+        sound.GetFile()->OutputBytes( bytes, 4096 );
+        file->Rewind();
+        
+
+        short
+            pcm_l[ 40240 ],
+            pcm_r[ 40240 ];
+
+        mp3data_struct mp3data;
+        lame_set_decode_only( gfp, 1 );
+        lame_set_in_samplerate( gfp, 44100 );
+        lame_set_VBR( gfp, vbr_default );
+        //lame_set_mode(lame, MONO);
+        lame_init_params( gfp );
+
+        int size = hip_decode_headers( sound.Hip, (unsigned char *) bytes, 4096, pcm_l, pcm_r, &mp3data );
+
+        if ( size ) {
+            sound.GetFile()->OutputBytes( bytes, size );
+        }
+        else {
+            sound.GetFile()->OutputBytes( bytes, 128 );
+            sound.GetFile()->OutputBytes( bytes, size );
+            size = hip_decode_headers( sound.Hip, ( unsigned char * ) bytes, 4096, pcm_l, pcm_r, &mp3data );
+        }
+
+        sound.SetFrequency( mp3data.samplerate );
+        sound.SetIsCompressed( true );
+        sound.SetIsMono( mp3data.stereo == 1 );
+        sound.SetBufferWidth( mp3data.stereo * mp3data.framesize  );
+        sound.SetSize( mp3data.totalframes );
+        sound.SetFrameSize( mp3data.framesize );
+        sound.SetChannels( sound.IsMono() ? 1 : 2 );
+
+        free( bytes );*/
+
     #elif PLATFORM_IOS && __AUDIO_OPENAL__
     
     #elif PLATFORM_OSX && __AUDIO_OPENAL__
@@ -92,6 +146,8 @@ bool AUDIO_LOADER_ReadChunk( AUDIO_SOUND & sound, int chunk_index ) {
         abort();
     #elif PLATFORM_ANDROID
         MPG_123_Read( sound , chunk_index);
+    #elif PLATFORM_WINDOWS
+
     #else
         abort();
     #endif
@@ -105,6 +161,9 @@ void AUDIO_LOADER_Close( AUDIO_SOUND & sound ) {
         [XSAudioLoader closeAudioFile:(ExtAudioFileRef * ) sound.GetExtAudioFile()
                         withAudioFile:(AudioFileID * ) sound.GetAudioFile() ];
     #elif PLATFORM_IOS && __AUDIO_OPENAL__
+
+    #elif PLATFORM_WINDOWS && __AUDIO_OPENAL__
+        
     #elif PLATFORM_ANDROID && defined AUDIO_MPG
         MPG_123_Close( sound );
     #endif

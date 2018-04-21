@@ -24,14 +24,14 @@ NETWORK_BROWSER_LOBBY_CELL::~NETWORK_BROWSER_LOBBY_CELL() {
 
 void NETWORK_BROWSER_LOBBY_CELL::Initialize() {
 
-    GetPlacement().SetSize( CORE_MATH_VECTOR( 500.0f, 32.0f ) );
+    GetPlacement().SetSize( CORE_MATH_VECTOR( 500.0f, 196.0f ) );
     
     auto join_server_button = new UI_BASE_BUTTON;
 
     join_server_button->SetActionCallback( Callback );
     join_server_button->GetPlacement().Initialize( &GetPlacement(),
                                                   CORE_MATH_VECTOR::Zero,
-                                                  CORE_MATH_VECTOR( 32.0f, 32, 0.0f, 1.0f ),
+                                                  CORE_MATH_VECTOR( 196.0f, 196, 0.0f, 1.0f ),
                                                   GRAPHIC_UI_Right );
     join_server_button->Initialize();
 

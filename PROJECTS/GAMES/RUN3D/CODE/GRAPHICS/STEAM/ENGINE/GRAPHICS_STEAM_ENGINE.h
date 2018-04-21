@@ -26,6 +26,8 @@ XS_CLASS_BEGIN( GRAPHICS_STEAM_ENGINE )
     ~GRAPHICS_STEAM_ENGINE();
 
     void Initialize();
+    void Update( float step );
+
     inline void SetPosition( CORE_MATH_VECTOR & position) { Emiter->SetPosition( position ); }
     inline void SetVelocity( CORE_MATH_VECTOR & velocity) { Emiter->SetVelocity( velocity ); }
 

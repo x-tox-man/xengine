@@ -16,8 +16,7 @@
 XS_CLASS_BEGIN( PHYSICS_UTILS )
 
 #ifdef __BULLET_PHYSICS__
-    static bool FindCollisionInRayFromWorld( btDiscreteDynamicsWorld * world, CORE_MATH_VECTOR & result, const CORE_MATH_RAY_SEGMENT & ray );
-
+    static bool FindCollisionInRayFromWorld( btDiscreteDynamicsWorld * world, CORE_MATH_VECTOR & result, CORE_MATH_VECTOR & normal, const CORE_MATH_RAY_SEGMENT & ray );
 
 #endif
 

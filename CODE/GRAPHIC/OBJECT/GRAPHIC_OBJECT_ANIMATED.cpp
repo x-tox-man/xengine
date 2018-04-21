@@ -28,7 +28,7 @@ GRAPHIC_OBJECT_ANIMATED::~GRAPHIC_OBJECT_ANIMATED() {
 
 void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
-    effect->Apply( renderer );
+    effect->Apply( renderer, options.IsTexturingEnabled() );
     
     for ( size_t i = 0; i < MeshTable.size(); i++ ) {
         

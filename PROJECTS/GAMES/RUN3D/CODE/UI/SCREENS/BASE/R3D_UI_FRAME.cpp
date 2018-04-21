@@ -9,6 +9,7 @@
 #include "R3D_UI_FRAME.h"
 #include "GRAPHIC_UI_HELPER.h"
 #include "GRAPHIC_UI_SYSTEM.h"
+#include "R3D_UI_FRAME_ANIMATION.h"
 
 R3D_UI_FRAME::R3D_UI_FRAME() :
     GRAPHIC_UI_FRAME(),
@@ -35,10 +36,16 @@ void R3D_UI_FRAME::Initialize() {
     
     GRAPHIC_TEXTURE::LoadResourceForPath( texture_identifier, CORE_FILESYSTEM_PATH::FindFilePath( "frameBorder3", "png", "TEXTURES" ) );
     
-    GetPlacement().SetSize( GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize() * 0.9f );
+    GetPlacement().SetSize( GRAPHIC_UI_SYSTEM::GetInstance().GetScreenSize() * 0.95f );
     
     if ( !Borderless ) {
+        
         GRAPHIC_UI_HELPER::CreateFrameStyleWithBorderAndContentColor(this, CORE_HELPERS_COLOR( 0.5f, 0.5f, 0.5f, 0.5f ), "frameBorder3" );
+        
+        GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetDecoratingMaterial()->GetDiffuse()[0] = 0.5f;
+        GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetDecoratingMaterial()->GetDiffuse()[1] = 0.5f;
+        GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetDecoratingMaterial()->GetDiffuse()[2] = 0.5f;
+        GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetDecoratingMaterial()->GetDiffuse()[3] = 0.5f;
     }
     
     GRAPHIC_UI_FRAME::Initialize();

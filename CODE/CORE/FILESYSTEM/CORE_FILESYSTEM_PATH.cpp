@@ -80,7 +80,7 @@ CORE_FILESYSTEM_PATH::CORE_FILESYSTEM_PATH( const CORE_FILESYSTEM_PATH & other )
     std::vector< CORE_FILESYSTEM_PATH> CORE_FILESYSTEM_PATH::FindAllFilePaths( const char * pattern, const char * extension, const char * directory ) {
         std::vector< CORE_FILESYSTEM_PATH> files;
         
-
+        
         
         return files;
     }

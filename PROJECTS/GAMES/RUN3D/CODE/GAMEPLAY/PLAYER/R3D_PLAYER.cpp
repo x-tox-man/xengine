@@ -13,9 +13,19 @@ R3D_PLAYER::R3D_PLAYER() :
     Ship( NULL ),
     VirtualCredits( 0 ),
     RealMoney( 0 ),
+    TotalExperience( 0 ),
+    Level( 1 ),
     TotalRunTime( 0.0f ),
     ModifiersMap() {
-    
+
+    ModifiersMap[ R3D_PLAYER_MODIFIER::MaxSpeedModifier ].SetValue( 0.0f );
+    ModifiersMap[ R3D_PLAYER_MODIFIER::HorsePowerModifier ].SetValue( 0.0f );
+    ModifiersMap[ R3D_PLAYER_MODIFIER::FuelCapacityModifier ].SetValue( 0.0f );
+    ModifiersMap[ R3D_PLAYER_MODIFIER::WeaponReloadTimeModifier ].SetValue( 0.0f );
+    ModifiersMap[ R3D_PLAYER_MODIFIER::GravityModifier ].SetValue( 0.0f );
+    ModifiersMap[ R3D_PLAYER_MODIFIER::MassModifier ].SetValue( 0.0f );
+    ModifiersMap[ R3D_PLAYER_MODIFIER::ExperienceGainModifier ].SetValue( 0.0f );
+    ModifiersMap[ R3D_PLAYER_MODIFIER::BrakeModifier ].SetValue( 0.0f );
 }
 
 void R3D_PLAYER::Initialize() {
@@ -31,30 +41,30 @@ void R3D_PLAYER::Reset( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATE
 }
 
 std::vector< R3D_PLAYER_SHIP_MODEL::PTR > R3D_PLAYER::GetAllShipsOwned() {
+    
     std::vector< R3D_PLAYER_SHIP_MODEL::PTR > all_ships;
     
     auto ship = new R3D_PLAYER_SHIP_MODEL;
     all_ships.push_back( ship );
-    auto ship2 = new R3D_PLAYER_SHIP_MODEL;
-    all_ships.push_back( ship2 );
-    auto ship3 = new R3D_PLAYER_SHIP_MODEL;
-    all_ships.push_back( ship3 );
-    auto ship4 = new R3D_PLAYER_SHIP_MODEL;
-    all_ships.push_back( ship4 );
-    auto ship5 = new R3D_PLAYER_SHIP_MODEL;
-    all_ships.push_back( ship5 );
-    auto ship6 = new R3D_PLAYER_SHIP_MODEL;
-    all_ships.push_back( ship6 );
-    ship6 = new R3D_PLAYER_SHIP_MODEL;
-    all_ships.push_back( ship6 );
-    ship6 = new R3D_PLAYER_SHIP_MODEL;
-    all_ships.push_back( ship6 );
-    ship6 = new R3D_PLAYER_SHIP_MODEL;
-    all_ships.push_back( ship6 );
-    ship6 = new R3D_PLAYER_SHIP_MODEL;
-    all_ships.push_back( ship6 );
+    ship = new R3D_PLAYER_SHIP_MODEL;
+    all_ships.push_back( ship );
+    ship = new R3D_PLAYER_SHIP_MODEL;
+    all_ships.push_back( ship );
+    ship = new R3D_PLAYER_SHIP_MODEL;
+    all_ships.push_back( ship );
+    ship = new R3D_PLAYER_SHIP_MODEL;
+    all_ships.push_back( ship );
+    ship = new R3D_PLAYER_SHIP_MODEL;
+    all_ships.push_back( ship );
+    ship = new R3D_PLAYER_SHIP_MODEL;
+    all_ships.push_back( ship );
+    ship = new R3D_PLAYER_SHIP_MODEL;
+    all_ships.push_back( ship );
+    ship = new R3D_PLAYER_SHIP_MODEL;
+    all_ships.push_back( ship );
+    ship = new R3D_PLAYER_SHIP_MODEL;
+    all_ships.push_back( ship );
     
-
     return all_ships;
 }
 
@@ -68,4 +78,24 @@ bool R3D_PLAYER::Buy( int amount ) {
     }
     
     return false;
+}
+
+const CORE_MATH_QUATERNION & R3D_PLAYER::GetOrientation() {
+    
+    auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) Ship->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    
+    return pos->GetOrientation();
+}
+
+const CORE_MATH_VECTOR & R3D_PLAYER::GetPosition() {
+    
+    if( Ship ) {
+        auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) Ship->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+        
+        return pos->GetPosition();
+    }
+    else {
+        return CORE_MATH_VECTOR();
+    }
+    
 }

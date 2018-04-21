@@ -1,0 +1,34 @@
+//
+//  GAMEPLAY_ACTION_COMMAND_LOAD_GAME.hpp
+//  GAME-ENGINE
+//
+//  Created by Christophe Bernard on 11/02/18.
+//  Copyright © 2018 Christophe Bernard. All rights reserved.
+//
+
+#ifndef GAMEPLAY_ACTION_COMMAND_LOAD_GAME_hpp
+#define GAMEPLAY_ACTION_COMMAND_LOAD_GAME_hpp
+
+#include "GAMEPLAY_ACTION.h"
+#include "NETWORK_PLAYER.h"
+
+XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_ACTION_COMMAND_LOAD_GAME, GAMEPLAY_ACTION )
+
+    GAMEPLAY_ACTION_COMMAND_LOAD_GAME();
+    GAMEPLAY_ACTION_COMMAND_LOAD_GAME( std::vector<NETWORK_PLAYER*> & players );
+    ~GAMEPLAY_ACTION_COMMAND_LOAD_GAME();
+
+    XS_DEFINE_SERIALIZABLE
+
+    CORE_HELPERS_FACTORY_Element( GAMEPLAY_ACTION_COMMAND_LOAD_GAME, GAMEPLAY_ACTION, GAMEPLAY_ACTION_TYPE, GAMEPLAY_ACTION_TYPE_LoadGame )
+
+    virtual void Apply() override;
+
+    SimpleTrickForSerialization()
+
+    std::vector<NETWORK_PLAYER*>
+        Players;
+
+XS_CLASS_END
+
+#endif /* GAMEPLAY_ACTION_COMMAND_LOAD_GAME_hpp */

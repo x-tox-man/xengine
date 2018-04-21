@@ -50,15 +50,16 @@ void TOOL_BULLET_GL_DEBUGGER::drawLine(const btVector3& from, const btVector3& t
     Line.SetTo( v );
     
     Line.UpdateShape();
+    Shader->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     Line.Render( GRAPHIC_RENDERER::GetInstance(), option, Shader );
 }
 
 void TOOL_BULLET_GL_DEBUGGER::drawLine(const btVector3& from, const btVector3& to, const btVector3& color) {
     
     GRAPHIC_OBJECT_RENDER_OPTIONS
-    option;
+        option;
     CORE_MATH_VECTOR
-    v;
+        v;
     
     v[0] = from.getX();
     v[1] = from.getY();
@@ -73,6 +74,7 @@ void TOOL_BULLET_GL_DEBUGGER::drawLine(const btVector3& from, const btVector3& t
     Line.SetTo( v );
     
     Line.UpdateShape();
+    Shader->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     Line.Render( GRAPHIC_RENDERER::GetInstance(), option, Shader );
 }
 

@@ -27,6 +27,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY(CORE_ABSTRACT_PROGRAM_LUA, CORE_ABSTRACT_
     virtual void Load( const char *, const CORE_ABSTRACT_BASE_PROGRAM_RUNTIME & ) override;
     virtual void Execute() override;
     virtual void ExecuteFunction( const char * function, int args, int results, int error_func ) override;
+    inline CORE_ABSTRACT_RUNTIME_LUA * GetRuntime() { return Runtime; }
 
     template <typename __PARAMETER__>
     void AddParameter( __PARAMETER__ parameter, int index) {

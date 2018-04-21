@@ -17,7 +17,7 @@
 #include "GAMEPLAY_ACTION.h"
 #include "GAMEPLAY_COMPONENT_ENTITY.h"
 
-XS_CLASS_BEGIN(GAMEPLAY_ACTION_SYSTEM)
+XS_CLASS_BEGIN( GAMEPLAY_ACTION_SYSTEM )
 
     XS_DEFINE_UNIQUE( GAMEPLAY_ACTION_SYSTEM )
 
@@ -50,16 +50,43 @@ XS_CLASS_BEGIN(GAMEPLAY_ACTION_SYSTEM)
 
     //TODO : Place elsewhere
     template <typename __COMMAND_TYPE__>
-    static SERVICE_NETWORK_COMMAND * CreateNetworkCommand(__COMMAND_TYPE__ & command) {
+    static SERVICE_NETWORK_COMMAND * CreateNetworkCommand(__COMMAND_TYPE__ & command, float start, float end ) {
         
         SERVICE_NETWORK_COMMAND
             * message = new SERVICE_NETWORK_COMMAND();
         CORE_TIMELINE_EVENT
-        event;
+            event;
         CORE_DATA_STREAM
-        stream;
+            stream;
         
-        event.Setup(0.0f, 0.0f, CORE_HELPERS_UNIQUE_IDENTIFIER::Empty, &command);
+        event.Setup(start, end, CORE_HELPERS_UNIQUE_IDENTIFIER::Empty, &command);
+        
+        stream.Open();
+        XS_CLASS_SERIALIZER< CORE_TIMELINE_EVENT, CORE_DATA_STREAM >::Serialize< std::true_type >( "event", event, stream );
+        stream << command.GetFactoryType();
+        XS_CLASS_SERIALIZER< __COMMAND_TYPE__, CORE_DATA_STREAM >::template Serialize< std::true_type >( "command", command, stream );
+        stream.Close();
+        
+        message->Data = CORE_MEMORY_ALLOCATOR_Allocate(stream.GetOffset());
+        message->Size = (int) stream.GetOffset();
+        
+        memcpy(message->Data, stream.GetMemoryBuffer(), stream.GetOffset());
+        
+        return message;
+    }
+
+    //TODO : Place elsewhere
+    template <typename __COMMAND_TYPE__>
+    static SERVICE_NETWORK_COMMAND * CreateNetworkCommand(__COMMAND_TYPE__ & command, unsigned int tick ) {
+        
+        SERVICE_NETWORK_COMMAND
+            * message = new SERVICE_NETWORK_COMMAND();
+        CORE_TIMELINE_EVENT
+            event;
+        CORE_DATA_STREAM
+            stream;
+        
+        event.Setup( tick, CORE_HELPERS_UNIQUE_IDENTIFIER::Empty, &command );
         
         stream.Open();
         XS_CLASS_SERIALIZER< CORE_TIMELINE_EVENT, CORE_DATA_STREAM >::Serialize< std::true_type >( "event", event, stream );

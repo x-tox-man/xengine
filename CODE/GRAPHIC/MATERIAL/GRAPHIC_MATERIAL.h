@@ -43,6 +43,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
     inline CORE_HELPERS_COLOR & GetDiffuse() { return Diffuse; }
     inline void SetDiffuse( const CORE_HELPERS_COLOR & diffuse ) { Diffuse = diffuse; }
 
+    inline int GetTextureCount() const { return TextureTable.size(); }
+
 private:
 
     void TryAndFillFor( const char * path, const char * extension, const CORE_HELPERS_IDENTIFIER & identifier );

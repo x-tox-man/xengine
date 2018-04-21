@@ -9,6 +9,10 @@
 #include "GRAPHIC_UI_ANIMATION.h"
 #include "GRAPHIC_UI_ELEMENT.h"
 
+void GRAPHIC_UI_ANIMATION_Default(GRAPHIC_UI_ELEMENT *) {
+    
+}
+
 GRAPHIC_UI_ANIMATION::GRAPHIC_UI_ANIMATION() :
     Element( NULL ),
     Percentage( 0.0f ),
@@ -33,7 +37,20 @@ GRAPHIC_UI_ANIMATION::GRAPHIC_UI_ANIMATION(
         UpdateFunction( update ),
         BeginFunction( begin ),
         EndFunction( end ),
-        EndAnimationCallback() {
+        EndAnimationCallback(),
+    InterpolationData() {
+    
+}
+
+GRAPHIC_UI_ANIMATION::GRAPHIC_UI_ANIMATION( const GRAPHIC_UI_ANIMATION & other ) :
+    Element( other.Element ),
+    Percentage( other.Percentage ),
+    TimeModulator( other.TimeModulator ),
+    UpdateFunction( other.UpdateFunction ),
+    BeginFunction( other.BeginFunction ),
+    EndFunction( other.EndFunction ),
+    EndAnimationCallback( other.EndAnimationCallback ),
+    InterpolationData( other.InterpolationData ) {
     
 }
 
@@ -49,7 +66,7 @@ void GRAPHIC_UI_ANIMATION::Update( float time_step ) {
         
         if ( Percentage == 0.0f ) {
             
-            //BeginFunction( Element );
+            BeginFunction( Element );
         }
         
         Percentage += time_step * TimeModulator;
@@ -59,12 +76,15 @@ void GRAPHIC_UI_ANIMATION::Update( float time_step ) {
         
         if ( Percentage == 1.0f ) {
             
+            EndFunction( Element );
+            
             Element = NULL;
             Percentage = 1.0f;
             
-            //EndFunction( Element );
-            
-            //EndAnimationCallback( this );
+            if ( EndAnimationCallback.IsConnected() ) {
+                
+                EndAnimationCallback( this );
+            }
         }
     }
 }

@@ -19,7 +19,6 @@ void main() {
     
     // get previous screen space position:
     vec4 previous = PreviousModelViewProjection * current;
-    previous.xyz /= previous.w;
     previous.xy = previous.xy * 0.5 + 0.5;
     
     vec2 blurVec = previous.xy - textureCoordinates;
@@ -37,9 +36,9 @@ void main() {
     }
     
     result /= float(nSamples);
-    colorOut = result;
+    colorOut = texture(c_texture, textureCoordinates);
     
-    colorOut.a = 1;
+    colorOut.a = 1.0;
 }
 
 /*

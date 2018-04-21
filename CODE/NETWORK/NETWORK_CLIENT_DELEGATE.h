@@ -31,6 +31,8 @@ public :
     virtual void OnServerRefused() = 0;
     virtual void OnServerDisconnected() = 0;
     virtual void OnGameStarted() = 0;
+    virtual void OnLoadGame( std::vector<NETWORK_PLAYER *> & players ) = 0;
+    virtual void OnPingUpdated( float ping ) = 0;
 };
 
 #endif /* NETWORK_CLIENT_DELEGATE_h */

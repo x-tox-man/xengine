@@ -22,7 +22,7 @@ void UI_MAIN_MENU::Initialize() {
     auto button = new UI_BASE_BUTTON;
     button->GetPlacement().SetAnchor( GRAPHIC_UI_BottomRight );
     button->GetPlacement().SetSize( R3D_UI::AdaptSize( CORE_MATH_VECTOR( 128.0f, 32.0f ) ) );
-    button->GetPlacement().SetRelativePosition( R3D_UI::AdaptPosition( CORE_MATH_VECTOR( -16.0f, 16.0f ) ) );
+    button->GetPlacement().SetRelativePosition( R3D_UI::AdaptSize( CORE_MATH_VECTOR( -16.0f, 16.0f ) ) );
     button->SetTitle( TOOLS_LOCALE_SYSTEM::GetInstance().FindTranslation( CORE_HELPERS_UNIQUE_IDENTIFIER( "Garage" ) ) );
     button->Initialize();
     
@@ -30,8 +30,8 @@ void UI_MAIN_MENU::Initialize() {
     
     auto network_button = new UI_BASE_BUTTON;
     network_button->GetPlacement().SetAnchor( GRAPHIC_UI_Center );
-    network_button->GetPlacement().SetSize( CORE_MATH_VECTOR( 128.0f, 32.0f ) );
-    network_button->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( .0f, -16.0f ) );
+    network_button->GetPlacement().SetSize( R3D_UI::AdaptSize( CORE_MATH_VECTOR( 128.0f, 32.0f ) ) );
+    network_button->GetPlacement().SetRelativePosition( R3D_UI::AdaptSize( CORE_MATH_VECTOR( .0f, -16.0f ) ) );
     network_button->SetTitle( TOOLS_LOCALE_SYSTEM::GetInstance().FindTranslation( CORE_HELPERS_UNIQUE_IDENTIFIER( "Network" ) ) );
     network_button->Initialize();
     
@@ -39,8 +39,8 @@ void UI_MAIN_MENU::Initialize() {
     
     auto start_button = new UI_BASE_BUTTON;
     start_button->GetPlacement().SetAnchor( GRAPHIC_UI_Center );
-    start_button->GetPlacement().SetSize( CORE_MATH_VECTOR( 128.0f, 32.0f ) );
-    start_button->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( .0f, 40.0f ) );
+    start_button->GetPlacement().SetSize( R3D_UI::AdaptSize( CORE_MATH_VECTOR( 128.0f, 32.0f ) ) );
+    start_button->GetPlacement().SetRelativePosition( R3D_UI::AdaptSize( CORE_MATH_VECTOR( .0f, 40.0f ) ) );
     start_button->SetTitle( TOOLS_LOCALE_SYSTEM::GetInstance().FindTranslation( CORE_HELPERS_UNIQUE_IDENTIFIER( "Play" ) ) );
     start_button->Initialize();
     

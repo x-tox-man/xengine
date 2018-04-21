@@ -10,6 +10,7 @@
 #include "UI_INGAME_PRESENTER.h"
 #include "GRAPHIC_UI_HELPER.h"
 #include "RUN3D_APPLICATION.h"
+#include "GAMEPLAY_ACTION_COMMAND_GAME_LOADED.h"
 
 UI_INGAME::UI_INGAME() :
     R3D_UI_FRAME() {
@@ -37,7 +38,7 @@ void UI_INGAME::Initialize() {
     
     auto text = GRAPHIC_UI_HELPER::CreateTextElement( SpeedText, speed );
     text->GetPlacement().SetAnchor( GRAPHIC_UI_BottomLeft );
-    text->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( .0f, 12.0f ) );
+    text->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( .0f, 32.0f ) );
     text->Initialize();
     text->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_White );
     
@@ -46,6 +47,16 @@ void UI_INGAME::Initialize() {
     time->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( .0f, .0f ) );
     time->Initialize();
     time->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_White );
+    
+/*#if DEBUG
+    auto fps = GRAPHIC_UI_HELPER::CreateTextElement( FPSText, speed );
+    text->GetPlacement().SetAnchor( GRAPHIC_UI_TopLeft );
+    text->GetPlacement().SetRelativePosition(CORE_MATH_VECTOR( -32.0f, -32.0f ) );
+    text->Initialize();
+    text->GetRenderStyleForState( GRAPHIC_UI_ELEMENT_STATE_Default )->GetMaterial()->SetDiffuse( CORE_COLOR_Green );
+    
+    AddObject( fps );
+#endif*/
     
     AddObject( text );
     AddObject( time );
@@ -57,6 +68,16 @@ void UI_INGAME::Initialize() {
 void UI_INGAME::Update( float time_step ) {
     
     R3D_UI_FRAME::Update( time_step );
+    
+#if DEBUG
+    /*static CORE_DATA_UTF8_TEXT fps_text( L"%d");
+    
+    static int local_fps = 0;
+    
+    local_fps++;
+    
+    GetObjectForIdentifier( FPSText )->SetTextValue( fps_text.Format( local_fps ) );*/
+#endif
     ((UI_INGAME_PRESENTER::PTR) GetPresenter())->Update( time_step );
 }
 
@@ -77,6 +98,20 @@ void UI_INGAME::SetEllapsedTime( float time ) {
     GetObjectForIdentifier( TimeText )->SetTextValue( text.Format( min, sec, msec ) );
 }
 
+void UI_INGAME::OnViewAppearing() {
+    
+    if ( R3D_APP_PTR->GetNetworkManager().GetClient() != NULL ) {
+        
+        GAMEPLAY_ACTION_COMMAND_GAME_LOADED
+            command;
+        
+        command.Player = &R3D_APP_PTR->GetNetworkManager().GetClient()->GetCurrentPlayer() ;
+        
+        R3D_APP_PTR->GetNetworkManager().GetClient()->DispatchMessageToServer( GAMEPLAY_ACTION_SYSTEM::GetInstance().CreateNetworkCommand( command, 0 ) );
+    }
+}
+
 CORE_HELPERS_IDENTIFIER
     UI_INGAME::SpeedText( "SpeedText" ),
-    UI_INGAME::TimeText( "TimeText" );
+    UI_INGAME::TimeText( "TimeText" ),
+    UI_INGAME::FPSText( "FPS" );

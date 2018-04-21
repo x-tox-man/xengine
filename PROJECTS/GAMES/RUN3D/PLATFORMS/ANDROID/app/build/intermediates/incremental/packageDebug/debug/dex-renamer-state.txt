@@ -1,4 +1,4 @@
-#Thu Dec 28 18:39:55 CET 2017
+#Thu Mar 01 18:19:54 CET 2018
 base.0=/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

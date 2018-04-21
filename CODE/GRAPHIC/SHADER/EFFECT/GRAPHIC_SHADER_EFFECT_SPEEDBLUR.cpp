@@ -18,7 +18,7 @@ GRAPHIC_SHADER_EFFECT_SPEEDBLUR::GRAPHIC_SHADER_EFFECT_SPEEDBLUR( GRAPHIC_SHADER
     
     Program.SetProgram( effect->GetProgram().GetProgram() );
     Program.CopyAttributes();
-    Bind = effect->GetSahderBind();
+    Bind = effect->GetShaderBind();
     MaterialCollection = effect->GetMaterialCollection();
 }
 

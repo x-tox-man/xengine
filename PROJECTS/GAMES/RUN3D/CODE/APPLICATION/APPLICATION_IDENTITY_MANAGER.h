@@ -18,11 +18,14 @@ XS_CLASS_BEGIN( APPLICATION_IDENTITY_MANAGER )
     APPLICATION_IDENTITY_MANAGER();
 
     inline R3D_PLAYER::PTR GetCurrentPlayer() { return Player; }
+    inline const CORE_HELPERS_UNIQUE_IDENTIFIER & GetPlayerId() const { return PlayerId; }
 
 private:
 
     R3D_PLAYER::PTR
         Player;
+    CORE_HELPERS_UNIQUE_IDENTIFIER
+        PlayerId;
 
 XS_CLASS_END
 

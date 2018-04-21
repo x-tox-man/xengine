@@ -147,7 +147,7 @@ void AUDIO_OPENAL::PlaySound( AUDIO_SOUND & sound ) {
     
         if ( sound.GetSoundChunksTable().size() > 1 ) {
             
-            ALuint * buffers = (ALuint *) CORE_MEMORY_ALLOCATOR::Allocate(sound.GetSoundChunksTable().size() );
+            ALuint * buffers = (ALuint *) CORE_MEMORY_ALLOCATOR::Allocate(sound.GetSoundChunksTable().size() * sizeof( ALuint ) );
             
             AUDIO_CHECK( alGenBuffers( (ALsizei) sound.GetSoundChunksTable().size(), buffers); )
             

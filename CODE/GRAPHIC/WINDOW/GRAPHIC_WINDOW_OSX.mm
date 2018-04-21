@@ -109,6 +109,7 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
         
         NSOpenGLPixelFormatAttribute attributes[] = {
             NSOpenGLPFAAccelerated,
+            NSOpenGLPFADoubleBuffer,
             NSOpenGLPFAColorSize, (NSOpenGLPixelFormatAttribute )32,
             NSOpenGLPFADepthSize, (NSOpenGLPixelFormatAttribute )24,
             NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
@@ -154,7 +155,9 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
         
         [[self window] setDelegate:self];
         
-        self.DisplayTimer = [NSTimer timerWithTimeInterval:0.033 target:self selector:@selector(surfaceNeedsUpdate) userInfo:nil repeats:YES];
+        const float s = (1.0f / 30.0f );
+        
+        self.DisplayTimer = [NSTimer timerWithTimeInterval:s target:self selector:@selector(surfaceNeedsUpdate) userInfo:nil repeats:YES];
         
         [[NSRunLoop mainRunLoop] addTimer:self.DisplayTimer forMode:NSDefaultRunLoopMode];
     }
@@ -180,11 +183,12 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
 
 - (void) surfaceNeedsUpdate {
     
+    const float s = (1.0f / 30.0f );
     CORE_APPLICATION * app = &CORE_APPLICATION::GetApplicationInstance();
     
     if ( app != NULL ) {
         
-        CORE_APPLICATION::GetApplicationInstance().Update( 0.033f );
+        CORE_APPLICATION::GetApplicationInstance().Update( s );
     }
     
     [self update];
@@ -215,7 +219,8 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
     GFX_CHECK( glFlush(); )
     
     [[self openGLContext] flushBuffer];
-    [NSOpenGLContext clearCurrentContext];
+    //Not sure what it does??
+    //[NSOpenGLContext clearCurrentContext];
 }
 
 -(void) startUpdate {

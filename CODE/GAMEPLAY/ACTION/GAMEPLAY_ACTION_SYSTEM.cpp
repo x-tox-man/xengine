@@ -13,7 +13,8 @@ GAMEPLAY_ACTION_SYSTEM::GAMEPLAY_ACTION_SYSTEM() {
 }
 
 void GAMEPLAY_ACTION_SYSTEM::ProcessEvent( CORE_TIMELINE_EVENT * event ) {
-    event->Complete();
+    
+    Timeline.InsertNewEvent( event );
 }
 
 void GAMEPLAY_ACTION_SYSTEM::OnTimelineEventAdded( CORE_TIMELINE_EVENT * event ) {

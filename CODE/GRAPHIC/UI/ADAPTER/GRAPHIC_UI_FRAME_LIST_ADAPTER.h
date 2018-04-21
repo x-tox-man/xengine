@@ -40,14 +40,14 @@ protected:
     virtual void ConfigureItemLayoutFor(int , GRAPHIC_UI_ELEMENT *) = 0;
     virtual GRAPHIC_UI_ELEMENT::PTR CreateItem() = 0;
     virtual void OnBaseIndexChanged( int index ) = 0;
+    virtual int CalculateVisibleItemsCount(GRAPHIC_UI_FRAME * );
+    virtual CORE_MATH_VECTOR CalculateFrameContentDimension( GRAPHIC_UI_ELEMENT * ) override;
 
     int
         BaseIndex;
 
 private:
 
-    int CalculateVisibleItemsCount(GRAPHIC_UI_FRAME * );
-    virtual CORE_MATH_VECTOR CalculateFrameContentDimension( GRAPHIC_UI_ELEMENT * ) override;
     void UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CORE_MATH_VECTOR & offset, bool force = false) override;
 
     GRAPHIC_UI_FRAME

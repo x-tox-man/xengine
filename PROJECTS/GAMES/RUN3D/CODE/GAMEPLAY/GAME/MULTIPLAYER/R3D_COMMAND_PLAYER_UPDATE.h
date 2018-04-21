@@ -11,6 +11,8 @@
 
 #include "GAMEPLAY_ACTION.h"
 #include "NETWORK_PLAYER.h"
+#include "CORE_MATH_VECTOR.h"
+#include "CORE_MATH_QUATERNION.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( R3D_COMMAND_PLAYER_UPDATE, GAMEPLAY_ACTION )
 
@@ -28,11 +30,15 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( R3D_COMMAND_PLAYER_UPDATE, GAMEPLAY_ACTI
 
     SimpleTrickForSerialization()
 
-    int
+    unsigned int
         Tick;
     float
         Thrust,
         Orientation;
+    CORE_MATH_VECTOR
+        Position;
+    CORE_MATH_QUATERNION
+        ShipOrientation;
     CORE_HELPERS_UNIQUE_IDENTIFIER
         UniqueId;
 

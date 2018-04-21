@@ -59,7 +59,6 @@ LOCAL_LDLIBS    := -llog -landroid -lGLESv2 -lOpenSLES -lEGL -lz -L/Users/CBE/De
 -l/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/liblua.a \
 -l/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/libuv.a \
 -l/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/libmpg123.a \
--l/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/libopenal.a \
 -l/Users/christophebernard/Develop/Project/game-engine/PROJECTS/GAMES/RUN3D/PLATFORMS/ANDROID/compiled_libs/$(TARGET_ARCH_ABI)/libBullet.a
 
 LOCAL_STATIC_LIBRARIES := android_native_app_glue

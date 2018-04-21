@@ -10,6 +10,6 @@
 #define PHYSICS_COLLISION_NEAR_FILTER_h
 
 void MyNearCallback( btBroadphasePair & collision_pair, btCollisionDispatcher & dispatcher, const btDispatcherInfo & info );
-//static bool CustomMaterialCombinerCallback(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1);
+static bool CustomMaterialCombinerCallback(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1);
 
 #endif /* PHYSICS_COLLISION_NEAR_FILTER_h */

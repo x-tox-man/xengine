@@ -24,8 +24,11 @@ XS_CLASS_BEGIN( CORE_TIMELINE_EVENT )
     inline float GetEnd() const { return End; }
     inline bool HasEnded() const { return Ended; }
     inline bool IsCancelled() const { return Cancelled; }
+    inline unsigned int GetTick() const { return TickId; }
 
+    inline void SetTick( unsigned int tick ) { TickId = tick; }
     void Setup( float start, float end, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_TIMELINE_COMMAND * command );
+    void Setup( int tick, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_TIMELINE_COMMAND * command );
     void Complete();
 
     void SetCommand( CORE_TIMELINE_COMMAND * command ) { Command = command; }
@@ -33,8 +36,8 @@ XS_CLASS_BEGIN( CORE_TIMELINE_EVENT )
 
 private :
 
-    long
-        Id;
+    unsigned int
+        TickId;
     float
         Start,
         End;

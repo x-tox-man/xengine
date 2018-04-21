@@ -16,12 +16,20 @@
 
 #include <vector>
 
+#if PLATFORM_WINDOWS
+    #include "lame.h"
+#endif
+
 #if __AUDIO_OPENAL__
     #include <OpenAL/al.h>
 #endif
 
 #if defined AUDIO_MPG
     #include <mpg123.h>
+#endif
+
+#if defined AUDIO_OGG
+    #include <vorbis/codec.h>
 #endif
 
 #if __AUDIO_OPENSL__
@@ -67,6 +75,37 @@ XS_CLASS_BEGIN( AUDIO_SOUND )
         SLPlayItf GetSLPlayer() { return SLPlayer; }
         SLVolumeItf GetSLPlayerVolume() { return SLPlayerVolume; }
         SLAndroidSimpleBufferQueueItf GetPlayerBufferQueue() { return PlayerBufferQueue; }
+    #endif
+
+    CORE_FILESYSTEM_FILE
+        * File;
+
+    void SetFile( CORE_FILESYSTEM_FILE  * file ) {
+        File = file;
+    }
+    CORE_FILESYSTEM_FILE * GetFile() {
+        return File;
+    }
+
+    #if AUDIO_OGG
+        ogg_sync_state
+            OGGSyncState; /* sync and verify incoming physical bitstream */
+        ogg_stream_state
+            OGGStreamState; /* take physical pages, weld into a logical
+                             stream of packets */
+        ogg_page
+            OGGPage; /* one Ogg bitstream page. Vorbis packets are inside */
+        ogg_packet
+            OGGPacket; /* one raw packet of data for decode */
+        vorbis_info
+            VorbisInfo; /* struct that stores all the static vorbis bitstream
+                             settings */
+        vorbis_comment
+            VorbisComment; /* struct that stores all the bitstream user comments */
+        vorbis_dsp_state
+            VorbisDspState; /* central working state for the packet->PCM decoder */
+        vorbis_block
+            VorbisBlock; /* local working space for packet->PCM decode */
     #endif
 
 private:

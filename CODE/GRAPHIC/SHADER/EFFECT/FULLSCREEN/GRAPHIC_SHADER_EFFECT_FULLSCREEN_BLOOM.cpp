@@ -19,7 +19,7 @@ GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM( 
     
     Program.SetProgram( effect->GetProgram().GetProgram() );
     Program.CopyAttributes();
-    Bind = effect->GetSahderBind();
+    Bind = effect->GetShaderBind();
     MaterialCollection = effect->GetMaterialCollection();
 }
 

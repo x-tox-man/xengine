@@ -19,7 +19,8 @@ SERVICE_NETWORK_CONNECTION::SERVICE_NETWORK_CONNECTION() :
     TcpClientCommunicationThread(),
     TcpCommunicationTask( NULL ),
     SelfLoop( NULL ),
-    ListenCallback( NULL ) {
+    ListenCallback( NULL ),
+    ConnexionLock() {
     
 }
 
@@ -77,7 +78,7 @@ void SERVICE_NETWORK_CONNECTION::UDPReceivePacket(uv_udp_t *req, ssize_t nread, 
         command->Address[3] = atoi( &sender[ l ] );
     }
     
-    command->Size = 0;
+    command->Size = (int) nread;
     command->Data = ( void * ) buf->base;
     
     
@@ -120,24 +121,27 @@ void SERVICE_NETWORK_CONNECTION::TCPReceivePacket(uv_stream_t *req, ssize_t nrea
     if ( nread > 0 && buf->len > 0 ) {
         
         CORE_DATA_STREAM
-            stream(buf->base, (int) buf->len);
+            stream(buf->base, nread );
+        
+        unsigned int stream_size = 0;
+        
+        stream >> stream_size;
+        
+        if ( stream_size == 4 || stream_size > 65536 || strncmp(((char*)stream.GetMemoryBuffer() + stream_size + 8 ), "--END--", 7 ) != 0 ) {
+            
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION rejected network message\n" );
+            
+            return;
+        }
         
         do {
             
-            int size = *((int *) buf->base);
+            SERVICE_NETWORK_COMMAND * command = new SERVICE_NETWORK_COMMAND;
             
-            if ( size > 0 && size < MAX_BUFFFER_SIZE ) {
-                
-                SERVICE_NETWORK_COMMAND * command = new SERVICE_NETWORK_COMMAND;
-                
-                command->UnSerialize( "command", stream);
-                
-                (*SERVICE_NETWORK_SYSTEM::GetInstance().OnTCPDataReceivedCallback)( command, req );
-            }
-            else {
-                break;
-            }
-        } while (stream.GetOffset() < nread && strcmp(buf->base, "--END--" ) == 0 );
+            command->UnSerialize( "command", stream);
+            
+            (*SERVICE_NETWORK_SYSTEM::GetInstance().OnTCPDataReceivedCallback)( command, req );
+        } while ( strncmp(((char*)stream.GetMemoryBuffer() + stream.GetOffset() + 8 ), "--END--", 7 ) != 0 );
     }
     
     //TODO : Clean memory
@@ -145,7 +149,11 @@ void SERVICE_NETWORK_CONNECTION::TCPReceivePacket(uv_stream_t *req, ssize_t nrea
 
 void SERVICE_NETWORK_CONNECTION::UDPSend( uv_udp_send_t* req, int status ) {
     
-    //SERVICE_LOGGER_Info( "SERVICE_NETWORK_CONNECTION upd send %s %d\n", (char*)req->bufsml[0].base , req->bufsml[0].len );
+    SERVICE_LOGGER_Info( "SERVICE_NETWORK_CONNECTION udp send 1.5\n" );
+
+    #if !PLATFORM_WINDOWS
+        SERVICE_LOGGER_Info( "SERVICE_NETWORK_CONNECTION udp send %s %d\n", (char*)req->bufsml[0].base , req->bufsml[0].len );
+    #endif
 }
 
 void SERVICE_NETWORK_CONNECTION::TCPSend( uv_write_t* req, int status ) {
@@ -218,9 +226,9 @@ void SERVICE_NETWORK_CONNECTION::Start() {
     switch ( Info.ConnectionType ) {
             
         case SERVICE_NETWORK_CONNECTION_TYPE_Udp:
-            
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Start\n" );
             if ( Info.ItIsReceiver ) {
-                
+                SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Start\n" );
                 UV_CHECK_ERROR( uv_udp_recv_start( &UVConnection.UDPType.UDPSocket, AllocateReceiveBuffer, UDPReceivePacket ); )
             }
             
@@ -312,42 +320,49 @@ void SERVICE_NETWORK_CONNECTION::Send( const CORE_DATA_STREAM & data_to_send ) {
         return;
     }
 #endif
+    int size = data_to_send.GetSize();
     
-    if ( data_to_send.GetSize() > 0 ) {
+    if ( size == 0 ) {
         
-        UVConnection.TCPType.Buffer = uv_buf_init((char*)data_to_send.GetMemoryBuffer(), data_to_send.GetSize() );
-    }
-    else {
-        
-        UVConnection.TCPType.Buffer = uv_buf_init((char*)data_to_send.GetMemoryBuffer(), data_to_send.GetAllocatedBytes() );
+        size = data_to_send.GetAllocatedBytes();
+    
+        if ( size == 0 ){
+            return;
+        }
     }
     
     switch ( Info.ConnectionType ) {
             
         case SERVICE_NETWORK_CONNECTION_TYPE_Udp: {
             
-            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION udp Send 1" );
+            UVConnection.UDPType.Buffer = uv_buf_init((char*)data_to_send.GetMemoryBuffer(), (unsigned int) size );
+            
+            //SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION udp Send 0.2 %x %x %x size %d\n", &UVConnection.UDPType.UDPRequest, &UVConnection.UDPType.UDPSocket, &UVConnection.TCPType.Buffer, size );
+            
+            //SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION udp Send 1 %x %x %x\n", &UVConnection.UDPType.UDPRequest, UVConnection.UDPType.UDPSocket, &UVConnection.TCPType.Buffer, &SocketConnectionAddress.sin_port );
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(ConnexionLock)
                 UV_CHECK_ERROR( uv_udp_send(
                     &UVConnection.UDPType.UDPRequest,
                     &UVConnection.UDPType.UDPSocket,
-                    &UVConnection.TCPType.Buffer,
+                    &UVConnection.UDPType.Buffer,
                     1,
                     (const struct sockaddr *) &SocketConnectionAddress,
                     UDPSend ); )
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
-            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION udp Send 2" );
 
             break;
         }
     
         case SERVICE_NETWORK_CONNECTION_TYPE_TcpAccept:
         case SERVICE_NETWORK_CONNECTION_TYPE_Tcp: {
-        
-            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Send 1" );
+            UVConnection.TCPType.Buffer = uv_buf_init((char*)data_to_send.GetMemoryBuffer(), size );
+            
+            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION tcp Send 1" );
+            
             if ( SelfLoop ) {
                 
                 CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(ConnexionLock)
+                
                     UV_CHECK_ERROR( uv_write( &UVConnection.TCPType.TCPRequest, (uv_stream_t*) &UVConnection.TCPType.TCPSocket, &UVConnection.TCPType.Buffer, 1, SERVICE_NETWORK_CONNECTION::TCPSend); )
                 CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
                 
@@ -357,7 +372,7 @@ void SERVICE_NETWORK_CONNECTION::Send( const CORE_DATA_STREAM & data_to_send ) {
                     UV_CHECK_ERROR( uv_write( &UVConnection.TCPType.TCPRequest, (uv_stream_t*) &UVConnection.TCPType.TCPSocket, &UVConnection.TCPType.Buffer, 1, SERVICE_NETWORK_CONNECTION::TCPSend); )
                 CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX_END()
             }
-            SERVICE_LOGGER_Error( "SERVICE_NETWORK_CONNECTION Send 2" );
+            
             break;
         }
             

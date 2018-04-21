@@ -122,7 +122,7 @@ void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
         
         if (  RenderStyleTable[ (unsigned int) CurrentState ] != NULL ) {
             
-            RenderStyleTable[ CurrentState ]->Apply( renderer, Placement, Opacity );
+            RenderStyleTable[ CurrentState ]->Apply( renderer, Placement );
         }
         else {
             
@@ -130,7 +130,7 @@ void GRAPHIC_UI_ELEMENT::Render( GRAPHIC_RENDERER & renderer ) {
                 
                 if ( RenderStyleTable[ i ] != NULL ) {
                     
-                    RenderStyleTable[ i ]->Apply( renderer, Placement, Opacity );
+                    RenderStyleTable[ i ]->Apply( renderer, Placement );
                     
                     break;
                 }

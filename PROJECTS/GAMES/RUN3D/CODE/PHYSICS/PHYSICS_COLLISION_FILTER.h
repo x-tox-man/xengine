@@ -30,8 +30,10 @@ struct PHYSICS_COLLISION_FILTER : public btOverlapFilterCallback
         if ( needsBroadphase ) {
             
             unsigned int r = proxy0->m_collisionFilterGroup & PHYSICS_COLLISION_TYPE_TARGET;
+            unsigned int r2 = proxy1->m_collisionFilterMask & PHYSICS_COLLISION_TYPE_TARGET;
             
-            if ( r == PHYSICS_COLLISION_TYPE_TARGET ) {
+            if ( r == PHYSICS_COLLISION_TYPE_TARGET && r2 == PHYSICS_COLLISION_TYPE_TARGET ) {
+                
                 printf( "hit PHYSICS_COLLISION_TYPE_TARGET\n" );
                 
                 GAMEPLAY_COMPONENT_ENTITY * entity = ((GAMEPLAY_COMPONENT_ENTITY*)((btCollisionObject *) proxy0->m_clientObject)->getUserPointer());

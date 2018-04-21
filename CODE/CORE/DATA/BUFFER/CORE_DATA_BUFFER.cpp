@@ -13,7 +13,7 @@
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( CORE_DATA_BUFFER )
     XS_DEFINE_ClassMember( "Sections", int, Sections )
-    XS_DEFINE_ClassMember( "Size", size_t, Size )
+    XS_DEFINE_ClassMember( "Size", unsigned int, Size )
     XS_DEFINE_ClassMemberArray( "DataPointer", char, (char **) &DataPointer, Size )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
@@ -34,14 +34,14 @@ CORE_DATA_BUFFER::~CORE_DATA_BUFFER() {
     DataPointer = NULL;
 }
 
-void CORE_DATA_BUFFER::Initialize( size_t size, int section_count ) {
+void CORE_DATA_BUFFER::Initialize( X_VERY_LONG size, int section_count ) {
     
     this->DataPointer = CORE_MEMORY_ALLOCATOR_Allocate( size );
     this->Size = size;
     this->Sections = section_count;
 }
 
-void CORE_DATA_BUFFER::InitializeWithMemory( size_t size, int section_count, void * memory ) {
+void CORE_DATA_BUFFER::InitializeWithMemory( X_VERY_LONG size, int section_count, void * memory ) {
     
     // Only realloc memory if new array is bigger
     if ( this->DataPointer && this->Size < size ) {
@@ -73,7 +73,7 @@ void CORE_DATA_BUFFER::Finalize() {
     Sections = 0;
 }
 
-void CORE_DATA_BUFFER::setMarkerAtIndex( const CORE_HELPERS_IDENTIFIER * identifier, int section_index, int byte_offset, size_t item_size ) {
+void CORE_DATA_BUFFER::setMarkerAtIndex( const CORE_HELPERS_IDENTIFIER * identifier, int section_index, int byte_offset, X_VERY_LONG item_size ) {
     
     CORE_RUNTIME_Abort();
     
@@ -82,11 +82,11 @@ void CORE_DATA_BUFFER::setMarkerAtIndex( const CORE_HELPERS_IDENTIFIER * identif
     // *( ( int * ) DataPointer + section_index * 3 + 2 ) = item_size; // size of one data item
 }
 
-void * CORE_DATA_BUFFER::getpointerAtIndex( size_t byte_offset, int section ) {
+void * CORE_DATA_BUFFER::getpointerAtIndex( X_VERY_LONG byte_offset, int section ) {
     
-    size_t * base_pointer = ( size_t *) DataPointer;
+    X_VERY_LONG * base_pointer = ( X_VERY_LONG *) DataPointer;
     
-    base_pointer += byte_offset / sizeof( size_t );
+    base_pointer += byte_offset / sizeof( X_VERY_LONG );
     
     //assert(base_pointer >= (uint8_t*)DataPointer + (sections - 1) * 3 * 4 );
     //assert (base_pointer <= (uint8_t*)DataPointer + (sections - 1) * 3 * 4 + size);
@@ -96,7 +96,7 @@ void * CORE_DATA_BUFFER::getpointerAtIndex( size_t byte_offset, int section ) {
 
 int CORE_DATA_BUFFER::getSectionSize( int section_index )
 {
-    return *( ( size_t * ) DataPointer + section_index * 3 + 1 );
+    return *( ( X_VERY_LONG * ) DataPointer + section_index * 3 + 1 );
 }
 
 int CORE_DATA_BUFFER::getSectionSize( const CORE_HELPERS_IDENTIFIER * section )

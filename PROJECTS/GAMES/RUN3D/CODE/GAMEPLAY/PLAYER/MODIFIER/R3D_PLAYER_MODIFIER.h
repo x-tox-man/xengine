@@ -24,13 +24,6 @@ XS_CLASS_BEGIN( R3D_PLAYER_MODIFIER )
     void Apply( R3D_PLAYER * player );
     void Discard( R3D_PLAYER * player );
 
-private:
-
-    float
-        ModifierValue;
-    CORE_HELPERS_IDENTIFIER
-        ModifierIdentifier;
-
     static CORE_HELPERS_IDENTIFIER
         MaxSpeedModifier,
         HorsePowerModifier,
@@ -38,7 +31,16 @@ private:
         WeaponReloadTimeModifier,
         GravityModifier,
         MassModifier,
-        ExperienceGainModifier;
+        SteeringModifier,
+        ExperienceGainModifier,
+        BrakeModifier;
+
+private:
+
+    float
+        ModifierValue;
+    CORE_HELPERS_IDENTIFIER
+        ModifierIdentifier;
 
 XS_CLASS_END
 

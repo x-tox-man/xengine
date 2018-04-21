@@ -36,15 +36,8 @@ void main()
 
     diffuse += ambient_light.Color * ambient_light.AmbientIntensity;
     
-    float visibility = 1.0;
-    
-    //Pour le moment : texture( c_texture, ShadowCoord.xz ).x est toujours plus petit que ShadowCoord.y
-    // -> Ce qui s'explique car la projection de la camera n'est pas bonne, on se retrouve avec des hauteurs qui ne sont pas correctement reprojetées dans "la perspective" de la light camera
-    if ( texture( c_texture, ShadowCoord.xy ).x < ShadowCoord.y){
-        visibility = 0.4;
-    }
-    
+
     colorOut = diffuse;
-    colorOut.a = 0.1;
+    colorOut.a = diffuse.a;
 }
 

@@ -25,10 +25,13 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( UI_INGAME, R3D_UI_FRAME )
     virtual void Initialize() override;
     virtual void Update( float time_step ) override;
 
+    virtual void OnViewAppearing() override;
+
 private:
     static CORE_HELPERS_IDENTIFIER
         SpeedText,
-        TimeText;
+        TimeText,
+        FPSText;
 
 XS_CLASS_END
 

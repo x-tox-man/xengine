@@ -52,6 +52,14 @@ void NETWORK_BROWSER_PRESENTER::SetServer( SERVICE_NETWORK_COMMAND * server_conn
     std::vector< NETWORK_REMOTE_SERVER_INFO * >::iterator
         it = ServersList.begin();
     
+    if ( server_connection_command->Address[0] == 0 &&
+        server_connection_command->Address[1]  == 0 &&
+        server_connection_command->Address[2]  == 0 &&
+        server_connection_command->Address[3] == 0 ) {
+        
+        return;
+    }
+    
     if ( it == ServersList.end() ) {
         
         NETWORK_REMOTE_SERVER_INFO
@@ -59,6 +67,8 @@ void NETWORK_BROWSER_PRESENTER::SetServer( SERVICE_NETWORK_COMMAND * server_conn
         
         ServersList.push_back( info );
         ListAdapter->OnCollectionChanged();
+        
+        return;
     }
     else {
         
@@ -87,6 +97,8 @@ void NETWORK_BROWSER_PRESENTER::SetServer( SERVICE_NETWORK_COMMAND * server_conn
 void NETWORK_BROWSER_PRESENTER::ConnectToServer( NETWORK_REMOTE_SERVER_INFO * info ) {
     
     assert( Client );
+    
+    SERVICE_LOGGER_Error( "NETWORK_BROWSER_PRESENTER::ConnectToServer" );
 
     Client->SelectServer( info->GetServerConnexionCommand() );
     R3D_APP_PTR->GetNetworkManager().SetServer( false );
@@ -95,7 +107,7 @@ void NETWORK_BROWSER_PRESENTER::ConnectToServer( NETWORK_REMOTE_SERVER_INFO * in
 void NETWORK_BROWSER_PRESENTER::OnserverConnected() {
     
     //TODO : Navigate on connexion success
-    GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< NETWORK_SETUP_PAGE >( "NETWORK_SETUP_PAGE" );
+    OpenAnimated< NETWORK_SETUP_PAGE >( "NETWORK_SETUP_PAGE" );
 }
 
 void NETWORK_BROWSER_PRESENTER::OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicked_element, GRAPHIC_UI_ELEMENT_EVENT event ) {
@@ -104,7 +116,7 @@ void NETWORK_BROWSER_PRESENTER::OnBackButtonClicked( GRAPHIC_UI_ELEMENT * clicke
 
         R3D_APP_PTR->GetNetworkManager().FinalizeClient();
         
-        GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateBackAsync();
+        BackAnimated();
     }
 }
 
@@ -116,6 +128,6 @@ void NETWORK_BROWSER_PRESENTER::OnStartLobbyButtonPressed( GRAPHIC_UI_ELEMENT * 
         R3D_APP_PTR->GetNetworkManager().SetServer( true );
         R3D_APP_PTR->GetNetworkManager().InitializeServer( R3D_APP_PTR->GetSeed() );
         
-        GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().NavigateToAsync< NETWORK_SETUP_PAGE >( "NETWORK_SETUP_PAGE" );
+        OpenAnimated< NETWORK_SETUP_PAGE >( "NETWORK_SETUP_PAGE" );
     }
 }

@@ -20,12 +20,14 @@
 #include "TOOLS_LOCALE_SYSTEM.h"
 #include "CORE_DATA_UTF8_TEXT.h"
 #include "R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h"
+#include "MENU_SCENE.h"
 
 RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
     DefaultFileystem(),
     GameRenderer(),
-    Game( NULL )
+    Game( NULL ),
+    AudioManager()
 #if DEBUG
 ,ShipDirection(),
 LineEffect(),
@@ -46,10 +48,6 @@ To()
     CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );
     
     SetApplicationInstance( *this );
-    
-    #if !PLATFORM_ANDROID
-        AUDIO_SYSTEM::GetInstance().Initialize();
-    #endif
 }
 
 RUN3D_APPLICATION::~RUN3D_APPLICATION() {
@@ -57,6 +55,20 @@ RUN3D_APPLICATION::~RUN3D_APPLICATION() {
 }
 
 void RUN3D_APPLICATION::Initialize() {
+    
+    SERVICE_LOGGER_Error( "int %d\n", (int) sizeof( int ) );
+    SERVICE_LOGGER_Error( "unsigned int %d\n", (int) sizeof( unsigned int ) );
+    SERVICE_LOGGER_Error( "size_t %d\n", (int) sizeof( size_t ) );
+    SERVICE_LOGGER_Error( "bool %d\n", (int) sizeof( bool ) );
+    SERVICE_LOGGER_Error( "float %d\n", (int) sizeof( float ) );
+    SERVICE_LOGGER_Error( "double %d\n", (int) sizeof( double ) );
+    SERVICE_LOGGER_Error( "SCALAR %d\n", (int) sizeof( SCALAR ) );
+    SERVICE_LOGGER_Error( "unsigned long %d\n", (int) sizeof( unsigned long ) );
+    SERVICE_LOGGER_Error( "long int %d\n", (int) sizeof( long int ) );
+    SERVICE_LOGGER_Error( "long long %d\n", (int) sizeof( long long ) );
+
+    AudioManager.Initialize();
+    AUDIO_SYSTEM::GetInstance().PlayMusic( R3D_AUDIO_MUSIC_MANAGER::MusicPulse );
     
     InitializeGraphics();
     
@@ -67,14 +79,25 @@ void RUN3D_APPLICATION::Initialize() {
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
     CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
     
+    CORE_ABSTRACT_PROGRAM_BINDER::GetInstance().BindRuntime<CORE_ABSTRACT_RUNTIME_LUA>( *runtime );
+    
     Game = new R3D_GAMEPLAY_GAME;
     Game->Initialize();
     
+    MENU_SCENE
+        scene;
+    
+    CORE_MATH_QUATERNION
+        q;
+    
+    q.RotateX( M_PI_2 );
+    
+    GetCamera()->UpdateCamera( CORE_MATH_VECTOR(-0.0f, -6.0f, 2.0f, 1.0f ), q );
+    
+    scene.Initialize();
+    
     InitializeSingleplayerGame();
     
-    CORE_ABSTRACT_PROGRAM_BINDER::GetInstance().BindRuntime<CORE_ABSTRACT_RUNTIME_LUA>( *runtime );
-    
-    AUDIO_SYSTEM::GetInstance().GetBank().Load();
     TOOLS_LOCALE_SYSTEM::GetInstance().Initialize( "fr" );
     TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Garage" ), CORE_DATA_UTF8_TEXT ( L"Garage\0" ) );
     TOOLS_LOCALE_SYSTEM::GetInstance().AddLocale(CORE_HELPERS_UNIQUE_IDENTIFIER( "Network" ), CORE_DATA_UTF8_TEXT( L"Réseau\0" ) );
@@ -120,8 +143,8 @@ void RUN3D_APPLICATION::Finalize() {
     GRAPHIC_RENDERER::RemoveInstance();
     PERIPHERIC_INTERACTION_SYSTEM::RemoveInstance();
     
-    //SERVICE_NETWORK_SYSTEM::GetInstance().Finalize();
-    //SERVICE_NETWORK_SYSTEM::RemoveInstance();
+    SERVICE_NETWORK_SYSTEM::GetInstance().Finalize();
+    SERVICE_NETWORK_SYSTEM::RemoveInstance();
     
     DefaultFileystem.Finalize();
 }
@@ -129,13 +152,23 @@ void RUN3D_APPLICATION::Finalize() {
 void RUN3D_APPLICATION::Update( float time_step ) {
     
     static float acc = 0.0f;
-    const float step = 1.0f / 60.0f;
+    const float step = 1.0f / 30.0f;
     
+
     AUDIO_SYSTEM::GetInstance().Update( time_step );
     
     acc += time_step;
+    
+#if DEBUG
+    if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyReleased( KEYBOARD_KEY_CHAR_P ) ) {
+        
+        static bool active = true;
+        GameRenderer.SetDebugRenderActive( active );
+        active = !active;
+    }
+#endif
 
-    while ( acc > step) {
+    while ( acc >= step) {
         acc -= step;
         
         Game->Update( step );
@@ -168,18 +201,20 @@ void RUN3D_APPLICATION::InitializeGraphics() {
     
     CORE_HELPERS_CALLBACK * myCallback = new CORE_HELPERS_CALLBACK( &Wrapper<CORE_APPLICATION, &CORE_APPLICATION::Render>, this );
     
+    R3D_RESOURCES::GetInstance().Initialize();
+    
     GRAPHIC_RENDERER::GetInstance().Initialize();
     GRAPHIC_RENDERER::GetInstance().SetRenderCallback( myCallback );
-    
-    R3D_RESOURCES::GetInstance().Initialize();
     
     GRAPHIC_UI_SYSTEM::GetInstance().Initialize();
     R3D_UI::ScreenWidth = GetApplicationWindow().GetWidth();
     R3D_UI::ScreenHeight = GetApplicationWindow().GetHeight();
     R3D_UI::ScreenDensity = 1.0f;
     
+    SERVICE_LOGGER_Error( "screen size %f %f \n", R3D_UI::ScreenWidth, R3D_UI::ScreenHeight);
+    
 #if DEBUG
-    LineEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", "OPENGL2" ) );
+    LineEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
     ShipDirection.InitializeShape();
     LineEffect->Initialize( ShipDirection.GetShaderBindParameter() );

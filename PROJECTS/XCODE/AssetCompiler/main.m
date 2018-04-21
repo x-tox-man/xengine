@@ -21,6 +21,7 @@ int main(int argc, const char * argv[]) {
         
         if ( argc > 2 ) {
             
+            const char * test = argv[0];
             const char * source_path = argv[1];
             const char * destination_dir = argv[2] == NULL ? GetCurrentDir() : argv[2];
             const char * options = argv[3] == NULL ? "" : argv[3];

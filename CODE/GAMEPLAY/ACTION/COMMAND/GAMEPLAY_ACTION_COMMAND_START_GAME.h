@@ -29,7 +29,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_ACTION_COMMAND_START_GAME, GAMEPLAY_ACTIO
 
     static CORE_HELPERS_CALLBACK_2< std::vector< NETWORK_PLAYER* > &, int >
         GameStartingCallback;
-
     std::vector<NETWORK_PLAYER*>
         Players;
     int

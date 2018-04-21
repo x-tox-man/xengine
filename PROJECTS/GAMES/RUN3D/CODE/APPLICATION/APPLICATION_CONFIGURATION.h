@@ -18,7 +18,14 @@ XS_CLASS_BEGIN(APPLICATION_CONFIGURATION_OPTIONS )
 
     XS_DEFINE_UNIQUE( APPLICATION_CONFIGURATION_OPTIONS )
 
+    void Initialize();
 
+    inline int GetGraphicsOptionRenderTargetResolutionDivider() const { return GraphicsOptionRenderTargetResolutionDivider; }
+
+private :
+
+    int
+        GraphicsOptionRenderTargetResolutionDivider;
     
 XS_CLASS_END
 

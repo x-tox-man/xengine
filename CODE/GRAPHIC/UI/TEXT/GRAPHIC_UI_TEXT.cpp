@@ -26,6 +26,7 @@ void GRAPHIC_UI_TEXT::Initialize() {
     SetAdapter( new GRAPHIC_UI_TEXT_ADAPTER );
     
     TextRectangle.Size = Text->GetTextExtent();
+    GetPlacement().SetRelativePosition( CORE_MATH_VECTOR( GetPlacement().GetRelativePosition().X() - (Text->GetTextExtent().X() / Text->GetFont()->GetSize()) * 0.5f, GetPlacement().GetRelativePosition().Y() - (Text->GetTextExtent().Y() ) * 0.33f ) );
     TextRectangle.Center = GetPosition();
 }
 
@@ -34,6 +35,7 @@ void GRAPHIC_UI_TEXT::UpdateText( const CORE_DATA_UTF8_TEXT & text ) {
     Text->UpdateText( text );
     
     TextRectangle.Size = Text->GetTextExtent();
+    GetPlacement().SetRelativePosition( CORE_MATH_VECTOR( GetPlacement().GetRelativePosition().X() - (Text->GetTextExtent().X() / Text->GetFont()->GetSize()) * 0.5f, GetPlacement().GetRelativePosition().Y() - (Text->GetTextExtent().Y() ) * 0.33f ) );
     TextRectangle.Center = GetPosition();
 }
 

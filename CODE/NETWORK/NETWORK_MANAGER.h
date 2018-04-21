@@ -23,7 +23,7 @@ XS_CLASS_BEGIN( NETWORK_MANAGER )
     void Finalize();
     void Update( const float step );
 
-    void InitializeServer(int seed, float refresh_rate = 1.0f/60.0f );
+    void InitializeServer(int seed, float refresh_rate = 1.0f/ 30.0f );
     void InitializeClient();
 
     void FinalizeServer();

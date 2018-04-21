@@ -11,6 +11,7 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "R3D_PLAYER.h"
+#include "R3D_COMMAND_PLAYER_UPDATE.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME_DELEGATE )
 
@@ -19,30 +20,28 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME_DELEGATE )
         
     }
 
-    virtual void InternalUpdateGame( const float step ) {
-        
-        (*PlayersList)[0]->GetShip()->ApplyInputParamters( Thrust, Orientation );
-    }
+    virtual void InternalUpdateGame( const float step );
 
     virtual void InitializePlayers() {
         
     }
 
-    void SetPlayers( std::vector<R3D_PLAYER::PTR> * players_table ) {
+    void SetPlayers( std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR > * players_table ) {
         
         PlayersList = players_table;
         InitializePlayers();
     }
 
     virtual void OnEndGame();
+    virtual void SetPlayerUpdate( R3D_COMMAND_PLAYER_UPDATE::PTR player_update );
 
-    inline std::vector< R3D_PLAYER::PTR > * GetPlayers() { return PlayersList; }
+    inline std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR > * GetPlayers() { return PlayersList; }
     inline void SetThrust( float thrust ) { Thrust = thrust; }
     inline void SetOrientation( float orientation ) { Orientation = orientation; }
 
 protected:
 
-    std::vector< R3D_PLAYER::PTR >
+    std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR >
         * PlayersList;
     float
         Thrust,

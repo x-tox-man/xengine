@@ -12,6 +12,7 @@
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 
 void * operator new( size_t size );
+void operator delete( void * p );
 
 class CORE_MEMORY_ALLOCATOR {
 

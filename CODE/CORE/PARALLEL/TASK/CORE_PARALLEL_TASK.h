@@ -19,19 +19,10 @@ public:
     CORE_PARALLEL_LAMBDA_TASK( __LABMDA_TYPE lambda_function_parameter ) : Lambda( lambda_function_parameter) {
         
     }
-    
+
     void Execute() {
-        
+
         Lambda();
-    }
-    
-    static void * Execute( void * context ) {
-        
-        CORE_PARALLEL_LAMBDA_TASK * task = ( CORE_PARALLEL_LAMBDA_TASK *) context;
-        
-        task->Execute();
-        
-        return 0;
     }
 
 #if PLATFORM_WINDOWS
@@ -39,6 +30,15 @@ public:
         CORE_PARALLEL_LAMBDA_TASK * task=( CORE_PARALLEL_LAMBDA_TASK * ) context;
 
         task->Execute();
+        return 0;
+    }
+#else
+    static void * Execute( void * context ) {
+
+        CORE_PARALLEL_LAMBDA_TASK * task=( CORE_PARALLEL_LAMBDA_TASK * ) context;
+
+        task->Execute();
+
         return 0;
     }
 #endif
@@ -49,23 +49,23 @@ private:
 
 XS_CLASS_BEGIN( CORE_PARALLEL_TASK )
 
-CORE_PARALLEL_TASK();
-CORE_PARALLEL_TASK(CORE_HELPERS_CALLBACK * callback);
-~CORE_PARALLEL_TASK();
+    CORE_PARALLEL_TASK();
+    CORE_PARALLEL_TASK(CORE_HELPERS_CALLBACK * callback);
+    ~CORE_PARALLEL_TASK();
 
-void Execute();
+    void Execute();
 
-static void * Execute( void * context ) {
+    static void * Execute( void * context ) {
     
-    CORE_PARALLEL_TASK * task = ( CORE_PARALLEL_TASK *) context;
+        CORE_PARALLEL_TASK * task = ( CORE_PARALLEL_TASK *) context;
     
-    task->Execute();
+        task->Execute();
     
-    return 0;
-}
+        return 0;
+    }
 
-CORE_HELPERS_CALLBACK
-    * ExecuteCallback;
+    CORE_HELPERS_CALLBACK
+        * ExecuteCallback;
 
 XS_CLASS_END
 
