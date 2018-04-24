@@ -31,6 +31,7 @@ void R3D_AUDIO_MUSIC_MANAGER::Initialize() {
                                                                 AUDIO_BANK_SOUND_LOAD_OPTION_StartupStreamMusic, "ogg" );
     
     AUDIO_SYSTEM::GetInstance().GetBank().Load();
+    AUDIO_SYSTEM::GetInstance().GetBank().GetSound(MusicPulse)->Sound->SetLooping( true );
 }
 
 

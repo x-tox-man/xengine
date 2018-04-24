@@ -3,9 +3,15 @@
 #include "AUDIO_SOUND.h"
 #include "AUDIO_SOUND_CHUNK.h"
 #include <vorbis/codec.h>
+#include <math.h>
 
 void OGG_Init() {
     // https://github.com/xiph/vorbis/blob/master/examples/decoder_example.c#L82
+}
+
+void OGG_Reset( AUDIO_SOUND & sound ) {
+    
+    sound.GetFile()->Rewind();
 }
 
 void OGG_Open( const CORE_FILESYSTEM_PATH & path, AUDIO_SOUND & sound ) {
@@ -45,7 +51,7 @@ void OGG_Open( const CORE_FILESYSTEM_PATH & path, AUDIO_SOUND & sound ) {
         /* error case.  Must not be Vorbis data */
         fprintf( stderr, "Input does not appear to be an Ogg bitstream.\n" );
         exit( 1 );
-}
+    }
 
     /* Get the serial number and set up the rest of decode. */
     /* serialno first; use it to set up a logical stream */
@@ -155,17 +161,19 @@ void OGG_Open( const CORE_FILESYSTEM_PATH & path, AUDIO_SOUND & sound ) {
 
                                                                                  /* The rest is just a straight decode loop until end of stream */
 
+        sound.SetIsMono( false );
+        sound.SetIsCompressed( false );
         sound.SetBufferWidth( 16 );
-        sound.SetChannels( 2 );
+        sound.SetFrameSize( 16 );
+        sound.SetChannels( sound.VorbisInfo.channels );
         sound.SetFrequency( sound.VorbisInfo.rate );
-        sound.SetSize( 4096 );
     }
     else {
         fprintf( stderr, "Error: Corrupt header during playback initialization.\n" );
     }
 }
 
-void OGG_Read( AUDIO_SOUND & sound, int chunk_index ) {
+bool OGG_Read( AUDIO_SOUND & sound, int chunk_index ) {
 
     char *buffer;
     int  bytes;
@@ -174,94 +182,107 @@ void OGG_Read( AUDIO_SOUND & sound, int chunk_index ) {
     ogg_int16_t convbuffer[ 4096 ];
 
     int eos=0;
+    bool
+        has_read = false;
     int i;
 
-    while ( !eos ) {
-        int result=ogg_sync_pageout( &sound.OGGSyncState, &sound.OGGPage );
-        if ( result == 0 )break; /* need more data */
-        if ( result<0 ) { /* missing or corrupt data at this page position */
-            fprintf( stderr, "Corrupt or missing data in bitstream; "
-                "continuing...\n" );
-        }
-        else {
-            ogg_stream_pagein( &sound.OGGStreamState, &sound.OGGPage ); /* can safely ignore errors at
-                                                        this point */
-            while ( 1 ) {
-                result=ogg_stream_packetout( &sound.OGGStreamState, &sound.OGGPacket );
+    while ( !has_read ) {
+        while ( !eos ) {
+            int result=ogg_sync_pageout( &sound.OGGSyncState, &sound.OGGPage );
+            if ( result == 0 )break; /* need more data */
+            if ( result<0 ) { /* missing or corrupt data at this page position */
+                fprintf( stderr, "Corrupt or missing data in bitstream; "
+                    "continuing...\n" );
+            }
+            else {
+                ogg_stream_pagein( &sound.OGGStreamState, &sound.OGGPage ); /* can safely ignore errors at
+                                                            this point */
+                void * data = malloc( sound.OGGPage.body_len * 8 * sizeof( ogg_int16_t ) );
+                
+                sound.GetSoundChunksTable()[chunk_index]->Data = data;
+                
+                int out_buffer_offset = 0;
+                
+                while ( 1 ) {
+                    result=ogg_stream_packetout( &sound.OGGStreamState, &sound.OGGPacket );
 
-                if ( result == 0 )break; /* need more data */
-                if ( result<0 ) { /* missing or corrupt data at this page position */
-                                    /* no reason to complain; already complained above */
-                }
-                else {
-                    /* we have a packet.  Decode it */
-                    float **pcm;
-                    int samples;
+                    if ( result == 0 )break; /* need more data */
+                    if ( result<0 ) { /* missing or corrupt data at this page position */
+                                        /* no reason to complain; already complained above */
+                    }
+                    else {
+                        /* we have a packet.  Decode it */
+                        float **pcm;
+                        int samples;
 
-                    if ( vorbis_synthesis( &sound.VorbisBlock, &sound.OGGPacket ) == 0 ) /* test for success! */
-                        vorbis_synthesis_blockin( &sound.VorbisDspState, &sound.VorbisBlock );
-                    /*
-                    **pcm is a multichannel float vector.  In stereo, for
-                    example, pcm[0] is left, and pcm[1] is right.  samples is
-                    the size of each channel.  Convert the float values
-                    (-1.<=range<=1.) to whatever PCM format and write it out */
+                        if ( vorbis_synthesis( &sound.VorbisBlock, &sound.OGGPacket ) == 0 ) /* test for success! */
+                            vorbis_synthesis_blockin( &sound.VorbisDspState, &sound.VorbisBlock );
+                        /*
+                        **pcm is a multichannel float vector.  In stereo, for
+                        example, pcm[0] is left, and pcm[1] is right.  samples is
+                        the size of each channel.  Convert the float values
+                        (-1.<=range<=1.) to whatever PCM format and write it out */
 
-                    while ( ( samples=vorbis_synthesis_pcmout( &sound.VorbisDspState, &pcm ) )>0 ) {
-                        int j;
-                        int clipflag=0;
-                        int bout=( samples<convsize ? samples : convsize );
+                        while ( ( samples=vorbis_synthesis_pcmout( &sound.VorbisDspState, &pcm ) )>0 ) {
+                            int j;
+                            int clipflag=0;
+                            int bout=( samples<convsize ? samples : convsize );
 
-                        /* convert floats to 16 bit signed ints (host order) and
-                        interleave */
-                        for ( i=0; i<sound.VorbisInfo.channels; i++ ) {
-                            ogg_int16_t *ptr=convbuffer + i;
-                            float  *mono=pcm[ i ];
-                            for ( j=0; j<bout; j++ ) {
-#if 1
-                                int val=floor( mono[ j ] * 32767.f + .5f );
-#else /* optional dither */
-                                int val=mono[ j ] * 32767.f + drand48() - 0.5f;
-#endif
-                                /* might as well guard against clipping */
-                                if ( val>32767 ) {
-                                    val=32767;
-                                    clipflag=1;
+                            /* convert floats to 16 bit signed ints (host order) and
+                            interleave */
+                            for ( i=0; i<sound.VorbisInfo.channels; i++ ) {
+                                ogg_int16_t *ptr=convbuffer + i;
+                                float  *mono=pcm[ i ];
+                                for ( j=0; j<bout; j++ ) {
+    #if 1
+                                    int val=floor( mono[ j ] * 32767.f + .5f );
+    #else /* optional dither */
+                                    int val=mono[ j ] * 32767.f + drand48() - 0.5f;
+    #endif
+                                    /* might as well guard against clipping */
+                                    if ( val>32767 ) {
+                                        val=32767;
+                                        clipflag=1;
+                                    }
+                                    if ( val<-32768 ) {
+                                        val=-32768;
+                                        clipflag=1;
+                                    }
+                                    *ptr=val;
+                                    ptr+=sound.VorbisInfo.channels;
                                 }
-                                if ( val<-32768 ) {
-                                    val=-32768;
-                                    clipflag=1;
-                                }
-                                *ptr=val;
-                                ptr+=sound.VorbisInfo.channels;
                             }
+
+                            if ( clipflag )
+                                fprintf( stderr, "Clipping in frame %ld\n", ( long ) ( sound.VorbisDspState.sequence ) );
+
+                            int size = bout * sound.VorbisInfo.channels * sizeof( ogg_int16_t );
+                            memcpy( (char*) data + out_buffer_offset, convbuffer, size );
+                            out_buffer_offset += size;
+                            
+                            has_read = true;
+                            //printf( "Read index : %d size : %d\n", chunk_index, bout );
+
+                            vorbis_synthesis_read( &sound.VorbisDspState, bout ); /* tell libvorbis how
+                                                                                    many samples we
+                                                                                    actually consumed */
                         }
-
-                        if ( clipflag )
-                            fprintf( stderr, "Clipping in frame %ld\n", ( long ) ( sound.VorbisDspState.sequence ) );
-
-                        void * data = malloc( 4096 );
-                        memcpy( data, convbuffer, 4096 );
-
-                        sound.SetData( data );
-                        sound.SetFrameSize( 4096 );
-
-                        vorbis_synthesis_read( &sound.VorbisDspState, bout ); /* tell libvorbis how
-                                                                                many samples we
-                                                                                actually consumed */
                     }
                 }
+                
+                sound.GetSoundChunksTable()[chunk_index]->Size = out_buffer_offset;
+
+                if ( ogg_page_eos( &sound.OGGPage ) )eos=1;
             }
-
-            if ( ogg_page_eos( &sound.OGGPage ) )eos=1;
+            break;
         }
-        break;
-    }
-
-    if ( !eos ) {
-        buffer=ogg_sync_buffer( &sound.OGGSyncState, 4096 );
-        bytes=sound.GetFile()->OutputBytes( buffer, 4096 );
-        ogg_sync_wrote( &sound.OGGSyncState, bytes );
-        if ( bytes == 0 )eos=1;
+        
+        if ( !eos && !has_read ) {
+            buffer=ogg_sync_buffer( &sound.OGGSyncState, 4096 );
+            bytes=sound.GetFile()->OutputBytes( buffer, 4096 );
+            ogg_sync_wrote( &sound.OGGSyncState, bytes );
+            if ( ( bytes == -1 || bytes == 0 ) && has_read )eos=1;
+        }
     }
 
     if ( eos == 1 ) {
@@ -270,7 +291,11 @@ void OGG_Read( AUDIO_SOUND & sound, int chunk_index ) {
 
         vorbis_block_clear( &sound.VorbisBlock );
         vorbis_dsp_clear( &sound.VorbisDspState );
+        
+        return true;
     }
+    
+    return false;
 }
 
 void OGG_Close( AUDIO_SOUND & sound ) {

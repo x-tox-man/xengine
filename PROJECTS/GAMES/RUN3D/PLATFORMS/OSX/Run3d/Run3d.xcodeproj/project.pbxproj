@@ -171,6 +171,8 @@
 		5F9C83C71FE71EF90085CF18 /* UI_INGAME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83C41FE71EF90085CF18 /* UI_INGAME.cpp */; };
 		5F9C83CA1FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83C81FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp */; };
 		5F9C83CB1FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83C81FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp */; };
+		5F9CE653208C74E4009673DE /* libogg copy 2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE651208C74E4009673DE /* libogg copy 2.a */; };
+		5F9CE654208C74E4009673DE /* libvorbis copy 2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE652208C74E4009673DE /* libvorbis copy 2.a */; };
 		5F9E74621FAF5252003DA3CD /* libBulletInverseDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E745B1FAF5252003DA3CD /* libBulletInverseDynamics.a */; };
 		5F9E74631FAF5252003DA3CD /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E745C1FAF5252003DA3CD /* libBulletSoftBody.a */; };
 		5F9E74641FAF5252003DA3CD /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E745D1FAF5252003DA3CD /* libBulletDynamics.a */; };
@@ -539,6 +541,8 @@
 		5F9C83C51FE71EF90085CF18 /* UI_INGAME.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_INGAME.h; sourceTree = "<group>"; };
 		5F9C83C81FE71F840085CF18 /* UI_INGAME_PRESENTER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UI_INGAME_PRESENTER.cpp; sourceTree = "<group>"; };
 		5F9C83C91FE71F840085CF18 /* UI_INGAME_PRESENTER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI_INGAME_PRESENTER.h; sourceTree = "<group>"; };
+		5F9CE651208C74E4009673DE /* libogg copy 2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libogg copy 2.a"; sourceTree = "<group>"; };
+		5F9CE652208C74E4009673DE /* libvorbis copy 2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libvorbis copy 2.a"; sourceTree = "<group>"; };
 		5F9E745B1FAF5252003DA3CD /* libBulletInverseDynamics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletInverseDynamics.a; sourceTree = "<group>"; };
 		5F9E745C1FAF5252003DA3CD /* libBulletSoftBody.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletSoftBody.a; sourceTree = "<group>"; };
 		5F9E745D1FAF5252003DA3CD /* libBulletDynamics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletDynamics.a; sourceTree = "<group>"; };
@@ -797,6 +801,7 @@
 				5F92DC5F1F16497D00292A99 /* libbuffer.a in Frameworks */,
 				5F92DC621F16497D00292A99 /* libBullet3Collision.a in Frameworks */,
 				5F92DC651F16497D00292A99 /* libBullet3Geometry.a in Frameworks */,
+				5F9CE653208C74E4009673DE /* libogg copy 2.a in Frameworks */,
 				5F92DC741F16497D00292A99 /* libGIMPACTUtils.a in Frameworks */,
 				5F92DC841F16497D00292A99 /* libpcre.a in Frameworks */,
 				5F92DC781F16497D00292A99 /* libHACD.a in Frameworks */,
@@ -814,6 +819,7 @@
 				5F92DBA21F16472A00292A99 /* AppKit.framework in Frameworks */,
 				5F92DC831F16497D00292A99 /* libOpenGLWindow.a in Frameworks */,
 				5F92DC6B1F16497D00292A99 /* libBulletWorldImporter.a in Frameworks */,
+				5F9CE654208C74E4009673DE /* libvorbis copy 2.a in Frameworks */,
 				5F92DC7A1F16497D00292A99 /* libLinearMath.a in Frameworks */,
 				5F92DC671F16497D00292A99 /* libBulletCollision.a in Frameworks */,
 				5F92DC691F16497D00292A99 /* libBulletFileLoader.a in Frameworks */,
@@ -1414,6 +1420,8 @@
 		5F92DBB31F16497D00292A99 /* COMPILED_LIBS_OSX */ = {
 			isa = PBXGroup;
 			children = (
+				5F9CE651208C74E4009673DE /* libogg copy 2.a */,
+				5F9CE652208C74E4009673DE /* libvorbis copy 2.a */,
 				5F92DBF51F16497D00292A99 /* libbuffer.a */,
 				5F92DBF61F16497D00292A99 /* libBullet2FileLoader.a */,
 				5F92DBF71F16497D00292A99 /* libBullet3AppSupport.a */,
@@ -2422,6 +2430,7 @@
 					"__AUDIO_OPENAL__=1",
 					GTE_DISABLE_PCH,
 					__BULLET_PHYSICS__,
+					"AUDIO_OGG=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2449,6 +2458,8 @@
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src\"/**",
 					"\"$(SRCROOT)/../../../../../../CODE/\"/**",
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionDispatch\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/libogg-1.3.3/include\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/libvorbis-1.3.6/include\"",
 				);
 				INFOPLIST_FILE = RUN3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2509,6 +2520,8 @@
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src\"/**",
 					"\"$(SRCROOT)/../../../../../../CODE/\"/**",
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionDispatch\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/libogg-1.3.3/include\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/libvorbis-1.3.6/include\"",
 				);
 				INFOPLIST_FILE = RUN3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

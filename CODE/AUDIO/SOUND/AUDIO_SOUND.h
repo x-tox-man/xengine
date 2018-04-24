@@ -66,6 +66,8 @@ XS_CLASS_BEGIN( AUDIO_SOUND )
     inline void SetIsOpen( bool open ) { ItIsOpen = open; }
     inline std::vector< AUDIO_SOUND_CHUNK::PTR > & GetSoundChunksTable() { return SoundChunksTable; }
     inline void SetResourceSound( RESOURCE_SOUND * sound ) { Sound = sound; }
+    inline void SetLooping( bool looping ) { Looping = looping; }
+    inline bool IsLooping() const { return Looping; }
 
     #if __AUDIO_OPENAL__
         void SetSource( ALuint source ) { Source = source; }

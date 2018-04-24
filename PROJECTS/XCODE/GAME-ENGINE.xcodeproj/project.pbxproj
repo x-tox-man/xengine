@@ -23,52 +23,6 @@
 		323278631CB5BC9D00DF6FDA /* arial_black_12.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 3232785B1CB5BC9D00DF6FDA /* arial_black_12.fxb */; };
 		323279001CB5BD0300DF6FDA /* main_window.lua in Resources */ = {isa = PBXBuildFile; fileRef = 322050DC1C12E24700BAC545 /* main_window.lua */; };
 		3236F1D81C73EE75005EEE55 /* APPLICATION_OPTION_WINDOW.lua in Resources */ = {isa = PBXBuildFile; fileRef = 32750FC21C32B8E000691E2F /* APPLICATION_OPTION_WINDOW.lua */; };
-		3238F5B11E90E80400838C62 /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3431E90E80400838C62 /* AUDIO_INTERFACE.cpp */; };
-		3238F5B31E90E80400838C62 /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3431E90E80400838C62 /* AUDIO_INTERFACE.cpp */; };
-		3238F5B41E90E80400838C62 /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3431E90E80400838C62 /* AUDIO_INTERFACE.cpp */; };
-		3238F5B51E90E80400838C62 /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3431E90E80400838C62 /* AUDIO_INTERFACE.cpp */; };
-		3238F5B61E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3451E90E80400838C62 /* AUDIO_LOADER.cpp */; };
-		3238F5B81E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3451E90E80400838C62 /* AUDIO_LOADER.cpp */; };
-		3238F5B91E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3451E90E80400838C62 /* AUDIO_LOADER.cpp */; };
-		3238F5BA1E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3451E90E80400838C62 /* AUDIO_LOADER.cpp */; };
-		3238F5C01E90E80400838C62 /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3238F34B1E90E80400838C62 /* AUDIO_LOADER_OSX.mm */; };
-		3238F5C31E90E80400838C62 /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3238F34B1E90E80400838C62 /* AUDIO_LOADER_OSX.mm */; };
-		3238F5C41E90E80400838C62 /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3238F34B1E90E80400838C62 /* AUDIO_LOADER_OSX.mm */; };
-		3238F5CA1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F34E1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp */; };
-		3238F5CC1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F34E1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp */; };
-		3238F5CD1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F34E1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp */; };
-		3238F5CE1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F34E1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp */; };
-		3238F5CF1E90E80400838C62 /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3501E90E80400838C62 /* AUDIO_SYSTEM.cpp */; };
-		3238F5D11E90E80400838C62 /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3501E90E80400838C62 /* AUDIO_SYSTEM.cpp */; };
-		3238F5D21E90E80400838C62 /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3501E90E80400838C62 /* AUDIO_SYSTEM.cpp */; };
-		3238F5D41E90E80400838C62 /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3531E90E80400838C62 /* AUDIO_BANK.cpp */; };
-		3238F5D61E90E80400838C62 /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3531E90E80400838C62 /* AUDIO_BANK.cpp */; };
-		3238F5D71E90E80400838C62 /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3531E90E80400838C62 /* AUDIO_BANK.cpp */; };
-		3238F5D81E90E80400838C62 /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3531E90E80400838C62 /* AUDIO_BANK.cpp */; };
-		3238F5D91E90E80400838C62 /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3551E90E80400838C62 /* AUDIO_BANK_SOUND.cpp */; };
-		3238F5DB1E90E80400838C62 /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3551E90E80400838C62 /* AUDIO_BANK_SOUND.cpp */; };
-		3238F5DC1E90E80400838C62 /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3551E90E80400838C62 /* AUDIO_BANK_SOUND.cpp */; };
-		3238F5DD1E90E80400838C62 /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3551E90E80400838C62 /* AUDIO_BANK_SOUND.cpp */; };
-		3238F5DE1E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3571E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
-		3238F5E01E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3571E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
-		3238F5E11E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3571E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
-		3238F5E21E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3571E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
-		3238F5E31E90E80400838C62 /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35A1E90E80400838C62 /* AUDIO_OPENAL.cpp */; };
-		3238F5E51E90E80400838C62 /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35A1E90E80400838C62 /* AUDIO_OPENAL.cpp */; };
-		3238F5E61E90E80400838C62 /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35A1E90E80400838C62 /* AUDIO_OPENAL.cpp */; };
-		3238F5E71E90E80400838C62 /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35A1E90E80400838C62 /* AUDIO_OPENAL.cpp */; };
-		3238F5E81E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35D1E90E80400838C62 /* AUDIO_OPENSL.cpp */; };
-		3238F5EA1E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35D1E90E80400838C62 /* AUDIO_OPENSL.cpp */; };
-		3238F5EB1E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35D1E90E80400838C62 /* AUDIO_OPENSL.cpp */; };
-		3238F5EC1E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35D1E90E80400838C62 /* AUDIO_OPENSL.cpp */; };
-		3238F5ED1E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3601E90E80400838C62 /* AUDIO_SOUND.cpp */; };
-		3238F5EF1E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3601E90E80400838C62 /* AUDIO_SOUND.cpp */; };
-		3238F5F01E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3601E90E80400838C62 /* AUDIO_SOUND.cpp */; };
-		3238F5F11E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3601E90E80400838C62 /* AUDIO_SOUND.cpp */; };
-		3238F5F21E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3631E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp */; };
-		3238F5F41E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3631E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp */; };
-		3238F5F51E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3631E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp */; };
-		3238F5F61E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3631E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp */; };
 		3238F5F71E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F36B1E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp */; };
 		3238F5F81E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F36B1E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp */; };
 		3238F5F91E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F36B1E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp */; };
@@ -1294,7 +1248,6 @@
 		32D989581B5523E20097D1A3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32571BC4186C918900AC7CCF /* OpenGL.framework */; };
 		32D9DC321B150FD2007BEFD6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D9DC311B150FD2007BEFD6 /* AVFoundation.framework */; };
 		32E0A1A51E9CF5B000B14365 /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E0A1A41E9CF5B000B14365 /* ImageView.m */; };
-		32E0A1A81E9D43EC00B14365 /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3501E90E80400838C62 /* AUDIO_SYSTEM.cpp */; };
 		32E0A1B01E9D4AE800B14365 /* CORE_APPLICATION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F38D1E90E80400838C62 /* CORE_APPLICATION.cpp */; };
 		32E0A1B11E9D4B7A00B14365 /* GteEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F58F1E90E80400838C62 /* GteEnvironment.cpp */; };
 		32E5D78C19FFB8E700BB3D97 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E5D78B19FFB8E700BB3D97 /* GLKit.framework */; };
@@ -1323,6 +1276,104 @@
 		5F0C3D211FDF38E400B761A2 /* TOOLS_LOCALE_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3D1B1FDF38E400B761A2 /* TOOLS_LOCALE_SYSTEM.cpp */; };
 		5F0C3D221FDF3BBC00B761A2 /* TOOLS_LOCALE_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3D1B1FDF38E400B761A2 /* TOOLS_LOCALE_SYSTEM.cpp */; };
 		5F0C3D231FDF3BBC00B761A2 /* TOOLS_LOCALE_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0C3D1B1FDF38E400B761A2 /* TOOLS_LOCALE_SYSTEM.cpp */; };
+		5F177119208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
+		5F17711A208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
+		5F17711B208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
+		5F17711C208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
+		5F17711D208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
+		5F17711E208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
+		5F17711F208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
+		5F177120208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */; };
+		5F177121208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */; };
+		5F177122208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */; };
+		5F177123208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */; };
+		5F177124208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */; };
+		5F177125208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */; };
+		5F177126208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */; };
+		5F177127208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F4208E6F8400720C7F /* AUDIO_INTERFACE.cpp */; };
+		5F177128208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F4208E6F8400720C7F /* AUDIO_INTERFACE.cpp */; };
+		5F177129208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F4208E6F8400720C7F /* AUDIO_INTERFACE.cpp */; };
+		5F17712A208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F4208E6F8400720C7F /* AUDIO_INTERFACE.cpp */; };
+		5F17712B208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F4208E6F8400720C7F /* AUDIO_INTERFACE.cpp */; };
+		5F17712C208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F4208E6F8400720C7F /* AUDIO_INTERFACE.cpp */; };
+		5F17712D208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F4208E6F8400720C7F /* AUDIO_INTERFACE.cpp */; };
+		5F177136208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F8208E6F8400720C7F /* AUDIO_BANK.cpp */; };
+		5F177137208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F8208E6F8400720C7F /* AUDIO_BANK.cpp */; };
+		5F177138208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F8208E6F8400720C7F /* AUDIO_BANK.cpp */; };
+		5F177139208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F8208E6F8400720C7F /* AUDIO_BANK.cpp */; };
+		5F17713A208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F8208E6F8400720C7F /* AUDIO_BANK.cpp */; };
+		5F17713B208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F8208E6F8400720C7F /* AUDIO_BANK.cpp */; };
+		5F17713C208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F8208E6F8400720C7F /* AUDIO_BANK.cpp */; };
+		5F17713D208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F9208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp */; };
+		5F17713E208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F9208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp */; };
+		5F17713F208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F9208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp */; };
+		5F177140208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F9208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp */; };
+		5F177141208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F9208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp */; };
+		5F177142208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F9208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp */; };
+		5F177143208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F9208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp */; };
+		5F177144208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770FA208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
+		5F177145208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770FA208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
+		5F177146208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770FA208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
+		5F177147208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770FA208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
+		5F177148208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770FA208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
+		5F177149208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770FA208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
+		5F17714A208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770FA208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
+		5F17714B208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F1770FB208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.h */; };
+		5F17714C208E6F8400720C7F /* AUDIO_BANK_SOUND.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F1770FC208E6F8400720C7F /* AUDIO_BANK_SOUND.h */; };
+		5F17714D208E6F8400720C7F /* AUDIO_BANK.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F1770FD208E6F8400720C7F /* AUDIO_BANK.h */; };
+		5F17714F208E6F8400720C7F /* AUDIO_OGG_LOADER.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F1770FF208E6F8400720C7F /* AUDIO_OGG_LOADER.h */; };
+		5F177158208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177103208E6F8400720C7F /* AUDIO_LOADER.cpp */; };
+		5F177159208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177103208E6F8400720C7F /* AUDIO_LOADER.cpp */; };
+		5F17715A208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177103208E6F8400720C7F /* AUDIO_LOADER.cpp */; };
+		5F17715B208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177103208E6F8400720C7F /* AUDIO_LOADER.cpp */; };
+		5F17715C208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177103208E6F8400720C7F /* AUDIO_LOADER.cpp */; };
+		5F17715D208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177103208E6F8400720C7F /* AUDIO_LOADER.cpp */; };
+		5F17715E208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177103208E6F8400720C7F /* AUDIO_LOADER.cpp */; };
+		5F17715F208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177105208E6F8400720C7F /* AUDIO_OPENAL.cpp */; };
+		5F177160208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177105208E6F8400720C7F /* AUDIO_OPENAL.cpp */; };
+		5F177161208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177105208E6F8400720C7F /* AUDIO_OPENAL.cpp */; };
+		5F177162208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177105208E6F8400720C7F /* AUDIO_OPENAL.cpp */; };
+		5F177163208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177105208E6F8400720C7F /* AUDIO_OPENAL.cpp */; };
+		5F177164208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177105208E6F8400720C7F /* AUDIO_OPENAL.cpp */; };
+		5F177165208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177105208E6F8400720C7F /* AUDIO_OPENAL.cpp */; };
+		5F177166208E6F8400720C7F /* AUDIO_OPENAL.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F177106208E6F8400720C7F /* AUDIO_OPENAL.h */; };
+		5F177167208E6F8400720C7F /* AUDIO_INTERFACE.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F177107208E6F8400720C7F /* AUDIO_INTERFACE.h */; };
+		5F177168208E6F8400720C7F /* AUDIO_LOADER_IOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F177108208E6F8400720C7F /* AUDIO_LOADER_IOS.h */; };
+		5F177169208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177109208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp */; };
+		5F17716A208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177109208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp */; };
+		5F17716B208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177109208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp */; };
+		5F17716C208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177109208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp */; };
+		5F17716D208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177109208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp */; };
+		5F17716E208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177109208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp */; };
+		5F17716F208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177109208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp */; };
+		5F177170208E6F8400720C7F /* AUDIO_LOADER.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F17710A208E6F8400720C7F /* AUDIO_LOADER.h */; };
+		5F177171208E6F8400720C7F /* AUDIO_LOADER_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F17710B208E6F8400720C7F /* AUDIO_LOADER_OSX.h */; };
+		5F17717A208E6F8400720C7F /* AUDIO_SYSTEM.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F17710E208E6F8400720C7F /* AUDIO_SYSTEM.h */; };
+		5F17717B208E6F8400720C7F /* AUDIO_SOUND_OSX.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5F177110208E6F8400720C7F /* AUDIO_SOUND_OSX.hpp */; };
+		5F17717D208E6F8400720C7F /* AUDIO_SOUND_IOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5F177112208E6F8400720C7F /* AUDIO_SOUND_IOS.hpp */; };
+		5F17717E208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177113208E6F8400720C7F /* AUDIO_SOUND.cpp */; };
+		5F17717F208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177113208E6F8400720C7F /* AUDIO_SOUND.cpp */; };
+		5F177180208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177113208E6F8400720C7F /* AUDIO_SOUND.cpp */; };
+		5F177181208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177113208E6F8400720C7F /* AUDIO_SOUND.cpp */; };
+		5F177182208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177113208E6F8400720C7F /* AUDIO_SOUND.cpp */; };
+		5F177183208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177113208E6F8400720C7F /* AUDIO_SOUND.cpp */; };
+		5F177184208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177113208E6F8400720C7F /* AUDIO_SOUND.cpp */; };
+		5F177185208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177114208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp */; };
+		5F177186208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177114208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp */; };
+		5F177187208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177114208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp */; };
+		5F177188208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177114208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp */; };
+		5F177189208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177114208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp */; };
+		5F17718A208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177114208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp */; };
+		5F17718B208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F177114208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp */; };
+		5F17718C208E6F8400720C7F /* AUDIO_SOUND_CHUNK.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F177115208E6F8400720C7F /* AUDIO_SOUND_CHUNK.h */; };
+		5F17718E208E6F8400720C7F /* AUDIO_SOUND.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F177117208E6F8400720C7F /* AUDIO_SOUND.h */; };
+		5F17718F208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F177118208E6F8400720C7F /* AUDIO_LOADER_OSX.mm */; };
+		5F177190208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F177118208E6F8400720C7F /* AUDIO_LOADER_OSX.mm */; };
+		5F177191208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F177118208E6F8400720C7F /* AUDIO_LOADER_OSX.mm */; };
+		5F177192208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F177118208E6F8400720C7F /* AUDIO_LOADER_OSX.mm */; };
+		5F177193208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F177118208E6F8400720C7F /* AUDIO_LOADER_OSX.mm */; };
+		5F177194208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F177118208E6F8400720C7F /* AUDIO_LOADER_OSX.mm */; };
+		5F177195208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F177118208E6F8400720C7F /* AUDIO_LOADER_OSX.mm */; };
 		5F193B7A1FEB18F600F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B781FEB18F600F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp */; };
 		5F193B7D1FEB1A3100F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B781FEB18F600F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp */; };
 		5F193B7E1FEB1A3200F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F193B781FEB18F600F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp */; };
@@ -1431,17 +1482,6 @@
 		5F8CF90F1FB720CF00A455BA /* CustomTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8CF90E1FB720CF00A455BA /* CustomTab.m */; };
 		5F92DAA21F16413800292A99 /* LIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F92DAA11F16413800292A99 /* LIB.h */; };
 		5F92DAA41F16413800292A99 /* LIB.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F92DAA31F16413800292A99 /* LIB.m */; };
-		5F92DAA81F16415E00292A99 /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3431E90E80400838C62 /* AUDIO_INTERFACE.cpp */; };
-		5F92DAA91F16415E00292A99 /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3451E90E80400838C62 /* AUDIO_LOADER.cpp */; };
-		5F92DAAB1F16415E00292A99 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F34E1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp */; };
-		5F92DAAC1F16415E00292A99 /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3501E90E80400838C62 /* AUDIO_SYSTEM.cpp */; };
-		5F92DAAD1F16415E00292A99 /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3531E90E80400838C62 /* AUDIO_BANK.cpp */; };
-		5F92DAAE1F16415E00292A99 /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3551E90E80400838C62 /* AUDIO_BANK_SOUND.cpp */; };
-		5F92DAAF1F16415E00292A99 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3571E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
-		5F92DAB01F16415E00292A99 /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35A1E90E80400838C62 /* AUDIO_OPENAL.cpp */; };
-		5F92DAB11F16415E00292A99 /* AUDIO_OPENSL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35D1E90E80400838C62 /* AUDIO_OPENSL.cpp */; };
-		5F92DAB21F16415E00292A99 /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3601E90E80400838C62 /* AUDIO_SOUND.cpp */; };
-		5F92DAB31F16415E00292A99 /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3631E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp */; };
 		5F92DAB41F16415E00292A99 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */; };
 		5F92DAB51F16415E00292A99 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B611EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp */; };
 		5F92DAB71F16415E00292A99 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B651EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp */; };
@@ -1638,7 +1678,6 @@
 		5F92DB831F16415F00292A99 /* SERVICE_NETWORK_CONNECTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F57C1E90E80400838C62 /* SERVICE_NETWORK_CONNECTION.cpp */; };
 		5F92DB841F16415F00292A99 /* SERVICE_NETWORK_CONNECTION_INFO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F57E1E90E80400838C62 /* SERVICE_NETWORK_CONNECTION_INFO.cpp */; };
 		5F92DB851F16415F00292A99 /* SERVICE_NETWORK_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5811E90E80400838C62 /* SERVICE_NETWORK_SYSTEM.cpp */; };
-		5F92DB861F16416D00292A99 /* AUDIO_LOADER_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3238F34B1E90E80400838C62 /* AUDIO_LOADER_OSX.mm */; };
 		5F92DB871F16416D00292A99 /* GRAPHIC_WINDOW_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3238F52D1E90E80400838C62 /* GRAPHIC_WINDOW_OSX.mm */; };
 		5F92DB881F16417B00292A99 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
 		5F92DB8C1F1641DF00292A99 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D9DC311B150FD2007BEFD6 /* AVFoundation.framework */; };
@@ -1659,6 +1698,8 @@
 		5F9C83D21FE886D70085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83CC1FE886460085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp */; };
 		5F9C83D31FE886D80085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83CC1FE886460085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp */; };
 		5F9C83D41FE886D80085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C83CC1FE886460085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp */; };
+		5F9CE64F208C70AE009673DE /* libogg copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64D208C70AE009673DE /* libogg copy.a */; };
+		5F9CE650208C70AE009673DE /* libvorbis copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64E208C70AE009673DE /* libvorbis copy.a */; };
 		5F9E76211FAF5B22003DA3CD /* libBulletCollision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E76111FAF5B1F003DA3CD /* libBulletCollision.a */; };
 		5F9E76221FAF5B22003DA3CD /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E760E1FAF5B1E003DA3CD /* libBulletDynamics.a */; };
 		5F9E76231FAF5B22003DA3CD /* libBulletInverseDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E760C1FAF5B1D003DA3CD /* libBulletInverseDynamics.a */; };
@@ -1859,19 +1900,8 @@
 		5FD11D281F18EBF70092E3A7 /* GteEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F58F1E90E80400838C62 /* GteEnvironment.cpp */; };
 		5FD957ED1FAE35CF00FB9376 /* LIBIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD957EC1FAE35CF00FB9376 /* LIBIOS.m */; };
 		5FD957EE1FAE35CF00FB9376 /* LIBIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5FD957EB1FAE35CF00FB9376 /* LIBIOS.h */; };
-		5FD957F21FAE365900FB9376 /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3491E90E80400838C62 /* AUDIO_LOADER_IOS.mm */; };
 		5FD957F31FAE365900FB9376 /* CORE_FILESYSTEM_PATH_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B681EDF6335003E53D5 /* CORE_FILESYSTEM_PATH_IOS.mm */; };
 		5FD957F41FAE365900FB9376 /* GRAPHIC_WINDOW_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3238F52B1E90E80400838C62 /* GRAPHIC_WINDOW_IOS.mm */; };
-		5FD957F51FAE370200FB9376 /* AUDIO_INTERFACE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3431E90E80400838C62 /* AUDIO_INTERFACE.cpp */; };
-		5FD957F61FAE370200FB9376 /* AUDIO_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3451E90E80400838C62 /* AUDIO_LOADER.cpp */; };
-		5FD957F71FAE370200FB9376 /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3501E90E80400838C62 /* AUDIO_SYSTEM.cpp */; };
-		5FD957F81FAE370200FB9376 /* AUDIO_BANK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3531E90E80400838C62 /* AUDIO_BANK.cpp */; };
-		5FD957F91FAE370200FB9376 /* AUDIO_BANK_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3551E90E80400838C62 /* AUDIO_BANK_SOUND.cpp */; };
-		5FD957FA1FAE370200FB9376 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3571E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */; };
-		5FD957FB1FAE370200FB9376 /* AUDIO_OPENAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35A1E90E80400838C62 /* AUDIO_OPENAL.cpp */; };
-		5FD957FC1FAE370200FB9376 /* AUDIO_OPENSL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F35D1E90E80400838C62 /* AUDIO_OPENSL.cpp */; };
-		5FD957FD1FAE370200FB9376 /* AUDIO_SOUND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3601E90E80400838C62 /* AUDIO_SOUND.cpp */; };
-		5FD957FE1FAE370200FB9376 /* AUDIO_SOUND_CHUNK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F3631E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp */; };
 		5FD957FF1FAE370200FB9376 /* CORE_FILESYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B5E1EDF6335003E53D5 /* CORE_FILESYSTEM.cpp */; };
 		5FD958001FAE370200FB9376 /* CORE_FILESYSTEM_FILE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B611EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp */; };
 		5FD958011FAE370200FB9376 /* CORE_FILESYSTEM_PATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B651EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp */; };
@@ -2371,39 +2401,6 @@
 		3232785B1CB5BC9D00DF6FDA /* arial_black_12.fxb */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial_black_12.fxb; sourceTree = "<group>"; };
 		3238F17A1E8FC69300838C62 /* ASSET_EDITOR.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = ASSET_EDITOR.cpp; sourceTree = "<group>"; };
 		3238F17B1E8FC69300838C62 /* ASSET_EDITOR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASSET_EDITOR.h; sourceTree = "<group>"; };
-		3238F3431E90E80400838C62 /* AUDIO_INTERFACE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_INTERFACE.cpp; sourceTree = "<group>"; };
-		3238F3441E90E80400838C62 /* AUDIO_INTERFACE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_INTERFACE.h; sourceTree = "<group>"; };
-		3238F3451E90E80400838C62 /* AUDIO_LOADER.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AUDIO_LOADER.cpp; sourceTree = "<group>"; };
-		3238F3461E90E80400838C62 /* AUDIO_LOADER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_LOADER.h; sourceTree = "<group>"; };
-		3238F3471E90E80400838C62 /* AUDIO_LOADER_ANDROID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_LOADER_ANDROID.h; sourceTree = "<group>"; };
-		3238F3481E90E80400838C62 /* AUDIO_LOADER_IOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_LOADER_IOS.h; sourceTree = "<group>"; };
-		3238F3491E90E80400838C62 /* AUDIO_LOADER_IOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AUDIO_LOADER_IOS.mm; sourceTree = "<group>"; };
-		3238F34A1E90E80400838C62 /* AUDIO_LOADER_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_LOADER_OSX.h; sourceTree = "<group>"; };
-		3238F34B1E90E80400838C62 /* AUDIO_LOADER_OSX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AUDIO_LOADER_OSX.mm; sourceTree = "<group>"; };
-		3238F34C1E90E80400838C62 /* AUDIO_LOADER_WINDOWS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_LOADER_WINDOWS.cpp; sourceTree = "<group>"; };
-		3238F34D1E90E80400838C62 /* AUDIO_LOADER_WINDOWS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_LOADER_WINDOWS.h; sourceTree = "<group>"; };
-		3238F34E1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_SOUND_LOADER_MPG123.cpp; sourceTree = "<group>"; };
-		3238F34F1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_SOUND_LOADER_MPG123.h; sourceTree = "<group>"; };
-		3238F3501E90E80400838C62 /* AUDIO_SYSTEM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_SYSTEM.cpp; sourceTree = "<group>"; };
-		3238F3511E90E80400838C62 /* AUDIO_SYSTEM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_SYSTEM.h; sourceTree = "<group>"; };
-		3238F3531E90E80400838C62 /* AUDIO_BANK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_BANK.cpp; sourceTree = "<group>"; };
-		3238F3541E90E80400838C62 /* AUDIO_BANK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_BANK.h; sourceTree = "<group>"; };
-		3238F3551E90E80400838C62 /* AUDIO_BANK_SOUND.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_BANK_SOUND.cpp; sourceTree = "<group>"; };
-		3238F3561E90E80400838C62 /* AUDIO_BANK_SOUND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_BANK_SOUND.h; sourceTree = "<group>"; };
-		3238F3571E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_BANK_SOUND_LOAD_OPTION.cpp; sourceTree = "<group>"; };
-		3238F3581E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_BANK_SOUND_LOAD_OPTION.h; sourceTree = "<group>"; };
-		3238F35A1E90E80400838C62 /* AUDIO_OPENAL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_OPENAL.cpp; sourceTree = "<group>"; };
-		3238F35B1E90E80400838C62 /* AUDIO_OPENAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_OPENAL.h; sourceTree = "<group>"; };
-		3238F35D1E90E80400838C62 /* AUDIO_OPENSL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_OPENSL.cpp; sourceTree = "<group>"; };
-		3238F35E1E90E80400838C62 /* AUDIO_OPENSL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_OPENSL.h; sourceTree = "<group>"; };
-		3238F3601E90E80400838C62 /* AUDIO_SOUND.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_SOUND.cpp; sourceTree = "<group>"; };
-		3238F3611E90E80400838C62 /* AUDIO_SOUND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_SOUND.h; sourceTree = "<group>"; };
-		3238F3621E90E80400838C62 /* AUDIO_SOUND_ANDROID.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AUDIO_SOUND_ANDROID.hpp; sourceTree = "<group>"; };
-		3238F3631E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_SOUND_CHUNK.cpp; sourceTree = "<group>"; };
-		3238F3641E90E80400838C62 /* AUDIO_SOUND_CHUNK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_SOUND_CHUNK.h; sourceTree = "<group>"; };
-		3238F3651E90E80400838C62 /* AUDIO_SOUND_IOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AUDIO_SOUND_IOS.hpp; sourceTree = "<group>"; };
-		3238F3661E90E80400838C62 /* AUDIO_SOUND_OSX.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AUDIO_SOUND_OSX.hpp; sourceTree = "<group>"; };
-		3238F3671E90E80400838C62 /* AUDIO_SOUND_WINDOWS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AUDIO_SOUND_WINDOWS.hpp; sourceTree = "<group>"; };
 		3238F36B1E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp; sourceTree = "<group>"; };
 		3238F36C1E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.h; sourceTree = "<group>"; };
 		3238F36D1E90E80400838C62 /* CORE_ABSTRACT_FUNCTION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_ABSTRACT_FUNCTION.cpp; sourceTree = "<group>"; };
@@ -3037,6 +3034,32 @@
 		5F0C3D1B1FDF38E400B761A2 /* TOOLS_LOCALE_SYSTEM.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TOOLS_LOCALE_SYSTEM.cpp; sourceTree = "<group>"; };
 		5F0C3D1C1FDF38E400B761A2 /* TOOLS_LOCALE_SYSTEM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOOLS_LOCALE_SYSTEM.h; sourceTree = "<group>"; };
 		5F0F949A1FEA533000EEA01D /* NETWORK_SERVER_DELEGATE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NETWORK_SERVER_DELEGATE.h; sourceTree = "<group>"; };
+		5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AUDIO_LOADER_IOS.mm; sourceTree = "<group>"; };
+		5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_SYSTEM.cpp; sourceTree = "<group>"; };
+		5F1770F4208E6F8400720C7F /* AUDIO_INTERFACE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_INTERFACE.cpp; sourceTree = "<group>"; };
+		5F1770F8208E6F8400720C7F /* AUDIO_BANK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_BANK.cpp; sourceTree = "<group>"; };
+		5F1770F9208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_BANK_SOUND.cpp; sourceTree = "<group>"; };
+		5F1770FA208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_BANK_SOUND_LOAD_OPTION.cpp; sourceTree = "<group>"; };
+		5F1770FB208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_BANK_SOUND_LOAD_OPTION.h; sourceTree = "<group>"; };
+		5F1770FC208E6F8400720C7F /* AUDIO_BANK_SOUND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_BANK_SOUND.h; sourceTree = "<group>"; };
+		5F1770FD208E6F8400720C7F /* AUDIO_BANK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_BANK.h; sourceTree = "<group>"; };
+		5F1770FF208E6F8400720C7F /* AUDIO_OGG_LOADER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_OGG_LOADER.h; sourceTree = "<group>"; };
+		5F177103208E6F8400720C7F /* AUDIO_LOADER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_LOADER.cpp; sourceTree = "<group>"; };
+		5F177105208E6F8400720C7F /* AUDIO_OPENAL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_OPENAL.cpp; sourceTree = "<group>"; };
+		5F177106208E6F8400720C7F /* AUDIO_OPENAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_OPENAL.h; sourceTree = "<group>"; };
+		5F177107208E6F8400720C7F /* AUDIO_INTERFACE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_INTERFACE.h; sourceTree = "<group>"; };
+		5F177108208E6F8400720C7F /* AUDIO_LOADER_IOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_LOADER_IOS.h; sourceTree = "<group>"; };
+		5F177109208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_OGG_LOADER.cpp; sourceTree = "<group>"; };
+		5F17710A208E6F8400720C7F /* AUDIO_LOADER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_LOADER.h; sourceTree = "<group>"; };
+		5F17710B208E6F8400720C7F /* AUDIO_LOADER_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_LOADER_OSX.h; sourceTree = "<group>"; };
+		5F17710E208E6F8400720C7F /* AUDIO_SYSTEM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_SYSTEM.h; sourceTree = "<group>"; };
+		5F177110208E6F8400720C7F /* AUDIO_SOUND_OSX.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AUDIO_SOUND_OSX.hpp; sourceTree = "<group>"; };
+		5F177112208E6F8400720C7F /* AUDIO_SOUND_IOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AUDIO_SOUND_IOS.hpp; sourceTree = "<group>"; };
+		5F177113208E6F8400720C7F /* AUDIO_SOUND.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_SOUND.cpp; sourceTree = "<group>"; };
+		5F177114208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AUDIO_SOUND_CHUNK.cpp; sourceTree = "<group>"; };
+		5F177115208E6F8400720C7F /* AUDIO_SOUND_CHUNK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_SOUND_CHUNK.h; sourceTree = "<group>"; };
+		5F177117208E6F8400720C7F /* AUDIO_SOUND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUDIO_SOUND.h; sourceTree = "<group>"; };
+		5F177118208E6F8400720C7F /* AUDIO_LOADER_OSX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AUDIO_LOADER_OSX.mm; sourceTree = "<group>"; };
 		5F193B781FEB18F600F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_ACTION_COMMAND_SERVER_INFO.cpp; sourceTree = "<group>"; };
 		5F193B791FEB18F600F5DB4B /* GAMEPLAY_ACTION_COMMAND_SERVER_INFO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_ACTION_COMMAND_SERVER_INFO.h; sourceTree = "<group>"; };
 		5F1AAE7D201A8C5100C5D6AA /* GRAPHIC_TEXTURE_WRAP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_TEXTURE_WRAP.h; sourceTree = "<group>"; };
@@ -3083,6 +3106,8 @@
 		5F9C83CC1FE886460085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp; sourceTree = "<group>"; };
 		5F9C83CD1FE886460085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.h; sourceTree = "<group>"; };
 		5F9CC4C91FD7CD8200DA77FF /* GRAPHIC_UI_ELEMENT_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_UI_ELEMENT_EVENT.h; sourceTree = "<group>"; };
+		5F9CE64D208C70AE009673DE /* libogg copy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libogg copy.a"; sourceTree = "<group>"; };
+		5F9CE64E208C70AE009673DE /* libvorbis copy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libvorbis copy.a"; sourceTree = "<group>"; };
 		5F9E760B1FAF5B1D003DA3CD /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuv.a; sourceTree = "<group>"; };
 		5F9E760C1FAF5B1D003DA3CD /* libBulletInverseDynamics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletInverseDynamics.a; sourceTree = "<group>"; };
 		5F9E760D1FAF5B1D003DA3CD /* libBulletSoftBody.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletSoftBody.a; sourceTree = "<group>"; };
@@ -3640,6 +3665,7 @@
 				5FEA40831F7530780085DDB5 /* libUTF.a in Frameworks */,
 				5FEA40851F7530780085DDB5 /* libz.a in Frameworks */,
 				5FEA40841F7530780085DDB5 /* libuv.a in Frameworks */,
+				5F9CE64F208C70AE009673DE /* libogg copy.a in Frameworks */,
 				5FEA40821F7530780085DDB5 /* libpng.a in Frameworks */,
 				5FEA40631F7530780085DDB5 /* libBulletCollision.a in Frameworks */,
 				5FEA40641F7530780085DDB5 /* libBulletDynamics.a in Frameworks */,
@@ -3649,6 +3675,7 @@
 				5FEA405C1F7530780085DDB5 /* libBullet2FileLoader.a in Frameworks */,
 				5FEA40661F7530780085DDB5 /* libBulletInverseDynamics.a in Frameworks */,
 				5FEA40671F7530780085DDB5 /* libBulletSoftBody.a in Frameworks */,
+				5F9CE650208C70AE009673DE /* libvorbis copy.a in Frameworks */,
 				5FEA40621F7530780085DDB5 /* libBullet3OpenCL_clew.a in Frameworks */,
 				5FEA40681F7530780085DDB5 /* libBulletWorldImporter.a in Frameworks */,
 				5FEA40611F7530780085DDB5 /* libBullet3Geometry.a in Frameworks */,
@@ -3737,79 +3764,6 @@
 				3232785B1CB5BC9D00DF6FDA /* arial_black_12.fxb */,
 			);
 			path = FONTS;
-			sourceTree = "<group>";
-		};
-		3238F3421E90E80400838C62 /* AUDIO */ = {
-			isa = PBXGroup;
-			children = (
-				3238F3431E90E80400838C62 /* AUDIO_INTERFACE.cpp */,
-				3238F3441E90E80400838C62 /* AUDIO_INTERFACE.h */,
-				3238F3451E90E80400838C62 /* AUDIO_LOADER.cpp */,
-				3238F3461E90E80400838C62 /* AUDIO_LOADER.h */,
-				3238F3471E90E80400838C62 /* AUDIO_LOADER_ANDROID.h */,
-				3238F3481E90E80400838C62 /* AUDIO_LOADER_IOS.h */,
-				3238F3491E90E80400838C62 /* AUDIO_LOADER_IOS.mm */,
-				3238F34A1E90E80400838C62 /* AUDIO_LOADER_OSX.h */,
-				3238F34B1E90E80400838C62 /* AUDIO_LOADER_OSX.mm */,
-				3238F34C1E90E80400838C62 /* AUDIO_LOADER_WINDOWS.cpp */,
-				3238F34D1E90E80400838C62 /* AUDIO_LOADER_WINDOWS.h */,
-				3238F34E1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp */,
-				3238F34F1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.h */,
-				3238F3501E90E80400838C62 /* AUDIO_SYSTEM.cpp */,
-				3238F3511E90E80400838C62 /* AUDIO_SYSTEM.h */,
-				3238F3521E90E80400838C62 /* BANK */,
-				3238F3591E90E80400838C62 /* OPENAL */,
-				3238F35C1E90E80400838C62 /* OPENSL */,
-				3238F35F1E90E80400838C62 /* SOUND */,
-			);
-			name = AUDIO;
-			path = ../../CODE/AUDIO;
-			sourceTree = "<group>";
-		};
-		3238F3521E90E80400838C62 /* BANK */ = {
-			isa = PBXGroup;
-			children = (
-				3238F3531E90E80400838C62 /* AUDIO_BANK.cpp */,
-				3238F3541E90E80400838C62 /* AUDIO_BANK.h */,
-				3238F3551E90E80400838C62 /* AUDIO_BANK_SOUND.cpp */,
-				3238F3561E90E80400838C62 /* AUDIO_BANK_SOUND.h */,
-				3238F3571E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */,
-				3238F3581E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.h */,
-			);
-			path = BANK;
-			sourceTree = "<group>";
-		};
-		3238F3591E90E80400838C62 /* OPENAL */ = {
-			isa = PBXGroup;
-			children = (
-				3238F35A1E90E80400838C62 /* AUDIO_OPENAL.cpp */,
-				3238F35B1E90E80400838C62 /* AUDIO_OPENAL.h */,
-			);
-			path = OPENAL;
-			sourceTree = "<group>";
-		};
-		3238F35C1E90E80400838C62 /* OPENSL */ = {
-			isa = PBXGroup;
-			children = (
-				3238F35D1E90E80400838C62 /* AUDIO_OPENSL.cpp */,
-				3238F35E1E90E80400838C62 /* AUDIO_OPENSL.h */,
-			);
-			path = OPENSL;
-			sourceTree = "<group>";
-		};
-		3238F35F1E90E80400838C62 /* SOUND */ = {
-			isa = PBXGroup;
-			children = (
-				3238F3601E90E80400838C62 /* AUDIO_SOUND.cpp */,
-				3238F3611E90E80400838C62 /* AUDIO_SOUND.h */,
-				3238F3621E90E80400838C62 /* AUDIO_SOUND_ANDROID.hpp */,
-				3238F3631E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp */,
-				3238F3641E90E80400838C62 /* AUDIO_SOUND_CHUNK.h */,
-				3238F3651E90E80400838C62 /* AUDIO_SOUND_IOS.hpp */,
-				3238F3661E90E80400838C62 /* AUDIO_SOUND_OSX.hpp */,
-				3238F3671E90E80400838C62 /* AUDIO_SOUND_WINDOWS.hpp */,
-			);
-			path = SOUND;
 			sourceTree = "<group>";
 		};
 		3238F3681E90E80400838C62 /* CORE */ = {
@@ -5206,7 +5160,7 @@
 		32612FD118256EFA003E4C2B /* XS-ENGINE */ = {
 			isa = PBXGroup;
 			children = (
-				3238F3421E90E80400838C62 /* AUDIO */,
+				5F1770F1208E6F8400720C7F /* AUDIO */,
 				3238F3681E90E80400838C62 /* CORE */,
 				3238F4221E90E80400838C62 /* GAMEPLAY */,
 				3238F45A1E90E80400838C62 /* GRAPHIC */,
@@ -5532,6 +5486,64 @@
 				5F0C3D1C1FDF38E400B761A2 /* TOOLS_LOCALE_SYSTEM.h */,
 			);
 			path = TOOLS_LOCALE;
+			sourceTree = "<group>";
+		};
+		5F1770F1208E6F8400720C7F /* AUDIO */ = {
+			isa = PBXGroup;
+			children = (
+				5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */,
+				5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */,
+				5F1770F4208E6F8400720C7F /* AUDIO_INTERFACE.cpp */,
+				5F1770F7208E6F8400720C7F /* BANK */,
+				5F1770FF208E6F8400720C7F /* AUDIO_OGG_LOADER.h */,
+				5F177103208E6F8400720C7F /* AUDIO_LOADER.cpp */,
+				5F177104208E6F8400720C7F /* OPENAL */,
+				5F177107208E6F8400720C7F /* AUDIO_INTERFACE.h */,
+				5F177108208E6F8400720C7F /* AUDIO_LOADER_IOS.h */,
+				5F177109208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp */,
+				5F17710A208E6F8400720C7F /* AUDIO_LOADER.h */,
+				5F17710B208E6F8400720C7F /* AUDIO_LOADER_OSX.h */,
+				5F17710E208E6F8400720C7F /* AUDIO_SYSTEM.h */,
+				5F17710F208E6F8400720C7F /* SOUND */,
+				5F177118208E6F8400720C7F /* AUDIO_LOADER_OSX.mm */,
+			);
+			name = AUDIO;
+			path = ../../CODE/AUDIO;
+			sourceTree = "<group>";
+		};
+		5F1770F7208E6F8400720C7F /* BANK */ = {
+			isa = PBXGroup;
+			children = (
+				5F1770F8208E6F8400720C7F /* AUDIO_BANK.cpp */,
+				5F1770F9208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp */,
+				5F1770FA208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp */,
+				5F1770FB208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.h */,
+				5F1770FC208E6F8400720C7F /* AUDIO_BANK_SOUND.h */,
+				5F1770FD208E6F8400720C7F /* AUDIO_BANK.h */,
+			);
+			path = BANK;
+			sourceTree = "<group>";
+		};
+		5F177104208E6F8400720C7F /* OPENAL */ = {
+			isa = PBXGroup;
+			children = (
+				5F177105208E6F8400720C7F /* AUDIO_OPENAL.cpp */,
+				5F177106208E6F8400720C7F /* AUDIO_OPENAL.h */,
+			);
+			path = OPENAL;
+			sourceTree = "<group>";
+		};
+		5F17710F208E6F8400720C7F /* SOUND */ = {
+			isa = PBXGroup;
+			children = (
+				5F177110208E6F8400720C7F /* AUDIO_SOUND_OSX.hpp */,
+				5F177112208E6F8400720C7F /* AUDIO_SOUND_IOS.hpp */,
+				5F177113208E6F8400720C7F /* AUDIO_SOUND.cpp */,
+				5F177114208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp */,
+				5F177115208E6F8400720C7F /* AUDIO_SOUND_CHUNK.h */,
+				5F177117208E6F8400720C7F /* AUDIO_SOUND.h */,
+			);
+			path = SOUND;
 			sourceTree = "<group>";
 		};
 		5F70E79C1FADB3B200D90632 /* JSON */ = {
@@ -5925,6 +5937,8 @@
 		5FEA3FED1F7530660085DDB5 /* COMPILED_LIBS_OSX */ = {
 			isa = PBXGroup;
 			children = (
+				5F9CE64D208C70AE009673DE /* libogg copy.a */,
+				5F9CE64E208C70AE009673DE /* libvorbis copy.a */,
 				5F70E7A71FADF82200D90632 /* libpcre.a */,
 				5FEA402F1F7530660085DDB5 /* libbuffer.a */,
 				5FEA40301F7530660085DDB5 /* libBullet2FileLoader.a */,
@@ -6003,10 +6017,24 @@
 			files = (
 				5FF8B5961FC569410010A6BB /* GAMEPLAY_CHECKPOINT.h in Headers */,
 				5FD9B7E01F52EBED00708B8D /* TOOL_BULLET_GL_DEBUGGER.h in Headers */,
+				5F177171208E6F8400720C7F /* AUDIO_LOADER_OSX.h in Headers */,
+				5F17717A208E6F8400720C7F /* AUDIO_SYSTEM.h in Headers */,
+				5F177167208E6F8400720C7F /* AUDIO_INTERFACE.h in Headers */,
 				5F7987C71FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.h in Headers */,
+				5F17714B208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.h in Headers */,
+				5F17714C208E6F8400720C7F /* AUDIO_BANK_SOUND.h in Headers */,
+				5F177168208E6F8400720C7F /* AUDIO_LOADER_IOS.h in Headers */,
+				5F17717D208E6F8400720C7F /* AUDIO_SOUND_IOS.hpp in Headers */,
+				5F17718E208E6F8400720C7F /* AUDIO_SOUND.h in Headers */,
 				5F0C3D0D1FDF35BD00B761A2 /* NETWORK_MANAGER.h in Headers */,
+				5F17718C208E6F8400720C7F /* AUDIO_SOUND_CHUNK.h in Headers */,
+				5F17717B208E6F8400720C7F /* AUDIO_SOUND_OSX.hpp in Headers */,
 				5FCC3D742002F01900A698B8 /* OPENGL_4.h in Headers */,
+				5F177170208E6F8400720C7F /* AUDIO_LOADER.h in Headers */,
+				5F177166208E6F8400720C7F /* AUDIO_OPENAL.h in Headers */,
 				5FA9F1F81FDDEFED00D2869F /* GRAPHIC_UI_NAVIGATION.h in Headers */,
+				5F17714D208E6F8400720C7F /* AUDIO_BANK.h in Headers */,
+				5F17714F208E6F8400720C7F /* AUDIO_OGG_LOADER.h in Headers */,
 				5FF8B5A01FC56AD40010A6BB /* GAMEPLAY_CHECKPOINT_PLAYER_DATA.h in Headers */,
 				5F92DAA21F16413800292A99 /* LIB.h in Headers */,
 				5FF8B58C1FC568E70010A6BB /* GAMEPLAY_CHECKPOINT_SYSTEM.h in Headers */,
@@ -6411,6 +6439,7 @@
 				3253DB4A1EBF5EFC00DF1797 /* RESOURCE_TYPE.cpp in Sources */,
 				3238F8441E90E80600838C62 /* GRAPHIC_PARTICLE_RENDERER.cpp in Sources */,
 				3238FA471E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */,
+				5F17715C208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */,
 				5FEA3F7C1F7421500085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp in Sources */,
 				3238F85D1E90E80600838C62 /* GRAPHIC_RENDERER.cpp in Sources */,
 				3238F7FE1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
@@ -6433,6 +6462,7 @@
 				3238F7CC1E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
 				3238F8B21E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */,
 				3238F6731E90E80500838C62 /* CORE_HELPERS_IDENTIFIER_SYSTEM.cpp in Sources */,
+				5F17713A208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */,
 				3238F7401E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.cpp in Sources */,
 				5F7987C51FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp in Sources */,
 				3238F6141E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_MANAGER.cpp in Sources */,
@@ -6444,6 +6474,7 @@
 				3238F96B1E90E80600838C62 /* PERIPHERIC_INTERACTION_SYSTEM.cpp in Sources */,
 				3238F8991E90E80600838C62 /* GRAPHIC_SHADER_OPENGL.cpp in Sources */,
 				3238F6051E90E80400838C62 /* CORE_ABSTRACT_FUNCTION_PARAMETER.cpp in Sources */,
+				5F17716D208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */,
 				3238F8261E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_SPHERE.cpp in Sources */,
 				3238F9AC1E90E80700838C62 /* RESOURCE_SOUND_MP3_LOADER.cpp in Sources */,
 				3238F6E11E90E80500838C62 /* CORE_PARALLEL_TASK.cpp in Sources */,
@@ -6453,6 +6484,7 @@
 				5F70E79A1FAC904C00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */,
 				3238F7451E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */,
 				3238F9DE1E90E80700838C62 /* FONT_EDITOR.cpp in Sources */,
+				5F17711D208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */,
 				3238F7A91E90E80500838C62 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
 				3238F8A31E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */,
 				328ABFF81EC0C69A00C501A8 /* Create3dItem.m in Sources */,
@@ -6461,6 +6493,7 @@
 				32D7E9E31E913C91000F5703 /* ASSET_SCREEN.cpp in Sources */,
 				3238F7C21E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_JOINT.cpp in Sources */,
 				3238F6781E90E80500838C62 /* CORE_HELPERS_UNIQUE_IDENTIFIER.cpp in Sources */,
+				5F177148208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				3238F65A1E90E80500838C62 /* CORE_DATA_LOADER.cpp in Sources */,
 				3238F92A1E90E80600838C62 /* GRAPHIC_UI_ELEMENT_SCRIPTED.cpp in Sources */,
 				3238F86C1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
@@ -6473,7 +6506,6 @@
 				3261CEFA1E91229E000872F4 /* LeftPaneViewController.m in Sources */,
 				32BFC8241E9A78370080BF8E /* AtlasViewController.m in Sources */,
 				3238F5FB1E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
-				3238F5C41E90E80400838C62 /* AUDIO_LOADER_OSX.mm in Sources */,
 				3238F6B91E90E80500838C62 /* CORE_MATH_VECTOR.cpp in Sources */,
 				3238F72C1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */,
 				5FCC3D6020018A9800A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp in Sources */,
@@ -6482,7 +6514,6 @@
 				3238F78B1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
 				3238FA0B1E90E80700838C62 /* GteLogger.cpp in Sources */,
 				3289D31D1E91266B00354443 /* ASSET_EDITOR.cpp in Sources */,
-				3238F5B51E90E80400838C62 /* AUDIO_INTERFACE.cpp in Sources */,
 				3238F9571E90E80600838C62 /* NETWORK_PLAYER.cpp in Sources */,
 				3238F9611E90E80600838C62 /* PERIPHERIC_INTERACTION_KEYBOARD.cpp in Sources */,
 				3238F97F1E90E80600838C62 /* RESOURCE_IMAGE_PNG_LOADER.cpp in Sources */,
@@ -6508,7 +6539,6 @@
 				3238F89E1E90E80600838C62 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
 				3238F74A1E90E80500838C62 /* GAMEPLAY_ACTION.cpp in Sources */,
 				5F5661DF1ED9B63C00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */,
-				3238F5F61E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				5F5661D81ED2E57500C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				3238F68C1E90E80500838C62 /* CORE_MATH_MATRIX.cpp in Sources */,
 				5F5EC1751EF9DA3D00F4939D /* GAMEPLAY_COMPONENT_ENTITY_PROXY.cpp in Sources */,
@@ -6538,11 +6568,10 @@
 				3238F77C1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM.cpp in Sources */,
 				3238F6C31E90E80500838C62 /* CORE_MEMORY_ALLOCATOR.cpp in Sources */,
 				3238F7861E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
+				5F177124208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */,
 				3238F7681E90E80500838C62 /* GAMEPLAY_COMPONENT_MANAGER.cpp in Sources */,
-				3238F5DD1E90E80400838C62 /* AUDIO_BANK_SOUND.cpp in Sources */,
 				3238F7EA1E90E80500838C62 /* GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp in Sources */,
 				5F9C83D11FE886D70085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp in Sources */,
-				3238F5BA1E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */,
 				3238F98E1E90E80700838C62 /* RESOURCE_IMAGE_ATLAS_COMPILER.cpp in Sources */,
 				3238F6C81E90E80500838C62 /* CORE_HELPERS_OBSERVABLE.cpp in Sources */,
 				5FC19B901EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
@@ -6552,7 +6581,6 @@
 				3238FA241E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
 				3238F7D11E90E80500838C62 /* GRAPHIC_MESH_SUB_SKELETON.cpp in Sources */,
 				3238F92F1E90E80600838C62 /* GRAPHIC_UI_TEXT.cpp in Sources */,
-				3238F5D81E90E80400838C62 /* AUDIO_BANK.cpp in Sources */,
 				3238F7F41E90E80500838C62 /* GRAPHIC_OBJECT_ANIMATED.cpp in Sources */,
 				32AFED011EB919EE006664AB /* MainSplitViewController.m in Sources */,
 				3238F7B81E90E80500838C62 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
@@ -6560,7 +6588,6 @@
 				3238F8081E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
 				3238F9981E90E80700838C62 /* RESOURCE.cpp in Sources */,
 				5F9633751ECB12B0006DF196 /* Custom3dTableViewDelegate.m in Sources */,
-				3238F5F11E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */,
 				3238F8CB1E90E80600838C62 /* GRAPHIC_GLYPH.cpp in Sources */,
 				3238F6E61E90E80500838C62 /* CORE_PARALLEL_THREAD.cpp in Sources */,
 				3238F79F1E90E80500838C62 /* GAMEPLAY_SCENE.cpp in Sources */,
@@ -6568,14 +6595,15 @@
 				3238F6A51E90E80500838C62 /* CORE_MATH_SHAPE_BOX.cpp in Sources */,
 				5FA9F1F51FDDEFED00D2869F /* GRAPHIC_UI_NAVIGATION.cpp in Sources */,
 				5F193B871FEB1E9100F5DB4B /* NETWORK_SERVER_INFO.cpp in Sources */,
+				5F177189208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				3238F8A81E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
 				3238F6961E90E80500838C62 /* CORE_MATH_QUATERNION.cpp in Sources */,
-				3238F5EC1E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */,
 				3238FA5B1E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */,
 				3238F6FF1E90E80500838C62 /* CORE_TIMELINE_EVENT.cpp in Sources */,
 				3238F7901E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp in Sources */,
 				3238F7C71E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
 				3238F7E51E90E80500838C62 /* GRAPHIC_MESH_POLYGON_RENDER_MODE.cpp in Sources */,
+				5F177141208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */,
 				32AFED091EBBB512006664AB /* AssetView.m in Sources */,
 				3238F9D41E90E80700838C62 /* SERVICE_NETWORK_SYSTEM.cpp in Sources */,
 				3238F9161E90E80600838C62 /* GRAPHIC_UI_PLACEMENT.cpp in Sources */,
@@ -6605,6 +6633,7 @@
 				3238F8301E90E80600838C62 /* GRAPHIC_PARTICLE_EMITER.cpp in Sources */,
 				3238F79A1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
 				5F6CD8FA1EDB3E0200631D59 /* GAMEPLAY_COMPONENT_SCRIPT.cpp in Sources */,
+				5F177193208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */,
 				3238F8351E90E80600838C62 /* GRAPHIC_PARTICLE_MANAGER.cpp in Sources */,
 				3238F7BD1E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp in Sources */,
 				3238F7541E90E80500838C62 /* GAMEPLAY_COMPONENT.cpp in Sources */,
@@ -6635,18 +6664,17 @@
 				3238F9B11E90E80700838C62 /* RESOURCE_SOUND.cpp in Sources */,
 				3238F7951E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER.cpp in Sources */,
 				3238F8DA1E90E80600838C62 /* GRAPHIC_TEXTURE_ATLAS.cpp in Sources */,
+				5F177182208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */,
 				3238F6641E90E80500838C62 /* CORE_HELPERS_CALLBACK.cpp in Sources */,
 				3238F6001E90E80400838C62 /* CORE_ABSTRACT_FUNCTION.cpp in Sources */,
-				3238F5E21E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				3238F84E1E90E80600838C62 /* GRAPHIC_PARTICLE_RENDERER_OPENGL.cpp in Sources */,
+				5F177163208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */,
 				3238F73B1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_READY.cpp in Sources */,
 				3238F9891E90E80700838C62 /* RESOURCE_IMAGE.cpp in Sources */,
 				3238F9ED1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */,
 				3238F6281E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_V8.cpp in Sources */,
 				3238F8F31E90E80600838C62 /* GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp in Sources */,
-				3238F5E71E90E80400838C62 /* AUDIO_OPENAL.cpp in Sources */,
 				3238FA6F1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */,
-				32E0A1A81E9D43EC00B14365 /* AUDIO_SYSTEM.cpp in Sources */,
 				5FAFD0551F75597A00113D6E /* PHYSICS_UTILS.cpp in Sources */,
 				5FCC3D722002F01900A698B8 /* OPENGL_4.cpp in Sources */,
 				3238F8E91E90E80600838C62 /* GRAPHIC_UI_BASE_ADAPTER.cpp in Sources */,
@@ -6663,9 +6691,9 @@
 				32AFED0C1EBBB923006664AB /* DefaultAssetViewItem.m in Sources */,
 				3238F9701E90E80600838C62 /* PERIPHERIC_INTERACTION_TOUCH.cpp in Sources */,
 				3238F8171E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.cpp in Sources */,
+				5F17712B208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */,
 				3238F6AF1E90E80500838C62 /* CORE_MATH_SHAPE_SPHERE.cpp in Sources */,
 				3238F7591E90E80500838C62 /* GAMEPLAY_COMPONENT_ACTION.cpp in Sources */,
-				3238F5CE1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */,
 				32ADFE7D1E92DC4B0039E893 /* CreateItemViewController.m in Sources */,
 				5FF8B59D1FC56AD40010A6BB /* GAMEPLAY_CHECKPOINT_PLAYER_DATA.cpp in Sources */,
 				3238FA2E1E90E80700838C62 /* GteTimer.cpp in Sources */,
@@ -6695,9 +6723,11 @@
 				5F5661E81ED9C8EA00C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
 				3238F90B1E90E80600838C62 /* GRAPHIC_UI_FRAME.cpp in Sources */,
 				3238F8B11E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_OPENGL.cpp in Sources */,
+				5F177161208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */,
 				3238F8571E90E80600838C62 /* GRAPHIC_RENDER_TARGET_OPENGL.cpp in Sources */,
 				3238F7E91E90E80500838C62 /* GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp in Sources */,
 				3238F7DF1E90E80500838C62 /* GRAPHIC_MESH_OPENGL.cpp in Sources */,
+				5F177180208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */,
 				5FC19B701EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */,
 				3238F9BA1E90E80700838C62 /* SERVICE_NETWORK_LOBBY_CLIENT.cpp in Sources */,
 				3238F6861E90E80500838C62 /* CORE_HELPERS_UNIQUE.cpp in Sources */,
@@ -6717,6 +6747,8 @@
 				3238F60E1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_FACTORY.cpp in Sources */,
 				3238F9921E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				3238F9A61E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
+				5F17716B208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */,
+				5F177122208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */,
 				3238FA231E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
 				3238F9791E90E80600838C62 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp in Sources */,
 				3238F9831E90E80600838C62 /* RESOURCE_IMAGE_PNG_WRITER.cpp in Sources */,
@@ -6739,6 +6771,7 @@
 				3238F8891E90E80600838C62 /* GRAPHIC_SHADER_ATTRIBUTE.cpp in Sources */,
 				3238F95B1E90E80600838C62 /* NETWORK_SERVER.cpp in Sources */,
 				3238F6591E90E80500838C62 /* CORE_DATA_LOADER.cpp in Sources */,
+				5F17711B208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */,
 				3238F6F41E90E80500838C62 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
 				5F6CD8F81EDB3E0100631D59 /* GAMEPLAY_COMPONENT_SCRIPT.cpp in Sources */,
 				3238F7FD1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
@@ -6750,6 +6783,7 @@
 				3238F7711E90E80500838C62 /* GAMEPLAY_COMPONENT_POSITION.cpp in Sources */,
 				3238F8981E90E80600838C62 /* GRAPHIC_SHADER_OPENGL.cpp in Sources */,
 				3238F8CF1E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
+				5F17713F208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */,
 				5F5EC16C1EF9D01C00F4939D /* GAMEPLAY_COMPONENT_ENTITY_HANDLE.cpp in Sources */,
 				3238F7441E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */,
 				3238F7941E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER.cpp in Sources */,
@@ -6759,13 +6793,11 @@
 				3238F9151E90E80600838C62 /* GRAPHIC_UI_PLACEMENT.cpp in Sources */,
 				3238F84D1E90E80600838C62 /* GRAPHIC_PARTICLE_RENDERER_OPENGL.cpp in Sources */,
 				3238F6BD1E90E80500838C62 /* CORE_MEMORY.cpp in Sources */,
-				3238F5EB1E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */,
 				324E6DDB1EC4B8DC00751F52 /* GAMEPLAY_LIGHT.cpp in Sources */,
 				5F0C3D1F1FDF38E400B761A2 /* TOOLS_LOCALE_SYSTEM.cpp in Sources */,
 				3238F9A11E90E80700838C62 /* RESOURCE_COMPILER.cpp in Sources */,
 				3238F91F1E90E80600838C62 /* GRAPHIC_UI_SYSTEM.cpp in Sources */,
 				3238F6CC1E90E80500838C62 /* CORE_PARALLEL_LOCK.cpp in Sources */,
-				3238F5B41E90E80400838C62 /* AUDIO_INTERFACE.cpp in Sources */,
 				3238F9D81E90E80700838C62 /* TOOL_ASSET_COMPILER.cpp in Sources */,
 				3238F7531E90E80500838C62 /* GAMEPLAY_COMPONENT.cpp in Sources */,
 				3238FA5A1E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */,
@@ -6786,7 +6818,6 @@
 				3238F6A41E90E80500838C62 /* CORE_MATH_SHAPE_BOX.cpp in Sources */,
 				3238F68B1E90E80500838C62 /* CORE_MATH_MATRIX.cpp in Sources */,
 				3238F86B1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
-				3238F5F01E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */,
 				3238FA0F1E90E80700838C62 /* GteLogReporter.cpp in Sources */,
 				3238F5FA1E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
 				3238FA461E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */,
@@ -6794,13 +6825,13 @@
 				3238F8201E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
 				3238F91A1E90E80600838C62 /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
 				3238F7DA1E90E80500838C62 /* GRAPHIC_MESH_MANAGER.cpp in Sources */,
-				3238F5DC1E90E80400838C62 /* AUDIO_BANK_SOUND.cpp in Sources */,
 				3238F7D01E90E80500838C62 /* GRAPHIC_MESH_SUB_SKELETON.cpp in Sources */,
 				3238F9881E90E80700838C62 /* RESOURCE_IMAGE.cpp in Sources */,
 				3238F88E1E90E80600838C62 /* GRAPHIC_SHADER_BIND.cpp in Sources */,
 				3238F8A71E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
 				5FCCB531202DCE0E00595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp in Sources */,
 				3238F6901E90E80500838C62 /* CORE_MATH_POSE.cpp in Sources */,
+				5F177138208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */,
 				3238F6D11E90E80500838C62 /* CORE_PARALLEL_LOCK_MUTEX.cpp in Sources */,
 				3238F8841E90E80600838C62 /* GRAPHIC_SHADER.cpp in Sources */,
 				3238F7C61E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
@@ -6814,6 +6845,8 @@
 				3238F9331E90E80600838C62 /* GRAPHIC_WINDOW.cpp in Sources */,
 				3238F7B71E90E80500838C62 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
 				5FC19B751EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
+				5F177146208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
+				5F177129208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */,
 				3238F8FC1E90E80600838C62 /* GRAPHIC_UI_TEXT_ADAPTER.cpp in Sources */,
 				3238F7851E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
 				3238F8C51E90E80600838C62 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
@@ -6843,7 +6876,6 @@
 				3238F9471E90E80600838C62 /* GRAPHIC_WINDOW_OSX_VIEW.cpp in Sources */,
 				5FF8B5911FC569410010A6BB /* GAMEPLAY_CHECKPOINT.cpp in Sources */,
 				3238F6771E90E80500838C62 /* CORE_HELPERS_UNIQUE_IDENTIFIER.cpp in Sources */,
-				3238F5E11E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				3238FA641E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */,
 				3238F6C71E90E80500838C62 /* CORE_HELPERS_OBSERVABLE.cpp in Sources */,
 				3238F85C1E90E80600838C62 /* GRAPHIC_RENDERER.cpp in Sources */,
@@ -6856,19 +6888,18 @@
 				3238F69F1E90E80500838C62 /* CORE_MATH_SHAPE.cpp in Sources */,
 				3238F7CB1E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
 				3238F67C1E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
-				3238F5D21E90E80400838C62 /* AUDIO_SYSTEM.cpp in Sources */,
 				3238F8D91E90E80600838C62 /* GRAPHIC_TEXTURE_ATLAS.cpp in Sources */,
 				3238F6B81E90E80500838C62 /* CORE_MATH_VECTOR.cpp in Sources */,
 				3238FA2D1E90E80700838C62 /* GteTimer.cpp in Sources */,
 				5F0C3D081FDF35BD00B761A2 /* NETWORK_MANAGER.cpp in Sources */,
 				3238F9971E90E80700838C62 /* RESOURCE.cpp in Sources */,
+				5F177187208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				3238F9241E90E80600838C62 /* GRAPHIC_UI_PRESENTER.cpp in Sources */,
 				3238F7351E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT.cpp in Sources */,
 				3238F61D1E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.cpp in Sources */,
 				3238F8DE1E90E80600838C62 /* GRAPHIC_TEXTURE_BLOCK.cpp in Sources */,
 				5FB60B321FDFB74B009A0692 /* CORE_DATA_UTF8_TEXT.cpp in Sources */,
 				3238F9C91E90E80700838C62 /* SERVICE_NETWORK_CONNECTION.cpp in Sources */,
-				3238F5B91E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */,
 				5F6CD9001EDB52CF00631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp in Sources */,
 				3238F8F71E90E80600838C62 /* GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.cpp in Sources */,
 				3238F7A81E90E80500838C62 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
@@ -6896,11 +6927,11 @@
 				3238FA3C1E90E80700838C62 /* GteBSPrecision.cpp in Sources */,
 				5FA227901EF6CA09007BC5A1 /* GAMEPLAY_COMPONENT_HANDLE.cpp in Sources */,
 				3238F9B01E90E80700838C62 /* RESOURCE_SOUND.cpp in Sources */,
-				3238F5C31E90E80400838C62 /* AUDIO_LOADER_OSX.mm in Sources */,
 				3238F9EC1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */,
 				3238FA0A1E90E80700838C62 /* GteLogger.cpp in Sources */,
 				3238F7621E90E80500838C62 /* GAMEPLAY_COMPONENT_ENTITY.cpp in Sources */,
 				3238F8F21E90E80600838C62 /* GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp in Sources */,
+				5F177191208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */,
 				3238F5FF1E90E80400838C62 /* CORE_ABSTRACT_FUNCTION.cpp in Sources */,
 				3238F7991E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
 				3238F62C1E90E80500838C62 /* CORE_ABSTRACT_RUNTIME_V8.cpp in Sources */,
@@ -6908,9 +6939,7 @@
 				3238F72B1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */,
 				3238F6631E90E80500838C62 /* CORE_HELPERS_CALLBACK.cpp in Sources */,
 				5F3BC84B1EE48FA50031CEF7 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
-				3238F5D71E90E80400838C62 /* AUDIO_BANK.cpp in Sources */,
 				3238FA731E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */,
-				3238F5F51E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				3238FA281E90E80700838C62 /* GteLogToStringArray.cpp in Sources */,
 				3238F92E1E90E80600838C62 /* GRAPHIC_UI_TEXT.cpp in Sources */,
 				3238F9651E90E80600838C62 /* PERIPHERIC_INTERACTION_MOUSE.cpp in Sources */,
@@ -6920,11 +6949,10 @@
 				3238F7301E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.cpp in Sources */,
 				3238F96A1E90E80600838C62 /* PERIPHERIC_INTERACTION_SYSTEM.cpp in Sources */,
 				3238F8A21E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */,
+				5F17715A208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */,
 				3238F7671E90E80500838C62 /* GAMEPLAY_COMPONENT_MANAGER.cpp in Sources */,
 				325A73781E522ACE0046520B /* main.m in Sources */,
-				3238F5CD1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */,
 				3238F74E1E90E80500838C62 /* GAMEPLAY_ACTION_SYSTEM.cpp in Sources */,
-				3238F5E61E90E80400838C62 /* AUDIO_OPENAL.cpp in Sources */,
 				3238F9C41E90E80700838C62 /* SERVICE_NETWORK_COMMAND.cpp in Sources */,
 				3238F7581E90E80500838C62 /* GAMEPLAY_COMPONENT_ACTION.cpp in Sources */,
 				3238F8611E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp in Sources */,
@@ -6948,7 +6976,6 @@
 				3238F7611E90E80500838C62 /* GAMEPLAY_COMPONENT_ENTITY.cpp in Sources */,
 				3238F6711E90E80500838C62 /* CORE_HELPERS_IDENTIFIER_SYSTEM.cpp in Sources */,
 				3238F9A51E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
-				3238F5D61E90E80400838C62 /* AUDIO_BANK.cpp in Sources */,
 				3238F95F1E90E80600838C62 /* PERIPHERIC_INTERACTION_KEYBOARD.cpp in Sources */,
 				3238F65D1E90E80500838C62 /* CORE_DATA_STREAM.cpp in Sources */,
 				3238FA631E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */,
@@ -6960,7 +6987,6 @@
 				3238F67B1E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
 				3238F6F31E90E80500838C62 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
 				3238F89C1E90E80600838C62 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
-				3238F5B81E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */,
 				3238F9C81E90E80700838C62 /* SERVICE_NETWORK_CONNECTION.cpp in Sources */,
 				3238F92D1E90E80600838C62 /* GRAPHIC_UI_TEXT.cpp in Sources */,
 				3238F90F1E90E80600838C62 /* GRAPHIC_UI_HELPER.cpp in Sources */,
@@ -6972,7 +6998,6 @@
 				3238F6351E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS.cpp in Sources */,
 				3238F9411E90E80600838C62 /* GRAPHIC_WINDOW_OSX.mm in Sources */,
 				3238F78E1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp in Sources */,
-				3238F5B31E90E80400838C62 /* AUDIO_INTERFACE.cpp in Sources */,
 				3238F8F11E90E80600838C62 /* GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp in Sources */,
 				3238F6671E90E80500838C62 /* CORE_HELPERS_CLASS.cpp in Sources */,
 				3238F8F61E90E80600838C62 /* GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.cpp in Sources */,
@@ -6997,14 +7022,15 @@
 				3238F6E91E90E80500838C62 /* CORE_PARALLEL_THREAD_POSIX.cpp in Sources */,
 				5FA7FB662013586300C7A829 /* GRAPHIC_UI_GRID_ADAPTER.cpp in Sources */,
 				3238F76B1E90E80500838C62 /* GAMEPLAY_COMPONENT_PHYSICS.cpp in Sources */,
-				3238F5E51E90E80400838C62 /* AUDIO_OPENAL.cpp in Sources */,
 				5FAFD0581F75597B00113D6E /* PHYSICS_UTILS.cpp in Sources */,
+				5F17711A208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */,
 				5F5EC16B1EF9D01C00F4939D /* GAMEPLAY_COMPONENT_ENTITY_HANDLE.cpp in Sources */,
 				32840AE819E472A10005FEB1 /* ViewController.m in Sources */,
 				3238F9461E90E80600838C62 /* GRAPHIC_WINDOW_OSX_VIEW.cpp in Sources */,
 				3238F7B61E90E80500838C62 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
 				3238F8791E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_LOADER.cpp in Sources */,
 				3238F85B1E90E80600838C62 /* GRAPHIC_RENDERER.cpp in Sources */,
+				5F177128208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */,
 				3238F7BB1E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp in Sources */,
 				3238F9281E90E80600838C62 /* GRAPHIC_UI_ELEMENT_SCRIPTED.cpp in Sources */,
 				3238F9A01E90E80700838C62 /* RESOURCE_COMPILER.cpp in Sources */,
@@ -7029,7 +7055,6 @@
 				3238F6491E90E80500838C62 /* CORE_DATA_FAST_ARRAY.cpp in Sources */,
 				3238F68A1E90E80500838C62 /* CORE_MATH_MATRIX.cpp in Sources */,
 				3238FA3B1E90E80700838C62 /* GteBSPrecision.cpp in Sources */,
-				3238F5E01E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				3238F6C61E90E80500838C62 /* CORE_HELPERS_OBSERVABLE.cpp in Sources */,
 				3238F9001E90E80600838C62 /* GRAPHIC_UI_ANIMATION.cpp in Sources */,
 				3238F9051E90E80600838C62 /* GRAPHIC_UI_ELEMENT.cpp in Sources */,
@@ -7053,21 +7078,23 @@
 				3238F8101E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_GRID.cpp in Sources */,
 				3238F8DD1E90E80600838C62 /* GRAPHIC_TEXTURE_BLOCK.cpp in Sources */,
 				5FF8B5861FC568E70010A6BB /* GAMEPLAY_CHECKPOINT_SYSTEM.cpp in Sources */,
+				5F177160208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */,
 				3238F73E1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.cpp in Sources */,
 				3238FA311E90E80700838C62 /* GteWrapper.cpp in Sources */,
 				3238F60D1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_FACTORY.cpp in Sources */,
 				5F0C3D071FDF35BD00B761A2 /* NETWORK_MANAGER.cpp in Sources */,
+				5F177137208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */,
 				3238F9BE1E90E80700838C62 /* SERVICE_NETWORK_LOBBY.cpp in Sources */,
 				3238FA361E90E80700838C62 /* GteBitHacks.cpp in Sources */,
 				3238F87E1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_SPEEDBLUR.cpp in Sources */,
 				3238F6B21E90E80500838C62 /* CORE_MATH_SHAPE_TYPE.cpp in Sources */,
 				3238F8AB1E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_OES2.cpp in Sources */,
 				5F70E7A01FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
+				5F17713E208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */,
 				3238F7C01E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_JOINT.cpp in Sources */,
 				3238F96E1E90E80600838C62 /* PERIPHERIC_INTERACTION_TOUCH.cpp in Sources */,
 				3238F6211E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_STATE.cpp in Sources */,
 				3238F5F91E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
-				3238F5EA1E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */,
 				3238FA0E1E90E80700838C62 /* GteLogReporter.cpp in Sources */,
 				3238F7521E90E80500838C62 /* GAMEPLAY_COMPONENT.cpp in Sources */,
 				3238F6A31E90E80500838C62 /* CORE_MATH_SHAPE_BOX.cpp in Sources */,
@@ -7084,15 +7111,18 @@
 				3238F8BA1E90E80600838C62 /* OPENGLES_2.cpp in Sources */,
 				3238F97D1E90E80600838C62 /* RESOURCE_IMAGE_PNG_LOADER.cpp in Sources */,
 				3238F64E1E90E80500838C62 /* CORE_DATA_BUFFER.cpp in Sources */,
+				5F177159208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */,
 				3238F9D21E90E80700838C62 /* SERVICE_NETWORK_SYSTEM.cpp in Sources */,
 				3238F6171E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_RUNTIME.cpp in Sources */,
 				3238F8CE1E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
 				3238F9321E90E80600838C62 /* GRAPHIC_WINDOW.cpp in Sources */,
 				3238F6A81E90E80500838C62 /* CORE_MATH_SHAPE_RECTANGLE.cpp in Sources */,
 				3238F7571E90E80500838C62 /* GAMEPLAY_COMPONENT_ACTION.cpp in Sources */,
+				5F177186208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				3238F9EB1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */,
 				3238F9C31E90E80700838C62 /* SERVICE_NETWORK_COMMAND.cpp in Sources */,
 				3238F8A11E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */,
+				5F177121208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */,
 				3238F8EC1E90E80600838C62 /* GRAPHIC_UI_FRAME_ADAPTER.cpp in Sources */,
 				5F70E7971FAC904B00D90632 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */,
 				3238FA4A1E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
@@ -7110,7 +7140,6 @@
 				3238F7CA1E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
 				3238F6BC1E90E80500838C62 /* CORE_MEMORY.cpp in Sources */,
 				3238F7D41E90E80500838C62 /* GRAPHIC_MESH.cpp in Sources */,
-				3238F5EF1E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */,
 				3238F8A61E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
 				3238F8921E90E80600838C62 /* GRAPHIC_SHADER_OES2.cpp in Sources */,
 				5FCCB532202DCE0E00595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp in Sources */,
@@ -7124,10 +7153,9 @@
 				3238F9D71E90E80700838C62 /* TOOL_ASSET_COMPILER.cpp in Sources */,
 				3238F6D01E90E80500838C62 /* CORE_PARALLEL_LOCK_MUTEX.cpp in Sources */,
 				3238F7CF1E90E80500838C62 /* GRAPHIC_MESH_SUB_SKELETON.cpp in Sources */,
-				3238F5CC1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */,
-				3238F5DB1E90E80400838C62 /* AUDIO_BANK_SOUND.cpp in Sources */,
 				3238F6FD1E90E80500838C62 /* CORE_TIMELINE_EVENT.cpp in Sources */,
 				5FCC3D6320018A9900A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp in Sources */,
+				5F177145208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				3238F8831E90E80600838C62 /* GRAPHIC_SHADER.cpp in Sources */,
 				5F193B831FEB1E9100F5DB4B /* NETWORK_SERVER_INFO.cpp in Sources */,
 				3238F7701E90E80500838C62 /* GAMEPLAY_COMPONENT_POSITION.cpp in Sources */,
@@ -7142,6 +7170,7 @@
 				3238F9AF1E90E80700838C62 /* RESOURCE_SOUND.cpp in Sources */,
 				3238F99B1E90E80700838C62 /* RESOURCE_CACHE.cpp in Sources */,
 				3238F7A71E90E80500838C62 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
+				5F17716A208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */,
 				5F5661E21ED9B63E00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */,
 				3238F81F1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
 				3238F7F71E90E80600838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.cpp in Sources */,
@@ -7172,7 +7201,6 @@
 				3238F69E1E90E80500838C62 /* CORE_MATH_SHAPE.cpp in Sources */,
 				3238FA5E1E90E80700838C62 /* GteTriangleKey.cpp in Sources */,
 				3238F6DF1E90E80500838C62 /* CORE_PARALLEL_TASK.cpp in Sources */,
-				3238F5D11E90E80400838C62 /* AUDIO_SYSTEM.cpp in Sources */,
 				3238F72A1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */,
 				3253DB371EBDA2A900DF1797 /* RESOURCE_CONTAINER.cpp in Sources */,
 				3238F6991E90E80500838C62 /* CORE_MATH_RAY.cpp in Sources */,
@@ -7182,10 +7210,10 @@
 				3238F8D31E90E80600838C62 /* GRAPHIC_TEXTURE.cpp in Sources */,
 				3238FA181E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */,
 				3238F8601E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp in Sources */,
-				3238F5F41E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				3238F72F1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.cpp in Sources */,
 				3238F6261E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_V8.cpp in Sources */,
 				3238F88D1E90E80600838C62 /* GRAPHIC_SHADER_BIND.cpp in Sources */,
+				5F17717F208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */,
 				3238F8FB1E90E80600838C62 /* GRAPHIC_UI_TEXT_ADAPTER.cpp in Sources */,
 				3238F7431E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */,
 				3238F63A1E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS_CALLBACK_UI.cpp in Sources */,
@@ -7209,6 +7237,7 @@
 				5FB60B311FDFB74B009A0692 /* CORE_DATA_UTF8_TEXT.cpp in Sources */,
 				3238FA091E90E80700838C62 /* GteLogger.cpp in Sources */,
 				5F7987C21FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp in Sources */,
+				5F177190208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */,
 				3238F9F01E90E80700838C62 /* GteWICFileIO.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7221,6 +7250,7 @@
 				5FB513131FBD67E50025AAAF /* MAIN_MENU_WINDOW_PRESENTER.cpp in Sources */,
 				3238F9C61E90E80700838C62 /* SERVICE_NETWORK_CONNECTION.cpp in Sources */,
 				5FC19B7D1EDF6335003E53D5 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
+				5F17717E208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */,
 				5FB513021FBD67E50025AAAF /* APPLICATION_MAIN_WINDOW.cpp in Sources */,
 				3238F7F51E90E80600838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.cpp in Sources */,
 				3238F86D1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT.cpp in Sources */,
@@ -7243,6 +7273,7 @@
 				3238F8091E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_FRAME.cpp in Sources */,
 				3238F63D1E90E80500838C62 /* CORE_ABSTRACT_RUNTIME_LUA.cpp in Sources */,
 				5FB513051FBD67E50025AAAF /* APPLICATION_NETWORK_GAME_CONFIGURATION.cpp in Sources */,
+				5F17713D208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */,
 				5FB513061FBD67E50025AAAF /* APPLICATION_OPTION_WINDOW.cpp in Sources */,
 				3238F8181E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_LINE.cpp in Sources */,
 				3238F9711E90E80600838C62 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp in Sources */,
@@ -7265,28 +7296,29 @@
 				3238F7CD1E90E80500838C62 /* GRAPHIC_MESH_SUB_SKELETON.cpp in Sources */,
 				5FB512F71FBD67E50025AAAF /* NETWORK_GAME.cpp in Sources */,
 				3238F9A81E90E80700838C62 /* RESOURCE_SOUND_MP3_LOADER.cpp in Sources */,
-				3238F5D91E90E80400838C62 /* AUDIO_BANK_SOUND.cpp in Sources */,
 				5FA2278E1EF6C154007BC5A1 /* GAMEPLAY_COMPONENT_HANDLE.cpp in Sources */,
 				3238F64C1E90E80500838C62 /* CORE_DATA_BUFFER.cpp in Sources */,
-				3238F5CF1E90E80400838C62 /* AUDIO_SYSTEM.cpp in Sources */,
 				3238F6511E90E80500838C62 /* CORE_DATA_MODEL.cpp in Sources */,
 				3238F6C41E90E80500838C62 /* CORE_HELPERS_OBSERVABLE.cpp in Sources */,
 				5F70E79F1FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
+				5F177119208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */,
 				5F2FB8312030E21000289949 /* GAMEPLAY_ACTION_COMMAND_LOAD_GAME.cpp in Sources */,
 				5FF8B5991FC56AD40010A6BB /* GAMEPLAY_CHECKPOINT_PLAYER_DATA.cpp in Sources */,
 				3238F6561E90E80500838C62 /* CORE_DATA_LOADER.cpp in Sources */,
 				3238F81D1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
 				5FA7FB6020134EB400C7A829 /* GRAPHIC_UI_GRID_ADAPTER.cpp in Sources */,
 				3238F6831E90E80500838C62 /* CORE_HELPERS_UNIQUE.cpp in Sources */,
+				5F177144208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				5FB512F91FBD67E50025AAAF /* GAME_PLAYER.cpp in Sources */,
 				3238F88B1E90E80600838C62 /* GRAPHIC_SHADER_BIND.cpp in Sources */,
+				5F177127208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */,
+				5F177136208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */,
 				3238F7DC1E90E80500838C62 /* GRAPHIC_MESH_OPENGL.cpp in Sources */,
 				3238FA4D1E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */,
 				5FB512F21FBD67E50025AAAF /* APPLICATION_NETWORK_COMMAND_CLIENT_READY.cpp in Sources */,
 				5F5EC16A1EF9CFA200F4939D /* GAMEPLAY_COMPONENT_ENTITY_HANDLE.cpp in Sources */,
 				5FB512EC1FBD67E50025AAAF /* APPLICATION_GAMEPLAY_COMMAND_ORDER_ATTACK.cpp in Sources */,
 				3238F6CE1E90E80500838C62 /* CORE_PARALLEL_LOCK_MUTEX.cpp in Sources */,
-				3238F5D41E90E80400838C62 /* AUDIO_BANK.cpp in Sources */,
 				3238F7281E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */,
 				3238F6C91E90E80500838C62 /* CORE_PARALLEL_LOCK.cpp in Sources */,
 				3238F8C71E90E80600838C62 /* GRAPHIC_GLYPH.cpp in Sources */,
@@ -7328,7 +7360,6 @@
 				5FA9F1F11FDDEFED00D2869F /* GRAPHIC_UI_NAVIGATION.cpp in Sources */,
 				3238F9AD1E90E80700838C62 /* RESOURCE_SOUND.cpp in Sources */,
 				5F6CD8FD1EDB52C500631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp in Sources */,
-				3238F5CA1E90E80400838C62 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */,
 				3238F8041E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
 				3238F6B51E90E80500838C62 /* CORE_MATH_VECTOR.cpp in Sources */,
 				3238F79B1E90E80500838C62 /* GAMEPLAY_SCENE.cpp in Sources */,
@@ -7350,8 +7381,8 @@
 				5F2B53BF1F1196E900E69CF5 /* GRAPHIC_MATERIAL_COLLECTION.cpp in Sources */,
 				3238FA6B1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */,
 				3238F61F1E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_STATE.cpp in Sources */,
-				3238F5E81E90E80400838C62 /* AUDIO_OPENSL.cpp in Sources */,
 				5FB5131A1FBD67E50025AAAF /* TestClass2.cpp in Sources */,
+				5F177169208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */,
 				3238F6061E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp in Sources */,
 				3238F73C1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_REJECTED.cpp in Sources */,
 				3238F9A31E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
@@ -7361,6 +7392,7 @@
 				3238F7641E90E80500838C62 /* GAMEPLAY_COMPONENT_MANAGER.cpp in Sources */,
 				3238F7501E90E80500838C62 /* GAMEPLAY_COMPONENT.cpp in Sources */,
 				3238F6E71E90E80500838C62 /* CORE_PARALLEL_THREAD_POSIX.cpp in Sources */,
+				5F17715F208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */,
 				3238F99E1E90E80700838C62 /* RESOURCE_COMPILER.cpp in Sources */,
 				3238F8401E90E80600838C62 /* GRAPHIC_PARTICLE_RENDERER.cpp in Sources */,
 				3238F8BD1E90E80600838C62 /* GRAPHIC_FONT.cpp in Sources */,
@@ -7372,6 +7404,7 @@
 				5FB512F31FBD67E50025AAAF /* APPLICATION_NETWORK_COMMAND_CLIENT_REJECTED.cpp in Sources */,
 				5FB512FB1FBD67E50025AAAF /* GLOBAL_RESOURCES.cpp in Sources */,
 				3238F8CC1E90E80600838C62 /* GRAPHIC_TEXT.cpp in Sources */,
+				5F177120208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */,
 				5FC19B911EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				32AFECFB1EB902C4006664AB /* RESOURCE_CONTAINER.cpp in Sources */,
 				3238F9301E90E80600838C62 /* GRAPHIC_WINDOW.cpp in Sources */,
@@ -7419,9 +7452,7 @@
 				3238F7E11E90E80500838C62 /* GRAPHIC_MESH_POLYGON_RENDER_MODE.cpp in Sources */,
 				3238F6651E90E80500838C62 /* CORE_HELPERS_CLASS.cpp in Sources */,
 				5FC19B5C1EDF5434003E53D5 /* RESOURCE_REPRESENTATION.cpp in Sources */,
-				3238F5ED1E90E80400838C62 /* AUDIO_SOUND.cpp in Sources */,
 				3238F85E1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp in Sources */,
-				3238F5B61E90E80400838C62 /* AUDIO_LOADER.cpp in Sources */,
 				5FB512E21FBD67E50025AAAF /* Application.cpp in Sources */,
 				3238F97B1E90E80600838C62 /* RESOURCE_IMAGE_PNG_LOADER.cpp in Sources */,
 				3238F6101E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_MANAGER.cpp in Sources */,
@@ -7442,7 +7473,6 @@
 				5FB60B301FDFB74B009A0692 /* CORE_DATA_UTF8_TEXT.cpp in Sources */,
 				3238F82C1E90E80600838C62 /* GRAPHIC_PARTICLE_EMITER.cpp in Sources */,
 				3238F7371E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_READY.cpp in Sources */,
-				3238F5C01E90E80400838C62 /* AUDIO_LOADER_OSX.mm in Sources */,
 				3238FA071E90E80700838C62 /* GteLogger.cpp in Sources */,
 				5FB513181FBD67E50025AAAF /* NETWORK_SERVER_INFO.cpp in Sources */,
 				3238F9081E90E80600838C62 /* GRAPHIC_UI_FRAME.cpp in Sources */,
@@ -7454,6 +7484,7 @@
 				3238F7A01E90E80500838C62 /* GRAPHIC_CAMERA.cpp in Sources */,
 				3238F61A1E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.cpp in Sources */,
 				3238F9441E90E80600838C62 /* GRAPHIC_WINDOW_OSX_VIEW.cpp in Sources */,
+				5F177185208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				5FB512F61FBD67E50025AAAF /* GAME.cpp in Sources */,
 				3238FA201E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
 				5FB512E31FBD67E50025AAAF /* ApplicationSoundBank.cpp in Sources */,
@@ -7466,9 +7497,9 @@
 				5FB512E61FBD67E50025AAAF /* APPLICATION_COMMAND_MANAGER.cpp in Sources */,
 				3238F91C1E90E80600838C62 /* GRAPHIC_UI_SYSTEM.cpp in Sources */,
 				3238F9851E90E80700838C62 /* RESOURCE_IMAGE.cpp in Sources */,
-				3238F5B11E90E80400838C62 /* AUDIO_INTERFACE.cpp in Sources */,
 				3238FA251E90E80700838C62 /* GteLogToStringArray.cpp in Sources */,
 				3238F8721E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
+				5F177158208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */,
 				3238F9C11E90E80700838C62 /* SERVICE_NETWORK_COMMAND.cpp in Sources */,
 				3238F68D1E90E80500838C62 /* CORE_MATH_POSE.cpp in Sources */,
 				3238F6FB1E90E80500838C62 /* CORE_TIMELINE_EVENT.cpp in Sources */,
@@ -7479,12 +7510,12 @@
 				3238F8DB1E90E80600838C62 /* GRAPHIC_TEXTURE_BLOCK.cpp in Sources */,
 				3238F8681E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
 				3238F67E1E90E80500838C62 /* CORE_HELPERS_STATIC.cpp in Sources */,
+				5F17718F208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */,
 				3238F98F1E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
 				3238F7961E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
 				324E6DD91EC4B8DC00751F52 /* GAMEPLAY_LIGHT.cpp in Sources */,
 				3238F6421E90E80500838C62 /* CORE_APPLICATION.cpp in Sources */,
 				5FB512F81FBD67E50025AAAF /* NETWORK_GAME_PLAYER.cpp in Sources */,
-				3238F5DE1E90E80400838C62 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				3238F90D1E90E80600838C62 /* GRAPHIC_UI_HELPER.cpp in Sources */,
 				3238F9801E90E80600838C62 /* RESOURCE_IMAGE_PNG_WRITER.cpp in Sources */,
 				3238F66A1E90E80500838C62 /* CORE_HELPERS_IDENTIFIER.cpp in Sources */,
@@ -7497,7 +7528,6 @@
 				3238F7C31E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
 				3238F7E61E90E80500838C62 /* GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp in Sources */,
 				3238FA2A1E90E80700838C62 /* GteTimer.cpp in Sources */,
-				3238F5E31E90E80400838C62 /* AUDIO_OPENAL.cpp in Sources */,
 				3238F7781E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM.cpp in Sources */,
 				5FB512FD1FBD67E50025AAAF /* main.m in Sources */,
 				3238F65B1E90E80500838C62 /* CORE_DATA_STREAM.cpp in Sources */,
@@ -7516,7 +7546,6 @@
 				3238F6971E90E80500838C62 /* CORE_MATH_RAY.cpp in Sources */,
 				3238F6241E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_V8.cpp in Sources */,
 				5FCCB52C202BADC300595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp in Sources */,
-				3238F5F21E90E80400838C62 /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				3238F62E1E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA.cpp in Sources */,
 				5FB5130D1FBD67E50025AAAF /* APPLICATION_CLIENT_PRESENTER.cpp in Sources */,
 				3238FA391E90E80700838C62 /* GteBSPrecision.cpp in Sources */,
@@ -7538,11 +7567,13 @@
 				3238F9131E90E80600838C62 /* GRAPHIC_UI_PLACEMENT.cpp in Sources */,
 				3238F92C1E90E80600838C62 /* GRAPHIC_UI_TEXT.cpp in Sources */,
 				3238F8C31E90E80600838C62 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
+				5F177188208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				5FB513221FBD67F60025AAAF /* MATH.m in Sources */,
 				3238FA491E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
 				3238F60C1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_FACTORY.cpp in Sources */,
 				3238F98B1E90E80700838C62 /* RESOURCE_IMAGE_ATLAS_COMPILER.cpp in Sources */,
 				3238FA581E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */,
+				5F177162208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */,
 				3238F96D1E90E80600838C62 /* PERIPHERIC_INTERACTION_TOUCH.cpp in Sources */,
 				3238F9771E90E80600838C62 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp in Sources */,
 				5FB5131C1FBD67F60025AAAF /* CORE_ABSTRACT_PROGRAM.m in Sources */,
@@ -7604,6 +7635,7 @@
 				3238F8E61E90E80600838C62 /* GRAPHIC_UI_BASE_ADAPTER.cpp in Sources */,
 				3238F8551E90E80600838C62 /* GRAPHIC_RENDER_TARGET_OPENGL.cpp in Sources */,
 				3238F6F21E90E80500838C62 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
+				5F17716C208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */,
 				3238F89B1E90E80600838C62 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
 				3238F6161E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_RUNTIME.cpp in Sources */,
 				3238F9181E90E80600838C62 /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
@@ -7623,6 +7655,7 @@
 				3238F6B61E90E80500838C62 /* CORE_MATH_VECTOR.cpp in Sources */,
 				3238F79C1E90E80500838C62 /* GAMEPLAY_SCENE.cpp in Sources */,
 				3238F9951E90E80700838C62 /* RESOURCE.cpp in Sources */,
+				5F17711C208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */,
 				3238F7601E90E80500838C62 /* GAMEPLAY_COMPONENT_ENTITY.cpp in Sources */,
 				5FF8B59C1FC56AD40010A6BB /* GAMEPLAY_CHECKPOINT_PLAYER_DATA.cpp in Sources */,
 				3238F8FA1E90E80600838C62 /* GRAPHIC_UI_TEXT_ADAPTER.cpp in Sources */,
@@ -7681,11 +7714,14 @@
 				5F9395C91FA8F55F00AC8E4D /* GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.cpp in Sources */,
 				3238F6AC1E90E80500838C62 /* CORE_MATH_SHAPE_SPHERE.cpp in Sources */,
 				3238FA121E90E80700838C62 /* GteLogToFile.cpp in Sources */,
+				5F177147208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				3238F8001E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
 				3238F8E11E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
 				3238F7C91E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_SKELETON.cpp in Sources */,
+				5F177123208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */,
 				5FB5132A1FBD6C540025AAAF /* TestClass.cpp in Sources */,
 				5FA227941EF71567007BC5A1 /* GAMEPLAY_COMPONENT_HANDLE.cpp in Sources */,
+				5F177139208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */,
 				5F5661EA1ED9C8EE00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
 				3238F9BD1E90E80700838C62 /* SERVICE_NETWORK_LOBBY.cpp in Sources */,
 				3238F7EC1E90E80500838C62 /* GRAPHIC_OBJECT.cpp in Sources */,
@@ -7696,6 +7732,7 @@
 				5FF8B5921FC569410010A6BB /* GAMEPLAY_CHECKPOINT.cpp in Sources */,
 				3238F6661E90E80500838C62 /* CORE_HELPERS_CLASS.cpp in Sources */,
 				3238F85F1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp in Sources */,
+				5F177140208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */,
 				3238F97C1E90E80600838C62 /* RESOURCE_IMAGE_PNG_LOADER.cpp in Sources */,
 				3238F6111E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_MANAGER.cpp in Sources */,
 				3238F7D81E90E80500838C62 /* GRAPHIC_MESH_MANAGER.cpp in Sources */,
@@ -7703,10 +7740,12 @@
 				5F7987C41FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp in Sources */,
 				5FF8B5881FC568E70010A6BB /* GAMEPLAY_CHECKPOINT_SYSTEM.cpp in Sources */,
 				3238F8821E90E80600838C62 /* GRAPHIC_SHADER.cpp in Sources */,
+				5F17715B208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */,
 				3238F8871E90E80600838C62 /* GRAPHIC_SHADER_ATTRIBUTE.cpp in Sources */,
 				3238F8961E90E80600838C62 /* GRAPHIC_SHADER_OPENGL.cpp in Sources */,
 				3238F6D41E90E80500838C62 /* CORE_PARALLEL_LOCK_POSIX.cpp in Sources */,
 				3238F9041E90E80600838C62 /* GRAPHIC_UI_ELEMENT.cpp in Sources */,
+				5F177181208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */,
 				3238F8141E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.cpp in Sources */,
 				3238F8A51E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
 				3238F8FF1E90E80600838C62 /* GRAPHIC_UI_ANIMATION.cpp in Sources */,
@@ -7730,6 +7769,7 @@
 				3238F9451E90E80600838C62 /* GRAPHIC_WINDOW_OSX_VIEW.cpp in Sources */,
 				5FA7FB642013586200C7A829 /* GRAPHIC_UI_GRID_ADAPTER.cpp in Sources */,
 				3238FA211E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
+				5F177192208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */,
 				5F2FB8382030E42200289949 /* GAMEPLAY_ACTION_COMMAND_GAME_LOADED.cpp in Sources */,
 				3238F7D31E90E80500838C62 /* GRAPHIC_MESH.cpp in Sources */,
 				5FC19B941EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
@@ -7743,6 +7783,7 @@
 				3238F8731E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
 				3238F9C21E90E80700838C62 /* SERVICE_NETWORK_COMMAND.cpp in Sources */,
 				3238F68E1E90E80500838C62 /* CORE_MATH_POSE.cpp in Sources */,
+				5F17712A208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */,
 				5F6CD8FF1EDB52CF00631D59 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp in Sources */,
 				32E0A1B11E9D4B7A00B14365 /* GteEnvironment.cpp in Sources */,
 				3238F6FC1E90E80500838C62 /* CORE_TIMELINE_EVENT.cpp in Sources */,
@@ -7796,19 +7837,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F92DB881F16417B00292A99 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
-				5F92DB861F16416D00292A99 /* AUDIO_LOADER_OSX.mm in Sources */,
 				5F92DB871F16416D00292A99 /* GRAPHIC_WINDOW_OSX.mm in Sources */,
-				5F92DAA81F16415E00292A99 /* AUDIO_INTERFACE.cpp in Sources */,
-				5F92DAA91F16415E00292A99 /* AUDIO_LOADER.cpp in Sources */,
-				5F92DAAB1F16415E00292A99 /* AUDIO_SOUND_LOADER_MPG123.cpp in Sources */,
-				5F92DAAC1F16415E00292A99 /* AUDIO_SYSTEM.cpp in Sources */,
-				5F92DAAD1F16415E00292A99 /* AUDIO_BANK.cpp in Sources */,
-				5F92DAAE1F16415E00292A99 /* AUDIO_BANK_SOUND.cpp in Sources */,
-				5F92DAAF1F16415E00292A99 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
-				5F92DAB01F16415E00292A99 /* AUDIO_OPENAL.cpp in Sources */,
-				5F92DAB11F16415E00292A99 /* AUDIO_OPENSL.cpp in Sources */,
-				5F92DAB21F16415E00292A99 /* AUDIO_SOUND.cpp in Sources */,
-				5F92DAB31F16415E00292A99 /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				5F92DAB41F16415E00292A99 /* CORE_FILESYSTEM.cpp in Sources */,
 				5F92DAB51F16415E00292A99 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				5F92DAB71F16415E00292A99 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
@@ -7866,6 +7895,7 @@
 				5F2FB8342030E42100289949 /* GAMEPLAY_ACTION_COMMAND_GAME_LOADED.cpp in Sources */,
 				5F92DAE81F16415E00292A99 /* CORE_PARALLEL_TASK.cpp in Sources */,
 				5F92DAE91F16415E00292A99 /* CORE_PARALLEL_THREAD.cpp in Sources */,
+				5F177125208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */,
 				5F92DAEA1F16415E00292A99 /* CORE_PARALLEL_THREAD_POSIX.cpp in Sources */,
 				5F92DAEC1F16415E00292A99 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
 				5F92DAED1F16415E00292A99 /* CORE_TIMELINE.cpp in Sources */,
@@ -7890,17 +7920,21 @@
 				5F92DAFF1F16415E00292A99 /* GAMEPLAY_COMPONENT_POSITION.cpp in Sources */,
 				5F92DB001F16415E00292A99 /* GAMEPLAY_COMPONENT_SCRIPT.cpp in Sources */,
 				5F92DB011F16415E00292A99 /* GAMEPLAY_COMPONENT_RENDER.cpp in Sources */,
+				5F17716E208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */,
 				5F92DB021F16415E00292A99 /* GAMEPLAY_COMPONENT_HANDLE.cpp in Sources */,
 				5F92DB031F16415E00292A99 /* GAMEPLAY_COMPONENT_ENTITY_HANDLE.cpp in Sources */,
 				5F92DB041F16415E00292A99 /* GAMEPLAY_COMPONENT_ENTITY_PROXY.cpp in Sources */,
 				5F92DB051F16415E00292A99 /* GAMEPLAY_COMPONENT_SYSTEM.cpp in Sources */,
 				5F0C3D0B1FDF35BD00B761A2 /* NETWORK_MANAGER.cpp in Sources */,
 				5F92DB061F16415E00292A99 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.cpp in Sources */,
+				5F177194208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */,
 				5F92DB071F16415E00292A99 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
 				5FA7FB622013586100C7A829 /* GRAPHIC_UI_GRID_ADAPTER.cpp in Sources */,
 				5F92DB081F16415E00292A99 /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
 				5F92DB091F16415E00292A99 /* GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp in Sources */,
+				5F17715D208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */,
 				5F92DB0A1F16415E00292A99 /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER.cpp in Sources */,
+				5F177183208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */,
 				5F92DB0B1F16415E00292A99 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.cpp in Sources */,
 				5F92DB0C1F16415E00292A99 /* GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.cpp in Sources */,
 				5F92DB0D1F16415E00292A99 /* GAMEPLAY_SCENE.cpp in Sources */,
@@ -7937,10 +7971,14 @@
 				5F92DB241F16415E00292A99 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
 				5F92DB251F16415E00292A99 /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
 				5F92DB261F16415E00292A99 /* GRAPHIC_OBJECT_SHAPE_FRAME.cpp in Sources */,
+				5F17718A208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				5F92DB271F16415E00292A99 /* GRAPHIC_OBJECT_SHAPE_GRID.cpp in Sources */,
+				5F17713B208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */,
+				5F17711E208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */,
 				5F92DB281F16415E00292A99 /* GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.cpp in Sources */,
 				5F92DB291F16415E00292A99 /* GRAPHIC_OBJECT_SHAPE_LINE.cpp in Sources */,
 				5F92DB2A1F16415E00292A99 /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
+				5F177142208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */,
 				5F92DB2B1F16415E00292A99 /* GRAPHIC_OBJECT_SHAPE_SPHERE.cpp in Sources */,
 				5F92DB2C1F16415E00292A99 /* GRAPHIC_PARTICLE.cpp in Sources */,
 				5F92DB2D1F16415E00292A99 /* GRAPHIC_PARTICLE_EMITER.cpp in Sources */,
@@ -7999,10 +8037,13 @@
 				5F92DB671F16415F00292A99 /* NETWORK_CLIENT.cpp in Sources */,
 				5F92DB681F16415F00292A99 /* NETWORK_PLAYER.cpp in Sources */,
 				5F92DB691F16415F00292A99 /* NETWORK_SERVER.cpp in Sources */,
+				5F17712C208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */,
 				5F92DB6A1F16415F00292A99 /* PERIPHERIC_INTERACTION_KEYBOARD.cpp in Sources */,
 				5F02EC761F9E97F7001A6AA4 /* GRAPHIC_CAMERA_FUSTRUM.cpp in Sources */,
 				5F92DB6B1F16415F00292A99 /* PERIPHERIC_INTERACTION_MOUSE.cpp in Sources */,
 				5F92DB6C1F16415F00292A99 /* PERIPHERIC_INTERACTION_SYSTEM.cpp in Sources */,
+				5F177149208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
+				5F177164208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */,
 				5F92DB6D1F16415F00292A99 /* PERIPHERIC_INTERACTION_TOUCH.cpp in Sources */,
 				5F92DB6E1F16415F00292A99 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp in Sources */,
 				5F92DB6F1F16415F00292A99 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp in Sources */,
@@ -8039,19 +8080,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FD957F51FAE370200FB9376 /* AUDIO_INTERFACE.cpp in Sources */,
-				5FD957F61FAE370200FB9376 /* AUDIO_LOADER.cpp in Sources */,
-				5FD957F71FAE370200FB9376 /* AUDIO_SYSTEM.cpp in Sources */,
-				5FD957F81FAE370200FB9376 /* AUDIO_BANK.cpp in Sources */,
-				5FD957F91FAE370200FB9376 /* AUDIO_BANK_SOUND.cpp in Sources */,
-				5FD957FA1FAE370200FB9376 /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
-				5FD957FB1FAE370200FB9376 /* AUDIO_OPENAL.cpp in Sources */,
-				5FD957FC1FAE370200FB9376 /* AUDIO_OPENSL.cpp in Sources */,
-				5FD957FD1FAE370200FB9376 /* AUDIO_SOUND.cpp in Sources */,
-				5FD957FE1FAE370200FB9376 /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				5FD957FF1FAE370200FB9376 /* CORE_FILESYSTEM.cpp in Sources */,
 				5FD958001FAE370200FB9376 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				5FD958011FAE370200FB9376 /* CORE_FILESYSTEM_PATH.cpp in Sources */,
+				5F17716F208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */,
 				5FD958021FAE370200FB9376 /* CORE_FILESYSTEM_FILE_WATCHER.cpp in Sources */,
 				5FD958031FAE370200FB9376 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
 				5FD958041FAE370200FB9376 /* CORE_ABSTRACT_FUNCTION.cpp in Sources */,
@@ -8064,6 +8096,7 @@
 				5FD9580B1FAE370200FB9376 /* CORE_ABSTRACT_PROGRAM_STATE.cpp in Sources */,
 				5FD9580C1FAE370200FB9376 /* CORE_ABSTRACT_PROGRAM_V8.cpp in Sources */,
 				5FD9580D1FAE370200FB9376 /* CORE_ABSTRACT_RUNTIME_V8.cpp in Sources */,
+				5F17713C208E6F8400720C7F /* AUDIO_BANK.cpp in Sources */,
 				5FD9580E1FAE370200FB9376 /* CORE_ABSTRACT_PROGRAM_LUA.cpp in Sources */,
 				5FD9580F1FAE370200FB9376 /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS.cpp in Sources */,
 				5FD958101FAE370200FB9376 /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS_CALLBACK_UI.cpp in Sources */,
@@ -8078,6 +8111,7 @@
 				5FD958191FAE370200FB9376 /* CORE_HELPERS_CALLBACK.cpp in Sources */,
 				5FD9581A1FAE370200FB9376 /* CORE_HELPERS_CLASS.cpp in Sources */,
 				5FD9581B1FAE370200FB9376 /* CORE_HELPERS_IDENTIFIER.cpp in Sources */,
+				5F177184208E6F8400720C7F /* AUDIO_SOUND.cpp in Sources */,
 				5FD9581C1FAE370200FB9376 /* CORE_HELPERS_IDENTIFIER_SYSTEM.cpp in Sources */,
 				5FCCB52D202DCE0C00595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp in Sources */,
 				5FD9581D1FAE370200FB9376 /* CORE_HELPERS_UNIQUE_IDENTIFIER.cpp in Sources */,
@@ -8104,6 +8138,7 @@
 				5FD958311FAE370200FB9376 /* CORE_PARALLEL_LOCK_POSIX.cpp in Sources */,
 				5FD958321FAE370200FB9376 /* CORE_PARALLEL_TASK.cpp in Sources */,
 				5FD958331FAE370200FB9376 /* CORE_PARALLEL_THREAD.cpp in Sources */,
+				5F17711F208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */,
 				5FD958341FAE370200FB9376 /* CORE_PARALLEL_THREAD_POSIX.cpp in Sources */,
 				5FD958351FAE370200FB9376 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
 				5FD958361FAE370200FB9376 /* CORE_TIMELINE.cpp in Sources */,
@@ -8153,6 +8188,7 @@
 				5FD9585D1FAE370300FB9376 /* GRAPHIC_MATERIAL.cpp in Sources */,
 				5FD9585E1FAE370300FB9376 /* GRAPHIC_MATERIAL_COLLECTION.cpp in Sources */,
 				5FD9585F1FAE370300FB9376 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
+				5F17718B208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				5FD958601FAE370300FB9376 /* GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp in Sources */,
 				5FD958611FAE370300FB9376 /* GRAPHIC_MESH_ANIMATION_JOINT.cpp in Sources */,
 				5FD958621FAE370300FB9376 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
@@ -8171,8 +8207,10 @@
 				5FD9586E1FAE370300FB9376 /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
 				5FD9586F1FAE370300FB9376 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
 				5FD958701FAE370300FB9376 /* GRAPHIC_OBJECT_SHAPE_CUBE.cpp in Sources */,
+				5F17715E208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */,
 				5FD958711FAE370300FB9376 /* GRAPHIC_OBJECT_SHAPE_FRAME.cpp in Sources */,
 				5FD958721FAE370300FB9376 /* GRAPHIC_OBJECT_SHAPE_GRID.cpp in Sources */,
+				5F177195208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */,
 				5FD958731FAE370300FB9376 /* GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.cpp in Sources */,
 				5FD958741FAE370300FB9376 /* GRAPHIC_OBJECT_SHAPE_LINE.cpp in Sources */,
 				5FD958751FAE370300FB9376 /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
@@ -8190,6 +8228,7 @@
 				5FD958801FAE370300FB9376 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp in Sources */,
 				5FD958811FAE370300FB9376 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.cpp in Sources */,
 				5FD958821FAE370300FB9376 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
+				5F177165208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */,
 				5F193B841FEB1E9100F5DB4B /* NETWORK_SERVER_INFO.cpp in Sources */,
 				5FD958831FAE370300FB9376 /* GRAPHIC_SHADER_EFFECT.cpp in Sources */,
 				5FD958841FAE370300FB9376 /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
@@ -8198,7 +8237,10 @@
 				5FD958871FAE370300FB9376 /* GRAPHIC_SHADER.cpp in Sources */,
 				5FA7FB612013586100C7A829 /* GRAPHIC_UI_GRID_ADAPTER.cpp in Sources */,
 				5FD958881FAE370300FB9376 /* GRAPHIC_SHADER_ATTRIBUTE.cpp in Sources */,
+				5F17714A208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				5FD958891FAE370300FB9376 /* GRAPHIC_SHADER_BIND.cpp in Sources */,
+				5F177126208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */,
+				5F17712D208E6F8400720C7F /* AUDIO_INTERFACE.cpp in Sources */,
 				5FD9588A1FAE370300FB9376 /* GRAPHIC_SHADER_OES2.cpp in Sources */,
 				5FD9588B1FAE370300FB9376 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
 				5FD9588C1FAE370300FB9376 /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */,
@@ -8227,6 +8269,7 @@
 				5FD958A11FAE370300FB9376 /* GRAPHIC_UI_HELPER.cpp in Sources */,
 				5FD958A21FAE370300FB9376 /* GRAPHIC_UI_PLACEMENT.cpp in Sources */,
 				5FD958A31FAE370300FB9376 /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
+				5F177143208E6F8400720C7F /* AUDIO_BANK_SOUND.cpp in Sources */,
 				5FD958A41FAE370300FB9376 /* GRAPHIC_UI_RENDER_STYLE_BUILDER.cpp in Sources */,
 				5FD958A51FAE370300FB9376 /* GRAPHIC_UI_SYSTEM.cpp in Sources */,
 				5FD958A61FAE370300FB9376 /* GRAPHIC_UI_SCREEN_REFERENCE.cpp in Sources */,
@@ -8268,7 +8311,6 @@
 				5FD958C81FAE370300FB9376 /* PHYSICS_UTILS.cpp in Sources */,
 				5FD958C91FAE370300FB9376 /* TOOLS_DEBUG_DRAW.cpp in Sources */,
 				5FD958CA1FAE370300FB9376 /* TOOL_BULLET_GL_DEBUGGER.cpp in Sources */,
-				5FD957F21FAE365900FB9376 /* AUDIO_LOADER_IOS.mm in Sources */,
 				5FD957F31FAE365900FB9376 /* CORE_FILESYSTEM_PATH_IOS.mm in Sources */,
 				5FD957F41FAE365900FB9376 /* GRAPHIC_WINDOW_IOS.mm in Sources */,
 				5FD957ED1FAE35CF00FB9376 /* LIBIOS.m in Sources */,
@@ -9016,6 +9058,7 @@
 					"__AUDIO_OPENAL__=1",
 					GTE_DISABLE_PCH,
 					__BULLET_PHYSICS__,
+					"AUDIO_OGG=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -9043,6 +9086,8 @@
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/libogg-1.3.3/include\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/libvorbis-1.3.6/include\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9078,6 +9123,7 @@
 					"__AUDIO_OPENAL__=1",
 					GTE_DISABLE_PCH,
 					__BULLET_PHYSICS__,
+					"AUDIO_OGG=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -9105,6 +9151,8 @@
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/libogg-1.3.3/include\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/libvorbis-1.3.6/include\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

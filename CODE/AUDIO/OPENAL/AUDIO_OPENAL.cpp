@@ -113,8 +113,18 @@ void AUDIO_OPENAL::Update( const float time_step, const CORE_MATH_VECTOR & posit
                     
                     if ( end ) {
                         
-                        sound->SetIsOpen( false );
-                        AUDIO_LOADER_Close( *sound );
+                        if ( sound->IsLooping() ) {
+                            
+                            AUDIO_LOADER_Reset( *sound );
+                        }
+                        else {
+                            
+                            sound->SetIsOpen( false );
+                            AUDIO_LOADER_Close( *sound );
+                            AUDIO_LOADER_ReadChunk( *sound, 0 );
+                            AUDIO_LOADER_ReadChunk( *sound, 1 );
+                            AUDIO_LOADER_ReadChunk( *sound, 2 );
+                        }
                         
                         sound->SetCurrentChunkIndex( 0 );
                     }
@@ -159,7 +169,7 @@ void AUDIO_OPENAL::PlaySound( AUDIO_SOUND & sound ) {
                 sound.GetSoundChunksTable()[i]->SetChunkBufferName( buffers[i] );
                 
                 AUDIO_CHECK( alBufferData (sound.GetSoundChunksTable()[i]->GetChunkBufferName(),
-                                           format ,
+                                           format,
                                            sound.GetSoundChunksTable()[i]->Data,
                                            sound.GetSoundChunksTable()[i]->Size,
                                            sound.GetFrequency() ); )

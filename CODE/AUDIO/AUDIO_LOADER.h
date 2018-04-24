@@ -13,6 +13,7 @@
 #include "CORE_FILESYSTEM_PATH.h"
 #include "AUDIO_BANK_SOUND_LOAD_OPTION.h"
 
+void AUDIO_LOADER_Reset( AUDIO_SOUND & sound );
 void AUDIO_LOADER_Open( const CORE_FILESYSTEM_PATH & file_path, const char * extension, AUDIO_SOUND & sound, const AUDIO_BANK_SOUND_LOAD_OPTION & option );
 bool AUDIO_LOADER_ReadChunk( AUDIO_SOUND & sound, int chunk_index );
 void AUDIO_LOADER_Close( AUDIO_SOUND & sound );

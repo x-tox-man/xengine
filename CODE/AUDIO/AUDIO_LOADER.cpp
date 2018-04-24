@@ -12,14 +12,14 @@
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "RESOURCE_SOUND.h"
 
-
-#if PLATFORM_OSX
+#if AUDIO_OGG
+    #include "AUDIO_OGG_LOADER.h"
+#elif PLATFORM_OSX
     #include "AUDIO_LOADER_OSX.h"
 #elif PLATFORM_IOS
     #include "AUDIO_LOADER_IOS.h"
 #elif PLATFORM_WINDOWS
     //#include "lame.h"
-    #include "AUDIO_OGG_LOADER.h"
 #elif PLATFORM_ANDROID
     #include "AUDIO_LOADER_ANDROID.h"
     #include "AUDIO_SOUND_LOADER_MPG123.h"
@@ -32,14 +32,26 @@
     #include <OpenAL/alc.h>
 #endif
 
-lame_global_flags *gfp = lame_init();
+//lame_global_flags *gfp = lame_init();
+
+void AUDIO_LOADER_Reset( AUDIO_SOUND & sound ) {
+    
+    #if AUDIO_OGG
+        OGG_Reset( sound );
+    #else
+        abort();
+    #endif
+}
 
 void AUDIO_LOADER_Open( const CORE_FILESYSTEM_PATH & file_path, const char * extension, AUDIO_SOUND & sound, const AUDIO_BANK_SOUND_LOAD_OPTION & option ) {
     
-    #if PLATFORM_ANDROID && defined AUDIO_MPG
-        MPG_123_Open( file_path, sound );
-    #elif PLATFORM_WINDOWS && __AUDIO_OPENAL__
+    #if AUDIO_OGG
         OGG_Open( file_path, sound );
+    #elif PLATFORM_ANDROID && defined AUDIO_MPG
+        MPG_123_Open( file_path, sound );
+    
+    #elif PLATFORM_WINDOWS && __AUDIO_OPENAL__
+    
     /*CORE_FILESYSTEM_FILE
         * file = new CORE_FILESYSTEM_FILE( file_path );
 
@@ -88,9 +100,9 @@ void AUDIO_LOADER_Open( const CORE_FILESYSTEM_PATH & file_path, const char * ext
 
         free( bytes );*/
 
-    #elif PLATFORM_IOS && __AUDIO_OPENAL__
+    #elif PLATFORM_IOS
     
-    #elif PLATFORM_OSX && __AUDIO_OPENAL__
+    #elif PLATFORM_OSX
         UInt32 size,
             samplerate;
         int
@@ -126,7 +138,15 @@ bool AUDIO_LOADER_ReadChunk( AUDIO_SOUND & sound, int chunk_index ) {
     
     bool file_is_at_end = false;
     
-    #if PLATFORM_OSX && __AUDIO_OPENAL__
+    if ( sound.GetSoundChunksTable()[chunk_index]->Data != NULL ) {
+        
+        free( sound.GetSoundChunksTable()[chunk_index]->Data );
+        sound.GetSoundChunksTable()[chunk_index]->Data = NULL;
+    }
+    
+    #if AUDIO_OGG
+        file_is_at_end = OGG_Read(sound, chunk_index );
+    #elif PLATFORM_OSX && __AUDIO_OPENAL__
     
         int frames = 100000;
         int size = 0;
@@ -157,7 +177,9 @@ bool AUDIO_LOADER_ReadChunk( AUDIO_SOUND & sound, int chunk_index ) {
 
 void AUDIO_LOADER_Close( AUDIO_SOUND & sound ) {
     
-    #if PLATFORM_OSX
+    #if AUDIO_OGG
+        OGG_Close( sound );
+    #elif PLATFORM_OSX
         [XSAudioLoader closeAudioFile:(ExtAudioFileRef * ) sound.GetExtAudioFile()
                         withAudioFile:(AudioFileID * ) sound.GetAudioFile() ];
     #elif PLATFORM_IOS && __AUDIO_OPENAL__

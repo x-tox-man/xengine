@@ -9,61 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../CODE/UI/SCREENS/GARAGE/CELL/UI_GARAGE_SHIP_CELL.cpp"
-            timestampString = "544196698.426917"
+            filePath = "../../../../../XCODE/AUDIO/OPENAL/AUDIO_OPENAL.cpp"
+            timestampString = "546205365.972954"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "UI_GARAGE_SHIP_CELL::Initialize()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../../../CODE/RESOURCE/IMAGE/PNG/RESOURCE_IMAGE_PNG_LOADER.cpp"
-            timestampString = "544197357.8363889"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH &amp; path, const CORE_HELPERS_UNIQUE_IDENTIFIER &amp; identifier )"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../../../CODE/RESOURCE/IMAGE/PNG/RESOURCE_IMAGE_PNG_LOADER.cpp"
-            timestampString = "544197357.836995"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH &amp; path, const CORE_HELPERS_UNIQUE_IDENTIFIER &amp; identifier )"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../../../../CODE/RESOURCE/IMAGE/PNG/RESOURCE_IMAGE_PNG_LOADER.cpp"
-            timestampString = "544197357.83742"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
-            landmarkName = "RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH &amp; path, const CORE_HELPERS_UNIQUE_IDENTIFIER &amp; identifier )"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "AUDIO_OPENAL::Update( const float time_step, const CORE_MATH_VECTOR &amp; position )"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
