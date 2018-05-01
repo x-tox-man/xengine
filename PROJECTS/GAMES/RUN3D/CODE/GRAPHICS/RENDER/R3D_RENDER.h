@@ -23,6 +23,19 @@
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h"
 #include "GRAPHIC_SHADER_EFFECT_SPEEDBLUR.h"
 
+#define NUM_CASCADES        3
+#define NUM_FRUSTUM_CORNERS 8
+
+struct CASCADE_PROJECTION_INFO {
+    float
+        Left,
+        Right,
+        Top,
+        Bottom,
+        Far,
+        Near;
+};
+
 XS_CLASS_BEGIN( R3D_RENDER )
 
     R3D_RENDER();
@@ -42,8 +55,12 @@ XS_CLASS_BEGIN( R3D_RENDER )
 
 private :
 
+    void CalculateCascadeOrthoProjection();
+
     CORE_MATH_QUATERNION
         Lookat;
+    CASCADE_PROJECTION_INFO
+        CascadeProjectionInfo[ NUM_CASCADES ];
     GRAPHIC_CAMERA
         * Camera;
     GRAPHIC_CAMERA_ORTHOGONAL

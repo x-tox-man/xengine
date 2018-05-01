@@ -14,6 +14,7 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA() :
     Far( 0.0f ),
     Width( 0.0f ),
     Height( 0.0f ),
+    Fov( 30.0f ),
     ProjectionMatrix( CORE_MATH_MATRIX::Identity ),
     ViewMatrix( CORE_MATH_MATRIX::Identity ),
     Position(),
@@ -23,7 +24,7 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA() :
     Lookat.Normalize();
 }
 
-GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
+GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov ) {
     
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
     CalculateModelViewMatrix( position, lookat );
@@ -35,6 +36,8 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, 
     Far = far_plane;
     Width = width;
     Height = height;
+
+    Fov = fov;
 }
 
 GRAPHIC_CAMERA::~GRAPHIC_CAMERA() {
@@ -46,7 +49,7 @@ void GRAPHIC_CAMERA::ActivateForRender() {
     Fustrum.UpdateFustrum( *this );
 }
 
-void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
+void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov ) {
     
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
     CalculateModelViewMatrix( position, lookat );
@@ -58,6 +61,7 @@ void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, floa
     Far = far_plane;
     Width = width;
     Height = height;
+    Fov = fov;
 }
 
 void GRAPHIC_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
@@ -74,7 +78,7 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
     const float half_height = height * 0.5f;
     
     float aspect = fabsf(half_width / half_height);
-    float fovyRadians = ( float ) ( 30.0f * (M_PI / 180) );
+    float fovyRadians = ( float ) ( Fov * ( M_PI / 180.0f) );
     float cotan = 1.0f / tanf(fovyRadians * 0.5f);
     
     ProjectionMatrix[0] = cotan / aspect;

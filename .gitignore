@@ -29,3 +29,6 @@ PROJECTS/XSGameEngine.VC.db
 PROJECTS/XSGameEngine.VC.VC.opendb
 *.idb
 *.tlog
+RESOURCES/testCastSimpleCubeShadowToPlan-depth3.png
+RESOURCES/testCastSimpleCubeShadowToPlan-depth2.png
+RESOURCES/testCastSimpleCubeShadowToPlan-depth1.png

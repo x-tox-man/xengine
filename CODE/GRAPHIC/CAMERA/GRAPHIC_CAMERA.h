@@ -18,7 +18,7 @@
 XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     
     GRAPHIC_CAMERA();
-    GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
+    GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov = 30.0f );
     virtual ~GRAPHIC_CAMERA();
 
     inline const CORE_MATH_MATRIX & GetProjectionMatrix() const { return ProjectionMatrix; }
@@ -29,10 +29,11 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     inline float GetFar() const { return Far; }
     inline float GetWidth() const { return Width; }
     inline float GetHeight() const { return Height; }
+    inline float GetFov() const { return Fov; }
 
     inline const GRAPHIC_CAMERA_FUSTRUM & GetFustrum() const {return Fustrum; }
 
-    void Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
+    void Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov = 30.0f );
     void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
     void ActivateForRender();
 
@@ -47,7 +48,8 @@ protected :
         Near,
         Far,
         Width,
-        Height;
+        Height,
+        Fov;
     CORE_MATH_VECTOR
         Position;
     CORE_MATH_MATRIX

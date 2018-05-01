@@ -16,6 +16,7 @@
 #include "CORE_MATH_POSE.h"
 
 #define TOLERANCE 0.001f
+const float DEG_TO_RAD = M_PI / 180.0f;
 
 template <typename __LERPABLE_CLASS__>
 __LERPABLE_CLASS__ CORE_MATH_GetLerpInterpolation(__LERPABLE_CLASS__ first, __LERPABLE_CLASS__ second, float percentage) {
@@ -79,6 +80,11 @@ bool MATH_IsRougthlyEqual( const CORE_MATH_MATRIX & first, const CORE_MATH_MATRI
 bool MATH_IsRougthlyEqual( const CORE_MATH_POSE & first, const CORE_MATH_POSE & second ) {
     
     return MATH_IsRougthlyEqual(first.GetPosition(), second.GetPosition() ) && MATH_IsRougthlyEqual(first.GetOrientation(), second.GetOrientation() );
+}
+
+float CORE_MATH_ToRadians( float degrees ) {
+
+    return degrees * DEG_TO_RAD;
 }
 
 #endif /* MATH_h */
