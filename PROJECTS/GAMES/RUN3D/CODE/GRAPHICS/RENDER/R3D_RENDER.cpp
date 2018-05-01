@@ -30,6 +30,9 @@ R3D_RENDER::R3D_RENDER() :
     GaussianRenderTarget1(),
     GaussianRenderTarget2(),
     BloomRenderTarget(),
+    ShadowMapRenderTarget1(),
+    ShadowMapRenderTarget2(),
+    ShadowMapRenderTarget3(),
     TextureBlock( new GRAPHIC_TEXTURE_BLOCK() ),
     TextureBlock2( new GRAPHIC_TEXTURE_BLOCK() ),
     TextureBlock3(new GRAPHIC_TEXTURE_BLOCK() ),
@@ -66,11 +69,12 @@ void R3D_RENDER::Initialize() {
     Directional.InitializeDirectional( CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), CORE_MATH_VECTOR( 0.0f, 0.0f, 1.0f, 0.0f), 1.0f, 1.0f);
     Ambient.InitializeAmbient(CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), 0.5f, 0.0f );
     
-    LightShadowCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 2.0f, -2.0f, 2.0f, 2.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 9.0f, 0.0f), rt_lookat );
+    LightShadowCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 200.0f, -200.0f, 2.0f, 2.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 9.0f, 0.0f), rt_lookat );
     
     GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( &Directional );
     GRAPHIC_RENDERER::GetInstance().SetAmbientLight( &Directional );
-#if PLATFORM_OSX
+
+#if OPENGL4
     HorizontalBlurEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::HZBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenGaussianHorrizontalBlurPostProcess" , "", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
     
     VerticalBlurEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::VBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenGaussianVerticalBlurPostProcess" , "", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
@@ -99,21 +103,26 @@ void R3D_RENDER::Initialize() {
     
     PrimaryRenderTarget.Initialize( Window->GetWidth() / 2, Window->GetHeight() / 2, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 0 );
     
-#if PLATFORM_OSX
+#if OPENGL4
     GaussianRenderTarget1.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
     GaussianRenderTarget2.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
     BloomRenderTarget.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
     FinalRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
-    ShadowMapRenderTarget.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
+    ShadowMapRenderTarget1.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
+    ShadowMapRenderTarget2.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
+    ShadowMapRenderTarget3.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
 #endif
     
     PrimaryRenderTarget.Discard();
     
-#if PLATFORM_OSX
+#if OPENGL4
     GaussianRenderTarget1.Discard();
     GaussianRenderTarget2.Discard();
     BloomRenderTarget.Discard();
     FinalRenderTarget.Discard();
+    ShadowMapRenderTarget1.Discard();
+    ShadowMapRenderTarget2.Discard();
+    ShadowMapRenderTarget3.Discard();
 #endif
     
     PlanObject.InitializeShape();
@@ -138,7 +147,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         option;
     static CORE_MATH_VECTOR old_p;
     
-    #if PLATFORM_OSX
+    #if OPENGL4
     {
         CORE_MATH_MATRIX
         current_mat( &Camera->GetProjectionMatrix()[0] );
@@ -161,7 +170,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     
     interface_lookat.Normalize();
 
-    #if PLATFORM_OSX
+    #if OPENGL4
     {
         GRAPHIC_RENDERER::GetInstance().SetPassIndex( 1 );
         {
@@ -169,16 +178,26 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
             
             GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera );
 
-            ShadowMapRenderTarget.Apply();
+            ShadowMapRenderTarget1.Apply();
             R3D_APP_PTR->GetGame()->Render( renderer );
             
             if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_M ) ) {
                 
-                GRAPHIC_TEXTURE * texture2 = ShadowMapRenderTarget.GetTargetTexture();
+                GRAPHIC_TEXTURE * texture2 = ShadowMapRenderTarget1.GetTargetTexture();
                 texture2->SaveDepthTo(CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth" , "png", "" ));
             }
             
-            ShadowMapRenderTarget.Discard();
+            ShadowMapRenderTarget1.Discard();
+            glClear( GL_DEPTH_BUFFER_BIT );
+
+            ShadowMapRenderTarget2.Apply();
+            R3D_APP_PTR->GetGame()->Render( renderer );
+            ShadowMapRenderTarget2.Discard();
+            glClear( GL_DEPTH_BUFFER_BIT );
+
+            ShadowMapRenderTarget3.Apply();
+            R3D_APP_PTR->GetGame()->Render( renderer );
+            ShadowMapRenderTarget3.Discard();
         }
     #endif
         
@@ -192,7 +211,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
 #else
             renderer.SetLightingIsEnabled( true );
             GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera(LightShadowCamera);
-            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( ShadowMapRenderTarget.GetTargetTexture() );
+            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( ShadowMapRenderTarget1.GetTargetTexture() );
 #endif
             PrimaryRenderTarget.Apply();
             GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
@@ -221,11 +240,11 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         }
         
         renderer.SetLightingIsEnabled( false );
-#if PLATFORM_OSX
+#if OPENGL4
     }
 #endif
     
-#if PLATFORM_OSX
+#if OPENGL4
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
     {
         TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
@@ -324,7 +343,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     renderer.SetCamera( InterfaceCamera );
     GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
     
-    #if PLATFORM_OSX
+    #if OPENGL4
     {
         CORE_MATH_MATRIX previous_mat( &Camera->GetProjectionMatrix()[0] );
         

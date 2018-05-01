@@ -302,8 +302,12 @@ void OGG_Close( AUDIO_SOUND & sound ) {
 
     /* clean up this logical bitstream; before exit we see if we're
     followed by another [chained] */
+    vorbis_block_clear( &sound.VorbisBlock );
+    vorbis_dsp_clear( &sound.VorbisDspState );
     ogg_stream_clear( &sound.OGGStreamState );
     vorbis_comment_clear( &sound.VorbisComment );
     vorbis_info_clear( &sound.VorbisInfo );  /* must be called last */
     sound.GetFile()->Close();
+    delete sound.GetFile();
+    sound.SetFile( NULL );
 }

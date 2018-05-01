@@ -27,3 +27,5 @@ PROJECTS/ANDROID-NDK-BASE/HEADERS/
 i386/
 PROJECTS/XSGameEngine.VC.db
 PROJECTS/XSGameEngine.VC.VC.opendb
+*.idb
+*.tlog

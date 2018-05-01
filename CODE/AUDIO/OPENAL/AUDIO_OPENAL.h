@@ -13,6 +13,7 @@
     #include <OpenAL/al.h>
     #include <OpenAL/alc.h>
 #endif
+#include "AUDIO_RUNTIME_ENVIRONMENT.h"
 #include "AUDIO_INTERFACE.h"
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_ABSTRACT_PROGRAM_MANAGER.h"

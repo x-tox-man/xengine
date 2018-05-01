@@ -80,22 +80,20 @@ bool R3D_PLAYER::Buy( int amount ) {
     return false;
 }
 
-const CORE_MATH_QUATERNION & R3D_PLAYER::GetOrientation() {
+const CORE_MATH_QUATERNION & R3D_PLAYER::GetOrientation() const {
     
     auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) Ship->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     return pos->GetOrientation();
 }
 
-const CORE_MATH_VECTOR & R3D_PLAYER::GetPosition() {
+CORE_MATH_VECTOR R3D_PLAYER::GetPosition() const {
     
     if( Ship ) {
         auto pos = (GAMEPLAY_COMPONENT_POSITION::PTR) Ship->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
         
         return pos->GetPosition();
     }
-    else {
-        return CORE_MATH_VECTOR();
-    }
     
+    return CORE_MATH_VECTOR();
 }

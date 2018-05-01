@@ -10,6 +10,7 @@
 #define __GAME_ENGINE_REBORN__AUDIO_INTERFACE__
 
 #include "CORE_HELPERS_CLASS.h"
+#include "AUDIO_RUNTIME_ENVIRONMENT.h"
 #include "AUDIO_SOUND.h"
 #include "CORE_MATH_VECTOR.h"
 

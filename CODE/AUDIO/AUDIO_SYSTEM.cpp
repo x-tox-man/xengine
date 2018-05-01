@@ -120,6 +120,13 @@ void AUDIO_SYSTEM::PlayMusic( const CORE_HELPERS_IDENTIFIER & sound_identifier )
 #endif
 }
 
+void AUDIO_SYSTEM::StopMusic() {
+
+#if __AUDIO_OPENAL__ || __AUDIO_OPENSL__
+    Interface->StopSound( *PlayingMusic );
+#endif
+}
+
 void AUDIO_SYSTEM::OnSoundIsRead() {
     
 #if __AUDIO_OPENAL__ || __AUDIO_OPENSL__
@@ -155,5 +162,4 @@ void AUDIO_SYSTEM::Finalize() {
 AUDIO_SYSTEM::AUDIO_SYSTEM() :
     Bank() {
 
-        
 }

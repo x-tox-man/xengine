@@ -43,6 +43,8 @@ void R3D_LEVEL::Initialize() {
 
 void R3D_LEVEL::Initialize( const CORE_FILESYSTEM_PATH & path ) {
     
+    Initialize();
+
     CORE_ABSTRACT_PROGRAM_LUA * program = new CORE_ABSTRACT_PROGRAM_LUA();
     
     CORE_ABSTRACT_RUNTIME_LUA * runtime = new CORE_ABSTRACT_RUNTIME_LUA;
@@ -72,8 +74,6 @@ void R3D_LEVEL::Initialize( const CORE_FILESYSTEM_PATH & path ) {
     
     Script = program;
     Script->Execute();
-    
-    Initialize();
 }
 
 void R3D_LEVEL::OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity ) {

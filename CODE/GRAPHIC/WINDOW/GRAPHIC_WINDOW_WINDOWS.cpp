@@ -83,10 +83,13 @@ void GRAPHIC_WINDOW_WINDOWS::Initialize() {
 void GRAPHIC_WINDOW_WINDOWS::EnableBackgroundContext( bool enable ) {
 
     #if OPENGL2PLUS || OPENGLES2
+    if ( enable ) {
         if ( !wglMakeCurrent( GetDC( hWnd ), OGLBackgroundContext ) ) {
 
             CORE_RUNTIME_Abort();
         }
+    }
+        
     #else
         abort();
     #endif

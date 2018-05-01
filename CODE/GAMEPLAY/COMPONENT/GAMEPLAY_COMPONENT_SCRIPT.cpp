@@ -47,6 +47,8 @@ void GAMEPLAY_COMPONENT_SCRIPT::Clear() {
     LastOffset = -1;
     
     InternalVector->clear();
+
+    InternalVector=InitializeMemory<INTERNAL_ARRAY_S, GAMEPLAY_COMPONENT_SCRIPT>();
 }
 
 void GAMEPLAY_COMPONENT_SCRIPT::SaveToStream( CORE_DATA_STREAM & stream ) {

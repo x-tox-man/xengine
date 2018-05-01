@@ -25,7 +25,6 @@ AUDIO_SOUND_BANK::~AUDIO_SOUND_BANK() {
 
 void AUDIO_SOUND_BANK::RegisterSoundFilePath( const CORE_FILESYSTEM_PATH & sound_path, CORE_HELPERS_IDENTIFIER sound_identifier, const AUDIO_BANK_SOUND_LOAD_OPTION & option, const char * type ) {
     
-    
     SoundTable[ sound_identifier ] = new AUDIO_BANK_SOUND( option );
     SoundTable[ sound_identifier ]->SoundPath = sound_path;
     SoundTable[ sound_identifier ]->SoundFileType = type;

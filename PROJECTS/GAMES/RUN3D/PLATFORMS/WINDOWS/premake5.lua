@@ -10,19 +10,21 @@ project "Run3d"
 	libdirs { "../../../../libs", "../../../../../mylibs", "../../../../bin/**" }
 	flags { "StaticRuntime" }
 	defines { "__X_APP__" }
+	rtti ( "Off" )
+	exceptionhandling ( "Off" )
 
 	files {
 		"../../CODE/**.h",
 		"../../CODE/**.cpp" }
 	
-	links { "libpng16", "liblua", "libuv", "zlib", "LinearMath", "EngineLib", "Bullet3Collision", "Bullet3Common", "Bullet3Geometry", "Bullet3Dynamics", "BulletCollision", "BulletDynamics", "BulletInverseDynamics", "BulletInverseDynamicsUtils", "BulletSoftBody" }
+	links { "libogg_static", "libvorbis_static", "libpng16", "liblua", "libuv", "zlib", "LinearMath", "EngineLib", "Bullet3Collision", "Bullet3Common", "Bullet3Geometry", "Bullet3Dynamics", "BulletCollision", "BulletDynamics", "BulletInverseDynamics", "BulletInverseDynamicsUtils", "BulletSoftBody" }
 	
 	filter { "platforms:Win32" }
 		system "Windows"
 		architecture "x86"
 		flags { "Maps", "MultiProcessorCompile", "NoImplicitLink", "NoImportLib", "NoIncrementalLink", "NoManifest", "NoRuntimeChecks", "WinMain" }
-		defines { "__PLATFORM_WINDOWS__", "__AUDIO_OPENAL__", "_USE_MATH_DEFINES", "WIN32", "_WINDOWS", "__BULLET_PHYSICS__" }
-		links { "OpenAL32", "kernel32", "Userenv", "EFX-Util", "freetype262", "ws2_32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32", "oleaut32","uuid", "odbc32", "odbccp32", "Iphlpapi", "Psapi" }
+		defines { "__AUDIO_FILE__OGG__", "__PLATFORM_WINDOWS__", "__AUDIO_OPENAL__", "_USE_MATH_DEFINES", "WIN32", "_WINDOWS", "__BULLET_PHYSICS__" }
+		links { "OpenAL32", "ws2_32", "kernel32", "Psapi", "user32", "Userenv", "Iphlpapi" } -- , , , ,,"gdi32","winspool","comdlg32","advapi32","shell32","ole32", "oleaut32","uuid", "odbc32", "odbccp32", , 
 		removefiles { "../../../../../CODE/**/*_OSX.h", "../../../../../CODE/**/*_LINUX.*", "../../../../../CODE/**/*_IOS.*", "../../../../../CODE/**/*_POSIX.*", "../../../../../CODE/TOOLS/**.*", "../../../../../CODE/**/*OPENSL*",  "../../../../../CODE/**/*ANDROID*" }
 		includedirs {
 			"../../../../../CODE/**",
@@ -35,7 +37,8 @@ project "Run3d"
 			"../../../../../LIBRARY/WINDOWS/INCLUDES/UV",
 			"../../../../../LIBRARY/WINDOWS/INCLUDES/Z" ,
 			"../../../../../LIBRARY/WINDOWS/INCLUDES/OPENAL",
-			"../../../../../LIBRARY/WINDOWS/INCLUDES/FREETYPE"
+			"../../../../../LIBRARY/WINDOWS/INCLUDES/FREETYPE",
+			"../../../../../LIBRARY/WINDOWS/INCLUDES/OGG"
 			}
 		files {
 			"Application/Run3dWindows.cpp",

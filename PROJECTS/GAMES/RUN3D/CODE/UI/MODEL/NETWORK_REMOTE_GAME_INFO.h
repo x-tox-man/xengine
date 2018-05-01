@@ -24,7 +24,8 @@ XS_CLASS_BEGIN( NETWORK_REMOTE_GAME_INFO )
         
         LevelName = (char*) malloc( strlen(level_name) + 1);
         
-        strcpy(LevelName, level_name);
+        CORE_DATA_COPY_STRING( LevelName, level_name )
+
         LevelName[strlen(level_name)] = '\0';
     }
 

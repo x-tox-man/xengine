@@ -398,6 +398,8 @@ void GAMEPLAY_COMPONENT_PHYSICS::Clear() {
     LastIndex = -1;
     LastOffset = -1;
     InternalVector->clear();
+
+    InternalVector=InitializeMemory<INTERNAL_ARRAY_P, GAMEPLAY_COMPONENT_PHYSICS>();
 }
 
 void GAMEPLAY_COMPONENT_PHYSICS::SaveToStream( CORE_DATA_STREAM & stream ) {

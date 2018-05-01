@@ -97,6 +97,8 @@ void GAMEPLAY_COMPONENT_RENDER::Clear() {
     LastOffset = -1;
     
     InternalVector->clear();
+
+    InternalVector=InitializeMemory<INTERNAL_ARRAY_R, GAMEPLAY_COMPONENT_RENDER>();
 }
 
 void GAMEPLAY_COMPONENT_RENDER::SaveToStream( CORE_DATA_STREAM & stream ) {

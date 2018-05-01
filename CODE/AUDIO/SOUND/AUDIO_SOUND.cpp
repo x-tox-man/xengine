@@ -61,4 +61,6 @@ AUDIO_SOUND::~AUDIO_SOUND() {
             it++;
         }
     }
+
+    SoundChunksTable.clear();
 }

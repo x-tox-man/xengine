@@ -11,6 +11,7 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_FILESYSTEM_PATH.h"
+#include "AUDIO_RUNTIME_ENVIRONMENT.h"
 #include "AUDIO_SOUND.h"
 #include "AUDIO_BANK_SOUND_LOAD_OPTION.h"
 

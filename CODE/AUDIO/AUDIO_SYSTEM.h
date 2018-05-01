@@ -16,13 +16,14 @@
 #include "CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER.h"
 #include "CORE_ABSTRACT_PROGRAM_BINDER.h"
 #include "CORE_MATH_VECTOR.h"
+#include "AUDIO_RUNTIME_ENVIRONMENT.h"
 #include "AUDIO_SOUND.h"
 #include "AUDIO_INTERFACE.h"
 #include "AUDIO_BANK.h"
 
-#if __AUDIO_OPENAL__
+#if AUDIO_PLATFORM_OPENAL
     #include "AUDIO_OPENAL.h"
-#elif __AUDIO_OPENSL__
+#elif AUDIO_PLATFORM_OPENSLES
     #include "AUDIO_OPENSL.h"
 #endif
 
@@ -42,6 +43,7 @@ XS_CLASS_BEGIN( AUDIO_SYSTEM )
     void PlaySound( const char * sound_identifier );
     void PlayMusic( const char * sound_identifier );
     void PlayMusic( const CORE_HELPERS_IDENTIFIER & sound_identifier );
+    void StopMusic();
 
     void OnSoundIsRead();
 

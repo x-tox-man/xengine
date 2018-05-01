@@ -27,13 +27,15 @@ void UI_INGAME_PRESENTER::Update( float time_step ) {
     
     if ( CurrentPlayer != NULL && CurrentPlayer->GetShip() != NULL ) {
         
-        auto cmp = (GAMEPLAY_COMPONENT_PHYSICS::PTR) CurrentPlayer->GetShip()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+        /*auto cmp = (GAMEPLAY_COMPONENT_PHYSICS::PTR) CurrentPlayer->GetShip()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
         
+        RUN3D_APPLICATION * r3d=R3D_APP_PTR;
+        float gd=r3d->GetGame()->GetGameDuration();
+        ( ( UI_INGAME::PTR ) GetView() )->SetEllapsedTime( gd );
+
         const CORE_MATH_VECTOR & v = cmp->GetVelocity();
         float speed = v.ComputeLength();
-        ((UI_INGAME::PTR) GetView())->SetSpeed( speed );
-        float gd = R3D_APP_PTR->GetGame()->GetGameDuration();
-        ((UI_INGAME::PTR) GetView())->SetEllapsedTime( gd );
+        ((UI_INGAME::PTR) GetView())->SetSpeed( speed );*/
     }
     else {
         

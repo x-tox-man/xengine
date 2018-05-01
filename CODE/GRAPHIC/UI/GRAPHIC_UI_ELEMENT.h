@@ -91,7 +91,10 @@ XS_CLASS_BEGIN( GRAPHIC_UI_ELEMENT )
 
     inline void SetTextValue( const CORE_DATA_UTF8_TEXT & text) {
         
-        Adapter->OnTextPropertyChanged( this, text );
+        if ( Adapter ) {
+
+            Adapter->OnTextPropertyChanged( this, text );
+        }
     }
 
     inline void SetAdapter( GRAPHIC_UI_BASE_ADAPTER * adapter ) {

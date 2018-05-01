@@ -129,8 +129,9 @@ void RUN3D_APPLICATION::Finalize() {
         Game->Finalize();
     }
     
+    AUDIO_SYSTEM::GetInstance().StopMusic();
     AUDIO_SYSTEM::GetInstance().Finalize();
-    AUDIO_SYSTEM::RemoveInstance();
+    
     CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_MANAGER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::RemoveInstance();
@@ -147,6 +148,10 @@ void RUN3D_APPLICATION::Finalize() {
     SERVICE_NETWORK_SYSTEM::RemoveInstance();
     
     DefaultFileystem.Finalize();
+
+    #if !PLATFORM_WINDOWS
+        AUDIO_SYSTEM::RemoveInstance();
+    #endif
 }
 
 void RUN3D_APPLICATION::Update( float time_step ) {

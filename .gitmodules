@@ -22,3 +22,9 @@
 [submodule "LIBRARY/COMMON/JSON"]
 	path = LIBRARY/COMMON/JSON
 	url = https://github.com/nlohmann/json.git
+[submodule "LIBRARY/COMMON/VORBIS"]
+	path = LIBRARY/COMMON/VORBIS
+	url = https://git.xiph.org/vorbis.git
+[submodule "LIBRARY/COMMON/OGG"]
+	path = LIBRARY/COMMON/OGG
+	url = https://git.xiph.org/ogg.git

@@ -10,6 +10,7 @@
 #define AUDIO_SOUND_CHUNK_hpp
 
 #include "CORE_HELPERS_CLASS.h"
+#include "AUDIO_RUNTIME_ENVIRONMENT.h"
 
 #if __AUDIO_OPENAL__
     #include <OpenAL/al.h>

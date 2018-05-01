@@ -11,14 +11,11 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_RUNTIME_ENVIRONMENT.h"
+#include "AUDIO_RUNTIME_ENVIRONMENT.h"
 #include "AUDIO_SOUND_CHUNK.h"
 #include "RESOURCE_SOUND.h"
 
 #include <vector>
-
-#if PLATFORM_WINDOWS
-    #include "lame.h"
-#endif
 
 #if __AUDIO_OPENAL__
     #include <OpenAL/al.h>

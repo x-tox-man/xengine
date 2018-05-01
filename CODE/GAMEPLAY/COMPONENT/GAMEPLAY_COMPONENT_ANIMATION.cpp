@@ -63,6 +63,8 @@ void GAMEPLAY_COMPONENT_ANIMATION::Clear() {
     LastOffset = -1;
     
     InternalVector->clear();
+
+    InitializeMemory<GAMEPLAY_COMPONENT_ANIMATION::INTERNAL_ARRAY_A, GAMEPLAY_COMPONENT_ANIMATION>();
 }
 
 void GAMEPLAY_COMPONENT_ANIMATION::SaveToStream( CORE_DATA_STREAM & stream ) {

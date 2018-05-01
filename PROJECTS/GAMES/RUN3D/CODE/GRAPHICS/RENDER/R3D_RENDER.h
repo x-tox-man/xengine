@@ -63,7 +63,9 @@ private :
         GaussianRenderTarget1,
         GaussianRenderTarget2,
         BloomRenderTarget,
-        ShadowMapRenderTarget;
+        ShadowMapRenderTarget1,
+        ShadowMapRenderTarget2,
+        ShadowMapRenderTarget3;
     GRAPHIC_TEXTURE_BLOCK::PTR
         TextureBlock,
         TextureBlock2,

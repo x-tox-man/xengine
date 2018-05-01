@@ -19,7 +19,7 @@ project "XSGameEngine"
 		"../CODE/**.cpp",
 		"../CODE/**.c" }
 	
-	links { "libpng16", "liblua", "libuv", "zlib" }
+	links { "libogg_static", "libvorbis_static", "libpng16", "liblua", "libuv", "zlib", "LinearMath", "Bullet3Collision", "Bullet3Common", "Bullet3Geometry", "Bullet3Dynamics", "BulletCollision", "BulletDynamics", "BulletInverseDynamics", "BulletInverseDynamicsUtils", "BulletSoftBody" }
 	
 	filter { "platforms:Win32" }
 		system "Windows"
@@ -37,7 +37,8 @@ project "XSGameEngine"
 			"../LIBRARY/WINDOWS/INCLUDES/UV",
 			"../LIBRARY/WINDOWS/INCLUDES/Z" ,
 			"../LIBRARY/WINDOWS/INCLUDES/OPENAL",
-			"../LIBRARY/WINDOWS/INCLUDES/FREETYPE"
+			"../LIBRARY/WINDOWS/INCLUDES/FREETYPE",
+			"../LIBRARY/WINDOWS/INCLUDES/OGG/"
 			}
 		files {
 			"VISUAL2015/GameEngineWindows/GameEngineWindows/GameEngineWindows.cpp",
