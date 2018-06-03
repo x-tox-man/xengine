@@ -19,6 +19,12 @@ GRAPHIC_CAMERA_ORTHOGONAL::GRAPHIC_CAMERA_ORTHOGONAL( float near_plane, float fa
     CalculateModelViewMatrix( position, lookat );
     
     Position = position;
+    Lookat = lookat;
+}
+
+GRAPHIC_CAMERA_ORTHOGONAL::GRAPHIC_CAMERA_ORTHOGONAL( float left, float right, float bottom, float top, float near, float far ) {
+    
+    InitOrthoProjTransform( left, right, bottom, top, near, far );
 }
 
 GRAPHIC_CAMERA_ORTHOGONAL::~GRAPHIC_CAMERA_ORTHOGONAL() {
@@ -55,17 +61,31 @@ void GRAPHIC_CAMERA_ORTHOGONAL::CalculateProjectionMatrix( float near_plane, flo
 
 void GRAPHIC_CAMERA_ORTHOGONAL::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
-    CORE_MATH_MATRIX translation,rotation, inverse;
-    
-    translation[3] = position[0];
-    translation[7] = position[1];
-    translation[11] = position[2];
+    CORE_MATH_MATRIX rotation, inverse;
     
     lookat.ToMatrix( &rotation[0] );
 
-    inverse = rotation;
-    inverse *=translation;
-    
+    inverse.Translate( position );
+    inverse *= rotation;
     
     inverse.GetInverse(ViewMatrix);
+}
+
+void GRAPHIC_CAMERA_ORTHOGONAL::InitOrthoProjTransform( float left, float right, float bottom, float top, float near, float far )
+{
+    float l = left;
+    float r = right;
+    float b = bottom;
+    float t = top;
+    float n = near;
+    float f = far;
+    
+    float * m = ProjectionMatrix.GetRow(0);
+    
+    m[0] = 2.0f/(r - l);    m[1] = 0.0f;            m[2] = 0.0f;            m[3] = 0.0f;//-(r + l)/(r - l);
+    m[4] = 0.0f;            m[5] = 2.0f/(t - b);    m[6] = 0.0f;            m[7] = 0.0f;//-(f + n)/(f - n);
+    m[8] = 0.0f;            m[6] = 0.0f;            m[8] = 2.0f/(f - n);    m[11] = 0.0f;//-(t + b)/(t - b);
+    m[12] = 0.0f;           m[13] = 0.0f;           m[14] = 0.0f;           m[15] = 1.0;
+    
+    CalculateModelViewMatrix( GetPosition(), GetOrientation() );
 }

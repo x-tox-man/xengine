@@ -37,8 +37,8 @@ void R3D_LEVEL::Initialize() {
     
     CreateTracks();
     //CreateGround();
-    CreateMoon();
-    CreateSky();
+    //CreateMoon();
+    //CreateSky();
 }
 
 void R3D_LEVEL::Initialize( const CORE_FILESYSTEM_PATH & path ) {
@@ -147,10 +147,10 @@ void R3D_LEVEL::CreateTracks() {
             
             entity->Initialize( p );
             
-            auto child = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT>();
-            child->Initialize( p );
+            //auto child = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT>();
+            //child->Initialize( p );
             
-            Checkpoints.AddCheckpoint( child );
+            //Checkpoints.AddCheckpoint( child );
         }
     }
 }

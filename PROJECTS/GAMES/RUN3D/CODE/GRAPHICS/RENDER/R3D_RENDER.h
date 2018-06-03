@@ -55,7 +55,7 @@ XS_CLASS_BEGIN( R3D_RENDER )
 
 private :
 
-    void CalculateCascadeOrthoProjection();
+    void CalculateCascadeOrthoProjection( GRAPHIC_RENDERER & renderer );
 
     CORE_MATH_QUATERNION
         Lookat;
@@ -66,7 +66,7 @@ private :
     GRAPHIC_CAMERA_ORTHOGONAL
         * InterfaceCamera,
         * RenderTargetCamera,
-        * LightShadowCamera;
+        * LightShadowCamera[NUM_CASCADES];
     GRAPHIC_SHADER_LIGHT
         Directional,
         Ambient;

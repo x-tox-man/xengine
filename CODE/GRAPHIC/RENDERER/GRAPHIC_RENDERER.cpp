@@ -11,17 +11,19 @@
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "GRAPHIC_MATERIAL_RESOURCE_LOADER.h"
 #include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
+#include "GRAPHIC_SHADER_EFFECT.h"
 
 GRAPHIC_RENDERER::GRAPHIC_RENDERER():
     Camera( NULL ),
-    ShadowMapCamera( NULL ),
+    ShadowMapCameraTable(),
     RenderCallback(),
     DirectionalLight( NULL ),
     AmbientLight( NULL ),
     PointLightTable(),
     SpotLightTable(),
     PassIndex( 0 ),
-    DepthTexture( NULL ),
+    NumCascade( 3 ),
+    DepthTextureTable(),
     ScissorRectangle(),
     ScissorIsEnabled( false ),
     ColorEnabled( false ),
@@ -55,4 +57,35 @@ void GRAPHIC_RENDERER::Resize(int width, int height) {
 
 void GRAPHIC_RENDERER::ResetDepth() {
     
+}
+
+const CORE_HELPERS_IDENTIFIER & GRAPHIC_RENDERER::GetShadowMapMVPName( int cascade_index ) {
+    
+    switch (cascade_index) {
+        case 0:
+            
+            return GRAPHIC_SHADER_PROGRAM::ShadowMapMVP1;
+            break;
+        case 1:
+            
+            return GRAPHIC_SHADER_PROGRAM::ShadowMapMVP2;
+            break;
+        case 2:
+            
+            return GRAPHIC_SHADER_PROGRAM::ShadowMapMVP3;
+            break;
+        case 3:
+            
+            return GRAPHIC_SHADER_PROGRAM::ShadowMapMVP4;
+            break;
+        case 4:
+            
+            return GRAPHIC_SHADER_PROGRAM::ShadowMapMVP5;
+            break;
+            
+        default:
+            break;
+    }
+    
+    return GRAPHIC_SHADER_PROGRAM::ShadowMapMVP1;
 }

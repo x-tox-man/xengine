@@ -19,7 +19,7 @@ R3D_RENDER::R3D_RENDER() :
     Lookat(),
     CascadeProjectionInfo(),
     Camera( NULL ),
-    LightShadowCamera( NULL ),
+    LightShadowCamera(),
     RenderTargetCamera( NULL ),
     InterfaceCamera( NULL ),
     Directional(),
@@ -68,10 +68,12 @@ void R3D_RENDER::Initialize() {
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
-    Directional.InitializeDirectional( CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), CORE_MATH_VECTOR( 0.0f, 0.0f, 1.0f, 0.0f), 1.0f, 1.0f);
+    Directional.InitializeDirectional( CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), CORE_MATH_VECTOR( 0.0f, 0.0f, -1.0f, 0.0f), 1.0f, 1.0f);
     Ambient.InitializeAmbient(CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), 0.5f, 0.0f );
     
-    LightShadowCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 200.0f, -200.0f, 2.0f, 2.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 9.0f, 0.0f), rt_lookat );
+    LightShadowCamera[0] = new GRAPHIC_CAMERA_ORTHOGONAL( 0.1f, 10.0f, 4.0f, 4.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 9.0f, 0.0f), rt_lookat );
+    LightShadowCamera[1] = new GRAPHIC_CAMERA_ORTHOGONAL( 0.1f, 10.0f, 4.0f, 4.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 9.0f, 0.0f), rt_lookat );
+    LightShadowCamera[2] = new GRAPHIC_CAMERA_ORTHOGONAL( 0.1f, 10.0f, 4.0f, 4.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 9.0f, 0.0f), rt_lookat );
     
     GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( &Directional );
     GRAPHIC_RENDERER::GetInstance().SetAmbientLight( &Directional );
@@ -103,16 +105,16 @@ void R3D_RENDER::Initialize() {
     
     int divider = APPLICATION_CONFIGURATION_OPTIONS::GetInstance().GetGraphicsOptionRenderTargetResolutionDivider();
     
-    PrimaryRenderTarget.Initialize( Window->GetWidth() / 2, Window->GetHeight() / 2, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 0 );
+    PrimaryRenderTarget.Initialize( Window->GetWidth() / divider, Window->GetHeight() / divider, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 0 );
     
 #if OPENGL4
     GaussianRenderTarget1.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
     GaussianRenderTarget2.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
     BloomRenderTarget.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
     FinalRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
-    ShadowMapRenderTarget1.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
-    ShadowMapRenderTarget2.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
-    ShadowMapRenderTarget3.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
+    ShadowMapRenderTarget1.InitializeDepthTexture( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
+    ShadowMapRenderTarget2.InitializeDepthTexture( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
+    ShadowMapRenderTarget3.InitializeDepthTexture( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
 #endif
     
     PrimaryRenderTarget.Discard();
@@ -171,6 +173,8 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
     interface_lookat.Normalize();
+    
+    renderer.SetNumCascade( 0 );
 
     #if OPENGL4
     {
@@ -180,14 +184,26 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
             if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_M ) ) {
                 screenshots = true;
             }
-            LightShadowCamera->UpdateCamera( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() + CORE_MATH_VECTOR( 0.0f, 0.0f, 1.0f, 1.0f ), CORE_MATH_QUATERNION() );
             
-            CalculateCascadeOrthoProjection();
-
-            //LightShadowCamera->Reset( CascadeProjectionInfo[0].Near, CascadeProjectionInfo[ 0 ].Far, fabs(CascadeProjectionInfo[ 0 ].Left ) + fabs( CascadeProjectionInfo[ 0 ].Right ), fabs( CascadeProjectionInfo[ 0 ].Top ) + fabs( CascadeProjectionInfo[ 0 ].Bottom ), R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() + CORE_MATH_VECTOR( 0.0f, 0.0f, 1.0f, 1.0f ), CORE_MATH_QUATERNION() );
-            GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera );
+            CORE_MATH_QUATERNION q;
+            
+            //q.RotateX( M_PI_2 * 0.12f );
+            q.RotateY( M_PI_2 * 0.33f );
+            q.Normalize();
+            
+            LightShadowCamera[0]->UpdateCamera( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition(), q );
+            LightShadowCamera[1]->UpdateCamera( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition(), q );
+            LightShadowCamera[2]->UpdateCamera( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition(), q );
+            
+            CalculateCascadeOrthoProjection( renderer );
+            
+            LightShadowCamera[0]->InitOrthoProjTransform(CascadeProjectionInfo[ 0 ].Left, CascadeProjectionInfo[ 0 ].Right, CascadeProjectionInfo[ 0 ].Bottom, CascadeProjectionInfo[ 0 ].Top, CascadeProjectionInfo[ 0 ].Near, CascadeProjectionInfo[ 0 ].Far );
+            GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[0] );
 
             ShadowMapRenderTarget1.Apply();
+            GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
+            glClearDepth( 0.0f );
+            glClear( GL_DEPTH_BUFFER_BIT );
             R3D_APP_PTR->GetGame()->Render( renderer );
             
             if ( screenshots ) {
@@ -195,28 +211,35 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
                 GRAPHIC_TEXTURE * texture2 = ShadowMapRenderTarget1.GetTargetTexture();
                 texture2->SaveDepthTo(CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth1" , "png", "" ));
             }
-            
             ShadowMapRenderTarget1.Discard();
-            glClear( GL_DEPTH_BUFFER_BIT );
-
-            LightShadowCamera->Reset( CascadeProjectionInfo[ 1 ].Near, CascadeProjectionInfo[ 1 ].Far, fabs( CascadeProjectionInfo[ 1 ].Left ) + fabs( CascadeProjectionInfo[ 1 ].Right ), fabs( CascadeProjectionInfo[ 1 ].Top ) + fabs( CascadeProjectionInfo[ 1 ].Bottom ), R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() + CORE_MATH_VECTOR( 0.0f, 0.0f, 1.0f, 1.0f ), CORE_MATH_QUATERNION() );
+            
+            LightShadowCamera[1]->InitOrthoProjTransform(CascadeProjectionInfo[ 1 ].Left, CascadeProjectionInfo[ 1 ].Right, CascadeProjectionInfo[ 1 ].Bottom, CascadeProjectionInfo[ 1 ].Top, CascadeProjectionInfo[ 1 ].Near, CascadeProjectionInfo[ 1 ].Far );
+            GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[1] );
+            
             ShadowMapRenderTarget2.Apply();
+            GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
+            glClearDepth( 0.0f );
+            glClear( GL_DEPTH_BUFFER_BIT );
             R3D_APP_PTR->GetGame()->Render( renderer );
 
             if ( screenshots ) {
 
-                GRAPHIC_TEXTURE * texture2=ShadowMapRenderTarget1.GetTargetTexture();
+                GRAPHIC_TEXTURE * texture2=ShadowMapRenderTarget2.GetTargetTexture();
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth2", "png", "" ) );
             }
             ShadowMapRenderTarget2.Discard();
-            glClear( GL_DEPTH_BUFFER_BIT );
 
-            LightShadowCamera->Reset( CascadeProjectionInfo[ 2 ].Near, CascadeProjectionInfo[ 2 ].Far, fabs( CascadeProjectionInfo[ 2 ].Left ) + fabs( CascadeProjectionInfo[ 2 ].Right ), fabs( CascadeProjectionInfo[ 2 ].Top ) + fabs( CascadeProjectionInfo[ 2 ].Bottom ), R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() + CORE_MATH_VECTOR( 0.0f, 0.0f, 1.0f, 1.0f ), CORE_MATH_QUATERNION() );
+            LightShadowCamera[2]->InitOrthoProjTransform(CascadeProjectionInfo[ 2 ].Left, CascadeProjectionInfo[ 2 ].Right, CascadeProjectionInfo[ 2 ].Bottom, CascadeProjectionInfo[ 2 ].Top, CascadeProjectionInfo[ 2 ].Near, CascadeProjectionInfo[ 2 ].Far );
+            GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[2] );
+            
             ShadowMapRenderTarget3.Apply();
+            GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
+            glClearDepth( 0.0f );
+            glClear( GL_DEPTH_BUFFER_BIT );
             R3D_APP_PTR->GetGame()->Render( renderer );
             if ( screenshots ) {
 
-                GRAPHIC_TEXTURE * texture2=ShadowMapRenderTarget1.GetTargetTexture();
+                GRAPHIC_TEXTURE * texture2=ShadowMapRenderTarget3.GetTargetTexture();
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth3", "png", "" ) );
             }
             ShadowMapRenderTarget3.Discard();
@@ -232,15 +255,23 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
             renderer.SetLightingIsEnabled( false );
 #else
             renderer.SetLightingIsEnabled( true );
-            GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera(LightShadowCamera);
-            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( ShadowMapRenderTarget1.GetTargetTexture() );
+            
+            GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( 0, LightShadowCamera[ 0 ] );
+            GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( 1, LightShadowCamera[ 1 ] );
+            GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( 2, LightShadowCamera[ 2 ]);
+            
+            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 0, ShadowMapRenderTarget1.GetTargetTexture() );
+            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 1, ShadowMapRenderTarget2.GetTargetTexture() );
+            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 2, ShadowMapRenderTarget3.GetTargetTexture() );
 #endif
             PrimaryRenderTarget.Apply();
             GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
             
             Lookat.Normalize();
             
+            renderer.SetNumCascade( NUM_CASCADES );
             R3D_APP_PTR->GetGame()->Render( renderer );
+            renderer.SetNumCascade( 0 );
             GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
             
 #if DEBUG
@@ -257,8 +288,9 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
             
             PrimaryRenderTarget.Discard();
             
-            GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( NULL );
-            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( NULL );
+            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 0, NULL );
+            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 1, NULL );
+            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 2, NULL );
         }
         
         renderer.SetLightingIsEnabled( false );
@@ -382,50 +414,47 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     
 }
 
-void R3D_RENDER::CalculateCascadeOrthoProjection()
+void R3D_RENDER::CalculateCascadeOrthoProjection( GRAPHIC_RENDERER & renderer )
 {
 
     CORE_MATH_MATRIX
         view_matrix = Camera->GetViewMatrix(),
         inverse_view_matrix;
 
-    float
-        cascade_end[ NUM_CASCADES + 1];
-
-    cascade_end[ 0 ] = Camera->GetNear();
-    cascade_end[ 1 ] = ( Camera->GetFar() - Camera->GetNear())* 0.33f;
-    cascade_end[ 2 ] = ( Camera->GetFar() - Camera->GetNear())* 0.66f;
-    cascade_end[ 3 ] = Camera->GetFar();
+    renderer.SetCascadeEnd( 0, 0.0f );
+    renderer.SetCascadeEnd( 1, 1.0f );
+    renderer.SetCascadeEnd( 2, 8.0f );
+    renderer.SetCascadeEnd( 3, Camera->GetFar() );
 
     float screen_width = R3D_APP_PTR->GetApplicationWindow().GetWidth();
     float screen_height = R3D_APP_PTR->GetApplicationWindow().GetHeight();
 
     view_matrix.GetInverse( inverse_view_matrix );
 
-    CORE_MATH_MATRIX LightM =LightShadowCamera->GetViewMatrix();
+    CORE_MATH_MATRIX LightM =LightShadowCamera[0]->GetViewMatrix();
 
     float aspect_ratio = screen_height / screen_width;
     float tanHalfHFOV = tanf( CORE_MATH_ToRadians( Camera->GetFov() / 2.0f ) );
     float tanHalfVFOV = tanf( CORE_MATH_ToRadians( ( Camera->GetFov() * aspect_ratio ) / 2.0f ) );
 
     for ( int i=0; i < NUM_CASCADES; i++ ) {
-        float xn = cascade_end[ i ] * tanHalfHFOV;
-        float xf = cascade_end[ i + 1 ] * tanHalfHFOV;
-        float yn = cascade_end[ i ] * tanHalfVFOV;
-        float yf = cascade_end[ i + 1 ] * tanHalfVFOV;
+        float xn = renderer.GetCascadeEnd( i ) * tanHalfHFOV;
+        float xf = renderer.GetCascadeEnd( i + 1 ) * tanHalfHFOV;
+        float yn = renderer.GetCascadeEnd( i ) * tanHalfVFOV;
+        float yf = renderer.GetCascadeEnd( i + 1 ) * tanHalfVFOV;
 
         CORE_MATH_VECTOR frustum_corners[ NUM_FRUSTUM_CORNERS ]={
             // near face
-            CORE_MATH_VECTOR( xn, yn, cascade_end[ i ], 1.0 ),
-            CORE_MATH_VECTOR( -xn, yn, cascade_end[ i ], 1.0 ),
-            CORE_MATH_VECTOR( xn, -yn, cascade_end[ i ], 1.0 ),
-            CORE_MATH_VECTOR( -xn, -yn, cascade_end[ i ], 1.0 ),
+            CORE_MATH_VECTOR( xn, yn, renderer.GetCascadeEnd( i ), 1.0 ),
+            CORE_MATH_VECTOR( -xn, yn, renderer.GetCascadeEnd( i ), 1.0 ),
+            CORE_MATH_VECTOR( xn, -yn, renderer.GetCascadeEnd( i ), 1.0 ),
+            CORE_MATH_VECTOR( -xn, -yn, renderer.GetCascadeEnd( i ), 1.0 ),
 
             // far face
-            CORE_MATH_VECTOR( xf, yf, cascade_end[ i + 1 ], 1.0 ),
-            CORE_MATH_VECTOR( -xf, yf, cascade_end[ i + 1 ], 1.0 ),
-            CORE_MATH_VECTOR( xf, -yf, cascade_end[ i + 1 ], 1.0 ),
-            CORE_MATH_VECTOR( -xf, -yf, cascade_end[ i + 1 ], 1.0 )
+            CORE_MATH_VECTOR( xf, yf, renderer.GetCascadeEnd( i + 1 ), 1.0 ),
+            CORE_MATH_VECTOR( -xf, yf, renderer.GetCascadeEnd( i + 1 ), 1.0 ),
+            CORE_MATH_VECTOR( xf, -yf, renderer.GetCascadeEnd( i + 1 ), 1.0 ),
+            CORE_MATH_VECTOR( -xf, -yf, renderer.GetCascadeEnd( i + 1 ), 1.0 )
         };
         //What we see above matches step #1 of the description in the background section on how to calculate the orthographic projections for the cascades.The frustumCorners array is populated with the eight corners of each cascade in view space.Note that since the field of view is provided only for the horizontal axis we have to extrapolate it for the vertical axis( e.g, if the horizontal field of view is 90 degrees and the window has a width of 1000 and a height of 500 the vertical field of view will be only 45 degrees ).
 
@@ -435,23 +464,24 @@ void R3D_RENDER::CalculateCascadeOrthoProjection()
         float maxX= -1000000000.0f;
         float minY= 1000000000.0f;
         float maxY = -1000000000.0f;
-        float minZ=1000000000.0f;
+        float minZ = 1000000000.0f;
         float maxZ= -1000000000.0f;
 
         for ( int j=0; j < NUM_FRUSTUM_CORNERS; j++ ) {
 
             // Transform the frustum coordinate from view to world space
-            const CORE_MATH_VECTOR vW = ::operator*(frustum_corners[ j ], inverse_view_matrix );
+            const CORE_MATH_VECTOR vW = ::operator*( frustum_corners[ j ], inverse_view_matrix );
+            //const CORE_MATH_VECTOR vW2 = ::operator*( frustum_corners[ j ], inverse_view_matrix );
 
             // Transform the frustum coordinate from world to light space
-            frustum_corners_l[ j ] = LightM * vW;
+            frustum_corners_l[ j ] = ::operator*( vW, LightM );
 
-            minX=min( minX, frustum_corners_l[ j ].X() );
-            maxX=max( maxX, frustum_corners_l[ j ].X() );
-            minY=min( minY, frustum_corners_l[ j ].Y() );
-            maxY=max( maxY, frustum_corners_l[ j ].Y() );
-            minZ=min( minZ, frustum_corners_l[ j ].Z() );
-            maxZ=max( maxZ, frustum_corners_l[ j ].Z() );
+            minX=fmin( minX, frustum_corners_l[ j ].X() );
+            maxX=fmax( maxX, frustum_corners_l[ j ].X() );
+            minY=fmin( minY, frustum_corners_l[ j ].Y() );
+            maxY=fmax( maxY, frustum_corners_l[ j ].Y() );
+            minZ=fmin( minZ, frustum_corners_l[ j ].Z() );
+            maxZ=fmax( maxZ, frustum_corners_l[ j ].Z() );
         }
         //The above code contains step #2 until #4. Each frustum corner coordinate is multiplied by the inverse view transform in order to bring it into world space.It is then multiplied by the light transform in order to move it into light space.We then use a series of min / max functions in order to find the size of the bounding box of the cascade in light space.
 

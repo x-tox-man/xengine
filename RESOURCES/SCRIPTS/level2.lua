@@ -40,6 +40,16 @@ function init()
 		R3D_LEVEL_HELPER:AddToSystemRenderAndPhysics( track )
 		track:SetOrientation( rot );
 	end
-end
+
+	for i= 0, 5, 1 do
+		vec:X( 0.1 + i * 0.2 )
+		vec:Y( 0.0 )
+		vec:Z( -0.2 + i * 0.1 )
+		base:SetPosition( vec )	
+		track = R3D_LEVEL_HELPER:Clone( base )
+
+		R3D_LEVEL_HELPER:AddToSystemRender( track )
+	end
+end	
 
 init()

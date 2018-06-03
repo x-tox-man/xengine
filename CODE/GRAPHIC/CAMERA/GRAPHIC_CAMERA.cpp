@@ -104,16 +104,12 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
 
 void GRAPHIC_CAMERA::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
-    CORE_MATH_MATRIX tmp, translation,rotation;
-    
-    translation[3] = position[0];
-    translation[7] = position[1];
-    translation[11] = position[2];
+    CORE_MATH_MATRIX tmp,rotation,inv_rot;
     
     lookat.ToMatrix( &rotation[0] );
     
-    tmp =translation;
-    tmp *=rotation;
+    tmp.Translate( position );
+    tmp *= rotation;
     
     tmp.GetInverse(ViewMatrix);
 }

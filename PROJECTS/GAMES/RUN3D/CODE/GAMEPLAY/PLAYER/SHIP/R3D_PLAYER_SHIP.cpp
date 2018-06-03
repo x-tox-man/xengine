@@ -270,6 +270,7 @@ void R3D_PLAYER_SHIP::UpdateCamera( float step, GAMEPLAY_COMPONENT_POSITION::PTR
     q.RotateY( M_PI_2 );
     q.ToMatrix( m.GetRow(0) );
     q2.RotateX( M_PI_2 );
+    q2.Normalize();
     
     vv = r * m;
     

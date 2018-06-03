@@ -93,6 +93,7 @@ void R3D_RESOURCES::Initialize() {
     CreateModel( "flat_ground", CORE_HELPERS_UNIQUE_IDENTIFIER( "flat_ground" ) );
     CreateModel( "thruster", CORE_HELPERS_UNIQUE_IDENTIFIER( "thruster" ) );
     CreateModel( "base_hub", CORE_HELPERS_UNIQUE_IDENTIFIER( "base_hub" ) );
+    CreateModel( "cyl", CORE_HELPERS_UNIQUE_IDENTIFIER( "cyl" ) );
     
     GRAPHIC_FONT_MANAGER::GetInstance().LoadFont(
                                                  CORE_HELPERS_UNIQUE_IDENTIFIER( "stellar-light_32" ),

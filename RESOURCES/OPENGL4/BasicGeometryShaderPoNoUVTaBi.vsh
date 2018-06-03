@@ -35,12 +35,15 @@ uniform AmbientLight ambient_light;
 out vec4 colorVarying;
 out vec4 o_normal;
 out DirectionalLight directional_light_out;
-out vec4 ShadowCoord;
+out vec4 ShadowCoord[3];
 out vec2 texCoord;
 out mat3 TBNMatrix_p;
+out float ClipSpacePosZ;
 
 uniform mat4 MVPMatrix;
-uniform mat4 ShadowMapMVP;
+uniform mat4 ShadowMapMVP1;
+uniform mat4 ShadowMapMVP2;
+uniform mat4 ShadowMapMVP3;
 uniform vec4 geometryColor;
 
 void main()
@@ -54,8 +57,11 @@ void main()
     o_normal = normal;
     texCoord = tex0;
     colorVarying = position;
-    
-    ShadowCoord = position * ShadowMapMVP;
+
+    ShadowCoord[0] = position * ShadowMapMVP1;
+    ShadowCoord[1] = position * ShadowMapMVP2;
+    ShadowCoord[2] = position * ShadowMapMVP3;
+
     gl_Position = position * MVPMatrix;
 
     mat3 TBNMatrix = transpose(
@@ -64,6 +70,8 @@ void main()
         bitangent,
         normal
         ));
+
+    ClipSpacePosZ = gl_Position.z;
 
     TBNMatrix_p = TBNMatrix;
 }

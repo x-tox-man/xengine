@@ -190,7 +190,7 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 2" );
     
 #if PLATFORM_WINDOWS || PLATFORM_OSX
-    ShadowMapRenderTarget.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
+    ShadowMapRenderTarget.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
     
     const GRAPHIC_WINDOW & window = CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow();
     

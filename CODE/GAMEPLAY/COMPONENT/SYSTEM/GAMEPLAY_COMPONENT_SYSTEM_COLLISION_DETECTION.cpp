@@ -48,7 +48,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         }
         
         // The actual physics solver
-        btSequentialImpulseConstraintSolver* solver = new btMultiBodyConstraintSolver;
+        btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
         
         // The world.
         DynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
