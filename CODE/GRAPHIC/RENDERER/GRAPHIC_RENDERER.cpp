@@ -23,6 +23,8 @@ GRAPHIC_RENDERER::GRAPHIC_RENDERER():
     SpotLightTable(),
     PassIndex( 0 ),
     NumCascade( 3 ),
+    Width( 0 ),
+    Height( 0 ),
     DepthTextureTable(),
     ScissorRectangle(),
     ScissorIsEnabled( false ),
@@ -52,6 +54,9 @@ void GRAPHIC_RENDERER::EnableScissor( bool enable ) {
 
 void GRAPHIC_RENDERER::Resize(int width, int height) {
     
+    Width = width;
+    Height = height;
+    
     ResizeViewCallback( width, height );
 }
 
@@ -60,6 +65,12 @@ void GRAPHIC_RENDERER::ResetDepth() {
 }
 
 const CORE_HELPERS_IDENTIFIER & GRAPHIC_RENDERER::GetShadowMapMVPName( int cascade_index ) {
+    
+#if DEBUG
+    if ( cascade_index > 4 ) {
+        CORE_RUNTIME_Abort();//8 csm is hardcoded limit
+    }
+#endif
     
     switch (cascade_index) {
         case 0:

@@ -36,9 +36,9 @@ void R3D_LEVEL::Initialize() {
     Checkpoints.SetPlayerFinishedCallback( EndGameCallback );
     
     CreateTracks();
-    //CreateGround();
-    //CreateMoon();
-    //CreateSky();
+    CreateGround();
+    CreateMoon();
+    CreateSky();
 }
 
 void R3D_LEVEL::Initialize( const CORE_FILESYSTEM_PATH & path ) {

@@ -57,6 +57,8 @@
 
     GLenum OPENGL_4_GetWrapMode( const GRAPHIC_TEXTURE_WRAP wrap );
 
+    GLenum OPENGL_4_GetFrameBufferMode( const GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode );
+
     #define GRAPHIC_SYSTEM_ApplyMatrix(index, size, transpose, array) \
         GFX_CHECK( glUniformMatrix4fv( \
             index, \

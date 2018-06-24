@@ -14,22 +14,27 @@
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_TEXTURE.h"
 #include "GRAPHIC_TEXTURE_LOADER.h"
+#include "GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE.h"
 
 XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
 
     GRAPHIC_RENDER_TARGET();
     ~GRAPHIC_RENDER_TARGET();
 
-    bool Initialize( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool generates_separate_depth_texture, int attachment );
+    bool Initialize( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool generates_separate_depth_texture, int attachments, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode );
     bool InitializeDepthTexture( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
     void Finalize();
     void Apply();
     void Discard();
 
-    inline GRAPHIC_TEXTURE * GetTargetTexture() { return TargetTexture; }
+    void BindForWriting();
+    void BindForReading();
+    void SetReadBuffer( int type );
+
+    inline GRAPHIC_TEXTURE * GetTargetTexture( int attachment) { return TargetTextures[ attachment ]; }
     inline bool UsesDepth() { return ItUsesDepth; }
 
-    inline void SetTargetTexture( GRAPHIC_TEXTURE * texture ) { TargetTexture= texture; }
+    inline void SetTargetTexture( GRAPHIC_TEXTURE * texture, int attachment ) { TargetTextures[ attachment ] = texture; }
     inline void SetItUsesDepth( bool uses ) { ItUsesDepth = uses; }
 
 #if OPENGLES2
@@ -45,9 +50,11 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
 private:
 
     GRAPHIC_TEXTURE
-        * TargetTexture;
+        * TargetTextures[8];
     bool
         ItUsesDepth;
+    GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE
+        Mode;
 
 XS_CLASS_END
 

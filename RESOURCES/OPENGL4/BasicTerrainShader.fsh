@@ -18,17 +18,39 @@ struct AmbientLight
 in vec4 colorVarying;
 in vec2 texCoord;
 in vec4 o_normal;
-in vec4 ShadowCoord;
+in vec4 ShadowCoord[3];
 in DirectionalLight directional_light_out;
+in float ClipSpacePosZ;
 
 uniform sampler2D c_texture; // base texture for indexing decals - each composant is the weight of the texture
 uniform sampler2D c_texture_1; // Decal 1
 uniform sampler2D c_texture_2; // Decal 2
 uniform sampler2D c_texture_3; // Decal 3
 uniform sampler2D d_texture;
+uniform sampler2D d_texture1;
+uniform sampler2D d_texture2;
 uniform AmbientLight ambient_light;
+uniform float cascadeEndClipSpace[3];
 
 out vec4 colorOut;
+
+float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
+{ 
+    float Depth;
+
+    if ( CascadeIndex == 0) 
+        Depth = texture( d_texture, LightSpacePos.xy).x; 
+    if ( CascadeIndex == 1)
+        Depth = texture( d_texture1, LightSpacePos.xy).x; 
+    if ( CascadeIndex == 2) 
+        Depth = texture( d_texture2, LightSpacePos.xy).x; 
+
+
+    if (Depth > LightSpacePos.z + 0.001 ) 
+        return 0.1;
+    else 
+        return 1.0; 
+}
 
 void main()
 {
@@ -38,10 +60,14 @@ void main()
 
     vec4 decalsWeights = texture(c_texture, texCoord);
 
-    float visibility = 1.0;
+    float visibility = 0.0;
 
-    if ( texture( d_texture, ShadowCoord.xy ).x < (ShadowCoord.z -0.005) ) {
-        visibility = 0.5;
+    for (int i = 0 ; i < 3 ; i++) {
+        if ( ClipSpacePosZ <= cascadeEndClipSpace[i]) {
+            
+            visibility = CalcShadowFactor(i, ShadowCoord[i]);
+            break;
+        }
     }
     
     colorOut = ( texture( c_texture_1, texCoord * 512.0 ) * decalsWeights.x + texture( c_texture_2, texCoord * 128.0) * decalsWeights.y + texture( c_texture_3, texCoord * 128.0) * decalsWeights.z ) * diffuse * visibility;

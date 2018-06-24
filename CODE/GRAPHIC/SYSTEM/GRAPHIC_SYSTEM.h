@@ -23,6 +23,7 @@
 #include "CORE_HELPERS_COLOR.h"
 #include "GRAPHIC_TEXTURE_FILTERING.h"
 #include "GRAPHIC_TEXTURE_WRAP.h"
+#include "GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE.h"
 
 class GRAPHIC_TEXTURE;
 class GRAPHIC_RENDER_TARGET;
@@ -68,6 +69,9 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
     static void DiscardTexture( GRAPHIC_TEXTURE * texture );
     static void SetTextureOptions( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_FILTERING filtering, GRAPHIC_TEXTURE_WRAP wrap );
+
+    static void CreateFrameBuffer( GRAPHIC_RENDER_TARGET * target, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode );
+    static void CreateDepthBuffer( GRAPHIC_RENDER_TARGET * target, int width, int height );
 
     static void SetPolygonMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE fill_mode );
 

@@ -18,29 +18,19 @@
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "GRAPHIC_RENDER_TARGET.h"
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
-#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.h"
-#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h"
-#include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h"
-#include "GRAPHIC_SHADER_EFFECT_SPEEDBLUR.h"
-
-#define NUM_CASCADES        3
-#define NUM_FRUSTUM_CORNERS 8
-
-struct CASCADE_PROJECTION_INFO {
-    float
-        Left,
-        Right,
-        Top,
-        Bottom,
-        Far,
-        Near;
-};
+#include "GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR.h"
+#include "GRAPHIC_RENDERER_TECHNIQUE_BLOOM.h"
+#include "GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.h"
+#include "GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING.h"
 
 XS_CLASS_BEGIN( R3D_RENDER )
 
     R3D_RENDER();
 
     void Initialize();
+    void RenderScene( GRAPHIC_RENDERER & renderer );
+    void RenderSceneWithParticles( GRAPHIC_RENDERER & renderer );
+
     void Render( GRAPHIC_RENDERER & renderer );
 
     inline GRAPHIC_CAMERA * GetCamera() { return Camera; }
@@ -55,18 +45,13 @@ XS_CLASS_BEGIN( R3D_RENDER )
 
 private :
 
-    void CalculateCascadeOrthoProjection( GRAPHIC_RENDERER & renderer );
-
     CORE_MATH_QUATERNION
         Lookat;
-    CASCADE_PROJECTION_INFO
-        CascadeProjectionInfo[ NUM_CASCADES ];
     GRAPHIC_CAMERA
         * Camera;
     GRAPHIC_CAMERA_ORTHOGONAL
         * InterfaceCamera,
-        * RenderTargetCamera,
-        * LightShadowCamera[NUM_CASCADES];
+        * RenderTargetCamera;
     GRAPHIC_SHADER_LIGHT
         Directional,
         Ambient;
@@ -89,16 +74,14 @@ private :
         TextureBlock3;
     GRAPHIC_SHADER_EFFECT::PTR
         UIShaderTextured;
-    GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::PTR
-        HorizontalBlurEffect;
-    GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::PTR
-        VerticalBlurEffect;
-    GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::PTR
-        CombineBloomEffect;
-    GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::PTR
-        BloomEffect;
-    GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR
-        SpeedBlurEffect;
+    GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR
+        SpeedBlurTechnique;
+    GRAPHIC_RENDERER_TECHNIQUE_BLOOM
+        BloomTechnique;
+    GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP
+        CascadeShadowMapTechnique;
+    GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING
+        DeferredShadingTechnique;
 #if DEBUG
     bool
         DebugRenderActive;

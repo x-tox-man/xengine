@@ -74,6 +74,12 @@
         return filter_mode[ mode ];
     }
 
+    GLenum OPENGL_4_GetFrameBufferMode( const GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode ) {
+        static GLenum framebuffer_mode[] { GL_FRAMEBUFFER, GL_DRAW_FRAMEBUFFER, GL_READ_FRAMEBUFFER };
+        
+        return framebuffer_mode[ mode ];
+    }
+
     void GRAPHIC_SYSTEM::EnableScissor(bool enable) {
         if ( enable ) {
             
@@ -154,7 +160,6 @@
 
     void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture ) {
         
-        GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
         GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )
         
         // "Bind" the newly created texture : all future texture functions will modify this texture
@@ -164,13 +169,7 @@
         
         GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_4_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, 0 ); )
         
-        //SetTextureFiltering( texture, GRAPHIC_TEXTURE_FILTERING );
-        
-        GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); )
-        GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); )
-        
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+        SetTextureOptions( texture, GRAPHIC_TEXTURE_FILTERING_Linear, GRAPHIC_TEXTURE_WRAP_Border );
     }
 
     //https://www.khronos.org/registry/OpenGL-Refpages/es2.0/xhtml/glTexParameter.xml
@@ -180,11 +179,25 @@
         GLenum filter = OPENGL_4_GetFiltermode( filtering );
         GLenum wrap_mode = OPENGL_4_GetWrapMode( wrap );
         
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter ); )
         
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_mode ); )
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_mode ); )
+    }
+
+    void GRAPHIC_SYSTEM::CreateFrameBuffer( GRAPHIC_RENDER_TARGET * target, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode ) {
+        
+        GFX_CHECK( glGenFramebuffers( 1, &(target->FrameBuffer) ); )
+        GFX_CHECK( glBindFramebuffer( OPENGL_4_GetFrameBufferMode( mode ), target->FrameBuffer ); )
+    }
+
+    void GRAPHIC_SYSTEM::CreateDepthBuffer( GRAPHIC_RENDER_TARGET * target, int width, int height ) {
+        
+        GFX_CHECK( glGenRenderbuffers(1, &target->DepthrenderBuffer ); )
+        GFX_CHECK( glBindRenderbuffer(GL_RENDERBUFFER, target->DepthrenderBuffer ); )
+        GFX_CHECK( glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height ); )
+        GFX_CHECK( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, target->DepthrenderBuffer ); )
     }
 
     void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {

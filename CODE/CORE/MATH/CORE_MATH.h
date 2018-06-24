@@ -24,67 +24,17 @@ __LERPABLE_CLASS__ CORE_MATH_GetLerpInterpolation(__LERPABLE_CLASS__ first, __LE
     return first.LerpInterpolate( second, percentage );
 }
 
-bool MATH_IsRougthlyEqual( const float first, const float second ) {
-    
-    return fabs(first - second) < TOLERANCE;
-}
+bool MATH_IsRougthlyEqual( const float first, const float second );
 
-bool MATH_IsRougthlyEqual( const CORE_MATH_VECTOR & first, const CORE_MATH_VECTOR & second ) {
-    
-    for (int i =0; i< 4; i++) {
-        
-        if ( !MATH_IsRougthlyEqual( first[i], second[i]) ) {
-            
-            return false;
-        }
-    }
-    
-    return true;
-}
+bool MATH_IsRougthlyEqual( const CORE_MATH_VECTOR & first, const CORE_MATH_VECTOR & second );
 
-bool MATH_IsRougthlyEqual( const CORE_MATH_QUATERNION & first, const CORE_MATH_QUATERNION & second ) {
-    
-    if( first == second ) {
-        
-        return true;
-    }
-    else {
-        
-        for (int i =0; i< 4; i++) {
-            
-            if ( !MATH_IsRougthlyEqual( first[i], second[i]) ) {
-                
-                return false;
-            }
-        }
-    }
-    
-    
-    return true;
-}
+bool MATH_IsRougthlyEqual( const CORE_MATH_QUATERNION & first, const CORE_MATH_QUATERNION & second );
 
 
-bool MATH_IsRougthlyEqual( const CORE_MATH_MATRIX & first, const CORE_MATH_MATRIX & second ) {
-    
-    for (int i =0; i< 16; i++) {
-        
-        if ( !MATH_IsRougthlyEqual( first[i], second[i]) ) {
-            
-            return false;
-        }
-    }
-    
-    return true;
-}
+bool MATH_IsRougthlyEqual( const CORE_MATH_MATRIX & first, const CORE_MATH_MATRIX & second );
 
-bool MATH_IsRougthlyEqual( const CORE_MATH_POSE & first, const CORE_MATH_POSE & second ) {
-    
-    return MATH_IsRougthlyEqual(first.GetPosition(), second.GetPosition() ) && MATH_IsRougthlyEqual(first.GetOrientation(), second.GetOrientation() );
-}
+bool MATH_IsRougthlyEqual( const CORE_MATH_POSE & first, const CORE_MATH_POSE & second );
 
-float CORE_MATH_ToRadians( float degrees ) {
-
-    return degrees * DEG_TO_RAD;
-}
+float CORE_MATH_ToRadians( float degrees );
 
 #endif /* MATH_h */

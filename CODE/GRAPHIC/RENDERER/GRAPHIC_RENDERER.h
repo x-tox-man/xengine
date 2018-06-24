@@ -96,6 +96,26 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline int GetCascadeEnd( int index ) const { return CascadeEnd[ index ]; }
     inline void SetCascadeEnd( int index, float end ) { CascadeEnd[ index ] = end; }
     inline float * GetCascadeEnd() { return CascadeEnd; }
+    inline int GetWidth() const {
+        
+        #if DEBUG
+                if ( Width == 0 ) {
+                    CORE_RUNTIME_Abort();
+                }
+        #endif
+        return Width;
+    }
+
+    inline int GetHeight() const {
+#if DEBUG
+        if ( Height == 0 ) {
+            CORE_RUNTIME_Abort();
+        }
+#endif
+        
+        return Height;
+        
+    }
 
 private :
     
@@ -120,7 +140,9 @@ private :
     int
         LightCount,
         PassIndex,
-        NumCascade;
+        NumCascade,
+        Width,
+        Height;
     float
         CascadeEnd[ GRAPHIC_MAX_NUM_CASCADES ];
     bool
