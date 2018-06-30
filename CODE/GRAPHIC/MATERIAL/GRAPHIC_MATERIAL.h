@@ -49,6 +49,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
 private:
 
     void TryAndFillFor( const char * path, const char * extension, const CORE_HELPERS_IDENTIFIER & identifier );
+    void ApplyLights( GRAPHIC_SHADER_PROGRAM_DATA_PROXY *, GRAPHIC_RENDERER & );
 
     std::string
         Name;

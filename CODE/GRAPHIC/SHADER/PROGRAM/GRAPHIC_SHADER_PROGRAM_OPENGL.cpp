@@ -451,6 +451,89 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         CORE_MEMORY_ObjectSafeDeallocation( attribute );
     }
     
+    // POINT LIGHT Deferred
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightColor.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = PointLightColor;
+        
+        setShaderAttribute(*attribute);
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightPosition.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightPosition;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightDiffuseIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightDiffuseIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightAmbientIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightAmbientIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightExp.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightExp;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightConstant.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightConstant;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightLinear.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightLinear;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
+    
     // POINT LIGHT 0
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;

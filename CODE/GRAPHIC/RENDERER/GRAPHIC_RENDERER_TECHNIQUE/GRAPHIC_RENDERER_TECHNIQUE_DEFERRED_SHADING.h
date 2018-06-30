@@ -14,6 +14,7 @@
 #include "GRAPHIC_RENDER_TARGET.h"
 #include "GRAPHIC_MATERIAL.h"
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
+#include "GRAPHIC_OBJECT_SHAPE_SPHERE.h"
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "GRAPHIC_SHADER_EFFECT_DEFERRED_SHADING.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
@@ -29,10 +30,17 @@ public:
     virtual void ApplyFirstPass( GRAPHIC_RENDERER & renderer );
     virtual void ApplySecondPass( GRAPHIC_RENDERER & renderer );
 
+    void ApplyPointLightPass( GRAPHIC_RENDERER & renderer );
+    void ApplySpotLightPass( GRAPHIC_RENDERER & renderer );
+
+    float CalculatePointLightSphereAndExtent(const GRAPHIC_SHADER_LIGHT &);
+
     GRAPHIC_MATERIAL
         Material;
     GRAPHIC_OBJECT_SHAPE_PLAN::PTR
         PlanObject;
+    GRAPHIC_OBJECT_SHAPE_SPHERE::PTR
+        SphereObject;
     GRAPHIC_TEXTURE_BLOCK::PTR
         TextureBlock,
         TextureBlock1,

@@ -73,9 +73,13 @@ void R3D_PLAYER_SHIP::Initialize() {
     
     //GAMEPLAY_HELPER::ConfigureGroundSpring( this );
     
+    GRAPHIC_SHADER_LIGHT * light = new GRAPHIC_SHADER_LIGHT;
+    light->InitializePoint( CORE_MATH_VECTOR( 0.5f, 1.0f, 0.9f), CORE_MATH_VECTOR::Zero, 0.001f, 0.01f, 0.5f, 1.0f, 1.0f);
+    
     GAMEPLAY_HELPER::AddToPhysics( this, PHYSICS_COLLISION_TYPE_SHIP, PHYSICS_COLLISION_TYPE_ALL, true );
     GAMEPLAY_HELPER::AddToScripts( this );
     GAMEPLAY_HELPER::AddToWorld( this );
+    GAMEPLAY_HELPER::AddToLighting( this, light );
 
     SetOrientation( q );
     

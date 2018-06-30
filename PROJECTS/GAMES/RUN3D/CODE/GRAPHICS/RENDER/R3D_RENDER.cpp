@@ -22,6 +22,7 @@ R3D_RENDER::R3D_RENDER() :
     Directional(),
     Ambient(),
     PlanObject(),
+    SphereObject( 5 ),
     PrimaryRenderTarget(),
     FinalRenderTarget(),
     LightRenderTarget(),
@@ -69,7 +70,7 @@ void R3D_RENDER::Initialize() {
     Directional.InitializeDirectional( CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), CORE_MATH_VECTOR( 0.0f, 0.0f, -1.0f, 0.0f), 1.0f, 1.0f);
     Ambient.InitializeAmbient(CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), 0.5f, 0.0f );
     
-    //GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( &Directional );
+    GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( &Directional );
     
     int divider = APPLICATION_CONFIGURATION_OPTIONS::GetInstance().GetGraphicsOptionRenderTargetResolutionDivider();
     
@@ -99,6 +100,7 @@ void R3D_RENDER::Initialize() {
 #endif
     
     PlanObject.InitializeShape();
+    SphereObject.InitializeShape();
     
     SpeedBlurTechnique.PlanObject = &PlanObject;
     SpeedBlurTechnique.TextureBlock = TextureBlock;
@@ -126,7 +128,8 @@ void R3D_RENDER::Initialize() {
     DeferredShadingTechnique.FinalRenderTarget = &PrimaryRenderTarget;
     DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderSceneWithParticles>, this );
     DeferredShadingTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
-    
+    DeferredShadingTechnique.SphereObject = &SphereObject;
+
     CORE_MATH_QUATERNION q;
     
     //q.RotateX( M_PI_2 * 0.12f );
@@ -153,7 +156,7 @@ void R3D_RENDER::Initialize() {
     
     auto light = new GRAPHIC_SHADER_LIGHT;
     light->InitializeAmbient( CORE_COLOR_White, 0.2f, 0.2f );
-    //GRAPHIC_RENDERER::GetInstance().SetAmbientLight( light );
+    GRAPHIC_RENDERER::GetInstance().SetAmbientLight( light );
 }
 
 void R3D_RENDER::RenderScene( GRAPHIC_RENDERER & renderer ) {
@@ -183,7 +186,6 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     DeferredShadingTechnique.ApplySecondPass( renderer );
     BloomTechnique.ApplyFirstPass( renderer );
     SpeedBlurTechnique.ApplySecondPass( renderer );
-    
 #else
     {
         GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );

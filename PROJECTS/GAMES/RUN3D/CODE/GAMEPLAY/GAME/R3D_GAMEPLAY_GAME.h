@@ -22,6 +22,7 @@
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 #include "R3D_LEVEL_MANAGER.h"
 #include "GAMEPLAY_ACTION_SYSTEM.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_LIGHTING.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
@@ -50,6 +51,8 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     inline void SetThisPlayerIndex( const CORE_HELPERS_UNIQUE_IDENTIFIER & index ) { ThisPlayerIndex = index; }
     inline R3D_LEVEL_MANAGER & GetLevelManager() { return LevelManager; }
     inline CORE_HELPERS_UNIQUE_IDENTIFIER & GetThisPlayerIndex() { return ThisPlayerIndex; }
+
+    inline GAMEPLAY_COMPONENT_SYSTEM_LIGHTING * GetLightingSystem() { return (GAMEPLAY_COMPONENT_SYSTEM_LIGHTING *) Scene.GetRenderableSystemTable()[0]; }
 
     float GetGameDuration() const { return GAMEPLAY_ACTION_SYSTEM::GetInstance().GetTimeline().GetTick() * 0.033f; }
 

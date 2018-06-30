@@ -19,27 +19,23 @@ GRAPHIC_RENDERER::GRAPHIC_RENDERER():
     RenderCallback(),
     DirectionalLight( NULL ),
     AmbientLight( NULL ),
-    PointLightTable(),
     SpotLightTable(),
+    PointLightTable(),
     PassIndex( 0 ),
     NumCascade( 3 ),
     Width( 0 ),
     Height( 0 ),
+    DeferredSpotIndex( 0 ),
+    DeferredPointIndex( 0 ),
     DepthTextureTable(),
     ScissorRectangle(),
     ScissorIsEnabled( false ),
     ColorEnabled( false ),
-    LightingIsEnabled( true ) {
-    
-    PointLightTable[0] = NULL;
-    PointLightTable[1] = NULL;
-    PointLightTable[2] = NULL;
-    PointLightTable[3] = NULL;
-    
-    SpotLightTable[0] = NULL;
-    SpotLightTable[1] = NULL;
-    SpotLightTable[2] = NULL;
-    SpotLightTable[3] = NULL;
+    LightingIsEnabled( true ),
+    DeferredLightingIsEnabled( false ) {
+        
+    SpotLightTable.reserve( 256 );
+    PointLightTable.reserve( 256 );
 }
 
 GRAPHIC_RENDERER::~GRAPHIC_RENDERER() {

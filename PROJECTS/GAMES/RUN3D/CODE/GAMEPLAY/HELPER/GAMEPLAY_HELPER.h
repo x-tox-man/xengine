@@ -17,6 +17,7 @@
 #include "GRAPHIC_CAMERA.h"
 #include "GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.h"
 #include "PHYSICS_COLLISION_TYPE.h"
+#include "GRAPHIC_SHADER_LIGHT.h"
 
 XS_CLASS_BEGIN( GAMEPLAY_HELPER )
 
@@ -49,6 +50,8 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
     static void AddToAnimations( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with, bool enable = false );
     static void AddStaticToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with );
+
+    static void AddToLighting( GAMEPLAY_COMPONENT_ENTITY::PTR entity, GRAPHIC_SHADER_LIGHT * light );
 
     static void SetPhysicsSphereObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, float mass );
     static void SetPhysicsBoxObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & half_extent, const CORE_MATH_QUATERNION & orientation, float mass );

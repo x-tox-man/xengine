@@ -22,6 +22,7 @@
 #include "GRAPHIC_RENDERER_TECHNIQUE_BLOOM.h"
 #include "GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.h"
 #include "GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING.h"
+#include "GRAPHIC_OBJECT_SHAPE_SPHERE.h"
 
 XS_CLASS_BEGIN( R3D_RENDER )
 
@@ -57,6 +58,8 @@ private :
         Ambient;
     GRAPHIC_OBJECT_SHAPE_PLAN
         PlanObject;
+    GRAPHIC_OBJECT_SHAPE_SPHERE
+        SphereObject;
     GRAPHIC_RENDER_TARGET
         PrimaryRenderTarget,
         FinalRenderTarget,

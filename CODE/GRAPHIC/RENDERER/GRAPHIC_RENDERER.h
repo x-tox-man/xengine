@@ -64,6 +64,9 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline const GRAPHIC_SHADER_LIGHT * GetSpotLight( int index ) const { return SpotLightTable[ index ]; }
     inline const GRAPHIC_SHADER_LIGHT * GetAmbientLight() const  { return AmbientLight; }
 
+    std::vector< GRAPHIC_SHADER_LIGHT *> & GetSpotLightTable() { return SpotLightTable; }
+    std::vector< GRAPHIC_SHADER_LIGHT *> & GetPointLightTable() { return PointLightTable; }
+
     inline int GetPassIndex() const { return PassIndex; }
     inline void SetPassIndex(int pass) { PassIndex = pass; }
     inline void SetDepthTexture( int index, GRAPHIC_TEXTURE * depth ) { DepthTextureTable[ index ] = depth;}
@@ -83,6 +86,12 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
 
     inline bool IsLightingEnabled() const { return LightingIsEnabled; }
     inline void SetLightingIsEnabled( bool enabled ) { LightingIsEnabled = enabled; }
+    inline bool IsDeferredLightingEnabled() const { return DeferredLightingIsEnabled; }
+    inline void SetDeferredLightingIsEnabled( bool enabled ) { DeferredLightingIsEnabled = enabled; }
+    inline void SetDeferredSpotIndex( int index ) { DeferredSpotIndex = index; }
+    inline void SetDeferredPointIndex( int index ) { DeferredPointIndex = index; }
+    inline int GetDeferredSpotIndex() const { return DeferredSpotIndex; }
+    inline int GetDeferredPointIndex() const { return DeferredPointIndex; }
 
     inline void SetCurrentLightMatrix( const CORE_MATH_MATRIX & matrix ) { CurrentLightMatrix = matrix; }
     inline const CORE_MATH_MATRIX & GetCurrentLightMatrix() { return CurrentLightMatrix; }
@@ -128,9 +137,10 @@ private :
         ResizeViewCallback;
     GRAPHIC_SHADER_LIGHT
         * AmbientLight,
-        * DirectionalLight,
-        * PointLightTable[4], // curently shaders have only 2 lights of each type, this is a fixed shader value
-        * SpotLightTable[4]; // curently shaders have only 2 lights of each type, this is a fixed shader value
+        * DirectionalLight;
+    std::vector< GRAPHIC_SHADER_LIGHT *>
+        SpotLightTable,
+        PointLightTable;
     GRAPHIC_TEXTURE
         * DepthTextureTable[ GRAPHIC_MAX_NUM_CASCADES ];
     CORE_MATH_VECTOR
@@ -142,13 +152,16 @@ private :
         PassIndex,
         NumCascade,
         Width,
-        Height;
+        Height,
+        DeferredSpotIndex,
+        DeferredPointIndex;
     float
         CascadeEnd[ GRAPHIC_MAX_NUM_CASCADES ];
     bool
         ScissorIsEnabled,
         ColorEnabled,
-        LightingIsEnabled;
+        LightingIsEnabled,
+        DeferredLightingIsEnabled;
     /*GAMEPLAY_SCENE_RENDER_OPTION
         Option;*/
 
