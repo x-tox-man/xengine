@@ -33,6 +33,7 @@ out vec4 colorVarying;
 out vec4 o_normal;
 out DirectionalLight directional_light_out;
 out vec4 ShadowCoord[3];
+out vec3 WorldPos0;
 out vec2 texCoord;
 out mat3 TBNMatrix_p;
 out float ClipSpacePosZ;
@@ -42,6 +43,7 @@ uniform mat4 ShadowMapMVP1;
 uniform mat4 ShadowMapMVP2;
 uniform mat4 ShadowMapMVP3;
 uniform vec4 geometryColor;
+uniform mat4 modelViewMatrix;
 
 void main()
 {
@@ -51,15 +53,16 @@ void main()
     
     directional_light_out = directional_light;
     
-    o_normal = normal;
+    o_normal = (modelViewMatrix * normal); 
+    WorldPos0 = (modelViewMatrix * position).xyz;
     texCoord = tex0;
     colorVarying = position;
     
-    ShadowCoord[0] = position * ShadowMapMVP1;
-    ShadowCoord[1] = position * ShadowMapMVP2;
-    ShadowCoord[2] = position * ShadowMapMVP3;
+    ShadowCoord[0] = ShadowMapMVP1 * position;
+    ShadowCoord[1] = ShadowMapMVP2 * position;
+    ShadowCoord[2] = ShadowMapMVP3 * position;
 
     ClipSpacePosZ = gl_Position.z;
     
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 }

@@ -2,31 +2,31 @@
 
 in vec4 position;
 in vec4 normal;
-in vec2 tex0;
-in vec3 tangent;
-in vec3 bitangent;
 
-out vec4 colorVarying;
-out vec4 o_normal;
-out vec4 o_position;
-out vec2 texCoord;
-out mat3 TBNMatrix_p;
+out vec4 EyeWorldPosition;
+out vec4 LightPosition;
+
+struct PointLight
+{
+    vec4 Color;
+    vec4 Position;
+    float AmbientIntensity;
+    float DiffuseIntensity;
+
+    float AttenuationConstant;
+    float AttenuationLinear;
+    float AttenuationExp;
+};
 
 uniform mat4 MVPMatrix;
 uniform mat4 modelViewMatrix;
 uniform vec4 geometryColor;
+uniform PointLight point_light_table[1];
+uniform vec4 CameraWorldPosition;
 
 void main()
 {
-    texCoord = tex0; 
-	gl_Position = o_position = position * MVPMatrix;
-
-    mat3 TBNMatrix = transpose(
-        mat3(
-        tangent,
-        bitangent,
-        normal
-        ));
-
-    TBNMatrix_p = TBNMatrix;
+    LightPosition = modelViewMatrix * point_light_table[0].Position; // in world position
+    EyeWorldPosition = modelViewMatrix * CameraWorldPosition; // in world position
+	gl_Position = MVPMatrix * position;
 }

@@ -34,5 +34,5 @@ void main()
     
     o_normal = normal;
     
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 }

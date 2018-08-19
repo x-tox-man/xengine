@@ -15,6 +15,31 @@
 
 
 #if PLATFORM_OSX && DEBUG
+
+template<>
+void RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::SetupCache( GRAPHIC_SHADER_EFFECT * effect, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+    
+    CORE_HELPERS_CALLBACK *callback = new CORE_HELPERS_CALLBACK( &Wrapper< RESOURCE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER> , &RESOURCE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::Reload>, (void *) effect );
+    
+    ItemMap[ identifier ] = effect;
+    
+    int l = (int) strlen( path.GetPath() );
+    
+    char * vsh_path = (char*) CORE_MEMORY_ALLOCATOR::Allocate ( l+1 );
+    
+    strncpy(vsh_path, path.GetPath(), l);
+    vsh_path[l] = '\0';
+    vsh_path[strlen(vsh_path) - 3 ] ='f';
+    vsh_path[strlen(vsh_path) - 2 ] ='s';
+    vsh_path[strlen(vsh_path) - 1 ] ='h';
+    
+    effect->Watcher.Setup( vsh_path, *callback );
+    
+    delete( callback );
+    
+    CORE_MEMORY_ALLOCATOR_Free( vsh_path );
+}
+
 template<>
 GRAPHIC_SHADER_EFFECT * RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::LoadResourceForPath( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_FILESYSTEM_PATH & path ) {
     
@@ -24,26 +49,10 @@ GRAPHIC_SHADER_EFFECT * RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
         ItemMap[ identifier ]->SetPath( path );
         ItemMap[ identifier ]->SetIdentifier( identifier );
         
-        CORE_HELPERS_CALLBACK *callback = new CORE_HELPERS_CALLBACK( &Wrapper< RESOURCE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER> , &RESOURCE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::Reload>, (void *) ItemMap[ identifier ] );
-        
-        int l = (int) strlen( path.GetPath() );
-        
-        char * vsh_path = (char*) CORE_MEMORY_ALLOCATOR::Allocate ( l+1 );
-        
-        
-        strncpy(vsh_path, path.GetPath(), l);
-        vsh_path[l] = '\0';
-        vsh_path[strlen(vsh_path) - 3 ] ='f';
-        vsh_path[strlen(vsh_path) - 2 ] ='s';
-        vsh_path[strlen(vsh_path) - 1 ] ='h';
-        
-        ItemMap[ identifier ]->Watcher.Setup( vsh_path, *callback );
-        
-        delete( callback );
-        
-        CORE_MEMORY_ALLOCATOR_Free( vsh_path );
+        RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::SetupCache( ItemMap[ identifier ], path, identifier );
     }
     
     return ItemMap[ identifier ];
 }
+
 #endif

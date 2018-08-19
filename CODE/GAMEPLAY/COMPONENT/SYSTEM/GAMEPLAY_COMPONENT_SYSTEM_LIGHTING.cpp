@@ -26,6 +26,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Update( float time_step ) {
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( GRAPHIC_RENDERER & renderer ) {
+
     
     std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     
@@ -43,12 +44,14 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( GRAPHIC_RENDERER & renderer ) {
         
         float d = renderable->GetObject().GetResource<GRAPHIC_OBJECT>()->GetMeshTable()[0]->GetBoundingShape().GetHalfDiagonal().X();
         
-        if ( fustrum.SphereInFrustum( located->GetPosition(), ( d > 0.0f) ? d : 1.0f ) ) {
+        //if ( fustrum.SphereInFrustum( located->GetPosition(), ( d > 0.0f) ? d : 1.0f ) ) {
         
             auto light = (GAMEPLAY_COMPONENT_LIGHT::PTR) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Light );
-            light->GetLight()->InternalLight.Point.Position[0] = located->GetPosition().X();
-            light->GetLight()->InternalLight.Point.Position[1] = located->GetPosition().Y();
-            light->GetLight()->InternalLight.Point.Position[2] = located->GetPosition().Z();
+        
+            CORE_MATH_VECTOR wp = /*renderer.GetCamera()->GetViewMatrix() * */ located->GetPosition();
+            light->GetLight()->InternalLight.Point.Position[0] = wp.X();
+            light->GetLight()->InternalLight.Point.Position[1] = wp.Y();
+            light->GetLight()->InternalLight.Point.Position[2] = wp.Z();
             light->GetLight()->InternalLight.Point.Position[3] = 1.0f;
             
             switch ( light->GetLight()->Type ) {
@@ -63,7 +66,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( GRAPHIC_RENDERER & renderer ) {
                 default:
                     break;
             }
-        }
+        //}
         
         it++;
     }

@@ -16,8 +16,8 @@
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
 #include "GRAPHIC_OBJECT_SHAPE_SPHERE.h"
 #include "GRAPHIC_TEXTURE_BLOCK.h"
-#include "GRAPHIC_SHADER_EFFECT_DEFERRED_SHADING.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
+#include "GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING, GRAPHIC_RENDERER_TECHNIQUE )
 
@@ -37,18 +37,24 @@ public:
 
     GRAPHIC_MATERIAL
         Material;
+    GRAPHIC_CAMERA::PTR
+        GameCamera;
     GRAPHIC_OBJECT_SHAPE_PLAN::PTR
         PlanObject;
     GRAPHIC_OBJECT_SHAPE_SPHERE::PTR
         SphereObject;
-    GRAPHIC_TEXTURE_BLOCK::PTR
-        TextureBlock,
+    GRAPHIC_TEXTURE_BLOCK
         TextureBlock1,
-        TextureBlock2;
+        TextureBlock2,
+        TextureBlock3,
+        TextureBlock4,
+        TextureBlock5;
     GRAPHIC_SHADER_EFFECT::PTR
         AmbientDirectionalDefferedEffect,
         SpotDeferredEffect,
         PointDefferedEffect;
+    /*GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::PTR
+        PointDefferedEffect;*/
     GRAPHIC_RENDER_TARGET
         RenderTarget;
     GRAPHIC_RENDER_TARGET::PTR

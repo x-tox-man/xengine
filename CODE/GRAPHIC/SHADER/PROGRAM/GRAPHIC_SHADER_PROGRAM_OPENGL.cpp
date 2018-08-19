@@ -128,11 +128,17 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     
     setShaderAttribute(*attribute);
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelViewMatrix.GetTextValue() ); )
-    attribute->AttributeName = ModelViewMatrix;
     
-    setShaderAttribute(*attribute);
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = ModelViewMatrix;
+        
+        setShaderAttribute(*attribute);
+    }
     
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
@@ -364,6 +370,18 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     if ( attribute->AttributeIndex != -1 ) {
         
         attribute->AttributeName = DepthTexture4;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    //CameraWorldPosition
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, CameraWorldPosition.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = CameraWorldPosition;
         
         setShaderAttribute(*attribute);
     }
@@ -954,6 +972,47 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     if ( attribute->AttributeIndex != -1 ) {
         
         attribute->AttributeName = TimeModulator;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, PreviousModelViewProjectionIdentifier.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = PreviousModelViewProjectionIdentifier;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOSampleRad.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = SSAOSampleRad;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOKernel.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = SSAOKernel;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOTexture.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = SSAOTexture;
         
         setShaderAttribute(*attribute);
     }

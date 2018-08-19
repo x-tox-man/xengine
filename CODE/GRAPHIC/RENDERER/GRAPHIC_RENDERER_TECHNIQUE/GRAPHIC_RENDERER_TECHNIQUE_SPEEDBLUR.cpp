@@ -44,7 +44,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR::ApplyFirstPass( GRAPHIC_RENDERER & re
     CORE_MATH_MATRIX
     inv( CORE_MATH_MATRIX::Identity );
     
-    current_mat *= renderer.GetCamera()->GetViewMatrix();
+    current_mat = renderer.GetCamera()->GetViewMatrix();
     current_mat.GetInverse( inv );
     
     memcpy(
@@ -81,7 +81,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR::ApplySecondPass( GRAPHIC_RENDERER & r
         previous_mat *= renderer.GetCamera()->GetViewMatrix();
         
         memcpy(
-               (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+               (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
                (void*) &previous_mat[0],
                16* sizeof(float) );
     }

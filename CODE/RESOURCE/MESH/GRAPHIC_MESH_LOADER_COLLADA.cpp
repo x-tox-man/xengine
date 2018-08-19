@@ -474,8 +474,8 @@
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[2] = *(data->getPositions().getFloatValues()->getData()+ prim->getPositionIndices()[accumulated_index] * 3 + 2);
                                 mesh->CurrenGeometrytTable[ accumulated_index ].position[3] = 1.0f;
                                 
-                                printf( "%d\n", prim->getPositionIndices()[accumulated_index] );
-                                printf( "%f\t%f\t%f\t\n", mesh->CurrenGeometrytTable[ accumulated_index ].position[0], mesh->CurrenGeometrytTable[ accumulated_index ].position[1], mesh->CurrenGeometrytTable[ accumulated_index ].position[2] );
+                                /*printf( "%d\n", prim->getPositionIndices()[accumulated_index] );
+                                printf( "%f\t%f\t%f\t\n", mesh->CurrenGeometrytTable[ accumulated_index ].position[0], mesh->CurrenGeometrytTable[ accumulated_index ].position[1], mesh->CurrenGeometrytTable[ accumulated_index ].position[2] );*/
                                 
                                 mesh->CurrenGeometrytTable[ accumulated_index ].vertex_index = pos_indices[ accumulated_index ];
                                 

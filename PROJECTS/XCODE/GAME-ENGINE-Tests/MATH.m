@@ -59,6 +59,35 @@
     [super tearDown];
 }
 
+-(void)testProjection {
+    
+    CORE_MATH_VECTOR
+        position(10.0f, 15.0f, 64.0f, 1.0f);
+    CORE_MATH_QUATERNION
+        lookat,
+        orientation;
+    
+    lookat.RotateX(M_PI_2 );
+    orientation.RotateX( M_PI_2 );
+    GRAPHIC_CAMERA
+        camera( 1.0f, 1500.0f, 1024.0f, 768.0f, position, lookat );
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+    options;
+    CORE_MATH_MATRIX
+    transform,
+    mvp,
+    object_matrix;
+    GRAPHIC_OBJECT
+    object;
+    
+    options.SetPosition( CORE_MATH_VECTOR( 1.0f, 0.0f, 0.0f ) );
+    options.SetOrientation( CORE_MATH_QUATERNION() );
+    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    GRAPHIC_RENDERER::GetInstance().SetCamera( &camera );
+    
+    object.ComputeModelViewProjection( options, transform, GRAPHIC_RENDERER::GetInstance(), mvp, object_matrix );
+}
+
 - (void) testIdentityMatrix {
     
     float matrix[16];

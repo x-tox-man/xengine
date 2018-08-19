@@ -27,5 +27,5 @@ uniform mat4 ShadowMapMVP;
 
 void main()
 {
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 }

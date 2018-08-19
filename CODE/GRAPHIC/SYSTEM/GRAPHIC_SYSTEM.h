@@ -81,6 +81,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index );
 
     static void ApplyShaderAttributeVector( const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute );
+    static void ApplyShaderAttributeVectorTable( const float * vector, int size, GRAPHIC_SHADER_ATTRIBUTE & attribute );
     static void ApplyShaderAttributeFloat( const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute );
     static void ApplyShaderAttributeMatrix( const float * matrixs, GRAPHIC_SHADER_ATTRIBUTE & attribute );
 
@@ -90,6 +91,9 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void ApplyBuffers(GRAPHIC_MESH &mesh);
     static const char * GetShaderDirectoryPath() { return ShaderDirectoryPath; }
     static void SetClearColor( CORE_HELPERS_COLOR & color ) { ClearColor = color; }
+
+    static void ClearFrambufferDepth( float default_depth );
+    static void ClearFrambufferColor();
 
     static CORE_PARALLEL_LOCK_MUTEX
         GraphicSystemLock;

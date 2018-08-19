@@ -40,6 +40,10 @@ out mat3 TBNMatrix_p;
 
 uniform mat4 MVPMatrix;
 uniform vec4 geometryColor;
+uniform mat4 modelViewMatrix;
+uniform mat4 ShadowMapMVP1;
+uniform mat4 ShadowMapMVP2;
+uniform mat4 ShadowMapMVP3;
 
 void main()
 {
@@ -48,12 +52,16 @@ void main()
     colorVarying = vec4( 0.4, 0.4, 0.4, 0.4 ) * cosTheta;
     
     directional_light_out = directional_light;
+
+    vec4 ShadowCoord1 = ShadowMapMVP1 * position;
+    vec4 ShadowCoord2 = ShadowMapMVP2 * position;
+    vec4 ShadowCoord3 = ShadowMapMVP3 * position;
     
     o_normal = normal;
     texCoord = tex0;
     colorVarying = position;
     
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
     gl_Position.z = gl_Position.w;
 
     mat3 TBNMatrix = transpose(

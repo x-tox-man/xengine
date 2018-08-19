@@ -23,6 +23,7 @@
 #include "GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.h"
 #include "GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING.h"
 #include "GRAPHIC_OBJECT_SHAPE_SPHERE.h"
+#include "GRAPHIC_RENDER_TECHNIQUE_SSAO.h"
 
 XS_CLASS_BEGIN( R3D_RENDER )
 
@@ -72,9 +73,10 @@ private :
         ShadowMapRenderTarget2,
         ShadowMapRenderTarget3;
     GRAPHIC_TEXTURE_BLOCK::PTR
-        TextureBlock,
+        TextureBlock1,
         TextureBlock2,
-        TextureBlock3;
+        TextureBlock3,
+        TextureBlock4;
     GRAPHIC_SHADER_EFFECT::PTR
         UIShaderTextured;
     GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR
@@ -85,6 +87,8 @@ private :
         CascadeShadowMapTechnique;
     GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING
         DeferredShadingTechnique;
+    GRAPHIC_RENDER_TECHNIQUE_SSAO
+        SSAOTechnique;
 #if DEBUG
     bool
         DebugRenderActive;

@@ -25,5 +25,5 @@ void main()
     colorVarying = vec4( 1.0, 0.4, 0.4, 0.4 ) * cosTheta;
     textureCoordinates = tex0;
     
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 }

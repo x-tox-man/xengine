@@ -10,6 +10,6 @@ uniform mat4 MVPMatrix;
 
 void main()
 {
-	gl_Position = position * MVPMatrix;
+	gl_Position = MVPMatrix * position;
 	texCoord = tex0;
 }

@@ -22,6 +22,6 @@ void main()
 {
     oTime = normal.x;
     
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
     gl_PointSize = oTime * ScaleFactor.x;
 }

@@ -114,6 +114,11 @@ XS_DEFINE_SERIALIZABLE
         return Value + row * 4;
     }
 
+    inline float GetAtRowCol( int row, int col ) const {
+        
+        return *(Value + (row * 4 + col));
+    }
+
     inline CORE_MATH_MATRIX & operator = ( const CORE_MATH_MATRIX & rhs ) {
         
         memcpy( Value, rhs.Value, 16 * sizeof( float ) );
@@ -197,7 +202,7 @@ XS_DEFINE_SERIALIZABLE
         return Value[index];
     }
 
-    friend inline CORE_MATH_MATRIX operator * ( CORE_MATH_MATRIX & lhs, CORE_MATH_MATRIX & rhs );
+    friend inline CORE_MATH_MATRIX operator * ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_MATRIX & rhs );
     friend inline CORE_SCALAR operator * ( float vector[4], CORE_MATH_MATRIX & rhs );
     friend inline const CORE_MATH_VECTOR operator * ( const CORE_MATH_VECTOR & vector, const CORE_MATH_MATRIX & rhs );
     friend inline CORE_MATH_MATRIX operator + ( CORE_MATH_MATRIX & lhs, CORE_MATH_MATRIX & rhs );
@@ -214,7 +219,7 @@ XS_DEFINE_SERIALIZABLE
 
 XS_CLASS_END
 
-inline CORE_MATH_MATRIX operator * ( CORE_MATH_MATRIX & lhs, CORE_MATH_MATRIX & rhs ) {
+inline CORE_MATH_MATRIX operator * ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_MATRIX & rhs ) {
     
     CORE_MATH_MATRIX result;
 

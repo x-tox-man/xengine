@@ -70,5 +70,5 @@ void main()
     blend_result = blend_result + weights.y * jointsMatrix[int( joint_indices.y )];
     blend_result = blend_result + weights.z * jointsMatrix[int( joint_indices.z )];
     
-    gl_Position = position * attrBindShapeMatrix * blend_result * MVPMatrix;
+    gl_Position = MVPMatrix * position * attrBindShapeMatrix * blend_result;
 }

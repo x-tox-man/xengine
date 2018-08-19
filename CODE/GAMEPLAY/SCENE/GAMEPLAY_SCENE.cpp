@@ -86,10 +86,10 @@ void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
     
     if( renderer.GetPassIndex() == 0 ) {
         
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
+        //GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
     }
     
-    GRAPHIC_SYSTEM::EnableBackfaceCulling();
+    //GRAPHIC_SYSTEM::EnableBackfaceCulling();
     GRAPHIC_SYSTEM::SetPolygonMode( GRAPHIC_SYSTEM_POLYGON_FILL_MODE_Full );
     
     bool it_does_blend = false;
@@ -98,7 +98,7 @@ void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
         
         if ( it_does_blend ) {
             
-            GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+            //GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
         }
         else {
             

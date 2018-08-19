@@ -30,6 +30,9 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
     void BindForWriting();
     void BindForReading();
     void SetReadBuffer( int type );
+    void SetWriteBuffer( int type );
+
+    void AddAttachment( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type );
 
     inline GRAPHIC_TEXTURE * GetTargetTexture( int attachment) { return TargetTextures[ attachment ]; }
     inline bool UsesDepth() { return ItUsesDepth; }

@@ -22,6 +22,7 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     virtual ~GRAPHIC_CAMERA();
 
     inline const CORE_MATH_MATRIX & GetProjectionMatrix() const { return ProjectionMatrix; }
+    inline CORE_MATH_MATRIX GetAlternateProjectionMatrix() const { return AlternateProjectionMatrix; }
     inline const CORE_MATH_MATRIX & GetViewMatrix() const { return ViewMatrix; }
     inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
     inline const CORE_MATH_QUATERNION & GetOrientation() const { return Lookat; }
@@ -53,6 +54,7 @@ protected :
     CORE_MATH_VECTOR
         Position;
     CORE_MATH_MATRIX
+        AlternateProjectionMatrix,
         ProjectionMatrix,
         ViewMatrix;
     CORE_MATH_QUATERNION

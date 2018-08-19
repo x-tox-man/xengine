@@ -58,11 +58,11 @@ void main()
     texCoord = tex0;
     colorVarying = position;
 
-    ShadowCoord[0] = position * ShadowMapMVP1;
-    ShadowCoord[1] = position * ShadowMapMVP2;
-    ShadowCoord[2] = position * ShadowMapMVP3;
+    ShadowCoord[0] = ShadowMapMVP1 * position;
+    ShadowCoord[1] = ShadowMapMVP2 * position;
+    ShadowCoord[2] = ShadowMapMVP3 * position;
 
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 
     mat3 TBNMatrix = transpose(
         mat3(

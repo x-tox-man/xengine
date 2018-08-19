@@ -63,6 +63,31 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
     return glCheckFramebufferStatus( GL_FRAMEBUFFER ) == GL_FRAMEBUFFER_COMPLETE;
 }
 
+void GRAPHIC_RENDER_TARGET::AddAttachment( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {
+    
+    GFX_CHECK( glBindFramebuffer( OPENGL_4_GetFrameBufferMode( Mode ), FrameBuffer ); )
+    
+    ++Attachments;
+    
+    TargetTextures[Attachments - 1] = new GRAPHIC_TEXTURE;
+    
+    TargetTextures[Attachments - 1]->GetTextureInfo().Width = width;
+    TargetTextures[Attachments - 1]->GetTextureInfo().Height = height;
+    TargetTextures[Attachments - 1]->GetTextureInfo().ImageType = type;
+    TargetTextures[Attachments - 1]->Initialize( false );
+    
+    GFX_CHECK( glFramebufferTexture2D( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + (Attachments - 1), GL_TEXTURE_2D, TargetTextures[ Attachments - 1 ]->GetTextureHandle(), 0 ); )
+    
+    // Set the list of draw buffers.
+    for( int i = 0; i < Attachments; i++ ) {
+        
+        DrawBuffers[ i ] = static_cast<GLenum>(GL_COLOR_ATTACHMENT0 + i);
+    }
+    GFX_CHECK( glDrawBuffers( Attachments, DrawBuffers ); ) // "1" is the size of DrawBuffers )
+    
+    assert( glCheckFramebufferStatus( GL_FRAMEBUFFER ) == GL_FRAMEBUFFER_COMPLETE );
+}
+
 bool GRAPHIC_RENDER_TARGET::InitializeDepthTexture( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type )
 {
     GFX_CHECK( glGenFramebuffers( 1, &FrameBuffer ); )
@@ -156,6 +181,11 @@ void GRAPHIC_RENDER_TARGET::BindForReading() {
 void GRAPHIC_RENDER_TARGET::SetReadBuffer( int type )
 {
     GFX_CHECK( glReadBuffer(GL_COLOR_ATTACHMENT0 + type); )
+}
+
+void GRAPHIC_RENDER_TARGET::SetWriteBuffer( int type )
+{
+    GFX_CHECK( glDrawBuffer(GL_COLOR_ATTACHMENT0 + type); )
 }
 
 #endif

@@ -123,7 +123,11 @@ static const CORE_HELPERS_IDENTIFIER
     CameraWorldPosition,
     LightSpecularPower,
     MaterialSpecularIntensity,
-    TimeModulator;
+    TimeModulator,
+    PreviousModelViewProjectionIdentifier,
+    SSAOSampleRad,
+    SSAOKernel,
+    SSAOTexture;
 
 #if OPENGLES2
     #include "GRAPHIC_SHADER_PROGRAM_OES2.hpp"

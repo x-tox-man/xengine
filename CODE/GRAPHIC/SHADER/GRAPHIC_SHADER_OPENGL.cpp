@@ -55,11 +55,12 @@ void GRAPHIC_SHADER::LoadShader( const CORE_FILESYSTEM_PATH & path, GRAPHIC_SHAD
 
 bool GRAPHIC_SHADER::CompileShader( GLuint & shader, GLenum type,  const CORE_FILESYSTEM_PATH & path )
 {
-    GLint status;
-    
-    GLchar *source;
-    
-    CORE_FILESYSTEM_FILE file( path );
+    GLint
+        status;
+    GLchar
+        * source;
+    CORE_FILESYSTEM_FILE
+        file( path );
     
     if ( ! file.OpenOutput() ) {
         

@@ -52,6 +52,6 @@ void main()
     colorVarying = normalize(position);
     colorVarying.a = 1;
     
-    ShadowCoord = position * ShadowMapMVP;
-    gl_Position = position * MVPMatrix;
+    ShadowCoord = ShadowMapMVP * position;
+    gl_Position = MVPMatrix * position;
 }

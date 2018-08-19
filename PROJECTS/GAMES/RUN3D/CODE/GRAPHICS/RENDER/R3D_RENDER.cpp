@@ -33,13 +33,15 @@ R3D_RENDER::R3D_RENDER() :
     ShadowMapRenderTarget1(),
     ShadowMapRenderTarget2(),
     ShadowMapRenderTarget3(),
-    TextureBlock( new GRAPHIC_TEXTURE_BLOCK() ),
+    TextureBlock1( new GRAPHIC_TEXTURE_BLOCK() ),
     TextureBlock2( new GRAPHIC_TEXTURE_BLOCK() ),
     TextureBlock3(new GRAPHIC_TEXTURE_BLOCK() ),
+    TextureBlock4( new GRAPHIC_TEXTURE_BLOCK() ),
     SpeedBlurTechnique(),
     BloomTechnique(),
     CascadeShadowMapTechnique(),
-    DeferredShadingTechnique() {
+    DeferredShadingTechnique(),
+    SSAOTechnique() {
     
 }
 
@@ -50,7 +52,7 @@ void R3D_RENDER::Initialize() {
     CORE_MATH_QUATERNION
         interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f ),
         render_target_lookat( 0.0f, 0.0f, 0.0f, 1.0f ),
-        lookat;
+        lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     GRAPHIC_OBJECT_RENDER_OPTIONS
         option;
     
@@ -103,7 +105,7 @@ void R3D_RENDER::Initialize() {
     SphereObject.InitializeShape();
     
     SpeedBlurTechnique.PlanObject = &PlanObject;
-    SpeedBlurTechnique.TextureBlock = TextureBlock;
+    SpeedBlurTechnique.TextureBlock = TextureBlock1;
     SpeedBlurTechnique.TextureBlock2 = TextureBlock2;
     SpeedBlurTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
     SpeedBlurTechnique.FinalRenderTarget = &FinalRenderTarget;
@@ -112,7 +114,7 @@ void R3D_RENDER::Initialize() {
     SpeedBlurTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     BloomTechnique.PlanObject = &PlanObject;
-    BloomTechnique.TextureBlock = TextureBlock;
+    BloomTechnique.TextureBlock = TextureBlock1;
     BloomTechnique.TextureBlock2 = TextureBlock2;
     BloomTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
     BloomTechnique.FinalRenderTarget = &FinalRenderTarget;
@@ -122,13 +124,17 @@ void R3D_RENDER::Initialize() {
     BloomTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     DeferredShadingTechnique.PlanObject = &PlanObject;
-    DeferredShadingTechnique.TextureBlock = TextureBlock;
-    DeferredShadingTechnique.TextureBlock1 = TextureBlock2;
-    DeferredShadingTechnique.TextureBlock2 = TextureBlock3;
     DeferredShadingTechnique.FinalRenderTarget = &PrimaryRenderTarget;
-    DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderSceneWithParticles>, this );
-    DeferredShadingTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     DeferredShadingTechnique.SphereObject = &SphereObject;
+    DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderScene>, this );
+    DeferredShadingTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
+    
+    SSAOTechnique.PlanObject = &PlanObject;
+    SSAOTechnique.TextureBlock1 = TextureBlock1;
+    SSAOTechnique.SourceRenderTarget = &DeferredShadingTechnique.RenderTarget;
+    SSAOTechnique.RenderTarget = &FinalRenderTarget;
+    SSAOTechnique.FinalRenderTarget = &DeferredShadingTechnique.RenderTarget;
+    SSAOTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
 
     CORE_MATH_QUATERNION q;
     
@@ -174,15 +180,25 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     
     CORE_MATH_QUATERNION
         interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
-    
+
 #if OPENGL4
+    CORE_MATH_VECTOR
+        color( 0.0f, 0.0f, 0.0f, 1.0f );
+    GRAPHIC_CAMERA
+        test_camera( 1.0f, 150.0f, 1024.0f, 768.0f, R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition(), CORE_MATH_QUATERNION() );
+    
+    GRAPHIC_SYSTEM::SetClearColor( color );
     CascadeShadowMapTechnique.LightSourcePose.SetPosition( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() );
     renderer.SetCamera( Camera );
+    SSAOTechnique.SSAOEffect->SetCamera( Camera );
+    DeferredShadingTechnique.GameCamera = Camera;
     SpeedBlurTechnique.ApplyFirstPass( renderer );
     CascadeShadowMapTechnique.ApplyFirstPass( renderer );
-    //CascadeShadowMapTechnique.ApplySecondPass( renderer );
+    CascadeShadowMapTechnique.ApplySecondPass( renderer );
     DeferredShadingTechnique.ApplyFirstPass( renderer );
+    renderer.SetNumCascade( 0 );
     renderer.SetCamera( RenderTargetCamera );
+    SSAOTechnique.ApplyFirstPass( renderer );
     DeferredShadingTechnique.ApplySecondPass( renderer );
     BloomTechnique.ApplyFirstPass( renderer );
     SpeedBlurTechnique.ApplySecondPass( renderer );

@@ -46,5 +46,5 @@ void main()
     o_normal = normal;
     texCoord = tex0;
     colorVarying = position;
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 }

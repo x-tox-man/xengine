@@ -17,5 +17,5 @@ uniform vec4 geometryColor;
 
 void main()
 {
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 }

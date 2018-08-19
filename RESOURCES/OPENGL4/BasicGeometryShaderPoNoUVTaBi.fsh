@@ -54,8 +54,6 @@ float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 
 void main()
 {
-    vec4 normalTimesLModel = modelViewMatrix * o_normal;
-
     //-------- NORMAL MAPPING BEGIN
     vec3 BumpMapNormal = texture(n_texture, texCoord).xyz;
     BumpMapNormal = 2.0 * BumpMapNormal - vec3(1.0, 1.0, 1.0);

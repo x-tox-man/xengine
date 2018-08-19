@@ -98,7 +98,7 @@
     
     Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR::Zero, lookat );
     
-    RenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    RenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
 }
 
 - (void)tearDown {
@@ -146,7 +146,7 @@
     
     CubeObject->Render(GRAPHIC_RENDERER::GetInstance(), options, CubeEffect );
     
-    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderCubeAt00-rs" , "png", "" ) );
     
     RenderTarget.Discard();
@@ -190,7 +190,7 @@
     
     CubeObject->Render(GRAPHIC_RENDERER::GetInstance(), options, CubeEffect );
     
-    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderTexturedQuad-rs" , "png", "" ) );
     
     RenderTarget.Discard();
@@ -257,7 +257,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     AnimatedObject->Render(GRAPHIC_RENDERER::GetInstance(), options, Effect );
     
-    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderSimpleMesh-rs" , "png", "" ) );
     
     RenderTarget.Discard();
@@ -306,7 +306,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     AnimatedObject->Render(GRAPHIC_RENDERER::GetInstance(), options, Effect );
     
-    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderAnimatedMesh-rs" , "png", "" ) );
     
     RenderTarget.Discard();
@@ -357,7 +357,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     text_shape->Render(GRAPHIC_RENDERER::GetInstance(), options, Effect );
     
-    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderText-rs" , "png", "" ) );
     
     RenderTarget.Discard();
@@ -432,7 +432,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     scene->Update( 0.033f );
     scene->Render( GRAPHIC_RENDERER::GetInstance() );
     
-    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderScene" , "png", "" ) );
     
     RenderTarget.Discard();
@@ -566,11 +566,11 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     CombineBloomEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
 
     
-    PrimaryRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
-    GaussianRenderTarget1.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
-    GaussianRenderTarget2.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
-    BloomRenderTarget.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
-    FinalRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    PrimaryRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    GaussianRenderTarget1.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    GaussianRenderTarget2.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    BloomRenderTarget.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    FinalRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     
     PrimaryRenderTarget.Discard();
     GaussianRenderTarget1.Discard();
@@ -618,7 +618,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         
         CubeObject->Render(GRAPHIC_RENDERER::GetInstance(), option, CubeEffect );
         
-        GRAPHIC_TEXTURE * texture = PrimaryRenderTarget.GetTargetTexture();
+        GRAPHIC_TEXTURE * texture = PrimaryRenderTarget.GetTargetTexture( 0 );
         texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-0" , "png", "" ) );
         
         PrimaryRenderTarget.Discard();
@@ -626,7 +626,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
     {
-        TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
+        TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture( 0 ) );
         
         auto mat = new GRAPHIC_MATERIAL;
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
@@ -635,14 +635,14 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         BloomRenderTarget.Apply();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, BloomEffect );
         
-        GRAPHIC_TEXTURE * texture = BloomRenderTarget.GetTargetTexture();
+        GRAPHIC_TEXTURE * texture = BloomRenderTarget.GetTargetTexture( 0 );
         texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-1" , "png", "" ) );
         
         BloomRenderTarget.Discard();
     }
     
     {
-        TextureBlock->SetTexture( BloomRenderTarget.GetTargetTexture() );
+        TextureBlock->SetTexture( BloomRenderTarget.GetTargetTexture( 0 ) );
         
         auto mat = new GRAPHIC_MATERIAL;
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
@@ -651,14 +651,14 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         GaussianRenderTarget1.Apply();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, HorizontalBlurEffect );
         
-        GRAPHIC_TEXTURE * texture = GaussianRenderTarget1.GetTargetTexture();
+        GRAPHIC_TEXTURE * texture = GaussianRenderTarget1.GetTargetTexture( 0 );
         texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-2" , "png", "" ) );
         
         GaussianRenderTarget1.Discard();
     }
     
     {
-        TextureBlock->SetTexture( GaussianRenderTarget1.GetTargetTexture() );
+        TextureBlock->SetTexture( GaussianRenderTarget1.GetTargetTexture( 0 ) );
         
         auto mat = new GRAPHIC_MATERIAL;
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
@@ -667,15 +667,15 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         GaussianRenderTarget2.Apply();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, VerticalBlurEffect );
         
-        GRAPHIC_TEXTURE * texture = GaussianRenderTarget2.GetTargetTexture();
+        GRAPHIC_TEXTURE * texture = GaussianRenderTarget2.GetTargetTexture( 0 );
         texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-3" , "png", "" ) );
         
         GaussianRenderTarget2.Discard();
     }
     
     {
-        TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
-        TextureBlock2->SetTexture( GaussianRenderTarget2.GetTargetTexture() );
+        TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture( 0 ) );
+        TextureBlock2->SetTexture( GaussianRenderTarget2.GetTargetTexture( 0 ) );
         
         auto mat = new GRAPHIC_MATERIAL;
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
@@ -685,7 +685,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         FinalRenderTarget.Apply();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, CombineBloomEffect );
         
-        GRAPHIC_TEXTURE * texture = FinalRenderTarget.GetTargetTexture();
+        GRAPHIC_TEXTURE * texture = FinalRenderTarget.GetTargetTexture( 0 );
         texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testLighBlurEffect-combined" , "png", "" ) );
         
         FinalRenderTarget.Discard();
@@ -699,13 +699,11 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     GRAPHIC_RENDER_TARGET
         PrimaryRenderTarget,
         FinalRenderTarget;
-    
     GRAPHIC_OBJECT_RENDER_OPTIONS
         option;
     
-    
-    PrimaryRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 0 );
-    FinalRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    PrimaryRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    FinalRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     
     PrimaryRenderTarget.Discard();
     FinalRenderTarget.Discard();
@@ -740,7 +738,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     previous_mat *= Camera->GetViewMatrix();
     
     memcpy(
-           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
            (void*) &previous_mat[0],
            16* sizeof(float) );
 
@@ -784,7 +782,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         
         CubeObject->Render(GRAPHIC_RENDERER::GetInstance(), option, CubeEffect );
         
-        GRAPHIC_TEXTURE * texture = PrimaryRenderTarget.GetTargetTexture();
+        GRAPHIC_TEXTURE * texture = PrimaryRenderTarget.GetTargetTexture( 0 );
         texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testMotionBlurEffect-0" , "png", "" ) );
         
         PrimaryRenderTarget.Discard();
@@ -800,7 +798,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
     {
         GRAPHIC_TEXTURE_BLOCK::PTR tb = new GRAPHIC_TEXTURE_BLOCK();
-        tb->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
+        tb->SetTexture( PrimaryRenderTarget.GetTargetTexture( 0 ) );
         
         auto mat = new GRAPHIC_MATERIAL;
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, tb );
@@ -810,14 +808,14 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         FinalRenderTarget.Apply();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, SpeedBlurEffect );
         
-        GRAPHIC_TEXTURE * texture = FinalRenderTarget.GetTargetTexture();
+        GRAPHIC_TEXTURE * texture = FinalRenderTarget.GetTargetTexture( 0 );
         texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testMotionBlurEffect-Final" , "png", "" ) );
         
         FinalRenderTarget.Discard();
     }
     
     memcpy(
-           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
            (void*) &previous_mat[0],
            16* sizeof(float) );
 }

@@ -139,7 +139,7 @@ void GRAPHIC_MATERIAL::ApplyLights( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, 
         }
         else if ( renderer.GetDeferredPointIndex() > -1 ) {
             
-            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetSpotLight( renderer.GetDeferredPointIndex() ), *shader->GetProgram(), 0 ) ;
+            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight( renderer.GetDeferredPointIndex() ), *shader->GetProgram(), 0 ) ;
         }
     }
     else if ( renderer.IsLightingEnabled() ) {
@@ -153,22 +153,25 @@ void GRAPHIC_MATERIAL::ApplyLights( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, 
             GRAPHIC_SYSTEM::ApplyLightAmbient( *renderer.GetAmbientLight(), *shader->GetProgram() ) ;
         }
         
-        if ( renderer.GetPointLight( 0 ) != NULL) {
+        if ( ! renderer.IsDeferredLightingEnabled() ) {
+            
+            /*if ( renderer.GetPointLight( 0 ) != NULL) {
 
-            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
-        }
+                GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
+            }
 
-        if ( renderer.GetPointLight( 1 ) != NULL) {
+            if ( renderer.GetPointLight( 1 ) != NULL) {
 
-            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
-        }
-        if ( renderer.GetSpotLight( 0 ) != NULL) {
+                GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
+            }
+            if ( renderer.GetSpotLight( 0 ) != NULL) {
 
-            GRAPHIC_SYSTEM::ApplyLightSpot( *renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
-        }
-        if ( renderer.GetSpotLight( 1 ) != NULL) {
+                GRAPHIC_SYSTEM::ApplyLightSpot( *renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
+            }
+            if ( renderer.GetSpotLight( 1 ) != NULL) {
 
-            GRAPHIC_SYSTEM::ApplyLightSpot( *renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
+                GRAPHIC_SYSTEM::ApplyLightSpot( *renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
+            }*/
         }
     }
 }

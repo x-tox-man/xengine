@@ -174,7 +174,7 @@ void R3D_GAMEPLAY_GAME::Initialize( ) {
     BulletSystem->Initialize();
     BulletSystem->SetCollisionFilter( new PHYSICS_COLLISION_FILTER() );
     
-    //Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_LIGHTING );
+    Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_LIGHTING );
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     
