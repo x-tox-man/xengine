@@ -5,10 +5,10 @@ in vec2 TexCoord;
 layout (location = 0) out vec4 WorldPosOut; 
 layout (location = 1) out vec4 DiffuseOut; 
 layout (location = 2) out vec4 NormalOut;
-layout (location = 3) out vec4 SSAO;
-layout (location = 4) out vec4 FragColor;
+layout (location = 3) out vec4 Shadown;
+layout (location = 4) out vec4 SSAO;
 
-uniform sampler2D c_texture; //MapToBlur
+uniform sampler2D c_texture;
 
 float Offsets[4] = float[]( -1.5, -0.5, 0.5, 1.5 );
 
@@ -27,5 +27,5 @@ void main()
 
     Color /= 16.0;
 
-    FragColor = vec4(Color, 1.0);
+    SSAO = vec4(Color, 1.0);
 }

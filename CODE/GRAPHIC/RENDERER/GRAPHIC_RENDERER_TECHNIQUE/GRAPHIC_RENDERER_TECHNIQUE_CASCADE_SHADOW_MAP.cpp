@@ -57,7 +57,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 1.0f );
         RendererCallback( renderer );
-        /*{
+        {
             static int acc = 0;
             
             acc++;
@@ -68,7 +68,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 texture2= ShadowMapRenderTarget1->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth1", "png", "" ) );
             }
-        }*/
+        }
         ShadowMapRenderTarget1->Discard();
         
         LightShadowCamera[1]->InitOrthoProjTransform(CascadeProjectionInfo[ 1 ].Left, CascadeProjectionInfo[ 1 ].Right, CascadeProjectionInfo[ 1 ].Bottom, CascadeProjectionInfo[ 1 ].Top, CascadeProjectionInfo[ 1 ].Near, CascadeProjectionInfo[ 1 ].Far );
@@ -81,7 +81,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 1.0f );
         RendererCallback( renderer );
         
-        /*{
+        {
             static int acc = 0;
             
             acc++;
@@ -92,7 +92,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 texture2= ShadowMapRenderTarget2->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth2", "png", "" ) );
             }
-        }*/
+        }
         
         ShadowMapRenderTarget2->Discard();
         
@@ -106,7 +106,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 1.0f );
         RendererCallback( renderer );
         
-        /*{
+        {
             static int acc = 0;
             
             acc++;
@@ -116,7 +116,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 texture2 = ShadowMapRenderTarget3->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth3", "png", "" ) );
             }
-        }*/
+        }
         
         ShadowMapRenderTarget3->Discard();
     }

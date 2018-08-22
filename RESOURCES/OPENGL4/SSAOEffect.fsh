@@ -43,8 +43,6 @@ void main()
         if (abs(Pos.y - sampleDepth) < SSAOSampleRad) {
             SSAO += step(sampleDepth,samplePos.y);
         }
-
-        //SSAO = offset.yyy;//vec3(sampleDepth);
     }
 
     SSAO = (1.0 - (SSAO * SSAO_FACTOR));

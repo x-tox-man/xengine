@@ -70,25 +70,40 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
         Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock1 );
         SimpleBlurEffect->SetMaterial( &Material );
         
-        {
+        /*{
             static int acc = 0;
             acc++;
             
             if ( acc % 30 == 0 ) {
                 
                 acc = 0;
-                //RenderTarget->BindForReading();
-                //RenderTarget->SetReadBuffer( 0 );
+
                 GRAPHIC_TEXTURE * texture2 = RenderTarget->GetTargetTexture( 0 );
                 texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_SSAO2", "png", "" ) );
             }
-        }   
+        }*/
         
         FinalRenderTarget->BindForWriting();
         GRAPHIC_SYSTEM::DisableBlend();
 
         GRAPHIC_SYSTEM::DisableDepthTest();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, SimpleBlurEffect );
+        
+        FinalRenderTarget->BindForReading();
+        FinalRenderTarget->SetReadBuffer( 4 );
+        
+        /*{
+            static int acc = 0;
+            acc++;
+            
+            if ( acc % 30 == 0 ) {
+                
+                acc = 0;
+                
+                GRAPHIC_TEXTURE * texture2 = FinalRenderTarget->GetTargetTexture( 4 );
+                texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_SSAO4", "png", "" ) );
+            }
+        }*/
         
         RenderTarget->Discard();
         FinalRenderTarget->Discard();

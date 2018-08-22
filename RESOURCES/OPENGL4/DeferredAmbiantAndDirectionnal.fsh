@@ -47,22 +47,14 @@ vec4 CalcDirectionalLight( DirectionalLight light, vec3 normal)
     return DiffuseColor;
 }
 
-void main() 
+void main()
 { 
     vec3 WorldPos = texture( c_texture, texCoord ).xyz;
     vec3 Color = texture( c_texture_1, texCoord ).xyz;
     vec3 Normal = texture( c_texture_2, texCoord ).xyz;
     float shadow = texture( c_texture_3, texCoord ).r;
-    vec3 ssao = texture( c_texture_4, texCoord ).xyz;
+    float ao = texture( c_texture_4, texCoord ).r;
 
-    Normal = normalize(Normal);
-
-    colorOut.rgb = Color * CalcDirectionalLight( directional_light, Normal ).rgb + Color * 1.0 * ambient_light.Color.rgb * ambient_light.AmbientIntensity;
-
-    //colorOut.rgb = texture( c_texture_3, texCoord ).xyz;
-    //colorOut.rgb = offset.rgb;//WorldPos;//offset.rgb;//vec3(sampleDepth,sampleDepth,sampleDepth);
-    //colorOut.rgb = vec3(shadow);//ssao.xyz;
-    colorOut.rgb = ssao.xyz;
-    //colorOut.rgb = 1.0 * ambient_light.Color.rgb * ambient_light.AmbientIntensity * ssao;
+    colorOut.rgb = Color * CalcDirectionalLight( directional_light, Normal ).rgb * shadow+ Color * 1.0 * ambient_light.Color.rgb * ambient_light.AmbientIntensity * ao ;
     colorOut.a = 1.0;
 }
