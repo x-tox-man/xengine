@@ -32,3 +32,6 @@ PROJECTS/XSGameEngine.VC.VC.opendb
 RESOURCES/testCastSimpleCubeShadowToPlan-depth3.png
 RESOURCES/testCastSimpleCubeShadowToPlan-depth2.png
 RESOURCES/testCastSimpleCubeShadowToPlan-depth1.png
+*.lib
+*.pdb
+*.user
