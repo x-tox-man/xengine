@@ -44,10 +44,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
     inline void SetDiffuse( const CORE_HELPERS_COLOR & diffuse ) { Diffuse = diffuse; }
 
     inline int GetTextureCount() const { return TextureTable.size(); }
+    int GetFirstDepthTextureIndex() const;
 
 private:
 
     void TryAndFillFor( const char * path, const char * extension, const CORE_HELPERS_IDENTIFIER & identifier );
+    void ApplyLights( GRAPHIC_SHADER_PROGRAM_DATA_PROXY *, GRAPHIC_RENDERER & );
 
     std::string
         Name;

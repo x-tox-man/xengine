@@ -2427,10 +2427,10 @@
 					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
-					"__AUDIO_OPENAL__=1",
+					__AUDIO_OPENAL__,
 					GTE_DISABLE_PCH,
 					__BULLET_PHYSICS__,
-					"AUDIO_OGG=1",
+					__AUDIO_FILE_OGG__,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2458,8 +2458,8 @@
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src\"/**",
 					"\"$(SRCROOT)/../../../../../../CODE/\"/**",
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionDispatch\"",
-					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/libogg-1.3.3/include\"",
-					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/libvorbis-1.3.6/include\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/include\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/VORBIS/include\"",
 				);
 				INFOPLIST_FILE = RUN3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2490,9 +2490,10 @@
 					"OPENGL4=1",
 					__X_APP__,
 					__PLATFORM_OSX__,
-					"__AUDIO_OPENAL__=1",
+					__AUDIO_OPENAL__,
 					GTE_DISABLE_PCH,
 					__BULLET_PHYSICS__,
+					__AUDIO_FILE_OGG__,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2520,8 +2521,8 @@
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src\"/**",
 					"\"$(SRCROOT)/../../../../../../CODE/\"/**",
 					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionDispatch\"",
-					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/libogg-1.3.3/include\"",
-					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/libvorbis-1.3.6/include\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/OGG/include\"",
+					"\"$(SRCROOT)/../../../../../../LIBRARY/COMMON/VORBIS/include\"",
 				);
 				INFOPLIST_FILE = RUN3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

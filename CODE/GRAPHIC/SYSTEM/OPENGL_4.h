@@ -57,6 +57,8 @@
 
     GLenum OPENGL_4_GetWrapMode( const GRAPHIC_TEXTURE_WRAP wrap );
 
+    GLenum OPENGL_4_GetFrameBufferMode( const GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode );
+
     #define GRAPHIC_SYSTEM_ApplyMatrix(index, size, transpose, array) \
         GFX_CHECK( glUniformMatrix4fv( \
             index, \
@@ -74,5 +76,11 @@
             GFX_CHECK( glUniform1f( \
                 index, \
                 value ); )
+
+#define GRAPHIC_SYSTEM_ApplyFloatArray(index, size, array) \
+            GFX_CHECK( glUniform1fv( \
+                index, \
+                size, \
+                array); )
 
 #endif /* defined(__GAME_ENGINE_REBORN__OPENGL_2__) */

@@ -190,13 +190,13 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 2" );
     
 #if PLATFORM_WINDOWS || PLATFORM_OSX
-    ShadowMapRenderTarget.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
+    ShadowMapRenderTarget.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
     
     const GRAPHIC_WINDOW & window = CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow();
     
-    PrimaryRenderTarget.Initialize( window.GetWidth(), window.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 0 );
-    GaussianRenderTarget.Initialize( window.GetWidth(), window.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
-    BloomRenderTarget.Initialize( window.GetWidth()/8, window.GetHeight() /8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    PrimaryRenderTarget.Initialize( window.GetWidth(), window.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1 );
+    GaussianRenderTarget.Initialize( window.GetWidth(), window.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1 );
+    BloomRenderTarget.Initialize( window.GetWidth()/8, window.GetHeight() /8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1 );
     
     PrimaryRenderTarget.Discard();
     GaussianRenderTarget.Discard();

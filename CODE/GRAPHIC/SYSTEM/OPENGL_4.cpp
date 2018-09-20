@@ -41,7 +41,7 @@
 
     GLenum OPENGL_4_GetCompareOperation( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation ) {
         
-        static GLenum compare_operation[] { GL_NEVER, GL_LESS, GL_EQUAL, GL_LEQUAL, GL_GREATER, GL_NOTEQUAL, GL_GEQUAL, GL_ALWAYS, 0, 0 };
+        static GLenum compare_operation[] { GL_NEVER, GL_LESS, GL_EQUAL, GL_LEQUAL, GL_GEQUAL, GL_GREATER, GL_NOTEQUAL, GL_ALWAYS, 0, 0 };
         
         return compare_operation[ operation ];
     }
@@ -72,6 +72,12 @@
         static GLenum filter_mode[] { GL_CLAMP_TO_EDGE, GL_REPEAT, GL_MIRRORED_REPEAT };
         
         return filter_mode[ mode ];
+    }
+
+    GLenum OPENGL_4_GetFrameBufferMode( const GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode ) {
+        static GLenum framebuffer_mode[] { GL_FRAMEBUFFER, GL_DRAW_FRAMEBUFFER, GL_READ_FRAMEBUFFER };
+        
+        return framebuffer_mode[ mode ];
     }
 
     void GRAPHIC_SYSTEM::EnableScissor(bool enable) {
@@ -137,6 +143,7 @@
     void GRAPHIC_SYSTEM::DisableDepthTest() {
         
         GFX_CHECK( glDisable( GL_DEPTH_TEST ); )
+        GFX_CHECK( glDepthMask( GL_FALSE ); )
     }
 
     void GRAPHIC_SYSTEM::ReleaseTexture( GRAPHIC_TEXTURE * texture ) {
@@ -154,7 +161,6 @@
 
     void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture ) {
         
-        GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
         GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )
         
         // "Bind" the newly created texture : all future texture functions will modify this texture
@@ -162,15 +168,9 @@
         
         GRAPHIC_TEXTURE_INFO & info = texture->GetTextureInfo();
         
-        GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_4_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, 0 ); )
+        GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_4_GetTextureFormat(info.ImageType), GL_FLOAT, 0 ); )
         
-        //SetTextureFiltering( texture, GRAPHIC_TEXTURE_FILTERING );
-        
-        GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); )
-        GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); )
-        
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+        SetTextureOptions( texture, GRAPHIC_TEXTURE_FILTERING_Linear, GRAPHIC_TEXTURE_WRAP_Border );
     }
 
     //https://www.khronos.org/registry/OpenGL-Refpages/es2.0/xhtml/glTexParameter.xml
@@ -180,11 +180,25 @@
         GLenum filter = OPENGL_4_GetFiltermode( filtering );
         GLenum wrap_mode = OPENGL_4_GetWrapMode( wrap );
         
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter ); )
         
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_mode ); )
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_mode ); )
+    }
+
+    void GRAPHIC_SYSTEM::CreateFrameBuffer( GRAPHIC_RENDER_TARGET * target, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode ) {
+        
+        GFX_CHECK( glGenFramebuffers( 1, &(target->FrameBuffer) ); )
+        GFX_CHECK( glBindFramebuffer( OPENGL_4_GetFrameBufferMode( mode ), target->FrameBuffer ); )
+    }
+
+    void GRAPHIC_SYSTEM::CreateDepthBuffer( GRAPHIC_RENDER_TARGET * target, int width, int height ) {
+        
+        GFX_CHECK( glGenRenderbuffers(1, &target->DepthrenderBuffer ); )
+        GFX_CHECK( glBindRenderbuffer(GL_RENDERBUFFER, target->DepthrenderBuffer ); )
+        GFX_CHECK( glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height ); )
+        GFX_CHECK( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, target->DepthrenderBuffer ); )
     }
 
     void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {
@@ -194,13 +208,13 @@
         GFX_CHECK( glGenTextures(1, &texture->GetDepthTextureHandle() ); )
         GFX_CHECK( glBindTexture(GL_TEXTURE_2D, texture->GetDepthTextureHandle() ); )
         
-        GFX_CHECK( glTexImage2D(GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat( type ), info.Width, info.Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL); )
+        GFX_CHECK( glTexImage2D(GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat( type ), info.Width, info.Height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL); )
         
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST ); )
-        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST ); )
-        
-        GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); )
-        GFX_CHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE ); )
+        GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE ); )
     }
 
     void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_data, bool generate_mipmap ) {
@@ -325,16 +339,23 @@
 
     void GRAPHIC_SYSTEM::ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
         
-        GRAPHIC_SHADER_ATTRIBUTE & point_light_position = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Position : GRAPHIC_SHADER_PROGRAM::PointLight0Position );
-        GRAPHIC_SHADER_ATTRIBUTE & point_light_color = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Color : GRAPHIC_SHADER_PROGRAM::PointLight0Color );
-        GRAPHIC_SHADER_ATTRIBUTE & point_light_diffuse_intensity = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1DiffuseIntensity : GRAPHIC_SHADER_PROGRAM::PointLight0DiffuseIntensity );
-        GRAPHIC_SHADER_ATTRIBUTE & point_light_ambient_intensity = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1AmbientIntensity : GRAPHIC_SHADER_PROGRAM::PointLight0AmbientIntensity );
+        GRAPHIC_SHADER_ATTRIBUTE & point_light_position = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PointLight0Position );
+        //index ? GRAPHIC_SHADER_PROGRAM::PointLight1Position : GRAPHIC_SHADER_PROGRAM::PointLight0Position );
+        GRAPHIC_SHADER_ATTRIBUTE & point_light_color = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PointLight0Color );
+        //index ? GRAPHIC_SHADER_PROGRAM::PointLight1Color : GRAPHIC_SHADER_PROGRAM::PointLight0Color );
+        GRAPHIC_SHADER_ATTRIBUTE & point_light_diffuse_intensity = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PointLight0DiffuseIntensity );
+        //index ? GRAPHIC_SHADER_PROGRAM::PointLight1DiffuseIntensity : GRAPHIC_SHADER_PROGRAM::PointLight0DiffuseIntensity );
+        GRAPHIC_SHADER_ATTRIBUTE & point_light_ambient_intensity = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PointLight0AmbientIntensity );
+        //index ? GRAPHIC_SHADER_PROGRAM::PointLight1AmbientIntensity : GRAPHIC_SHADER_PROGRAM::PointLight0AmbientIntensity );
         
-        GRAPHIC_SHADER_ATTRIBUTE & point_light_exp = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Exp : GRAPHIC_SHADER_PROGRAM::PointLight0Exp );
-        GRAPHIC_SHADER_ATTRIBUTE & point_light_linear = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Linear : GRAPHIC_SHADER_PROGRAM::PointLight0Linear );
-        GRAPHIC_SHADER_ATTRIBUTE & point_light_constant = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Constant : GRAPHIC_SHADER_PROGRAM::PointLight0Constant );
+        GRAPHIC_SHADER_ATTRIBUTE & point_light_exp = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PointLight0Exp );
+        //index ? GRAPHIC_SHADER_PROGRAM::PointLight1Exp : GRAPHIC_SHADER_PROGRAM::PointLight0Exp );
+        GRAPHIC_SHADER_ATTRIBUTE & point_light_linear = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PointLight0Linear );
+        //index ? GRAPHIC_SHADER_PROGRAM::PointLight1Linear : GRAPHIC_SHADER_PROGRAM::PointLight0Linear );
+        GRAPHIC_SHADER_ATTRIBUTE & point_light_constant = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PointLight0Constant );
+        //index ? GRAPHIC_SHADER_PROGRAM::PointLight1Constant : GRAPHIC_SHADER_PROGRAM::PointLight0Constant );
         
-        if ( point_light_position.AttributeIndex > 0 ) {
+        if ( point_light_position.AttributeIndex != -1 ) {
             
             GFX_CHECK( glUniform4fv(
                                     point_light_position.AttributeIndex,
@@ -372,7 +393,7 @@
         GRAPHIC_SHADER_ATTRIBUTE & spot_light_constant = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Constant : GRAPHIC_SHADER_PROGRAM::SpotLight0Constant );
         GRAPHIC_SHADER_ATTRIBUTE & spot_light_cutoff = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Cutoff : GRAPHIC_SHADER_PROGRAM::SpotLight0Cutoff );
         
-        if ( spot_light_position.AttributeIndex > 0 ) {
+        if ( spot_light_position.AttributeIndex != 0 ) {
             
             GFX_CHECK( glUniform4fv(
                                     spot_light_position.AttributeIndex,
@@ -417,13 +438,21 @@
                                 (const GLfloat ) value ); )
     }
 
+void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int size, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+    
+    GRAPHIC_SYSTEM_ApplyVector(
+           attribute.AttributeIndex,
+           size,
+           &vector[0] );
+}
+
     void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( const float * matrix, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
         
         GRAPHIC_SYSTEM_ApplyMatrix(
             attribute.AttributeIndex,
             1,
             0,
-            (const GLfloat * ) matrix);
+            &matrix[0] );
     }
 
     void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {
@@ -613,4 +642,14 @@
         GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight ); )
     }
 
+    void GRAPHIC_SYSTEM::ClearFrambufferDepth( float default_depth ) {
+        
+        GFX_CHECK( glClearDepth( default_depth ); )
+        GFX_CHECK( glClear( GL_DEPTH_BUFFER_BIT ); )
+    }
+
+    void GRAPHIC_SYSTEM::ClearFrambufferColor() {
+        
+        GFX_CHECK( glClear( GL_COLOR_BUFFER_BIT ); )
+    }
 #endif

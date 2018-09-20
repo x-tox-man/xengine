@@ -66,7 +66,7 @@ void main()
     colorVarying = normalize(position);
     o_tex = tex0;
     
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 
     TBNMatrix_p = transpose(
         mat3(

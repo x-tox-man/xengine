@@ -19,6 +19,12 @@ GRAPHIC_CAMERA_ORTHOGONAL::GRAPHIC_CAMERA_ORTHOGONAL( float near_plane, float fa
     CalculateModelViewMatrix( position, lookat );
     
     Position = position;
+    Lookat = lookat;
+}
+
+GRAPHIC_CAMERA_ORTHOGONAL::GRAPHIC_CAMERA_ORTHOGONAL( float left, float right, float bottom, float top, float near, float far ) {
+    
+    InitOrthoProjTransform( left, right, bottom, top, near, far );
 }
 
 GRAPHIC_CAMERA_ORTHOGONAL::~GRAPHIC_CAMERA_ORTHOGONAL() {
@@ -30,7 +36,7 @@ void GRAPHIC_CAMERA_ORTHOGONAL::CalculateProjectionMatrix( float near_plane, flo
     const float half_width = width * 0.5f;
     const float half_height = height * 0.5f;
 
-    const float far_minus_near = ( far_plane - near_plane );
+    /*const float far_minus_near = ( far_plane - near_plane );
     
     ProjectionMatrix[0] = 1.0f / half_width;
     ProjectionMatrix[1] =  0.0f;
@@ -50,22 +56,37 @@ void GRAPHIC_CAMERA_ORTHOGONAL::CalculateProjectionMatrix( float near_plane, flo
     ProjectionMatrix[12] = 0.0f;
     ProjectionMatrix[13] = 0.0f;
     ProjectionMatrix[14] = 0.0f;
-    ProjectionMatrix[15] = 1.0f;
+    ProjectionMatrix[15] = 1.0f;*/
+    
+    InitOrthoProjTransform( -half_width, half_width, -half_height, half_height, near_plane, far_plane );
 }
 
 void GRAPHIC_CAMERA_ORTHOGONAL::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
-    CORE_MATH_MATRIX translation,rotation, inverse;
-    
-    translation[3] = position[0];
-    translation[7] = position[1];
-    translation[11] = position[2];
+    CORE_MATH_MATRIX tmp,scale, translation,rotation;
     
     lookat.ToMatrix( &rotation[0] );
+    translation.Translate( position );
+    
+    tmp = translation * rotation * scale;
+    tmp.GetInverse( ViewMatrix );
+}
 
-    inverse = rotation;
-    inverse *=translation;
+void GRAPHIC_CAMERA_ORTHOGONAL::InitOrthoProjTransform( float left, float right, float bottom, float top, float near, float far )
+{
+    float l = left;
+    float r = right;
+    float b = bottom;
+    float t = top;
+    float n = near;
+    float f = far;
     
+    float * m = ProjectionMatrix.GetRow(0);
     
-    inverse.GetInverse(ViewMatrix);
+    m[0] = 2.0f/(r - l);    m[1] = 0.0f;            m[2] = 0.0f;            m[3] = -(r + l)/(r - l);
+    m[4] = 0.0f;            m[5] = 2.0f/(t - b);    m[6] = 0.0f;            m[7] = -(t + b)/(t - b);
+    m[8] = 0.0f;            m[9] = 0.0f;            m[10] = 2.0f/(f - n);   m[11] = -(f + n) / (f - n );//-(t + b)/(t - b);
+    m[12] = 0.0f;           m[13] = 0.0f;           m[14] = 0.0f;           m[15] = 1.0;
+    
+    CalculateModelViewMatrix( GetPosition(), GetOrientation() );
 }

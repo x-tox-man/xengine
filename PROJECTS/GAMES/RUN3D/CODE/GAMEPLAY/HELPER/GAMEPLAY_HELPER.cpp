@@ -272,12 +272,12 @@ void GAMEPLAY_HELPER::SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CO
 
 void GAMEPLAY_HELPER::AddToWorld( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[0]->AddEntity( entity->GetHandle(), entity );
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[1]->AddEntity( entity->GetHandle(), entity );
 }
 
 void GAMEPLAY_HELPER::AddToWorldTransparent( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[1]->AddEntity( entity->GetHandle(), entity );
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[2]->AddEntity( entity->GetHandle(), entity );
 }
 
 void GAMEPLAY_HELPER::AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
@@ -413,7 +413,7 @@ void GAMEPLAY_HELPER::SetPhysicsFlatGroundObject( GAMEPLAY_COMPONENT_ENTITY::PTR
 
 void GAMEPLAY_HELPER::InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, GRAPHIC_CAMERA & camera ) {
     
-    camera.Reset( 0.5f, 1500.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, orientation );
+    camera.Reset( 1.0f, 150.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, orientation );
 }
 
 void GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity, CORE_MATH_VECTOR & out_position, CORE_MATH_VECTOR & out_normal ) {
@@ -480,4 +480,16 @@ void GAMEPLAY_HELPER::ConfigureGroundSpring( GAMEPLAY_COMPONENT_ENTITY::PTR enti
     
     auto bullet = ( ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4]);
     bullet->GetDynamicsWorld()->addConstraint( spring_constraint, true );
+}
+
+void GAMEPLAY_HELPER::AddToLighting( GAMEPLAY_COMPONENT_ENTITY::PTR entity, GRAPHIC_SHADER_LIGHT * light ) {
+    
+    GAMEPLAY_COMPONENT_HANDLE
+        handle;
+    
+    handle.Create< GAMEPLAY_COMPONENT_LIGHT >( GAMEPLAY_COMPONENT_TYPE_Light );
+    handle.GetComponent<GAMEPLAY_COMPONENT_LIGHT>()->SetLight( light );
+    
+    entity->SetCompononent( handle,GAMEPLAY_COMPONENT_TYPE_Light );
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[0]->AddEntity( entity->GetHandle(), entity );
 }

@@ -73,9 +73,13 @@ void R3D_PLAYER_SHIP::Initialize() {
     
     //GAMEPLAY_HELPER::ConfigureGroundSpring( this );
     
+    GRAPHIC_SHADER_LIGHT * light = new GRAPHIC_SHADER_LIGHT;
+    light->InitializePoint( CORE_MATH_VECTOR( 0.5f, 1.0f, 0.9f), CORE_MATH_VECTOR::Zero, 40.0f, 0.1f, 0.1f, 0.1f, 0.1f);
+    
     GAMEPLAY_HELPER::AddToPhysics( this, PHYSICS_COLLISION_TYPE_SHIP, PHYSICS_COLLISION_TYPE_ALL, true );
     GAMEPLAY_HELPER::AddToScripts( this );
     GAMEPLAY_HELPER::AddToWorld( this );
+    GAMEPLAY_HELPER::AddToLighting( this, light );
 
     SetOrientation( q );
     
@@ -255,7 +259,7 @@ void R3D_PLAYER_SHIP::UpdateCamera( float step, GAMEPLAY_COMPONENT_POSITION::PTR
     
     static CORE_MATH_VECTOR
         f(0.0f, 0.1f, 0.01f, 0.0f ),
-        r(0.0f, -0.75f, -0.15f, 0.0f ),
+        r(0.0f, -1.95f, -0.15f, 0.0f ),
         t(0.0f, 0.0f, 1.5f, 0.0f );
     CORE_MATH_QUATERNION
         q = pos->GetOrientation(),
@@ -270,6 +274,7 @@ void R3D_PLAYER_SHIP::UpdateCamera( float step, GAMEPLAY_COMPONENT_POSITION::PTR
     q.RotateY( M_PI_2 );
     q.ToMatrix( m.GetRow(0) );
     q2.RotateX( M_PI_2 );
+    q2.Normalize();
     
     vv = r * m;
     

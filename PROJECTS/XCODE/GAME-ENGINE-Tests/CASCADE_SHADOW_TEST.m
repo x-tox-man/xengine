@@ -90,7 +90,7 @@
     
     Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR::Zero, lookat );
     
-    RenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    RenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     {
         LightShadowCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 10.0f, -10.0f, 10.0f, 10.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 5.0f, 0.0f), lookat );
         {
@@ -233,7 +233,7 @@
         
         scene->Render( GRAPHIC_RENDERER::GetInstance() );
         
-        GRAPHIC_TEXTURE * texture2 = ShadowMapRenderTarget.GetTargetTexture();
+        GRAPHIC_TEXTURE * texture2 = ShadowMapRenderTarget.GetTargetTexture( 0 );
         texture2->SaveDepthTo(CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth" , "png", "" ));
 
         ShadowMapRenderTarget.Discard();
@@ -242,14 +242,14 @@
     GRAPHIC_RENDERER::GetInstance().SetPassIndex( 0 );
     {
         GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
-        GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera(LightShadowCamera);
-        GRAPHIC_RENDERER::GetInstance().SetDepthTexture( ShadowMapRenderTarget.GetTargetTexture() );
+        GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( 0, LightShadowCamera);
+        GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 0, ShadowMapRenderTarget.GetTargetTexture( 0 ) );
         
         RenderTarget.Apply();
         
         scene->Render( GRAPHIC_RENDERER::GetInstance() );
         
-        GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+        GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
         texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan" , "png", "" ) );
         
         RenderTarget.Discard();

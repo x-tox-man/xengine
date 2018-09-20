@@ -49,6 +49,6 @@ void main()
     colorVarying = normalize(position);
     o_tex = tex0;
     
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
     gl_Position.z= gl_Position.w;
 }

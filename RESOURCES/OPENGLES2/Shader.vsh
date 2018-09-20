@@ -113,5 +113,5 @@ void main()
     LightDirection_tangentspace = /*TBNMatrix * */- directional_light.Direction.xyz;
     EyeDirection_tangentspace =  TBNMatrix * CameraWorldPosition.xyz;
     
-    gl_Position = position * attrBindShapeMatrix * blend_result * MVPMatrix;
+    gl_Position = MVPMatrix * position * attrBindShapeMatrix * blend_result;
 }

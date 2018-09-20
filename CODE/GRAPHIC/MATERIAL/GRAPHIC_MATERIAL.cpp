@@ -90,35 +90,7 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     }
     
     ApplyTexture( shader );
-    
-    if ( renderer.IsLightingEnabled() ) {
-        
-        if ( renderer.GetDirectionalLight() != NULL ) {
-            GRAPHIC_SYSTEM::ApplyLightDirectional( *renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
-        }
-        
-        if ( renderer.GetPointLight( 0 ) != NULL) {
-            
-            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
-        }
-        if ( renderer.GetPointLight( 1 ) != NULL) {
-            
-            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
-        }
-        if ( renderer.GetSpotLight( 0 ) != NULL) {
-            
-            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
-        }
-        if ( renderer.GetSpotLight( 1 ) != NULL) {
-            
-            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
-        }
-        
-        if ( renderer.GetAmbientLight() != NULL) {
-            
-            GRAPHIC_SYSTEM::ApplyLightAmbient( *renderer.GetAmbientLight(), *shader->GetProgram() ) ;
-        }
-    }
+    ApplyLights( shader, renderer );
     
     GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
     
@@ -142,7 +114,7 @@ void GRAPHIC_MATERIAL::ApplyTexture( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader 
     
     int texture_index = 0;
     
-    while (it != TextureTable.end()) {
+    while ( it != TextureTable.end() ) {
         
         GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( it->first );
         
@@ -155,6 +127,52 @@ void GRAPHIC_MATERIAL::ApplyTexture( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader 
         }
         
         it++;
+    }
+}
+
+void GRAPHIC_MATERIAL::ApplyLights( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, GRAPHIC_RENDERER & renderer ) {
+    
+    if ( renderer.IsDeferredLightingEnabled() ) {
+        if ( renderer.GetDeferredSpotIndex() > -1 ) {
+            
+            GRAPHIC_SYSTEM::ApplyLightSpot( *renderer.GetSpotLight( renderer.GetDeferredSpotIndex() ), *shader->GetProgram(), 0 ) ;
+        }
+        else if ( renderer.GetDeferredPointIndex() > -1 ) {
+            
+            GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight( renderer.GetDeferredPointIndex() ), *shader->GetProgram(), 0 ) ;
+        }
+    }
+    else if ( renderer.IsLightingEnabled() ) {
+        
+        if ( renderer.GetDirectionalLight() != NULL ) {
+            GRAPHIC_SYSTEM::ApplyLightDirectional( *renderer.GetDirectionalLight(), *shader->GetProgram() ) ;
+        }
+        
+        if ( renderer.GetAmbientLight() != NULL) {
+            
+            GRAPHIC_SYSTEM::ApplyLightAmbient( *renderer.GetAmbientLight(), *shader->GetProgram() ) ;
+        }
+        
+        if ( ! renderer.IsDeferredLightingEnabled() ) {
+            
+            /*if ( renderer.GetPointLight( 0 ) != NULL) {
+
+                GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(0), *shader->GetProgram(), 0 ) ;
+            }
+
+            if ( renderer.GetPointLight( 1 ) != NULL) {
+
+                GRAPHIC_SYSTEM::ApplyLightPoint( *renderer.GetPointLight(1), *shader->GetProgram(), 1 ) ;
+            }
+            if ( renderer.GetSpotLight( 0 ) != NULL) {
+
+                GRAPHIC_SYSTEM::ApplyLightSpot( *renderer.GetSpotLight(0), *shader->GetProgram(), 0 ) ;
+            }
+            if ( renderer.GetSpotLight( 1 ) != NULL) {
+
+                GRAPHIC_SYSTEM::ApplyLightSpot( *renderer.GetSpotLight(1), *shader->GetProgram(), 1 ) ;
+            }*/
+        }
     }
 }
 

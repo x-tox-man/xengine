@@ -128,25 +128,85 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     
     setShaderAttribute(*attribute);
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelViewMatrix.GetTextValue() ); )
-    attribute->AttributeName = ModelViewMatrix;
-    
-    setShaderAttribute(*attribute);
-    
-    CORE_MEMORY_ObjectSafeDeallocation( attribute );
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ShadowMapMVP.GetTextValue() ); )
     
     if ( attribute->AttributeIndex != -1 ) {
         
-        attribute->AttributeName = ShadowMapMVP;
+        attribute->AttributeName = ModelViewMatrix;
         
         setShaderAttribute(*attribute);
     }
     
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ShadowMapMVP1.GetTextValue() ); )
     
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = ShadowMapMVP1;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ShadowMapMVP2.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = ShadowMapMVP2;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ShadowMapMVP3.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = ShadowMapMVP3;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ShadowMapMVP4.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = ShadowMapMVP4;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ShadowMapMVP5.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = ShadowMapMVP5;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, CascadeEndClipSpace.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = CascadeEndClipSpace;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, MVPMatrix.GetTextValue() ); )
     
@@ -271,6 +331,62 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     }
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
     
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DepthTexture1.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = DepthTexture1;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DepthTexture2.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = DepthTexture2;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DepthTexture3.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = DepthTexture3;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, DepthTexture4.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = DepthTexture4;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    //CameraWorldPosition
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, CameraWorldPosition.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = CameraWorldPosition;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
     //AMBIENT
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, AmbientLightColor.GetTextValue() ); )
@@ -343,6 +459,89 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         if ( attribute->AttributeIndex != -1 ) {
             
             attribute->AttributeName = DirectionalLightAmbientIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
+    
+    // POINT LIGHT Deferred
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightColor.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = PointLightColor;
+        
+        setShaderAttribute(*attribute);
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightPosition.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightPosition;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightDiffuseIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightDiffuseIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightAmbientIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightAmbientIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightExp.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightExp;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightConstant.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightConstant;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, PointLightLinear.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = PointLightLinear;
             
             setShaderAttribute(*attribute);
         }
@@ -773,6 +972,47 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     if ( attribute->AttributeIndex != -1 ) {
         
         attribute->AttributeName = TimeModulator;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, PreviousModelViewProjectionIdentifier.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = PreviousModelViewProjectionIdentifier;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOSampleRad.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = SSAOSampleRad;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOKernel.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = SSAOKernel;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOTexture.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = SSAOTexture;
         
         setShaderAttribute(*attribute);
     }

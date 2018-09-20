@@ -174,11 +174,12 @@ void R3D_GAMEPLAY_GAME::Initialize( ) {
     BulletSystem->Initialize();
     BulletSystem->SetCollisionFilter( new PHYSICS_COLLISION_FILTER() );
     
+    Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_LIGHTING );
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     
-    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[0])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[1])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[2])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
     LevelManager.Initialize();
     

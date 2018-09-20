@@ -82,11 +82,11 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     }
     else if ( renderer.GetPassIndex() == 1 ) {
         
-        auto effect = ShadowmapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
+        auto shadow_effect = ShadowmapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
         options.SetTexturing( false );
         
-        if ( effect ) {
-            object->Render( renderer, options, effect );
+        if ( shadow_effect ) {
+            object->Render( renderer, options, shadow_effect );
         }
     }
 }

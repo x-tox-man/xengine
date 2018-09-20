@@ -27,5 +27,5 @@ uniform vec4 geometryColor;
 
 void main()
 {
-    gl_Position = position * modelViewMatrix * ProjectionMatrix;
+    gl_Position = ProjectionMatrix * modelViewMatrix * position;
 }

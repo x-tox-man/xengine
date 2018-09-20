@@ -190,7 +190,7 @@ void GRAPHIC_TEXT::UpdateText( const CORE_DATA_UTF8_TEXT & text, float size_fact
         for ( int base = 0; base < text_size; base++ ) {
             
             int i = base * 4;
-            int ind_temp[] = { i, i + 2, i + 1, i + 2, i, i + 3 };
+            int ind_temp[] = { i, i + 2, i + 1, i + 3, i + 2, i };
             
             memcpy( (void*)(index_data + offset), ind_temp, 6 * sizeof( int ) );
             

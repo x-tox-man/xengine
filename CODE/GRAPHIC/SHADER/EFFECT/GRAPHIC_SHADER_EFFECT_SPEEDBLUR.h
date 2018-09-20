@@ -23,7 +23,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_SPEEDBLUR, GRAPHIC_SHADER_EF
     virtual void BindAttributes() override;
 
     static CORE_HELPERS_IDENTIFIER
-        PreviousModelViewProjectionIdentifier,
         InverseCurrentModelViewIdentifier,
         ViewRayIdentifier;
 

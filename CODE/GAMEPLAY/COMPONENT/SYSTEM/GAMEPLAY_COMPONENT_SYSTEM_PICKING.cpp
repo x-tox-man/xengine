@@ -60,6 +60,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Render( GRAPHIC_RENDERER & renderer ) {
 
 void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Finalize() {
     
+    GAMEPLAY_COMPONENT_SYSTEM::Finalize();
 }
 
 /**

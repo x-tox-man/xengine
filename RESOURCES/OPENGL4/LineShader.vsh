@@ -43,5 +43,5 @@ void main()
 
     directional_light_out = directional_light;
     
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 }

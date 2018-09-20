@@ -239,7 +239,7 @@ void CORE_MATH_MATRIX::GetInverse( CORE_MATH_MATRIX & inverse ) const {
     Value[8] * Value[1] * Value[6] -
     Value[8] * Value[2] * Value[5];
     
-    det = Value[0] * inverse[0] + Value[1] * inverse[4] + Value[2] * inverse[8] + Value[3] * inverse[12];
+    det = ComputeDeterminant();
     
     if (det == 0.0f) {
         

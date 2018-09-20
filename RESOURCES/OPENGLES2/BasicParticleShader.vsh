@@ -20,5 +20,5 @@ void main()
 {
     vec4 t = normal;
     gl_PointSize = 2.0;
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 }

@@ -95,51 +95,73 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             effect->Apply( renderer, false );
         }
         
-        
         GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelViewMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & time_mod = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
         
-        CompteModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
+        ComputeModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
-        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix.AttributeIndex, 1, 0, &result[0])
+        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix.AttributeIndex, 1, 1, &result[0])
         
         if ( model_matrix.AttributeIndex > 0 ) {
             
-            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix.AttributeIndex, 1, 0, &object[0])
+            CORE_MATH_MATRIX
+                inv,
+                model_view;
+            renderer.GetCamera()->GetViewMatrix().GetInverse( inv );
+            
+            model_view = object;
+            
+            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix.AttributeIndex, 1, 1, &model_view[0])
         }
-
-        GRAPHIC_SHADER_ATTRIBUTE & depth = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
         
         if ( time_mod.AttributeIndex > 0 ) {
             
             GRAPHIC_SYSTEM_ApplyFloat( time_mod.AttributeIndex, time_mod.AttributeValue.Value.FloatValue )
         }
         
-        if ( depth.AttributeIndex > 0 && renderer.GetDepthTexture() ) {
+        GRAPHIC_SHADER_ATTRIBUTE * depth[3];
+        
+        depth[0] = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
+        depth[1] = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture1 );
+        depth[2] = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture2 );
+        
+        for ( int cascade_index = 0; cascade_index < renderer.GetNumCascade(); cascade_index++ ) {
             
             CORE_MATH_MATRIX
                 depthMVP,
                 depthBias;
             
-            GRAPHIC_SHADER_ATTRIBUTE & shadowmap_mvp = effect->GetProgram().getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ShadowMapMVP );
+            GRAPHIC_SHADER_ATTRIBUTE & shadowmap_mvp = effect->GetProgram().getShaderAttribute( renderer.GetShadowMapMVPName( cascade_index ) );
+            GRAPHIC_SHADER_ATTRIBUTE & end_clip_space = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CascadeEndClipSpace );
             
-            renderer.GetDepthTexture()->ApplyDepth(effect->GetMaterial()->GetTextureCount(), depth.AttributeIndex );
+            //Depth Textures are always last
+            renderer.GetDepthTexture( cascade_index )->ApplyDepth(effect->GetMaterial()->GetTextureCount() + cascade_index , depth[cascade_index]->AttributeIndex );
             
-            CORE_MATH_MATRIX
+            static const CORE_MATH_MATRIX
                 biasMatrix(
                     0.5f, 0.0f, 0.0f, 0.5f,
                     0.0f, 0.5f, 0.0f, 0.5f,
                     0.0f, 0.0f, 0.5f, 0.5f,
                     0.0f, 0.0f, 0.0f, 1.0f );
             
-            depthMVP = renderer.GetShadowMapCamera().GetProjectionMatrix();
-            depthMVP *= renderer.GetShadowMapCamera().GetViewMatrix();
-            depthMVP *= object;
+            depthMVP = renderer.GetShadowMapCamera( cascade_index ).GetProjectionMatrix() * renderer.GetShadowMapCamera( cascade_index ).GetViewMatrix() * object;
             
             depthBias = biasMatrix * depthMVP;
             
+            float cascade_end[8];
+            
+            for (int ci = 0; ci < renderer.GetNumCascade(); ci++) {
+                
+                CORE_MATH_VECTOR vvv( 0.0f, 0.0f, renderer.GetCascadeEnd( ci + 1 ), 0.0f ), vres;
+                
+                vres = renderer.GetCamera()->GetProjectionMatrix() * vvv;
+                
+                cascade_end[ci] = -vres.Z();//Why is it negative? -> Bullshit in matrix vect mul
+            }
+            
             GRAPHIC_SYSTEM_ApplyMatrix( shadowmap_mvp.AttributeIndex, 1, 0, &depthBias[0] )
+            GRAPHIC_SYSTEM_ApplyFloatArray( end_clip_space.AttributeIndex, renderer.GetNumCascade(), cascade_end )
         }
         
         MeshTable[ i ]->ApplyBuffers();
@@ -148,32 +170,28 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
     effect->Discard();
 }
 
-void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTIONS & options, const CORE_MATH_MATRIX & transform, GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp, CORE_MATH_MATRIX & object_matrix ) {
+void GRAPHIC_OBJECT::ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTIONS & options, const CORE_MATH_MATRIX & transform, GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp, CORE_MATH_MATRIX & object_matrix ) {
     
     CORE_MATH_MATRIX
-        scaling_matrix;
-    CORE_MATH_MATRIX
-        parent_matrix;
-    
-    CORE_MATH_MATRIX
-        orientation_mat,
-        inverse;
+        scaling_matrix,
+        translation_matrix,
+        parent_matrix,
+        orientation_mat;
     
     if ( options.GetParent() ) {
         
-        options.GetParent()->GetOrientation().ToMatrix( &orientation_mat[0] );
-        object_matrix.Translate( options.GetParent()->GetPosition() );
-        object_matrix *= orientation_mat;
-        
-        orientation_mat.GetInverse( inverse );
-        
-        CORE_MATH_VECTOR cp = options.GetPosition() * inverse;
+        CORE_MATH_VECTOR cp = options.GetPosition() * orientation_mat;
         
         options.GetOrientation().ToMatrix( &orientation_mat[0] );
         
-        object_matrix.Scale( options.GetScaleFactor() );
-        object_matrix.Translate( cp );
-        object_matrix *= orientation_mat;
+        scaling_matrix.Scale( options.GetScaleFactor() );
+        translation_matrix.Translate( options.GetPosition() );
+        
+        object_matrix = translation_matrix * orientation_mat * scaling_matrix;
+        
+        options.GetParent()->GetOrientation().ToMatrix( &orientation_mat[0] );
+        translation_matrix.Translate( options.GetParent()->GetPosition() );
+        object_matrix *= translation_matrix * orientation_mat;
         
         if ( !transform.IsIdentity() ) {
             
@@ -184,9 +202,10 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
         
         options.GetOrientation().ToMatrix( &orientation_mat[0] );
         
-        object_matrix.Scale( options.GetScaleFactor() );
-        object_matrix.Translate( options.GetPosition() );
-        object_matrix *= orientation_mat;
+        scaling_matrix.Scale( options.GetScaleFactor() );
+        translation_matrix.Translate( options.GetPosition() );
+        
+        object_matrix = translation_matrix * orientation_mat * scaling_matrix;
         
         if ( !transform.IsIdentity() ) {
             
@@ -194,15 +213,11 @@ void GRAPHIC_OBJECT::CompteModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTI
         }
     }
     
-    
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    mvp = renderer.GetCamera()->GetProjectionMatrix();
-    mvp *= renderer.GetCamera()->GetViewMatrix();
-    mvp *= object_matrix;
+    mvp = renderer.GetCamera()->GetProjectionMatrix() * renderer.GetCamera()->GetViewMatrix() * object_matrix;
 }
-
 
 void GRAPHIC_OBJECT::Release() {
     

@@ -45,9 +45,9 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC
         
         GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
         
-        CompteModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
+        ComputeModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
-        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
+        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 1, &result[0])
         
         float * float_matrix_array = AnimationController->GetCurrentSkinningForAnimation( i );
         

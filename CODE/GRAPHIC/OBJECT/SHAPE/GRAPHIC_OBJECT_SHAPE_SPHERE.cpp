@@ -59,11 +59,11 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape() {
             float lati_ratio_offset = (lati + 1 ) * ratio;
             
             index_data[ cube_index * 6 + 0 ] = cube_index * 4 ;
-            index_data[ cube_index * 6 + 1 ] = cube_index * 4 + 2;
-            index_data[ cube_index * 6 + 2 ] = cube_index * 4 + 3;
+            index_data[ cube_index * 6 + 1 ] = cube_index * 4 + 3;
+            index_data[ cube_index * 6 + 2 ] = cube_index * 4 + 2;
             index_data[ cube_index * 6 + 3 ] = cube_index * 4;
-            index_data[ cube_index * 6 + 4 ] = cube_index * 4 + 1;
-            index_data[ cube_index * 6 + 5 ] = cube_index * 4 + 2;
+            index_data[ cube_index * 6 + 4 ] = cube_index * 4 + 2;
+            index_data[ cube_index * 6 + 5 ] = cube_index * 4 + 1;
             
             cube_index++;
             

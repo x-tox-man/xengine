@@ -51,6 +51,6 @@ void main()
     texCoord = tex0 + TimeModulator;
     colorVarying = position;
     
-    ShadowCoord = position * ShadowMapMVP;
-    gl_Position = position * MVPMatrix;
+    ShadowCoord = ShadowMapMVP * position;
+    gl_Position = MVPMatrix * position;
 }

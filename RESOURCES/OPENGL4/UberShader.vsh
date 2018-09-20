@@ -92,5 +92,5 @@ void main()
     
     colorVarying = position;
     
-    gl_Position = position * MVPMatrix;
+    gl_Position = MVPMatrix * position;
 }

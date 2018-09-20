@@ -1,9 +1,11 @@
 #pragma once
 
-#if __AUDIO_FILE__OGG__
+#if __AUDIO_FILE_OGG__
     #define AUDIO_OGG 1
-#elif __AUDIO_FILE__MPG__
+#elif __AUDIO_FILE_MPG__
     #define AUDIO_MPG 1
+#elif __AUDIO_FILE_OSX__
+    #define AUDIO_FILE_OSX
 #else
     #error "Must define one audiofile type"
 #endif

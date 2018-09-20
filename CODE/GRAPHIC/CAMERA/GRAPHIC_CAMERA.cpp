@@ -15,6 +15,7 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA() :
     Width( 0.0f ),
     Height( 0.0f ),
     Fov( 30.0f ),
+    AlternateProjectionMatrix( CORE_MATH_MATRIX::Identity ),
     ProjectionMatrix( CORE_MATH_MATRIX::Identity ),
     ViewMatrix( CORE_MATH_MATRIX::Identity ),
     Position(),
@@ -69,6 +70,7 @@ void GRAPHIC_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE
     Lookat = lookat;
     Position = position;
     
+    CalculateProjectionMatrix( Near, Far, Width, Height );
     CalculateModelViewMatrix( position, lookat );
 }
 
@@ -81,39 +83,55 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
     float fovyRadians = ( float ) ( Fov * ( M_PI / 180.0f) );
     float cotan = 1.0f / tanf(fovyRadians * 0.5f);
     
+    AlternateProjectionMatrix[0] = 1.0f / (aspect * tanf(fovyRadians * 0.5f));
+    AlternateProjectionMatrix[1] =  0.0f;
+    AlternateProjectionMatrix[2] =  0.0f;
+    AlternateProjectionMatrix[3] =  0.0f;
+    
+    AlternateProjectionMatrix[4] =  0.0f;
+    AlternateProjectionMatrix[5] =  cotan;
+    AlternateProjectionMatrix[6] =  0.0f;
+    AlternateProjectionMatrix[7] =  0.0f;
+    
+    AlternateProjectionMatrix[8] =  0.0f;
+    AlternateProjectionMatrix[9] =  0.0f;
+    AlternateProjectionMatrix[10] = (-near_plane -far_plane ) / (near_plane - far_plane);
+    AlternateProjectionMatrix[11] = (2.0f * far_plane * near_plane) / (near_plane - far_plane);
+    
+    AlternateProjectionMatrix[12] =  0.0f;
+    AlternateProjectionMatrix[13] =  0.0f;
+    AlternateProjectionMatrix[14] =  1.0f;
+    AlternateProjectionMatrix[15] =  0.0f;
+    
     ProjectionMatrix[0] = cotan / aspect;
     ProjectionMatrix[1] =  0.0f;
     ProjectionMatrix[2] =  0.0f;
     ProjectionMatrix[3] =  0.0f;
-    
+
     ProjectionMatrix[4] =  0.0f;
     ProjectionMatrix[5] =  cotan;
     ProjectionMatrix[6] =  0.0f;
     ProjectionMatrix[7] =  0.0f;
-    
+
     ProjectionMatrix[8] =  0.0f;
     ProjectionMatrix[9] =  0.0f;
-    ProjectionMatrix[10] = (far_plane + near_plane) / (near_plane - far_plane);
+    ProjectionMatrix[10] = -(far_plane + near_plane) / (far_plane - near_plane);
     ProjectionMatrix[11] = -1.0f;
-    
+
+
     ProjectionMatrix[12] =  0.0f;
     ProjectionMatrix[13] =  0.0f;
-    ProjectionMatrix[14] = (2.0f * far_plane * near_plane) / (near_plane - far_plane);
+    ProjectionMatrix[14] =  -(2.0f * far_plane * near_plane) / (far_plane - near_plane);
     ProjectionMatrix[15] =  0.0f;
 }
 
 void GRAPHIC_CAMERA::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
-    CORE_MATH_MATRIX tmp, translation,rotation;
-    
-    translation[3] = position[0];
-    translation[7] = position[1];
-    translation[11] = position[2];
+    CORE_MATH_MATRIX tmp,scale, translation,rotation;
     
     lookat.ToMatrix( &rotation[0] );
+    translation.Translate( position );
     
-    tmp =translation;
-    tmp *=rotation;
-    
-    tmp.GetInverse(ViewMatrix);
+    tmp = translation * rotation * scale;
+    tmp.GetInverse( ViewMatrix );
 }

@@ -44,7 +44,8 @@ void R3D_RESOURCES::Initialize() {
     capsule_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("capsule", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     skydome_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("skydome", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     
-    auto effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
+    //auto effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
+    auto effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferred", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto basic_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicGeometryShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto basic_terrain_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "TerrainShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicTerrainShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto checkpoint_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "CheckpointEffect", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
@@ -54,7 +55,8 @@ void R3D_RESOURCES::Initialize() {
     auto shadow_map_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowMapEffect"), CORE_FILESYSTEM_PATH::FindFilePath( "ShadowMapEffect" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
     
-    effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
+    //effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
+    effect_deferred->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     basic_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     basic_terrain_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     checkpoint_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
@@ -63,7 +65,7 @@ void R3D_RESOURCES::Initialize() {
     sky_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     shadow_map_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
-    shader_proxy->SetResource( effect );
+    shader_proxy->SetResource( effect_deferred );
     basic_geometry_shader_proxy->SetResource( basic_effect );
     terrain_geometry_shader_proxy->SetResource( basic_terrain_effect );
     checkpoint_effect_proxy->SetResource( checkpoint_effect );
@@ -93,6 +95,7 @@ void R3D_RESOURCES::Initialize() {
     CreateModel( "flat_ground", CORE_HELPERS_UNIQUE_IDENTIFIER( "flat_ground" ) );
     CreateModel( "thruster", CORE_HELPERS_UNIQUE_IDENTIFIER( "thruster" ) );
     CreateModel( "base_hub", CORE_HELPERS_UNIQUE_IDENTIFIER( "base_hub" ) );
+    CreateModel( "cyl", CORE_HELPERS_UNIQUE_IDENTIFIER( "cyl" ) );
     
     GRAPHIC_FONT_MANAGER::GetInstance().LoadFont(
                                                  CORE_HELPERS_UNIQUE_IDENTIFIER( "stellar-light_32" ),
