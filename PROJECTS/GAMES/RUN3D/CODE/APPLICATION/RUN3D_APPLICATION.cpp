@@ -42,7 +42,7 @@ To()
     #elif PLATFORM_ANDROID
         DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_WINDOWS
-        DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\xengine\\RESOURCES\\" );
+        DefaultFileystem.Initialize( "C:\\Projets\\xengine\\RESOURCES\\" );
     #endif
     
     CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );

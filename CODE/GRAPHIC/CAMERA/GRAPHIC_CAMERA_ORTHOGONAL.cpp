@@ -22,9 +22,9 @@ GRAPHIC_CAMERA_ORTHOGONAL::GRAPHIC_CAMERA_ORTHOGONAL( float near_plane, float fa
     Lookat = lookat;
 }
 
-GRAPHIC_CAMERA_ORTHOGONAL::GRAPHIC_CAMERA_ORTHOGONAL( float left, float right, float bottom, float top, float near, float far ) {
+GRAPHIC_CAMERA_ORTHOGONAL::GRAPHIC_CAMERA_ORTHOGONAL( float left, float right, float bottom, float top, float near_, float far_ ) {
     
-    InitOrthoProjTransform( left, right, bottom, top, near, far );
+    InitOrthoProjTransform( left, right, bottom, top, near_, far_ );
 }
 
 GRAPHIC_CAMERA_ORTHOGONAL::~GRAPHIC_CAMERA_ORTHOGONAL() {
@@ -72,14 +72,14 @@ void GRAPHIC_CAMERA_ORTHOGONAL::CalculateModelViewMatrix( const CORE_MATH_VECTOR
     tmp.GetInverse( ViewMatrix );
 }
 
-void GRAPHIC_CAMERA_ORTHOGONAL::InitOrthoProjTransform( float left, float right, float bottom, float top, float near, float far )
+void GRAPHIC_CAMERA_ORTHOGONAL::InitOrthoProjTransform( float left, float right, float bottom, float top, float near_, float far_ )
 {
     float l = left;
     float r = right;
     float b = bottom;
     float t = top;
-    float n = near;
-    float f = far;
+    float n = near_;
+    float f = far_;
     
     float * m = ProjectionMatrix.GetRow(0);
     

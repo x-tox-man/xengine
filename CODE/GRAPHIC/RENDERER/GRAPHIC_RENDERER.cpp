@@ -63,8 +63,8 @@ void GRAPHIC_RENDERER::ResetDepth() {
 const CORE_HELPERS_IDENTIFIER & GRAPHIC_RENDERER::GetShadowMapMVPName( int cascade_index ) {
     
 #if DEBUG
-    if ( cascade_index > 4 ) {
-        CORE_RUNTIME_Abort();//8 csm is hardcoded limit
+    if ( cascade_index > 4 ) {
+        CORE_RUNTIME_Abort(); //8 csm is hardcoded limit
     }
 #endif
     
