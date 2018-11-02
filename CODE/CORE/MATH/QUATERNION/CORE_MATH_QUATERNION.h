@@ -166,6 +166,7 @@ inline CORE_MATH_QUATERNION operator - () {
 
     void FromMatrix( const float * matrix );
     void ToMatrix( float * matrix) const;
+    void FromVector(const CORE_MATH_VECTOR & vector );
 
     void ConjugateMultiply(const CORE_MATH_QUATERNION & other);
 

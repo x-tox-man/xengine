@@ -55,6 +55,6 @@ void main()
     float shadow = texture( c_texture_3, texCoord ).r;
     float ao = texture( c_texture_4, texCoord ).r;
 
-    colorOut.rgb = Color * CalcDirectionalLight( directional_light, Normal ).rgb * shadow+ Color * 1.0 * ambient_light.Color.rgb * ambient_light.AmbientIntensity * ao ;
+    colorOut.rgb = Color * CalcDirectionalLight( directional_light, Normal ).rgb * shadow + Color * 1.0 * ambient_light.Color.rgb * ambient_light.AmbientIntensity * ao ;
     colorOut.a = 1.0;
 }

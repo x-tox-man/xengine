@@ -240,6 +240,17 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTexture5.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTexture5;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, NormalTexture.GetTextValue() ); )
         
         if ( attribute->AttributeIndex != -1 ) {

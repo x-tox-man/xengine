@@ -15,7 +15,8 @@
 #include "CORE_HELPERS_IDENTIFIER.h"
 #include "GRAPHIC_CAMERA.h"
 
-#define SSAO_MAX_KERNEL 128
+#define SSAO_MAX_KERNEL     128
+#define SSAO_MAX_ROTATIONS  16
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_SSAO, GRAPHIC_SHADER_EFFECT )
 
@@ -37,6 +38,10 @@ private:
         SampleRad;
     GRAPHIC_CAMERA::PTR
         Camera;
+    GRAPHIC_TEXTURE_BLOCK::PTR
+        TextureBlock;
+    GRAPHIC_TEXTURE::PTR
+        Texture;
 
 XS_CLASS_END
 

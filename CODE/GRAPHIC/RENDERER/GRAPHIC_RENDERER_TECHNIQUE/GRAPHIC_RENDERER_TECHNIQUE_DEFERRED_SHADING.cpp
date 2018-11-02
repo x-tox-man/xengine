@@ -11,6 +11,8 @@
 GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING() :
     GRAPHIC_RENDERER_TECHNIQUE(),
     Material(),
+    ConeObject( NULL ),
+    SphereObject( NULL ),
     GameCamera( NULL ),
     PlanObject( NULL ),
     TextureBlock1(),
@@ -86,21 +88,26 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     
     RenderTarget.BindForReading();
     
-    /*if ( (acc % 33) == 0 ) {
-        
-        RenderTarget.SetReadBuffer( 0 );
-        GRAPHIC_TEXTURE * texture2 = RenderTarget.GetTargetTexture( 0 );
+    if ( (acc % 33) == 0 ) {
+        GRAPHIC_TEXTURE * texture2;
+        /*RenderTarget.SetReadBuffer( 0 );
+        texture2 = RenderTarget.GetTargetTexture( 0 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING1" , "png", "" ));
         RenderTarget.SetReadBuffer( 1 );
         texture2 = RenderTarget.GetTargetTexture( 1 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING2" , "png", "" ));
         RenderTarget.SetReadBuffer( 2 );
         texture2 = RenderTarget.GetTargetTexture( 2 );
-        texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING3" , "png", "" ));
+        texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING3" , "png", "" ));*/
+        
         RenderTarget.SetReadBuffer( 3 );
         texture2 = RenderTarget.GetTargetTexture( 3 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING4" , "png", "" ));
-    }*/
+        
+        /*RenderTarget.SetReadBuffer( 4 );
+        texture2 = RenderTarget.GetTargetTexture( 4 );
+        texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING5" , "png", "" ));*/
+    }
     
     TextureBlock1.SetTexture( RenderTarget.GetTargetTexture( 0 ) );
     TextureBlock2.SetTexture( RenderTarget.GetTargetTexture( 1 ) );
@@ -131,7 +138,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     renderer.SetCamera( GameCamera );
     GRAPHIC_SYSTEM::DisableFaceCulling();
     ApplyPointLightPass( renderer );
-    //ApplySpotLightPass( renderer );
+    ApplySpotLightPass( renderer );
     GRAPHIC_SYSTEM::EnableBackfaceCulling();
     renderer.SetDeferredLightingIsEnabled( false );
     renderer.SetLightingIsEnabled( false );
@@ -177,22 +184,57 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyPointLightPass( GRAPHIC_R
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySpotLightPass( GRAPHIC_RENDERER & renderer ) {
+    
     GRAPHIC_OBJECT_RENDER_OPTIONS
         option;
     
-    option.SetPosition( CORE_MATH_VECTOR::Zero );
-    option.SetOrientation( CORE_MATH_QUATERNION() );
-    option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    for (unsigned int i = 0 ; i < renderer.GetSpotLightTable().size(); i++) {
+        
+        CORE_MATH_VECTOR
+            vector;
+        CORE_MATH_QUATERNION
+            orientation;
+        
+        auto light = renderer.GetSpotLightTable()[ i ];
+        
+        vector.Set(light->InternalLight.Spot.Direction[0], light->InternalLight.Spot.Direction[1], light->InternalLight.Spot.Direction[2], 0.0f);
+        
+        orientation.X( 2.0f * (light->InternalLight.Spot.Direction[0] * light->InternalLight.Spot.Direction[1] - light->InternalLight.Spot.Direction[3] * light->InternalLight.Spot.Direction[2]));
+        orientation.Y( 1.0f - 2.0f * (light->InternalLight.Spot.Direction[0] * light->InternalLight.Spot.Direction[0] + light->InternalLight.Spot.Direction[2] * light->InternalLight.Spot.Direction[2]));
+        orientation.Z( 2.0f * (light->InternalLight.Spot.Direction[1] * light->InternalLight.Spot.Direction[2] + light->InternalLight.Spot.Direction[3] * light->InternalLight.Spot.Direction[0]));
+        
+        option.SetPosition( light->InternalLight.Spot.Position );
+        option.SetOrientation( orientation );
+        
+        float scale = CalculateSpotLightSphereAndExtent( *light );
+        
+        option.SetScaleFactor(CORE_MATH_VECTOR( scale, scale, scale, 1.0f ) );
+        
+        renderer.SetDeferredSpotIndex( i );
+        GRAPHIC_SYSTEM::DisableDepthTest();
+        glDisable( GL_STENCIL );
+        SphereObject->Render( renderer, option, SpotDeferredEffect );
+    }
     
     renderer.SetDeferredSpotIndex( -1 );
 }
 
-float GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::CalculatePointLightSphereAndExtent(const GRAPHIC_SHADER_LIGHT & light) {
+float GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::CalculatePointLightSphereAndExtent(const GRAPHIC_SHADER_LIGHT & light) const{
     float MaxChannel = fmax(fmax(light.InternalLight.Point.Color[0], light.InternalLight.Point.Color[1]), light.InternalLight.Point.Color[2]);
     
     float ret = (- light.InternalLight.Point.Linear + sqrtf( light.InternalLight.Point.Linear * light.InternalLight.Point.Linear - 4 * light.InternalLight.Point.Exp * (light.InternalLight.Point.Constant - 256 * MaxChannel * light.InternalLight.Point.DiffuseIntensity)))
     /
     (2 * light.InternalLight.Point.Exp);
+    
+    return ret;
+}
+
+float GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::CalculateSpotLightSphereAndExtent(const GRAPHIC_SHADER_LIGHT & light) const {
+    float MaxChannel = fmax(fmax(light.InternalLight.Point.Color[0], light.InternalLight.Point.Color[1]), light.InternalLight.Point.Color[2]);
+    
+    float ret = (- light.InternalLight.Spot.Linear + sqrtf( light.InternalLight.Spot.Linear * light.InternalLight.Spot.Linear - 4 * light.InternalLight.Spot.Exp * (light.InternalLight.Spot.Constant - 256 * MaxChannel * light.InternalLight.Spot.DiffuseIntensity)))
+    /
+    (2 * light.InternalLight.Spot.Exp);
     
     return ret;
 }

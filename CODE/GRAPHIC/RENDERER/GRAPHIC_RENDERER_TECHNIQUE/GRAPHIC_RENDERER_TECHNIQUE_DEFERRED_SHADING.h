@@ -33,12 +33,15 @@ public:
     void ApplyPointLightPass( GRAPHIC_RENDERER & renderer );
     void ApplySpotLightPass( GRAPHIC_RENDERER & renderer );
 
-    float CalculatePointLightSphereAndExtent(const GRAPHIC_SHADER_LIGHT &);
+    float CalculatePointLightSphereAndExtent(const GRAPHIC_SHADER_LIGHT &) const;
+    float CalculateSpotLightSphereAndExtent(const GRAPHIC_SHADER_LIGHT &) const;
 
     GRAPHIC_MATERIAL
         Material;
     GRAPHIC_CAMERA::PTR
         GameCamera;
+    GRAPHIC_OBJECT::PTR
+        ConeObject;
     GRAPHIC_OBJECT_SHAPE_PLAN::PTR
         PlanObject;
     GRAPHIC_OBJECT_SHAPE_SPHERE::PTR

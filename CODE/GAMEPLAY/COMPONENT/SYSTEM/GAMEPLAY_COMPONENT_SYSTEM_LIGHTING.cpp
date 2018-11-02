@@ -48,12 +48,69 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( GRAPHIC_RENDERER & renderer ) {
         
             auto light = (GAMEPLAY_COMPONENT_LIGHT::PTR) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Light );
         
-            CORE_MATH_VECTOR wp = /*renderer.GetCamera()->GetViewMatrix() * */ located->GetPosition();
-            light->GetLight()->InternalLight.Point.Position[0] = wp.X();
-            light->GetLight()->InternalLight.Point.Position[1] = wp.Y();
-            light->GetLight()->InternalLight.Point.Position[2] = wp.Z();
-            light->GetLight()->InternalLight.Point.Position[3] = 1.0f;
-            
+            GRAPHIC_OBJECT_RENDER_OPTIONS
+                options,
+                parent_options;
+            CORE_MATH_MATRIX
+                mvp,
+                object_matrix;
+            CORE_MATH_QUATERNION
+                orientation;
+        
+            options.SetPosition( located->GetPosition() + located->GetPositionOffset() );
+            options.SetOrientation(located->GetOrientation() );
+            options.SetScaleFactor( CORE_MATH_VECTOR(1.0f, 1.0f,1.0f, 1.0f) );
+        
+            if ( entity->GetParent() != NULL ) {
+                
+                GAMEPLAY_COMPONENT_POSITION * parent_located = (GAMEPLAY_COMPONENT_POSITION * ) entity->GetParent()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+                
+                parent_options.SetPosition( parent_located->GetPosition() + parent_located->GetPositionOffset() );
+                parent_options.SetOrientation( parent_located->GetOrientation() );
+                parent_options.SetScaleFactor( CORE_MATH_VECTOR(1.0f, 1.0f,1.0f, 1.0f) );
+                
+                options.SetParent( &parent_options );
+            }
+        
+            renderable->GetObject().GetResource<GRAPHIC_OBJECT>()->ComputeModelViewProjection(options, CORE_MATH_MATRIX(), renderer, mvp, object_matrix);
+        
+            //CORE_MATH_VECTOR wp = /*renderer.GetCamera()->GetViewMatrix() * */ located->GetPosition();
+
+            switch (light->GetLight()->Type) {
+                case GRAPHIC_SHADER_LIGHT_TYPE_Point:
+                    light->GetLight()->InternalLight.Point.Position[0] = object_matrix[3];
+                    light->GetLight()->InternalLight.Point.Position[1] = object_matrix[7];
+                    light->GetLight()->InternalLight.Point.Position[2] = object_matrix[11];
+                    light->GetLight()->InternalLight.Point.Position[3] = 1.0f;
+                    
+                    break;
+                    
+                case GRAPHIC_SHADER_LIGHT_TYPE_Spot:
+                    light->GetLight()->InternalLight.Spot.Position[0] = object_matrix[3];
+                    light->GetLight()->InternalLight.Spot.Position[1] = object_matrix[7];
+                    light->GetLight()->InternalLight.Spot.Position[2] = object_matrix[11];
+                    light->GetLight()->InternalLight.Spot.Position[3] = 1.0f;
+                    
+                    object_matrix[3] = 0.0f;
+                    object_matrix[7] = 0.0f;
+                    object_matrix[11] = 0.0f;
+                    
+                    orientation.FromMatrix( &object_matrix[0] );
+                    orientation.Normalize();
+                    
+                    light->GetLight()->InternalLight.Spot.Direction[0] = orientation.X();
+                    light->GetLight()->InternalLight.Spot.Direction[1] = orientation.Y();
+                    light->GetLight()->InternalLight.Spot.Direction[2] = orientation.Z();
+                    
+                    light->GetLight()->InternalLight.Spot.Direction[3] = orientation.W();
+                    
+                    break;
+                    
+                default:
+                    abort();
+                    break;
+            }
+        
             switch ( light->GetLight()->Type ) {
                 case GRAPHIC_SHADER_LIGHT_TYPE_Point:
                     renderer.GetPointLightTable().push_back( light->GetLight() );

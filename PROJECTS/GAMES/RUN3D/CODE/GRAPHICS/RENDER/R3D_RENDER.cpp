@@ -117,7 +117,7 @@ void R3D_RENDER::Initialize() {
     BloomTechnique.TextureBlock = TextureBlock1;
     BloomTechnique.TextureBlock2 = TextureBlock2;
     BloomTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
-    BloomTechnique.FinalRenderTarget = NULL;//&FinalRenderTarget;
+    BloomTechnique.FinalRenderTarget = &FinalRenderTarget;
     BloomTechnique.BloomRenderTarget = &BloomRenderTarget;
     BloomTechnique.GaussianRenderTarget1 = &GaussianRenderTarget1;
     BloomTechnique.GaussianRenderTarget2 = &GaussianRenderTarget2;
@@ -126,6 +126,7 @@ void R3D_RENDER::Initialize() {
     DeferredShadingTechnique.PlanObject = &PlanObject;
     DeferredShadingTechnique.FinalRenderTarget = &PrimaryRenderTarget;
     DeferredShadingTechnique.SphereObject = &SphereObject;
+    DeferredShadingTechnique.ConeObject = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) )->GetResource< GRAPHIC_OBJECT >();
     DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderScene>, this );
     DeferredShadingTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
@@ -139,7 +140,7 @@ void R3D_RENDER::Initialize() {
     CORE_MATH_QUATERNION q;
     
     //q.RotateX( M_PI_2 );
-    //q.RotateY( M_PI_2 * 0.05f );
+    q.RotateY( M_PI_2 * 0.25f );
     q.Normalize();
     
     CascadeShadowMapTechnique.CascadeCount = 3;

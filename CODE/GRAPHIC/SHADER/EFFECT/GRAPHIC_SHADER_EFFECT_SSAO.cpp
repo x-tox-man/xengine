@@ -7,6 +7,7 @@
 //
 
 #include "GRAPHIC_SHADER_EFFECT_SSAO.h"
+#include "RESOURCE_IMAGE.h"
 
 GRAPHIC_SHADER_EFFECT_SSAO::GRAPHIC_SHADER_EFFECT_SSAO( GRAPHIC_SHADER_EFFECT::PTR effect ) :
     GRAPHIC_SHADER_EFFECT(),
@@ -37,6 +38,8 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer ) {
         mv,
         inv,
         id;
+    
+    GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture5, TextureBlock );
     GRAPHIC_SHADER_EFFECT::Apply( renderer );
     
     GRAPHIC_SHADER_ATTRIBUTE & ssao_kernel = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOKernel );
@@ -52,12 +55,7 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer ) {
 
 void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {
     
-    float
-        avg_x = 0.0f,
-        avg_y = 0.0f,
-        avg_z = 0.0f;
-    
-    srand( clock() );
+    srand( (unsigned int) clock() );
     
     for (int i = 0; i < SSAO_MAX_KERNEL; i++ ) {
         
@@ -65,13 +63,28 @@ void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {
         scale = (0.1f + 0.9f * scale * scale);
 
         SSAOKernel[ i * 4 + 0 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f ) * scale;
-        avg_x += SSAOKernel[ i * 4 + 0 ];
         SSAOKernel[ i * 4 + 1 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f ) * scale;
-        avg_y += SSAOKernel[ i * 4 + 1 ];
         SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f ) * scale;
-        avg_z += SSAOKernel[ i * 4 + 2 ];
         SSAOKernel[ i * 4 + 3 ] = 1.0f;
     }
+    float * noise = (float*) malloc( sizeof(float) * SSAO_MAX_ROTATIONS * 4);
     
-    printf( "done generating points" );
+    for (unsigned int i = 0; i < 16; i++)
+    {
+        noise[ i * 4 + 0 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f );
+        noise[ i * 4 + 1 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f );
+        noise[ i * 4 + 2 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f );
+        noise[ i * 4 + 3 ] = 1.0f;
+    }
+    
+    RESOURCE_IMAGE image;
+    
+    image.SetImageRawData( noise );
+    image.GetImageInfo().Height = 4;
+    image.GetImageInfo().Width = 4;
+    image.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;
+    
+    Texture = image.CreateTextureObject( false );
+    GRAPHIC_SYSTEM::SetTextureOptions(Texture, GRAPHIC_TEXTURE_FILTERING_Nearest, GRAPHIC_TEXTURE_WRAP_RepeatMirror, CORE_COLOR_Transparent );
+    TextureBlock = new GRAPHIC_TEXTURE_BLOCK( Texture );
 }

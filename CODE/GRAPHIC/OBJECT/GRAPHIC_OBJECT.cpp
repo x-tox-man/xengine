@@ -147,7 +147,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             
             depthMVP = renderer.GetShadowMapCamera( cascade_index ).GetProjectionMatrix() * renderer.GetShadowMapCamera( cascade_index ).GetViewMatrix() * object;
             
-            depthBias = biasMatrix * depthMVP;
+            depthBias = depthMVP;
             
             float cascade_end[8];
             
@@ -160,7 +160,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
                 cascade_end[ci] = -vres.Z();//Why is it negative? -> Bullshit in matrix vect mul
             }
             
-            GRAPHIC_SYSTEM_ApplyMatrix( shadowmap_mvp.AttributeIndex, 1, 0, &depthBias[0] )
+            GRAPHIC_SYSTEM_ApplyMatrix( shadowmap_mvp.AttributeIndex, 1, 1, &depthBias[0] )
             GRAPHIC_SYSTEM_ApplyFloatArray( end_clip_space.AttributeIndex, renderer.GetNumCascade(), cascade_end )
         }
         
@@ -182,16 +182,16 @@ void GRAPHIC_OBJECT::ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPT
         
         CORE_MATH_VECTOR cp = options.GetPosition() * orientation_mat;
         
+        options.GetParent()->GetOrientation().ToMatrix( &orientation_mat[0] );
+        object_matrix.Translate( options.GetParent()->GetPosition() );
+        object_matrix *= orientation_mat;
+        
         options.GetOrientation().ToMatrix( &orientation_mat[0] );
         
         scaling_matrix.Scale( options.GetScaleFactor() );
         translation_matrix.Translate( options.GetPosition() );
         
-        object_matrix = translation_matrix * orientation_mat * scaling_matrix;
-        
-        options.GetParent()->GetOrientation().ToMatrix( &orientation_mat[0] );
-        translation_matrix.Translate( options.GetParent()->GetPosition() );
-        object_matrix *= translation_matrix * orientation_mat;
+        object_matrix *= translation_matrix * orientation_mat * scaling_matrix;
         
         if ( !transform.IsIdentity() ) {
             

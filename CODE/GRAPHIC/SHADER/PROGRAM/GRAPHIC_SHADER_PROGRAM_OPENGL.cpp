@@ -718,6 +718,113 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         CORE_MEMORY_ObjectSafeDeallocation( attribute );
     }
     
+    // SPOT NORMAL
+    
+    // SPOT 0
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLightColor.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = SpotLightColor;
+        
+        setShaderAttribute(*attribute);
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLightPosition.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLightPosition;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLightDiffuseIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLightDiffuseIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLightAmbientIntensity.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLightAmbientIntensity;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLightExp.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLightExp;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLightConstant.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLightConstant;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLightLinear.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLightLinear;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLightDirection.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLightDirection;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, SpotLightCutoff.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = SpotLightCutoff;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
+    else {
+        
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
+    
     // SPOT 0
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;

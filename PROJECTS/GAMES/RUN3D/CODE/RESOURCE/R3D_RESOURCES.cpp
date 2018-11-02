@@ -25,6 +25,7 @@ void R3D_RESOURCES::Initialize() {
     RESOURCE_PROXY::PTR spaceship1_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR track_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR weapon1_proxy = new RESOURCE_PROXY;
+    RESOURCE_PROXY::PTR cone_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR shader_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR basic_geometry_shader_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR terrain_geometry_shader_proxy = new RESOURCE_PROXY;
@@ -43,6 +44,7 @@ void R3D_RESOURCES::Initialize() {
     checkpoint_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("checkpoint", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     capsule_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("capsule", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     skydome_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("skydome", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
+    cone_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("cone", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     
     //auto effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferred", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
@@ -75,6 +77,7 @@ void R3D_RESOURCES::Initialize() {
     shadow_map_proxy->SetResource( shadow_map_effect );
     
     Resources->AddResource( spaceship1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
+    Resources->AddResource( cone_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) );
     Resources->AddResource( track_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "flat" ) );
     Resources->AddResource( weapon1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "weapon1" ) );
     Resources->AddResource( shader_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
