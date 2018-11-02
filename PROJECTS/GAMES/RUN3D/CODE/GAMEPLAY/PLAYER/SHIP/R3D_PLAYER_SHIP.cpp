@@ -111,7 +111,10 @@ void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, con
         
         entity->SetOrientation( q );
         entity->SetPosition( offset );
+        GRAPHIC_SHADER_LIGHT * light_spot_right = new GRAPHIC_SHADER_LIGHT;
+        light_spot_right->InitializeSpot(CORE_MATH_VECTOR( 0.0f, 1.0f, 0.0f), CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR(0.0f, 0.0f, 1.0f, 0.0f), 40.0f, 0.1f, 0.1f, M_PI_4 * 0.5f , 0.1f, 0.1f);
         
+        GAMEPLAY_HELPER::AddToLighting( entity, light_spot_right );
         GAMEPLAY_HELPER::AddToWorld( entity );
         SetChild(entity, 0);
     }
@@ -126,15 +129,19 @@ void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, con
         GAMEPLAY_HELPER::SetTexture(entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
         
         CORE_MATH_VECTOR
-        offset(-0.05f, 0.0f, 0.0f, 0.0f );
+            offset(-0.05f, 0.0f, 0.0f, 0.0f );
+        
+        GRAPHIC_SHADER_LIGHT * light_spot_left = new GRAPHIC_SHADER_LIGHT;
+        light_spot_left->InitializeSpot(CORE_MATH_VECTOR( 1.0f, 0.0f, 0.0f), CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR(0.0f, 0.0f, 1.0f, 0.0f), 40.0f, 0.1f, 0.1f, M_PI_4 * 0.5f , 0.1f, 0.1f);
         
         CORE_MATH_QUATERNION q;
-        q.RotateZ( M_PI_2 );
+            q.RotateZ( M_PI_2 );
         
         entity->SetOrientation( q );
         entity->SetPosition( offset );
         
         GAMEPLAY_HELPER::AddToWorld( entity );
+        GAMEPLAY_HELPER::AddToLighting( entity, light_spot_left );
         SetChild(entity, 1);
     }
     

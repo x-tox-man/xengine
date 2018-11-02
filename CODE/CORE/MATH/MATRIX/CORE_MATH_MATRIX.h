@@ -203,10 +203,11 @@ XS_DEFINE_SERIALIZABLE
     }
 
     friend inline CORE_MATH_MATRIX operator * ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_MATRIX & rhs );
-    friend inline CORE_SCALAR operator * ( float vector[4], CORE_MATH_MATRIX & rhs );
-    friend inline const CORE_MATH_VECTOR operator * ( const CORE_MATH_VECTOR & vector, const CORE_MATH_MATRIX & rhs );
-    friend inline CORE_MATH_MATRIX operator + ( CORE_MATH_MATRIX & lhs, CORE_MATH_MATRIX & rhs );
-    friend inline CORE_MATH_MATRIX operator * ( CORE_MATH_MATRIX & lhs, CORE_MATH_VECTOR & rhs );
+    friend inline CORE_SCALAR operator * ( float vector[4], const CORE_MATH_MATRIX & rhs );
+    friend inline CORE_MATH_VECTOR operator * ( const CORE_MATH_VECTOR & vector, const CORE_MATH_MATRIX & rhs );
+    friend inline CORE_MATH_VECTOR operator * ( const CORE_MATH_VECTOR & rhs, const CORE_MATH_MATRIX & lhs );
+    //friend inline CORE_MATH_MATRIX operator + ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_MATRIX & rhs );
+    //friend inline CORE_MATH_MATRIX operator * ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_VECTOR & rhs );
 
     static float Identity[16];
 
@@ -254,7 +255,7 @@ inline CORE_SCALAR operator * ( float vector[4], CORE_MATH_MATRIX & rhs ) {
     return result;
 }
 
-inline const CORE_MATH_VECTOR operator * ( const CORE_MATH_VECTOR & vector, const CORE_MATH_MATRIX & rhs ) {
+inline CORE_MATH_VECTOR operator * ( const CORE_MATH_VECTOR & vector, const CORE_MATH_MATRIX & rhs ) {
     
     CORE_MATH_VECTOR result;
     
@@ -269,7 +270,7 @@ inline const CORE_MATH_VECTOR operator * ( const CORE_MATH_VECTOR & vector, cons
     return result;
 }
 
-inline const CORE_MATH_VECTOR operator * ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_VECTOR & vector ) {
+inline CORE_MATH_VECTOR operator * ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_VECTOR & vector ) {
     
     CORE_MATH_VECTOR result;
     
@@ -284,7 +285,7 @@ inline const CORE_MATH_VECTOR operator * ( const CORE_MATH_MATRIX & lhs, const C
     return result;
 }
 
-inline CORE_MATH_MATRIX operator + ( CORE_MATH_MATRIX & lhs, CORE_MATH_MATRIX & rhs ) {
+inline CORE_MATH_MATRIX operator + ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_MATRIX & rhs ) {
     
     CORE_MATH_MATRIX result;
     

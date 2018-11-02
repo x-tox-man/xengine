@@ -11,7 +11,7 @@ in vec4 ShadowCoord[3];
 layout (location = 0) out vec4 WorldPosOut; 
 layout (location = 1) out vec4 DiffuseOut; 
 layout (location = 2) out vec4 NormalOut;
-layout (location = 3) out float ShadowOut;
+layout (location = 3) out vec4 ShadowOut;
 layout (location = 4) out float SSAO;
 
 uniform sampler2D c_texture;
@@ -26,17 +26,24 @@ uniform sampler2D gColorMap;
 
 float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 { 
-    float Depth;
+    float Depth = 0.0;
+
+    vec3 ProjCoords = LightSpacePos.xyz / LightSpacePos.w;
+
+    vec2 UVCoords;
+    UVCoords.x = 0.5 * ProjCoords.x + 0.5;
+    UVCoords.y = 0.5 * ProjCoords.y + 0.5;
+    float z = 0.5 * ProjCoords.z + 0.5;
 
     if ( CascadeIndex == 0) 
-        Depth = texture( d_texture, LightSpacePos.xy).x; 
+        Depth = texture( d_texture, UVCoords.xy).x; 
     if ( CascadeIndex == 1)
-        Depth = texture( d_texture1, LightSpacePos.xy).x; 
+        Depth = texture( d_texture1, UVCoords.xy).x; 
     if ( CascadeIndex == 2) 
-        Depth = texture( d_texture2, LightSpacePos.xy).x;
+        Depth = texture( d_texture2, UVCoords.xy).x;
 
-    if (Depth > LightSpacePos.z + 0.0001 ) 
-        return 0.1;
+    if (Depth > z + 0.001 ) 
+        return 0.01;
     else 
         return 1.0; 
 }
@@ -60,16 +67,25 @@ void main()
     NormalOut = vec4( NewNormal, 1.0 );
     WorldPosOut = vec4( WorldPos0, 1.0);
 
-    ShadowOut = 0.0;
+    ShadowOut.rgba = vec4(1.0);
 
     for (int i = 0 ; i < 3 ; i++) {
 
         if ( ClipSpacePosZ <= cascadeEndClipSpace[i]) {
             
-            ShadowOut = CalcShadowFactor(i, ShadowCoord[i]);
+            ShadowOut.rgba = vec4(CalcShadowFactor(i, ShadowCoord[i]));
             break;
         }
     }
 
-    //ShadowOut = texture( d_texture, texCoord.xy).x;
+    /*vec3 ProjCoords = ShadowCoord[0].xyz / ShadowCoord[0].w;
+
+    vec2 UVCoords;
+    UVCoords.x = 0.5 * ProjCoords.x + 0.5;
+    UVCoords.y = 0.5 * ProjCoords.y + 0.5;
+    float z = 0.5 * ProjCoords.z + 0.5;
+
+    ShadowOut.r = texture( d_texture, UVCoords.xy).x;
+    ShadowOut.gb = vec2(0.0);//UVCoords.xy;*/
+    ShadowOut.a = 1.0;
 }

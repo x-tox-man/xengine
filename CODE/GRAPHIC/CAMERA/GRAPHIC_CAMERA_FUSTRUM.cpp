@@ -160,7 +160,7 @@ void GRAPHIC_CAMERA_FUSTRUM::DebugDraw( const GRAPHIC_CAMERA & camera ) const {
         CORE_MATH_QUATERNION r;
         r.RotateZ( ( float ) M_PI_2 );
         to1 = m * (camera.GetPosition() + CORE_MATH_VECTOR(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W()) );
-        #ifndef X_VK
+        #if X_VK == 0
             TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), camera.GetPosition(), to1);
         #endif
     }
@@ -172,7 +172,7 @@ void GRAPHIC_CAMERA_FUSTRUM::DebugDraw( const GRAPHIC_CAMERA & camera ) const {
         CORE_MATH_QUATERNION r;
         r.RotateZ( ( float ) -M_PI_2 );
         to2 = m * (camera.GetPosition() + CORE_MATH_VECTOR(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W()) );
-#ifndef X_VK
+#if X_VK == 0
         TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), camera.GetPosition(), to2);
 #endif
     }
@@ -183,16 +183,16 @@ void GRAPHIC_CAMERA_FUSTRUM::DebugDraw( const GRAPHIC_CAMERA & camera ) const {
         CORE_MATH_QUATERNION r;
         r.RotateX( ( float ) -M_PI_2 );
         to3 = m * (camera.GetPosition() + CORE_MATH_VECTOR(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W()) );
-#ifndef X_VK
+#if X_VK == 0
         TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), camera.GetPosition(), to3);
 #endif
     }
     
-#ifndef X_VK
-    TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), to1, to4);
-    TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), to1, to2);
-    TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), to2, to3);
-    TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), to3, to4);
-#endif
+    #if X_VK == 0
+        TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), to1, to4);
+        TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), to1, to2);
+        TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), to2, to3);
+        TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), to3, to4);
+    #endif
 #endif
 }

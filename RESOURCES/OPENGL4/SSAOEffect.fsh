@@ -9,6 +9,7 @@ uniform sampler2D c_texture_1; //Diffuse
 uniform sampler2D c_texture_2; //Normal
 uniform sampler2D c_texture_3; //Shadow
 uniform sampler2D c_texture_4; //SSAO
+uniform sampler2D c_texture_5; //random noise
 uniform mat4 ProjectionMatrix;
 uniform float SSAOSampleRad = 0.2;
 
@@ -18,9 +19,12 @@ uniform vec4 SSAOKernel[MAX_KERNEL_SIZE];
 
 void main()
 {
-    vec3 Pos = texture(c_texture, TexCoord).xyz;
+    const vec2 noiseScale = vec2(1024.0/4.0, 768.0/4.0); // screen = 1024*768
+
+    vec3 Pos    = texture(c_texture, TexCoord).xyz;
     vec3 Color = texture( c_texture_1, TexCoord ).xyz;
-    vec3 Normal = texture(c_texture_2, TexCoord).xyz;
+    vec3 Normal = texture( c_texture_2, TexCoord).xyz;
+    vec3 randomVec = texture( c_texture_5, TexCoord * noiseScale).xyz;  
 
     vec3 tangent   = Normal;//normalize(randomVec - Normal * dot(randomVec, Normal));
     vec3 bitangent = cross(Normal, tangent);
@@ -30,8 +34,9 @@ void main()
 
     for (int i = 0 ; i < MAX_KERNEL_SIZE ; i++) {
 
-        vec3 samplePos = Pos + (SSAOKernel[i].xyz * SSAOSampleRad) ; // generate a random point
+        //vec3 samplePos = Pos + (SSAOKernel[i].xyz * SSAOSampleRad) ; // generate a random point
         //samplePos = Pos;// + (SSAOKernel[i].xyz * SSAOSampleRad) ; // generate a random point
+        vec3 samplePos = Pos + ( TBN * SSAOKernel[i].xyz ) * SSAOSampleRad;
         vec4 offset = vec4(samplePos, 1.0); // make it a 4-vector
 
         offset = ProjectionMatrix * offset; // project on the near clipping plane
@@ -43,8 +48,6 @@ void main()
         if (abs(Pos.y - sampleDepth) < SSAOSampleRad) {
             SSAO += step(sampleDepth,samplePos.y);
         }
-
-        //SSAO = offset.yyy;//vec3(sampleDepth);
     }
 
     SSAO = (1.0 - (SSAO * SSAO_FACTOR));

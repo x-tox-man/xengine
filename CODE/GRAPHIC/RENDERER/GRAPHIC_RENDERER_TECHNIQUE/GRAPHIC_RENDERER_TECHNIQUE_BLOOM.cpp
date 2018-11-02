@@ -55,34 +55,86 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
     {
-        Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock ) ;
+        PrimaryRenderTarget->BindForReading();
+        PrimaryRenderTarget->SetReadBuffer( 0 );
+        
+        /*{
+            static int acc = 0;
+            acc++;
+            
+            if ( acc % 30 == 0 ) {
+                
+                acc = 0;
+                
+                GRAPHIC_TEXTURE * texture2 = PrimaryRenderTarget->GetTargetTexture( 0 );
+                texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_BeforeBloom", "png", "" ) );
+            }
+        }*/
+        
         TextureBlock->SetTexture( PrimaryRenderTarget->GetTargetTexture( 0 ) );
+        Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock ) ;
         
         BloomEffect->SetMaterial( &Material );
         
-        BloomRenderTarget->Apply();
+        BloomRenderTarget->BindForWriting();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, BloomEffect );
         BloomRenderTarget->Discard();
+        
+        /*{
+            static int acc = 0;
+            acc++;
+            
+            if ( acc % 30 == 0 ) {
+                
+                acc = 0;
+                
+                BloomRenderTarget->BindForReading();
+                BloomRenderTarget->SetReadBuffer( 0 );
+                
+                GRAPHIC_TEXTURE * texture2 = BloomRenderTarget->GetTargetTexture( 0 );
+                texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_Bloom", "png", "" ) );
+            }
+        }*/
     }
     
     {
+        BloomRenderTarget->BindForReading();
+        BloomRenderTarget->SetReadBuffer( 0 );
         TextureBlock->SetTexture( BloomRenderTarget->GetTargetTexture( 0 ) );
         
         Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
         HorizontalBlurEffect->SetMaterial( &Material );
         
-        GaussianRenderTarget1->Apply();
+        GaussianRenderTarget1->BindForWriting();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, HorizontalBlurEffect );
+        
+        /*{
+            static int acc = 0;
+            acc++;
+            
+            if ( acc % 30 == 0 ) {
+                
+                acc = 0;
+                
+                GaussianRenderTarget1->BindForReading();
+                GaussianRenderTarget1->SetReadBuffer( 0 );
+                
+                GRAPHIC_TEXTURE * texture2 = GaussianRenderTarget1->GetTargetTexture( 0 );
+                texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_Gaussian", "png", "" ) );
+            }
+        }*/
         GaussianRenderTarget1->Discard();
     }
     
     {
+        GaussianRenderTarget1->BindForReading();
+        GaussianRenderTarget1->SetReadBuffer( 0 );
         TextureBlock->SetTexture( GaussianRenderTarget1->GetTargetTexture( 0 ) );
         
         Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
         VerticalBlurEffect->SetMaterial( &Material );
         
-        GaussianRenderTarget2->Apply();
+        GaussianRenderTarget2->BindForWriting();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, VerticalBlurEffect );
         GaussianRenderTarget2->Discard();
     }
@@ -96,9 +148,11 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture1, TextureBlock2 );
         CombineBloomEffect->SetMaterial( mat );
         
-        FinalRenderTarget->Apply();
+        if ( FinalRenderTarget != NULL )
+            FinalRenderTarget->BindForWriting();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, CombineBloomEffect );
-        FinalRenderTarget->Discard();
+        if ( FinalRenderTarget != NULL )
+            FinalRenderTarget->Discard();
         
         delete mat;
     }

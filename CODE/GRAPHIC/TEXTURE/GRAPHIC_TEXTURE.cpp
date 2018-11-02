@@ -92,7 +92,7 @@ void GRAPHIC_TEXTURE::SaveDepthTo( const CORE_FILESYSTEM_PATH & path ) {
     #if OPENGL2PLUS
         float * pixels = new GLfloat [size];
     
-        GFX_CHECK( glReadPixels(0, 0, GetTextureInfo().Width, GetTextureInfo().Height, GL_DEPTH_COMPONENT, GL_FLOAT, pixels); )
+        GFX_CHECK( glReadPixels(0, 0, GetTextureInfo().Width, GetTextureInfo().Height, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, pixels); )
     
         img.SetImageRawData(pixels);
         img.GetImageInfo().Height = GetTextureInfo().Height;

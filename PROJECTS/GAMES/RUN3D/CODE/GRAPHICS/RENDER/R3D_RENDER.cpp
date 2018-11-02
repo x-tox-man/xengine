@@ -126,6 +126,7 @@ void R3D_RENDER::Initialize() {
     DeferredShadingTechnique.PlanObject = &PlanObject;
     DeferredShadingTechnique.FinalRenderTarget = &PrimaryRenderTarget;
     DeferredShadingTechnique.SphereObject = &SphereObject;
+    DeferredShadingTechnique.ConeObject = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) )->GetResource< GRAPHIC_OBJECT >();
     DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderScene>, this );
     DeferredShadingTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
@@ -138,8 +139,8 @@ void R3D_RENDER::Initialize() {
 
     CORE_MATH_QUATERNION q;
     
-    //q.RotateX( M_PI_2 * 0.12f );
-    q.RotateY( M_PI_2 * 0.33f );
+    //q.RotateX( M_PI_2 );
+    q.RotateY( M_PI_2 * 0.25f );
     q.Normalize();
     
     CascadeShadowMapTechnique.CascadeCount = 3;
@@ -177,15 +178,10 @@ void R3D_RENDER::RenderSceneWithParticles( GRAPHIC_RENDERER & renderer ) {
 }
 
 void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
-    
-    CORE_MATH_QUATERNION
-        interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
 
 #if OPENGL4
-    CORE_MATH_VECTOR
+    static CORE_MATH_VECTOR
         color( 0.0f, 0.0f, 0.0f, 1.0f );
-    GRAPHIC_CAMERA
-        test_camera( 1.0f, 150.0f, 1024.0f, 768.0f, R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition(), CORE_MATH_QUATERNION() );
     
     GRAPHIC_SYSTEM::SetClearColor( color );
     CascadeShadowMapTechnique.LightSourcePose.SetPosition( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() );

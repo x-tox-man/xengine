@@ -68,6 +68,16 @@ void CORE_MATH_QUATERNION::FromMatrix( const float * matrix  ) {
     Value[2] = ( float ) ( ( (double)matrix[4] - (double)matrix[1] ) / w4 );
 }
 
+void CORE_MATH_QUATERNION::FromVector( const CORE_MATH_VECTOR & vector ) {
+    
+    //float theta = (float)(sqrt((vector.X()*vector.X() + vector.Y()*vector.Y() + vector.Z()*vector.Z())*180.0f/M_PI);
+    
+    Value[0] = vector.X();
+    Value[1] = vector.Y();
+    Value[2] = vector.Z();
+    Value[3] = 0.0f;
+}
+
 /*
  1 - 2*qy2 - 2*qz2	2*qx*qy - 2*qz*qw	2*qx*qz + 2*qy*qw
  2*qx*qy + 2*qz*qw	1 - 2*qx2 - 2*qz2	2*qy*qz - 2*qx*qw
