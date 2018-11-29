@@ -59,6 +59,12 @@
 
     GLenum OPENGL_4_GetFrameBufferMode( const GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode );
 
+    GLenum OPENGL_4_GetPolygonFace( const GRAPHIC_POLYGON_FACE face );
+
+    GLenum OPENGL_4_GetStendilFailOperation( const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION action );
+
+    GLenum OPENGL_4_GetBlendEquation( const GRAPHIC_SYSTEM_BLEND_EQUATION equation );
+
     #define GRAPHIC_SYSTEM_ApplyMatrix(index, size, transpose, array) \
         GFX_CHECK( glUniformMatrix4fv( \
             index, \

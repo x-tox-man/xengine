@@ -13,7 +13,9 @@ GRAPHIC_SHADER_EFFECT_SSAO::GRAPHIC_SHADER_EFFECT_SSAO( GRAPHIC_SHADER_EFFECT::P
     GRAPHIC_SHADER_EFFECT(),
     SSAOKernel(),
     SampleRad( 0.1f ),
-    Camera() {
+    Camera(),
+    TextureBlock( NULL ),
+    Texture( NULL ) {
     
     Program.SetProgram( effect->GetProgram().GetProgram() );
     Program.CopyAttributes();

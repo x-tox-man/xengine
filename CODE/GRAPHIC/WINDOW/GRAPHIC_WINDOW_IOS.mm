@@ -101,7 +101,7 @@ void GRAPHIC_WINDOW_IOS::EnableBackgroundContext(bool enable) {
     
     glClearColor(GRAPHIC_SYSTEM::ClearColor.GetX(), GRAPHIC_SYSTEM::ClearColor.GetY(), GRAPHIC_SYSTEM::ClearColor.GetZ(), 1.0f );
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     //Do graphic system instead: a renderer is for a gfx implementation
     GRAPHIC_RENDERER::GetInstance().BeginFrame();

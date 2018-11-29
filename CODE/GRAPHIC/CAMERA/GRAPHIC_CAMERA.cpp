@@ -83,7 +83,7 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
     float fovyRadians = ( float ) ( Fov * ( M_PI / 180.0f) );
     float cotan = 1.0f / tanf(fovyRadians * 0.5f);
     
-    AlternateProjectionMatrix[0] = 1.0f / (aspect * tanf(fovyRadians * 0.5f));
+    /*AlternateProjectionMatrix[0] = 1.0f / (aspect * tanf(fovyRadians * 0.5f));
     AlternateProjectionMatrix[1] =  0.0f;
     AlternateProjectionMatrix[2] =  0.0f;
     AlternateProjectionMatrix[3] =  0.0f;
@@ -101,7 +101,7 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
     AlternateProjectionMatrix[12] =  0.0f;
     AlternateProjectionMatrix[13] =  0.0f;
     AlternateProjectionMatrix[14] =  1.0f;
-    AlternateProjectionMatrix[15] =  0.0f;
+    AlternateProjectionMatrix[15] =  0.0f;*/
     
     ProjectionMatrix[0] = cotan / aspect;
     ProjectionMatrix[1] =  0.0f;

@@ -41,6 +41,8 @@ public:
 
     void CalculateCascadeOrthoProjection( GRAPHIC_RENDERER & renderer );
 
+    void DebugFustrum( GRAPHIC_RENDERER & renderer );
+
     GRAPHIC_CAMERA::PTR
         Camera;
     CASCADE_PROJECTION_INFO

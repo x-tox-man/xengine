@@ -52,6 +52,7 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
     SourceRenderTarget->BindForReading();
     SourceRenderTarget->SetReadBuffer( 0 );
     renderer.SetLightingIsEnabled( false );
+    TextureBlock1 = new GRAPHIC_TEXTURE_BLOCK();
     TextureBlock1->SetTexture( SourceRenderTarget->GetTargetTexture( 0 ) );
     
     Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock1 ) ;

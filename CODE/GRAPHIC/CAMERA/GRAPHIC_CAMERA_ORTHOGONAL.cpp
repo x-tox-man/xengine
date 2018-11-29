@@ -69,6 +69,7 @@ void GRAPHIC_CAMERA_ORTHOGONAL::CalculateModelViewMatrix( const CORE_MATH_VECTOR
     translation.Translate( position );
     
     tmp = translation * rotation * scale;
+    
     tmp.GetInverse( ViewMatrix );
 }
 

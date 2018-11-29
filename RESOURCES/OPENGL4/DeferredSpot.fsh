@@ -21,6 +21,7 @@ struct SpotLight
 
 in vec4 EyeWorldPosition;
 in vec4 LightPosition;
+in vec4 iLightDirection;
 
 out vec4 colorOut;
 
@@ -67,7 +68,7 @@ vec4 CalcLightInternal(PointLight point, vec3 LightDirection, vec3 Normal, vec3 
 
 vec4 CalcPointLight( vec3 WorldPos, PointLight point, vec3 Normal)
 {
-    vec3 LightDirection = WorldPos.xyz - (spot_light_table[0].Base.Position.xyz+vec3(0.0,0.0,0.0));
+    vec3 LightDirection = WorldPos.xyz - spot_light_table[0].Base.Position.xyz;
     
     float Distance = length(LightDirection);
     LightDirection = normalize(LightDirection);
@@ -83,15 +84,17 @@ vec4 CalcPointLight( vec3 WorldPos, PointLight point, vec3 Normal)
 
 vec4 CalcSpotLight(vec3 WorldPos, SpotLight l, vec3 Normal)
 {
-    vec3 LightToPixel = normalize(WorldPos - l.Base.Position.xyz);
-    float SpotFactor = dot(LightToPixel, l.Direction.xyz);
+    vec3 LightToPixel = normalize(WorldPos.xyz - spot_light_table[0].Base.Position.xyz);
+    float SpotFactor = dot(LightToPixel, spot_light_table[0].Direction.xyz);
 
     if (SpotFactor > l.Cutoff) {
         vec4 Color = CalcPointLight(WorldPos, l.Base, Normal);
         return Color * (1.0 - (1.0 - SpotFactor) * 1.0/(1.0 - l.Cutoff));
+        //return vec4(spot_light_table[0].Base.Position.xyz, 1.0);
     }
     else {
-        return vec4(1,0,0,1);
+        //return vec4(SpotFactor);
+        return vec4(0.0);
     }
 }
 
@@ -104,6 +107,6 @@ void main()
     float shadow = texture( c_texture_3, tx ).r;
     vec3 ssao = texture( c_texture_4, tx ).xyz;
 
-    //colorOut.xyz = Color * CalcSpotLight( WorldPos, spot_light_table[0], normalize(Normal) ).xyz;
-    //colorOut.a = 1.0;
+    colorOut.xyz = Color * CalcSpotLight( WorldPos, spot_light_table[0], normalize(Normal) ).xyz;
+    colorOut.a = 1.0;
 }

@@ -147,7 +147,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             
             depthMVP = renderer.GetShadowMapCamera( cascade_index ).GetProjectionMatrix() * renderer.GetShadowMapCamera( cascade_index ).GetViewMatrix() * object;
             
-            depthBias = depthMVP;
+            depthBias = biasMatrix * depthMVP;
             
             float cascade_end[8];
             

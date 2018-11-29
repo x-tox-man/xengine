@@ -3158,6 +3158,9 @@
 		5F3BC8521EE568E50031CEF7 /* EmptyComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyComponent.xib; sourceTree = "<group>"; };
 		5F3BC8541EE56ED80031CEF7 /* ParentVCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentVCDelegate.h; sourceTree = "<group>"; };
 		5F3BC8551EE60F4F0031CEF7 /* ModalBackDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModalBackDelegate.h; sourceTree = "<group>"; };
+		5F4AEE9821973128001CA9BA /* GRAPHIC_POLYGON_FACE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_POLYGON_FACE.h; sourceTree = "<group>"; };
+		5F4AEE9921973233001CA9BA /* GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h; sourceTree = "<group>"; };
+		5F4AEE9A2197375E001CA9BA /* GRAPHIC_SYSTEM_BLEND_EQUATION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SYSTEM_BLEND_EQUATION.h; sourceTree = "<group>"; };
 		5F50C3172014E5AA0093FD77 /* VK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VK.cpp; sourceTree = "<group>"; };
 		5F50C3182014E5AB0093FD77 /* VK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VK.h; sourceTree = "<group>"; };
 		5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_OBJECT_RENDER_OPTIONS.cpp; sourceTree = "<group>"; };
@@ -4763,6 +4766,9 @@
 				5FCC3D6E2002F01900A698B8 /* OPENGL_4.h */,
 				3238F4EB1E90E80400838C62 /* OPENGLES_2.cpp */,
 				3238F4EC1E90E80400838C62 /* OPENGLES_2.h */,
+				5F4AEE9821973128001CA9BA /* GRAPHIC_POLYGON_FACE.h */,
+				5F4AEE9921973233001CA9BA /* GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h */,
+				5F4AEE9A2197375E001CA9BA /* GRAPHIC_SYSTEM_BLEND_EQUATION.h */,
 			);
 			path = SYSTEM;
 			sourceTree = "<group>";

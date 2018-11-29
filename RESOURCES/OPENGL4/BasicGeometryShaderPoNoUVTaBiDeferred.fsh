@@ -30,19 +30,14 @@ float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 
     vec3 ProjCoords = LightSpacePos.xyz / LightSpacePos.w;
 
-    vec2 UVCoords;
-    UVCoords.x = 0.5 * ProjCoords.x + 0.5;
-    UVCoords.y = 0.5 * ProjCoords.y + 0.5;
-    float z = 0.5 * ProjCoords.z + 0.5;
-
     if ( CascadeIndex == 0) 
-        Depth = texture( d_texture, UVCoords.xy).x; 
+        Depth = texture( d_texture, ProjCoords.xy).x; 
     if ( CascadeIndex == 1)
-        Depth = texture( d_texture1, UVCoords.xy).x; 
+        Depth = texture( d_texture1, ProjCoords.xy).x; 
     if ( CascadeIndex == 2) 
-        Depth = texture( d_texture2, UVCoords.xy).x;
+        Depth = texture( d_texture2, ProjCoords.xy).x;
 
-    if (Depth > z + 0.001 ) 
+    if (Depth > ProjCoords.z + 0.001 ) 
         return 0.01;
     else 
         return 1.0; 
@@ -78,14 +73,5 @@ void main()
         }
     }
 
-    /*vec3 ProjCoords = ShadowCoord[0].xyz / ShadowCoord[0].w;
-
-    vec2 UVCoords;
-    UVCoords.x = 0.5 * ProjCoords.x + 0.5;
-    UVCoords.y = 0.5 * ProjCoords.y + 0.5;
-    float z = 0.5 * ProjCoords.z + 0.5;
-
-    ShadowOut.r = texture( d_texture, UVCoords.xy).x;
-    ShadowOut.gb = vec2(0.0);//UVCoords.xy;*/
     ShadowOut.a = 1.0;
 }

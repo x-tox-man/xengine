@@ -15,6 +15,7 @@
 #include "GRAPHIC_SYSTEM_COMPARE_OPERATION.h"
 #include "GRAPHIC_SYSTEM_BLEND_OPERATION.h"
 #include "GRAPHIC_SYSTEM_POLYGON_FILL_MODE.h"
+#include "GRAPHIC_POLYGON_FACE.h"
 #include "CORE_MATH_VECTOR.h"
 #include "CORE_MATH_MATRIX.h"
 #include "CORE_DATA_BUFFER.h"
@@ -24,6 +25,8 @@
 #include "GRAPHIC_TEXTURE_FILTERING.h"
 #include "GRAPHIC_TEXTURE_WRAP.h"
 #include "GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE.h"
+#include "GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h"
+#include "GRAPHIC_SYSTEM_BLEND_EQUATION.h"
 
 class GRAPHIC_TEXTURE;
 class GRAPHIC_RENDER_TARGET;
@@ -44,9 +47,11 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
 
     static void EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination );
     static void DisableBlend();
+    static void SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation );
 
-    static void EnableStencilTest();
+    static void EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask );
     static void DisableStencil();
+    static void SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail );
 
     static void EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin = 0.0f, float range_end = 1.0f );
     static void DisableDepthTest();
@@ -54,7 +59,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void EnableAlpha();
     static void DisableAlpha();
 
-    static void EnableBackfaceCulling();
+    static void EnableBackfaceCulling( const GRAPHIC_POLYGON_FACE face );
     static void DisableFaceCulling();
 
     static void UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER & data );
@@ -92,8 +97,10 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static const char * GetShaderDirectoryPath() { return ShaderDirectoryPath; }
     static void SetClearColor( CORE_HELPERS_COLOR & color ) { ClearColor = color; }
 
+    static void Clear();
     static void ClearFrambufferDepth( float default_depth );
     static void ClearFrambufferColor();
+    static void ClearFrambufferStencil();
 
     static CORE_PARALLEL_LOCK_MUTEX
         GraphicSystemLock;
