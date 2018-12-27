@@ -30,6 +30,8 @@ public:
     virtual void ApplyFirstPass( GRAPHIC_RENDERER & renderer );
     virtual void ApplySecondPass( GRAPHIC_RENDERER & renderer );
 
+    void ApplyStencilPassForPoint( GRAPHIC_RENDERER & renderer, GRAPHIC_OBJECT_RENDER_OPTIONS & option,  GRAPHIC_SHADER_LIGHT * light );
+    void ApplyStencilPassForSpot( GRAPHIC_RENDERER & renderer, GRAPHIC_OBJECT_RENDER_OPTIONS & option, GRAPHIC_SHADER_LIGHT * light );
     void ApplyPointLightPass( GRAPHIC_RENDERER & renderer );
     void ApplySpotLightPass( GRAPHIC_RENDERER & renderer );
 
@@ -55,7 +57,8 @@ public:
     GRAPHIC_SHADER_EFFECT::PTR
         AmbientDirectionalDefferedEffect,
         SpotDeferredEffect,
-        PointDefferedEffect;
+        PointDefferedEffect,
+        NullTechniqueEffect;
     /*GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::PTR
         PointDefferedEffect;*/
     GRAPHIC_RENDER_TARGET

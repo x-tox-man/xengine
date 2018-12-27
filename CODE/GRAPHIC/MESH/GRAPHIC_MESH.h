@@ -67,6 +67,8 @@ public:
     inline const GRAPHIC_MESH_POLYGON_RENDER_MODE GetPolygonRenderMode() const { return PolygonRenderMode; }
     inline const GRAPHIC_MESH_SURFACE_RENDER_MODE GetSurfaceRenderMode() const { return SurfaceRenderMode; }
 
+    inline void SetSurfaceRenderMode( GRAPHIC_MESH_SURFACE_RENDER_MODE mode) { SurfaceRenderMode = mode; }
+
     inline GRAPHIC_SHADER_BIND & GetVertexComponent() { return VertexComponent; }
     inline void SetPolygonRenderMode( const GRAPHIC_MESH_POLYGON_RENDER_MODE mode ) { PolygonRenderMode = mode; }
     inline CORE_MATH_MATRIX & GetTransform() { return Transform; }

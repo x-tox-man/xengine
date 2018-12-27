@@ -144,45 +144,64 @@ void GRAPHIC_CAMERA_FUSTRUM::DebugDraw( const GRAPHIC_CAMERA & camera ) const {
 #if DEBUG
     //Calculate fustrum orientation
     CORE_MATH_QUATERNION b;
+    CORE_MATH_VECTOR fustrum_border_vector, to1, to2, to3, to4;
+    CORE_MATH_MATRIX m;
     b.RotateX( ( float ) -M_PI_2 );
+    
+    CORE_MATH_VECTOR
+        up(0.0f, 1.0f, 0.0f, 0.0f),dir;
+    
+    camera.GetOrientation().ToMatrix( m.GetRow(0) );
+    dir = m * up;
     
     const CORE_MATH_QUATERNION & orientation = camera.GetOrientation() * b;
     //CORE_MATH_QUATERNION orientation;
-    CORE_MATH_VECTOR fustrum_border_vector, to1, to2, to3, to4;
-    CORE_MATH_MATRIX m;
+    
     orientation.ToMatrix( m.GetRow(0) );
     
     float l =( float ) ( sin( M_PI / 6.0f ) * camera.GetFar() );
     
     
+    //top left
     {
-        fustrum_border_vector.Set( -l * 0.5f, (camera.GetFar() -camera.GetNear()) * 0.5f, 0.0f, 0.0f );
-        CORE_MATH_QUATERNION r;
-        r.RotateZ( ( float ) M_PI_2 );
-        to1 = m * (camera.GetPosition() + CORE_MATH_VECTOR(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W()) );
+        fustrum_border_vector.Set( -l * 0.5f, (camera.GetFar() -camera.GetNear()) * 0.5f, l * 0.5f, 0.0f );
+        //CORE_MATH_QUATERNION r;
+        //r.RotateZ( ( float ) M_PI_2 );
+        to1 = camera.GetPosition() + m * fustrum_border_vector;
         #if X_VK == 0
             TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), camera.GetPosition(), to1);
         #endif
     }
     
     
-    // rigth 3
+    //top right
     {
-        fustrum_border_vector.Set( l * 0.5f, (camera.GetFar() -camera.GetNear()) * 0.5f, 0.0f, 0.0f );
-        CORE_MATH_QUATERNION r;
-        r.RotateZ( ( float ) -M_PI_2 );
-        to2 = m * (camera.GetPosition() + CORE_MATH_VECTOR(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W()) );
+        fustrum_border_vector.Set( l * 0.5f, (camera.GetFar() -camera.GetNear()) * 0.5f, l * 0.5f, 0.0f );
+        //CORE_MATH_QUATERNION r;
+        //r.RotateZ( ( float ) -M_PI_2 );
+        to2 = camera.GetPosition() + m * fustrum_border_vector;
 #if X_VK == 0
         TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), camera.GetPosition(), to2);
 #endif
     }
     
-    // top 4
+    // bottom right
     {
-        fustrum_border_vector.Set( 0.0f, (camera.GetFar() -camera.GetNear()) * 0.5f, l * 0.5f, 0.0f );
+        fustrum_border_vector.Set( l * 0.5f, (camera.GetFar() -camera.GetNear()) * 0.5f, -l * 0.5f, 0.0f );
         CORE_MATH_QUATERNION r;
         r.RotateX( ( float ) -M_PI_2 );
-        to3 = m * (camera.GetPosition() + CORE_MATH_VECTOR(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W()) );
+        to3 = camera.GetPosition() + m * fustrum_border_vector;
+#if X_VK == 0
+        TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), camera.GetPosition(), to3);
+#endif
+    }
+    
+    // bottom right
+    {
+        fustrum_border_vector.Set( -l * 0.5f, (camera.GetFar() -camera.GetNear()) * 0.5f, -l * 0.5f, 0.0f );
+        CORE_MATH_QUATERNION r;
+        r.RotateX( ( float ) -M_PI_2 );
+        to4 = camera.GetPosition() + m * fustrum_border_vector;
 #if X_VK == 0
         TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), camera.GetPosition(), to3);
 #endif

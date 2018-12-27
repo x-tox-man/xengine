@@ -28,12 +28,18 @@ void GRAPHIC_SHADER::LoadShader( const CORE_FILESYSTEM_PATH & path, GRAPHIC_SHAD
         case GRAPHIC_SHADER_Pixel :
             type = GL_FRAGMENT_SHADER;
             break;
-            
-#ifdef OPENGL2PLUS
+   
         case GRAPHIC_SHADER_Geometry:
             type = GL_GEOMETRY_SHADER;
             break;
-#endif
+            
+        case GRAPHIC_SHADER_HullControlShader:
+            type = GL_TESS_CONTROL_SHADER;
+            break;
+            
+        case GRAPHIC_SHADER_TessellateEvaluation:
+            type = GL_TESS_EVALUATION_SHADER;
+            break;
             
         default:
             CORE_RUNTIME_Abort();
@@ -131,7 +137,7 @@ bool GRAPHIC_SHADER::CompileShader( GLuint & shader, GLenum type,  const CORE_FI
     {
         GFX_CHECK( glDeleteShader(shader); )
         
-        CORE_RUNTIME_Abort();
+            CORE_RUNTIME_Abort();
         
         return false;
     }

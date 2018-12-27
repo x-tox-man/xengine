@@ -51,7 +51,7 @@ void GRAPHIC_MATERIAL_COLLECTION::LoadMaterialForName( const char * name ) {
     CORE_DATA_COPY_STRING( normal_name, name );
     CORE_DATA_STRING_CONCAT( normal_name, "-normal" );
     CORE_DATA_COPY_STRING( tesselation_name, name );
-    CORE_DATA_STRING_CONCAT( tesselation_name, "-tesselation" );
+    CORE_DATA_STRING_CONCAT( tesselation_name, "-displacement" );
     
     CORE_FILESYSTEM_PATH path = CORE_FILESYSTEM_PATH::FindFilePath(name, "png", "TEXTURES" );
     
@@ -71,7 +71,7 @@ void GRAPHIC_MATERIAL_COLLECTION::LoadMaterialForName( const char * name ) {
     
     if ( texture_tesselation ) {
     
-        material->SetTexture(GRAPHIC_SHADER_PROGRAM::TesselationTexture, new GRAPHIC_TEXTURE_BLOCK( texture_tesselation ) );
+        material->SetTexture(GRAPHIC_SHADER_PROGRAM::DisplacementTexture, new GRAPHIC_TEXTURE_BLOCK( texture_tesselation ) );
     }
 }
 

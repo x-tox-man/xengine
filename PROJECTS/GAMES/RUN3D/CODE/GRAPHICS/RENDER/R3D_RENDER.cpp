@@ -13,6 +13,7 @@
 #include "GRAPHIC_PARTICLE_SYSTEM.h"
 #include "TOOLS_DEBUG_DRAW.h"
 #include "APPLICATION_CONFIGURATION.h"
+#include "APPLICATION_IDENTITY_MANAGER.h"
 
 R3D_RENDER::R3D_RENDER() :
     Lookat(),
@@ -148,7 +149,7 @@ void R3D_RENDER::Initialize() {
     CascadeShadowMapTechnique.ShadowMapRenderTarget1 = &ShadowMapRenderTarget1;
     CascadeShadowMapTechnique.ShadowMapRenderTarget2 = &ShadowMapRenderTarget2;
     CascadeShadowMapTechnique.ShadowMapRenderTarget3 = &ShadowMapRenderTarget3;
-    CascadeShadowMapTechnique.LightSourcePose.SetPosition( CORE_MATH_VECTOR::One );
+    CascadeShadowMapTechnique.LightSourcePose.SetPosition( CORE_MATH_VECTOR::Zero );//( 100.0f, 0.0f, 100.0f, 1.0f) );
     CascadeShadowMapTechnique.LightSourcePose.SetOrientation( q );
     CascadeShadowMapTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderScene>, this );
     CascadeShadowMapTechnique.RendererCallback1.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderSceneWithParticles>, this );
@@ -179,12 +180,36 @@ void R3D_RENDER::RenderSceneWithParticles( GRAPHIC_RENDERER & renderer ) {
 
 void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
 
+    CascadeShadowMapTechnique.LightSourcePose.SetPosition( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() );
 #if OPENGL4
     static CORE_MATH_VECTOR
         color( 0.0f, 0.0f, 0.0f, 1.0f );
     
     GRAPHIC_SYSTEM::SetClearColor( color );
-    CascadeShadowMapTechnique.LightSourcePose.SetPosition( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() );
+    
+    /*static int acc = 0;
+    acc++;
+    
+    if (acc > 400 ) {
+        acc = 0;
+    }
+    
+    if ( acc > 300 ) {
+        Camera = CascadeShadowMapTechnique.LightShadowCamera[2];
+    }
+    else if ( acc > 200 ) {
+        Camera = CascadeShadowMapTechnique.LightShadowCamera[1];
+    }
+    else if ( acc > 100 ) {
+        Camera = CascadeShadowMapTechnique.LightShadowCamera[0];
+    }
+    else
+    {
+        static GRAPHIC_CAMERA * bk_camera = Camera;
+    
+        Camera = bk_camera;
+    }*/
+    
     renderer.SetCamera( Camera );
     SSAOTechnique.SSAOEffect->SetCamera( Camera );
     DeferredShadingTechnique.GameCamera = Camera;
@@ -221,5 +246,8 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_SYSTEM::DisableDepthTest();
     renderer.SetCamera( InterfaceCamera );
-    GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
+    //GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
+    
+    renderer.SetCamera( Camera );
+    CascadeShadowMapTechnique.DebugFustrum( renderer );
 }

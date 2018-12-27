@@ -50,7 +50,7 @@ in vec3 bitangent;
 // -- SHADER UNIFORM
 
 uniform mat4 MVPMatrix;
-uniform mat4 modelViewMatrix;
+uniform mat4 ModelMatrix;
 uniform mat4 jointsMatrix[128];
 uniform mat4 attrBindShapeMatrix;
 uniform vec4 geometryColor;
@@ -89,9 +89,9 @@ void main()
 
     colorVarying = vec4( 0.4, 0.4, 0.4, 0.4 ) * cosTheta;
     
-    vec3 vertexTangent_cameraspace = mat3(modelViewMatrix) * normalize(tangent).rgb;
-    vec3 vertexBitangent_cameraspace = mat3(modelViewMatrix) * normalize(bitangent).rgb;
-    vec3 vertexNormal_cameraspace = mat3(modelViewMatrix) * normalize(normal).rgb;
+    vec3 vertexTangent_cameraspace = mat3(ModelMatrix) * normalize(tangent).rgb;
+    vec3 vertexBitangent_cameraspace = mat3(ModelMatrix) * normalize(bitangent).rgb;
+    vec3 vertexNormal_cameraspace = mat3(ModelMatrix) * normalize(normal).rgb;
     
     mat3 TBNMatrix = transpose(
         mat3(
@@ -100,8 +100,8 @@ void main()
         vertexNormal_cameraspace
         ));
     
-    position_p = modelViewMatrix * position;
-    normal_p = modelViewMatrix * normal;
+    position_p = ModelMatrix * position;
+    normal_p = ModelMatrix * normal;
     tangent_p = tangent;
     
     LightDirection_tangentspace = /*TBNMatrix * */- directional_light.Direction.xyz;

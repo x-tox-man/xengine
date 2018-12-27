@@ -215,7 +215,7 @@ void VIEWER3D::Update( const float time_step ) {
 void VIEWER3D::Render( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera->GetCamera() );
-    
+    renderer.SetNumCascade( 0 );
     Scene->Render( renderer );
     RenderSelectedObjectBox();
     
@@ -249,13 +249,13 @@ void VIEWER3D::Screenshot() {
     GRAPHIC_RENDER_TARGET
         RenderTarget;
     
-    RenderTarget.Initialize( CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0 );
+    RenderTarget.Initialize( CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     
     RenderTarget.Apply();
     
     Scene->Render( GRAPHIC_RENDERER::GetInstance() );
     
-    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture();
+    GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderCubeAt00" , "png", "" ) );
     
     RenderTarget.Discard();
@@ -280,6 +280,7 @@ void VIEWER3D::InitializeScene() {
 
 void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect ) {
     
+    auto mat =  new GRAPHIC_MATERIAL;
     if ( CubeObject == NULL ) {
         CubeObject = new GRAPHIC_OBJECT_SHAPE_CUBE;
         CubeObject->InitializeShape();
@@ -288,7 +289,7 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
         
         CubeEffect->Initialize( CubeObject->GetShaderBindParameter() );
         
-        CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
+        CubeEffect->SetMaterial( mat );
         SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 57" );
     }
     
@@ -317,6 +318,14 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     RESOURCE_PROXY * proxy_effect = new RESOURCE_PROXY( effect );
     
     handle_r.GetComponent< GAMEPLAY_COMPONENT_RENDER >()->SetObject(  *proxy_object );
+    
+    if ( mat != NULL ) {
+        RESOURCE_PROXY
+            proxy( mat );
+        
+        handle_r.GetComponent< GAMEPLAY_COMPONENT_RENDER >()->SetMaterial( proxy );
+        SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetTexture create mat\n" );
+    }
     handle_r.GetComponent< GAMEPLAY_COMPONENT_RENDER >()->SetEffect( *proxy_effect );
     
     GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) Scene->GetRenderableSystemTable()[0];

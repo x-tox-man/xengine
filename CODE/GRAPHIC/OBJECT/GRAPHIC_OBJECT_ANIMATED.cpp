@@ -39,7 +39,7 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC
         effect->SelectMaterial( MeshTable[i]->GetName() );
         
         GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE * attrModel = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelViewMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE * attrModel = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
         GRAPHIC_SHADER_ATTRIBUTE * attrSkinningMatrixTable = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SkinningMatrixTable );
         GRAPHIC_SHADER_ATTRIBUTE * attrBindShapeMatrix = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::AttrBindShapeMatrix );
         

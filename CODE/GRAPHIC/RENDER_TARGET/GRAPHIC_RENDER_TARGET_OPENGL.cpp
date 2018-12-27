@@ -155,7 +155,7 @@ void GRAPHIC_RENDER_TARGET::Apply() {
         GFX_CHECK( glClear( GL_DEPTH_BUFFER_BIT ); )
     }
     else {
-        GFX_CHECK( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); )
+        GFX_CHECK( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT ); )
     }
 }
 

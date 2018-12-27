@@ -38,6 +38,8 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
     static void SetTexture( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::ColorTexture );
     static void SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const
                           CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::NormalTexture );
+    static void SetDisplacement( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const
+                      CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::DisplacementTexture );
     static void SetTextureRepeating(GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_IDENTIFIER & identifier);
     static void SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_FILESYSTEM_PATH & path );
 

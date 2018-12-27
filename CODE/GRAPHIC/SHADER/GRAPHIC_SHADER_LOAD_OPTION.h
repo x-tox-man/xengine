@@ -1,0 +1,20 @@
+//
+//  GRAPHIC_SHADER_LOAD_OPTION.h
+//  GAME-ENGINE
+//
+//  Created by Christophe Bernard on 11/12/2018.
+//  Copyright © 2018 Christophe Bernard. All rights reserved.
+//
+
+#ifndef GRAPHIC_SHADER_LOAD_OPTION_h
+#define GRAPHIC_SHADER_LOAD_OPTION_h
+
+enum GRAPHIC_SHADER_LOAD_OPTION {
+    GRAPHIC_SHADER_LOAD_OPTION_Vertex    = 0x00000001,
+    GRAPHIC_SHADER_LOAD_OPTION_Fragment  = 0x00000010,
+    GRAPHIC_SHADER_LOAD_OPTION_Geometry  = 0x00000100,
+    GRAPHIC_SHADER_LOAD_OPTION_Tesselate = 0x00001000,
+    GRAPHIC_SHADER_LOAD_OPTION_Compute   = 0x00010000
+};
+
+#endif /* GRAPHIC_SHADER_LOAD_OPTION_h */

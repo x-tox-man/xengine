@@ -93,7 +93,8 @@ GRAPHIC_UI_ELEMENT * ASSET_EDITOR::CreateUIText( const char * item_name, const c
     
     GRAPHIC_UI_TEXT * element = new GRAPHIC_UI_TEXT;
     
-    element->SetSize(12);
+    abort();
+    /*element->SetSize(12);
     element->SetText( text_value );
     element->SetSize( 1.0f );
     element->SetColor( CORE_COLOR_Red );
@@ -116,7 +117,7 @@ GRAPHIC_UI_ELEMENT * ASSET_EDITOR::CreateUIText( const char * item_name, const c
         parent->AddObject( element );
         
         parent->OnPlacementPropertyChanged();
-    }
+    }*/
     
     return element;
 }

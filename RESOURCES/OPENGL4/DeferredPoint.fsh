@@ -60,7 +60,7 @@ vec4 CalcLightInternal(PointLight point, vec3 LightDirection, vec3 Normal, vec3 
 
 vec4 CalcPointLight( vec3 WorldPos, PointLight point, vec3 Normal)
 {
-    vec3 LightDirection = WorldPos.xyz - (point_light_table[0].Position.xyz+vec3(0.0,0.0,0.0));
+    vec3 LightDirection = WorldPos.xyz - point_light_table[0].Position.xyz;
     
     float Distance = length(LightDirection);
     LightDirection = normalize(LightDirection);

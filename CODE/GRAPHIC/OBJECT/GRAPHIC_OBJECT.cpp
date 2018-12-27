@@ -96,23 +96,31 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         }
         
         GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelViewMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & view_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ViewMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & time_mod = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
+        GRAPHIC_SHADER_ATTRIBUTE & projection_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
         
         ComputeModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
-        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix.AttributeIndex, 1, 1, &result[0])
+        if ( mvp_matrix.AttributeIndex > 0 ) {
+            
+            GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix.AttributeIndex, 1, 1, &result[0])
+        }
+        
+        if ( projection_matrix.AttributeIndex > 0 ) {
+            
+            GRAPHIC_SYSTEM_ApplyMatrix(projection_matrix.AttributeIndex, 1, 1, &renderer.GetCamera()->GetProjectionMatrix()[0]);
+        }
         
         if ( model_matrix.AttributeIndex > 0 ) {
             
-            CORE_MATH_MATRIX
-                inv,
-                model_view;
-            renderer.GetCamera()->GetViewMatrix().GetInverse( inv );
+            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix.AttributeIndex, 1, 0, &object[0]);
+        }
+        
+        if ( view_matrix.AttributeIndex > 0 ) {
             
-            model_view = object;
-            
-            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix.AttributeIndex, 1, 1, &model_view[0])
+            GRAPHIC_SYSTEM_ApplyMatrix(view_matrix.AttributeIndex, 1, 1, &renderer.GetCamera()->GetViewMatrix()[0]);
         }
         
         if ( time_mod.AttributeIndex > 0 ) {
@@ -147,7 +155,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             
             depthMVP = renderer.GetShadowMapCamera( cascade_index ).GetProjectionMatrix() * renderer.GetShadowMapCamera( cascade_index ).GetViewMatrix() * object;
             
-            depthBias = depthMVP;
+            depthBias = biasMatrix * depthMVP;
             
             float cascade_end[8];
             
@@ -224,6 +232,14 @@ void GRAPHIC_OBJECT::Release() {
     for ( size_t i = 0; i < MeshTable.size(); i++ ) {
         
         MeshTable[i]->ReleaseBuffers();
+    }
+}
+
+void GRAPHIC_OBJECT::SetTesselation( bool enable ) {
+    
+    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
+        
+        MeshTable[i]->SetPolygonRenderMode( GRAPHIC_MESH_POLYGON_RENDER_MODE_TesselationPatches );
     }
 }
 

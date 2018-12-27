@@ -923,117 +923,68 @@
 		3238F9E21E90E80700838C62 /* GteCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F58E1E90E80400838C62 /* GteCommand.cpp */; };
 		3238F9E41E90E80700838C62 /* GteEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F58F1E90E80400838C62 /* GteEnvironment.cpp */; };
 		3238F9E61E90E80700838C62 /* GteEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F58F1E90E80400838C62 /* GteEnvironment.cpp */; };
-		3238F9E81E90E80700838C62 /* GteEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F58F1E90E80400838C62 /* GteEnvironment.cpp */; };
 		3238F9E91E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5901E90E80400838C62 /* GteOnIdleTimer.cpp */; };
 		3238F9EA1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5901E90E80400838C62 /* GteOnIdleTimer.cpp */; };
 		3238F9EB1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5901E90E80400838C62 /* GteOnIdleTimer.cpp */; };
 		3238F9EC1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5901E90E80400838C62 /* GteOnIdleTimer.cpp */; };
-		3238F9ED1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5901E90E80400838C62 /* GteOnIdleTimer.cpp */; };
 		3238F9F01E90E80700838C62 /* GteWICFileIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5911E90E80400838C62 /* GteWICFileIO.cpp */; };
 		3238F9F51E90E80700838C62 /* GteWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5921E90E80400838C62 /* GteWindow.cpp */; };
 		3238F9FA1E90E80700838C62 /* GteWindow2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5931E90E80400838C62 /* GteWindow2.cpp */; };
 		3238F9FF1E90E80700838C62 /* GteWindow3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5941E90E80400838C62 /* GteWindow3.cpp */; };
 		3238FA041E90E80700838C62 /* GteWindowSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5951E90E80400838C62 /* GteWindowSystem.cpp */; };
 		3238FA071E90E80700838C62 /* GteLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5971E90E80400838C62 /* GteLogger.cpp */; };
-		3238FA081E90E80700838C62 /* GteLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5971E90E80400838C62 /* GteLogger.cpp */; };
 		3238FA091E90E80700838C62 /* GteLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5971E90E80400838C62 /* GteLogger.cpp */; };
-		3238FA0A1E90E80700838C62 /* GteLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5971E90E80400838C62 /* GteLogger.cpp */; };
-		3238FA0B1E90E80700838C62 /* GteLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5971E90E80400838C62 /* GteLogger.cpp */; };
 		3238FA0C1E90E80700838C62 /* GteLogReporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5981E90E80400838C62 /* GteLogReporter.cpp */; };
-		3238FA0D1E90E80700838C62 /* GteLogReporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5981E90E80400838C62 /* GteLogReporter.cpp */; };
 		3238FA0E1E90E80700838C62 /* GteLogReporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5981E90E80400838C62 /* GteLogReporter.cpp */; };
-		3238FA0F1E90E80700838C62 /* GteLogReporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5981E90E80400838C62 /* GteLogReporter.cpp */; };
-		3238FA101E90E80700838C62 /* GteLogReporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5981E90E80400838C62 /* GteLogReporter.cpp */; };
 		3238FA111E90E80700838C62 /* GteLogToFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5991E90E80400838C62 /* GteLogToFile.cpp */; };
-		3238FA121E90E80700838C62 /* GteLogToFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5991E90E80400838C62 /* GteLogToFile.cpp */; };
 		3238FA131E90E80700838C62 /* GteLogToFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5991E90E80400838C62 /* GteLogToFile.cpp */; };
-		3238FA151E90E80700838C62 /* GteLogToFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5991E90E80400838C62 /* GteLogToFile.cpp */; };
 		3238FA161E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59A1E90E80400838C62 /* GteLogToMessageBox.cpp */; };
-		3238FA171E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59A1E90E80400838C62 /* GteLogToMessageBox.cpp */; };
 		3238FA181E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59A1E90E80400838C62 /* GteLogToMessageBox.cpp */; };
-		3238FA191E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59A1E90E80400838C62 /* GteLogToMessageBox.cpp */; };
-		3238FA1A1E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59A1E90E80400838C62 /* GteLogToMessageBox.cpp */; };
 		3238FA1B1E90E80700838C62 /* GteLogToOutputWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59B1E90E80400838C62 /* GteLogToOutputWindow.cpp */; };
-		3238FA1C1E90E80700838C62 /* GteLogToOutputWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59B1E90E80400838C62 /* GteLogToOutputWindow.cpp */; };
 		3238FA1D1E90E80700838C62 /* GteLogToOutputWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59B1E90E80400838C62 /* GteLogToOutputWindow.cpp */; };
-		3238FA1E1E90E80700838C62 /* GteLogToOutputWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59B1E90E80400838C62 /* GteLogToOutputWindow.cpp */; };
-		3238FA1F1E90E80700838C62 /* GteLogToOutputWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59B1E90E80400838C62 /* GteLogToOutputWindow.cpp */; };
 		3238FA201E90E80700838C62 /* GteLogToStdout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59C1E90E80400838C62 /* GteLogToStdout.cpp */; };
-		3238FA211E90E80700838C62 /* GteLogToStdout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59C1E90E80400838C62 /* GteLogToStdout.cpp */; };
 		3238FA221E90E80700838C62 /* GteLogToStdout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59C1E90E80400838C62 /* GteLogToStdout.cpp */; };
-		3238FA231E90E80700838C62 /* GteLogToStdout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59C1E90E80400838C62 /* GteLogToStdout.cpp */; };
-		3238FA241E90E80700838C62 /* GteLogToStdout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59C1E90E80400838C62 /* GteLogToStdout.cpp */; };
 		3238FA251E90E80700838C62 /* GteLogToStringArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59D1E90E80400838C62 /* GteLogToStringArray.cpp */; };
-		3238FA261E90E80700838C62 /* GteLogToStringArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59D1E90E80400838C62 /* GteLogToStringArray.cpp */; };
 		3238FA271E90E80700838C62 /* GteLogToStringArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59D1E90E80400838C62 /* GteLogToStringArray.cpp */; };
-		3238FA281E90E80700838C62 /* GteLogToStringArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59D1E90E80400838C62 /* GteLogToStringArray.cpp */; };
-		3238FA291E90E80700838C62 /* GteLogToStringArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59D1E90E80400838C62 /* GteLogToStringArray.cpp */; };
 		3238FA2A1E90E80700838C62 /* GteTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59E1E90E80400838C62 /* GteTimer.cpp */; };
-		3238FA2B1E90E80700838C62 /* GteTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59E1E90E80400838C62 /* GteTimer.cpp */; };
 		3238FA2C1E90E80700838C62 /* GteTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59E1E90E80400838C62 /* GteTimer.cpp */; };
-		3238FA2D1E90E80700838C62 /* GteTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59E1E90E80400838C62 /* GteTimer.cpp */; };
-		3238FA2E1E90E80700838C62 /* GteTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59E1E90E80400838C62 /* GteTimer.cpp */; };
 		3238FA311E90E80700838C62 /* GteWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F59F1E90E80400838C62 /* GteWrapper.cpp */; };
 		3238FA341E90E80700838C62 /* GteBitHacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A31E90E80400838C62 /* GteBitHacks.cpp */; };
-		3238FA351E90E80700838C62 /* GteBitHacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A31E90E80400838C62 /* GteBitHacks.cpp */; };
 		3238FA361E90E80700838C62 /* GteBitHacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A31E90E80400838C62 /* GteBitHacks.cpp */; };
 		3238FA371E90E80700838C62 /* GteBitHacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A31E90E80400838C62 /* GteBitHacks.cpp */; };
-		3238FA381E90E80700838C62 /* GteBitHacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A31E90E80400838C62 /* GteBitHacks.cpp */; };
 		3238FA391E90E80700838C62 /* GteBSPrecision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A41E90E80400838C62 /* GteBSPrecision.cpp */; };
-		3238FA3A1E90E80700838C62 /* GteBSPrecision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A41E90E80400838C62 /* GteBSPrecision.cpp */; };
 		3238FA3B1E90E80700838C62 /* GteBSPrecision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A41E90E80400838C62 /* GteBSPrecision.cpp */; };
 		3238FA3C1E90E80700838C62 /* GteBSPrecision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A41E90E80400838C62 /* GteBSPrecision.cpp */; };
-		3238FA3D1E90E80700838C62 /* GteBSPrecision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A41E90E80400838C62 /* GteBSPrecision.cpp */; };
 		3238FA3E1E90E80700838C62 /* GteEdgeKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A51E90E80400838C62 /* GteEdgeKey.cpp */; };
-		3238FA3F1E90E80700838C62 /* GteEdgeKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A51E90E80400838C62 /* GteEdgeKey.cpp */; };
 		3238FA401E90E80700838C62 /* GteEdgeKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A51E90E80400838C62 /* GteEdgeKey.cpp */; };
 		3238FA411E90E80700838C62 /* GteEdgeKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A51E90E80400838C62 /* GteEdgeKey.cpp */; };
-		3238FA421E90E80700838C62 /* GteEdgeKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A51E90E80400838C62 /* GteEdgeKey.cpp */; };
 		3238FA431E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A61E90E80400838C62 /* GteETManifoldMesh.cpp */; };
-		3238FA441E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A61E90E80400838C62 /* GteETManifoldMesh.cpp */; };
 		3238FA451E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A61E90E80400838C62 /* GteETManifoldMesh.cpp */; };
 		3238FA461E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A61E90E80400838C62 /* GteETManifoldMesh.cpp */; };
-		3238FA471E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A61E90E80400838C62 /* GteETManifoldMesh.cpp */; };
 		3238FA481E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A71E90E80400838C62 /* GteGenerateMeshUV.cpp */; };
-		3238FA491E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A71E90E80400838C62 /* GteGenerateMeshUV.cpp */; };
 		3238FA4A1E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A71E90E80400838C62 /* GteGenerateMeshUV.cpp */; };
 		3238FA4B1E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A71E90E80400838C62 /* GteGenerateMeshUV.cpp */; };
-		3238FA4C1E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A71E90E80400838C62 /* GteGenerateMeshUV.cpp */; };
 		3238FA4D1E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A81E90E80400838C62 /* GteIEEEBinary16.cpp */; };
-		3238FA4E1E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A81E90E80400838C62 /* GteIEEEBinary16.cpp */; };
 		3238FA4F1E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A81E90E80400838C62 /* GteIEEEBinary16.cpp */; };
 		3238FA501E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A81E90E80400838C62 /* GteIEEEBinary16.cpp */; };
-		3238FA511E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A81E90E80400838C62 /* GteIEEEBinary16.cpp */; };
 		3238FA541E90E80700838C62 /* GteIntelSSE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5A91E90E80400838C62 /* GteIntelSSE.cpp */; };
 		3238FA571E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AA1E90E80400838C62 /* GteTetrahedronKey.cpp */; };
-		3238FA581E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AA1E90E80400838C62 /* GteTetrahedronKey.cpp */; };
 		3238FA591E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AA1E90E80400838C62 /* GteTetrahedronKey.cpp */; };
 		3238FA5A1E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AA1E90E80400838C62 /* GteTetrahedronKey.cpp */; };
-		3238FA5B1E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AA1E90E80400838C62 /* GteTetrahedronKey.cpp */; };
 		3238FA5C1E90E80700838C62 /* GteTriangleKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AB1E90E80400838C62 /* GteTriangleKey.cpp */; };
-		3238FA5D1E90E80700838C62 /* GteTriangleKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AB1E90E80400838C62 /* GteTriangleKey.cpp */; };
 		3238FA5E1E90E80700838C62 /* GteTriangleKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AB1E90E80400838C62 /* GteTriangleKey.cpp */; };
 		3238FA5F1E90E80700838C62 /* GteTriangleKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AB1E90E80400838C62 /* GteTriangleKey.cpp */; };
-		3238FA601E90E80700838C62 /* GteTriangleKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AB1E90E80400838C62 /* GteTriangleKey.cpp */; };
 		3238FA611E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AC1E90E80400838C62 /* GteTSManifoldMesh.cpp */; };
-		3238FA621E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AC1E90E80400838C62 /* GteTSManifoldMesh.cpp */; };
 		3238FA631E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AC1E90E80400838C62 /* GteTSManifoldMesh.cpp */; };
 		3238FA641E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AC1E90E80400838C62 /* GteTSManifoldMesh.cpp */; };
-		3238FA651E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AC1E90E80400838C62 /* GteTSManifoldMesh.cpp */; };
 		3238FA661E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AD1E90E80400838C62 /* GteUIntegerAP32.cpp */; };
-		3238FA671E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AD1E90E80400838C62 /* GteUIntegerAP32.cpp */; };
 		3238FA681E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AD1E90E80400838C62 /* GteUIntegerAP32.cpp */; };
-		3238FA6A1E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AD1E90E80400838C62 /* GteUIntegerAP32.cpp */; };
 		3238FA6B1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AE1E90E80400838C62 /* GteVEManifoldMesh.cpp */; };
-		3238FA6C1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AE1E90E80400838C62 /* GteVEManifoldMesh.cpp */; };
 		3238FA6D1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AE1E90E80400838C62 /* GteVEManifoldMesh.cpp */; };
 		3238FA6E1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AE1E90E80400838C62 /* GteVEManifoldMesh.cpp */; };
-		3238FA6F1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AE1E90E80400838C62 /* GteVEManifoldMesh.cpp */; };
 		3238FA701E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AF1E90E80400838C62 /* GteVETManifoldMesh.cpp */; };
-		3238FA711E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AF1E90E80400838C62 /* GteVETManifoldMesh.cpp */; };
 		3238FA721E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AF1E90E80400838C62 /* GteVETManifoldMesh.cpp */; };
 		3238FA731E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AF1E90E80400838C62 /* GteVETManifoldMesh.cpp */; };
-		3238FA741E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5AF1E90E80400838C62 /* GteVETManifoldMesh.cpp */; };
 		323DDF731C0DC82A006D1BCE /* bell-ringing-05.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 323DDF6C1C0DC82A006D1BCE /* bell-ringing-05.mp3 */; };
 		323DDF741C0DC82A006D1BCE /* bell-ringing-05.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 323DDF6C1C0DC82A006D1BCE /* bell-ringing-05.mp3 */; };
 		323DDF751C0DC82A006D1BCE /* Rammstein-Du-Hast.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 323DDF6D1C0DC82A006D1BCE /* Rammstein-Du-Hast.mp3 */; };
@@ -1291,7 +1242,6 @@
 		5F177119208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
 		5F17711A208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
 		5F17711B208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
-		5F17711D208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
 		5F17711F208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F2208E6F8400720C7F /* AUDIO_LOADER_IOS.mm */; };
 		5F177120208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */; };
 		5F177121208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F1770F3208E6F8400720C7F /* AUDIO_SYSTEM.cpp */; };
@@ -1438,6 +1388,10 @@
 		5F44BA2C211025CA00CD24C8 /* CORE_MATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0203DE20D5CA670038BB96 /* CORE_MATH.cpp */; };
 		5F44BA2D2110261A00CD24C8 /* libogg copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64D208C70AE009673DE /* libogg copy.a */; };
 		5F44BA2E2110261A00CD24C8 /* libvorbis copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64E208C70AE009673DE /* libvorbis copy.a */; };
+		5F55784021B04C18001621BF /* libogg copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64D208C70AE009673DE /* libogg copy.a */; };
+		5F55784121B04C67001621BF /* libvorbis copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64E208C70AE009673DE /* libvorbis copy.a */; };
+		5F55784221B04C84001621BF /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */; };
+		5F55784321B04C84001621BF /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */; };
 		5F5661D81ED2E57500C8D216 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE70E11ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp */; };
 		5F5661DE1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */; };
 		5F5661DF1ED9B63C00C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */; };
@@ -1938,7 +1892,6 @@
 		5FCCB530202DCE0D00595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCCB52A202BADC300595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp */; };
 		5FCCB531202DCE0E00595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCCB52A202BADC300595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp */; };
 		5FCCB532202DCE0E00595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCCB52A202BADC300595BD0 /* GAMEPLAY_ACTION_COMMAND_CLOCK.cpp */; };
-		5FD11D271F18EBF20092E3A7 /* GteLogToFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5991E90E80400838C62 /* GteLogToFile.cpp */; };
 		5FD11D281F18EBF70092E3A7 /* GteEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F58F1E90E80400838C62 /* GteEnvironment.cpp */; };
 		5FD5700D20C6EBFB00B3ACCE /* GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5700B20C6EBFB00B3ACCE /* GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.cpp */; };
 		5FD5700E20C6EBFB00B3ACCE /* GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5700B20C6EBFB00B3ACCE /* GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.cpp */; };
@@ -2248,11 +2201,9 @@
 		5FEA409B1F7530790085DDB5 /* libftoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40431F7530660085DDB5 /* libftoa.a */; };
 		5FEA409C1F7530790085DDB5 /* libGeneratedSaxParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40441F7530660085DDB5 /* libGeneratedSaxParser.a */; };
 		5FEA409D1F7530790085DDB5 /* libGIMPACTUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40451F7530660085DDB5 /* libGIMPACTUtils.a */; };
-		5FEA409F1F7530790085DDB5 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40471F7530660085DDB5 /* libgtest.a */; };
 		5FEA40A01F7530790085DDB5 /* libgwen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40481F7530660085DDB5 /* libgwen.a */; };
 		5FEA40A11F7530790085DDB5 /* libHACD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40491F7530660085DDB5 /* libHACD.a */; };
 		5FEA40A31F7530790085DDB5 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404B1F7530660085DDB5 /* libLinearMath.a */; };
-		5FEA40A41F7530790085DDB5 /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */; };
 		5FEA40A61F7530790085DDB5 /* libMathMLSolver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404E1F7530660085DDB5 /* libMathMLSolver.a */; };
 		5FEA40A71F7530790085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404F1F7530660085DDB5 /* libOpenCOLLADABaseUtils.a */; };
 		5FEA40A81F7530790085DDB5 /* libOpenCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA40501F7530660085DDB5 /* libOpenCOLLADAFramework.a */; };
@@ -3158,6 +3109,9 @@
 		5F3BC8521EE568E50031CEF7 /* EmptyComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyComponent.xib; sourceTree = "<group>"; };
 		5F3BC8541EE56ED80031CEF7 /* ParentVCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentVCDelegate.h; sourceTree = "<group>"; };
 		5F3BC8551EE60F4F0031CEF7 /* ModalBackDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModalBackDelegate.h; sourceTree = "<group>"; };
+		5F4AEE9821973128001CA9BA /* GRAPHIC_POLYGON_FACE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_POLYGON_FACE.h; sourceTree = "<group>"; };
+		5F4AEE9921973233001CA9BA /* GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h; sourceTree = "<group>"; };
+		5F4AEE9A2197375E001CA9BA /* GRAPHIC_SYSTEM_BLEND_EQUATION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SYSTEM_BLEND_EQUATION.h; sourceTree = "<group>"; };
 		5F50C3172014E5AA0093FD77 /* VK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VK.cpp; sourceTree = "<group>"; };
 		5F50C3182014E5AB0093FD77 /* VK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VK.h; sourceTree = "<group>"; };
 		5F5661DC1ED5AF1400C8D216 /* GRAPHIC_OBJECT_RENDER_OPTIONS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_OBJECT_RENDER_OPTIONS.cpp; sourceTree = "<group>"; };
@@ -3177,6 +3131,7 @@
 		5F70E79D1FADB3B200D90632 /* CORE_DATA_JSON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_DATA_JSON.cpp; sourceTree = "<group>"; };
 		5F70E79E1FADB3B200D90632 /* CORE_DATA_JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CORE_DATA_JSON.h; sourceTree = "<group>"; };
 		5F70E7A71FADF82200D90632 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcre.a; sourceTree = "<group>"; };
+		5F770D0921C071440059F72C /* GRAPHIC_SHADER_LOAD_OPTION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SHADER_LOAD_OPTION.h; sourceTree = "<group>"; };
 		5F7987BF1FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TOOLS_DEBUG_DRAW.cpp; sourceTree = "<group>"; };
 		5F7987C01FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOOLS_DEBUG_DRAW.h; sourceTree = "<group>"; };
 		5F848DBC20EB38330000BB5B /* GRAPHIC_RENDER_TECHNIQUE_SSAO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_RENDER_TECHNIQUE_SSAO.cpp; sourceTree = "<group>"; };
@@ -3494,6 +3449,7 @@
 				329756A51E90EA160074EEEC /* CoreAudio.framework in Frameworks */,
 				5FEA408A1F7530790085DDB5 /* libBullet3Collision.a in Frameworks */,
 				5FEA408D1F7530790085DDB5 /* libBullet3Geometry.a in Frameworks */,
+				5F55784021B04C18001621BF /* libogg copy.a in Frameworks */,
 				5FEA409B1F7530790085DDB5 /* libftoa.a in Frameworks */,
 				5FEA40901F7530790085DDB5 /* libBulletDynamics.a in Frameworks */,
 				5FEA40891F7530790085DDB5 /* libBullet3AppSupport.a in Frameworks */,
@@ -3504,6 +3460,8 @@
 				5FAFD02C1F75400C00113D6E /* AppKit.framework in Frameworks */,
 				5FEA409D1F7530790085DDB5 /* libGIMPACTUtils.a in Frameworks */,
 				5FEA408B1F7530790085DDB5 /* libBullet3Common.a in Frameworks */,
+				5F55784121B04C67001621BF /* libvorbis copy.a in Frameworks */,
+				5F55784221B04C84001621BF /* liblua-5.2.3.a in Frameworks */,
 				5FEA408E1F7530790085DDB5 /* libBullet3OpenCL_clew.a in Frameworks */,
 				329756BF1E90EA2C0074EEEC /* OpenAL.framework in Frameworks */,
 				5FEA40A31F7530790085DDB5 /* libLinearMath.a in Frameworks */,
@@ -3519,7 +3477,6 @@
 				5FEA40871F7530790085DDB5 /* libbuffer.a in Frameworks */,
 				5FEA40991F7530790085DDB5 /* libConvexDecomposition.a in Frameworks */,
 				5FEA408F1F7530790085DDB5 /* libBulletCollision.a in Frameworks */,
-				5FEA409F1F7530790085DDB5 /* libgtest.a in Frameworks */,
 				5FEA40B01F7530790085DDB5 /* libuv.a in Frameworks */,
 				329756A41E90EA160074EEEC /* AVFoundation.framework in Frameworks */,
 				5FEA40941F7530790085DDB5 /* libBulletWorldImporter.a in Frameworks */,
@@ -3527,7 +3484,6 @@
 				5FEA40911F7530790085DDB5 /* libBulletFileLoader.a in Frameworks */,
 				329756BE1E90EA2C0074EEEC /* GLKit.framework in Frameworks */,
 				5FEA40951F7530790085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */,
-				5FEA40A41F7530790085DDB5 /* liblua-5.2.3.a in Frameworks */,
 				5FEA40921F7530790085DDB5 /* libBulletInverseDynamics.a in Frameworks */,
 				5FEA40AB1F7530790085DDB5 /* libOpenGLSupport.a in Frameworks */,
 				5FEA40AA1F7530790085DDB5 /* libOpenCOLLADAStreamWriter.a in Frameworks */,
@@ -3755,6 +3711,7 @@
 				5FEA40801F7530780085DDB5 /* libOpenGLWindow.a in Frameworks */,
 				5FEA407F1F7530780085DDB5 /* libOpenGLSupport.a in Frameworks */,
 				5FEA40741F7530780085DDB5 /* libgwen.a in Frameworks */,
+				5F55784321B04C84001621BF /* liblua-5.2.3.a in Frameworks */,
 				5FEA40771F7530780085DDB5 /* libLinearMath.a in Frameworks */,
 				5FEA407B1F7530780085DDB5 /* libOpenCOLLADABaseUtils.a in Frameworks */,
 				5FEA407D1F7530780085DDB5 /* libOpenCOLLADASaxFrameworkLoader.a in Frameworks */,
@@ -4675,6 +4632,7 @@
 			children = (
 				3238F4BB1E90E80400838C62 /* EFFECT */,
 				3238F4CB1E90E80400838C62 /* GRAPHIC_SHADER.cpp */,
+				5F770D0921C071440059F72C /* GRAPHIC_SHADER_LOAD_OPTION.h */,
 				3238F4CC1E90E80400838C62 /* GRAPHIC_SHADER.h */,
 				3238F4CD1E90E80400838C62 /* GRAPHIC_SHADER_ATTRIBUTE.cpp */,
 				3238F4CE1E90E80400838C62 /* GRAPHIC_SHADER_ATTRIBUTE.h */,
@@ -4763,6 +4721,9 @@
 				5FCC3D6E2002F01900A698B8 /* OPENGL_4.h */,
 				3238F4EB1E90E80400838C62 /* OPENGLES_2.cpp */,
 				3238F4EC1E90E80400838C62 /* OPENGLES_2.h */,
+				5F4AEE9821973128001CA9BA /* GRAPHIC_POLYGON_FACE.h */,
+				5F4AEE9921973233001CA9BA /* GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h */,
+				5F4AEE9A2197375E001CA9BA /* GRAPHIC_SYSTEM_BLEND_EQUATION.h */,
 			);
 			path = SYSTEM;
 			sourceTree = "<group>";
@@ -5155,7 +5116,6 @@
 			isa = PBXGroup;
 			children = (
 				3238F58E1E90E80400838C62 /* GteCommand.cpp */,
-				3238F58F1E90E80400838C62 /* GteEnvironment.cpp */,
 				3238F5901E90E80400838C62 /* GteOnIdleTimer.cpp */,
 				3238F5911E90E80400838C62 /* GteWICFileIO.cpp */,
 				3238F5921E90E80400838C62 /* GteWindow.cpp */,
@@ -5189,6 +5149,7 @@
 				3238F5A41E90E80400838C62 /* GteBSPrecision.cpp */,
 				3238F5A51E90E80400838C62 /* GteEdgeKey.cpp */,
 				3238F5A61E90E80400838C62 /* GteETManifoldMesh.cpp */,
+				3238F58F1E90E80400838C62 /* GteEnvironment.cpp */,
 				3238F5A71E90E80400838C62 /* GteGenerateMeshUV.cpp */,
 				3238F5A81E90E80400838C62 /* GteIEEEBinary16.cpp */,
 				3238F5A91E90E80400838C62 /* GteIntelSSE.cpp */,
@@ -6549,7 +6510,6 @@
 				5FF8B5931FC569410010A6BB /* GAMEPLAY_CHECKPOINT.cpp in Sources */,
 				3238F82B1E90E80600838C62 /* GRAPHIC_PARTICLE.cpp in Sources */,
 				5F70E7A31FADB3B300D90632 /* CORE_DATA_JSON.cpp in Sources */,
-				3238FA1F1E90E80700838C62 /* GteLogToOutputWindow.cpp in Sources */,
 				3238F6501E90E80500838C62 /* CORE_DATA_BUFFER.cpp in Sources */,
 				3238F9A71E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
 				3238F60F1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_FACTORY.cpp in Sources */,
@@ -6557,7 +6517,6 @@
 				3238F7B31E90E80500838C62 /* GRAPHIC_MATERIAL.cpp in Sources */,
 				3238F6AA1E90E80500838C62 /* CORE_MATH_SHAPE_RECTANGLE.cpp in Sources */,
 				5FF8B5891FC568E70010A6BB /* GAMEPLAY_CHECKPOINT_SYSTEM.cpp in Sources */,
-				3238FA4C1E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
 				3238F9071E90E80600838C62 /* GRAPHIC_UI_ELEMENT.cpp in Sources */,
 				5FECE0781ECEFFAC009B55C2 /* ResourceManager.m in Sources */,
 				3238F7361E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_QUIT.cpp in Sources */,
@@ -6570,7 +6529,6 @@
 				3238F7E01E90E80500838C62 /* GRAPHIC_MESH_OPENGL.cpp in Sources */,
 				3253DB4A1EBF5EFC00DF1797 /* RESOURCE_TYPE.cpp in Sources */,
 				3238F8441E90E80600838C62 /* GRAPHIC_PARTICLE_RENDERER.cpp in Sources */,
-				3238FA471E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */,
 				5F17715C208E6F8400720C7F /* AUDIO_LOADER.cpp in Sources */,
 				5FEA3F7C1F7421500085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp in Sources */,
 				3238F85D1E90E80600838C62 /* GRAPHIC_RENDERER.cpp in Sources */,
@@ -6578,12 +6536,10 @@
 				3238F6231E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_STATE.cpp in Sources */,
 				5FC19B951EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238F8671E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.cpp in Sources */,
-				3238FA6A1E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */,
 				3238F9521E90E80600838C62 /* NETWORK_CLIENT.cpp in Sources */,
 				3238F8C61E90E80600838C62 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
 				321F89341EA79C1E001A7E78 /* LeftPane3DViewController.m in Sources */,
 				5FC19B721EDF6335003E53D5 /* CORE_FILESYSTEM.cpp in Sources */,
-				3238FA101E90E80700838C62 /* GteLogReporter.cpp in Sources */,
 				3238F6911E90E80500838C62 /* CORE_MATH_POSE.cpp in Sources */,
 				5F2FB8372030E42100289949 /* GAMEPLAY_ACTION_COMMAND_LOAD_GAME.cpp in Sources */,
 				3238F7771E90E80500838C62 /* GAMEPLAY_COMPONENT_RENDER.cpp in Sources */,
@@ -6603,7 +6559,6 @@
 				3238F8761E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
 				3238F9021E90E80600838C62 /* GRAPHIC_UI_ANIMATION.cpp in Sources */,
 				5F5661EC1ED9C8EF00C8D216 /* GRAPHIC_TEXTURE_LOADER.cpp in Sources */,
-				3238FA291E90E80700838C62 /* GteLogToStringArray.cpp in Sources */,
 				3238F96B1E90E80600838C62 /* PERIPHERIC_INTERACTION_SYSTEM.cpp in Sources */,
 				3238F8991E90E80600838C62 /* GRAPHIC_SHADER_OPENGL.cpp in Sources */,
 				3238F6051E90E80400838C62 /* CORE_ABSTRACT_FUNCTION_PARAMETER.cpp in Sources */,
@@ -6619,7 +6574,6 @@
 				3238F7451E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */,
 				5FD5701120C6EBFB00B3ACCE /* GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.cpp in Sources */,
 				3238F9DE1E90E80700838C62 /* FONT_EDITOR.cpp in Sources */,
-				5F17711D208E6F8400720C7F /* AUDIO_LOADER_IOS.mm in Sources */,
 				3238F7A91E90E80500838C62 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
 				3238F8A31E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM.cpp in Sources */,
 				328ABFF81EC0C69A00C501A8 /* Create3dItem.m in Sources */,
@@ -6637,7 +6591,6 @@
 				3238F7631E90E80500838C62 /* GAMEPLAY_COMPONENT_ENTITY.cpp in Sources */,
 				3238F6B41E90E80500838C62 /* CORE_MATH_SHAPE_TYPE.cpp in Sources */,
 				3238F9931E90E80700838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */,
-				3238F9E81E90E80700838C62 /* GteEnvironment.cpp in Sources */,
 				3261CEFA1E91229E000872F4 /* LeftPaneViewController.m in Sources */,
 				32BFC8241E9A78370080BF8E /* AtlasViewController.m in Sources */,
 				3238F5FB1E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
@@ -6647,7 +6600,6 @@
 				5FAFD05D1F75598100113D6E /* CORE_MATH_RAY_SEGMENT.cpp in Sources */,
 				328ABFFC1EC1199300C501A8 /* Cpp3dDataProxy.m in Sources */,
 				3238F78B1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
-				3238FA0B1E90E80700838C62 /* GteLogger.cpp in Sources */,
 				3289D31D1E91266B00354443 /* ASSET_EDITOR.cpp in Sources */,
 				3238F9571E90E80600838C62 /* NETWORK_PLAYER.cpp in Sources */,
 				3238F9611E90E80600838C62 /* PERIPHERIC_INTERACTION_KEYBOARD.cpp in Sources */,
@@ -6663,7 +6615,6 @@
 				3238F8C11E90E80600838C62 /* GRAPHIC_FONT.cpp in Sources */,
 				3238F8D51E90E80600838C62 /* GRAPHIC_TEXTURE.cpp in Sources */,
 				3238F6411E90E80500838C62 /* CORE_ABSTRACT_RUNTIME_LUA.cpp in Sources */,
-				3238FA3D1E90E80700838C62 /* GteBSPrecision.cpp in Sources */,
 				3238F7DB1E90E80500838C62 /* GRAPHIC_MESH_MANAGER.cpp in Sources */,
 				5F2E782D20E2DDC80027407C /* GAMEPLAY_COMPONENT_SYSTEM_LIGHTING.cpp in Sources */,
 				3238F8121E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_GRID.cpp in Sources */,
@@ -6681,7 +6632,6 @@
 				5F2B53C31F11A6A500E69CF5 /* GRAPHIC_MATERIAL_COLLECTION.cpp in Sources */,
 				32AFED111EBBD365006664AB /* CustomDragView.m in Sources */,
 				3238F6F51E90E80500838C62 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
-				3238FA151E90E80700838C62 /* GteLogToFile.cpp in Sources */,
 				3238F83F1E90E80600838C62 /* GRAPHIC_PARTICLE_MODIFIER_GRAVITY.cpp in Sources */,
 				3238F7D61E90E80500838C62 /* GRAPHIC_MESH.cpp in Sources */,
 				5F2FB8362030E42100289949 /* GAMEPLAY_ACTION_COMMAND_GAME_LOADED.cpp in Sources */,
@@ -6695,8 +6645,6 @@
 				3238F8E41E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
 				5FC19B771EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F6D71E90E80500838C62 /* CORE_PARALLEL_LOCK_POSIX.cpp in Sources */,
-				3238FA381E90E80700838C62 /* GteBitHacks.cpp in Sources */,
-				3238FA511E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */,
 				3238F7F91E90E80600838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.cpp in Sources */,
 				3289D31E1E912A9000354443 /* main.m in Sources */,
 				3238F90C1E90E80600838C62 /* GRAPHIC_UI_FRAME.cpp in Sources */,
@@ -6716,7 +6664,6 @@
 				3238F66E1E90E80500838C62 /* CORE_HELPERS_IDENTIFIER.cpp in Sources */,
 				3238F88F1E90E80600838C62 /* GRAPHIC_SHADER_BIND.cpp in Sources */,
 				3238F8851E90E80600838C62 /* GRAPHIC_SHADER.cpp in Sources */,
-				3238FA241E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
 				3238F7D11E90E80500838C62 /* GRAPHIC_MESH_SUB_SKELETON.cpp in Sources */,
 				3238F92F1E90E80600838C62 /* GRAPHIC_UI_TEXT.cpp in Sources */,
 				3238F7F41E90E80500838C62 /* GRAPHIC_OBJECT_ANIMATED.cpp in Sources */,
@@ -6738,7 +6685,6 @@
 				5F177189208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				3238F8A81E90E80600838C62 /* GRAPHIC_SHADER_PROGRAM_DATA_PROXY.cpp in Sources */,
 				3238F6961E90E80500838C62 /* CORE_MATH_QUATERNION.cpp in Sources */,
-				3238FA5B1E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */,
 				3238F6FF1E90E80500838C62 /* CORE_TIMELINE_EVENT.cpp in Sources */,
 				3238F7901E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp in Sources */,
 				3238F7C71E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
@@ -6756,7 +6702,6 @@
 				32018A451E93C645003D36B2 /* ItemTableViewSource.m in Sources */,
 				3238F8FD1E90E80600838C62 /* GRAPHIC_UI_TEXT_ADAPTER.cpp in Sources */,
 				32018A421E93C5FF003D36B2 /* ItemTableViewDelegate.m in Sources */,
-				3238FA741E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */,
 				3238F8621E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.cpp in Sources */,
 				3238F64B1E90E80500838C62 /* CORE_DATA_FAST_ARRAY.cpp in Sources */,
 				3238F88A1E90E80600838C62 /* GRAPHIC_SHADER_ATTRIBUTE.cpp in Sources */,
@@ -6787,7 +6732,6 @@
 				3238F6D21E90E80500838C62 /* CORE_PARALLEL_LOCK_MUTEX.cpp in Sources */,
 				3238F65F1E90E80500838C62 /* CORE_DATA_STREAM.cpp in Sources */,
 				3238F8031E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
-				3238FA601E90E80700838C62 /* GteTriangleKey.cpp in Sources */,
 				3238F8581E90E80600838C62 /* GRAPHIC_RENDER_TARGET_OPENGL.cpp in Sources */,
 				3238F97A1E90E80600838C62 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp in Sources */,
 				3238F9111E90E80600838C62 /* GRAPHIC_UI_HELPER.cpp in Sources */,
@@ -6796,8 +6740,6 @@
 				3238F9201E90E80600838C62 /* GRAPHIC_UI_SYSTEM.cpp in Sources */,
 				3253DB3C1EBDF51500DF1797 /* ASSET.cpp in Sources */,
 				3238F7A41E90E80500838C62 /* GRAPHIC_CAMERA.cpp in Sources */,
-				3238FA651E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */,
-				3238FA1A1E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */,
 				3238F6A01E90E80500838C62 /* CORE_MATH_SHAPE.cpp in Sources */,
 				3253DB481EBE697D00DF1797 /* GRAPHIC_UI_SCREEN_REFERENCE.cpp in Sources */,
 				3238F95C1E90E80600838C62 /* NETWORK_SERVER.cpp in Sources */,
@@ -6812,10 +6754,8 @@
 				5F177163208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */,
 				3238F73B1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_READY.cpp in Sources */,
 				3238F9891E90E80700838C62 /* RESOURCE_IMAGE.cpp in Sources */,
-				3238F9ED1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */,
 				3238F6281E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_V8.cpp in Sources */,
 				3238F8F31E90E80600838C62 /* GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp in Sources */,
-				3238FA6F1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */,
 				5FAFD0551F75597A00113D6E /* PHYSICS_UTILS.cpp in Sources */,
 				5FCC3D722002F01900A698B8 /* OPENGL_4.cpp in Sources */,
 				3238F8E91E90E80600838C62 /* GRAPHIC_UI_BASE_ADAPTER.cpp in Sources */,
@@ -6825,7 +6765,6 @@
 				3238F6321E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA.cpp in Sources */,
 				5F0C3D0A1FDF35BD00B761A2 /* NETWORK_MANAGER.cpp in Sources */,
 				3238F83A1E90E80600838C62 /* GRAPHIC_PARTICLE_SYSTEM.cpp in Sources */,
-				3238FA421E90E80700838C62 /* GteEdgeKey.cpp in Sources */,
 				5FB60B341FDFB74B009A0692 /* CORE_DATA_UTF8_TEXT.cpp in Sources */,
 				3238F9CF1E90E80700838C62 /* SERVICE_NETWORK_CONNECTION_INFO.cpp in Sources */,
 				3238F67D1E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
@@ -6838,7 +6777,6 @@
 				32ADFE7D1E92DC4B0039E893 /* CreateItemViewController.m in Sources */,
 				5FF8B59D1FC56AD40010A6BB /* GAMEPLAY_CHECKPOINT_PLAYER_DATA.cpp in Sources */,
 				5F0203E920D8CC280038BB96 /* GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING.cpp in Sources */,
-				3238FA2E1E90E80700838C62 /* GteTimer.cpp in Sources */,
 				5F5EC16E1EF9D01D00F4939D /* GAMEPLAY_COMPONENT_ENTITY_HANDLE.cpp in Sources */,
 				3238F6BE1E90E80500838C62 /* CORE_MEMORY.cpp in Sources */,
 			);
@@ -6849,7 +6787,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FD11D281F18EBF70092E3A7 /* GteEnvironment.cpp in Sources */,
-				5FD11D271F18EBF20092E3A7 /* GteLogToFile.cpp in Sources */,
 				3238F6721E90E80500838C62 /* CORE_HELPERS_IDENTIFIER_SYSTEM.cpp in Sources */,
 				3238FA411E90E80700838C62 /* GteEdgeKey.cpp in Sources */,
 				3238F6A91E90E80500838C62 /* CORE_MATH_SHAPE_RECTANGLE.cpp in Sources */,
@@ -6893,7 +6830,6 @@
 				3238F9A61E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
 				5F17716B208E6F8400720C7F /* AUDIO_OGG_LOADER.cpp in Sources */,
 				5F177122208E6F8400720C7F /* AUDIO_SYSTEM.cpp in Sources */,
-				3238FA231E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
 				3238F9791E90E80600838C62 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp in Sources */,
 				3238F9831E90E80600838C62 /* RESOURCE_IMAGE_PNG_WRITER.cpp in Sources */,
 				3238FA4B1E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
@@ -6920,7 +6856,6 @@
 				3238F6F41E90E80500838C62 /* CORE_TIMELINE_COMMAND.cpp in Sources */,
 				5F6CD8F81EDB3E0100631D59 /* GAMEPLAY_COMPONENT_SCRIPT.cpp in Sources */,
 				3238F7FD1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE.cpp in Sources */,
-				3238FA191E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */,
 				3238F78F1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_PICKING.cpp in Sources */,
 				3238F6D61E90E80500838C62 /* CORE_PARALLEL_LOCK_POSIX.cpp in Sources */,
 				3238F87A1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_LOADER.cpp in Sources */,
@@ -6965,7 +6900,6 @@
 				3238F6A41E90E80500838C62 /* CORE_MATH_SHAPE_BOX.cpp in Sources */,
 				3238F68B1E90E80500838C62 /* CORE_MATH_MATRIX.cpp in Sources */,
 				3238F86B1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR.cpp in Sources */,
-				3238FA0F1E90E80700838C62 /* GteLogReporter.cpp in Sources */,
 				3238F5FA1E90E80400838C62 /* CORE_ABSTRACT_BASE_PROGRAM_RUNTIME.cpp in Sources */,
 				3238FA461E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */,
 				3253DB321EBDA2A400DF1797 /* RESOURCE_PROXY.cpp in Sources */,
@@ -7011,7 +6945,6 @@
 				5F6CD8F21EDAED7500631D59 /* RESOURCE_TYPE.cpp in Sources */,
 				3238F6AE1E90E80500838C62 /* CORE_MATH_SHAPE_SPHERE.cpp in Sources */,
 				5FEA3F7E1F7421510085DDB5 /* GAMEPLAY_COMPONENT_BASE_ENTITY.cpp in Sources */,
-				3238FA1E1E90E80700838C62 /* GteLogToOutputWindow.cpp in Sources */,
 				3238F73A1E90E80500838C62 /* GAMEPLAY_ACTION_COMMAND_CLIENT_READY.cpp in Sources */,
 				3238F64F1E90E80500838C62 /* CORE_DATA_BUFFER.cpp in Sources */,
 				3238F9CE1E90E80700838C62 /* SERVICE_NETWORK_CONNECTION_INFO.cpp in Sources */,
@@ -7039,7 +6972,6 @@
 				3238F67C1E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
 				3238F8D91E90E80600838C62 /* GRAPHIC_TEXTURE_ATLAS.cpp in Sources */,
 				3238F6B81E90E80500838C62 /* CORE_MATH_VECTOR.cpp in Sources */,
-				3238FA2D1E90E80700838C62 /* GteTimer.cpp in Sources */,
 				5F0C3D081FDF35BD00B761A2 /* NETWORK_MANAGER.cpp in Sources */,
 				3238F9971E90E80700838C62 /* RESOURCE.cpp in Sources */,
 				5F177187208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
@@ -7078,7 +7010,6 @@
 				5FA227901EF6CA09007BC5A1 /* GAMEPLAY_COMPONENT_HANDLE.cpp in Sources */,
 				3238F9B01E90E80700838C62 /* RESOURCE_SOUND.cpp in Sources */,
 				3238F9EC1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */,
-				3238FA0A1E90E80700838C62 /* GteLogger.cpp in Sources */,
 				3238F7621E90E80500838C62 /* GAMEPLAY_COMPONENT_ENTITY.cpp in Sources */,
 				3238F8F21E90E80600838C62 /* GRAPHIC_UI_FRAME_LIST_ADAPTER.cpp in Sources */,
 				5F177191208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */,
@@ -7090,7 +7021,6 @@
 				3238F6631E90E80500838C62 /* CORE_HELPERS_CALLBACK.cpp in Sources */,
 				5F3BC84B1EE48FA50031CEF7 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */,
 				3238FA731E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */,
-				3238FA281E90E80700838C62 /* GteLogToStringArray.cpp in Sources */,
 				3238F92E1E90E80600838C62 /* GRAPHIC_UI_TEXT.cpp in Sources */,
 				3238F9651E90E80600838C62 /* PERIPHERIC_INTERACTION_MOUSE.cpp in Sources */,
 				3238F8CA1E90E80600838C62 /* GRAPHIC_GLYPH.cpp in Sources */,
@@ -7741,10 +7671,8 @@
 				3238F8C31E90E80600838C62 /* GRAPHIC_FONT_MANAGER.cpp in Sources */,
 				5F177188208E6F8400720C7F /* AUDIO_SOUND_CHUNK.cpp in Sources */,
 				5FB513221FBD67F60025AAAF /* MATH.m in Sources */,
-				3238FA491E90E80700838C62 /* GteGenerateMeshUV.cpp in Sources */,
 				3238F60C1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_FACTORY.cpp in Sources */,
 				3238F98B1E90E80700838C62 /* RESOURCE_IMAGE_ATLAS_COMPILER.cpp in Sources */,
-				3238FA581E90E80700838C62 /* GteTetrahedronKey.cpp in Sources */,
 				5F177162208E6F8400720C7F /* AUDIO_OPENAL.cpp in Sources */,
 				3238F96D1E90E80600838C62 /* PERIPHERIC_INTERACTION_TOUCH.cpp in Sources */,
 				3238F9771E90E80600838C62 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp in Sources */,
@@ -7763,7 +7691,6 @@
 				3238F9541E90E80600838C62 /* NETWORK_PLAYER.cpp in Sources */,
 				3238F9D61E90E80700838C62 /* TOOL_ASSET_COMPILER.cpp in Sources */,
 				3238F62A1E90E80500838C62 /* CORE_ABSTRACT_RUNTIME_V8.cpp in Sources */,
-				3238FA711E90E80700838C62 /* GteVETManifoldMesh.cpp in Sources */,
 				3238F6A71E90E80500838C62 /* CORE_MATH_SHAPE_RECTANGLE.cpp in Sources */,
 				3238F67A1E90E80500838C62 /* CORE_HELPERS_SCALAR.cpp in Sources */,
 				3238F6B11E90E80500838C62 /* CORE_MATH_SHAPE_TYPE.cpp in Sources */,
@@ -7784,7 +7711,6 @@
 				5FCC3D712002F01900A698B8 /* OPENGL_4.cpp in Sources */,
 				5F5EC1741EF9DA3C00F4939D /* GAMEPLAY_COMPONENT_ENTITY_PROXY.cpp in Sources */,
 				3238F7DD1E90E80500838C62 /* GRAPHIC_MESH_OPENGL.cpp in Sources */,
-				3238FA4E1E90E80700838C62 /* GteIEEEBinary16.cpp in Sources */,
 				3238F6CF1E90E80500838C62 /* CORE_PARALLEL_LOCK_MUTEX.cpp in Sources */,
 				3238F6CA1E90E80500838C62 /* CORE_PARALLEL_LOCK.cpp in Sources */,
 				5FD5701A20C6EC4200B3ACCE /* GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING.cpp in Sources */,
@@ -7795,7 +7721,6 @@
 				324E6DD41EC4B8C000751F52 /* GAMEPLAY_CAMERA.cpp in Sources */,
 				3238F7BA1E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp in Sources */,
 				3238F6391E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS_CALLBACK_UI.cpp in Sources */,
-				3238FA621E90E80700838C62 /* GteTSManifoldMesh.cpp in Sources */,
 				3238F85A1E90E80600838C62 /* GRAPHIC_RENDERER.cpp in Sources */,
 				3238F9CC1E90E80700838C62 /* SERVICE_NETWORK_CONNECTION_INFO.cpp in Sources */,
 				3238F5FD1E90E80400838C62 /* CORE_ABSTRACT_FUNCTION.cpp in Sources */,
@@ -7815,7 +7740,6 @@
 				3238F89B1E90E80600838C62 /* GRAPHIC_SHADER_LIGHT.cpp in Sources */,
 				3238F6161E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_RUNTIME.cpp in Sources */,
 				3238F9181E90E80600838C62 /* GRAPHIC_UI_RENDER_STYLE.cpp in Sources */,
-				3238FA171E90E80700838C62 /* GteLogToMessageBox.cpp in Sources */,
 				3238F7AB1E90E80500838C62 /* GRAPHIC_CAMERA_ORTHOGONAL.cpp in Sources */,
 				3238F9271E90E80600838C62 /* GRAPHIC_UI_ELEMENT_SCRIPTED.cpp in Sources */,
 				3238F6931E90E80500838C62 /* CORE_MATH_QUATERNION.cpp in Sources */,
@@ -7839,7 +7763,6 @@
 				3238F69D1E90E80500838C62 /* CORE_MATH_SHAPE.cpp in Sources */,
 				3238F6751E90E80500838C62 /* CORE_HELPERS_UNIQUE_IDENTIFIER.cpp in Sources */,
 				5F9395CD1FA8F55F00AC8E4D /* GAMEPLAY_ACTION_COMMAND_START_GAME.cpp in Sources */,
-				3238FA1C1E90E80700838C62 /* GteLogToOutputWindow.cpp in Sources */,
 				3238F6E31E90E80500838C62 /* CORE_PARALLEL_THREAD.cpp in Sources */,
 				3238F9631E90E80600838C62 /* PERIPHERIC_INTERACTION_MOUSE.cpp in Sources */,
 				3238F6611E90E80500838C62 /* CORE_HELPERS_CALLBACK.cpp in Sources */,
@@ -7847,7 +7770,6 @@
 				32E0A1B01E9D4AE800B14365 /* CORE_APPLICATION.cpp in Sources */,
 				3238F6701E90E80500838C62 /* CORE_HELPERS_IDENTIFIER_SYSTEM.cpp in Sources */,
 				3238F87D1E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_SPEEDBLUR.cpp in Sources */,
-				3238FA6C1E90E80700838C62 /* GteVEManifoldMesh.cpp in Sources */,
 				3238F6201E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_STATE.cpp in Sources */,
 				3238F6071E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_BINDER.cpp in Sources */,
 				3238F9A41E90E80700838C62 /* RESOURCE_LOADER.cpp in Sources */,
@@ -7883,15 +7805,12 @@
 				5F848DC520EB50C20000BB5B /* GRAPHIC_SHADER_EFFECT_SSAO.cpp in Sources */,
 				3238F8281E90E80600838C62 /* GRAPHIC_PARTICLE.cpp in Sources */,
 				3238F8D71E90E80600838C62 /* GRAPHIC_TEXTURE_ATLAS.cpp in Sources */,
-				3238FA441E90E80700838C62 /* GteETManifoldMesh.cpp in Sources */,
 				3238F6DE1E90E80500838C62 /* CORE_PARALLEL_TASK.cpp in Sources */,
 				5FB5131B1FBD67F60025AAAF /* CASCADE_SHADOW_TEST.m in Sources */,
-				3238FA0D1E90E80700838C62 /* GteLogReporter.cpp in Sources */,
 				5F5EC16D1EF9D01D00F4939D /* GAMEPLAY_COMPONENT_ENTITY_HANDLE.cpp in Sources */,
 				3238F9EA1E90E80700838C62 /* GteOnIdleTimer.cpp in Sources */,
 				5F9395C91FA8F55F00AC8E4D /* GAMEPLAY_ACTION_COMMAND_CLIENT_CONNECTED.cpp in Sources */,
 				3238F6AC1E90E80500838C62 /* CORE_MATH_SHAPE_SPHERE.cpp in Sources */,
-				3238FA121E90E80700838C62 /* GteLogToFile.cpp in Sources */,
 				5F177147208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				3238F8001E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_AXIS.cpp in Sources */,
 				3238F8E11E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
@@ -7933,12 +7852,10 @@
 				3238F9D11E90E80700838C62 /* SERVICE_NETWORK_SYSTEM.cpp in Sources */,
 				5F9395C81FA8F55F00AC8E4D /* GAMEPLAY_ACTION_COMMAND_CLIENT_ACCEPTED.cpp in Sources */,
 				3238F82D1E90E80600838C62 /* GRAPHIC_PARTICLE_EMITER.cpp in Sources */,
-				3238FA081E90E80700838C62 /* GteLogger.cpp in Sources */,
 				3238F9091E90E80600838C62 /* GRAPHIC_UI_FRAME.cpp in Sources */,
 				5FB60B331FDFB74B009A0692 /* CORE_DATA_UTF8_TEXT.cpp in Sources */,
 				5F2B53C21F11A6A400E69CF5 /* GRAPHIC_MATERIAL_COLLECTION.cpp in Sources */,
 				3238F6341E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA_HELPERS.cpp in Sources */,
-				3238FA671E90E80700838C62 /* GteUIntegerAP32.cpp in Sources */,
 				3238F7881E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.cpp in Sources */,
 				3238F95E1E90E80600838C62 /* PERIPHERIC_INTERACTION_KEYBOARD.cpp in Sources */,
 				3238F7A11E90E80500838C62 /* GRAPHIC_CAMERA.cpp in Sources */,
@@ -7946,7 +7863,6 @@
 				5FAFD0561F75597A00113D6E /* PHYSICS_UTILS.cpp in Sources */,
 				3238F9451E90E80600838C62 /* GRAPHIC_WINDOW_OSX_VIEW.cpp in Sources */,
 				5FA7FB642013586200C7A829 /* GRAPHIC_UI_GRID_ADAPTER.cpp in Sources */,
-				3238FA211E90E80700838C62 /* GteLogToStdout.cpp in Sources */,
 				5FD5702420C6ECFE00B3ACCE /* GRAPHIC_RENDERER_TECHNIQUE_BLOOM.cpp in Sources */,
 				5F177192208E6F8400720C7F /* AUDIO_LOADER_OSX.mm in Sources */,
 				5F2FB8382030E42200289949 /* GAMEPLAY_ACTION_COMMAND_GAME_LOADED.cpp in Sources */,
@@ -7959,7 +7875,6 @@
 				3238F9591E90E80600838C62 /* NETWORK_SERVER.cpp in Sources */,
 				3238F91D1E90E80600838C62 /* GRAPHIC_UI_SYSTEM.cpp in Sources */,
 				3238F9861E90E80700838C62 /* RESOURCE_IMAGE.cpp in Sources */,
-				3238FA261E90E80700838C62 /* GteLogToStringArray.cpp in Sources */,
 				3238F8731E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_DEPTHOFFIELD.cpp in Sources */,
 				3238F9C21E90E80700838C62 /* SERVICE_NETWORK_COMMAND.cpp in Sources */,
 				3238F68E1E90E80500838C62 /* CORE_MATH_POSE.cpp in Sources */,
@@ -7987,20 +7902,16 @@
 				3238F99A1E90E80700838C62 /* RESOURCE_CACHE.cpp in Sources */,
 				3238F8641E90E80600838C62 /* GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.cpp in Sources */,
 				3238F77E1E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.cpp in Sources */,
-				3238FA5D1E90E80700838C62 /* GteTriangleKey.cpp in Sources */,
 				3238F7C41E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
 				3238F7E71E90E80500838C62 /* GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp in Sources */,
-				3238FA2B1E90E80700838C62 /* GteTimer.cpp in Sources */,
 				5F3A340D20D04C8A00808B9B /* GRAPHIC_RENDERER_TECHNIQUE.cpp in Sources */,
 				3238F7791E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM.cpp in Sources */,
 				3238F65C1E90E80500838C62 /* CORE_DATA_STREAM.cpp in Sources */,
-				3238FA351E90E80700838C62 /* GteBitHacks.cpp in Sources */,
 				3238F9DB1E90E80700838C62 /* FONT_EDITOR.cpp in Sources */,
 				3253DB341EBDA2A600DF1797 /* RESOURCE_PROXY.cpp in Sources */,
 				3238F9B31E90E80700838C62 /* SERVICE_LOGGER.cpp in Sources */,
 				5FC19B761EDF6335003E53D5 /* CORE_FILESYSTEM_FILE.cpp in Sources */,
 				3238F6BB1E90E80500838C62 /* CORE_MEMORY.cpp in Sources */,
-				3238FA3F1E90E80700838C62 /* GteEdgeKey.cpp in Sources */,
 				3238F7A61E90E80500838C62 /* GRAPHIC_CAMERA_BILLBOARD.cpp in Sources */,
 				3238F7471E90E80500838C62 /* GAMEPLAY_ACTION.cpp in Sources */,
 				5F9C83D21FE886D70085CF18 /* GAMEPLAY_ACTION_COMMAND_SERVER_QUIT.cpp in Sources */,
@@ -8008,7 +7919,6 @@
 				5FB513231FBD67F60025AAAF /* RESOURCE_TEST.m in Sources */,
 				3238F6981E90E80500838C62 /* CORE_MATH_RAY.cpp in Sources */,
 				3238F62F1E90E80500838C62 /* CORE_ABSTRACT_PROGRAM_LUA.cpp in Sources */,
-				3238FA3A1E90E80700838C62 /* GteBSPrecision.cpp in Sources */,
 				3238F6A21E90E80500838C62 /* CORE_MATH_SHAPE_BOX.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8598,6 +8508,7 @@
 					__PLATFORM_OSX__,
 					"__AUDIO_OPENAL__=1",
 					GTE_DISABLE_PCH,
+					__AUDIO_FILE_OGG__,
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -8616,15 +8527,17 @@
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
 				);
 				INFOPLIST_FILE = ASSET_EDITOR/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -8660,6 +8573,7 @@
 					__PLATFORM_OSX__,
 					"__AUDIO_OPENAL__=1",
 					GTE_DISABLE_PCH,
+					__AUDIO_FILE_OGG__,
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -8678,15 +8592,17 @@
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
 					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
+					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
 				);
 				INFOPLIST_FILE = ASSET_EDITOR/Info.plist;
 				LIBRARY_SEARCH_PATHS = (

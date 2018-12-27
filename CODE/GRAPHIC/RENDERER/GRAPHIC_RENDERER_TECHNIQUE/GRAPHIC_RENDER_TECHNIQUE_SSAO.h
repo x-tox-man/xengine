@@ -27,7 +27,8 @@ public:
     virtual void ApplySecondPass( GRAPHIC_RENDERER & renderer );
 
     GRAPHIC_MATERIAL
-        Material;
+        Material,
+        MaterialBlur;
     GRAPHIC_OBJECT_SHAPE_PLAN::PTR
         PlanObject;
     GRAPHIC_TEXTURE_BLOCK::PTR

@@ -27,6 +27,7 @@ void R3D_RESOURCES::Initialize() {
     RESOURCE_PROXY::PTR weapon1_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR cone_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR shader_proxy = new RESOURCE_PROXY;
+    RESOURCE_PROXY::PTR tess_shader_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR basic_geometry_shader_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR terrain_geometry_shader_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR checkpoint_effect_proxy = new RESOURCE_PROXY;
@@ -48,6 +49,7 @@ void R3D_RESOURCES::Initialize() {
     
     //auto effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferred", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
+    auto tesselation_effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "tess_shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferredAdaptTess", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ), GRAPHIC_SHADER_LOAD_OPTION_Vertex | GRAPHIC_SHADER_LOAD_OPTION_Fragment | GRAPHIC_SHADER_LOAD_OPTION_Tesselate );
     auto basic_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicGeometryShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto basic_terrain_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "TerrainShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicTerrainShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto checkpoint_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "CheckpointEffect", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
@@ -56,9 +58,9 @@ void R3D_RESOURCES::Initialize() {
     auto sky_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SkyEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "BackgroundSky" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     auto shadow_map_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowMapEffect"), CORE_FILESYSTEM_PATH::FindFilePath( "ShadowMapEffect" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
-    
     //effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     effect_deferred->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
+    tesselation_effect_deferred->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     basic_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     basic_terrain_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     checkpoint_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
@@ -75,6 +77,7 @@ void R3D_RESOURCES::Initialize() {
     text_proxy->SetResource( text_effect );
     sky_effect_proxy->SetResource( sky_effect );
     shadow_map_proxy->SetResource( shadow_map_effect );
+    tess_shader_proxy->SetResource( tesselation_effect_deferred );
     
     Resources->AddResource( spaceship1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     Resources->AddResource( cone_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) );
@@ -91,6 +94,7 @@ void R3D_RESOURCES::Initialize() {
     Resources->AddResource( text_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "UIShaderTextured" ) );
     Resources->AddResource( sky_effect_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SkyEffect" ) );
     Resources->AddResource( shadow_map_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowMapEffect" ) );
+    Resources->AddResource( tess_shader_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "tess_shader" ) );
     
     CreateModel( "moon", CORE_HELPERS_UNIQUE_IDENTIFIER( "moon" ) );
     CreateModel( "turn", CORE_HELPERS_UNIQUE_IDENTIFIER( "turn" ) );

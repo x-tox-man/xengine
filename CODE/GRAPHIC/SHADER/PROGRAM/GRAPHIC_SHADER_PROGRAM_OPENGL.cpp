@@ -19,27 +19,30 @@ void GRAPHIC_SHADER_PROGRAM::Initialize() {
     GFX_CHECK( ShaderProgram = glCreateProgram(); )
 }
 
-void GRAPHIC_SHADER_PROGRAM::LoadProgram( const CORE_FILESYSTEM_PATH & path ) {
+void GRAPHIC_SHADER_PROGRAM::LoadProgram( const CORE_FILESYSTEM_PATH & path, int shader_load_options ) {
     
     //todo insert shaders
+    if ( shader_load_options & GRAPHIC_SHADER_LOAD_OPTION_Vertex) {
+        
+        GRAPHIC_SHADER * vertex = new GRAPHIC_SHADER();
+        
+        vertex->SetProgram( ShaderProgram );
+        vertex->LoadShader( path, GRAPHIC_SHADER_Vertex );
+        
+        CORE_MEMORY_ObjectSafeDeallocation( vertex );
+    }
     
-    GRAPHIC_SHADER * vertex = new GRAPHIC_SHADER();
-    
-    vertex->SetProgram( ShaderProgram );
-    vertex->LoadShader( path, GRAPHIC_SHADER_Vertex );
-    
-    CORE_MEMORY_ObjectSafeDeallocation( vertex );
-    
-    GRAPHIC_SHADER * fragment = new GRAPHIC_SHADER;
-    
-    fragment->SetProgram( ShaderProgram );
-    fragment->LoadShader( path, GRAPHIC_SHADER_Pixel );
+    if ( shader_load_options & GRAPHIC_SHADER_LOAD_OPTION_Vertex) {
+        
+        GRAPHIC_SHADER * fragment = new GRAPHIC_SHADER;
+        
+        fragment->SetProgram( ShaderProgram );
+        fragment->LoadShader( path, GRAPHIC_SHADER_Pixel );
+        
+        CORE_MEMORY_ObjectSafeDeallocation( fragment );
+    }
     
     LinkTogether( GRAPHIC_SHADER_BIND_None );
-    
-    delete fragment;
-    
-    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SHADER_PROGRAM::LoadPartial( const CORE_FILESYSTEM_PATH & path, GRAPHIC_SHADER_TYPE shader_type ) {
@@ -119,11 +122,36 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         return;
     }
     
+    
+    GLint i, count, size;
+    GLenum type;
+    const GLsizei bufSize = 64;
+    GLchar name[bufSize];
+    GLsizei lenght;
+    
+    GFX_CHECK(glGetProgramiv(ShaderProgram, GL_ACTIVE_UNIFORMS, &count); )
+    
+    for ( int i = 0; i < count; i++ ) {
+        
+        GRAPHIC_SHADER_ATTRIBUTE * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        
+        GFX_CHECK( glGetActiveUniform(ShaderProgram, (GLuint)i, bufSize, &lenght, &size, &type, name); )
+        
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, name ); )
+        attribute->AttributeName = CORE_HELPERS_IDENTIFIER( name );
+        
+        assert( attribute->AttributeIndex >= 0 );
+        
+        setShaderAttribute(*attribute);
+        printf( "%d, %s\n", attribute->AttributeIndex, name);
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    }
+    
     // Get uniform locations.
     
     GRAPHIC_SHADER_ATTRIBUTE * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ProjectionMatrix.GetTextValue() ); )
+    /*FGFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ProjectionMatrix.GetTextValue() ); )
     attribute->AttributeName = ProjectionMatrix;
     
     setShaderAttribute(*attribute);
@@ -131,11 +159,33 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelViewMatrix.GetTextValue() ); )
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelMatrix.GetTextValue() ); )
     
     if ( attribute->AttributeIndex != -1 ) {
         
-        attribute->AttributeName = ModelViewMatrix;
+        attribute->AttributeName = ModelMatrix;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ViewMatrix.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = ViewMatrix;
+        
+        setShaderAttribute(*attribute);
+    }
+    
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelMatrix.GetTextValue() ); )
+    
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = ModelMatrix;
         
         setShaderAttribute(*attribute);
     }
@@ -195,7 +245,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         setShaderAttribute(*attribute);
     }
     
-    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );*/
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, CascadeEndClipSpace.GetTextValue() ); )
     
@@ -207,7 +257,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     }
     
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    /*attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, MVPMatrix.GetTextValue() ); )
     
     if ( attribute->AttributeIndex != -1 ) {
@@ -1103,7 +1153,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         
         setShaderAttribute(*attribute);
     }
-    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );*/
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOKernel.GetTextValue() ); )
@@ -1115,7 +1165,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     }
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
     
-    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    /*attribute = new GRAPHIC_SHADER_ATTRIBUTE;
     GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOTexture.GetTextValue() ); )
     if ( attribute->AttributeIndex != -1 ) {
         
@@ -1124,6 +1174,8 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         setShaderAttribute(*attribute);
     }
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
+     
+    */
 }
 
 bool GRAPHIC_SHADER_PROGRAM::ValidateProgram() {

@@ -1,6 +1,5 @@
 #version 330
 
-in vec4 colorVarying;
 in vec4 o_normal;
 in vec2 texCoord;
 in mat3 TBNMatrix_p;
@@ -19,7 +18,7 @@ uniform sampler2D n_texture;
 uniform sampler2D d_texture;
 uniform sampler2D d_texture1;
 uniform sampler2D d_texture2;
-uniform mediump mat4 modelViewMatrix;
+uniform mediump mat4 ModelMatrix;
 uniform float cascadeEndClipSpace[3];
 
 uniform sampler2D gColorMap; 
@@ -30,19 +29,14 @@ float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 
     vec3 ProjCoords = LightSpacePos.xyz / LightSpacePos.w;
 
-    vec2 UVCoords;
-    UVCoords.x = 0.5 * ProjCoords.x + 0.5;
-    UVCoords.y = 0.5 * ProjCoords.y + 0.5;
-    float z = 0.5 * ProjCoords.z + 0.5;
-
     if ( CascadeIndex == 0) 
-        Depth = texture( d_texture, UVCoords.xy).x; 
+        Depth = texture( d_texture, ProjCoords.xy).x; 
     if ( CascadeIndex == 1)
-        Depth = texture( d_texture1, UVCoords.xy).x; 
+        Depth = texture( d_texture1, ProjCoords.xy).x; 
     if ( CascadeIndex == 2) 
-        Depth = texture( d_texture2, UVCoords.xy).x;
+        Depth = texture( d_texture2, ProjCoords.xy).x;
 
-    if (Depth > z + 0.001 ) 
+    if (Depth > ProjCoords.z + 0.001 ) 
         return 0.01;
     else 
         return 1.0; 
@@ -50,7 +44,7 @@ float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 
 void main() 
 { 
-	vec4 normalTimesLModel = modelViewMatrix * o_normal;
+	vec4 normalTimesLModel = ModelMatrix * o_normal;
 
     //-------- NORMAL MAPPING BEGIN
     vec3 BumpMapNormal = texture(n_texture, texCoord).xyz;
@@ -62,7 +56,7 @@ void main()
     NewNormal = normalize(NewNormal);
     //-------- NORMAL MAPPING END
 
-    DiffuseOut = texture( c_texture, texCoord );// * colorVarying.xyz;
+    DiffuseOut = texture( c_texture, texCoord );
     DiffuseOut.a = 1.0;
     NormalOut = vec4( NewNormal, 1.0 );
     WorldPosOut = vec4( WorldPos0, 1.0);
@@ -78,14 +72,5 @@ void main()
         }
     }
 
-    /*vec3 ProjCoords = ShadowCoord[0].xyz / ShadowCoord[0].w;
-
-    vec2 UVCoords;
-    UVCoords.x = 0.5 * ProjCoords.x + 0.5;
-    UVCoords.y = 0.5 * ProjCoords.y + 0.5;
-    float z = 0.5 * ProjCoords.z + 0.5;
-
-    ShadowOut.r = texture( d_texture, UVCoords.xy).x;
-    ShadowOut.gb = vec2(0.0);//UVCoords.xy;*/
     ShadowOut.a = 1.0;
 }

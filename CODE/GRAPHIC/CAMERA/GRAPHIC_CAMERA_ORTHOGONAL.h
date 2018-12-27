@@ -26,7 +26,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_CAMERA_ORTHOGONAL, GRAPHIC_CAMERA )
     virtual ~GRAPHIC_CAMERA_ORTHOGONAL();
 
     virtual void CalculateProjectionMatrix( float near_plane, float far_plane, float width, float height ) override;
-    virtual void CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) override;
+    virtual void CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) override;
 
 XS_CLASS_END
 

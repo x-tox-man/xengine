@@ -193,6 +193,27 @@ void GAMEPLAY_HELPER::SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const ch
     SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetNormal ok %s\n", texture_name );
 }
 
+void GAMEPLAY_HELPER::SetDisplacement( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const
+                     CORE_HELPERS_IDENTIFIER & identifier ) {
+    
+    GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    auto mat = render->GetMaterial().GetResource< GRAPHIC_MATERIAL >();
+    auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( texture_name ), path );
+    
+    if ( mat == NULL ) {
+        RESOURCE_PROXY
+        proxy( mat );
+        
+        render->SetMaterial( proxy );
+        
+        SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetTexture create mat\n" );
+    }
+    
+    mat->SetTexture( identifier, new GRAPHIC_TEXTURE_BLOCK( text ) );
+    SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetNormal ok %s\n", texture_name );
+}
+
 void GAMEPLAY_HELPER::SetTextureRepeating(GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_IDENTIFIER & identifier) {
     
     GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );

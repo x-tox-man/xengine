@@ -77,9 +77,9 @@ public:
     
     static RESOURCE_CACHE< __CHILD_RESOURCE_TYPE__, __CHILD_RESOURCE_LOADER_TYPE__ > * GetResourceCache() { return ResourceCache; }
     
-    static __CHILD_RESOURCE_TYPE__ * LoadResourceForPath( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_FILESYSTEM_PATH & path ) {
+    static __CHILD_RESOURCE_TYPE__ * LoadResourceForPath( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_FILESYSTEM_PATH & path, int resource_load_flag = 0 ) {
         
-        return ResourceCache->LoadResourceForPath( identifier, path );
+        return ResourceCache->LoadResourceForPath( identifier, path, resource_load_flag );
     }
     
     static __CHILD_RESOURCE_TYPE__ * GetResourceForIdentifier( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {

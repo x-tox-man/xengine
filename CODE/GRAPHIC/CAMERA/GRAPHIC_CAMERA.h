@@ -41,7 +41,7 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
 private :
 
     virtual void CalculateProjectionMatrix( float near_plane, float far_plane, float width, float height );
-    virtual void CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
+    virtual void CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
 
 protected :
 

@@ -75,9 +75,30 @@
     }
 
     GLenum OPENGL_4_GetFrameBufferMode( const GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode ) {
+        
         static GLenum framebuffer_mode[] { GL_FRAMEBUFFER, GL_DRAW_FRAMEBUFFER, GL_READ_FRAMEBUFFER };
         
         return framebuffer_mode[ mode ];
+    }
+
+    GLenum OPENGL_4_GetPolygonFace( const GRAPHIC_POLYGON_FACE face ) {
+        static GLenum face_type[] { GL_FRONT, GL_BACK, GL_FRONT_AND_BACK };
+        
+        return face_type[ face ];
+    }
+
+    GLenum OPENGL_4_GetStendilFailOperation( const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION action ) {
+        
+        static GLenum operation[] { GL_KEEP, GL_ZERO, GL_REPLACE, GL_INCR, GL_INCR_WRAP, GL_DECR, GL_DECR_WRAP, GL_INVERT };
+        
+        return operation[ action ];
+    }
+
+    GLenum OPENGL_4_GetBlendEquation( const GRAPHIC_SYSTEM_BLEND_EQUATION equation ) {
+        
+        static GLenum reference_equations[] { GL_FUNC_ADD, GL_FUNC_SUBTRACT, GL_FUNC_REVERSE_SUBTRACT, GL_MIN, GL_MAX };
+        
+        return reference_equations[ equation ];
     }
 
     void GRAPHIC_SYSTEM::EnableScissor(bool enable) {
@@ -95,6 +116,21 @@
         GFX_CHECK( glScissor((GLint)x, (GLint)y, (GLsizei)width, (GLsizei)height); )
     }
 
+    void GRAPHIC_SYSTEM::EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask ) {
+        
+        GFX_CHECK( glEnable( GL_STENCIL_TEST ); )
+        GFX_CHECK( glStencilFunc( OPENGL_4_GetCompareOperation( operation ), ref, mask); )
+    }
+    void GRAPHIC_SYSTEM::DisableStencil() {
+        
+        GFX_CHECK( glDisable( GL_STENCIL_TEST ); )
+    }
+
+    void GRAPHIC_SYSTEM::SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail ) {
+        
+        GFX_CHECK( glStencilOpSeparate( OPENGL_4_GetPolygonFace( face ), OPENGL_4_GetStendilFailOperation( stencil_fail ), OPENGL_4_GetStendilFailOperation( stencil_pass ), OPENGL_4_GetStendilFailOperation( stencil_and_depth_fail ) ); )
+    }
+
     void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination ) {
         
         GFX_CHECK( glEnable( GL_BLEND ); )
@@ -106,6 +142,11 @@
         GFX_CHECK( glDisable( GL_BLEND ); )
     }
 
+    void GRAPHIC_SYSTEM::SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation ) {
+        
+        GFX_CHECK( glBlendEquation( OPENGL_4_GetBlendEquation( equation ) ); )
+    }
+
     void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end ) {
     
         GFX_CHECK( glEnable( GL_DEPTH_TEST ); )
@@ -115,10 +156,10 @@
         GFX_CHECK( glDepthRange(range_begin, range_end); )
     }
 
-    void GRAPHIC_SYSTEM::EnableBackfaceCulling() {
+    void GRAPHIC_SYSTEM::EnableBackfaceCulling( const GRAPHIC_POLYGON_FACE face ) {
         
         GFX_CHECK( glEnable( GL_CULL_FACE ); )
-        GFX_CHECK( glCullFace( GL_BACK ); )
+        GFX_CHECK( glCullFace( OPENGL_4_GetPolygonFace( face ) ); )
         GFX_CHECK( glFrontFace( GL_CCW ); )
     }
 
@@ -421,8 +462,10 @@
                                    light.InternalLight.Spot.Linear); )
             GFX_CHECK( glUniform1f( spot_light_constant.AttributeIndex,
                                    light.InternalLight.Spot.Constant); )
+            
+            float radcos = cosf(light.InternalLight.Spot.Cutoff);
             GFX_CHECK( glUniform1f( spot_light_cutoff.AttributeIndex,
-                                   light.InternalLight.Spot.Cutoff); )
+                                   radcos); )
         }
     }
 
@@ -644,6 +687,11 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int 
         GFX_CHECK( glDisableVertexAttribArray( GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight ); )
     }
 
+    void GRAPHIC_SYSTEM::Clear() {
+        
+        GFX_CHECK( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); )
+    }
+
     void GRAPHIC_SYSTEM::ClearFrambufferDepth( float default_depth ) {
         
         GFX_CHECK( glClearDepth( default_depth ); )
@@ -653,5 +701,10 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int 
     void GRAPHIC_SYSTEM::ClearFrambufferColor() {
         
         GFX_CHECK( glClear( GL_COLOR_BUFFER_BIT ); )
+    }
+
+    void GRAPHIC_SYSTEM::ClearFrambufferStencil() {
+        
+        GFX_CHECK( glClear( GL_STENCIL_BUFFER_BIT ); )
     }
 #endif

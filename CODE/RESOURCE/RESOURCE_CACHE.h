@@ -70,14 +70,14 @@ public:
         ItemMap[ identifier ] = resource;
     }
     
-    __RESOURCE_TYPE__ * LoadResourceForPath( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_FILESYSTEM_PATH & path ) {
+    __RESOURCE_TYPE__ * LoadResourceForPath( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_FILESYSTEM_PATH & path, int resource_load_flag = 0 ) {
         
 #if DEBUG
         assert( identifier != CORE_HELPERS_UNIQUE_IDENTIFIER::Empty );
 #endif
         if ( ItemMap.find( identifier ) == ItemMap.end() ) {
             
-            __RESOURCE_TYPE__ * rs = (__RESOURCE_TYPE__ *) loader.Load( path, identifier );
+            __RESOURCE_TYPE__ * rs = (__RESOURCE_TYPE__ *) loader.Load( path, resource_load_flag, identifier );
             
             if ( rs == NULL ) {
                 return rs;
@@ -90,11 +90,11 @@ public:
         return ItemMap[ identifier ];
     }
     
-    __RESOURCE_TYPE__ * LoadResourceFromStream( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {
+    __RESOURCE_TYPE__ * LoadResourceFromStream( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream, int resource_load_flag = 0 ) {
         
         if ( ItemMap.find( identifier ) == ItemMap.end() ) {
             
-            ItemMap[ identifier ] = (__RESOURCE_TYPE__ *) loader.Load( stream, identifier );
+            ItemMap[ identifier ] = (__RESOURCE_TYPE__ *) loader.Load( stream, 0, identifier );
             ItemMap[ identifier ]->SetIdentifier( identifier );
         }
         

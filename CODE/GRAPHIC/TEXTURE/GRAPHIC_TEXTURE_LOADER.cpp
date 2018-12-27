@@ -20,11 +20,11 @@ GRAPHIC_TEXTURE_LOADER::~GRAPHIC_TEXTURE_LOADER() {
     
 }
 
-GRAPHIC_TEXTURE * GRAPHIC_TEXTURE_LOADER::Load( const CORE_FILESYSTEM_PATH & path,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+GRAPHIC_TEXTURE * GRAPHIC_TEXTURE_LOADER::Load( const CORE_FILESYSTEM_PATH & path, int resource_load_flag, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     RESOURCE_IMAGE_PNG_LOADER
         loader;
-    RESOURCE_IMAGE * image = loader.Load( path, identifier );
+    RESOURCE_IMAGE * image = loader.Load( path, resource_load_flag, identifier );
     
     if ( image == NULL ) {
         
@@ -38,7 +38,7 @@ GRAPHIC_TEXTURE * GRAPHIC_TEXTURE_LOADER::Load( const CORE_FILESYSTEM_PATH & pat
     return texture;
 }
 
-GRAPHIC_TEXTURE * GRAPHIC_TEXTURE_LOADER::Load( CORE_DATA_STREAM & stream ,const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier) {
+GRAPHIC_TEXTURE * GRAPHIC_TEXTURE_LOADER::Load( CORE_DATA_STREAM & stream, int resource_load_flag, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier) {
     
     abort();
 }

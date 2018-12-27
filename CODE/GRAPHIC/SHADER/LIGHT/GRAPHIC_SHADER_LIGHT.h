@@ -47,6 +47,7 @@ struct GRAPHIC_SHADER_LIGHT_SPOT {
     float Color[4];
     float Position[4];
     float Direction[4];
+    float Orientation[4];
     float Cutoff;
     float AmbientIntensity;
     float DiffuseIntensity;

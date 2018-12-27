@@ -98,11 +98,10 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( GRAPHIC_RENDERER & renderer ) {
                     orientation.FromMatrix( &object_matrix[0] );
                     orientation.Normalize();
                     
-                    light->GetLight()->InternalLight.Spot.Direction[0] = orientation.X();
-                    light->GetLight()->InternalLight.Spot.Direction[1] = orientation.Y();
-                    light->GetLight()->InternalLight.Spot.Direction[2] = orientation.Z();
-                    
-                    light->GetLight()->InternalLight.Spot.Direction[3] = orientation.W();
+                    light->GetLight()->InternalLight.Spot.Orientation[0] = orientation.X();
+                    light->GetLight()->InternalLight.Spot.Orientation[1] = orientation.Y();
+                    light->GetLight()->InternalLight.Spot.Orientation[2] = orientation.Z();
+                    light->GetLight()->InternalLight.Spot.Orientation[3] = orientation.W();
                     
                     break;
                     

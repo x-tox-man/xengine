@@ -5,6 +5,7 @@ in vec4 normal;
 
 out vec4 EyeWorldPosition;
 out vec4 LightPosition;
+out vec4 iLightDirection;
 
 struct PointLight
 {
@@ -18,15 +19,23 @@ struct PointLight
     float AttenuationExp;
 };
 
+struct SpotLight
+{
+    PointLight Base;
+    vec4 Direction;
+    float Cutoff;
+};
+
 uniform mat4 MVPMatrix;
 uniform mat4 modelViewMatrix;
 uniform vec4 geometryColor;
-uniform PointLight point_light_table[1];
+uniform SpotLight spot_light_table[1];
 uniform vec4 CameraWorldPosition;
 
 void main()
 {
-    LightPosition = modelViewMatrix * point_light_table[0].Position; // in world position
+    LightPosition = modelViewMatrix * spot_light_table[0].Base.Position; // in world position
     EyeWorldPosition = modelViewMatrix * CameraWorldPosition; // in world position
 	gl_Position = MVPMatrix * position;
+    iLightDirection = MVPMatrix * spot_light_table[0].Direction;
 }
