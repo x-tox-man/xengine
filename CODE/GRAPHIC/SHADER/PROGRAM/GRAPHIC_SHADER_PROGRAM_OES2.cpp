@@ -119,8 +119,8 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         setShaderAttribute(*attribute);
         CORE_MEMORY_ObjectSafeDeallocation( attribute );
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelViewMatrix.GetTextValue() ); )
-        attribute->AttributeName = ModelViewMatrix;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ModelMatrix.GetTextValue() ); )
+        attribute->AttributeName = ModelMatrix;
         
         setShaderAttribute(*attribute);
         

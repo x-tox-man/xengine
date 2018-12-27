@@ -16,7 +16,7 @@ GRAPHIC_CAMERA_ORTHOGONAL::GRAPHIC_CAMERA_ORTHOGONAL() :
 GRAPHIC_CAMERA_ORTHOGONAL::GRAPHIC_CAMERA_ORTHOGONAL( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
-    CalculateModelViewMatrix( position, lookat );
+    CalculateModelMatrix( position, lookat );
     
     Position = position;
     Lookat = lookat;
@@ -61,7 +61,7 @@ void GRAPHIC_CAMERA_ORTHOGONAL::CalculateProjectionMatrix( float near_plane, flo
     InitOrthoProjTransform( -half_width, half_width, -half_height, half_height, near_plane, far_plane );
 }
 
-void GRAPHIC_CAMERA_ORTHOGONAL::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
+void GRAPHIC_CAMERA_ORTHOGONAL::CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
     CORE_MATH_MATRIX tmp,scale, translation,rotation;
     
@@ -89,5 +89,5 @@ void GRAPHIC_CAMERA_ORTHOGONAL::InitOrthoProjTransform( float left, float right,
     m[8] = 0.0f;            m[9] = 0.0f;            m[10] = 2.0f/(f - n);   m[11] = -(f + n) / (f - n );
     m[12] = 0.0f;           m[13] = 0.0f;           m[14] = 0.0f;           m[15] = 1.0;
     
-    CalculateModelViewMatrix( GetPosition(), GetOrientation() );
+    CalculateModelMatrix( GetPosition(), GetOrientation() );
 }

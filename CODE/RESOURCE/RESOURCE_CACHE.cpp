@@ -41,11 +41,11 @@ void RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::Setup
 }
 
 template<>
-GRAPHIC_SHADER_EFFECT * RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::LoadResourceForPath( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_FILESYSTEM_PATH & path ) {
+GRAPHIC_SHADER_EFFECT * RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::LoadResourceForPath( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, const CORE_FILESYSTEM_PATH & path, int resource_load_flag ) {
     
     if ( ItemMap.find( identifier ) == ItemMap.end() ) {
         
-        ItemMap[ identifier ] = (GRAPHIC_SHADER_EFFECT *) loader.Load( path, identifier );
+        ItemMap[ identifier ] = (GRAPHIC_SHADER_EFFECT *) loader.Load( path, resource_load_flag, identifier );
         ItemMap[ identifier ]->SetPath( path );
         ItemMap[ identifier ]->SetIdentifier( identifier );
         

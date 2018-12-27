@@ -32,11 +32,11 @@ uniform sampler2D n_texture;
 uniform sampler2D d_texture;
 uniform mediump vec4 geometryColor;
 uniform DirectionalLight directional_light;
-uniform mediump mat4 modelViewMatrix;
+uniform mediump mat4 ModelMatrix;
 
 void main()
 {
-	mediump vec4 normalTimesLModel = modelViewMatrix * o_normal;
+	mediump vec4 normalTimesLModel = ModelMatrix * o_normal;
 
     //-------- NORMAL MAPPING BEGIN
 

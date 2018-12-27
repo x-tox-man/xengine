@@ -11,6 +11,7 @@
 GRAPHIC_RENDER_TECHNIQUE_SSAO::GRAPHIC_RENDER_TECHNIQUE_SSAO() :
     GRAPHIC_RENDERER_TECHNIQUE(),
     Material(),
+    MaterialBlur(),
     PlanObject( NULL ),
     TextureBlock1( NULL ),
     SourceRenderTarget( NULL ),
@@ -68,8 +69,8 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
         RenderTarget->BindForReading();
         RenderTarget->SetReadBuffer( 0 );
         TextureBlock1->SetTexture( RenderTarget->GetTargetTexture( 0 ) );
-        Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock1 );
-        SimpleBlurEffect->SetMaterial( &Material );
+        MaterialBlur.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock1 );
+        SimpleBlurEffect->SetMaterial( &MaterialBlur );
         
         /*{
             static int acc = 0;

@@ -14,6 +14,7 @@
 #include "GRAPHIC_SHADER.h"
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_SHADER_BIND.h"
+#include "GRAPHIC_SHADER_LOAD_OPTION.h"
 
 XS_CLASS_BEGIN( GRAPHIC_SHADER_PROGRAM )
 
@@ -21,7 +22,7 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_PROGRAM )
     ~GRAPHIC_SHADER_PROGRAM();
 
     void Initialize();
-    void LoadProgram( const CORE_FILESYSTEM_PATH & path );
+    void LoadProgram( const CORE_FILESYSTEM_PATH & path, int shader_load_options = GRAPHIC_SHADER_LOAD_OPTION_Vertex & GRAPHIC_SHADER_LOAD_OPTION_Fragment );
     void LoadPartial( const CORE_FILESYSTEM_PATH & path, GRAPHIC_SHADER_TYPE shader_type );
     void Finalize();
 
@@ -49,7 +50,8 @@ public:
 
 static const CORE_HELPERS_IDENTIFIER
     ProjectionMatrix,
-    ModelViewMatrix,
+    ViewMatrix,
+    ModelMatrix,
     MVPMatrix,
     ShadowMapMVP1,
     ShadowMapMVP2,
@@ -65,7 +67,7 @@ static const CORE_HELPERS_IDENTIFIER
     ColorTexture4,
     ColorTexture5,
     NormalTexture,
-    TesselationTexture,
+    DisplacementTexture,
     DepthTexture,
     DepthTexture1,
     DepthTexture2,

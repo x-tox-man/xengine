@@ -1,11 +1,11 @@
-#version 330
+#version 410 core
 
-in vec4 o_normal;
-in vec2 texCoord;
-in mat3 TBNMatrix_p;
-in vec3 WorldPos0;
-in float ClipSpacePosZ;
-in vec4 ShadowCoord[3];
+layout (location = 0) in vec3 WorldPos0;
+layout (location = 1) in vec2 texCoord;
+layout (location = 2) in vec4 o_normal;
+layout (location = 3) in float ClipSpacePosZ;
+layout (location = 4) in vec4 ShadowCoord[3];
+layout (location = 5) in mat3 TBNMatrix_p;
 
 layout (location = 0) out vec4 WorldPosOut; 
 layout (location = 1) out vec4 DiffuseOut; 
@@ -15,13 +15,11 @@ layout (location = 4) out float SSAO;
 
 uniform sampler2D c_texture;
 uniform sampler2D n_texture;
+uniform sampler2D t_texture;
 uniform sampler2D d_texture;
 uniform sampler2D d_texture1;
 uniform sampler2D d_texture2;
-uniform mediump mat4 ModelMatrix;
 uniform float cascadeEndClipSpace[3];
-
-uniform sampler2D gColorMap; 
 
 float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 { 
@@ -44,7 +42,7 @@ float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 
 void main() 
 { 
-	vec4 normalTimesLModel = ModelMatrix * o_normal;
+	vec4 normalTimesLModel = o_normal;
 
     //-------- NORMAL MAPPING BEGIN
     vec3 BumpMapNormal = texture(n_texture, texCoord).xyz;

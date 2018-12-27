@@ -28,7 +28,7 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA() :
 GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov ) {
     
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
-    CalculateModelViewMatrix( position, lookat );
+    CalculateModelMatrix( position, lookat );
     
     Lookat = lookat;
     Position = position;
@@ -53,7 +53,7 @@ void GRAPHIC_CAMERA::ActivateForRender() {
 void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov ) {
     
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
-    CalculateModelViewMatrix( position, lookat );
+    CalculateModelMatrix( position, lookat );
     
     Lookat = lookat;
     Position = position;
@@ -71,7 +71,7 @@ void GRAPHIC_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE
     Position = position;
     
     CalculateProjectionMatrix( Near, Far, Width, Height );
-    CalculateModelViewMatrix( position, lookat );
+    CalculateModelMatrix( position, lookat );
 }
 
 void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plane, float width, float height ) {
@@ -125,7 +125,7 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
     ProjectionMatrix[15] =  0.0f;
 }
 
-void GRAPHIC_CAMERA::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
+void GRAPHIC_CAMERA::CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
     CORE_MATH_MATRIX tmp,scale, translation,rotation;
     

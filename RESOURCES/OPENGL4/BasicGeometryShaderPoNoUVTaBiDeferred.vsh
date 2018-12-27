@@ -6,7 +6,6 @@ in vec2 tex0;
 in vec3 tangent;
 in vec3 bitangent;
 
-out vec4 colorVarying;
 out vec4 o_normal;
 out vec2 texCoord;
 out mat3 TBNMatrix_p;
@@ -15,7 +14,7 @@ out float ClipSpacePosZ;
 out vec4 ShadowCoord[3];
 
 uniform mat4 MVPMatrix;
-uniform mat4 modelViewMatrix;
+uniform mat4 ModelMatrix;
 uniform vec4 geometryColor;
 uniform mat4 ShadowMapMVP1;
 uniform mat4 ShadowMapMVP2;
@@ -24,10 +23,9 @@ uniform mat4 ShadowMapMVP3;
 void main()
 {
 	texCoord = tex0; 
-	o_normal =  modelViewMatrix * normal; 
-	WorldPos0 = ( modelViewMatrix * position).xyz;
+	o_normal =  ModelMatrix * normal; 
+	WorldPos0 = ( ModelMatrix * position).xyz;
 
-    colorVarying = geometryColor;
 	gl_Position = MVPMatrix * position;
 
     ShadowCoord[0] = ShadowMapMVP1 * position;

@@ -29,7 +29,7 @@ uniform sampler2D d_texture;
 uniform sampler2D d_texture1;
 uniform sampler2D d_texture2;
 uniform AmbientLight ambient_light;
-uniform mediump mat4 modelViewMatrix;
+uniform mediump mat4 ModelMatrix;
 uniform float cascadeEndClipSpace[3];
 
 out vec4 colorOut;

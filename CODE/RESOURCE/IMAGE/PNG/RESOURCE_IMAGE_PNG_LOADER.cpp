@@ -50,7 +50,7 @@ RESOURCE_IMAGE_PNG_LOADER::~RESOURCE_IMAGE_PNG_LOADER() {
 
 }
 
-RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & path, int resource_load_flag, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     bool is_png;
     
@@ -224,7 +224,7 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
     return image_resource;
 }
 
-RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( CORE_DATA_STREAM & stream, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( CORE_DATA_STREAM & stream, int resource_load_flag, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     abort();
     return new RESOURCE_IMAGE();

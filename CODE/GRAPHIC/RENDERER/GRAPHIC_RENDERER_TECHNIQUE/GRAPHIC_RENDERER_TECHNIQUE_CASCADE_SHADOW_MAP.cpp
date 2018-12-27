@@ -65,7 +65,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
         RendererCallback( renderer );
         {
-            static int acc = 0;
+            /*static int acc = 0;
             
             acc++;
             if ( acc % 33 == 0 ) {
@@ -74,7 +74,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 
                 texture2= ShadowMapRenderTarget1->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth1", "png", "" ) );
-            }
+            }*/
         }
         ShadowMapRenderTarget1->Discard();
         
@@ -91,7 +91,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         RendererCallback( renderer );
         
         {
-            static int acc = 0;
+            /*static int acc = 0;
             
             acc++;
             if ( acc % 33 == 0 ) {
@@ -100,7 +100,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 
                 texture2= ShadowMapRenderTarget2->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth2", "png", "" ) );
-            }
+            }*/
         }
         
         ShadowMapRenderTarget2->Discard();
@@ -118,7 +118,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         RendererCallback( renderer );
         
         {
-            static int acc = 0;
+            /*static int acc = 0;
             
             acc++;
             if ( acc % 33 == 0 ) {
@@ -126,7 +126,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 GRAPHIC_TEXTURE * texture2;
                 texture2 = ShadowMapRenderTarget3->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth3", "png", "" ) );
-            }
+            }*/
         }
         
         ShadowMapRenderTarget3->Discard();

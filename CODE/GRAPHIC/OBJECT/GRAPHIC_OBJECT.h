@@ -43,6 +43,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_OBJECT, GR_O_ANCESTOR_TYPE )
     void AddNewMesh( GRAPHIC_MESH * mesh );
 
     void Release();
+    void SetTesselation( bool enable );
 
     virtual void Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect );
 

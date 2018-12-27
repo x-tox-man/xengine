@@ -16,7 +16,7 @@ GRAPHIC_CAMERA_BILLBOARD::GRAPHIC_CAMERA_BILLBOARD() :
 GRAPHIC_CAMERA_BILLBOARD::GRAPHIC_CAMERA_BILLBOARD( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
-    CalculateModelViewMatrix( position, lookat );
+    CalculateModelMatrix( position, lookat );
     
     Position = position;
 }
@@ -29,6 +29,6 @@ void GRAPHIC_CAMERA_BILLBOARD::CalculateProjectionMatrix( float near_plane, floa
     
 }
 
-void GRAPHIC_CAMERA_BILLBOARD::CalculateModelViewMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
+void GRAPHIC_CAMERA_BILLBOARD::CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
     
 }

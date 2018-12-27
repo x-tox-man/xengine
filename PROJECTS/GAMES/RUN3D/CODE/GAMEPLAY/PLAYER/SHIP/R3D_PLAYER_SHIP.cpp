@@ -124,7 +124,7 @@ void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, con
         GAMEPLAY_HELPER::CreateComponent_PositionRender( entity );
         
         GAMEPLAY_HELPER::Set3DObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "weapon1" ) );
-        GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
+        GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "tess_shader" ) );
         GAMEPLAY_HELPER::SetShadowmapEffect( entity );
         GAMEPLAY_HELPER::SetTexture(entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
         
