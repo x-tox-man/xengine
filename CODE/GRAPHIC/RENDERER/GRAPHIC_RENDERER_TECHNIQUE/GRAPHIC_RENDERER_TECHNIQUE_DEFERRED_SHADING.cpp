@@ -34,7 +34,7 @@ GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::~GRAPHIC_RENDERER_TECHNIQUE_DEFERRE
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::Initialize( GRAPHIC_RENDERER & renderer ) {
     
-    RenderTarget.Initialize(renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true  , 5, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    RenderTarget.Initialize(renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     RenderTarget.AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
     RenderTarget.AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
     RenderTarget.AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
@@ -90,7 +90,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     
     if ( (acc % 33) == 0 ) {
         GRAPHIC_TEXTURE * texture2;
-        /*RenderTarget.SetReadBuffer( 0 );
+        RenderTarget.SetReadBuffer( 0 );
         texture2 = RenderTarget.GetTargetTexture( 0 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING1" , "png", "" ));
         RenderTarget.SetReadBuffer( 1 );
@@ -98,15 +98,15 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING2" , "png", "" ));
         RenderTarget.SetReadBuffer( 2 );
         texture2 = RenderTarget.GetTargetTexture( 2 );
-        texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING3" , "png", "" ));*/
+        texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING3" , "png", "" ));
         
         RenderTarget.SetReadBuffer( 3 );
         texture2 = RenderTarget.GetTargetTexture( 3 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING4" , "png", "" ));
         
-        /*RenderTarget.SetReadBuffer( 4 );
+        RenderTarget.SetReadBuffer( 4 );
         texture2 = RenderTarget.GetTargetTexture( 4 );
-        texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING5" , "png", "" ));*/
+        texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING5" , "png", "" ));
     }
     
     TextureBlock1.SetTexture( RenderTarget.GetTargetTexture( 0 ) );
@@ -149,14 +149,14 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     if ( FinalRenderTarget != NULL )
         FinalRenderTarget->Discard();
     
-    /*if ( (acc % 33) == 0 ) {
+    if ( (acc % 33) == 0 ) {
         
         acc = 0;
         FinalRenderTarget->BindForReading();
         FinalRenderTarget->SetReadBuffer( 0 );
         GRAPHIC_TEXTURE * texture2 = FinalRenderTarget->GetTargetTexture( 0 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADINGFinal" , "png", "" ));
-    }*/
+    }
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyPointLightPass( GRAPHIC_RENDERER & renderer ) {

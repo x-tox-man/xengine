@@ -200,11 +200,14 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     SpeedBlurTechnique.ApplySecondPass( renderer );
 #else
     {
-        GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
+        renderer.SetCamera(Camera);
+        renderer.SetNumCascade( 0 );
+        RenderSceneWithParticles( renderer );
+        /*GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
         
         UIShaderTextured = GRAPHIC_SHADER_EFFECT::GetResourceForIdentifier( CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderTextured") );
         
-        TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture() );
+        TextureBlock->SetTexture( PrimaryRenderTarget.GetTargetTexture( 0 ) );
         
         auto mat = new GRAPHIC_MATERIAL;
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
@@ -212,7 +215,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         
         PlanObject.Render( GRAPHIC_RENDERER::GetInstance(), option, UIShaderTextured );
         
-        delete mat;
+        delete mat;*/
     }
 #endif
     
