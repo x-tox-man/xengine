@@ -103,27 +103,27 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         
         ComputeModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
-        if ( mvp_matrix.AttributeIndex > 0 ) {
+        if ( mvp_matrix.AttributeIndex >= 0 ) {
             
             GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix.AttributeIndex, 1, 1, &result[0])
         }
         
-        if ( projection_matrix.AttributeIndex > 0 ) {
+        if ( projection_matrix.AttributeIndex >= 0 ) {
             
             GRAPHIC_SYSTEM_ApplyMatrix(projection_matrix.AttributeIndex, 1, 1, &renderer.GetCamera()->GetProjectionMatrix()[0]);
         }
         
-        if ( model_matrix.AttributeIndex > 0 ) {
+        if ( model_matrix.AttributeIndex >= 0 ) {
             
-            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix.AttributeIndex, 1, 0, &object[0]);
+            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix.AttributeIndex, 1, 1, &object[0]);
         }
         
-        if ( view_matrix.AttributeIndex > 0 ) {
+        if ( view_matrix.AttributeIndex >= 0 ) {
             
             GRAPHIC_SYSTEM_ApplyMatrix(view_matrix.AttributeIndex, 1, 1, &renderer.GetCamera()->GetViewMatrix()[0]);
         }
         
-        if ( time_mod.AttributeIndex > 0 ) {
+        if ( time_mod.AttributeIndex >= 0 ) {
             
             GRAPHIC_SYSTEM_ApplyFloat( time_mod.AttributeIndex, time_mod.AttributeValue.Value.FloatValue )
         }
@@ -139,7 +139,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             CORE_MATH_MATRIX
                 depthMVP,
                 depthBias;
-            
+
             GRAPHIC_SHADER_ATTRIBUTE & shadowmap_mvp = effect->GetProgram().getShaderAttribute( renderer.GetShadowMapMVPName( cascade_index ) );
             GRAPHIC_SHADER_ATTRIBUTE & end_clip_space = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CascadeEndClipSpace );
             

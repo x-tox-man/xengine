@@ -46,7 +46,7 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_SHADER_ATTRIBUTE & ssao_kernel = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOKernel );
     GRAPHIC_SHADER_ATTRIBUTE & ssao_sample_rad = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOSampleRad );
-    GRAPHIC_SHADER_ATTRIBUTE & proj = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE & proj = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix );
     
     GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( SSAOKernel, SSAO_MAX_KERNEL, ssao_kernel );
     GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( SampleRad, ssao_sample_rad );

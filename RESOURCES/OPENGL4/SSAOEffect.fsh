@@ -10,7 +10,7 @@ uniform sampler2D c_texture_2; //Normal
 uniform sampler2D c_texture_3; //Shadow
 uniform sampler2D c_texture_4; //SSAO
 uniform sampler2D c_texture_5; //random noise
-uniform mat4 ProjectionMatrix;
+uniform mat4 SSAOViewProjectionMatrix;
 uniform float SSAOSampleRad = 0.2;
 
 const int MAX_KERNEL_SIZE = 64;
@@ -39,7 +39,7 @@ void main()
         vec3 samplePos = Pos + ( TBN * SSAOKernel[i].xyz ) * SSAOSampleRad;
         vec4 offset = vec4(samplePos, 1.0); // make it a 4-vector
 
-        offset = ProjectionMatrix * offset; // project on the near clipping plane
+        offset = SSAOViewProjectionMatrix * offset; // project on the near clipping plane
         offset.xy /= offset.w; // perform perspective divide
         offset.xy = (offset.xy * 0.5) + 0.5; // transform to (0,1) range
 

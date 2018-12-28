@@ -49,6 +49,10 @@ void GRAPHIC_SHADER_EFFECT::Initialize( const GRAPHIC_SHADER_BIND & bind ) {
     
     Bind = bind;
     
+#if DEBUG
+    assert( Program.GetShaderAttributeTable().size() == 0 );
+#endif
+    
     //SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT Initialize 1" );
     
     Program.GetProgram()->LinkTogether( bind );

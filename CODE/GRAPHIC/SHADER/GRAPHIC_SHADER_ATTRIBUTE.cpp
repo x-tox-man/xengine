@@ -11,7 +11,7 @@
 GRAPHIC_SHADER_ATTRIBUTE::GRAPHIC_SHADER_ATTRIBUTE() :
     AttributeName( CORE_HELPERS_IDENTIFIER::Empty ),
     AttributeValue(),
-    AttributeIndex( 0 ) {
+    AttributeIndex( -1 ) {
     
 }
 

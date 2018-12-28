@@ -25,11 +25,11 @@ in vec4 iLightDirection;
 
 out vec4 colorOut;
 
-uniform sampler2D c_texture; //Position
-uniform sampler2D c_texture_1; //Diffuse
-uniform sampler2D c_texture_2; //Normal
-uniform sampler2D c_texture_3; //Shadow
-uniform sampler2D c_texture_4; //SSAO
+uniform sampler2D o_texture; //Position
+uniform sampler2D o_texture_1; //Diffuse
+uniform sampler2D o_texture_2; //Normal
+uniform sampler2D o_texture_3; //Shadow
+uniform sampler2D o_texture_4; //SSAO
 uniform SpotLight spot_light_table[1];
 uniform vec4 CameraWorldPosition;
 uniform float LightSpecularPower;
@@ -101,11 +101,11 @@ vec4 CalcSpotLight(vec3 WorldPos, SpotLight l, vec3 Normal)
 void main()
 { 
     vec2 tx = CalcTexCoord();
-    vec3 WorldPos = texture( c_texture, tx ).xyz;
-    vec3 Color = texture( c_texture_1, tx ).xyz;
-    vec3 Normal = texture( c_texture_2, tx ).xyz;
-    float shadow = texture( c_texture_3, tx ).r;
-    vec3 ssao = texture( c_texture_4, tx ).xyz;
+    vec3 WorldPos = texture( o_texture, tx ).xyz;
+    vec3 Color = texture( o_texture_1, tx ).xyz;
+    vec3 Normal = texture( o_texture_2, tx ).xyz;
+    float shadow = texture( o_texture_3, tx ).r;
+    vec3 ssao = texture( o_texture_4, tx ).xyz;
 
     colorOut.xyz = Color * CalcSpotLight( WorldPos, spot_light_table[0], normalize(Normal) ).xyz;
     colorOut.a = 1.0;

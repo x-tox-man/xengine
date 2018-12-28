@@ -94,7 +94,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     
     RenderTarget.BindForReading();
     
-    /*if ( (acc % 33) == 0 ) {
+    if ( (acc % 33) == 0 ) {
         GRAPHIC_TEXTURE * texture2;
         RenderTarget.SetReadBuffer( 0 );
         texture2 = RenderTarget.GetTargetTexture( 0 );
@@ -113,7 +113,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
         RenderTarget.SetReadBuffer( 4 );
         texture2 = RenderTarget.GetTargetTexture( 4 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING5" , "png", "" ));
-    }*/
+    }
     
     TextureBlock1.SetTexture( RenderTarget.GetTargetTexture( 0 ) );
     TextureBlock2.SetTexture( RenderTarget.GetTargetTexture( 1 ) );
@@ -121,11 +121,11 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     TextureBlock4.SetTexture( RenderTarget.GetTargetTexture( 3 ) );
     TextureBlock5.SetTexture( RenderTarget.GetTargetTexture( 4 ) );
     
-    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, &TextureBlock1 ) ;
-    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture1, &TextureBlock2 ) ;
-    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture2, &TextureBlock3 ) ;
-    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture3, &TextureBlock4 ) ;
-    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture4, &TextureBlock5 ) ;
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut, &TextureBlock1 ) ;
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut1, &TextureBlock2 ) ;
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut2, &TextureBlock3 ) ;
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut3, &TextureBlock4 ) ;
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut4, &TextureBlock5 ) ;
     
     AmbientDirectionalDefferedEffect->SetMaterial( &Material );
     PointDefferedEffect->SetMaterial( &Material );

@@ -32,7 +32,7 @@ struct OutputPatch
 
 patch in OutputPatch oPatch;
 
-out vec3 oWorldPos0;
+out vec3 WorldPos0;
 out vec2 texCoord;
 out vec4 o_normal;
 //out float ClipSpacePosZ;
@@ -67,7 +67,7 @@ void main()
   float vPow2 = pow(v, 2);
   float wPow2 = pow(w, 2);
 
-  oWorldPos0 = oPatch.WorldPos_B300 * wPow3 +
+  WorldPos0 = oPatch.WorldPos_B300 * wPow3 +
     oPatch.WorldPos_B030 * uPow3 +
     oPatch.WorldPos_B003 * vPow3 +
     oPatch.WorldPos_B210 * 3.0 * wPow2 * u +
@@ -84,7 +84,7 @@ void main()
 
   //TBNMatrix_p = oPatch.TBNMatrix_p_ES_in;
 
-  gl_Position = ProjectionMatrix * ViewMatrix * vec4(oWorldPos0, 1.0);
+  gl_Position = ProjectionMatrix * ViewMatrix * vec4(WorldPos0, 1.0);
   //ClipSpacePosZ = gl_Position.z;
 }
 

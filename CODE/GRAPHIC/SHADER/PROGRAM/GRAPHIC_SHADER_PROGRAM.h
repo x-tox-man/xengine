@@ -34,6 +34,9 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_PROGRAM )
 
     void setShaderAttribute( const GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
 
+#if DEBUG
+        assert( ShaderAttributeTable.find(attribute.AttributeName) == ShaderAttributeTable.end() );
+#endif
         ShaderAttributeTable[attribute.AttributeName].AttributeIndex = attribute.AttributeIndex;
         ShaderAttributeTable[attribute.AttributeName].AttributeName = attribute.AttributeName;
         ShaderAttributeTable[attribute.AttributeName].AttributeValue = attribute.AttributeValue;
@@ -66,6 +69,11 @@ static const CORE_HELPERS_IDENTIFIER
     ColorTexture3,
     ColorTexture4,
     ColorTexture5,
+    ColorTextureOut,
+    ColorTextureOut1,
+    ColorTextureOut2,
+    ColorTextureOut3,
+    ColorTextureOut4,
     NormalTexture,
     DisplacementTexture,
     DepthTexture,
@@ -137,6 +145,7 @@ static const CORE_HELPERS_IDENTIFIER
     MaterialSpecularIntensity,
     TimeModulator,
     PreviousModelViewProjectionIdentifier,
+    SSAOViewProjectionMatrix,
     SSAOSampleRad,
     SSAOKernel,
     SSAOTexture;

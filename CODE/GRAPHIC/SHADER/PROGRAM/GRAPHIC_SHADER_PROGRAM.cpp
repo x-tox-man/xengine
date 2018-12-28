@@ -36,6 +36,11 @@ const CORE_HELPERS_IDENTIFIER
     GRAPHIC_SHADER_PROGRAM::ColorTexture3( "c_texture_3" ),
     GRAPHIC_SHADER_PROGRAM::ColorTexture4( "c_texture_4" ),
     GRAPHIC_SHADER_PROGRAM::ColorTexture5( "c_texture_5" ),
+    GRAPHIC_SHADER_PROGRAM::ColorTextureOut( "o_texture" ),
+    GRAPHIC_SHADER_PROGRAM::ColorTextureOut1( "o_texture_1" ),
+    GRAPHIC_SHADER_PROGRAM::ColorTextureOut2( "o_texture_2" ),
+    GRAPHIC_SHADER_PROGRAM::ColorTextureOut3( "o_texture_3" ),
+    GRAPHIC_SHADER_PROGRAM::ColorTextureOut4( "o_texture_4" ),
     GRAPHIC_SHADER_PROGRAM::NormalTexture( "n_texture" ),
     GRAPHIC_SHADER_PROGRAM::DisplacementTexture( "t_texture" ),
     GRAPHIC_SHADER_PROGRAM::DepthTexture( "d_texture" ),
@@ -109,4 +114,5 @@ const CORE_HELPERS_IDENTIFIER
     GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier( "PreviousModelViewProjectionIdentifier" ),
     GRAPHIC_SHADER_PROGRAM::SSAOSampleRad( "SSAOSampleRad" ),
     GRAPHIC_SHADER_PROGRAM::SSAOKernel( "SSAOKernel" ),
-    GRAPHIC_SHADER_PROGRAM::SSAOTexture( "SSAOTexture" );
+    GRAPHIC_SHADER_PROGRAM::SSAOTexture( "SSAOTexture" ),
+    GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix( "SSAOViewProjectionMatrix" );

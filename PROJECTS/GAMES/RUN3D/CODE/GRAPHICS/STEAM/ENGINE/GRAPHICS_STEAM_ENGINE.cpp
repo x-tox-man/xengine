@@ -17,7 +17,8 @@ GRAPHICS_STEAM_ENGINE::GRAPHICS_STEAM_ENGINE() :
     GRAPHIC_MATERIAL * material = new GRAPHIC_MATERIAL( "smoke" );
     
     auto effect = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ) )->GetResource< GRAPHIC_SHADER_EFFECT >();
-    
+
+    effect->BindAttribute( Emiter->GetRenderer().GetScaleFactorAttribute(), CORE_HELPERS_IDENTIFIER( "ScaleFactor" ) );
     effect->SetMaterial( material );
     
     Emiter->Initialize(400, 5.0f, effect );
