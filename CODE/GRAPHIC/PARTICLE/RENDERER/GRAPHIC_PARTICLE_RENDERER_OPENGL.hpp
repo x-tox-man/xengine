@@ -80,8 +80,6 @@ void InternalInitialize( GRAPHIC_SHADER_EFFECT * effect ) {
     IndexBuffer = new CORE_DATA_BUFFER;
     VertexBuffer = new CORE_DATA_BUFFER;
     
-    effect->BindAttribute( ScaleFactorAttribute, CORE_HELPERS_IDENTIFIER( "ScaleFactor" ) );
-    
     //TODO : refactor
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);

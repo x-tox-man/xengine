@@ -46,11 +46,12 @@ public:
     // contract :
     //void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table );
 
+    GRAPHIC_SHADER_ATTRIBUTE
+        ScaleFactorAttribute;
+    
 private:
     GRAPHIC_SHADER_BIND
         VertexComponent;
-    GRAPHIC_SHADER_ATTRIBUTE
-        ScaleFactorAttribute;
 #if OPENGL4
     #include "GRAPHIC_PARTICLE_RENDERER_OPENGL.hpp"
 #elif OPENGLES2

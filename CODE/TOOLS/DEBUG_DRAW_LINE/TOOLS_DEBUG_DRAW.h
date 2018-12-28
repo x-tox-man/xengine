@@ -28,8 +28,6 @@ Shader( NULL )
     
     Line = new GRAPHIC_OBJECT_SHAPE_LINE();
     Line->InitializeShape();
-    Shader->Initialize( Line->GetShaderBindParameter() );
-    Shader->SetMaterial( new GRAPHIC_MATERIAL() );
 #endif
 }
 

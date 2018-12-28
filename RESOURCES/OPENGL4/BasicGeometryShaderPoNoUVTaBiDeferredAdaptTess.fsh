@@ -1,6 +1,6 @@
 #version 410 core
 
-in vec3 oWorldPos0;
+in vec3 WorldPos0;
 in vec2 texCoord;
 in vec4 o_normal;
 //layout (location = 3) in float ClipSpacePosZ;
@@ -60,7 +60,7 @@ void main()
     //DiffuseOut = texture( c_texture, texCoord );
     DiffuseOut = vec4( 1.0 );
     NormalOut = vec4( 1.0 );
-    WorldPosOut = vec4( oWorldPos0, 1.0);
+    WorldPosOut = vec4( WorldPos0, 1.0);
 
     ShadowOut.rgba = vec4(1.0);
 

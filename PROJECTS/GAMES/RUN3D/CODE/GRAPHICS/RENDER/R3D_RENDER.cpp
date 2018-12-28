@@ -243,7 +243,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_SYSTEM::DisableDepthTest();
     renderer.SetCamera( InterfaceCamera );
-    //GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
+    GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
     
     renderer.SetCamera( Camera );
     CascadeShadowMapTechnique.DebugFustrum( renderer );

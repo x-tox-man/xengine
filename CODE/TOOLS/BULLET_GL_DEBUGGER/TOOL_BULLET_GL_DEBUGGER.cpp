@@ -27,8 +27,6 @@ void TOOL_BULLET_GL_DEBUGGER::Initialize() {
     Shader = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::LineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "LineShader" , "vsh", "OPENGL2" ) );
     
     Line.InitializeShape();
-    Shader->Initialize( Line.GetShaderBindParameter() );
-    Shader->SetMaterial( new GRAPHIC_MATERIAL() );
 }
 void TOOL_BULLET_GL_DEBUGGER::drawLine(const btVector3& from, const btVector3& to, const btVector3& fromColor, const btVector3& toColor) {
     

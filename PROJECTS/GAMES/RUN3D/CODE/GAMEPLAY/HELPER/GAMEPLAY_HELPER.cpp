@@ -220,7 +220,7 @@ void GAMEPLAY_HELPER::SetTextureRepeating(GAMEPLAY_COMPONENT_ENTITY::PTR entity,
     
     auto mat = render->GetMaterial().GetResource< GRAPHIC_MATERIAL >();
     
-    GRAPHIC_SYSTEM::SetTextureOptions( mat->GetTexture( identifier )->GetTexture(), GRAPHIC_TEXTURE_FILTERING_LinearMipmapLinear, GRAPHIC_TEXTURE_WRAP_RepeatMirror, CORE_COLOR_Transparent );
+    GRAPHIC_SYSTEM::SetTextureOptions( mat->GetTexture( identifier )->GetTexture(), GRAPHIC_TEXTURE_FILTERING_Linear, GRAPHIC_TEXTURE_WRAP_RepeatMirror, CORE_COLOR_Transparent );
 }
 
 void GAMEPLAY_HELPER::SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {

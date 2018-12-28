@@ -251,6 +251,61 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         CORE_MEMORY_ObjectSafeDeallocation( attribute );
         
         attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTextureOut.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTextureOut;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTextureOut1.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTextureOut1;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTextureOut2.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTextureOut2;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTextureOut3.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTextureOut3;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+        GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, ColorTextureOut4.GetTextValue() ); )
+        
+        if ( attribute->AttributeIndex != -1 ) {
+            
+            attribute->AttributeName = ColorTextureOut4;
+            
+            setShaderAttribute(*attribute);
+        }
+        CORE_MEMORY_ObjectSafeDeallocation( attribute );
+        
+        attribute = new GRAPHIC_SHADER_ATTRIBUTE;
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( ShaderProgram, NormalTexture.GetTextValue() ); )
         
         if ( attribute->AttributeIndex != -1 ) {

@@ -47,8 +47,8 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
     {
         for ( int i = 0; i < CascadeCount; i++) {
             
-            //LightShadowCamera[i]->UpdateCamera( LightSourcePose.GetPosition(), LightSourcePose.GetOrientation() );
-            LightShadowCamera[i]->UpdateCamera( CORE_MATH_VECTOR::Zero, LightSourcePose.GetOrientation() );
+            LightShadowCamera[i]->UpdateCamera( LightSourcePose.GetPosition(), LightSourcePose.GetOrientation() );
+            //LightShadowCamera[i]->UpdateCamera( CORE_MATH_VECTOR::Zero, LightSourcePose.GetOrientation() );
         }
         
         CalculateCascadeOrthoProjection( renderer );

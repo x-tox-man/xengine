@@ -49,9 +49,9 @@ void R3D_RESOURCES::Initialize() {
     
     //auto effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferred", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
-    auto tesselation_effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "tess_shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferredAdaptTess", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ), GRAPHIC_SHADER_LOAD_OPTION_Vertex | GRAPHIC_SHADER_LOAD_OPTION_Fragment | GRAPHIC_SHADER_LOAD_OPTION_Tesselate );
+    //auto tesselation_effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "tess_shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferredAdaptTess", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ), GRAPHIC_SHADER_LOAD_OPTION_Vertex | GRAPHIC_SHADER_LOAD_OPTION_Fragment | GRAPHIC_SHADER_LOAD_OPTION_Tesselate );
     auto basic_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicGeometryShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
-    auto basic_terrain_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "TerrainShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicTerrainShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
+    auto basic_terrain_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "TerrainShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicTerrainShaderDeferred", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto checkpoint_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "CheckpointEffect", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto particle_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicParticleShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicParticleShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto text_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderTextured"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
@@ -60,7 +60,7 @@ void R3D_RESOURCES::Initialize() {
     
     //effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     effect_deferred->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
-    tesselation_effect_deferred->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
+    //tesselation_effect_deferred->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     basic_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     basic_terrain_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     checkpoint_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
@@ -77,7 +77,7 @@ void R3D_RESOURCES::Initialize() {
     text_proxy->SetResource( text_effect );
     sky_effect_proxy->SetResource( sky_effect );
     shadow_map_proxy->SetResource( shadow_map_effect );
-    tess_shader_proxy->SetResource( tesselation_effect_deferred );
+    //tess_shader_proxy->SetResource( tesselation_effect_deferred );
     
     Resources->AddResource( spaceship1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     Resources->AddResource( cone_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) );

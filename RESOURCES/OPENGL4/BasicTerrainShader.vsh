@@ -61,8 +61,8 @@ void main()
     ShadowCoord[0] = ShadowMapMVP1 * position;
     ShadowCoord[1] = ShadowMapMVP2 * position;
     ShadowCoord[2] = ShadowMapMVP3 * position;
-
-    ClipSpacePosZ = gl_Position.z;
     
     gl_Position = MVPMatrix * position;
+
+    ClipSpacePosZ = gl_Position.z;
 }
