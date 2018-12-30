@@ -38,7 +38,7 @@ void R3D_LEVEL::Initialize() {
     CreateTracks();
     CreateGround();
     //CreateMoon();
-    //CreateSky();
+    CreateSky();
 }
 
 void R3D_LEVEL::Initialize( const CORE_FILESYSTEM_PATH & path ) {

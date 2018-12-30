@@ -255,7 +255,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>libogg_static.lib;libvorbis_static.lib;libpng16.lib;liblua.lib;libuv.lib;zlib.lib;LinearMath.lib;EngineLib.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet3Geometry.lib;Bullet3Dynamics.lib;BulletCollision.lib;BulletDynamics.lib;BulletInverseDynamics.lib;BulletInverseDynamicsUtils.lib;BulletSoftBody.lib;OpenAL32.lib;ws2_32.lib;kernel32.lib;Psapi.lib;user32.lib;Userenv.lib;Iphlpapi.lib;OpenGL32.lib;glew32s.lib;glew32.lib;GlU32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\..\..\libs;..\..\..\..\..\mylibs;..\..\..\..\bin\Debug-GL4;..\..\..\..\..\LIBRARY\WINDOWS\DEBUG;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

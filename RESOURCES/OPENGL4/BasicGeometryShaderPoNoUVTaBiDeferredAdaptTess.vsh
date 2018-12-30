@@ -1,4 +1,4 @@
-#version 410 core
+#version 430 core
 
 in vec4 position;
 in vec4 normal;
@@ -8,12 +8,10 @@ in vec3 bitangent;
 
 out vec4 WorldPos0_CS_IN;
 out vec2 texCoord_CS_IN;
-out vec4 o_normal_CS_IN;
+out vec3 o_normal_CS_IN;
 //out vec4 ShadowCoord_CS_IN[3];
 //out mat3 TBNMatrix_p_CS_IN;
 
-uniform mat4 ViewMatrix;
-uniform mat4 ProjectionMatrix;
 uniform mat4 ModelMatrix;
 //uniform sampler2D c_texture;
 //uniform sampler2D n_texture;
@@ -29,8 +27,8 @@ void main()
 {
     WorldPos0_CS_IN = ModelMatrix * position;
     texCoord_CS_IN = tex0;
-    o_normal_CS_IN = ModelMatrix * normal;
-    o_normal_CS_IN = normalize( o_normal_CS_IN );
+    vec4 nor = ModelMatrix * vec4( normal.xyz, 0.0);
+    o_normal_CS_IN = normalize( nor.xyz );
 
     //ShadowCoord_CS_IN[0] = ShadowMapMVP1 * position;
     //ShadowCoord_CS_IN[1] = ShadowMapMVP2 * position;

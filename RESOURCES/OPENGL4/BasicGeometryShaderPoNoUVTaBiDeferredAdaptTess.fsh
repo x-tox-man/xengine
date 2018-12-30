@@ -1,8 +1,8 @@
-#version 410 core
+#version 430 core
 
-in vec3 WorldPos0;
-in vec2 texCoord;
-in vec4 o_normal;
+in vec3 WorldPos_FS_in;
+in vec2 TexCoord_FS_in;
+in vec4 Normal_FS_in;
 //layout (location = 3) in float ClipSpacePosZ;
 //layout (location = 4) in vec4 ShadowCoord[3];
 //layout (location = 5) in mat3 TBNMatrix_p;
@@ -13,10 +13,7 @@ layout (location = 2) out vec4 NormalOut;
 layout (location = 3) out vec4 ShadowOut;
 layout (location = 4) out float SSAO;
 
-uniform mat4 ViewMatrix;
-uniform mat4 ProjectionMatrix;
-uniform mat4 ModelMatrix;
-//uniform sampler2D c_texture;
+uniform sampler2D c_texture;
 //uniform sampler2D n_texture;
 //uniform sampler2D d_texture;
 //uniform sampler2D d_texture1;
@@ -45,10 +42,10 @@ uniform mat4 ModelMatrix;
 
 void main() 
 { 
-	vec4 normalTimesLModel = o_normal;
+	vec4 normalTimesLModel = Normal_FS_in;
 
     //-------- NORMAL MAPPING BEGIN
-    /*vec3 BumpMapNormal = texture(n_texture, texCoord).xyz;
+    /*vec3 BumpMapNormal = texture(n_texture, TexCoord_FS_in).xyz;
     BumpMapNormal = 2.0 * BumpMapNormal - vec3(1.0, 1.0, 1.0);
 
     vec3 NewNormal;
@@ -57,14 +54,11 @@ void main()
     NewNormal = normalize(NewNormal);*/
     //-------- NORMAL MAPPING END
 
-    //DiffuseOut = texture( c_texture, texCoord );
-    DiffuseOut = vec4( 1.0 );
-    NormalOut = vec4( 1.0 );
-    WorldPosOut = vec4( WorldPos0, 1.0);
+    DiffuseOut = texture( c_texture, TexCoord_FS_in );
+    NormalOut = Normal_FS_in;
+    WorldPosOut = vec4( WorldPos_FS_in, 1.0);
 
-    ShadowOut.rgba = vec4(1.0);
-
-    //float d = texture( d_texture, texCoord.xy).x  + texture( d_texture1, texCoord.xy).x + texture( d_texture2, texCoord.xy).x;
+    vec4 ShadowOut = vec4(1.0);
 
     /*for (int i = 0 ; i < 3 ; i++) {
 
@@ -74,8 +68,6 @@ void main()
             break;
         }
     }*/
-
-    DiffuseOut = vec4(1.0,0.0, 0.0, 1.0);
 
     ShadowOut.a = 1.0;
 }
