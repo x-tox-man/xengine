@@ -432,9 +432,10 @@ void GAMEPLAY_HELPER::SetPhysicsFlatGroundObject( GAMEPLAY_COMPONENT_ENTITY::PTR
     comp->SetMass( mass );
 }
 
-void GAMEPLAY_HELPER::InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, GRAPHIC_CAMERA & camera ) {
+void GAMEPLAY_HELPER::InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & direction, GRAPHIC_CAMERA & camera, const CORE_MATH_VECTOR & up ) {
     
-    camera.Reset( 1.0f, 150.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, orientation );
+    camera.Reset( 1.0f, 150.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, direction,
+                 up );
 }
 
 void GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity, CORE_MATH_VECTOR & out_position, CORE_MATH_VECTOR & out_normal ) {
@@ -452,7 +453,7 @@ void GAMEPLAY_HELPER::GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity, CORE_
     
     q.ToMatrix( &m[0] );
     
-    CORE_MATH_VECTOR orr = CORE_MATH_VECTOR( 0.0f, 0.0f, -10.0f, 0.0f) * m;
+    CORE_MATH_VECTOR orr = CORE_MATH_VECTOR( 0.0f, -10.0f, 0.0f , 0.0f) * m;
     
     ray.SetOrigin( pos->GetPosition() );
     ray.SetDestination( pos->GetPosition() + orr );

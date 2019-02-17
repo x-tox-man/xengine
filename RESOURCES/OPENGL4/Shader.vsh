@@ -78,7 +78,7 @@ out vec3 EyeDirection_tangentspace;
 
 void main()
 {
-    float cosTheta = dot( normal,normalize(vec4( 1.0, 0.0, 0.0, 1.0) ) );
+    float cosTheta = dot( normal,normalize(vec4( 1.0, 0.0, 0.0, 0.0) ) );
     
     mat4 blend_result = weights.x * jointsMatrix[int( joint_indices.x )];
     blend_result = blend_result + weights.y * jointsMatrix[int( joint_indices.y )];

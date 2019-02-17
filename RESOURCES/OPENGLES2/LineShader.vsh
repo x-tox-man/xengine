@@ -19,7 +19,7 @@ uniform vec4 geometryPosition[4];
 
 void main()
 {
-    float cosTheta = dot( normal,normalize(vec4( 1.0, 0.0, 0.0, 1.0) ) );
+    float cosTheta = dot( normal,normalize(vec4( 1.0, 0.0, 0.0, 0.0) ) );
     
     colorVarying = vec4( 0.4, 0.4, 0.4, 1.0 );
     int index = int(normal.x);

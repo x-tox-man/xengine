@@ -24,6 +24,7 @@
 #include "GRAPHIC_MATERIAL.h"
 #include "GRAPHIC_OBJECT_RENDER_OPTIONS.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
+#include "CORE_MATH_SHAPE.h"
 
 class GRAPHIC_MESH;
 class GRAPHIC_OBJECT;
@@ -60,6 +61,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_OBJECT, GR_O_ANCESTOR_TYPE )
     #endif
 
     void ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTIONS & options, const CORE_MATH_MATRIX & transform, GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp, CORE_MATH_MATRIX & object_matrix );
+
+    void ComputeAABBox( CORE_MATH_SHAPE & box );
 
 protected:
 

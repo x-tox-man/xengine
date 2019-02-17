@@ -170,7 +170,7 @@ void R3D_GAMEPLAY_GAME::Initialize( ) {
     Scene.InsertUpdatableSystem( BulletSystem );
     
     BulletSystem->SetNearCallback( MyNearCallback );
-    BulletSystem->SetGravity( -2.81f );
+    BulletSystem->SetGravity( CORE_MATH_VECTOR( 0.0f, -2.81f, 0.0f) );
     BulletSystem->Initialize();
     BulletSystem->SetCollisionFilter( new PHYSICS_COLLISION_FILTER() );
     
@@ -317,9 +317,9 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVENT )
     static float t = 0.0f;
-    static GRAPHIC_CAMERA local_camera( 1.0f, 1500.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
+    static GRAPHIC_CAMERA local_camera( 1.0f, 1500.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR(), CORE_MATH_VECTOR::XAxis, CORE_MATH_VECTOR::YAxis );
     static const CORE_MATH_VECTOR & position = R3D_APP_PTR->GetCamera()->GetPosition();
-    static const CORE_MATH_QUATERNION & orientation = R3D_APP_PTR->GetCamera()->GetOrientation();
+    static const CORE_MATH_VECTOR & direction = R3D_APP_PTR->GetCamera()->GetDirection();
 
     if ( t > 1.0f ) {
         
@@ -335,12 +335,8 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVEN
             
             const GRAPHIC_CAMERA & camera = GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip()->GetRear();
             
-            float p = t;
             
-            CORE_MATH_QUATERNION q = camera.GetOrientation() * p + orientation * (1.0f - p);
-            q.Normalize();
-            
-            local_camera.UpdateCamera(camera.GetPosition() * p + position * (1.0f - p), q );
+            local_camera.UpdateCamera(camera.GetPosition(), direction );
             R3D_APP_PTR->SetCamera( &local_camera );
         }
     }

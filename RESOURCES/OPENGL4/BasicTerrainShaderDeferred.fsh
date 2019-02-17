@@ -66,6 +66,7 @@ void main()
 
     DiffuseOut.a = 1.0;
     NormalOut = o_normal;//vec4( NewNormal, 1.0 );
+    NormalOut.a = 1.0;
     WorldPosOut = vec4( WorldPos0, 1.0);
 
     ShadowOut.rgba = vec4(1.0);

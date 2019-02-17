@@ -68,7 +68,7 @@ vec4 CalcLightInternal(PointLight point, vec3 LightDirection, vec3 Normal, vec3 
 
 vec4 CalcPointLight( vec3 WorldPos, PointLight point, vec3 Normal)
 {
-    vec3 LightDirection = WorldPos.xyz - spot_light_table[0].Base.Position.xyz;
+    vec3 LightDirection = WorldPos.xyz - LightPosition.xyz;
     
     float Distance = length(LightDirection);
     LightDirection = normalize(LightDirection);
@@ -84,16 +84,14 @@ vec4 CalcPointLight( vec3 WorldPos, PointLight point, vec3 Normal)
 
 vec4 CalcSpotLight(vec3 WorldPos, SpotLight l, vec3 Normal)
 {
-    vec3 LightToPixel = normalize(WorldPos.xyz - spot_light_table[0].Base.Position.xyz);
+    vec3 LightToPixel = normalize(WorldPos.xyz - LightPosition.xyz);
     float SpotFactor = dot(LightToPixel, spot_light_table[0].Direction.xyz);
 
     if (SpotFactor > l.Cutoff) {
         vec4 Color = CalcPointLight(WorldPos, l.Base, Normal);
         return Color * (1.0 - (1.0 - SpotFactor) * 1.0/(1.0 - l.Cutoff));
-        //return vec4(spot_light_table[0].Base.Position.xyz, 1.0);
     }
     else {
-        //return vec4(SpotFactor);
         return vec4(0.0);
     }
 }

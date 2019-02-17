@@ -105,6 +105,8 @@ public:
     void SetPosition( const CORE_MATH_VECTOR & position );
     void SetPositionOffset( const CORE_MATH_VECTOR & offset );
     void SetOrientation( const CORE_MATH_QUATERNION & orientation );
+    void Scale( float scale );
+    void Resize( const CORE_MATH_VECTOR & size );
 
     inline GAMEPLAY_COMPONENT_ENTITY * GetParent() const { return Parent; }
     inline void SetParent( GAMEPLAY_COMPONENT_ENTITY * parent ) { Parent = parent; }

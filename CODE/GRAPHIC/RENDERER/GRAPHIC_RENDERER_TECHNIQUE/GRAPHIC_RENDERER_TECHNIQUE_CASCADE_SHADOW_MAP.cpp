@@ -30,7 +30,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::Initialize( GRAPHIC_RENDERER
         rt_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     
     for ( int i = 0; i < CascadeCount; i++) {
-        LightShadowCamera[i] = new GRAPHIC_CAMERA_ORTHOGONAL( 0.1f, 10.0f, 4.0f, 4.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 9.0f, 0.0f), rt_lookat );
+        LightShadowCamera[i] = new GRAPHIC_CAMERA_ORTHOGONAL( 0.1f, 10.0f, 4.0f, 4.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 9.0f, 0.0f), CORE_MATH_VECTOR(0.0f, -1.0f, 0.0f, 0.0f), CORE_MATH_VECTOR::ZAxis );
     }
     
     GRAPHIC_SYSTEM::SetTextureOptions(ShadowMapRenderTarget1->GetTargetTexture( 0 ), GRAPHIC_TEXTURE_FILTERING_Nearest, GRAPHIC_TEXTURE_WRAP_Border, CORE_COLOR_Transparent);
@@ -46,8 +46,13 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
     GRAPHIC_RENDERER::GetInstance().SetPassIndex( 1 );
     {
         for ( int i = 0; i < CascadeCount; i++) {
+            CORE_MATH_MATRIX m;
+            CORE_MATH_VECTOR direction;
             
-            LightShadowCamera[i]->UpdateCamera( LightSourcePose.GetPosition(), LightSourcePose.GetOrientation() );
+            LightSourcePose.GetOrientation().ToMatrix( m.GetRow(0) );
+            direction = LightShadowCamera[i]->GetUp() * m;
+            
+            LightShadowCamera[i]->UpdateCamera( LightSourcePose.GetPosition(), direction );
             //LightShadowCamera[i]->UpdateCamera( CORE_MATH_VECTOR::Zero, LightSourcePose.GetOrientation() );
         }
         
@@ -65,7 +70,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
         RendererCallback( renderer );
         {
-            /*static int acc = 0;
+            static int acc = 0;
             
             acc++;
             if ( acc % 33 == 0 ) {
@@ -74,7 +79,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 
                 texture2= ShadowMapRenderTarget1->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth1", "png", "" ) );
-            }*/
+            }
         }
         ShadowMapRenderTarget1->Discard();
         
@@ -91,7 +96,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         RendererCallback( renderer );
         
         {
-            /*static int acc = 0;
+            static int acc = 0;
             
             acc++;
             if ( acc % 33 == 0 ) {
@@ -100,7 +105,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 
                 texture2= ShadowMapRenderTarget2->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth2", "png", "" ) );
-            }*/
+            }
         }
         
         ShadowMapRenderTarget2->Discard();
@@ -118,7 +123,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         RendererCallback( renderer );
         
         {
-            /*static int acc = 0;
+            static int acc = 0;
             
             acc++;
             if ( acc % 33 == 0 ) {
@@ -126,7 +131,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 GRAPHIC_TEXTURE * texture2;
                 texture2 = ShadowMapRenderTarget3->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth3", "png", "" ) );
-            }*/
+            }
         }
         
         ShadowMapRenderTarget3->Discard();
@@ -222,7 +227,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::CalculateCascadeOrthoProject
     float tanHalfHFOV = tanf( CORE_MATH_ToRadians( renderer.GetCamera()->GetFov() / 2.0f ) );
     float tanHalfVFOV = tanf( CORE_MATH_ToRadians( ( renderer.GetCamera()->GetFov() * aspect_ratio ) / 2.0f ) );
     
-    GRAPHIC_CAMERA_ORTHOGONAL orth( renderer.GetCamera()->GetFar(), renderer.GetCamera()->GetNear(), screen_width, screen_height, CORE_MATH_VECTOR::Zero, LightShadowCamera[0]->GetOrientation() );
+    GRAPHIC_CAMERA_ORTHOGONAL orth( renderer.GetCamera()->GetFar(), renderer.GetCamera()->GetNear(), screen_width, screen_height, CORE_MATH_VECTOR::Zero, LightShadowCamera[0]->GetDirection(), LightShadowCamera[0]->GetUp() );
     
     CORE_MATH_MATRIX LightM = LightShadowCamera[0]->GetViewMatrix();
     //<LightShadowCamera[0]->GetViewMatrix().GetInverse( LightM );

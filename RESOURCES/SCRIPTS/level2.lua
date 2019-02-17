@@ -11,7 +11,7 @@ function init()
 
 	vec:Y( -1.0 )
 	for i= 0, 20, 1 do
-		vec:Y( vec:GetY() + 1.0 )
+		vec:Z( vec:GetZ() + 1.0 )
 		base:SetPosition( vec )
 		
 		track = R3D_LEVEL_HELPER:Clone( base )
@@ -43,7 +43,8 @@ function init()
 	base:SetPosition( vec )
 		
 	track = R3D_LEVEL_HELPER:Clone( base )
-	R3D_LEVEL_HELPER:AddToSystemRenderAndPhysics( track )
+	R3D_LEVEL_HELPER:AddToSystemRenderAndPhysics( track )	
+	
 end	
 
 init()

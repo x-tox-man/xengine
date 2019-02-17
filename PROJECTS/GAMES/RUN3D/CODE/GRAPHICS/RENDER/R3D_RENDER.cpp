@@ -49,9 +49,8 @@ R3D_RENDER::R3D_RENDER() :
 void R3D_RENDER::Initialize() {
     
     CORE_MATH_VECTOR
-        position(10.0f, 15.0f, 64.0f, 1.0f);
+        position(0.0f, 0.0f, -1.0f, 1.0f);
     CORE_MATH_QUATERNION
-        interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f ),
         render_target_lookat( 0.0f, 0.0f, 0.0f, 1.0f ),
         lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     GRAPHIC_OBJECT_RENDER_OPTIONS
@@ -62,15 +61,15 @@ void R3D_RENDER::Initialize() {
     auto Window = &R3D_APP_PTR->GetApplicationWindow();
     GRAPHIC_RENDERER::GetInstance().Resize( Window->GetWidth(), Window->GetHeight() );
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 1500.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, Lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 150.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight() ) );
     
-    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR(0.0f, 0.0f), interface_lookat );
+    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR(0.0f, 0.0f, -2.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
-    Directional.InitializeDirectional( CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), CORE_MATH_VECTOR( 0.0f, 0.0f, -1.0f, 0.0f), 1.0f, 1.0f);
+    Directional.InitializeDirectional( CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), CORE_MATH_VECTOR( -0.5f, -0.5f, 0.0f, 0.0f), 1.0f, 1.0f);
     Ambient.InitializeAmbient(CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), 0.5f, 0.0f );
     
     GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( &Directional );
@@ -141,7 +140,7 @@ void R3D_RENDER::Initialize() {
     CORE_MATH_QUATERNION q;
     
     //q.RotateX( M_PI_2 );
-    q.RotateY( M_PI_2 * 0.25f );
+    q.RotateZ( M_PI_2 * 0.25f );
     q.Normalize();
     
     CascadeShadowMapTechnique.CascadeCount = 3;
@@ -149,13 +148,13 @@ void R3D_RENDER::Initialize() {
     CascadeShadowMapTechnique.ShadowMapRenderTarget1 = &ShadowMapRenderTarget1;
     CascadeShadowMapTechnique.ShadowMapRenderTarget2 = &ShadowMapRenderTarget2;
     CascadeShadowMapTechnique.ShadowMapRenderTarget3 = &ShadowMapRenderTarget3;
-    CascadeShadowMapTechnique.LightSourcePose.SetPosition( CORE_MATH_VECTOR::Zero );//( 100.0f, 0.0f, 100.0f, 1.0f) );
+    CascadeShadowMapTechnique.LightSourcePose.SetPosition( CORE_MATH_VECTOR::Zero );
     CascadeShadowMapTechnique.LightSourcePose.SetOrientation( q );
     CascadeShadowMapTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderScene>, this );
     CascadeShadowMapTechnique.RendererCallback1.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderSceneWithParticles>, this );
     CascadeShadowMapTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
-    RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, render_target_lookat );
+    RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
 #if DEBUG
     TOOLS_DEBUG_DRAW::Instance = new TOOLS_DEBUG_DRAW;
@@ -245,6 +244,13 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
 #endif
     
     GRAPHIC_SYSTEM::DisableDepthTest();
+    /*static int testdd= 0;
+    if ( testdd++ > 120 ) {
+        
+        R3D_APP_PTR->GetGame()->GetBulletSystem()->DebugDrawWorld();
+    }*/
+    
+    
     renderer.SetCamera( InterfaceCamera );
     GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
     

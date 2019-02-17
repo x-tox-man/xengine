@@ -496,7 +496,7 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int 
         GRAPHIC_SYSTEM_ApplyMatrix(
             attribute.AttributeIndex,
             1,
-            0,
+            1,
             &matrix[0] );
     }
 

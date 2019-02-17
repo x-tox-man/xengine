@@ -146,6 +146,7 @@ static const CORE_HELPERS_IDENTIFIER
     TimeModulator,
     PreviousModelViewProjectionIdentifier,
     SSAOViewProjectionMatrix,
+    SSAOViewMatrix,
     SSAOSampleRad,
     SSAOKernel,
     SSAOTexture;

@@ -35,7 +35,7 @@ vec2 CalcTexCoord()
 vec4 CalcLightInternal(PointLight point, vec3 LightDirection, vec3 Normal, vec3 Position )
 {
     vec4 AmbientColor = point.Color * point.AmbientIntensity;
-    float DiffuseFactor = dot(Normal, -LightDirection);
+    float DiffuseFactor = dot(Normal, -LightDirection.zyx);
     
     vec4 DiffuseColor = vec4(0, 0, 0, 0);
     vec4 SpecularColor = vec4(0, 0, 0, 0);
@@ -54,13 +54,13 @@ vec4 CalcLightInternal(PointLight point, vec3 LightDirection, vec3 Normal, vec3 
             SpecularColor = point.Color * MaterialSpecularIntensity * SpecularFactor;
         }
     }
-    
+
     return DiffuseColor + SpecularColor;
 }
 
 vec4 CalcPointLight( vec3 WorldPos, PointLight point, vec3 Normal)
 {
-    vec3 LightDirection = WorldPos.xyz - point_light_table[0].Position.xyz;
+    vec3 LightDirection = WorldPos.xyz - LightPosition.xyz;
     
     float Distance = length(LightDirection);
     LightDirection = normalize(LightDirection);

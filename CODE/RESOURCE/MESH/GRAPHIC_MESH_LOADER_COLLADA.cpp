@@ -485,7 +485,7 @@
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[0] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3);
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[1] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3 + 1);
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[2] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3 + 2);
-                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[3] = 1.0f;
+                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[3] = 0.0f;
                                 }
                                 
                                 if ( hasUV ) {

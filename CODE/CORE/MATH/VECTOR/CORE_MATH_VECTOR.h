@@ -174,7 +174,7 @@ XS_DEFINE_SERIALIZABLE
         Value[3] = w;
     }
 
-    const float ComputeSquareLength() const {
+   inline const float ComputeSquareLength() const {
         
         float square_length;
         
@@ -185,7 +185,7 @@ XS_DEFINE_SERIALIZABLE
         return square_length;
     }
 
-    const float ComputeLength() const {
+    inline const float ComputeLength() const {
         
         float square_length;
         
@@ -196,7 +196,7 @@ XS_DEFINE_SERIALIZABLE
         return sqrt( square_length );
     }
 
-    const float ComputeDotProduct( const CORE_MATH_VECTOR & other ) const {
+    inline const float ComputeDotProduct( const CORE_MATH_VECTOR & other ) const {
         
         float dot_product;
         
@@ -208,7 +208,16 @@ XS_DEFINE_SERIALIZABLE
         return dot_product;
     }
 
-    void Normalize() {
+    inline CORE_MATH_VECTOR ComputeCrossProduct( const CORE_MATH_VECTOR & v ) const {
+        
+        const float _x = Y() * v.Z() - Z() * v.Y();
+        const float _y = Z() * v.X() - X() * v.Z();
+        const float _z = X() * v.Y() - Y() * v.X();
+        
+        return CORE_MATH_VECTOR(_x, _y, _z, 0.0f);
+    }
+
+    inline void Normalize() {
         
         float acc = sqrt( Value[2] * Value[2] + Value[1] * Value[1] + Value[0] * Value[0] );
         

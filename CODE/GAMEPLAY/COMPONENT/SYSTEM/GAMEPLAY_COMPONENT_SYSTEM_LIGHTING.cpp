@@ -26,7 +26,6 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Update( float time_step ) {
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( GRAPHIC_RENDERER & renderer ) {
-
     
     std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     

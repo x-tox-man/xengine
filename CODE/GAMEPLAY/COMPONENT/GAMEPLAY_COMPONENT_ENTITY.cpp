@@ -47,15 +47,48 @@ GAMEPLAY_COMPONENT_ENTITY::GAMEPLAY_COMPONENT_ENTITY( const GAMEPLAY_COMPONENT_E
     }
 }
 
+void GAMEPLAY_COMPONENT_ENTITY::Scale( float scale ) {
+    
+    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    render_component->SetScaleFactor( scale );
+    
+    if ( render_component ) {
+        
+        render_component->GetAABBNode().GetBox().SetHalfDiagonal( render_component->GetAABBNode().GetBox().GetHalfDiagonal() * scale );
+    }
+}
+
+void GAMEPLAY_COMPONENT_ENTITY::Resize( const CORE_MATH_VECTOR & size ) {
+    
+    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    float scale = ( (render_component->GetAABBNode().GetBox().GetHalfDiagonal() *2).ComputeSquareLength() / size.ComputeSquareLength() );
+    
+    render_component->SetScaleFactor( scale );
+    
+    if ( render_component ) {
+        
+        render_component->GetAABBNode().GetBox().SetHalfDiagonal( size * 0.5f );
+    }
+}
+
 void GAMEPLAY_COMPONENT_ENTITY::SetPosition( const CORE_MATH_VECTOR & position ) {
     
     GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     GAMEPLAY_COMPONENT_PHYSICS * physics_component = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
     
     position_component->SetPosition( position );
+    
     if ( physics_component ) {
         
         physics_component->ForcePosition( position );
+    }
+    
+    if ( render_component ) {
+        
+        render_component->GetAABBNode().GetBox().SetPosition( position );
     }
 
     /*for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
@@ -72,6 +105,8 @@ void GAMEPLAY_COMPONENT_ENTITY::SetPositionOffset( const CORE_MATH_VECTOR & offs
     GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     position_component->SetPositionOffset( offset );
+    
+    abort();
 }
 
 void GAMEPLAY_COMPONENT_ENTITY::SetOrientation( const CORE_MATH_QUATERNION & orientation ) {

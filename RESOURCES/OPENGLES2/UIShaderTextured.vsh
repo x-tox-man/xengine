@@ -19,7 +19,7 @@ uniform mat4 MVPMatrix;
 
 void main()
 {
-    float cosTheta = dot( normal,normalize(vec4( 1.0, 0.0, 0.0, 1.0) ) );
+    float cosTheta = dot( normal,normalize(vec4( 1.0, 0.0, 0.0, 0.0) ) );
     
     colorVarying = geometryColor;
     textureCoordinates = tex0;

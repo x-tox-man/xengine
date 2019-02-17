@@ -34,8 +34,8 @@ uniform vec4 CameraWorldPosition;
 
 void main()
 {
-    LightPosition = ModelMatrix * spot_light_table[0].Base.Position; // in world position
-    EyeWorldPosition = ModelMatrix * CameraWorldPosition; // in world position
+    LightPosition = spot_light_table[0].Base.Position; // in world position
+    EyeWorldPosition = CameraWorldPosition; // in world position
 	gl_Position = MVPMatrix * position;
     iLightDirection = MVPMatrix * spot_light_table[0].Direction;
 }

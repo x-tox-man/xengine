@@ -11,6 +11,7 @@
 #include "GAMEPLAY_COMPONENT.h"
 #include "CORE_DATA_STREAM.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "GRAPHIC_OBJECT.h"
 
 GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     GAMEPLAY_COMPONENT(),
@@ -18,7 +19,7 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     EffectProxy(),
     MaterialProxy(),
     ShadowmapEffectProxy(),
-    BoundingObject(),
+    AABBNode( 0.1f ),
     ScaleFactor( 1.0f ) {
     
 }
@@ -29,7 +30,7 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER( const GAMEPLAY_COMPONENT_R
     EffectProxy( other.EffectProxy ),
     MaterialProxy( other.MaterialProxy ),
     ShadowmapEffectProxy( other.ShadowmapEffectProxy ),
-    BoundingObject( other.BoundingObject ),
+    AABBNode( other.AABBNode ),
     ScaleFactor( other.ScaleFactor ) {
     
 }
@@ -136,6 +137,14 @@ void GAMEPLAY_COMPONENT_RENDER::LoadFromStream( CORE_DATA_STREAM & stream ) {
         LastIndex = (*InternalVector)[ i ].LastIndex;
         LastOffset = i;
     }
+}
+
+void GAMEPLAY_COMPONENT_RENDER::ComputeSize( CORE_MATH_SHAPE & shape ) {
+    
+    GRAPHIC_OBJECT
+        * object = ObjectProxy.GetResource< GRAPHIC_OBJECT >();
+    
+    object->ComputeAABBox( shape );
 }
 
 std::vector< GAMEPLAY_COMPONENT_RENDER::INTERNAL_ARRAY_R >

@@ -18,7 +18,7 @@
 XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     
     GRAPHIC_CAMERA();
-    GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov = 30.0f );
+    GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up_vector, float fov = 30.0f );
     virtual ~GRAPHIC_CAMERA();
 
     inline const CORE_MATH_MATRIX & GetProjectionMatrix() const { return ProjectionMatrix; }
@@ -32,18 +32,21 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     inline float GetHeight() const { return Height; }
     inline float GetFov() const { return Fov; }
 
+    inline const CORE_MATH_VECTOR & GetUp() const { return Up; }
+    inline const CORE_MATH_VECTOR & GetDirection() const { return Direction; }
+
     inline const GRAPHIC_CAMERA_FUSTRUM & GetFustrum() const {return Fustrum; }
 
-    void Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov = 30.0f );
-    void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
+    void Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up_vector, float fov = 30.0f );
+    void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction );
     void ActivateForRender();
 
 private :
 
-    virtual void CalculateProjectionMatrix( float near_plane, float far_plane, float width, float height );
-    virtual void CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
-
 protected :
+
+    virtual void CalculateProjectionMatrix( float near_plane, float far_plane, float width, float height );
+    virtual void CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & normalized_direction, const CORE_MATH_VECTOR & up_vector );
 
     float
         Near,
@@ -52,7 +55,9 @@ protected :
         Height,
         Fov;
     CORE_MATH_VECTOR
-        Position;
+        Position,
+        Direction,
+        Up;
     CORE_MATH_MATRIX
         AlternateProjectionMatrix,
         ProjectionMatrix,

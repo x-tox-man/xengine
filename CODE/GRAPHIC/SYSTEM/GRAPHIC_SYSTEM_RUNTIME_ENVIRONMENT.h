@@ -21,10 +21,18 @@
     #error "UNSUPPORTED OLD API"
 #endif
 
+
+
 #ifdef X_VK
     #define X_VK 1
 #else
     #define X_VK 0
+#endif
+
+#ifdef X_METAL
+    #define X_METAL 1
+#else
+    #define X_METAL 0
 #endif
 
 #ifdef OPENGL4
@@ -76,4 +84,6 @@
     #include "OPENGLES_2.h"
 #elif X_VK
     #include "VK.h"
+#elif X_METAL
+    #include "X_METAL.h"
 #endif

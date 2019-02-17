@@ -584,7 +584,7 @@ public :
         lua_remove( state, 1 );  // remove self so member function args start at index 1
         // get member function from upvalue
         
-        USER_DATA_TYPE<INNER_USER_DATA_TYPE< CLASS_TO_BIND> > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE< CLASS_TO_BIND> > * ) lua_touserdata( state, 1);
+        USER_DATA_TYPE<INNER_USER_DATA_TYPE< CLASS_TO_BIND> > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE< CLASS_TO_BIND> > * ) lua_touserdata( state, lua_upvalueindex( 1 ) );
 
         (obj->*(vfpu->InnerType.voidFunctionPointer))();
         return 1;  // call member function
@@ -599,7 +599,7 @@ public :
         lua_remove( state, 1 );
         
         // get member function from upvalue
-        USER_DATA_TYPE<INNER_USER_DATA_TYPE_1< CLASS_TO_BIND, __TYPE_1__> > * vfpu = ( USER_DATA_TYPE<INNER_USER_DATA_TYPE_1< CLASS_TO_BIND, __TYPE_1__> > * ) lua_touserdata( state, 1 );
+        USER_DATA_TYPE<INNER_USER_DATA_TYPE_1< CLASS_TO_BIND, __TYPE_1__> > * vfpu = ( USER_DATA_TYPE<INNER_USER_DATA_TYPE_1< CLASS_TO_BIND, __TYPE_1__> > * ) lua_touserdata( state, lua_upvalueindex( 1 ) );
         
         ( obj->*( vfpu->InnerType.voidFunctionPointer ) )( LUA_ToValue< __TYPE_1__ >( state ) );
 
@@ -615,7 +615,7 @@ public :
         lua_remove( state, 1 );
         
         // get member function from upvalue
-        USER_DATA_TYPE<INNER_USER_DATA_TYPE_2< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__ > > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE_2< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__ > > * ) lua_touserdata( state, 1 );
+        USER_DATA_TYPE<INNER_USER_DATA_TYPE_2< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__ > > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE_2< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__ > > * ) lua_touserdata( state, lua_upvalueindex( 1 ) );
         
         ( obj->*( vfpu->InnerType.voidFunctionPointer ) )( LUA_ToValue< __TYPE_1__ >( state ), LUA_ToValue< __TYPE_2__ >( state ) );
         
@@ -632,7 +632,7 @@ public :
         lua_remove( state, 1 );
         
         // get member function from upvalue
-        USER_DATA_TYPE<INNER_USER_DATA_TYPE_3< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__, __TYPE_3__> > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE_3< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__, __TYPE_3__> > * ) lua_touserdata( state, 1 );
+        USER_DATA_TYPE<INNER_USER_DATA_TYPE_3< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__, __TYPE_3__> > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE_3< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__, __TYPE_3__> > * ) lua_touserdata( state, lua_upvalueindex( 1 ) );
         
         ( obj->*( vfpu->InnerType.voidFunctionPointer ) )( LUA_ToValue< __TYPE_1__ >( state ), LUA_ToValue< __TYPE_2__ >( state ), LUA_ToValue< __TYPE_3__ >( state ) );
         
@@ -652,7 +652,7 @@ public :
         lua_remove( state, 1 );  // remove self so member function args start at index 1
         
         // get member function from upvalue
-        USER_DATA_TYPE<INNER_YIELD_USER_DATA_TYPE< __RETURN_TYPE__, CLASS_TO_BIND > > * vfpu = (USER_DATA_TYPE<INNER_YIELD_USER_DATA_TYPE< __RETURN_TYPE__, CLASS_TO_BIND > > * ) lua_touserdata( state, 1);
+        USER_DATA_TYPE<INNER_YIELD_USER_DATA_TYPE< __RETURN_TYPE__, CLASS_TO_BIND > > * vfpu = (USER_DATA_TYPE<INNER_YIELD_USER_DATA_TYPE< __RETURN_TYPE__, CLASS_TO_BIND > > * ) lua_touserdata( state, lua_upvalueindex( 1 ) );
         
         __RETURN_TYPE__ result = ( obj->*( vfpu->InnerType.yieldFunctionPointer))();
 
@@ -672,7 +672,7 @@ public :
         
         typedef void (*voidPointerFunction)(void);
         
-        USER_DATA_TYPE<INNER_YIELD_USER_DATA_TYPE_1< __RETURN_TYPE__, CLASS_TO_BIND, __TYPE_1__> > * vfpu = (USER_DATA_TYPE<INNER_YIELD_USER_DATA_TYPE_1< __RETURN_TYPE__, CLASS_TO_BIND, __TYPE_1__> > * ) lua_touserdata( state, 1);
+        USER_DATA_TYPE<INNER_YIELD_USER_DATA_TYPE_1< __RETURN_TYPE__, CLASS_TO_BIND, __TYPE_1__> > * vfpu = (USER_DATA_TYPE<INNER_YIELD_USER_DATA_TYPE_1< __RETURN_TYPE__, CLASS_TO_BIND, __TYPE_1__> > * ) lua_touserdata( state, lua_upvalueindex( 1 ) );
         
         __RETURN_TYPE__ result = ( obj->*( vfpu->InnerType.yieldFunctionPointer))( LUA_ToValue< __TYPE_1__ >( state ) );
         
@@ -690,7 +690,7 @@ public :
         lua_remove( state, 1 );  // remove self so member function args start at index 1
         // get member function from upvalue
         
-        USER_DATA_TYPE<INNER_USER_DATA_TYPE< CLASS_TO_BIND> > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE< CLASS_TO_BIND> > * ) lua_touserdata( state, 1);
+        USER_DATA_TYPE<INNER_USER_DATA_TYPE< CLASS_TO_BIND> > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE< CLASS_TO_BIND> > * ) lua_touserdata( state, lua_upvalueindex( 1 ) );
         
         __RETURN_TYPE__ result = ( obj->*( vfpu->InnerType.yieldFunctionPointer))( LUA_ToValue< __TYPE_1__ >( state ), LUA_ToValue< __TYPE_2__ >( state ) );
         
@@ -708,7 +708,7 @@ public :
         lua_remove( state, 1 );  // remove self so member function args start at index 1
         // get member function from upvalue
         
-        USER_DATA_TYPE<INNER_USER_DATA_TYPE_3< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__, __TYPE_3__ > > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE_3< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__, __TYPE_3__ > > * ) lua_touserdata( state, 1);
+        USER_DATA_TYPE<INNER_USER_DATA_TYPE_3< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__, __TYPE_3__ > > * vfpu = (USER_DATA_TYPE<INNER_USER_DATA_TYPE_3< CLASS_TO_BIND, __TYPE_1__, __TYPE_2__, __TYPE_3__ > > * ) lua_touserdata( state, lua_upvalueindex( 1 ) );
         
         __RETURN_TYPE__ result = ( obj->*( vfpu->InnerType.yieldFunctionPointer))( LUA_ToValue< __TYPE_1__ >( state ), LUA_ToValue< __TYPE_2__ >( state ), LUA_ToValue< __TYPE_3__ >( state ) );
         

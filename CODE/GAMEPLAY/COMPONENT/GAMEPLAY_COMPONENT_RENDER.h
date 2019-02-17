@@ -20,6 +20,7 @@
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GRAPHIC_MATERIAL.h"
 #include "RESOURCE_PROXY.h"
+#include "GAMEPLAY_COMPONENT_AABB_NODE.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
@@ -44,6 +45,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
     inline void SetEffect( RESOURCE_PROXY & effect ) { EffectProxy = effect; }
     inline void SetMaterial( RESOURCE_PROXY & material ) { MaterialProxy = material; }
     inline void SetShadowmapEffect( RESOURCE_PROXY & effect ) { ShadowmapEffectProxy = effect; }
+    inline GAMEPLAY_COMPONENT_AABB_NODE & GetAABBNode() { return AABBNode; }
+
+    void ComputeSize( CORE_MATH_SHAPE & shape );
 
     inline RESOURCE_PROXY & GetObject() { return ObjectProxy; }
     inline RESOURCE_PROXY & GetEffect() { return EffectProxy; }
@@ -71,8 +75,8 @@ private :
         EffectProxy,
         MaterialProxy,
         ShadowmapEffectProxy;
-    CORE_MATH_SHAPE
-        BoundingObject;
+    GAMEPLAY_COMPONENT_AABB_NODE
+        AABBNode;
     float
         ScaleFactor;
     static std::vector< INTERNAL_ARRAY_R >

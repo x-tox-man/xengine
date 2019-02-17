@@ -11,6 +11,7 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_MATH_VECTOR.h"
+#include "CORE_MATH_SHAPE.h"
 
 class GRAPHIC_CAMERA;
 
@@ -22,6 +23,7 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA_FUSTRUM )
     void UpdateFustrum( const GRAPHIC_CAMERA & camera );
 
     bool SphereInFrustum( const CORE_MATH_VECTOR & position, const float radius ) const;
+    bool BoxInFrustum( const CORE_MATH_SHAPE & box ) const;
 
     void DebugDraw( const GRAPHIC_CAMERA & camera ) const;
 

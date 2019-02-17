@@ -19,10 +19,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_CAMERA, GAMEPLAY_COMPONENT_ENTI
     GAMEPLAY_CAMERA();
     virtual ~GAMEPLAY_CAMERA();
 
-    void Initialize( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat );
+    void Initialize( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & direction, const CORE_MATH_VECTOR & up );
 
     inline const CORE_MATH_VECTOR & GetPosition() { return Camera->GetPosition(); }
-    void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & rotation_quat );
+    void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & direction );
 
     inline GRAPHIC_CAMERA * GetCamera() { return Camera; }
 

@@ -32,7 +32,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAM
     virtual void Render( GRAPHIC_RENDERER & renderer ) override;
     virtual void Finalize() override;
 
-    inline void SetGravity( const float gravity ) { Gravity = gravity; }
+    inline void SetGravity( const CORE_MATH_VECTOR & gravity ) { Gravity = gravity; }
     inline void SetRenderer( GRAPHIC_RENDERER * renderer ) { Renderer = renderer; }
 
     #ifdef __BULLET_PHYSICS__
@@ -58,7 +58,7 @@ private :
 
     GRAPHIC_RENDERER
         * Renderer;
-    float
+    CORE_MATH_VECTOR
         Gravity;
     bool
         HasNearCallback;

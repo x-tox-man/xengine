@@ -88,11 +88,11 @@
     
     lookat.Normalize();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR::Zero, lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     RenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     {
-        LightShadowCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 10.0f, -10.0f, 10.0f, 10.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 5.0f, 0.0f), lookat );
+        LightShadowCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 10.0f, -10.0f, 10.0f, 10.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 5.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
         {
             CORE_MATH_MATRIX
                 depthMVP;
@@ -131,7 +131,7 @@
     lookat.FromMatrix( &rotation_mat[0] );
     lookat.Normalize();
     
-    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, -1.0f, 5.0f, 0.0f), lookat );
+    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, -1.0f, 5.0f, 0.0f), CORE_MATH_VECTOR::ZAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     

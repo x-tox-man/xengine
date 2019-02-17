@@ -8,10 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-#include "CORE_MATH_QUATERNION.h"
 #include "CORE_MATH_MATRIX.h"
 #include "CORE_MATH_VECTOR.h"
 #include "CORE_MATH_RAY.h"
+#include "CORE_MATH_SHAPE.h"
+#include "CORE_MATH_QUATERNION.h"
 #include "CORE_HELPERS_SCALAR.h"
 #include "CORE_MATH_SHAPE.h"
 #include "CORE_DATA_STREAM.h"
@@ -34,7 +35,6 @@
 #include "GRAPHIC_GLYPH.h"
 #include "FONT_EDITOR.h"
 #include "CORE_MATH.h"
-
 #include <vector>
 
 @interface MATH : XCTestCase
@@ -70,7 +70,7 @@
     lookat.RotateX(M_PI_2 );
     orientation.RotateX( M_PI_2 );
     GRAPHIC_CAMERA
-        camera( 1.0f, 1500.0f, 1024.0f, 768.0f, position, lookat );
+    camera( 1.0f, 1500.0f, 1024.0f, 768.0f, position, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     GRAPHIC_OBJECT_RENDER_OPTIONS
     options;
     CORE_MATH_MATRIX
@@ -185,7 +185,7 @@
 
 -(void) testQuaternionInit2 {
     
-    [self measureBlock:^{
+    //[self measureBlock:^{
         // Put the code you want to measure the time of here.
         CORE_MATH_QUATERNION quat;
         
@@ -198,12 +198,12 @@
             
             XCTAssert(quat.X() == 0.0f* i && quat.Y() == 1.0f* i && quat.Z() == 2.0f* i && quat.W() == 3.0f* i );
         }
-    }];
+    //}];
 }
 
 -(void) testQuaternionInit3 {
     
-    [self measureBlock:^{
+    /*[self measureBlock:^{
         // Put the code you want to measure the time of here.
         
         CORE_MATH_QUATERNION quat;
@@ -216,7 +216,7 @@
             
             XCTAssert(quat.X() == 0.0f* i && quat.Y() == 1.0f* i && quat.Z() == 2.0f* i && quat.W() == 3.0f* i );
         }
-    }];
+    }];*/
     
     //XCTAssert(quat.X == 0.0f && quat.Y == 1.0f && quat.Z == 0.0f && quat.W == 3.0f );
 }
@@ -797,4 +797,93 @@
     
     XCTAssert( mcombined == mresult );
 }
+
+-(void) testShapeBoxContainsIn1 {
+    CORE_MATH_SHAPE box1, box2;
+    
+    box1.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f) );
+    box1.SetHalfDiagonal( CORE_MATH_VECTOR(10.0f, 5.0f, 5.0f, 0.0f ) );
+    box2.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f) );
+    box2.SetHalfDiagonal( CORE_MATH_VECTOR(9.0f, 4.0f, 4.0f, 0.0f ) );
+    
+    XCTAssert( box1.ContainsBox( box2 ) );
+}
+
+-(void) testShapeBoxContainsIn2 {
+    CORE_MATH_SHAPE box1, box2;
+    
+    box1.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f ) );
+    box1.SetHalfDiagonal( CORE_MATH_VECTOR(10.0f, 5.0f, 5.0f, 0.0f ) );
+    box2.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f  ) );
+    box2.SetHalfDiagonal( CORE_MATH_VECTOR(9.0f, 4.0f, 4.0f, 0.0f ) );
+    
+    XCTAssert( box1.ContainsBox( box2 ) );
+}
+
+-(void) testShapeBoxContainsOut1 {
+    CORE_MATH_SHAPE box1, box2;
+    
+    box1.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f ) );
+    box1.SetHalfDiagonal( CORE_MATH_VECTOR(10.0f, 5.0f, 5.0f, 0.0f ) );
+    box2.SetPosition( CORE_MATH_VECTOR( 20.0f, 20.0f, 20.0f, 1.0f  ) );
+    box2.SetHalfDiagonal( CORE_MATH_VECTOR(9.0f, 4.0f, 4.0f, 0.0f ) );
+    
+    XCTAssert( !box1.ContainsBox( box2 ) );
+}
+
+-(void) testShapeBoxContainsEven {
+    CORE_MATH_SHAPE box1, box2;
+    
+    box1.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f ) );
+    box1.SetHalfDiagonal( CORE_MATH_VECTOR(10.0f, 5.0f, 5.0f, 0.0f ) );
+    box2.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f  ) );
+    box2.SetHalfDiagonal( CORE_MATH_VECTOR(10.0f, 5.0f, 5.0f, 0.0f ) );
+    
+    XCTAssert( box1.ContainsBox( box2 ) );
+}
+
+-(void) testShapeBoxContainsOut2 {
+    CORE_MATH_SHAPE box1, box2;
+    
+    box1.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f ) );
+    box1.SetHalfDiagonal( CORE_MATH_VECTOR(10.0f, 5.0f, 5.0f, 0.0f ) );
+    box2.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f  ) );
+    box2.SetHalfDiagonal( CORE_MATH_VECTOR(11.0f, 4.0f, 4.0f, 0.0f ) );
+    
+    XCTAssert( !box1.ContainsBox( box2 ) );
+}
+
+-(void) testShapeBoxContainsOut3 {
+    CORE_MATH_SHAPE box1, box2;
+    
+    box1.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f ) );
+    box1.SetHalfDiagonal( CORE_MATH_VECTOR(10.0f, 5.0f, 5.0f, 0.0f ) );
+    box2.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f  ) );
+    box2.SetHalfDiagonal( CORE_MATH_VECTOR(11.0f, 40.0f, 40.0f, 0.0f ) );
+    
+    XCTAssert( !box1.ContainsBox( box2 ) );
+}
+
+-(void) testShapeBoxContainsOut4 {
+    CORE_MATH_SHAPE box1, box2;
+    
+    box1.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f ) );
+    box1.SetHalfDiagonal( CORE_MATH_VECTOR(10.0f, 5.0f, 5.0f, 0.0f ) );
+    box2.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f  ) );
+    box2.SetHalfDiagonal( CORE_MATH_VECTOR(11.0f, 4.0f, 40.0f, 0.0f ) );
+    
+    XCTAssert( !box1.ContainsBox( box2 ) );
+}
+
+-(void) testShapeBoxContainsIn3 {
+    CORE_MATH_SHAPE box1, box2;
+    
+    box1.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f ) );
+    box1.SetHalfDiagonal( CORE_MATH_VECTOR(10.0f, 5.0f, 5.0f, 0.0f ) );
+    box2.SetPosition( CORE_MATH_VECTOR( 2.0f, 2.0f, 2.0f, 1.0f  ) );
+    box2.SetHalfDiagonal( CORE_MATH_VECTOR(11.0f, 40.0f, 40.0f, 0.0f ) );
+    
+    XCTAssert( box2.ContainsBox( box1 ) );
+}
+
 @end

@@ -85,7 +85,7 @@ highp mat3 transpose(in highp mat3 inMatrix) {
 
 void main()
 {
-    float cosTheta = dot( normal,normalize(vec4( 1.0, 0.0, 0.0, 1.0) ) );
+    float cosTheta = dot( normal,normalize(vec4( 1.0, 0.0, 0.0, 0.0) ) );
     
     highp mat4 blend_result = weights.x * jointsMatrix[int( joint_indices.x )];
     blend_result = blend_result + weights.y * jointsMatrix[int( joint_indices.y )];

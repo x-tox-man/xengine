@@ -32,7 +32,7 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_SYSTEM )
 
     virtual void Finalize();
 
-    void Clear() {
+    virtual void Clear() {
         
         EntitiesTable.clear();
     }

@@ -87,12 +87,7 @@ void RUN3D_APPLICATION::Initialize() {
     MENU_SCENE
         scene;
     
-    CORE_MATH_QUATERNION
-        q;
-    
-    q.RotateX( M_PI_2 );
-    
-    GetCamera()->UpdateCamera( CORE_MATH_VECTOR(-0.0f, -6.0f, 2.0f, 1.0f ), q );
+    GetCamera()->UpdateCamera( CORE_MATH_VECTOR(0.0f, 0.0f, -5.0f, 0.0f ), CORE_MATH_VECTOR::ZAxis );
     
     scene.Initialize();
     

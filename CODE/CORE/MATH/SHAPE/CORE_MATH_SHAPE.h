@@ -30,6 +30,10 @@ XS_DEFINE_SERIALIZABLE
     bool GetIntersection( const CORE_MATH_SHAPE & other );
     bool GetIntersection( const CORE_MATH_RAY & ray );
 
+    void AggregateWithBox( const CORE_MATH_SHAPE & other );
+    bool ContainsBox( const CORE_MATH_SHAPE & other );
+    void ComputeMinMax( CORE_MATH_VECTOR & min, CORE_MATH_VECTOR & max ) const;
+
     inline const CORE_MATH_VECTOR & GetPosition() const { return Position; };
     inline const CORE_MATH_VECTOR & GetHalfDiagonal() const { return HalfDiagonal; };
 

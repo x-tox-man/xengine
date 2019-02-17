@@ -227,6 +227,14 @@ void GRAPHIC_OBJECT::ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPT
     mvp = renderer.GetCamera()->GetProjectionMatrix() * renderer.GetCamera()->GetViewMatrix() * object_matrix;
 }
 
+void GRAPHIC_OBJECT::ComputeAABBox( CORE_MATH_SHAPE & box ) {
+    
+    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
+        
+        box.AggregateWithBox( MeshTable[ i ]->GetBoundingShape() );
+    }
+}
+
 void GRAPHIC_OBJECT::Release() {
     
     for ( size_t i = 0; i < MeshTable.size(); i++ ) {

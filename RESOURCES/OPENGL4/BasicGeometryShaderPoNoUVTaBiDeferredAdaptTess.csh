@@ -1,4 +1,4 @@
-#version 430 core
+#version 410 core
 
 // define the number of CPs in the output patch
 layout (vertices = 1) out;
@@ -40,7 +40,7 @@ struct OutputPatch
 };
 
 // attributes of the output CPs
- out patch OutputPatch oPatch;
+patch out OutputPatch oPatch;
 
 vec3 ProjectToPlane(vec3 Point, vec3 PlanePoint, vec3 PlaneNormal)
 {

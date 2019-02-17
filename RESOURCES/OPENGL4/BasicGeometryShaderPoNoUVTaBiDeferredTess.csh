@@ -52,8 +52,8 @@ void main()
     float EyeToVertexDistance2 = distance(gEyeWorldPos, WorldPos_ES_in[2].xyz);
 
     // Calculate the tessellation levels
-    gl_TessLevelOuter[0] = GetTessLevel(EyeToVertexDistance1, EyeToVertexDistance2);
-    gl_TessLevelOuter[1] = GetTessLevel(EyeToVertexDistance2, EyeToVertexDistance0);
-    gl_TessLevelOuter[2] = GetTessLevel(EyeToVertexDistance0, EyeToVertexDistance1);
+    gl_TessLevelOuter[0] = 3;//GetTessLevel(EyeToVertexDistance1, EyeToVertexDistance2);
+    gl_TessLevelOuter[1] = 3;//GetTessLevel(EyeToVertexDistance2, EyeToVertexDistance0);
+    gl_TessLevelOuter[2] = 3;//GetTessLevel(EyeToVertexDistance0, EyeToVertexDistance1);
     gl_TessLevelInner[0] = gl_TessLevelOuter[2];
 }

@@ -213,8 +213,8 @@ void GAMEPLAY_COMPONENT_PHYSICS::ConfigureHeightMap( const CORE_MATH_VECTOR & po
     
 #ifdef __BULLET_PHYSICS__
     
-    BulletShape = new btHeightfieldTerrainShape( width, lenght, heights, scale, -100.0f, 100.0f, 2, PHY_ScalarType::PHY_UCHAR, false );
-    BulletShape->setLocalScaling( btVector3(spacing,spacing,1.0f));
+    BulletShape = new btHeightfieldTerrainShape( width, lenght, heights, scale, -100.0f, 100.0f, 1, PHY_ScalarType::PHY_UCHAR, false );
+    BulletShape->setLocalScaling( btVector3(spacing,1.0f,spacing));
     BulletShape->setMargin( 0.05f );
     
     btDefaultMotionState* motion_state = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(position.X(), position.Y(), position.Z())));

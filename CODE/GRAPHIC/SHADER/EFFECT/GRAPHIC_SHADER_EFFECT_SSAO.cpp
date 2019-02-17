@@ -47,12 +47,14 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer ) {
     GRAPHIC_SHADER_ATTRIBUTE & ssao_kernel = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOKernel );
     GRAPHIC_SHADER_ATTRIBUTE & ssao_sample_rad = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOSampleRad );
     GRAPHIC_SHADER_ATTRIBUTE & proj = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE & view = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewMatrix );
     
     GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( SSAOKernel, SSAO_MAX_KERNEL, ssao_kernel );
     GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( SampleRad, ssao_sample_rad );
     
     mv = Camera->GetProjectionMatrix() * Camera->GetViewMatrix();// * inv;
     GRAPHIC_SYSTEM_ApplyMatrix(proj.AttributeIndex, 1, 1, &mv[0] );
+    GRAPHIC_SYSTEM_ApplyMatrix(view.AttributeIndex, 1, 1, &Camera->GetViewMatrix()[0] );
 }
 
 void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {
@@ -64,18 +66,18 @@ void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {
         float scale = 1.0f - ((float)i / (float)(SSAO_MAX_KERNEL));
         scale = (0.1f + 0.9f * scale * scale);
 
-        SSAOKernel[ i * 4 + 0 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f ) * scale;
-        SSAOKernel[ i * 4 + 1 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f ) * scale;
-        SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f ) * scale;
+        SSAOKernel[ i * 4 + 0 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f ) * scale* 0.03f;
+        SSAOKernel[ i * 4 + 1 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f ) * scale* 0.03f;
+        SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f ) * scale* 0.03f;
         SSAOKernel[ i * 4 + 3 ] = 1.0f;
     }
     float * noise = (float*) malloc( sizeof(float) * SSAO_MAX_ROTATIONS * 4);
     
     for (unsigned int i = 0; i < 16; i++)
     {
-        noise[ i * 4 + 0 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f );
-        noise[ i * 4 + 1 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f );
-        noise[ i * 4 + 2 ] = ( ( ( rand() %2000) * 0.001f ) -1.0f );
+        noise[ i * 4 + 0 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f );
+        noise[ i * 4 + 1 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f );
+        noise[ i * 4 + 2 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f );
         noise[ i * 4 + 3 ] = 1.0f;
     }
     

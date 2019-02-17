@@ -53,7 +53,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Initialize() {
         // The world.
         DynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
         
-        DynamicsWorld->setGravity(btVector3(0.0f, 0.0f, Gravity));
+        DynamicsWorld->setGravity(btVector3(Gravity.X(), Gravity.Y(), Gravity.Z() ) );
     
         #if DEBUG
             Debugger.Initialize();
