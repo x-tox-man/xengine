@@ -28,11 +28,8 @@ GRAPHIC_SHADER_EFFECT_LOADER::~GRAPHIC_SHADER_EFFECT_LOADER() {
 GRAPHIC_SHADER_EFFECT * GRAPHIC_SHADER_EFFECT_LOADER::Load( const CORE_FILESYSTEM_PATH & file, int resource_load_flag, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
     GRAPHIC_SHADER_EFFECT::PTR effect = new GRAPHIC_SHADER_EFFECT;
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT_LOADER loading 1");
     effect->GetProgram().SetProgram( new GRAPHIC_SHADER_PROGRAM );
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT_LOADER loading 1?5");
     effect->GetProgram().GetProgram()->Initialize();
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT_LOADER loading 2");
     
     CORE_FILESYSTEM_PATH file_without_extension = file.RemoveExtension();
     
@@ -51,8 +48,6 @@ GRAPHIC_SHADER_EFFECT * GRAPHIC_SHADER_EFFECT_LOADER::Load( const CORE_FILESYSTE
         effect->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( file_without_extension.GetFileName(), "csh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ), GRAPHIC_SHADER_HullControlShader );
         effect->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( file_without_extension.GetFileName(), "esh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ), GRAPHIC_SHADER_TessellateEvaluation );
     }
-    
-    SERVICE_LOGGER_Error( "GRAPHIC_SHADER_EFFECT_LOADER loaded");
     
     return effect;
 }
@@ -75,6 +70,7 @@ void GRAPHIC_SHADER_EFFECT_LOADER::ReloadResource( GRAPHIC_SHADER_EFFECT * resou
     /*resource_to_reload->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( resource_to_reload->GetPath().GetFileName(), "csh", GRAPHIC_SYSTEM::GetShaderDirectoryPath(), true ), GRAPHIC_SHADER_HullControlShader );
     resource_to_reload->GetProgram().GetProgram()->LoadPartial( CORE_FILESYSTEM_PATH::FindFilePath( resource_to_reload->GetPath().GetFileName(), "esh", GRAPHIC_SYSTEM::GetShaderDirectoryPath(), true ), GRAPHIC_SHADER_TessellateEvaluation );*/
     
+    resource_to_reload->GetProgram().GetShaderAttributeTable().clear();
     resource_to_reload->Initialize( resource_to_reload->GetShaderBind() );
     
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(false);

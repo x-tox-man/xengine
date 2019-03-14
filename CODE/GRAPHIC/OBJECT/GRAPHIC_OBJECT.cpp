@@ -86,14 +86,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             result,
             object;
         
-        if ( options.IsTexturingEnabled() ) {
-            
-            effect->Apply( renderer );
-        }
-        else {
-            
-            effect->Apply( renderer, false );
-        }
+        effect->Apply( renderer, renderer.IsLightingEnabled(), options.IsTexturingEnabled() );
         
         GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
@@ -224,7 +217,7 @@ void GRAPHIC_OBJECT::ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPT
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    mvp = renderer.GetCamera()->GetProjectionMatrix() * renderer.GetCamera()->GetViewMatrix() * object_matrix;
+    mvp = renderer.GetCamera()->GetProjectionViewMatrix() * object_matrix;
 }
 
 void GRAPHIC_OBJECT::ComputeAABBox( CORE_MATH_SHAPE & box ) {

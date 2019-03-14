@@ -45,7 +45,7 @@ void main()
         float sampleDepth = texture(c_texture, offset.xy).z;
         
         if (abs(Pos.z - sampleDepth) < SSAOSampleRad) {
-            SSAO += step(sampleDepth,samplePos.z);
+            SSAO += step(abs(samplePos.z), abs(sampleDepth) );
         }
     }
 

@@ -39,6 +39,8 @@ public:
     virtual void ApplyFirstPass( GRAPHIC_RENDERER & renderer );
     virtual void ApplySecondPass( GRAPHIC_RENDERER & renderer );
 
+    void UpdateCameras( const CORE_MATH_VECTOR & position , const CORE_MATH_VECTOR & direction, const CORE_MATH_VECTOR & up );
+
     void CalculateCascadeOrthoProjection( GRAPHIC_RENDERER & renderer );
 
     void DebugFustrum( GRAPHIC_RENDERER & renderer );
@@ -56,8 +58,6 @@ public:
         ShadowMapRenderTarget1,
         ShadowMapRenderTarget2,
         ShadowMapRenderTarget3;
-    CORE_MATH_POSE
-        LightSourcePose;
 XS_CLASS_END
 
 

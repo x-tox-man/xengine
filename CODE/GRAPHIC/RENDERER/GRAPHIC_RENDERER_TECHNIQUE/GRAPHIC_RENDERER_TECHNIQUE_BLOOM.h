@@ -16,6 +16,8 @@
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h"
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM.h"
 
+#define GRAPHIC_RENDERER_TECHNIQUE_BLOOM_MAX_BLUR   8
+
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_RENDERER_TECHNIQUE_BLOOM, GRAPHIC_RENDERER_TECHNIQUE )
 
     GRAPHIC_RENDERER_TECHNIQUE_BLOOM();
@@ -27,6 +29,17 @@ public:
     virtual void ApplyFirstPass( GRAPHIC_RENDERER & renderer );
     virtual void ApplySecondPass( GRAPHIC_RENDERER & renderer );
 
+    inline int GetBlurPassCount() const { return BlurPassCount; }
+    inline void SetBlurPassCount( int count ) {
+#if DEBUG
+        assert( count < GRAPHIC_RENDERER_TECHNIQUE_BLOOM_MAX_BLUR );
+#endif
+        BlurPassCount = count;
+        
+    }
+
+    int
+        BlurPassCount;
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR::PTR
         HorizontalBlurEffect,
         VerticalBlurEffect;
@@ -44,10 +57,10 @@ public:
     GRAPHIC_RENDER_TARGET::PTR
         PrimaryRenderTarget,
         BloomRenderTarget,
-        GaussianRenderTarget1,
-        GaussianRenderTarget2,
         FinalRenderTarget;
-
+    GRAPHIC_RENDER_TARGET::PTR
+        GaussianRenderTarget1Table[ GRAPHIC_RENDERER_TECHNIQUE_BLOOM_MAX_BLUR ],
+        GaussianRenderTarget2Table[ GRAPHIC_RENDERER_TECHNIQUE_BLOOM_MAX_BLUR ];
 
 XS_CLASS_END
 

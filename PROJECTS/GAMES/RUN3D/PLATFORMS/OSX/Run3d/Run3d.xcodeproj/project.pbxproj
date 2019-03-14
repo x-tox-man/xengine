@@ -332,6 +332,9 @@
 		5FF47272200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF47270200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.cpp */; };
 		5FFC73372018708F00DF4339 /* R3D_RENDERTERRAIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FFC73362018708F00DF4339 /* R3D_RENDERTERRAIN.cpp */; };
 		5FFC73382018709400DF4339 /* R3D_RENDERTERRAIN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FFC73362018708F00DF4339 /* R3D_RENDERTERRAIN.cpp */; };
+		5FFED08D2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FFED08B2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp */; };
+		5FFED08E2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FFED08B2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp */; };
+		5FFED08F2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FFED08B2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -770,6 +773,8 @@
 		5FF47271200F73D60070A7BA /* R3D_LEVEL_TRACK_TURN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R3D_LEVEL_TRACK_TURN.h; sourceTree = "<group>"; };
 		5FFC73352018708F00DF4339 /* R3D_RENDERTERRAIN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_RENDERTERRAIN.h; sourceTree = "<group>"; };
 		5FFC73362018708F00DF4339 /* R3D_RENDERTERRAIN.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_RENDERTERRAIN.cpp; sourceTree = "<group>"; };
+		5FFED08B2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp; sourceTree = "<group>"; };
+		5FFED08C2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1367,6 +1372,7 @@
 		5F92D9161F12E07F00292A99 /* GAME */ = {
 			isa = PBXGroup;
 			children = (
+				5FFED08A2226BAEE00116CF1 /* EDITOR */,
 				5FCC3E1E20041B4200A698B8 /* COMPONENT */,
 				5F193B911FEFC89D00F5DB4B /* MULTIPLAYER */,
 				5F92D9171F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp */,
@@ -1866,6 +1872,15 @@
 			path = ../../../../../../../../Static/COMPILED_LIBS_IOS;
 			sourceTree = "<group>";
 		};
+		5FFED08A2226BAEE00116CF1 /* EDITOR */ = {
+			isa = PBXGroup;
+			children = (
+				5FFED08B2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp */,
+				5FFED08C2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.h */,
+			);
+			path = EDITOR;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2152,6 +2167,7 @@
 				5F92D9191F12E09500292A99 /* R3D_GAMEPLAY_GAME.cpp in Sources */,
 				5F92D9381F12E1E100292A99 /* R3D_PLAYER_PARTS_COLLECTION.cpp in Sources */,
 				5F9C83C11FE70D790085CF18 /* R3D_PLAYER_SHIP_GEAR_STAGE.cpp in Sources */,
+				5FFED08D2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp in Sources */,
 				5F193BA41FF1A1AD00F5DB4B /* GAME_PLAYER_MODEL.cpp in Sources */,
 				5F92D9251F12E0E100292A99 /* R3D_LEVEL_STARTER.cpp in Sources */,
 				32F248211EA433F200D19613 /* AppDelegate.m in Sources */,
@@ -2184,6 +2200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FFED08F2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp in Sources */,
 				5F434AD2206F89730078A10D /* ViewController.m in Sources */,
 				5F434ADA206F89730078A10D /* main.m in Sources */,
 				5F434ACF206F89730078A10D /* AppDelegate.m in Sources */,
@@ -2236,6 +2253,7 @@
 				5FD957021FAE238B00FB9376 /* R3D_PLAYER_PARTS_COLLECTION.cpp in Sources */,
 				5F0C3CF51FDF315F00B761A2 /* NETWORK_BROWSER_LIST_ADAPTER.cpp in Sources */,
 				5FD957031FAE238B00FB9376 /* R3D_PLAYER_SHIP.cpp in Sources */,
+				5FFED08E2226BAEE00116CF1 /* R3D_GAMEPLAY_GAME_EDITOR_DELEGATE.cpp in Sources */,
 				5FD957041FAE238B00FB9376 /* R3D_PLAYER_SHIPS_COLLECTION.cpp in Sources */,
 				5F0C3CEF1FDF315F00B761A2 /* NETWORK_BROWSER_PAGE.cpp in Sources */,
 				5FD957051FAE238B00FB9376 /* R3D_PLAYER.cpp in Sources */,

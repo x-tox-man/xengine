@@ -10,6 +10,7 @@
 
 GRAPHIC_RENDERER_TECHNIQUE_BLOOM::GRAPHIC_RENDERER_TECHNIQUE_BLOOM() :
     GRAPHIC_RENDERER_TECHNIQUE(),
+    BlurPassCount( 1 ),
     Material(),
     PlanObject( NULL ),
     TextureBlock( NULL ),
@@ -20,7 +21,13 @@ GRAPHIC_RENDERER_TECHNIQUE_BLOOM::GRAPHIC_RENDERER_TECHNIQUE_BLOOM() :
     VerticalBlurEffect( NULL ),
     CombineBloomEffect( NULL ) {
     
+    for (int i = 0; i < GRAPHIC_RENDERER_TECHNIQUE_BLOOM_MAX_BLUR; i++ ) {
+        
+        GaussianRenderTarget1Table[ i ] = NULL;
+        GaussianRenderTarget2Table[ i ] = NULL;
+    }
 }
+
 GRAPHIC_RENDERER_TECHNIQUE_BLOOM::~GRAPHIC_RENDERER_TECHNIQUE_BLOOM() {
     
 }
@@ -97,64 +104,89 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
         }*/
     }
     
-    {
-        BloomRenderTarget->BindForReading();
-        BloomRenderTarget->SetReadBuffer( 0 );
-        TextureBlock->SetTexture( BloomRenderTarget->GetTargetTexture( 0 ) );
+    for (int blur_pass_index = 0; blur_pass_index < BlurPassCount; blur_pass_index++ ) {
         
-        Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
-        HorizontalBlurEffect->SetMaterial( &Material );
-        
-        GaussianRenderTarget1->BindForWriting();
-        PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, HorizontalBlurEffect );
-        
-        /*{
-            static int acc = 0;
-            acc++;
+        {
+            BloomRenderTarget->BindForReading();
+            BloomRenderTarget->SetReadBuffer( 0 );
+            TextureBlock->SetTexture( BloomRenderTarget->GetTargetTexture( 0 ) );
             
-            if ( acc % 30 == 0 ) {
+            Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
+            HorizontalBlurEffect->SetMaterial( &Material );
+            HorizontalBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeValue.Value.FloatArray2[0] = (blur_pass_index + 1) * (blur_pass_index + 1 );
+            HorizontalBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeValue.Value.FloatArray2[1] = (blur_pass_index + 1) * (blur_pass_index + 1 );
+            
+            GaussianRenderTarget1Table[blur_pass_index]->BindForWriting();
+            PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, HorizontalBlurEffect );
+            
+            /*{
+             static int acc = 0;
+             acc++;
+
+             if ( acc % 30 == 0 ) {
+             
+                 acc = 0;
+             
+                 GaussianRenderTarget1Table[blur_pass_index]->BindForReading();
+                 GaussianRenderTarget1Table[blur_pass_index]->SetReadBuffer( 0 );
+             
+                 GRAPHIC_TEXTURE * texture2 = GaussianRenderTarget1Table[blur_pass_index]->GetTargetTexture( 0 );
+                 texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_Gaussian", "png", "" ) );
+             }
+            }*/
+            GaussianRenderTarget1Table[blur_pass_index]->Discard();
+        }
+        
+        {
+            GaussianRenderTarget1Table[blur_pass_index]->BindForReading();
+            GaussianRenderTarget1Table[blur_pass_index]->SetReadBuffer( 0 );
+            TextureBlock->SetTexture( GaussianRenderTarget1Table[blur_pass_index]->GetTargetTexture( 0 ) );
+            
+            Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
+            VerticalBlurEffect->SetMaterial( &Material );
+            VerticalBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeValue.Value.FloatArray2[0] = (blur_pass_index + 1) * (blur_pass_index + 1 );
+            VerticalBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeValue.Value.FloatArray2[1] = (blur_pass_index + 1) * (blur_pass_index + 1 );
+            
+            GaussianRenderTarget2Table[blur_pass_index]->BindForWriting();
+            PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, VerticalBlurEffect );
+            
+            /*{
+                static int acc = 0;
+                acc++;
                 
-                acc = 0;
-                
-                GaussianRenderTarget1->BindForReading();
-                GaussianRenderTarget1->SetReadBuffer( 0 );
-                
-                GRAPHIC_TEXTURE * texture2 = GaussianRenderTarget1->GetTargetTexture( 0 );
-                texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_Gaussian", "png", "" ) );
-            }
-        }*/
-        GaussianRenderTarget1->Discard();
-    }
-    
-    {
-        GaussianRenderTarget1->BindForReading();
-        GaussianRenderTarget1->SetReadBuffer( 0 );
-        TextureBlock->SetTexture( GaussianRenderTarget1->GetTargetTexture( 0 ) );
+                if ( acc % 30 == 0 ) {
+                    
+                    acc = 0;
+                    
+                    GaussianRenderTarget2Table[blur_pass_index]->BindForReading();
+                    GaussianRenderTarget2Table[blur_pass_index]->SetReadBuffer( 0 );
+                    
+                    GRAPHIC_TEXTURE * texture2 = GaussianRenderTarget2Table[blur_pass_index]->GetTargetTexture( 0 );
+                    texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_Gaussian2", "png", "" ) );
+                }
+            }*/
+            GaussianRenderTarget2Table[blur_pass_index]->Discard();
+        }
         
-        Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
-        VerticalBlurEffect->SetMaterial( &Material );
-        
-        GaussianRenderTarget2->BindForWriting();
-        PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, VerticalBlurEffect );
-        GaussianRenderTarget2->Discard();
-    }
-    
-    {
-        TextureBlock->SetTexture( PrimaryRenderTarget->GetTargetTexture( 0 ) );
-        TextureBlock2->SetTexture( GaussianRenderTarget2->GetTargetTexture( 0 ) );
-        
-        auto mat = new GRAPHIC_MATERIAL;
-        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
-        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture1, TextureBlock2 );
-        CombineBloomEffect->SetMaterial( mat );
-        
-        if ( FinalRenderTarget != NULL )
-            FinalRenderTarget->BindForWriting();
-        PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, CombineBloomEffect );
-        if ( FinalRenderTarget != NULL )
-            FinalRenderTarget->Discard();
-        
-        delete mat;
+        {
+            PrimaryRenderTarget->BindForReading();
+            GaussianRenderTarget2Table[blur_pass_index]->BindForReading();
+            TextureBlock->SetTexture( PrimaryRenderTarget->GetTargetTexture( 0 ) );
+            TextureBlock2->SetTexture( GaussianRenderTarget2Table[blur_pass_index]->GetTargetTexture( 0 ) );
+            
+            auto mat = new GRAPHIC_MATERIAL;
+            mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock );
+            mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture1, TextureBlock2 );
+            CombineBloomEffect->SetMaterial( mat );
+            
+            if ( FinalRenderTarget != NULL )
+                FinalRenderTarget->BindForWriting();
+            PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, CombineBloomEffect );
+            if ( FinalRenderTarget != NULL )
+                FinalRenderTarget->Discard();
+            
+            delete mat;
+        }
     }
 }
 

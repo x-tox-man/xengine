@@ -34,7 +34,7 @@ void GRAPHIC_SHADER_EFFECT_SSAO::BindAttributes() {
     GenerateSSAOKernel();
 }
 
-void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing ) {
     
     CORE_MATH_MATRIX
         mv,
@@ -42,7 +42,7 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer ) {
         id;
     
     GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture5, TextureBlock );
-    GRAPHIC_SHADER_EFFECT::Apply( renderer );
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, does_lighting, does_texturing );
     
     GRAPHIC_SHADER_ATTRIBUTE & ssao_kernel = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOKernel );
     GRAPHIC_SHADER_ATTRIBUTE & ssao_sample_rad = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOSampleRad );
@@ -66,9 +66,9 @@ void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {
         float scale = 1.0f - ((float)i / (float)(SSAO_MAX_KERNEL));
         scale = (0.1f + 0.9f * scale * scale);
 
-        SSAOKernel[ i * 4 + 0 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f ) * scale* 0.03f;
-        SSAOKernel[ i * 4 + 1 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f ) * scale* 0.03f;
-        SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f ) * scale* 0.03f;
+        SSAOKernel[ i * 4 + 0 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
+        SSAOKernel[ i * 4 + 1 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
+        SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
         SSAOKernel[ i * 4 + 3 ] = 1.0f;
     }
     float * noise = (float*) malloc( sizeof(float) * SSAO_MAX_ROTATIONS * 4);

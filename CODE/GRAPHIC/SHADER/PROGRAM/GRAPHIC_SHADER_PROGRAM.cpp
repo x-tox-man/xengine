@@ -116,4 +116,5 @@ const CORE_HELPERS_IDENTIFIER
     GRAPHIC_SHADER_PROGRAM::SSAOKernel( "SSAOKernel" ),
     GRAPHIC_SHADER_PROGRAM::SSAOTexture( "SSAOTexture" ),
     GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix( "SSAOViewProjectionMatrix" ),
-    GRAPHIC_SHADER_PROGRAM::SSAOViewMatrix( "SSAOViewMatrix" );
+    GRAPHIC_SHADER_PROGRAM::SSAOViewMatrix( "SSAOViewMatrix" ),
+    GRAPHIC_SHADER_PROGRAM::FrameResolution( "FrameResolution" );

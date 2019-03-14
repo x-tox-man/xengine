@@ -66,8 +66,6 @@ private :
         FinalRenderTarget,
         LightRenderTarget,
         SpecularRenderTarget,
-        GaussianRenderTarget1,
-        GaussianRenderTarget2,
         BloomRenderTarget,
         ShadowMapRenderTarget1,
         ShadowMapRenderTarget2,

@@ -187,8 +187,6 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     
     CORE_MEMORY_ALLOCATOR_Free( heights );
     
-    SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 2" );
-    
 #if PLATFORM_WINDOWS || PLATFORM_OSX
     ShadowMapRenderTarget.InitializeDepthTexture( 1024, 1024, GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
     
@@ -546,7 +544,8 @@ GRAPHIC_OBJECT_ANIMATED * GLOBAL_RESOURCES::CreateAnimatedObject( const CORE_FIL
     
     for (int i = 0; i < animated_object->GetMeshTable().size(); i++ ) {
         
-        char * temp_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate(strlen( animation_path.GetPath() ) + 2 );
+        char
+            temp_path[128];
         
         strcpy(temp_path, animation_path.GetPath() );
         
@@ -560,8 +559,6 @@ GRAPHIC_OBJECT_ANIMATED * GLOBAL_RESOURCES::CreateAnimatedObject( const CORE_FIL
         animated_object->GetAnimationController()->Load( path );
         
         animated_object->GetAnimationController()->GetAnimation( i )->Initialize( animated_object->GetJointTable(), 0);
-        
-        CORE_MEMORY_ALLOCATOR_Free( temp_path );
     }
     
     animated_object->GetAnimationController()->Initialize();

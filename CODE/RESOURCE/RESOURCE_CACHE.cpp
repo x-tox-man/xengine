@@ -25,7 +25,7 @@ void RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::Setup
     
     int l = (int) strlen( path.GetPath() );
     
-    char * vsh_path = (char*) CORE_MEMORY_ALLOCATOR::Allocate ( l+1 );
+    char vsh_path[128];
     
     strncpy(vsh_path, path.GetPath(), l);
     vsh_path[l] = '\0';
@@ -36,8 +36,6 @@ void RESOURCE_CACHE< GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EFFECT_LOADER>::Setup
     effect->Watcher.Setup( vsh_path, *callback );
     
     delete( callback );
-    
-    CORE_MEMORY_ALLOCATOR_Free( vsh_path );
 }
 
 template<>

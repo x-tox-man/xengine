@@ -61,7 +61,7 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
         return NULL;
     }
     
-    unsigned char * header = (unsigned char *) CORE_MEMORY_ALLOCATOR::Allocate(8);
+    unsigned char header[8];
     
     file.OutputBytes(header, 8);
     file.Rewind();
@@ -88,8 +88,6 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
         
         file.Close();
         
-        CORE_MEMORY_ALLOCATOR_Free( header );
-        
         return NULL;
     }
     
@@ -101,8 +99,6 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
         
         file.Close();
         
-        CORE_MEMORY_ALLOCATOR_Free( header );
-        
         return NULL;
     }
     
@@ -111,8 +107,6 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
         png_destroy_read_struct(&png_ptr, &info_ptr,
                                 &end_info);
         file.Close();
-        
-        CORE_MEMORY_ALLOCATOR_Free( header );
         
         return NULL;
     }
@@ -210,8 +204,6 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
             break;
         }
     }
-    
-    CORE_MEMORY_ALLOCATOR_Free( header );
     
     image_resource->SetImageRawData( imageData );
     image_resource->SetIdentifier( identifier );

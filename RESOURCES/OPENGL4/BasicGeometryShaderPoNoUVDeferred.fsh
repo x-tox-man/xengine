@@ -49,12 +49,17 @@ void main()
 
     ShadowOut.rgba = vec4(1.0);
 
-    for (int i = 0 ; i < 3 ; i++) {
+    ShadowOut.rgba = vec4(0.0);
 
-        if ( ClipSpacePosZ <= cascadeEndClipSpace[i]) {
-            
-            ShadowOut.rgba = vec4(CalcShadowFactor(i, ShadowCoord[i]));
-            break;
+    if ( dot( o_normal.xyz, directional_light.Direction.xyz ) > 0.0 ) {
+        
+        for (int i = 0 ; i < 3 ; i++) {
+
+            if ( ClipSpacePosZ <= cascadeEndClipSpace[i] ) {
+                
+                ShadowOut.rgba = vec4(CalcShadowFactor(i, ShadowCoord[i]));
+                break;
+            }
         }
     }
 

@@ -11,8 +11,7 @@
 GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP() :
     GRAPHIC_RENDERER_TECHNIQUE(),
     CascadeProjectionInfo(),
-    LightShadowCamera(),
-    LightSourcePose() {
+    LightShadowCamera() {
     
 }
 GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::~GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP() {
@@ -30,7 +29,8 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::Initialize( GRAPHIC_RENDERER
         rt_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     
     for ( int i = 0; i < CascadeCount; i++) {
-        LightShadowCamera[i] = new GRAPHIC_CAMERA_ORTHOGONAL( 0.1f, 10.0f, 4.0f, 4.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 9.0f, 0.0f), CORE_MATH_VECTOR(0.0f, -1.0f, 0.0f, 0.0f), CORE_MATH_VECTOR::ZAxis );
+        LightShadowCamera[i] = new GRAPHIC_CAMERA_ORTHOGONAL( renderer.GetCamera()->GetNear(), renderer.GetCamera()->GetFar(), renderer.GetCamera()->GetWidth(), renderer.GetCamera()->GetHeight(), CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
+        LightShadowCamera[i]->ActivateForRender();
     }
     
     GRAPHIC_SYSTEM::SetTextureOptions(ShadowMapRenderTarget1->GetTargetTexture( 0 ), GRAPHIC_TEXTURE_FILTERING_Nearest, GRAPHIC_TEXTURE_WRAP_Border, CORE_COLOR_Transparent);
@@ -45,31 +45,21 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
     
     GRAPHIC_RENDERER::GetInstance().SetPassIndex( 1 );
     {
-        for ( int i = 0; i < CascadeCount; i++) {
-            CORE_MATH_MATRIX m;
-            CORE_MATH_VECTOR direction;
-            
-            LightSourcePose.GetOrientation().ToMatrix( m.GetRow(0) );
-            direction = LightShadowCamera[i]->GetUp() * m;
-            
-            LightShadowCamera[i]->UpdateCamera( LightSourcePose.GetPosition(), direction );
-            //LightShadowCamera[i]->UpdateCamera( CORE_MATH_VECTOR::Zero, LightSourcePose.GetOrientation() );
-        }
-        
         CalculateCascadeOrthoProjection( renderer );
         
-        LightShadowCamera[0]->InitOrthoProjTransform(CascadeProjectionInfo[ 0 ].Left, CascadeProjectionInfo[ 0 ].Right, CascadeProjectionInfo[ 0 ].Bottom, CascadeProjectionInfo[ 0 ].Top, CascadeProjectionInfo[ 0 ].Near,  CascadeProjectionInfo[ 2 ].Far );
         GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[0] );
         renderer.SetCamera( LightShadowCamera[0] );
+        
+        LightShadowCamera[0]->InitOrthoProjTransform(CascadeProjectionInfo[ 0 ].Left, CascadeProjectionInfo[ 0 ].Right, CascadeProjectionInfo[ 0 ].Bottom, CascadeProjectionInfo[ 0 ].Top, CascadeProjectionInfo[ 0 ].Near,  CascadeProjectionInfo[ 2 ].Far );
         
         ShadowMapRenderTarget1->Apply();
         GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
         GRAPHIC_SYSTEM::DisableBlend();
         //GRAPHIC_SYSTEM::DisableFaceCulling();
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
+        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_GreaterOrEqual, true );
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
         RendererCallback( renderer );
-        {
+        /*{
             static int acc = 0;
             
             acc++;
@@ -80,22 +70,23 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 texture2= ShadowMapRenderTarget1->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth1", "png", "" ) );
             }
-        }
+        }*/
         ShadowMapRenderTarget1->Discard();
         
-        LightShadowCamera[1]->InitOrthoProjTransform(CascadeProjectionInfo[ 1 ].Left, CascadeProjectionInfo[ 1 ].Right, CascadeProjectionInfo[ 1 ].Bottom, CascadeProjectionInfo[ 1 ].Top, CascadeProjectionInfo[ 0 ].Near,  CascadeProjectionInfo[ 2 ].Far );
         GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[1] );
         renderer.SetCamera( LightShadowCamera[1] );
+        
+        LightShadowCamera[1]->InitOrthoProjTransform(CascadeProjectionInfo[ 1 ].Left, CascadeProjectionInfo[ 1 ].Right, CascadeProjectionInfo[ 1 ].Bottom, CascadeProjectionInfo[ 1 ].Top, CascadeProjectionInfo[ 1 ].Near,  CascadeProjectionInfo[ 1 ].Far );
         
         ShadowMapRenderTarget2->Apply();
         GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
         GRAPHIC_SYSTEM::DisableBlend();
         //GRAPHIC_SYSTEM::DisableFaceCulling();
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
+        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_GreaterOrEqual, true );
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
         RendererCallback( renderer );
         
-        {
+        /*{
             static int acc = 0;
             
             acc++;
@@ -106,23 +97,24 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 texture2= ShadowMapRenderTarget2->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth2", "png", "" ) );
             }
-        }
+        }*/
         
         ShadowMapRenderTarget2->Discard();
         
-        LightShadowCamera[2]->InitOrthoProjTransform(CascadeProjectionInfo[ 2 ].Left, CascadeProjectionInfo[ 2 ].Right, CascadeProjectionInfo[ 2 ].Bottom, CascadeProjectionInfo[ 2 ].Top, CascadeProjectionInfo[ 0 ].Near, CascadeProjectionInfo[ 2 ].Far );
         GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[2] );
         renderer.SetCamera( LightShadowCamera[2] );
+        
+        LightShadowCamera[2]->InitOrthoProjTransform(CascadeProjectionInfo[ 2 ].Left, CascadeProjectionInfo[ 2 ].Right, CascadeProjectionInfo[ 2 ].Bottom, CascadeProjectionInfo[ 2 ].Top, CascadeProjectionInfo[ 2 ].Near, CascadeProjectionInfo[ 2 ].Far );
         
         ShadowMapRenderTarget3->Apply();
         GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
         GRAPHIC_SYSTEM::DisableBlend();
         //GRAPHIC_SYSTEM::DisableFaceCulling();
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
+        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_GreaterOrEqual, true );
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
         RendererCallback( renderer );
         
-        {
+        /*{
             static int acc = 0;
             
             acc++;
@@ -130,9 +122,9 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
                 
                 GRAPHIC_TEXTURE * texture2;
                 texture2 = ShadowMapRenderTarget3->GetTargetTexture( 0 );
-                texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth3", "png", "" ) );
+                texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadoToPlan-depth3", "png", "" ) );
             }
-        }
+        }*/
         
         ShadowMapRenderTarget3->Discard();
     }
@@ -179,8 +171,6 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplySecondPass( GRAPHIC_REN
 
         //PrimaryRenderTarget->Apply();
         
-        LightSourcePose.GetOrientation().Normalize();
-        
         renderer.SetNumCascade( CascadeCount );
         //RendererCallback1( renderer );
         //renderer.SetNumCascade( 0 );
@@ -207,32 +197,40 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplySecondPass( GRAPHIC_REN
     //renderer.SetLightingIsEnabled( false );
 }
 
+void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::UpdateCameras( const CORE_MATH_VECTOR & position , const CORE_MATH_VECTOR & direction, const CORE_MATH_VECTOR & up ) {
+    
+    for ( int i = 0; i < CascadeCount; i++) {
+        
+        LightShadowCamera[i]->UpdateCamera( position, direction, up );
+    }
+}
+
 void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::CalculateCascadeOrthoProjection( GRAPHIC_RENDERER & renderer )
 {
-    CORE_MATH_MATRIX
-        view_matrix = renderer.GetCamera()->GetViewMatrix(),
-        inverse_view_matrix = view_matrix;
-    
-    renderer.SetCascadeEnd( 0, -5.0f );
-    renderer.SetCascadeEnd( 1, 5.0f );
-    renderer.SetCascadeEnd( 2, 10.0f );
-    renderer.SetCascadeEnd( 3, 20.f );
-    
     float screen_width = renderer.GetWidth();
     float screen_height = renderer.GetHeight();
-    
-    view_matrix.GetInverse( inverse_view_matrix );
     
     float aspect_ratio = screen_height / screen_width;
     float tanHalfHFOV = tanf( CORE_MATH_ToRadians( renderer.GetCamera()->GetFov() / 2.0f ) );
     float tanHalfVFOV = tanf( CORE_MATH_ToRadians( ( renderer.GetCamera()->GetFov() * aspect_ratio ) / 2.0f ) );
+    GRAPHIC_CAMERA
+        temp( renderer.GetCamera()->GetNear(), renderer.GetCamera()->GetFar(), screen_width, screen_height, renderer.GetCamera()->GetPosition(), renderer.GetCamera()->GetDirection(), renderer.GetCamera()->GetUp() );
+    CORE_MATH_MATRIX
+        view_matrix = temp.GetViewMatrix();
     
-    GRAPHIC_CAMERA_ORTHOGONAL orth( renderer.GetCamera()->GetFar(), renderer.GetCamera()->GetNear(), screen_width, screen_height, CORE_MATH_VECTOR::Zero, LightShadowCamera[0]->GetDirection(), LightShadowCamera[0]->GetUp() );
+    temp.GetViewMatrix().GetInverse( view_matrix );
     
-    CORE_MATH_MATRIX LightM = LightShadowCamera[0]->GetViewMatrix();
-    //<LightShadowCamera[0]->GetViewMatrix().GetInverse( LightM );
+    renderer.SetCascadeEnd( 0, 0.0f );
+    renderer.SetCascadeEnd( 1, 5.0f );
+    renderer.SetCascadeEnd( 2, 30.0f );
+    renderer.SetCascadeEnd( 3, 150.0f );
+    
+    GRAPHIC_CAMERA orth( renderer.GetCamera()->GetNear(), renderer.GetCamera()->GetFar(), screen_width, screen_height, renderer.GetCamera()->GetPosition(), LightShadowCamera[0]->GetDirection(), LightShadowCamera[0]->GetUp() );
+    
+    CORE_MATH_MATRIX LightM = orth.GetViewMatrix();
     
     for ( int i=0; i < CascadeCount; i++ ) {
+        
         float xn = renderer.GetCascadeEnd( i ) * tanHalfHFOV;
         float xf = renderer.GetCascadeEnd( i + 1 ) * tanHalfHFOV;
         float yn = renderer.GetCascadeEnd( i ) * tanHalfVFOV;
@@ -240,33 +238,17 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::CalculateCascadeOrthoProject
         
         CORE_MATH_VECTOR frustum_corners[ NUM_FRUSTUM_CORNERS ]={
             // near face
-            CORE_MATH_VECTOR( xn, yn, renderer.GetCascadeEnd( i ), 1.0 ),
-            CORE_MATH_VECTOR( -xn, yn, renderer.GetCascadeEnd( i ), 1.0 ),
-            CORE_MATH_VECTOR( xn, -yn, renderer.GetCascadeEnd( i ), 1.0 ),
-            CORE_MATH_VECTOR( -xn, -yn, renderer.GetCascadeEnd( i ), 1.0 ),
+            CORE_MATH_VECTOR( xn, yn, -renderer.GetCascadeEnd( i ), 1.0 ),
+            CORE_MATH_VECTOR( -xn, yn, -renderer.GetCascadeEnd( i ), 1.0 ),
+            CORE_MATH_VECTOR( xn, -yn, -renderer.GetCascadeEnd( i ), 1.0 ),
+            CORE_MATH_VECTOR( -xn, -yn, -renderer.GetCascadeEnd( i ), 1.0 ),
             
             // far face
-            CORE_MATH_VECTOR( xf, yf, renderer.GetCascadeEnd( i + 1 ), 1.0 ),
-            CORE_MATH_VECTOR( -xf, yf, renderer.GetCascadeEnd( i + 1 ), 1.0 ),
-            CORE_MATH_VECTOR( xf, -yf, renderer.GetCascadeEnd( i + 1 ), 1.0 ),
-            CORE_MATH_VECTOR( -xf, -yf, renderer.GetCascadeEnd( i + 1 ), 1.0 )
+            CORE_MATH_VECTOR( xf, yf, -renderer.GetCascadeEnd( i + 1 ), 1.0 ),
+            CORE_MATH_VECTOR( -xf, yf, -renderer.GetCascadeEnd( i + 1 ), 1.0 ),
+            CORE_MATH_VECTOR( xf, -yf, -renderer.GetCascadeEnd( i + 1 ), 1.0 ),
+            CORE_MATH_VECTOR( -xf, -yf, -renderer.GetCascadeEnd( i + 1 ), 1.0 )
         };
-        
-        /**
-         CORE_MATH_VECTOR frustum_corners[ NUM_FRUSTUM_CORNERS ]={
-         // near face
-         CORE_MATH_VECTOR( xn, renderer.GetCascadeEnd( i ), yn, 1.0 ),
-         CORE_MATH_VECTOR( -xn, renderer.GetCascadeEnd( i ), yn, 1.0 ),
-         CORE_MATH_VECTOR( xn, renderer.GetCascadeEnd( i ), -yn, 1.0 ),
-         CORE_MATH_VECTOR( -xn, renderer.GetCascadeEnd( i ), -yn, 1.0 ),
-         
-         // far face
-         CORE_MATH_VECTOR( xf, renderer.GetCascadeEnd( i + 1 ), yf, 1.0 ),
-         CORE_MATH_VECTOR( -xf, renderer.GetCascadeEnd( i + 1 ), yf, 1.0 ),
-         CORE_MATH_VECTOR( xf, renderer.GetCascadeEnd( i + 1 ), -yf, 1.0 ),
-         CORE_MATH_VECTOR( -xf, renderer.GetCascadeEnd( i + 1 ), -yf, 1.0 )
-         };
-         */
         
         //What we see above matches step #1 of the description in the background section on how to calculate the orthographic projections for the cascades.The frustumCorners array is populated with the eight corners of each cascade in view space.Note that since the field of view is provided only for the horizontal axis we have to extrapolate it for the vertical axis( e.g, if the horizontal field of view is 90 degrees and the window has a width of 1000 and a height of 500 the vertical field of view will be only 45 degrees ).
         
@@ -282,11 +264,11 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::CalculateCascadeOrthoProject
         for ( int j=0; j < NUM_FRUSTUM_CORNERS; j++ ) {
             
             // Transform the frustum coordinate from view to world space
-            CORE_MATH_VECTOR vW = frustum_corners[ j ] * inverse_view_matrix;
+            CORE_MATH_VECTOR vW = view_matrix * frustum_corners[ j ];
             //const CORE_MATH_VECTOR vW2 = ::operator*( frustum_corners[ j ], inverse_view_matrix );
             
             // Transform the frustum coordinate from world to light space
-            frustum_corners_l[ j ] = vW * LightM;
+            frustum_corners_l[ j ] = LightM * vW;
             
             minX=fmin( minX, frustum_corners_l[ j ].X() );
             maxX=fmax( maxX, frustum_corners_l[ j ].X() );

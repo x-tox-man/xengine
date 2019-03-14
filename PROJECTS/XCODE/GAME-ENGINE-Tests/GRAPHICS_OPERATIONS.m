@@ -209,7 +209,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     for (int i = 0; i < animated_object->GetMeshTable().size(); i++ ) {
         
-        char * temp_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate(strlen( animation_path.GetPath() ) + 2 );
+        char temp_path[128];
         
         strcpy(temp_path, animation_path.GetPath() );
         
@@ -223,8 +223,6 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         animated_object->GetAnimationController()->Load( path );
         
         animated_object->GetAnimationController()->GetAnimation( i )->Initialize( animated_object->GetJointTable(), 0);
-        
-        CORE_MEMORY_ALLOCATOR_Free( temp_path );
     }
     
     animated_object->GetAnimationController()->Initialize();

@@ -32,7 +32,7 @@ void MENU_SCENE::Initialize() {
     GAMEPLAY_HELPER::SetTexture( entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     GAMEPLAY_HELPER::SetNormal( entity, "spaceship1_normal", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-normal", "png", "TEXTURES" ) );
     
-    GAMEPLAY_HELPER::AddToWorld( entity );
+    //GAMEPLAY_HELPER::AddToWorld( entity );
     
     auto ship = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
     GAMEPLAY_HELPER::CreateComponent_PositionRender( ship );
@@ -48,12 +48,12 @@ void MENU_SCENE::Initialize() {
     GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) ship->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
     GAMEPLAY_COMPONENT_POSITION::PTR pos = (GAMEPLAY_COMPONENT_POSITION::PTR) ship->GetComponent(GAMEPLAY_COMPONENT_TYPE_Position );
     CORE_MATH_QUATERNION q;
-    q.RotateZ( 360.0f );
+    q.RotateY( 360.0f );
     
     pos->SetSpin( q );
     
-    GAMEPLAY_HELPER::AddToWorld( ship );
-    GAMEPLAY_HELPER::AddToMotion( ship );
+    //GAMEPLAY_HELPER::AddToWorld( ship );
+    //GAMEPLAY_HELPER::AddToMotion( ship );
     
     //Background
 
@@ -66,7 +66,6 @@ void MENU_SCENE::Initialize() {
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER("space_diffuse"), CORE_FILESYSTEM_PATH::FindFilePath("high-resolution-space-1", "png", "TEXTURES"));
     GAMEPLAY_HELPER::SetTexture(background, "space_diffuse", CORE_FILESYSTEM_PATH::FindFilePath("high-resolution-space-1", "png", "TEXTURES"));
     GAMEPLAY_HELPER::AddToWorld(background);
-    background->SetPosition(CORE_MATH_VECTOR(0.0f, 0.0f, 0.0f, 0.0f));
 
 
     /*auto background = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();

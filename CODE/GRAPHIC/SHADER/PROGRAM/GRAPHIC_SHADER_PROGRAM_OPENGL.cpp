@@ -1229,6 +1229,16 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         setShaderAttribute(*attribute);
     }
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, FrameResolution.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = FrameResolution;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
 }
 
 bool GRAPHIC_SHADER_PROGRAM::ValidateProgram() {

@@ -26,27 +26,21 @@ public:
     
     CORE_ABSTRACT_FUNCTION( const char * method_name ) :
         Program( NULL ),
-        MethodName( NULL ) {
+        MethodName() {
+            
+        CORE_DATA_COPY_STRING( MethodName, method_name );
         
-            MethodName = (char * ) CORE_MEMORY_ALLOCATOR_Allocate( ( int ) strlen( method_name ) );
-            
-            CORE_DATA_COPY_STRING( MethodName, method_name );
-            
-            Program = CORE_ABSTRACT_PROGRAM_FACTORY::CurrentProgram;
+        Program = CORE_ABSTRACT_PROGRAM_FACTORY::CurrentProgram;
     }
     
-    virtual    ~CORE_ABSTRACT_FUNCTION() {
+    virtual ~CORE_ABSTRACT_FUNCTION() {
         
         Program = NULL;
-        
-        CORE_MEMORY_ALLOCATOR_Free( MethodName );
     }
     
     void Initialize( const char * method_name ) {
         
         Program = CORE_ABSTRACT_PROGRAM_FACTORY::CurrentProgram;
-        
-        MethodName = (char * ) CORE_MEMORY_ALLOCATOR_Allocate( ( int ) strlen( method_name ) );
         
         strcpy( MethodName, method_name );
     }
@@ -68,7 +62,7 @@ public:
     
 private :
     
-    char * MethodName;
+    char MethodName[128];
     CORE_ABSTRACT_PROGRAM_FACTORY * Program;
 };
 

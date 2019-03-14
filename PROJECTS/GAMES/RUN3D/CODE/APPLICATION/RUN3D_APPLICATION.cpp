@@ -56,6 +56,9 @@ RUN3D_APPLICATION::~RUN3D_APPLICATION() {
 
 void RUN3D_APPLICATION::Initialize() {
     
+    MENU_SCENE
+        scene;
+    
     SERVICE_LOGGER_Error( "int %d\n", (int) sizeof( int ) );
     SERVICE_LOGGER_Error( "unsigned int %d\n", (int) sizeof( unsigned int ) );
     SERVICE_LOGGER_Error( "size_t %d\n", (int) sizeof( size_t ) );
@@ -84,13 +87,6 @@ void RUN3D_APPLICATION::Initialize() {
     Game = new R3D_GAMEPLAY_GAME;
     Game->Initialize();
     
-    MENU_SCENE
-        scene;
-    
-    GetCamera()->UpdateCamera( CORE_MATH_VECTOR(0.0f, 0.0f, -5.0f, 0.0f ), CORE_MATH_VECTOR::ZAxis );
-    
-    scene.Initialize();
-    
     InitializeSingleplayerGame();
     
     TOOLS_LOCALE_SYSTEM::GetInstance().Initialize( "fr" );
@@ -105,6 +101,14 @@ void RUN3D_APPLICATION::Initialize() {
     
     UI_MAIN_MENU & main_window = ( UI_MAIN_MENU & ) GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().InitializeNavigation<UI_MAIN_MENU>("MainWindow");
     main_window.Initialize();
+    
+    scene.Initialize();
+    CORE_MATH_MATRIX
+    m;
+    
+    m.XRotate( -M_PI_4 );
+    
+    GetCamera()->Reset(1.0f, 1500.0f, GRAPHIC_RENDERER::GetInstance().GetWidth(), GRAPHIC_RENDERER::GetInstance().GetWidth(), CORE_MATH_VECTOR(0.0f, 10.0f, -10.0f, 0.0f ), CORE_MATH_VECTOR::ZAxis * m, CORE_MATH_VECTOR::YAxis * m );
 }
 
 void RUN3D_APPLICATION::InitializeSingleplayerGame() {

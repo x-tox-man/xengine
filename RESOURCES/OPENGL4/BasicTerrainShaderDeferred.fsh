@@ -13,6 +13,14 @@ layout (location = 2) out vec4 NormalOut;
 layout (location = 3) out vec4 ShadowOut;
 layout (location = 4) out float SSAO;
 
+struct DirectionalLight
+{
+    vec4 Color;
+    vec4 Direction;
+    float AmbientIntensity;
+    float DiffuseIntensity;
+};
+
 //uniform mat4 MVPMatrix;
 //uniform mat4 ModelMatrix;
 uniform sampler2D c_texture; // base texture for indexing decals - each composant is the weight of the texture
@@ -24,6 +32,7 @@ uniform sampler2D d_texture;
 uniform sampler2D d_texture1;
 uniform sampler2D d_texture2;
 uniform float cascadeEndClipSpace[3];
+uniform DirectionalLight directional_light;
 
 float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 { 
@@ -69,14 +78,17 @@ void main()
     NormalOut.a = 1.0;
     WorldPosOut = vec4( WorldPos0, 1.0);
 
-    ShadowOut.rgba = vec4(1.0);
+    ShadowOut.rgba = vec4(0.0);
 
-    for (int i = 0 ; i < 3 ; i++) {
+    if ( dot( o_normal.xyz, directional_light.Direction.xyz ) > 0.0 ) {
+        
+        for (int i = 0 ; i < 3 ; i++) {
 
-        if ( ClipSpacePosZ <= cascadeEndClipSpace[i]) {
-            
-            ShadowOut.rgba = vec4(CalcShadowFactor(i, ShadowCoord[i]));
-            break;
+            if ( ClipSpacePosZ <= cascadeEndClipSpace[i] ) {
+                
+                ShadowOut.rgba = vec4(CalcShadowFactor(i, ShadowCoord[i]));
+                break;
+            }
         }
     }
 

@@ -53,9 +53,9 @@ void CORE_MATH_SHAPE::AggregateWithBox( const CORE_MATH_SHAPE & other ) {
     Position.Y( ( y_max + y_min ) * 0.5f );
     Position.Z( ( z_max + z_min ) * 0.5f );
     
-    HalfDiagonal.X( fabs( x_max - x_min ) );
-    HalfDiagonal.Y( fabs( y_max - y_min ) );
-    HalfDiagonal.Z( fabs( y_max - z_min ) );
+    HalfDiagonal.X( fabs( x_max - x_min ) * 0.5f);
+    HalfDiagonal.Y( fabs( y_max - y_min ) * 0.5f);
+    HalfDiagonal.Z( fabs( y_max - z_min ) * 0.5f);
 }
 
 void CORE_MATH_SHAPE::ComputeMinMax( CORE_MATH_VECTOR & min, CORE_MATH_VECTOR & max ) const {

@@ -21,9 +21,9 @@ GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::~GRAPHIC_SHADER_EFFECT_DEFERRED_PO
     
 }
 
-void GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::Apply( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::Apply( GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing ) {
     
-    GRAPHIC_SHADER_EFFECT::Apply( renderer );
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, does_lighting, does_texturing );
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_previous_view_mat = Program.getShaderAttribute( PreviousModelViewProjectionIdentifier );
     

@@ -24,6 +24,7 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     inline const CORE_MATH_MATRIX & GetProjectionMatrix() const { return ProjectionMatrix; }
     inline CORE_MATH_MATRIX GetAlternateProjectionMatrix() const { return AlternateProjectionMatrix; }
     inline const CORE_MATH_MATRIX & GetViewMatrix() const { return ViewMatrix; }
+    inline const CORE_MATH_MATRIX & GetProjectionViewMatrix() const { return ProjectionViewMatrix; }
     inline const CORE_MATH_VECTOR & GetPosition() const { return Position; }
     inline const CORE_MATH_QUATERNION & GetOrientation() const { return Lookat; }
     inline float GetNear() const { return Near; }
@@ -38,7 +39,7 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     inline const GRAPHIC_CAMERA_FUSTRUM & GetFustrum() const {return Fustrum; }
 
     void Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up_vector, float fov = 30.0f );
-    void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction );
+    void UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up = CORE_MATH_VECTOR::YAxis );
     void ActivateForRender();
 
 private :
@@ -61,7 +62,8 @@ protected :
     CORE_MATH_MATRIX
         AlternateProjectionMatrix,
         ProjectionMatrix,
-        ViewMatrix;
+        ViewMatrix,
+        ProjectionViewMatrix;
     CORE_MATH_QUATERNION
         Lookat;
     GRAPHIC_CAMERA_FUSTRUM

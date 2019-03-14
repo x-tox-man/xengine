@@ -52,13 +52,13 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render( GRAPHIC_RENDERER & renderer ) {
     CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_AABB_NODE * > callback_render( Wrapper1<GAMEPLAY_COMPONENT_SYSTEM_RENDERER, GAMEPLAY_COMPONENT_AABB_NODE *, &GAMEPLAY_COMPONENT_SYSTEM_RENDERER::RenderFrontToBack>, this );
     
     Renderer = &renderer;
-    //Tree.Update();
+    Tree.Update();
     
-    //Renderer->GetCamera()->ActivateForRender();
-    //Tree.QueryTopToBottom( Renderer->GetCamera()->GetFustrum(), callback );
-    //collider.RenderFrontToBack( callback_render );
+    Renderer->GetCamera()->ActivateForRender();
+    Tree.QueryTopToBottom( Renderer->GetCamera()->GetFustrum(), callback );
+    collider.RenderFrontToBack( callback_render );
     
-    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    /*std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
     while (it != EntitiesTable.end() ) {
 
         GAMEPLAY_COMPONENT_ENTITY * entity = it->second->GetEntity();
@@ -79,7 +79,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render( GRAPHIC_RENDERER & renderer ) {
         //}
 
         it++;
-    }
+    }*/
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Finalize() {

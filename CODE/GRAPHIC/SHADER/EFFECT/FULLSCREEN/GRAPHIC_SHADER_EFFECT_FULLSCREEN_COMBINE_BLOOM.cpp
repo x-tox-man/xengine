@@ -27,9 +27,9 @@ GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::~GRAPHIC_SHADER_EFFECT_FULLSCREE
 
 }
 
-void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply( GRAPHIC_RENDERER & renderer ) {
-    
-    GRAPHIC_SHADER_EFFECT::Apply( renderer );
+void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply( GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing ) {
+
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, does_lighting, does_texturing );
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_bloom_intensity = Program.getShaderAttribute( BloomIntensityIdentifier );
     GRAPHIC_SHADER_ATTRIBUTE & attr_base_intensity = Program.getShaderAttribute( BaseIntensityIdentifier );

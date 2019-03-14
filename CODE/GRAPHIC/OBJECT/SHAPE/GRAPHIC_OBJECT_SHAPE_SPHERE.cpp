@@ -83,7 +83,7 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape() {
     CORE_DATA_BUFFER * vertex_buffer = new CORE_DATA_BUFFER;
     
     index_buffer->InitializeWithMemory( ring_c * ring_c * 6 * sizeof(unsigned int), 0, (void*) index_data );
-    vertex_buffer->InitializeWithMemory( ring_c * ring_c * 4 * 10 * sizeof(float), 0, (void*) vertex_data );
+    vertex_buffer->InitializeWithMemory( ring_c * ring_c * 4 * 8 * sizeof(float), 0, (void*) vertex_data );
     
     mesh->SetIndexCoreBuffer( index_buffer );
     mesh->SetVertexCoreBuffer( vertex_buffer );

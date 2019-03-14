@@ -149,7 +149,8 @@ static const CORE_HELPERS_IDENTIFIER
     SSAOViewMatrix,
     SSAOSampleRad,
     SSAOKernel,
-    SSAOTexture;
+    SSAOTexture,
+    FrameResolution;
 
 #if OPENGLES2
     #include "GRAPHIC_SHADER_PROGRAM_OES2.hpp"

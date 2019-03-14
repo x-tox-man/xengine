@@ -80,7 +80,7 @@ GRAPHIC_MATERIAL::~GRAPHIC_MATERIAL() {
     TextureTable.clear();
 }
 
-void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader ) {
+void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, bool does_lighting, bool does_texturing ) {
     
     GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
     
@@ -89,8 +89,15 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
         GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1,  &Diffuse[0] )
     }
     
-    ApplyTexture( shader );
-    ApplyLights( shader, renderer );
+    if ( does_texturing ) {
+        
+        ApplyTexture( shader );
+    }
+    
+    if ( does_lighting ) {
+        
+        ApplyLights( shader, renderer );
+    }
     
     GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
     
@@ -197,12 +204,12 @@ void GRAPHIC_MATERIAL::TryAndFillFor( const char * file_path, const char * exten
         assert( strlen(file_path) + strlen(extension) < 32 );
 #endif
         
-        char * id = ( char * ) malloc( strlen(file_path) + strlen(extension));
+        char id[128];
         CORE_DATA_COPY_STRING( id, file_path );
         id[ strlen( file_path ) ] = 0;
         CORE_DATA_STRING_CONCAT( id, extension );
         
-        GRAPHIC_TEXTURE_BLOCK * tb = new GRAPHIC_TEXTURE_BLOCK( GRAPHIC_TEXTURE::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER(), path ));
+        GRAPHIC_TEXTURE_BLOCK * tb = new GRAPHIC_TEXTURE_BLOCK( GRAPHIC_TEXTURE::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( id ), path ));
 
         SetTexture( identifier, tb );
     }

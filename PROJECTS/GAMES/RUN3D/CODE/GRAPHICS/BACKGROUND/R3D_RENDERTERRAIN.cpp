@@ -37,7 +37,7 @@ GAMEPLAY_COMPONENT_ENTITY::PTR R3D_RENDERTERRAIN::Create() {
     GAMEPLAY_HELPER::SetTexture(entity, "map-color-sand", CORE_FILESYSTEM_PATH::FindFilePath("map-color-sand", "png", "TEXTURES" ), GRAPHIC_SHADER_PROGRAM::ColorTexture3 );
     GAMEPLAY_HELPER::SetTextureRepeating( entity, GRAPHIC_SHADER_PROGRAM::ColorTexture3 );
     
-    CORE_MATH_VECTOR p( -((height_map_object->GetXWidth()) * height_map_object->GetLength())*0.5f, -10.0f, -((height_map_object->GetYWidth()) * height_map_object->GetLength())*0.5f, 1.0f );
+    CORE_MATH_VECTOR p( -((height_map_object->GetXWidth() - 1) * height_map_object->GetLength())*0.5f, -10.0f, -((height_map_object->GetYWidth()- 1) * height_map_object->GetLength())*0.5f, 1.0f );
     
     GAMEPLAY_HELPER::SetPhysicsGroundHeightMapObject( entity, CORE_MATH_VECTOR(0.0f, -10.0f, 0.0f, 0.0f ), 0.0f );
     

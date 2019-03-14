@@ -11,15 +11,13 @@
 
 CORE_PARALLEL_THREAD::CORE_PARALLEL_THREAD() :
     Task( NULL ),
-    ThreadName( NULL ) {
+    ThreadName() {
     
-    ThreadName = (char *) CORE_MEMORY_ALLOCATOR::Allocate(strlen(DefaultThreadName));
     CORE_DATA_COPY_STRING( ThreadName, DefaultThreadName );
 }
 
 void CORE_PARALLEL_THREAD::Initialize( const char *thread_name, CORE_PARALLEL_TASK & thread_task ) {
     
-    ThreadName = (char *) CORE_MEMORY_ALLOCATOR::Allocate(strlen( thread_name ) );
     CORE_DATA_COPY_STRING( ThreadName, thread_name );
     
     Task = &thread_task;

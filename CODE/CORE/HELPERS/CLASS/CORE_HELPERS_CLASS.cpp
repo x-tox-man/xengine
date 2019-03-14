@@ -53,7 +53,7 @@ void XS_CLASS_SERIALIZER< std::string, CORE_DATA_STREAM >::Serialize< std::false
     char * string;
     
     stream.OutputBytes( &string, size);
-    string[size] = 0;
+    //string[size] = 0;
     type = std::string( string );
     type.resize( size );
 }

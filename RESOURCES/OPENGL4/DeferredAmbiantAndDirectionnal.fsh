@@ -34,7 +34,7 @@ uniform mat4 ProjectionMatrix;
 
 vec4 CalcDirectionalLight( DirectionalLight light, vec3 normal)
 {
-    float DiffuseFactor = dot(normalize(vec4(normal, 1.0) ), - light.Direction);
+    float DiffuseFactor = dot(normalize(vec4(normal, 1.0) ), light.Direction);
     vec4 DiffuseColor;
 
     if (DiffuseFactor > 0) {
@@ -55,6 +55,6 @@ void main()
     float shadow = texture( o_texture_3, texCoord ).r;
     float ao = texture( o_texture_4, texCoord ).r;
 
-    colorOut.rgb = Color * CalcDirectionalLight( directional_light, Normal ).rgb * shadow + Color * 1.0 * ambient_light.Color.rgb * ambient_light.AmbientIntensity * ao ;
+    colorOut.rgb = Color * CalcDirectionalLight( directional_light, Normal ).rgb * shadow + Color * ambient_light.Color.rgb * ambient_light.AmbientIntensity * ao ;
     colorOut.a = 1.0;
 }

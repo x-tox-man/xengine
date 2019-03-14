@@ -28,7 +28,7 @@ GRAPHIC_OBJECT_ANIMATED::~GRAPHIC_OBJECT_ANIMATED() {
 
 void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
     
-    effect->Apply( renderer, options.IsTexturingEnabled() );
+    effect->Apply( renderer, options.IsTexturingEnabled(), true );
     
     for ( size_t i = 0; i < MeshTable.size(); i++ ) {
         
@@ -47,7 +47,7 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC
         
         ComputeModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
-        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 1, &result[0])
+        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
         
         float * float_matrix_array = AnimationController->GetCurrentSkinningForAnimation( i );
         
@@ -72,7 +72,7 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC
         }
         
         GRAPHIC_SYSTEM_ApplyMatrix( attrSkinningMatrixTable->AttributeIndex, 128, 0, float_matrix_array_copy )
-        GRAPHIC_SYSTEM_ApplyMatrix(attrBindShapeMatrix->AttributeIndex, 1, 0, AnimationController->GetAnimation( i )->GetBindShapeMatrix().Value.FloatMatrix4x4)
+        GRAPHIC_SYSTEM_ApplyMatrix(attrBindShapeMatrix->AttributeIndex, 1, 1, AnimationController->GetAnimation( i )->GetBindShapeMatrix().Value.FloatMatrix4x4)
         
         MeshTable[ i ]->ApplyBuffers();
         

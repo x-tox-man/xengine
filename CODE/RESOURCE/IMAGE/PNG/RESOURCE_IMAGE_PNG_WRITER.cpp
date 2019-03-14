@@ -45,10 +45,10 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
     FILE
         * fp = fopen(path.GetPath(), "wb");
     
-    unsigned char * header;
-    int pixel_size = 4;
-    
-    header = (unsigned char *) CORE_MEMORY_ALLOCATOR::Allocate( 8 );
+    unsigned char
+        header[8];
+    int
+        pixel_size = 4;
     
     if ( !fp ) {
         
@@ -185,7 +185,6 @@ bool RESOURCE_IMAGE_PNG_WRITER::Write( const CORE_FILESYSTEM_PATH & path, RESOUR
     
     fclose(fp);
 
-    CORE_MEMORY_ALLOCATOR_Free( header );
 	CORE_MEMORY_ALLOCATOR_Free( ptr );
     
     return true;

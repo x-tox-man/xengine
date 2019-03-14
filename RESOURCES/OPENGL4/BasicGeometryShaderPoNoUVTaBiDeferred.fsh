@@ -13,6 +13,14 @@ layout (location = 2) out vec4 NormalOut;
 layout (location = 3) out vec4 ShadowOut;
 layout (location = 4) out float SSAO;
 
+struct DirectionalLight
+{
+    vec4 Color;
+    vec4 Direction;
+    float AmbientIntensity;
+    float DiffuseIntensity;
+};
+
 uniform sampler2D c_texture;
 uniform sampler2D n_texture;
 uniform sampler2D d_texture;
@@ -20,6 +28,8 @@ uniform sampler2D d_texture1;
 uniform sampler2D d_texture2;
 uniform mediump mat4 ModelMatrix;
 uniform float cascadeEndClipSpace[3];
+uniform DirectionalLight directional_light;
+
 
 uniform sampler2D gColorMap; 
 
@@ -43,9 +53,7 @@ float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 }
 
 void main() 
-{ 
-	vec4 normalTimesLModel = ModelMatrix * o_normal;
-
+{
     //-------- NORMAL MAPPING BEGIN
     vec3 BumpMapNormal = texture(n_texture, texCoord).xyz;
     BumpMapNormal = 2.0 * BumpMapNormal - vec3(1.0, 1.0, 1.0);
@@ -61,14 +69,17 @@ void main()
     NormalOut = vec4( NewNormal, 1.0 );
     WorldPosOut = vec4( WorldPos0, 1.0);
 
-    ShadowOut.rgba = vec4(1.0);
+    ShadowOut.rgba = vec4(0.0);
 
-    for (int i = 0 ; i < 3 ; i++) {
+    if ( dot( o_normal.xyz, directional_light.Direction.xyz ) > 0.0 ) {
+        
+        for (int i = 0 ; i < 3 ; i++) {
 
-        if ( ClipSpacePosZ <= cascadeEndClipSpace[i]) {
-            
-            ShadowOut.rgba = vec4(CalcShadowFactor(i, ShadowCoord[i]));
-            break;
+            if ( ClipSpacePosZ <= cascadeEndClipSpace[i] ) {
+                
+                ShadowOut.rgba = vec4(CalcShadowFactor(i, ShadowCoord[i]));
+                break;
+            }
         }
     }
 

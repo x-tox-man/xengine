@@ -80,8 +80,8 @@ public:
     inline int GetVertexStride() const { return VertexStride; }
     inline GRAPHIC_MESH_POLYGON_RENDER_MODE GetPolygonRenderMode() { return PolygonRenderMode; }
 
-    inline std::string & GetName() { return MeshName; }
-    inline void SetName ( const std::string & name ) { MeshName = name; }
+    inline char * GetName() { return MeshName; }
+    inline void SetName ( const char * name ) { CORE_DATA_COPY_STRING( MeshName, name ); }
 
     #if __COMPILE_WITH__COLLADA__
 
@@ -119,8 +119,8 @@ private :
         Transform;
     CORE_MATH_SHAPE
         BoundingShape;
-    std::string
-        MeshName;
+    char
+        MeshName[64];
     int
         VertexStride;
 

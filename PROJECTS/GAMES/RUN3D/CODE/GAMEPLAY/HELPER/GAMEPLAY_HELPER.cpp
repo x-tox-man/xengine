@@ -132,7 +132,7 @@ GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR GAMEPLAY_HELPER::Set3DHeighFieldObject( GAM
     float * heights = (float * ) height_map->GetImageRawData();
     
     GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR object = new GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP( heights, height_map->GetImageInfo().Width, height_map->GetImageInfo().Height, 2.0f );
-    object->SetHeightScale( 0.1f );
+    object->SetHeightScale( 0.05f );
     object->InitializeShape();
     
     GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
@@ -434,7 +434,7 @@ void GAMEPLAY_HELPER::SetPhysicsFlatGroundObject( GAMEPLAY_COMPONENT_ENTITY::PTR
 
 void GAMEPLAY_HELPER::InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & direction, GRAPHIC_CAMERA & camera, const CORE_MATH_VECTOR & up ) {
     
-    camera.Reset( 1.0f, 150.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, direction,
+    camera.Reset( 1.0f, 1500.0f, R3D_APP_PTR->GetApplicationWindow().GetWidth(), R3D_APP_PTR->GetApplicationWindow().GetHeight(), position, direction,
                  up );
 }
 

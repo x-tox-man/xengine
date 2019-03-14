@@ -63,8 +63,16 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/TEXTURES_BASE/waves.png"
+            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS_BASE/skydome.dae"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/TEXTURES_BASE/waves.png"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

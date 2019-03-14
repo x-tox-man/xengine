@@ -99,6 +99,7 @@ void GAMEPLAY_COMPONENT_AABB_TREE::Insert( GAMEPLAY_COMPONENT_ENTITY * entity, f
     node->SetEntity( entity );
     rend->ComputeSize( node->GetBox() );
     node->GetBox().SetPosition( node->GetBox().GetPosition() + pos->GetPosition() );
+    node->GetBox().GetPosition().W( 1.0f );
     node->GetBoxWithMargin().SetPosition( node->GetBox().GetPosition() );
     node->GetBoxWithMargin().SetHalfDiagonal( node->GetBox().GetHalfDiagonal() +CORE_MATH_VECTOR( margin, margin, margin, 0.0f ) );
     

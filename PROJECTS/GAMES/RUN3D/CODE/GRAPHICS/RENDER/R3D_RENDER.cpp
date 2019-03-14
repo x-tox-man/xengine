@@ -28,8 +28,6 @@ R3D_RENDER::R3D_RENDER() :
     FinalRenderTarget(),
     LightRenderTarget(),
     SpecularRenderTarget(),
-    GaussianRenderTarget1(),
-    GaussianRenderTarget2(),
     BloomRenderTarget(),
     ShadowMapRenderTarget1(),
     ShadowMapRenderTarget2(),
@@ -49,14 +47,12 @@ R3D_RENDER::R3D_RENDER() :
 void R3D_RENDER::Initialize() {
     
     CORE_MATH_VECTOR
-        position(0.0f, 0.0f, -1.0f, 1.0f);
+        position(0.0f, 0.0f, 1.0f, 1.0f);
     CORE_MATH_QUATERNION
         render_target_lookat( 0.0f, 0.0f, 0.0f, 1.0f ),
         lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     GRAPHIC_OBJECT_RENDER_OPTIONS
         option;
-    
-    lookat.RotateX(M_PI_2);
     
     auto Window = &R3D_APP_PTR->GetApplicationWindow();
     GRAPHIC_RENDERER::GetInstance().Resize( Window->GetWidth(), Window->GetHeight() );
@@ -69,8 +65,14 @@ void R3D_RENDER::Initialize() {
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
-    Directional.InitializeDirectional( CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), CORE_MATH_VECTOR( -0.5f, -0.5f, 0.0f, 0.0f), 1.0f, 1.0f);
-    Ambient.InitializeAmbient(CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), 0.5f, 0.0f );
+    CORE_MATH_MATRIX
+        m;
+    
+    m.XRotate( -M_PI_4 );
+    m.YRotate( -M_PI_4 );
+    
+    Directional.InitializeDirectional( CORE_MATH_VECTOR(1.0f, 1.0f, 1.0f, 1.0f), CORE_MATH_VECTOR::ZAxis * m, 1.0f, 1.0f);
+    Ambient.InitializeAmbient(CORE_MATH_VECTOR(0.7f, 0.7f, 0.7f, 1.0f), 1.0f, 1.0f );
     
     GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( &Directional );
     
@@ -79,9 +81,8 @@ void R3D_RENDER::Initialize() {
     PrimaryRenderTarget.Initialize( Window->GetWidth() / divider, Window->GetHeight() / divider, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     
 #if OPENGL4
-    GaussianRenderTarget1.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
-    GaussianRenderTarget2.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
-    BloomRenderTarget.Initialize( Window->GetWidth() / 8, Window->GetHeight() / 8, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    
+    BloomRenderTarget.Initialize( Window->GetWidth() / 1, Window->GetHeight() / 1, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     FinalRenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     
     ShadowMapRenderTarget1.InitializeDepthTexture( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
@@ -92,8 +93,6 @@ void R3D_RENDER::Initialize() {
     PrimaryRenderTarget.Discard();
     
 #if OPENGL4
-    GaussianRenderTarget1.Discard();
-    GaussianRenderTarget2.Discard();
     BloomRenderTarget.Discard();
     FinalRenderTarget.Discard();
     ShadowMapRenderTarget1.Discard();
@@ -117,17 +116,29 @@ void R3D_RENDER::Initialize() {
     BloomTechnique.TextureBlock = TextureBlock1;
     BloomTechnique.TextureBlock2 = TextureBlock2;
     BloomTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
-    BloomTechnique.FinalRenderTarget = &FinalRenderTarget;
+    BloomTechnique.FinalRenderTarget = NULL;//&FinalRenderTarget;
     BloomTechnique.BloomRenderTarget = &BloomRenderTarget;
-    BloomTechnique.GaussianRenderTarget1 = &GaussianRenderTarget1;
-    BloomTechnique.GaussianRenderTarget2 = &GaussianRenderTarget2;
+    BloomTechnique.SetBlurPassCount( 3 );
+    
+    for (int blur_index = 1; blur_index < 4 ; blur_index++ ) {
+        
+        int blur_factor = (blur_index*blur_index);
+        
+        auto rt1 = new GRAPHIC_RENDER_TARGET;
+        rt1->Initialize( Window->GetWidth() / (blur_factor), Window->GetHeight() / (blur_factor), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+        auto rt2 = new GRAPHIC_RENDER_TARGET;
+        rt2->Initialize( Window->GetWidth() / (blur_factor), Window->GetHeight() / (blur_factor), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+        
+        BloomTechnique.GaussianRenderTarget1Table[ blur_index - 1 ] = rt1;
+        BloomTechnique.GaussianRenderTarget2Table[ blur_index - 1 ] = rt2;
+    }
     BloomTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     DeferredShadingTechnique.PlanObject = &PlanObject;
     DeferredShadingTechnique.FinalRenderTarget = &PrimaryRenderTarget;
     DeferredShadingTechnique.SphereObject = &SphereObject;
     DeferredShadingTechnique.ConeObject = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) )->GetResource< GRAPHIC_OBJECT >();
-    DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderScene>, this );
+    DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderSceneWithParticles>, this );
     DeferredShadingTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     SSAOTechnique.PlanObject = &PlanObject;
@@ -136,20 +147,12 @@ void R3D_RENDER::Initialize() {
     SSAOTechnique.RenderTarget = &FinalRenderTarget;
     SSAOTechnique.FinalRenderTarget = &DeferredShadingTechnique.RenderTarget;
     SSAOTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
-
-    CORE_MATH_QUATERNION q;
-    
-    //q.RotateX( M_PI_2 );
-    q.RotateZ( M_PI_2 * 0.25f );
-    q.Normalize();
     
     CascadeShadowMapTechnique.CascadeCount = 3;
     CascadeShadowMapTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
     CascadeShadowMapTechnique.ShadowMapRenderTarget1 = &ShadowMapRenderTarget1;
     CascadeShadowMapTechnique.ShadowMapRenderTarget2 = &ShadowMapRenderTarget2;
     CascadeShadowMapTechnique.ShadowMapRenderTarget3 = &ShadowMapRenderTarget3;
-    CascadeShadowMapTechnique.LightSourcePose.SetPosition( CORE_MATH_VECTOR::Zero );
-    CascadeShadowMapTechnique.LightSourcePose.SetOrientation( q );
     CascadeShadowMapTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderScene>, this );
     CascadeShadowMapTechnique.RendererCallback1.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderSceneWithParticles>, this );
     CascadeShadowMapTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
@@ -179,7 +182,19 @@ void R3D_RENDER::RenderSceneWithParticles( GRAPHIC_RENDERER & renderer ) {
 
 void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
 
-    CascadeShadowMapTechnique.LightSourcePose.SetPosition( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() );
+    if ( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer() ) {
+        
+        CORE_MATH_MATRIX
+            m;
+        
+        m.XRotate( -M_PI_4 );
+        m.YRotate( -M_PI_4 );
+        
+        CascadeShadowMapTechnique.UpdateCameras( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() + CORE_MATH_VECTOR( 0.0, 3.0f, 0.0f, 0.0f), CORE_MATH_VECTOR::ZAxis * m, CORE_MATH_VECTOR::YAxis  * m );
+        
+        //Camera = CascadeShadowMapTechnique.LightShadowCamera[1];
+    }
+    
 #if OPENGL4
     static CORE_MATH_VECTOR
         color( 0.0f, 0.0f, 0.0f, 1.0f );
@@ -202,12 +217,12 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     else if ( acc > 100 ) {
         Camera = CascadeShadowMapTechnique.LightShadowCamera[0];
     }
-    else
+    else*/
     {
         static GRAPHIC_CAMERA * bk_camera = Camera;
     
         Camera = bk_camera;
-    }*/
+    }
     
     renderer.SetCamera( Camera );
     SSAOTechnique.SSAOEffect->SetCamera( Camera );
@@ -221,7 +236,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     SSAOTechnique.ApplyFirstPass( renderer );
     DeferredShadingTechnique.ApplySecondPass( renderer );
     BloomTechnique.ApplyFirstPass( renderer );
-    SpeedBlurTechnique.ApplySecondPass( renderer );
+    //SpeedBlurTechnique.ApplySecondPass( renderer );
 #else
     {
         renderer.SetCamera(Camera);
@@ -250,10 +265,9 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
         R3D_APP_PTR->GetGame()->GetBulletSystem()->DebugDrawWorld();
     }*/
     
-    
     renderer.SetCamera( InterfaceCamera );
     GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
     
     renderer.SetCamera( Camera );
-    CascadeShadowMapTechnique.DebugFustrum( renderer );
+    //CascadeShadowMapTechnique.DebugFustrum( renderer );
 }
