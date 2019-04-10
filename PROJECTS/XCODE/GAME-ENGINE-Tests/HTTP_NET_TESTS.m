@@ -38,12 +38,18 @@
     SERVICE_HTTP_REQUEST
         request( "", "", SERVICE_HTTP_REQUEST_TYPE_Get );
     
-    SERVICE_HTTP_CLIENT::GetInstance().SetBaseUrl( "http://localhost/" );
+    SERVICE_HTTP_CLIENT::GetInstance().SetBaseUrl( "http://localhost:5000/api/values" );
     SERVICE_HTTP_CLIENT::GetInstance().PerformRequestAsync( request );
 }
 
 -(void)testLocalhostRequest {
     
+    SERVICE_HTTP_REQUEST
+        request( "", "{\"id\":11,\"nick\":\"fkdjg\",\"realName\":\"slfjghq\",\"emailAddress\":\"sljfdkg@mzkldhjf.be\"}", SERVICE_HTTP_REQUEST_TYPE_Post );
+    
+    SERVICE_HTTP_CLIENT::GetInstance().SetHeader("Content-Type: application/json");
+    SERVICE_HTTP_CLIENT::GetInstance().SetBaseUrl( "http://localhost:5000/api/values" );
+    SERVICE_HTTP_CLIENT::GetInstance().PerformRequestAsync( request );
 }
 
 @end

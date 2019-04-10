@@ -15,8 +15,9 @@
 #include "SERVICE_HTTP_REQUEST.h"
 #include <curl/curl.h>
 
+#define BASE_URL_MAX_LEN 256
+
 #define CURL_CHECK( __METHOD__ ) \
-    __METHOD__ \
     { \
         CURLcode result = __METHOD__ \
         if ( result != CURLE_OK ) { \
@@ -45,6 +46,8 @@ private:
 
     CURL *
         CurlEasyHandle;
+    char
+        BaseUrl[ BASE_URL_MAX_LEN ];
     struct CurlOutMemoryStruct
         Chunk;
     struct curl_slist *

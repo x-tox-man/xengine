@@ -178,6 +178,11 @@ void R3D_GAMEPLAY_GAME::Initialize( ) {
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[0])->SetMask( GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[1])->SetMask( GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[2])->SetMask( GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent );
+    
+    
     ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[1])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[2])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
@@ -217,9 +222,9 @@ void R3D_GAMEPLAY_GAME::Finalize() {
     }
 }
 
-void R3D_GAMEPLAY_GAME::Render( GRAPHIC_RENDERER & renderer ) {
+void R3D_GAMEPLAY_GAME::Render( GRAPHIC_RENDERER & renderer, int transparent_mask ) {
     
-    Scene.Render( renderer );
+    Scene.Render( renderer, transparent_mask );
 }
 
 void R3D_GAMEPLAY_GAME::Update( const float step ) {

@@ -50,11 +50,7 @@ void ASSET_EDITOR::Initialize() {
     
     GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() ) );
     
-    CORE_MATH_QUATERNION interface_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
-    
-    interface_lookat.Normalize();
-    
-    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight(), CORE_MATH_VECTOR(0.0f, 0.0f), interface_lookat );
+    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight(), CORE_MATH_VECTOR(0.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     BaseUiScreen.GetPlacement().Initialize( NULL, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR(ApplicationWindow->GetWidth(), ApplicationWindow->GetHeight()), GRAPHIC_UI_Center );
     BaseUiScreen.Initialize();
@@ -185,7 +181,7 @@ void ASSET_EDITOR::OnScreenResized( int width, int height ) {
     
     CORE_MEMORY_ObjectSafeDeallocation( InterfaceCamera );
     
-    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, width, height, CORE_MATH_VECTOR(0.0f, 0.0f), interface_lookat );
+    InterfaceCamera = new GRAPHIC_CAMERA_ORTHOGONAL( 1.0f, 100.0f, width, height, CORE_MATH_VECTOR(0.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
 }
 
 void ASSET_EDITOR::OnDraggedPath( const char * path ) {

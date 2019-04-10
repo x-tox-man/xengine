@@ -34,7 +34,7 @@ R3D_RENDER::R3D_RENDER() :
     ShadowMapRenderTarget3(),
     TextureBlock1( new GRAPHIC_TEXTURE_BLOCK() ),
     TextureBlock2( new GRAPHIC_TEXTURE_BLOCK() ),
-    TextureBlock3(new GRAPHIC_TEXTURE_BLOCK() ),
+    TextureBlock3( new GRAPHIC_TEXTURE_BLOCK() ),
     TextureBlock4( new GRAPHIC_TEXTURE_BLOCK() ),
     SpeedBlurTechnique(),
     BloomTechnique(),
@@ -108,8 +108,8 @@ void R3D_RENDER::Initialize() {
     SpeedBlurTechnique.TextureBlock2 = TextureBlock2;
     SpeedBlurTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
     SpeedBlurTechnique.FinalRenderTarget = &FinalRenderTarget;
-    SpeedBlurTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderScene>, this );
-    SpeedBlurTechnique.RendererCallback1.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderSceneWithParticles>, this );
+    SpeedBlurTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
+    SpeedBlurTechnique.RendererCallback1.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
     SpeedBlurTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     BloomTechnique.PlanObject = &PlanObject;
@@ -138,7 +138,7 @@ void R3D_RENDER::Initialize() {
     DeferredShadingTechnique.FinalRenderTarget = &PrimaryRenderTarget;
     DeferredShadingTechnique.SphereObject = &SphereObject;
     DeferredShadingTechnique.ConeObject = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) )->GetResource< GRAPHIC_OBJECT >();
-    DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderSceneWithParticles>, this );
+    DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
     DeferredShadingTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     SSAOTechnique.PlanObject = &PlanObject;
@@ -153,8 +153,8 @@ void R3D_RENDER::Initialize() {
     CascadeShadowMapTechnique.ShadowMapRenderTarget1 = &ShadowMapRenderTarget1;
     CascadeShadowMapTechnique.ShadowMapRenderTarget2 = &ShadowMapRenderTarget2;
     CascadeShadowMapTechnique.ShadowMapRenderTarget3 = &ShadowMapRenderTarget3;
-    CascadeShadowMapTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderScene>, this );
-    CascadeShadowMapTechnique.RendererCallback1.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderSceneWithParticles>, this );
+    CascadeShadowMapTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
+    CascadeShadowMapTechnique.RendererCallback1.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
     CascadeShadowMapTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
@@ -169,30 +169,32 @@ void R3D_RENDER::Initialize() {
     GRAPHIC_RENDERER::GetInstance().SetAmbientLight( light );
 }
 
-void R3D_RENDER::RenderScene( GRAPHIC_RENDERER & renderer ) {
+void R3D_RENDER::RenderOpaqueScene( GRAPHIC_RENDERER & renderer ) {
     
-    R3D_APP_PTR->GetGame()->Render( renderer );
+    R3D_APP_PTR->GetGame()->Render( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
 }
 
-void R3D_RENDER::RenderSceneWithParticles( GRAPHIC_RENDERER & renderer ) {
+void R3D_RENDER::RenderSceneTransparentWithParticles( GRAPHIC_RENDERER & renderer ) {
     
-    R3D_APP_PTR->GetGame()->Render( renderer );
+    R3D_APP_PTR->GetGame()->Render( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent );
     GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
 }
 
 void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
 
+
+    static auto cam = new GRAPHIC_CAMERA_ORTHOGONAL;
+    
     if ( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer() ) {
         
         CORE_MATH_MATRIX
             m;
         
         m.XRotate( -M_PI_4 );
-        m.YRotate( -M_PI_4 );
+        m.YRotate( -M_PI_2 );
         
-        CascadeShadowMapTechnique.UpdateCameras( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition() + CORE_MATH_VECTOR( 0.0, 3.0f, 0.0f, 0.0f), CORE_MATH_VECTOR::ZAxis * m, CORE_MATH_VECTOR::YAxis  * m );
-        
-        //Camera = CascadeShadowMapTechnique.LightShadowCamera[1];
+        CascadeShadowMapTechnique.UpdateCameras( R3D_APP_PTR->GetPlayerIdentityManager().GetCurrentPlayer()->GetPosition()+ CORE_MATH_VECTOR( 0.0f, 1.0f), CORE_MATH_VECTOR::ZAxis * m, CORE_MATH_VECTOR::YAxis * m );
+        cam->InitWithViewProj( CascadeShadowMapTechnique.LightShadowCamera[0]->GetViewMatrix(), CascadeShadowMapTechnique.LightShadowCamera[0]->GetProjectionMatrix() );
     }
     
 #if OPENGL4
@@ -201,28 +203,21 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_SYSTEM::SetClearColor( color );
     
-    /*static int acc = 0;
+    static int acc = 0;
     acc++;
     
-    if (acc > 400 ) {
+    /*if (acc > 200 ) {
         acc = 0;
     }
-    
-    if ( acc > 300 ) {
-        Camera = CascadeShadowMapTechnique.LightShadowCamera[2];
-    }
-    else if ( acc > 200 ) {
-        Camera = CascadeShadowMapTechnique.LightShadowCamera[1];
-    }
     else if ( acc > 100 ) {
-        Camera = CascadeShadowMapTechnique.LightShadowCamera[0];
+        Camera = cam;
     }
-    else*/
+    else
     {
         static GRAPHIC_CAMERA * bk_camera = Camera;
     
         Camera = bk_camera;
-    }
+    }*/
     
     renderer.SetCamera( Camera );
     SSAOTechnique.SSAOEffect->SetCamera( Camera );
@@ -258,6 +253,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     }
 #endif
     
+    //RenderSceneTransparentWithParticles( renderer );
     GRAPHIC_SYSTEM::DisableDepthTest();
     /*static int testdd= 0;
     if ( testdd++ > 120 ) {
@@ -266,7 +262,7 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     }*/
     
     renderer.SetCamera( InterfaceCamera );
-    GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
+    //GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
     
     renderer.SetCamera( Camera );
     //CascadeShadowMapTechnique.DebugFustrum( renderer );

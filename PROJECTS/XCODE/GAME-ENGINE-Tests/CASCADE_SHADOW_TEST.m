@@ -231,7 +231,7 @@
         
         ShadowMapRenderTarget.Apply();
         
-        scene->Render( GRAPHIC_RENDERER::GetInstance() );
+        scene->Render( GRAPHIC_RENDERER::GetInstance(), GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
         
         GRAPHIC_TEXTURE * texture2 = ShadowMapRenderTarget.GetTargetTexture( 0 );
         texture2->SaveDepthTo(CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth" , "png", "" ));
@@ -247,7 +247,7 @@
         
         RenderTarget.Apply();
         
-        scene->Render( GRAPHIC_RENDERER::GetInstance() );
+        scene->Render( GRAPHIC_RENDERER::GetInstance(), GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
         
         GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
         texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan" , "png", "" ) );

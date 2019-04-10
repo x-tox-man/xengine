@@ -53,7 +53,8 @@ public:
         TextureBlock2,
         TextureBlock3,
         TextureBlock4,
-        TextureBlock5;
+        TextureBlock5,
+        TextureBlock6;
     GRAPHIC_SHADER_EFFECT::PTR
         AmbientDirectionalDefferedEffect,
         SpotDeferredEffect,

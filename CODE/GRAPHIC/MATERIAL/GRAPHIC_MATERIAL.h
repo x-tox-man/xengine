@@ -54,7 +54,12 @@ private:
     std::string
         Name;
     CORE_HELPERS_COLOR
-        Diffuse;
+        Diffuse,
+        Specular,
+        Ambient;
+    float
+        SpecularIntensity,
+        Shininess;
     std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * >
         TextureTable;
     bool

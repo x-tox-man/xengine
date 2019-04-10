@@ -48,7 +48,7 @@ void VIEWER3D::Initialize() {
     lookat.Normalize();
     
     Camera = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_CAMERA >();
-    Camera->Initialize( 1.0f, 10000.0f, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), position, lookat );
+    Camera->Initialize( 1.0f, 10000.0f, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), position, CORE_MATH_VECTOR::ZAxis * lookat, CORE_MATH_VECTOR::YAxis * lookat );
     
     DirectionalLight = new GRAPHIC_SHADER_LIGHT;
     
@@ -116,8 +116,6 @@ void VIEWER3D::Update( const float time_step ) {
         
         rotation_mat.XRotate( (vector[1]-0.5f)*2.0f * M_PI_2 );
         rotation_mat.ZRotate( (vector[0]-0.5f)*2.0f * M_PI_2 );
-        
-        printf( "x: %f   y: %f \n", vector[0], vector[1]);
     }
     
     rotation_mat.GetInverse(inverse);
@@ -207,7 +205,7 @@ void VIEWER3D::Update( const float time_step ) {
         position += add*rot;
     }
 
-    Camera->UpdateCamera(position, rotation_quat);
+    //Camera->UpdateCamera(position, rotation_quat);
     
     Scene->Update( time_step );
 }

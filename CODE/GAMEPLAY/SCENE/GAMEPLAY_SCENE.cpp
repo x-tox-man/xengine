@@ -82,7 +82,7 @@ void GAMEPLAY_SCENE::Update( float time_step ) {
     }
 }
 
-void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
+void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer, int transparent_mask ) {
     
     if( renderer.GetPassIndex() == 0 ) {
         
@@ -92,20 +92,22 @@ void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
     GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
     GRAPHIC_SYSTEM::SetPolygonMode( GRAPHIC_SYSTEM_POLYGON_FILL_MODE_Full );
     
-    bool it_does_blend = false;
+    bool it_does_blend = transparent_mask | GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent;
     
     for ( size_t i = 0; i < RenderableSystemTable.size(); i++ ) {
         
-        if ( it_does_blend ) {
+        if ( it_does_blend && RenderableSystemTable[ i ]->GetMask() | GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent) {
             
-            //GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+            GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
         }
         else {
             
             GRAPHIC_SYSTEM::DisableBlend();
         }
-        
-        RenderableSystemTable[ i ]->Render( renderer );
+        if ( transparent_mask == GAMEPLAY_COMPONENT_SYSTEM_MASK_All || RenderableSystemTable[ i ]->GetMask() | transparent_mask ) {
+            
+            RenderableSystemTable[ i ]->Render( renderer );
+        }
         
         it_does_blend = true;
     }

@@ -35,6 +35,12 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
 
     inline const CORE_MATH_VECTOR & GetUp() const { return Up; }
     inline const CORE_MATH_VECTOR & GetDirection() const { return Direction; }
+    void InitWithViewProj( const CORE_MATH_MATRIX & view, const CORE_MATH_MATRIX & proj ) {
+        
+        ProjectionMatrix = proj;
+        ViewMatrix = view;
+        ProjectionViewMatrix = ProjectionMatrix * ViewMatrix;
+    }
 
     inline const GRAPHIC_CAMERA_FUSTRUM & GetFustrum() const {return Fustrum; }
 

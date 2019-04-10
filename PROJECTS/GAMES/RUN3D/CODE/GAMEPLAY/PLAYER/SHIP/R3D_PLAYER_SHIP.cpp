@@ -102,7 +102,7 @@ void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, con
             offset(0.05f, 0.0f, 0.0f, 0.0f );
         
         CORE_MATH_QUATERNION q;
-        q.RotateY( M_PI_2 );
+        q.RotateY( -M_PI_2 );
         
         entity->SetOrientation( q );
         entity->SetPosition( offset );
@@ -130,7 +130,7 @@ void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, con
         light_spot_left->InitializeSpot(CORE_MATH_VECTOR( 1.0f, 0.0f, 0.0f, 1.0f), CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR(0.0f, 0.0f, 1.0f, 0.0f), 10.0f, 0.1f, 0.1f, M_PI_4 , 10.1f, 10.1f);
         
         CORE_MATH_QUATERNION q;
-        q.RotateY( M_PI_2 );
+        q.RotateY( -M_PI_2 );
         
         entity->SetOrientation( q );
         entity->SetPosition( offset );
@@ -153,7 +153,6 @@ void R3D_PLAYER_SHIP::CreateWeaponSystem( const CORE_MATH_VECTOR & position, con
         offset(0.0f, -0.03f, 0.01f, 0.0f );
         
         CORE_MATH_QUATERNION q;
-        q.RotateZ( M_PI_2 );
         
         entity->SetOrientation( q );
         entity->SetPosition( offset );
@@ -241,8 +240,8 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     
     CORE_MATH_QUATERNION reset_pos = pos->GetOrientation();
     
-    //reset_pos.RotateZ( previous_rotation * 0.1f );
-    //reset_pos.RotateX( - previous_thrust * 0.1f );
+    reset_pos.RotateZ( previous_rotation * 0.1f );
+    reset_pos.RotateX( - previous_thrust * 0.1f );
     
     qrtot = reset_pos * qr;
     qrtot.Normalize();
@@ -260,8 +259,8 @@ void R3D_PLAYER_SHIP::Update( float step ) {
     
     UpdateCamera( step, pos, phys );
     
-    //qrtot.RotateX( GetThrust() * 0.1f );
-    //qrtot.RotateZ( -GetRotation() * 0.1f );
+    qrtot.RotateX( GetThrust() * 0.1f );
+    qrtot.RotateZ( -GetRotation() * 0.1f );
     
     qrtot.Normalize();
     SetOrientation( qrtot );
@@ -290,9 +289,12 @@ void R3D_PLAYER_SHIP::UpdateCamera( float step, GAMEPLAY_COMPONENT_POSITION::PTR
     CORE_MATH_QUATERNION
         q = pos->GetOrientation(),
         q2 = pos->GetOrientation(),
-        q3;
+        q3,
+        inv_q;
     CORE_MATH_MATRIX
-        m;
+        m,
+        behind_matrix,
+        top_matrix;
     CORE_MATH_VECTOR
         vv;
     
@@ -300,12 +302,13 @@ void R3D_PLAYER_SHIP::UpdateCamera( float step, GAMEPLAY_COMPONENT_POSITION::PTR
     vv = r * m;
     q2.ToMatrix( m.GetRow(0) );
     
-    CORE_MATH_MATRIX top_matrix;
     top_matrix.XRotate( -M_PI_2 );
     
+    m.GetInverse( behind_matrix );
+    
     Front.UpdateCamera( pos->GetPosition() - (f * q), vv );
-    Rear.UpdateCamera( pos->GetPosition() + r, CORE_MATH_VECTOR::ZAxis );
-    Top.UpdateCamera( pos->GetPosition() + t, top_matrix * CORE_MATH_VECTOR::ZAxis );
+    Rear.UpdateCamera( pos->GetPosition() + r * behind_matrix, CORE_MATH_VECTOR::ZAxis * behind_matrix, CORE_MATH_VECTOR::YAxis * behind_matrix );
+    Top.UpdateCamera( pos->GetPosition() + t * behind_matrix, CORE_MATH_VECTOR::ZAxis * top_matrix, CORE_MATH_VECTOR::YAxis * top_matrix );
     
 #if PLATFORM_IOS || PLATFORM_ANDROID
     R3D_APP_PTR->SetCamera( &Rear );

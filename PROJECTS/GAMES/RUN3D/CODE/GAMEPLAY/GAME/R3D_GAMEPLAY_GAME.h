@@ -29,7 +29,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     R3D_GAMEPLAY_GAME();
     ~R3D_GAMEPLAY_GAME();
 
-    void Render( GRAPHIC_RENDERER & renderer );
+    void Render( GRAPHIC_RENDERER & renderer, int transparent_mask );
     void Update( const float step );
 
     void OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity );

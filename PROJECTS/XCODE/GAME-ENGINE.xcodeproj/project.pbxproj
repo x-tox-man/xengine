@@ -1297,6 +1297,7 @@
 		5F44BA2C211025CA00CD24C8 /* CORE_MATH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F0203DE20D5CA670038BB96 /* CORE_MATH.cpp */; };
 		5F44BA2D2110261A00CD24C8 /* libogg copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64D208C70AE009673DE /* libogg copy.a */; };
 		5F44BA2E2110261A00CD24C8 /* libvorbis copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64E208C70AE009673DE /* libvorbis copy.a */; };
+		5F49E828225AAD31007A5153 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F49E826225AAD31007A5153 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.cpp */; };
 		5F55784021B04C18001621BF /* libogg copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64D208C70AE009673DE /* libogg copy.a */; };
 		5F55784121B04C67001621BF /* libvorbis copy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9CE64E208C70AE009673DE /* libvorbis copy.a */; };
 		5F55784221B04C84001621BF /* liblua-5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEA404C1F7530660085DDB5 /* liblua-5.2.3.a */; };
@@ -1386,6 +1387,7 @@
 		5F7987C81FA8F3CB0062EB1F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAFD0451F7544B900113D6E /* libxml2.tbd */; };
 		5F7987C91FA8F3CD0062EB1F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAFD0451F7544B900113D6E /* libxml2.tbd */; };
 		5F7987CA1FA8F3CD0062EB1F /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAFD0431F7544AE00113D6E /* libbz2.tbd */; };
+		5F81468D225DB59D00DCD036 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F49E826225AAD31007A5153 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.cpp */; };
 		5F848DBE20EB38330000BB5B /* GRAPHIC_RENDER_TECHNIQUE_SSAO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F848DBC20EB38330000BB5B /* GRAPHIC_RENDER_TECHNIQUE_SSAO.cpp */; };
 		5F848DC120EB49F70000BB5B /* GRAPHIC_SHADER_EFFECT_SSAO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F848DBF20EB49F70000BB5B /* GRAPHIC_SHADER_EFFECT_SSAO.cpp */; };
 		5F848DC220EB50C00000BB5B /* GRAPHIC_SHADER_EFFECT_SSAO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F848DBF20EB49F70000BB5B /* GRAPHIC_SHADER_EFFECT_SSAO.cpp */; };
@@ -1814,6 +1816,8 @@
 		5FC19B911EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
 		5FC19B941EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
 		5FC19B951EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC19B6D1EDF6335003E53D5 /* CORE_FILESYSTEM_FILE_WATCHER_OSX.m */; };
+		5FC57D26224589CC00E14CC6 /* LDAP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F0ABA0E222DE55D001D0D06 /* LDAP.framework */; };
+		5FC57D27224589CC00E14CC6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F0ABA0C222DE543001D0D06 /* Security.framework */; };
 		5FCC3D5D2001884B00A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D5B2001884B00A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp */; };
 		5FCC3D5E20018A9700A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D5B2001884B00A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp */; };
 		5FCC3D5F20018A9700A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC3D5B2001884B00A698B8 /* GRAPHIC_UI_FRAME_LIST_STEPPER_ADAPTER.cpp */; };
@@ -2968,6 +2972,8 @@
 		5F3BC8521EE568E50031CEF7 /* EmptyComponent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyComponent.xib; sourceTree = "<group>"; };
 		5F3BC8541EE56ED80031CEF7 /* ParentVCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentVCDelegate.h; sourceTree = "<group>"; };
 		5F3BC8551EE60F4F0031CEF7 /* ModalBackDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModalBackDelegate.h; sourceTree = "<group>"; };
+		5F49E826225AAD31007A5153 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.cpp; sourceTree = "<group>"; };
+		5F49E827225AAD31007A5153 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.h; sourceTree = "<group>"; };
 		5F4AEE9821973128001CA9BA /* GRAPHIC_POLYGON_FACE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_POLYGON_FACE.h; sourceTree = "<group>"; };
 		5F4AEE9921973233001CA9BA /* GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h; sourceTree = "<group>"; };
 		5F4AEE9A2197375E001CA9BA /* GRAPHIC_SYSTEM_BLEND_EQUATION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SYSTEM_BLEND_EQUATION.h; sourceTree = "<group>"; };
@@ -3277,6 +3283,7 @@
 				5FEA408D1F7530790085DDB5 /* libBullet3Geometry.a in Frameworks */,
 				5F55784021B04C18001621BF /* libogg copy.a in Frameworks */,
 				5FEA409B1F7530790085DDB5 /* libftoa.a in Frameworks */,
+				5FC57D27224589CC00E14CC6 /* Security.framework in Frameworks */,
 				5FEA40901F7530790085DDB5 /* libBulletDynamics.a in Frameworks */,
 				5FEA40891F7530790085DDB5 /* libBullet3AppSupport.a in Frameworks */,
 				5FEA40AC1F7530790085DDB5 /* libOpenGLWindow.a in Frameworks */,
@@ -3308,6 +3315,7 @@
 				5FEA40941F7530790085DDB5 /* libBulletWorldImporter.a in Frameworks */,
 				329756C01E90EA2C0074EEEC /* OpenCL.framework in Frameworks */,
 				5FEA40911F7530790085DDB5 /* libBulletFileLoader.a in Frameworks */,
+				5FC57D26224589CC00E14CC6 /* LDAP.framework in Frameworks */,
 				329756BE1E90EA2C0074EEEC /* GLKit.framework in Frameworks */,
 				5FEA40951F7530790085DDB5 /* libBulletXmlWorldImporter.a in Frameworks */,
 				5FEA40921F7530790085DDB5 /* libBulletInverseDynamics.a in Frameworks */,
@@ -3700,6 +3708,7 @@
 				3238F37C1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_RUNTIME_TYPE.h */,
 				3238F37D1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_STATE.cpp */,
 				3238F37E1E90E80400838C62 /* CORE_ABSTRACT_PROGRAM_STATE.h */,
+				5F49E824225AABB8007A5153 /* NATIVELIBRARY */,
 				3238F37F1E90E80400838C62 /* GOOGLE_CHROME_V8 */,
 				3238F3841E90E80400838C62 /* LUA */,
 			);
@@ -4191,6 +4200,7 @@
 		3238F4361E90E80400838C62 /* COMPONENT */ = {
 			isa = PBXGroup;
 			children = (
+				3238F4481E90E80400838C62 /* SYSTEM */,
 				5F742ED221F7C4F80015FB8A /* AABB */,
 				324E6DD61EC4B8CE00751F52 /* LIGHT */,
 				324E6DCE1EC4B8C000751F52 /* CAMERA */,
@@ -4221,7 +4231,6 @@
 				5F5EC16F1EF9D7CD00F4939D /* GAMEPLAY_COMPONENT_ENTITY_PROXY.cpp */,
 				5F5EC1701EF9D7CD00F4939D /* GAMEPLAY_COMPONENT_ENTITY_PROXY.h */,
 				3238F4471E90E80400838C62 /* GAMEPLAY_COMPONENT_TYPE.h */,
-				3238F4481E90E80400838C62 /* SYSTEM */,
 			);
 			path = COMPONENT;
 			sourceTree = "<group>";
@@ -5310,6 +5319,15 @@
 			path = SOUND;
 			sourceTree = "<group>";
 		};
+		5F49E824225AABB8007A5153 /* NATIVELIBRARY */ = {
+			isa = PBXGroup;
+			children = (
+				5F49E826225AAD31007A5153 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.cpp */,
+				5F49E827225AAD31007A5153 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.h */,
+			);
+			path = NATIVELIBRARY;
+			sourceTree = "<group>";
+		};
 		5F70E79C1FADB3B200D90632 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -5960,6 +5978,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -7059,6 +7078,7 @@
 				3238F7821E90E80500838C62 /* GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING.cpp in Sources */,
 				5FB512EB1FBD67E50025AAAF /* APPLICATION_GAMEPLAY_COMMAND_LOAD_GAME.cpp in Sources */,
 				3238F80E1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_GRID.cpp in Sources */,
+				5F49E828225AAD31007A5153 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.cpp in Sources */,
 				5F0203DF20D5CA670038BB96 /* CORE_MATH.cpp in Sources */,
 				3238F8F41E90E80600838C62 /* GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER.cpp in Sources */,
 				5FB513151FBD67E50025AAAF /* NETWORK_CLIENT_OLD.cpp in Sources */,
@@ -7734,6 +7754,7 @@
 				5F92DB6E1F16415F00292A99 /* PERIPHERIC_INTERRACTION_VIBRATOR.cpp in Sources */,
 				5F92DB6F1F16415F00292A99 /* PERIPHERIC_INTERRACTION_VIBRATOR_EFFECT.cpp in Sources */,
 				5F92DB701F16415F00292A99 /* RESOURCE_IMAGE_PNG_LOADER.cpp in Sources */,
+				5F81468D225DB59D00DCD036 /* CORE_ABSTRACT_PROGRAM_NATIVELIBRARY.cpp in Sources */,
 				5F92DB711F16415F00292A99 /* RESOURCE_IMAGE_PNG_WRITER.cpp in Sources */,
 				5F92DB721F16415F00292A99 /* RESOURCE_IMAGE.cpp in Sources */,
 				5F92DB731F16415F00292A99 /* RESOURCE_IMAGE_ATLAS_COMPILER.cpp in Sources */,

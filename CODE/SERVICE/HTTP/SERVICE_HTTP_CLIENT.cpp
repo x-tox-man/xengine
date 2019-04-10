@@ -31,7 +31,8 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
 SERVICE_HTTP_CLIENT::SERVICE_HTTP_CLIENT() :
     CurlEasyHandle( NULL ),
     Chunk(),
-    Headers( NULL ) {
+    Headers( NULL ),
+    BaseUrl() {
     
     Chunk.Memory = (char*) malloc(1);  /* will be grown as needed by the realloc above */
     Chunk.Size = 0;    /* no data at this point */
@@ -64,7 +65,7 @@ SERVICE_HTTP_CLIENT::~SERVICE_HTTP_CLIENT() {
 
 void SERVICE_HTTP_CLIENT::SetBaseUrl( const char * base_url ) {
     
-    curl_easy_setopt( CurlEasyHandle, CURLOPT_URL, base_url );
+    CORE_DATA_COPY_STRING( BaseUrl, base_url );
 }
 
 void SERVICE_HTTP_CLIENT::SetHeader(  const char * header_value ) {
@@ -74,6 +75,11 @@ void SERVICE_HTTP_CLIENT::SetHeader(  const char * header_value ) {
 
 void SERVICE_HTTP_CLIENT::PerformRequestAsync( SERVICE_HTTP_REQUEST & request ) {
     
+    char LOCAL_TotalUrl[256 * 2];
+    
+    CORE_DATA_COPY_STRING( LOCAL_TotalUrl, BaseUrl );
+    CORE_DATA_STRING_CONCAT(LOCAL_TotalUrl, request.Path );
+    
     switch ( request.Method ) {
         case SERVICE_HTTP_REQUEST_TYPE_Get:
             
@@ -81,11 +87,12 @@ void SERVICE_HTTP_CLIENT::PerformRequestAsync( SERVICE_HTTP_REQUEST & request ) 
         
         case SERVICE_HTTP_REQUEST_TYPE_Post:
             
+            curl_easy_setopt(CurlEasyHandle, CURLOPT_POST, 1);
             /* post binary data */
-            //curl_easy_setopt(CurlEasyHandle, CURLOPT_POSTFIELDS, binaryptr);
+            curl_easy_setopt(CurlEasyHandle, CURLOPT_POSTFIELDS, request.Body);
             
             /* set the size of the postfields data */
-            //curl_easy_setopt(CurlEasyHandle, CURLOPT_POSTFIELDSIZE, 23L);
+            curl_easy_setopt(CurlEasyHandle, CURLOPT_POSTFIELDSIZE, strlen( request.Body ) );
             
             break;
         default:
@@ -93,6 +100,9 @@ void SERVICE_HTTP_CLIENT::PerformRequestAsync( SERVICE_HTTP_REQUEST & request ) 
             break;
     }
     /* get it! */
+    
+    curl_easy_setopt( CurlEasyHandle, CURLOPT_URL, LOCAL_TotalUrl );
+    curl_easy_setopt( CurlEasyHandle, CURLOPT_HTTPHEADER, Headers );
     
     CURL_CHECK( curl_easy_perform( CurlEasyHandle ); )
 }

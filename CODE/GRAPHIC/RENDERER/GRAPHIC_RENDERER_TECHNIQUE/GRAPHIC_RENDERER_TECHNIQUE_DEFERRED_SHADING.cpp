@@ -20,6 +20,7 @@ GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::GRAPHIC_RENDERER_TECHNIQUE_DEFERRED
     TextureBlock3(),
     TextureBlock4(),
     TextureBlock5(),
+    TextureBlock6(),
     RenderTarget(),
     FinalRenderTarget( NULL ),
     AmbientDirectionalDefferedEffect( NULL ),

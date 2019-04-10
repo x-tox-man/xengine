@@ -21,6 +21,7 @@
 #include "CORE_DATA_UTF8_TEXT.h"
 #include "R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h"
 #include "MENU_SCENE.h"
+#include <dlfcn.h>
 
 RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
@@ -74,10 +75,9 @@ void RUN3D_APPLICATION::Initialize() {
     AUDIO_SYSTEM::GetInstance().PlayMusic( R3D_AUDIO_MUSIC_MANAGER::MusicPulse );
     
     InitializeGraphics();
-    
     InitializeGameConfiguration();
-    
     InitializePhysics();
+    InitializeDYLIB();
     
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
     CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
@@ -244,3 +244,30 @@ void RUN3D_APPLICATION::SetCamera( GRAPHIC_CAMERA::PTR camera ) {
     GameRenderer.SetCamera( camera );
 }
 
+void RUN3D_APPLICATION::InitializeDYLIB() {
+
+    char final_path[128];
+    void
+        * LibraryHandle = NULL;
+    
+    CORE_DATA_COPY_STRING( final_path, "/Users/christophebernard/Library/Developer/Xcode/DerivedData/Run3d-egysmdfsbfjkcsgyskywwumgybhw/Build/Products/Debug/libModules" );
+    CORE_DATA_STRING_CONCAT( final_path, ".dylib" );
+    
+    LibraryHandle = dlopen( final_path, RTLD_LOCAL);
+    
+    if (LibraryHandle) {
+        
+        printf("[%s] %s\n", __FILE__, dlerror());
+        void (*init_handle )() = (void(*)()) dlsym( LibraryHandle, "Initialize");
+        if (init_handle) {
+            
+            init_handle();
+        }
+        else {
+            printf("[%s] Unable to open libBus1a.dylib: %s\n", __FILE__, dlerror());
+        }
+    }
+    else {
+        printf("[%s] Unable to open libBus1a.dylib: %s\n", __FILE__, dlerror());
+    }
+}

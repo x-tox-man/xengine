@@ -16,6 +16,13 @@
 #include "GAMEPLAY_COMPONENT_ENTITY.h"
 #include "GAMEPLAY_COMPONENT_ENTITY_PROXY.h"
 
+enum GAMEPLAY_COMPONENT_SYSTEM_MASK {
+    GAMEPLAY_COMPONENT_SYSTEM_MASK_All,
+    GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent,
+    GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque,
+    GAMEPLAY_COMPONENT_SYSTEM_MASK_None
+};
+
 class GRAPHIC_RENDERER;
 
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_SYSTEM )
@@ -43,8 +50,13 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_SYSTEM )
     void SaveToStream( CORE_DATA_STREAM & stream );
     void LoadFromStream( CORE_DATA_STREAM & stream );
 
+    inline int GetMask() const { return Mask; }
+    inline void SetMask( int mask ) { Mask = mask; }
+
     std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >
         EntitiesTable;
+    int
+        Mask;
 
 XS_CLASS_END
 

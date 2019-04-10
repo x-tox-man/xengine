@@ -22,7 +22,6 @@ GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::~GRAPHIC_RENDERER_TECHNIQUE_CASCA
     }
 }
 
-
 void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::Initialize( GRAPHIC_RENDERER & renderer ) {
     
     CORE_MATH_QUATERNION
@@ -50,13 +49,11 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[0] );
         renderer.SetCamera( LightShadowCamera[0] );
         
-        LightShadowCamera[0]->InitOrthoProjTransform(CascadeProjectionInfo[ 0 ].Left, CascadeProjectionInfo[ 0 ].Right, CascadeProjectionInfo[ 0 ].Bottom, CascadeProjectionInfo[ 0 ].Top, CascadeProjectionInfo[ 0 ].Near,  CascadeProjectionInfo[ 2 ].Far );
+        LightShadowCamera[0]->InitOrthoProjTransform(CascadeProjectionInfo[ 0 ].Left, CascadeProjectionInfo[ 0 ].Right, CascadeProjectionInfo[ 0 ].Bottom, CascadeProjectionInfo[ 0 ].Top, CascadeProjectionInfo[ 0 ].Near,  CascadeProjectionInfo[ 0 ].Far );
         
         ShadowMapRenderTarget1->Apply();
-        GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
         GRAPHIC_SYSTEM::DisableBlend();
-        //GRAPHIC_SYSTEM::DisableFaceCulling();
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_GreaterOrEqual, true );
+        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
         RendererCallback( renderer );
         /*{
@@ -79,10 +76,8 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         LightShadowCamera[1]->InitOrthoProjTransform(CascadeProjectionInfo[ 1 ].Left, CascadeProjectionInfo[ 1 ].Right, CascadeProjectionInfo[ 1 ].Bottom, CascadeProjectionInfo[ 1 ].Top, CascadeProjectionInfo[ 1 ].Near,  CascadeProjectionInfo[ 1 ].Far );
         
         ShadowMapRenderTarget2->Apply();
-        GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
         GRAPHIC_SYSTEM::DisableBlend();
-        //GRAPHIC_SYSTEM::DisableFaceCulling();
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_GreaterOrEqual, true );
+        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
         RendererCallback( renderer );
         
@@ -107,10 +102,8 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
         LightShadowCamera[2]->InitOrthoProjTransform(CascadeProjectionInfo[ 2 ].Left, CascadeProjectionInfo[ 2 ].Right, CascadeProjectionInfo[ 2 ].Bottom, CascadeProjectionInfo[ 2 ].Top, CascadeProjectionInfo[ 2 ].Near, CascadeProjectionInfo[ 2 ].Far );
         
         ShadowMapRenderTarget3->Apply();
-        GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
         GRAPHIC_SYSTEM::DisableBlend();
-        //GRAPHIC_SYSTEM::DisableFaceCulling();
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_GreaterOrEqual, true );
+        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
         GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
         RendererCallback( renderer );
         
@@ -220,10 +213,10 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::CalculateCascadeOrthoProject
     
     temp.GetViewMatrix().GetInverse( view_matrix );
     
-    renderer.SetCascadeEnd( 0, 0.0f );
+    renderer.SetCascadeEnd( 0, -5.0f );
     renderer.SetCascadeEnd( 1, 5.0f );
     renderer.SetCascadeEnd( 2, 30.0f );
-    renderer.SetCascadeEnd( 3, 150.0f );
+    renderer.SetCascadeEnd( 3, 1500.0f );
     
     GRAPHIC_CAMERA orth( renderer.GetCamera()->GetNear(), renderer.GetCamera()->GetFar(), screen_width, screen_height, renderer.GetCamera()->GetPosition(), LightShadowCamera[0]->GetDirection(), LightShadowCamera[0]->GetUp() );
     

@@ -26,7 +26,7 @@ XS_CLASS_BEGIN( GAMEPLAY_SCENE )
     static void Ping();
 
     void Update( float time_step );
-    void Render( GRAPHIC_RENDERER & renderer );
+    void Render( GRAPHIC_RENDERER & renderer, int transparent_mask );
 
     void SaveTo( const CORE_FILESYSTEM_PATH & path );
     void LoadFrom( const CORE_FILESYSTEM_PATH & path );

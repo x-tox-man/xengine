@@ -82,6 +82,7 @@ private :
     void InitializeGraphics();
     void InitializeGameConfiguration();
     void InitializePhysics();
+    void InitializeDYLIB();
 
     CORE_FILESYSTEM
         DefaultFileystem;

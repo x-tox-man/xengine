@@ -28,11 +28,12 @@ void MENU_SCENE::Initialize() {
     
     GAMEPLAY_HELPER::Set3DObject(entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "base_hub" ) );
     GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
+    GAMEPLAY_HELPER::SetShadowmapEffect( entity );
     //entity->GetComponentRender()->GetObject().GetResource< GRAPHIC_OBJECT >()->SetTesselation(true);
     GAMEPLAY_HELPER::SetTexture( entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     GAMEPLAY_HELPER::SetNormal( entity, "spaceship1_normal", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-normal", "png", "TEXTURES" ) );
     
-    //GAMEPLAY_HELPER::AddToWorld( entity );
+    GAMEPLAY_HELPER::AddToWorld( entity );
     
     auto ship = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
     GAMEPLAY_HELPER::CreateComponent_PositionRender( ship );
@@ -40,6 +41,7 @@ void MENU_SCENE::Initialize() {
     GAMEPLAY_HELPER::Set3DObject(ship, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     //ship->GetComponentRender()->GetObject().GetResource< GRAPHIC_OBJECT >()->SetTesselation( true );
     GAMEPLAY_HELPER::Scale3dObject( ship, 40.0f );
+    GAMEPLAY_HELPER::SetShadowmapEffect( ship );
     GAMEPLAY_HELPER::SetEffect( ship, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
     GAMEPLAY_HELPER::SetTexture( ship, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     GAMEPLAY_HELPER::SetNormal( ship, "spaceship1_normal", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-normal", "png", "TEXTURES" ) );
@@ -52,8 +54,8 @@ void MENU_SCENE::Initialize() {
     
     pos->SetSpin( q );
     
-    //GAMEPLAY_HELPER::AddToWorld( ship );
-    //GAMEPLAY_HELPER::AddToMotion( ship );
+    GAMEPLAY_HELPER::AddToWorld( ship );
+    GAMEPLAY_HELPER::AddToMotion( ship );
     
     //Background
 

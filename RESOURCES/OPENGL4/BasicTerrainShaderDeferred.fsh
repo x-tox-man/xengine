@@ -12,6 +12,7 @@ layout (location = 1) out vec4 DiffuseOut;
 layout (location = 2) out vec4 NormalOut;
 layout (location = 3) out vec4 ShadowOut;
 layout (location = 4) out float SSAO;
+//layout (location = 5) out float SpecularPower;
 
 struct DirectionalLight
 {
@@ -20,6 +21,13 @@ struct DirectionalLight
     float AmbientIntensity;
     float DiffuseIntensity;
 };
+
+struct Material {
+    vec3 Ambient;
+    vec3 Diffuse;
+    vec3 Specular;
+    float Shininess;
+}; 
 
 //uniform mat4 MVPMatrix;
 //uniform mat4 ModelMatrix;
@@ -77,6 +85,7 @@ void main()
     NormalOut = o_normal;//vec4( NewNormal, 1.0 );
     NormalOut.a = 1.0;
     WorldPosOut = vec4( WorldPos0, 1.0);
+    //SpecularPower = 
 
     ShadowOut.rgba = vec4(0.0);
 

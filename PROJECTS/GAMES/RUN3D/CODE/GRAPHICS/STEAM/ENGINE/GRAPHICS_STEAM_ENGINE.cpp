@@ -30,9 +30,9 @@ GRAPHICS_STEAM_ENGINE::GRAPHICS_STEAM_ENGINE() :
     Emiter->AddModifier( *((GRAPHIC_PARTICLE_MODIFIER<GRAPHIC_PARTICLE, GRAPHIC_PARTICLE_DYNAMIC_ATTRIBUTES, PARTICLE_SIZE> *) mod_g) );
     Emiter->AddModifier( *((GRAPHIC_PARTICLE_MODIFIER<GRAPHIC_PARTICLE, GRAPHIC_PARTICLE_DYNAMIC_ATTRIBUTES, PARTICLE_SIZE> *) mod_v) );
     Emiter->SetVelocity( CORE_MATH_VECTOR(0.0f, 0.0f, 0.0f, 0.0f ) );
-    Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[0] = 10.0f;
+    Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[0] = 0.0f;
     Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[1] = 10.0f;
-    Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[2] = 0.0f;
+    Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[2] = -5.0f;
     Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[3] = 0.0f;
 
     manager->AddEmiter(*((GRAPHIC_PARTICLE_EMITER_BASE_CLASS *) Emiter));

@@ -34,8 +34,11 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL() :
     Diffuse( CORE_COLOR_White ),
     TextureTable(),
     DepthIsEnabled( false ),
-    CubeMapIsEnabled( false )
-{
+    CubeMapIsEnabled( false ),
+    Specular( CORE_COLOR_White ),
+    Ambient( CORE_COLOR_White ),
+    SpecularIntensity( 1.0f ),
+    Shininess( 1.0f ) {
     
 }
 
@@ -45,8 +48,11 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const GRAPHIC_MATERIAL & other ) :
     Diffuse( other.Diffuse ),
     TextureTable( other.TextureTable ),
     DepthIsEnabled( other.DepthIsEnabled ),
-    CubeMapIsEnabled( other.CubeMapIsEnabled )
-{
+    CubeMapIsEnabled( other.CubeMapIsEnabled ),
+    Specular( other.Specular ),
+    Ambient( other.Ambient ),
+    SpecularIntensity( other.SpecularIntensity ),
+    Shininess( other.Shininess ) {
     
 }
 
@@ -55,7 +61,11 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const char * image_path ) :
     Diffuse( CORE_COLOR_White ),
     TextureTable(),
     DepthIsEnabled( false ),
-    CubeMapIsEnabled( false ) {
+    CubeMapIsEnabled( false ),
+    Specular( CORE_COLOR_White ),
+    Ambient( CORE_COLOR_White ),
+    SpecularIntensity( 1.0f ),
+    Shininess( 1.0f ) {
     
 #if DEBUG
     assert( strlen( image_path ) < 256 - 11 );
@@ -111,7 +121,7 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     if ( attribute.AttributeIndex != 0 ) {
         
         GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.99f, attribute );
-        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.9f, shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity ) );
+        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( SpecularIntensity, shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity ) );
     }
 }
 
