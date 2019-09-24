@@ -32,6 +32,8 @@ class RESOURCE_IMAGE : public RESOURCE< RESOURCE_IMAGE, RESOURCE_IMAGE_PNG_LOADE
     inline void SetImageRawData( void * raw_data) { RawData = raw_data; }
     inline const void * GetImageRawData() const { return RawData; }
     inline void * GetImageRawData() { return RawData; }
+    inline int GetSize() const { return Size; }
+    inline void SetSize(const int size) { Size = size; }
 
     void Blit( RESOURCE_IMAGE * image, int x_offset, int y_offset, int rows, int columns, int mask );
     void Premultiply();
@@ -44,6 +46,8 @@ class RESOURCE_IMAGE : public RESOURCE< RESOURCE_IMAGE, RESOURCE_IMAGE_PNG_LOADE
 
     char * Path;
     void * RawData;
+    int
+        Size;
 
 XS_CLASS_END
 

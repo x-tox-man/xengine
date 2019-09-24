@@ -14,7 +14,11 @@
 #import "GRAPHIC_WINDOW.h"
 #import "CORE_HELPERS_CALLBACK.h"
 
-@interface CustomGlView : NSOpenGLView< NSWindowDelegate >
+#if X_METAL
+    #import "X_METAL.h"
+#elif OPENGL4
+
+    @interface CustomGlView : NSOpenGLView< NSWindowDelegate >
 
     @property NSOpenGLContext * context;
     @property NSOpenGLContext * backgroundContext;
@@ -26,7 +30,11 @@
     -(void) enableBackgroundContext:(BOOL) enable;
     -(void) windowWillClose:(NSNotification *)notification;
 
-@end
+    @end
+
+#else
+    #error "TODO : Implement"
+#endif
 
 XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_OSX, GRAPHIC_WINDOW )
 
@@ -36,7 +44,17 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_OSX, GRAPHIC_WINDOW )
     virtual void Initialize() override;
     void Display();
 
-    CustomGlView * GetGlView() { return glView; }
+    void SetupWindow( NSWindow * window );
+
+    #if X_METAL
+        inline void * GetMTKView() { return MetalView; }
+        inline void SetMTKView( void * view) { MetalView = view; }
+    #elif OPENGL4
+        CustomGlView * GetGlView() { return glView; }
+    #else
+        #error "TODO : Implement"
+    #endif
+
 
     virtual void EnableBackgroundContext(bool enable) override;
     virtual void Resize( int width, int height ) override;
@@ -48,7 +66,14 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_OSX, GRAPHIC_WINDOW )
 
 private :
 
+#if X_METAL
+    void
+        * MetalView;
+#elif OPENGL4
     CustomGlView
         * glView;
+#else
+    #error "TODO : Implement"
+#endif
 
 XS_CLASS_END

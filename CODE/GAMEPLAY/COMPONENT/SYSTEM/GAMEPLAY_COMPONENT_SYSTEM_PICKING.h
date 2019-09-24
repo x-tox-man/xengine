@@ -21,8 +21,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_PICKING, GAMEPLAY_COMPON
     virtual ~GAMEPLAY_COMPONENT_SYSTEM_PICKING();
 
     virtual void Initialize() override;
-    virtual void Update( float time_step) override;
-    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
+    virtual void Update( void * ecs_base_pointer, float time_step) override;
+    virtual void Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) override;
     virtual void Finalize() override;
 
     const CORE_MATH_RAY & GetRay() const { return Ray; };

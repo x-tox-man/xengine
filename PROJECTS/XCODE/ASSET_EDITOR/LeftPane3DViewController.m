@@ -73,7 +73,7 @@
         rma.ResourceType = ResourceType;
     }
     else {
-        abort();
+        CORE_RUNTIME_Abort();
     }
 }
 
@@ -104,17 +104,11 @@
     GAMEPLAY_COMPONENT_ENTITY * entity = itemProxy.Entity;
     
     if ( entity == NULL ) {
+        
         return NO;
     }
     
-    for (int i =0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++) {
-        
-        if ( entity->GetChild( i ) != NULL) {
-            return YES;
-        }
-    }
-    
-    return NO;
+    return entity->GetChilds().size() > 0;
 }
 
 -(NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
@@ -129,41 +123,13 @@
             return NO;
         }
         
-        int count = 0;
-        
-        for (int i =0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++) {
-            
-            if ( entity->GetChild( i ) != NULL) {
-                count++;
-            }
-        }
-        
-        return count;
+        return entity->GetChilds().size();
     }
     else {
         
-        static bool hack = true;
+        CORE_RUNTIME_Abort();
         
-        if ( hack ) {
-            hack = false;
-            return 0;
-        }
-        
-        int count = 0;
-        
-        for ( int i =0; i < 2048; i++ ) {
-            
-            auto v = &GAMEPLAY_COMPONENT_MANAGER::GetInstance();
-            
-            if ( v && GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity( i ) != NULL ) {
-                count++;
-            }
-            else {
-                break;
-            }
-        }
-        
-        return count;
+        return -1;
     }
 }
 
@@ -209,7 +175,9 @@
     
     Cpp3dDataProxy * proxy = [[Cpp3dDataProxy alloc] init];
     
-    proxy.Entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity(index);
+    CORE_RUNTIME_Abort();//TODO:
+    
+    //proxy.Entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity( index );
     
     return proxy;
 }
@@ -292,7 +260,7 @@
         [[self.custom3dTableViewDelegate Entity] Entity]->SetCompononent(handle, GAMEPLAY_COMPONENT_TYPE_Physics);
     }
     else {
-        abort();
+        CORE_RUNTIME_Abort();
     }
     
     [self.ComponentsTableView reloadData];

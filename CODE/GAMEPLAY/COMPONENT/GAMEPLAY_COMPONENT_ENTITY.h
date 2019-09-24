@@ -15,7 +15,6 @@
 #include "CORE_HELPERS_CLASS.h"
 #include "GAMEPLAY_COMPONENT.h"
 #include "CORE_MATH_VECTOR.h"
-#include "GAMEPLAY_COMPONENT_HANDLE.h"
 #include "GAMEPLAY_COMPONENT_ENTITY_HANDLE.h"
 #include "CORE_MATH_QUATERNION.h"
 
@@ -23,84 +22,110 @@ class GAMEPLAY_COMPONENT_POSITION;
 class GAMEPLAY_COMPONENT_RENDER;
 class GAMEPLAY_COMPONENT_PHYSICS;
 class GAMEPLAY_COMPONENT_ANIMATION;
+class GAMEPLAY_COMPONENT_ACTION;
+class GAMEPLAY_COMPONENT_MANAGER;
+class GAMEPLAY_COMPONENT_LIGHT;
+class GAMEPLAY_COMPONENT_CAMERA;
+class GAMEPLAY_COMPONENT_SCRIPT;
 
 XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY )
-    
+
+    //XS_DEFINE_SERIALIZABLE
+
+    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT_ENTITY );
+
     GAMEPLAY_COMPONENT_ENTITY() :
-        SubComponent( this ),
-        Components(),
+        Handle(),
         Parent( NULL ),
-        ChildEntities() {
+        Childs(),
+        ComponentCount( 0 ) {
         
-        for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
-            
-            ChildEntities[ i ] = NULL;
-        }
     }
-    
-    GAMEPLAY_COMPONENT_ENTITY( GAMEPLAY_COMPONENT_ENTITY * subclass ) :
-        SubComponent( subclass ),
-        Components(),
-        Parent( NULL ),
-        ChildEntities() {
-        
-            for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
-                
-                ChildEntities[ i ] = NULL;
-            }
-        }
-    
+
     virtual ~GAMEPLAY_COMPONENT_ENTITY() {
         
     }
 
-    XS_DEFINE_SERIALIZABLE
-
-    CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT_ENTITY );
-
-    GAMEPLAY_COMPONENT_POSITION * GetComponentPosition() {
+    inline GAMEPLAY_COMPONENT_POSITION * GetComponentPosition() {
         
         return ( GAMEPLAY_COMPONENT_POSITION * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     }
     
-    GAMEPLAY_COMPONENT_RENDER * GetComponentRender() {
+    inline GAMEPLAY_COMPONENT_RENDER * GetComponentRender() {
         
         return ( GAMEPLAY_COMPONENT_RENDER * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
     }
     
-    GAMEPLAY_COMPONENT_PHYSICS * GetComponentPhysics() {
+    inline GAMEPLAY_COMPONENT_PHYSICS * GetComponentPhysics() {
         
         return ( GAMEPLAY_COMPONENT_PHYSICS * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     }
     
-    GAMEPLAY_COMPONENT_ANIMATION * GetComponentAnimation() {
+    inline GAMEPLAY_COMPONENT_ANIMATION * GetComponentAnimation() {
         
         return ( GAMEPLAY_COMPONENT_ANIMATION * )GetComponent( GAMEPLAY_COMPONENT_TYPE_Animation );
     }
 
-    void SetCompononent( GAMEPLAY_COMPONENT_HANDLE component, int component_index ) {
+    inline GAMEPLAY_COMPONENT_ACTION * GetComponentAction() {
         
-        Components[ component_index ] = component;
+        return ( GAMEPLAY_COMPONENT_ACTION * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Action );
     }
 
-    inline void SetChild( GAMEPLAY_COMPONENT_ENTITY * entity, int index ) {
+    inline GAMEPLAY_COMPONENT_LIGHT * GetComponentLight() {
         
-        ChildEntities[ index ] = entity;
+        return ( GAMEPLAY_COMPONENT_LIGHT * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Light );
+    }
+
+    inline GAMEPLAY_COMPONENT_CAMERA * GetComponentCamera() {
+        
+        return ( GAMEPLAY_COMPONENT_CAMERA * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Camera );
+    }
+
+    inline GAMEPLAY_COMPONENT_SCRIPT * GetComponentScript() {
+        
+        return ( GAMEPLAY_COMPONENT_SCRIPT * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Script );
+    }
+
+    void SetCompononent( GAMEPLAY_COMPONENT * component, int component_type ) {
+        
+        CORE_RUNTIME_Abort();
+        //Components[ component_index ] = component;
+    }
+
+    inline void SetChild( GAMEPLAY_COMPONENT_ENTITY * entity, GAMEPLAY_COMPONENT_ENTITY_HANDLE handle ) {
+        
+        Childs[ handle ] = entity;
         entity->SetParent( this );
     }
 
     virtual GAMEPLAY_COMPONENT_ENTITY * Clone() const {
-        
-        return new GAMEPLAY_COMPONENT_ENTITY();
+     
+        CORE_RUNTIME_Abort();
+        return new GAMEPLAY_COMPONENT_ENTITY( 0 );
     }
 
 public:
 
-    inline GAMEPLAY_COMPONENT * GetComponent( int component_index ) { return Components[ component_index ].GetComponent(); }
-    inline const GAMEPLAY_COMPONENT_HANDLE & GetComponentHandle( int component_index ) const { return Components[ component_index ]; }
-    inline GAMEPLAY_COMPONENT_HANDLE & GetComponentHandle( int component_index ) { return Components[ component_index ]; }
-    inline GAMEPLAY_COMPONENT_ENTITY_HANDLE & GetHandle() { return Handle; }
-    inline GAMEPLAY_COMPONENT_ENTITY * GetChild( int child_index ) { return ChildEntities[ child_index ]; }
+    inline GAMEPLAY_COMPONENT * GetComponent( int component_type ) {
+        
+        GAMEPLAY_COMPONENT * cmp = NULL;
+        
+        cmp = ((GAMEPLAY_COMPONENT*)( this + 1 ));
+        
+        for ( int i = 1; i <= ComponentCount; i++ ) {
+            
+            if ( cmp->FactoryGetType() == component_type ) {
+                return cmp;
+            }
+            
+            cmp = (GAMEPLAY_COMPONENT*)(((uint8_t *)cmp) + cmp->GetSize());
+        }
+        
+        return NULL;
+    }
+
+    inline GAMEPLAY_COMPONENT_ENTITY * GetChild( GAMEPLAY_COMPONENT_ENTITY_HANDLE & child ) { return Childs[ child ]; }
+    inline std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY::PTR > & GetChilds() { return Childs; }
 
     void SetPosition( const CORE_MATH_VECTOR & position );
     void SetPositionOffset( const CORE_MATH_VECTOR & offset );
@@ -111,24 +136,31 @@ public:
     inline GAMEPLAY_COMPONENT_ENTITY * GetParent() const { return Parent; }
     inline void SetParent( GAMEPLAY_COMPONENT_ENTITY * parent ) { Parent = parent; }
 
-    void PatchMemory( int index, GAMEPLAY_COMPONENT * component ) {
-        
-        Components[ index ].SetComponent( component->GetComponentAt( Components[ index ].GetIndex(), Components[ index ].GetOffset() + 1 ) );
-    }
-
     virtual void CollidesWith( GAMEPLAY_COMPONENT_ENTITY * other );
+
+    friend class GAMEPLAY_COMPONENT_MANAGER;
+    friend class GAMEPLAY_COMPONENT_SYSTEM_CHUNK;
+
+    inline GAMEPLAY_COMPONENT_ENTITY_HANDLE & GetHandle() { return Handle; }
 
 private:
 
-    GAMEPLAY_COMPONENT_ENTITY
-        * SubComponent;
-    GAMEPLAY_COMPONENT_HANDLE
-        Components[ GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS ];
+    GAMEPLAY_COMPONENT_ENTITY( uint8_t component_count ) :
+        Handle(),
+        Parent( NULL ),
+        Childs(),
+        ComponentCount( component_count ) {
+        
+    }
+
     GAMEPLAY_COMPONENT_ENTITY_HANDLE
         Handle;
     GAMEPLAY_COMPONENT_ENTITY
-        * Parent,
-        * ChildEntities[ GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS ];
+        * Parent;
+    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY::PTR >
+        Childs;
+    uint8_t
+        ComponentCount;
 
 XS_CLASS_END
 

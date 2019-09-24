@@ -37,7 +37,7 @@ To()
 #endif
 {
     #if PLATFORM_OSX
-        DefaultFileystem.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
+        DefaultFileystem.Initialize( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/" );
     #elif PLATFORM_IOS
         DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_ANDROID
@@ -72,12 +72,12 @@ void RUN3D_APPLICATION::Initialize() {
     SERVICE_LOGGER_Error( "long long %d\n", (int) sizeof( long long ) );
 
     AudioManager.Initialize();
-    AUDIO_SYSTEM::GetInstance().PlayMusic( R3D_AUDIO_MUSIC_MANAGER::MusicPulse );
+    //AUDIO_SYSTEM::GetInstance().PlayMusic( R3D_AUDIO_MUSIC_MANAGER::MusicPulse );
     
     InitializeGraphics();
     InitializeGameConfiguration();
     InitializePhysics();
-    InitializeDYLIB();
+    //InitializeDYLIB();
     
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
     CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
@@ -102,6 +102,7 @@ void RUN3D_APPLICATION::Initialize() {
     UI_MAIN_MENU & main_window = ( UI_MAIN_MENU & ) GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().InitializeNavigation<UI_MAIN_MENU>("MainWindow");
     main_window.Initialize();
     
+    GAMEPLAY_COMPONENT_MANAGER::GetInstance().Initialize();
     scene.Initialize();
     CORE_MATH_MATRIX
     m;
@@ -131,6 +132,8 @@ void RUN3D_APPLICATION::Finalize() {
     AUDIO_SYSTEM::GetInstance().StopMusic();
     AUDIO_SYSTEM::GetInstance().Finalize();
     
+    GAMEPLAY_COMPONENT_MANAGER::GetInstance().Finalize();
+    
     CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_MANAGER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::RemoveInstance();
@@ -139,7 +142,6 @@ void RUN3D_APPLICATION::Finalize() {
     
     GRAPHIC_FONT_MANAGER::RemoveInstance();
     GRAPHIC_MESH_MANAGER::RemoveInstance();
-    GRAPHIC_PARTICLE_SYSTEM::RemoveInstance();
     GRAPHIC_RENDERER::RemoveInstance();
     PERIPHERIC_INTERACTION_SYSTEM::RemoveInstance();
     
@@ -177,7 +179,7 @@ void RUN3D_APPLICATION::Update( float time_step ) {
         
         Game->Update( step );
         
-        GRAPHIC_PARTICLE_SYSTEM::GetInstance().Update( time_step, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
+        //GRAPHIC_PARTICLE_SYSTEM::GetInstance().Update( time_step, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
     }
     
     NetworkManager.Update( time_step );

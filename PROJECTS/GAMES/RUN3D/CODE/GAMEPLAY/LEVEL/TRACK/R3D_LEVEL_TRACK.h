@@ -13,17 +13,14 @@
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
 
 //Should be a component
-XS_CLASS_BEGIN_WITH_ANCESTOR(R3D_LEVEL_TRACK, GAMEPLAY_COMPONENT_ENTITY )
+XS_CLASS_BEGIN( R3D_LEVEL_TRACK )
 
-    R3D_LEVEL_TRACK();
-
-    void Initialize( const CORE_MATH_VECTOR & position );
+    GAMEPLAY_COMPONENT_ENTITY::PTR CreateEntity( const CORE_MATH_VECTOR & position );
     void AddToSystems();
 
-    virtual GAMEPLAY_COMPONENT_ENTITY * Clone() const override {
-        
-        return new GAMEPLAY_COMPONENT_ENTITY();
-    }
+private:
+
+    R3D_LEVEL_TRACK();
 
 XS_CLASS_END
 

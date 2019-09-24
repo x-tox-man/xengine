@@ -27,7 +27,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( CORE_ABSTRACT_PROGRAM_NATIVELIBRARY, CORE_ABSTRACT
 #if PLATFORM_OSX
     void * LibraryHandle;
 #else
-    abort();
+    #error "TODO"
 #endif
 
 XS_CLASS_END

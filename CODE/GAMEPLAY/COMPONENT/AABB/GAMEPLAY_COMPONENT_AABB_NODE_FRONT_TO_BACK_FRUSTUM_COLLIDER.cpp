@@ -43,7 +43,7 @@ void GAMEPLAY_COMPONENT_AABB_NODE_FRONT_TO_BACK_FRUSTUM_COLLIDER::RenderFrontToB
         }
     }
     else {
-        abort();
+        CORE_RUNTIME_Abort();
     }
 }
 

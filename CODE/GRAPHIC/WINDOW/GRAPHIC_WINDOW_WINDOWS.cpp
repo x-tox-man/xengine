@@ -90,7 +90,7 @@ void GRAPHIC_WINDOW_WINDOWS::EnableBackgroundContext( bool enable ) {
             }
         }
     #else
-        abort();
+        #error "TODO IMPLEMENT"
     #endif
 }
 
@@ -124,7 +124,7 @@ void GRAPHIC_WINDOW_WINDOWS::GRAPHIC_WINDOW_WINDOWS::Display() {
             glClearColor( GRAPHIC_SYSTEM::ClearColor.GetX(), GRAPHIC_SYSTEM::ClearColor.GetY(), GRAPHIC_SYSTEM::ClearColor.GetZ(), 1.0f );
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT );
 #else
-            abort();
+            #error "TODO IMPLEMENT"
 #endif
 
             GRAPHIC_RENDERER::GetInstance().BeginFrame();
@@ -199,7 +199,7 @@ BOOL GRAPHIC_WINDOW_WINDOWS::InitInstance( HINSTANCE hInstance, int nCmdShow ) {
     #elif X_VK
         CreateVkContext(hWnd, hInstance );
     #else
-        abort();
+        #error "TODO IMPLEMENT"
     #endif
 
     CORE_APPLICATION::GetApplicationInstance().Initialize();
@@ -394,7 +394,7 @@ void CreateOpenGlContext( HDC hdc ) {
         exit( EXIT_FAILURE );
     }
 #else
-    abort();
+    #error "TODO IMPLEMENT"
 #endif
 
     /*if ( GLEW_VERSION_4_0 )

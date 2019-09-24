@@ -77,7 +77,10 @@ void GRAPHIC_MATERIAL_COLLECTION::LoadMaterialForName( const char * name ) {
 
 void GRAPHIC_MATERIAL_COLLECTION::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, bool does_lighting, bool does_texturing ) {
     
-    MaterialTable.begin()->second->Apply(renderer, shader, does_lighting, does_texturing );
+    if ( !MaterialTable.empty() ) {
+        
+        MaterialTable.begin()->second->Apply(renderer, shader, does_lighting, does_texturing );
+    }
 }
 
 void GRAPHIC_MATERIAL_COLLECTION::SetDiffuse( const CORE_HELPERS_COLOR & color ) {

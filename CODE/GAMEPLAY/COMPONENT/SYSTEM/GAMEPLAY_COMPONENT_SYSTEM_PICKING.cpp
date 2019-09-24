@@ -30,31 +30,33 @@ void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Initialize() {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Update( float time_step ) {
+void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Update( void * ecs_base_pointer, float time_step ) {
     
     ComputeRay( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetScreenCoordinates(), *GRAPHIC_RENDERER::GetInstance().GetCamera() );
-    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    std::vector< GAMEPLAY_COMPONENT_ENTITY_HANDLE >::iterator it = EntitiesTable.begin();
     
     while (it != EntitiesTable.end() ) {
         
-        GAMEPLAY_COMPONENT_POSITION * position = (GAMEPLAY_COMPONENT_POSITION *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-        GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
+        
+        GAMEPLAY_COMPONENT_POSITION * position = entity->GetComponentPosition();
+        GAMEPLAY_COMPONENT_PHYSICS * physics = entity->GetComponentPhysics();
         
         physics->GetShape().SetHalfDiagonal( CORE_MATH_VECTOR(0.5f,0.5f,0.5f,1.0f) );
         physics->GetShape().SetPosition( position->GetPosition() );
         
         if ( physics->GetShape().GetIntersection( Ray ) && PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetLeftButtonClicked() ) {
             
-            GAMEPLAY_COMPONENT_ACTION * action = (GAMEPLAY_COMPONENT_ACTION *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Action );
+            GAMEPLAY_COMPONENT_ACTION * action = (( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset()))->GetComponentAction();
             
-            action->operator()( it->second->GetEntity() );
+            action->operator()( entity );
         }
         
         it++;
     }
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Render( GRAPHIC_RENDERER & renderer ) {
+void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) {
     
 }
 

@@ -164,6 +164,7 @@ void GLOBAL_RESOURCES::InitializeFromApplicationRefactor(GAMEPLAY_SCENE * scene 
     
     float * heights = (float * ) height_map->GetImageRawData();
     height_map->SetImageRawData( NULL );
+    height_map->SetSize( 0 );
     
     HeightMapObject = new GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP( heights, height_map->GetImageInfo().Width, height_map->GetImageInfo().Height, 2.0f );
     SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 56" );

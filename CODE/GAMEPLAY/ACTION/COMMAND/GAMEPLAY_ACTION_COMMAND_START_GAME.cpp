@@ -25,7 +25,8 @@ GAMEPLAY_ACTION_COMMAND_START_GAME::GAMEPLAY_ACTION_COMMAND_START_GAME( const GA
 GAMEPLAY_ACTION(),
 Players(),
 Seed() {
-    abort();
+    
+    CORE_RUNTIME_Abort();
 }
 
 

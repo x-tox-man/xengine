@@ -18,8 +18,7 @@ uniform sampler2D d_texture1;
 uniform sampler2D d_texture2;
 uniform mediump mat4 ModelMatrix;
 uniform float cascadeEndClipSpace[3];
-
-uniform sampler2D gColorMap; 
+uniform float MaterialSpecularIntensity;
 
 float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 { 
@@ -49,8 +48,6 @@ void main()
 
     ShadowOut.rgba = vec4(1.0);
 
-    ShadowOut.rgba = vec4(0.0);
-
     if ( dot( o_normal.xyz, directional_light.Direction.xyz ) > 0.0 ) {
         
         for (int i = 0 ; i < 3 ; i++) {
@@ -62,6 +59,8 @@ void main()
             }
         }
     }
+
+    ShadowOut.g = MaterialSpecularIntensity;
 
     ShadowOut.a = 1.0;
 }

@@ -45,6 +45,7 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM.h"
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
@@ -81,7 +82,7 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     
-    file_system.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
+    file_system.Initialize( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/" );
     
     CORE_FILESYSTEM::SetDefaultFilesystem( file_system );
     
@@ -411,28 +412,21 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     rd->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
-    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<GAMEPLAY_COMPONENT_ENTITY>();
-    
-    GAMEPLAY_COMPONENT_HANDLE position_handle, render_handle;
-    
-    position_handle.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    component_entity->SetCompononent( position_handle, GAMEPLAY_COMPONENT_TYPE_Position );
-    
-    render_handle.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
-    component_entity->SetCompononent( render_handle, GAMEPLAY_COMPONENT_TYPE_Render );
+    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER>();
     
     RESOURCE_PROXY effect( CubeEffect );
     RESOURCE_PROXY object( CubeObject );
     
-    render_handle.GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetEffect( effect );
-    render_handle.GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetObject( object );
+    auto render = component_entity->GetComponentRender();
+    render->SetEffect( effect );
+    render->SetObject( object );
     
     scene->GetRenderableSystemTable()[0]->AddEntity( component_entity->GetHandle(), component_entity );
     
     RenderTarget.Apply();
     
     scene->Update( 0.033f );
-    scene->Render( GRAPHIC_RENDERER::GetInstance(), GAMEPLAY_COMPONENT_SYSTEM_MASK_All );
+    scene->Render( GRAPHIC_RENDERER::GetInstance(), GAMEPLAY_COMPONENT_SYSTEM_MASK_ );
     
     GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderScene" , "png", "" ) );
@@ -518,7 +512,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     scene->Clear();
     
-    /*abort(); //TODO : Fix memory placement for all objects (ex resource proxy must not be valid anymore
+    /*#error "TODO implement" //TODO : Fix memory placement for all objects (ex resource proxy must not be valid anymore
     scene->LoadFrom( CORE_FILESYSTEM_PATH::FindFilePath("scene-test-2", "scx", "") );
     
     RenderTarget.Apply();
@@ -714,7 +708,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     auto CubeEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
-    GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR SpeedBlurEffect = new GRAPHIC_SHADER_EFFECT_SPEEDBLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::FullScreenSpeedBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullScreenSpeedBlurShader" , "", "OPENGL2" ) ) );
+    GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR SpeedBlurEffect = new GRAPHIC_SHADER_EFFECT_SPEEDBLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::FullScreenSpeedBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullScreenSpeedBlurShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
     
     SpeedBlurEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     

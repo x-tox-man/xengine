@@ -7,7 +7,6 @@
 //
 
 #include "GAMEPLAY_HELPER.h"
-#include "GAMEPLAY_COMPONENT_HANDLE.h"
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_PHYSICS.h"
@@ -22,97 +21,9 @@
 #include "PHYSICS_UTILS.h"
 #include "CORE_MATH_RAY_SEGMENT.h"
 
-void GAMEPLAY_HELPER::CreateComponent_PositionRenderPhysicsScriptAnimation( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
-    
-    GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r, handle_sc, handle_an, handle_ph;
-    
-    handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    handle_p.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->InitializeObservable();
-    handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
-    handle_an.Create< GAMEPLAY_COMPONENT_ANIMATION >( GAMEPLAY_COMPONENT_TYPE_Animation );
-    handle_sc.Create< GAMEPLAY_COMPONENT_SCRIPT >( GAMEPLAY_COMPONENT_TYPE_Script );
-    handle_ph.Create< GAMEPLAY_COMPONENT_PHYSICS >( GAMEPLAY_COMPONENT_TYPE_Physics );
-    
-    entity->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
-    entity->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
-    entity->SetCompononent( handle_an, GAMEPLAY_COMPONENT_TYPE_Animation );
-    entity->SetCompononent( handle_sc, GAMEPLAY_COMPONENT_TYPE_Script );
-    entity->SetCompononent( handle_ph, GAMEPLAY_COMPONENT_TYPE_Physics );
-}
-
-void GAMEPLAY_HELPER::CreateComponent_PositionRenderPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
-    
-    GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r, handle_ph;
-    
-    handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    handle_p.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->InitializeObservable();
-    handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
-    handle_ph.Create< GAMEPLAY_COMPONENT_PHYSICS >( GAMEPLAY_COMPONENT_TYPE_Physics );
-    
-    entity->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
-    entity->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
-    entity->SetCompononent( handle_ph, GAMEPLAY_COMPONENT_TYPE_Physics );
-}
-
-void GAMEPLAY_HELPER::CreateComponent_PositionRenderScriptAnimation( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
-    
-    GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r, handle_sc, handle_an;
-    
-    handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    handle_p.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->InitializeObservable();
-    handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
-    handle_an.Create< GAMEPLAY_COMPONENT_ANIMATION >( GAMEPLAY_COMPONENT_TYPE_Animation );
-    handle_sc.Create< GAMEPLAY_COMPONENT_SCRIPT >( GAMEPLAY_COMPONENT_TYPE_Script );
-    
-    entity->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
-    entity->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
-    entity->SetCompononent( handle_an, GAMEPLAY_COMPONENT_TYPE_Animation );
-    entity->SetCompononent( handle_sc, GAMEPLAY_COMPONENT_TYPE_Script );
-}
-
-void GAMEPLAY_HELPER::CreateComponent_PositionRenderAnimation( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
-    
-    GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r, handle_an;
-    
-    handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    handle_p.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->InitializeObservable();
-    handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
-    handle_an.Create< GAMEPLAY_COMPONENT_ANIMATION >( GAMEPLAY_COMPONENT_TYPE_Animation );
-    
-    entity->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
-    entity->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
-    entity->SetCompononent( handle_an, GAMEPLAY_COMPONENT_TYPE_Animation );
-}
-
-void GAMEPLAY_HELPER::CreateComponent_PositionRenderScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
-    
-    GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r, handle_sc;
-    
-    handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    handle_p.GetComponent< GAMEPLAY_COMPONENT_POSITION >()->InitializeObservable();
-    handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
-    handle_sc.Create< GAMEPLAY_COMPONENT_SCRIPT >( GAMEPLAY_COMPONENT_TYPE_Script );
-    
-    entity->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
-    entity->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
-    entity->SetCompononent( handle_sc, GAMEPLAY_COMPONENT_TYPE_Script );
-}
-
-void GAMEPLAY_HELPER::CreateComponent_PositionRender( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
-    
-    GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r;
-    
-    handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
-    
-    entity->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
-    entity->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
-}
-
-
 void GAMEPLAY_HELPER::Set3DObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
-    GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    auto render = entity->GetComponentRender();
     
     render->SetObject( *R3D_RESOURCES::GetInstance().FindResourceProxy( identifier ) );
 }
@@ -120,6 +31,10 @@ void GAMEPLAY_HELPER::Set3DObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const 
 void GAMEPLAY_HELPER::Scale3dObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, float scale ) {
     
     GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    Scale3dComponent( render, scale );
+}
+
+void GAMEPLAY_HELPER::Scale3dComponent( GAMEPLAY_COMPONENT_RENDER::PTR render, float scale ) {
     
     render->SetScaleFactor( scale );
 }
@@ -237,6 +152,31 @@ void GAMEPLAY_HELPER::SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CO
     render->SetMaterial( proxy );
 }
 
+void GAMEPLAY_HELPER::SetSecondaryEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+    
+    //TODO : create another component or entity to render this one
+    
+    //abort();
+    /*GAMEPLAY_COMPONENT_HANDLE handle_r;
+    
+    handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    entity->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Light );
+    
+    GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Light );
+    GAMEPLAY_COMPONENT_RENDER::PTR render1 = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    render->SetObject( render1->GetObject() );
+    render->SetEffect( *R3D_RESOURCES::GetInstance().FindResourceProxy( identifier ) );
+    
+    auto mat = new GRAPHIC_MATERIAL;
+    
+    RESOURCE_PROXY
+            proxy( mat );
+    
+    render->SetMaterial( proxy );*/
+}
+
 void GAMEPLAY_HELPER::SetShadowmapEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
     static CORE_HELPERS_UNIQUE_IDENTIFIER identifier( "SHADER::ShadowMapEffect");
@@ -279,26 +219,22 @@ void GAMEPLAY_HELPER::SetScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CO
     
     GAMEPLAY_COMPONENT_SCRIPT::PTR script = (GAMEPLAY_COMPONENT_SCRIPT::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Script );
 
-    if ( script == NULL ) {
-        
-        GAMEPLAY_COMPONENT_HANDLE handle;
-        
-        handle.Create< GAMEPLAY_COMPONENT_SCRIPT >( GAMEPLAY_COMPONENT_TYPE_Script );
-        
-        entity->SetCompononent(handle, GAMEPLAY_COMPONENT_TYPE_Script );
-    }
-
     script->SetScript( program );
 }
 
 void GAMEPLAY_HELPER::AddToWorld( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[1]->AddEntity( entity->GetHandle(), entity );
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[1]->AddEntity( entity );
+}
+
+void GAMEPLAY_HELPER::AddToSpecialEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
+    
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[3]->AddEntity( entity );
 }
 
 void GAMEPLAY_HELPER::AddToWorldTransparent( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[2]->AddEntity( entity->GetHandle(), entity );
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[2]->AddEntity( entity );
 }
 
 void GAMEPLAY_HELPER::AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
@@ -308,18 +244,18 @@ void GAMEPLAY_HELPER::AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     if ( script != NULL ) {
         
         script->GetScript()->Execute();
-        R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[3]->AddEntity(entity->GetHandle(), entity );
+        R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[3]->AddEntity( entity );
     }
 }
 
 void GAMEPLAY_HELPER::AddToAnimations( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
    
-    R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[1]->AddEntity(entity->GetHandle(), entity );
+    R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[1]->AddEntity( entity );
 }
 
 void GAMEPLAY_HELPER::AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with, bool enable ) {
     
-    ( ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4])->AddEntity(entity->GetHandle(), entity, group, collides_with );
+    ( ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4])->AddEntity(entity, group, collides_with );
     
     auto comp = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
     comp->Enable( enable );
@@ -328,12 +264,12 @@ void GAMEPLAY_HELPER::AddToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSI
 
 void GAMEPLAY_HELPER::AddToMotion( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    ( ( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION * ) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[0])->AddEntity( entity->GetHandle(), entity );
+    ( ( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION * ) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[0])->AddEntity( entity );
 }
 
 void GAMEPLAY_HELPER::AddStaticToPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity, PHYSICS_COLLISION_TYPE group, PHYSICS_COLLISION_TYPE collides_with ) {
     
-    ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4])->AddStaticEntity(entity->GetHandle(), entity, group, collides_with );
+    ((GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION *) R3D_APP_PTR->GetGame()->GetScene().GetUpdatableSystemTable()[4])->AddStaticEntity( entity, group, collides_with );
 }
 
 void GAMEPLAY_HELPER::SetPhysicsSphereObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & orientation, float mass ) {
@@ -506,12 +442,16 @@ void GAMEPLAY_HELPER::ConfigureGroundSpring( GAMEPLAY_COMPONENT_ENTITY::PTR enti
 
 void GAMEPLAY_HELPER::AddToLighting( GAMEPLAY_COMPONENT_ENTITY::PTR entity, GRAPHIC_SHADER_LIGHT * light ) {
     
-    GAMEPLAY_COMPONENT_HANDLE
-        handle;
+    entity->GetComponentLight()->SetLight( light );
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
+}
+
+void GAMEPLAY_HELPER::EnableEffectSpecial( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    handle.Create< GAMEPLAY_COMPONENT_LIGHT >( GAMEPLAY_COMPONENT_TYPE_Light );
-    handle.GetComponent<GAMEPLAY_COMPONENT_LIGHT>()->SetLight( light );
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[2]->AddEntity( entity );
+}
+
+void GAMEPLAY_HELPER::DisableEffectSpecial( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    entity->SetCompononent( handle,GAMEPLAY_COMPONENT_TYPE_Light );
-    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[0]->AddEntity( entity->GetHandle(), entity );
+    R3D_APP_PTR->GetGame()->GetScene().GetRenderableSystemTable()[2]->RemoveEntity( entity );
 }

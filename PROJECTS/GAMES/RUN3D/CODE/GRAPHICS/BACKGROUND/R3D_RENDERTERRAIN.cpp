@@ -7,15 +7,15 @@
 //
 
 #include "R3D_RENDERTERRAIN.h"
-#include "GAMEPLAY_COMPONENT_BASE_ENTITY.h"
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
 #include "GRAPHIC_SHADER_PROGRAM.h"
+#include "GAMEPLAY_COMPONENT_POSITION.h"
+#include "GAMEPLAY_COMPONENT_RENDER.h"
+#include "GAMEPLAY_COMPONENT_PHYSICS.h"
 
 GAMEPLAY_COMPONENT_ENTITY::PTR R3D_RENDERTERRAIN::Create() {
     
-    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_BASE_ENTITY >();
-    
-    GAMEPLAY_HELPER::CreateComponent_PositionRenderPhysics( entity );
+    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT_PHYSICS >();
     
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "map-color" ), CORE_FILESYSTEM_PATH::FindFilePath("map_color_0", "png", "MAP" ) );
     SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetTexture : create %p\n", text );

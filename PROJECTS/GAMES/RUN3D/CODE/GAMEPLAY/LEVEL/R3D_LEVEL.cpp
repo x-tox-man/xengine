@@ -13,9 +13,12 @@
 #include "R3D_LEVEL_TRACK.h"
 #include "R3D_LEVEL_TRACK_TURN.h"
 #include "R3D_LEVEL_CHECKPOINT.h"
-#include "GAMEPLAY_COMPONENT_BASE_ENTITY.h"
+#include "GAMEPLAY_COMPONENT_SCRIPT.h"
 #include "RUN3D_APPLICATION.h"
 #include "R3D_RENDERTERRAIN.h"
+#include "R3D_LEVEL_HELPER.h"
+#include "GAMEPLAY_COMPONENT_SCRIPT.h"
+#include "GAMEPLAY_COMPONENT_POSITION.h"
 
 R3D_LEVEL::R3D_LEVEL() :
     MaxPlayerCount( 16 ),
@@ -23,6 +26,7 @@ R3D_LEVEL::R3D_LEVEL() :
     PlayerTable(),
     Environment( NULL ),
     EndGameCallback( &Wrapper1<R3D_LEVEL, GAMEPLAY_COMPONENT_ENTITY *, &R3D_LEVEL::OnPlayerCompleted>, this ),
+    TouchCheckpointCallback( &Wrapper2<R3D_LEVEL, GAMEPLAY_COMPONENT_ENTITY *, GAMEPLAY_COMPONENT_ENTITY *, &R3D_LEVEL::OnPlayerTouchedCheckPoint>, this ),
     Checkpoints(),
     Info( NULL ),
     Gravity( -2.81f ),
@@ -34,6 +38,7 @@ R3D_LEVEL::R3D_LEVEL() :
 void R3D_LEVEL::Initialize() {
     
     Checkpoints.SetPlayerFinishedCallback( EndGameCallback );
+    Checkpoints.SetPlayerPlayerHitCallback( TouchCheckpointCallback );
     
     CreateTracks();
     CreateGround();
@@ -79,6 +84,12 @@ void R3D_LEVEL::Initialize( const CORE_FILESYSTEM_PATH & path ) {
 void R3D_LEVEL::OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity ) {
     
     R3D_APP_PTR->GetGame()->OnPlayerCompleted( entity );
+}
+
+void R3D_LEVEL::OnPlayerTouchedCheckPoint( GAMEPLAY_COMPONENT_ENTITY * checkpoint, GAMEPLAY_COMPONENT_ENTITY * ship ) {
+    
+    R3D_LEVEL_HELPER::DeactivateCheckpoint( Checkpoints, checkpoint );
+    R3D_LEVEL_HELPER::ActivateNextCheckpoint( Checkpoints, checkpoint );
 }
 
 void R3D_LEVEL::Finalize() {
@@ -131,23 +142,19 @@ void R3D_LEVEL::CreateTracks() {
      
     CORE_MATH_VECTOR p1( 0.0f, 0.0f, 1.0f, 1.0f );
     
-    auto base_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_TRACK >();
-    base_entity->Initialize( p1 );
-    
     for ( int i = 0; i < 31; i++) {
         
-        CORE_MATH_VECTOR p( 0.0f, 1.0f, 1.0f * i, 1.0f );
+        const CORE_MATH_VECTOR p( 0.0f, -0.5f, 1.0f * i, 1.0f );
         
         if ( i > 0 && i % 10 == 0 ) {
             
-            auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< R3D_LEVEL_CHECKPOINT >();
+            //auto entity = R3D_LEVEL_CHECKPOINT::CreateEntity( p );
             
-            entity->Initialize( p );
-            
-            auto child = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT>();
-            child->Initialize( p );
+            auto child = R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT::CreateEntity( p );
             
             Checkpoints.AddCheckpoint( child );
+            
+            R3D_LEVEL_HELPER::DeactivateCheckpoint( Checkpoints, child );
         }
     }
 }
@@ -159,9 +166,7 @@ void R3D_LEVEL::CreateGround() {
 
 void R3D_LEVEL::CreateSky() {
     
-    Sky = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_BASE_ENTITY >();
-    
-    GAMEPLAY_HELPER::CreateComponent_PositionRender( Sky );
+    Sky = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER>();
     
     GAMEPLAY_HELPER::Set3DObject( Sky, CORE_HELPERS_UNIQUE_IDENTIFIER( "skydome" ) );
     GAMEPLAY_HELPER::SetEffect( Sky, CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SkyEffect" ) );
@@ -173,9 +178,7 @@ void R3D_LEVEL::CreateSky() {
 
 void R3D_LEVEL::CreateMoon() {
     
-    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_BASE_ENTITY >();
-    
-    GAMEPLAY_HELPER::CreateComponent_PositionRenderScript( entity );
+    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT_SCRIPT>();
     
     GAMEPLAY_HELPER::Set3DObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "moon" ) );
     GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
@@ -189,4 +192,8 @@ void R3D_LEVEL::CreateMoon() {
     
     GAMEPLAY_HELPER::AddToScripts( entity );
     GAMEPLAY_HELPER::AddToWorld( entity );
+}
+
+void R3D_LEVEL::OnCheckpointCollision( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+    
 }

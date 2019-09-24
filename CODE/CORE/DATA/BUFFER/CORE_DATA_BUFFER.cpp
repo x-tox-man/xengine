@@ -34,21 +34,19 @@ CORE_DATA_BUFFER::~CORE_DATA_BUFFER() {
     DataPointer = NULL;
 }
 
-void CORE_DATA_BUFFER::Initialize( X_VERY_LONG size, int section_count ) {
+void CORE_DATA_BUFFER::Initialize( unsigned int size, int section_count ) {
     
     this->DataPointer = CORE_MEMORY_ALLOCATOR_Allocate( size );
     this->Size = size;
     this->Sections = section_count;
 }
 
-void CORE_DATA_BUFFER::InitializeWithMemory( X_VERY_LONG size, int section_count, void * memory ) {
+void CORE_DATA_BUFFER::InitializeWithMemory( unsigned int size, int section_count, void * memory ) {
     
     // Only realloc memory if new array is bigger
     if ( this->DataPointer && this->Size < size ) {
         
-        CORE_MEMORY_ALLOCATOR_Free( this->DataPointer );
-        
-        this->DataPointer = NULL;
+        CORE_MEMORY_ALLOCATOR_Reallocate( this->DataPointer, size );
     }
     
     if ( this->DataPointer == NULL ) {

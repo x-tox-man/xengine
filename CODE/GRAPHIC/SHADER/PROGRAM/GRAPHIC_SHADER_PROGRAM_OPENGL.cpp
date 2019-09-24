@@ -32,7 +32,7 @@ void GRAPHIC_SHADER_PROGRAM::LoadProgram( const CORE_FILESYSTEM_PATH & path, int
         CORE_MEMORY_ObjectSafeDeallocation( vertex );
     }
     
-    if ( shader_load_options & GRAPHIC_SHADER_LOAD_OPTION_Vertex) {
+    if ( shader_load_options & GRAPHIC_SHADER_LOAD_OPTION_Fragment) {
         
         GRAPHIC_SHADER * fragment = new GRAPHIC_SHADER;
         

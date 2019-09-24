@@ -10,13 +10,13 @@
 #include "CORE_MEMORY.h"
 
 GAMEPLAY_COMPONENT_ANIMATION::GAMEPLAY_COMPONENT_ANIMATION() :
-    GAMEPLAY_COMPONENT(),
+    GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_ANIMATION ) ),
     Animation() {
     
 }
 
 GAMEPLAY_COMPONENT_ANIMATION::GAMEPLAY_COMPONENT_ANIMATION( const GAMEPLAY_COMPONENT_ANIMATION & other ) :
-    GAMEPLAY_COMPONENT(),
+    GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_ANIMATION ) ),
     Animation( other.Animation ) {
     
 }
@@ -25,25 +25,10 @@ GAMEPLAY_COMPONENT_ANIMATION::~GAMEPLAY_COMPONENT_ANIMATION() {
     
 }
 
-void * GAMEPLAY_COMPONENT_ANIMATION::operator new( size_t size ) {
-    
-    static std::vector< GAMEPLAY_COMPONENT_ANIMATION::INTERNAL_ARRAY_A > * iv = InternalVector = InitializeMemory<GAMEPLAY_COMPONENT_ANIMATION::INTERNAL_ARRAY_A, GAMEPLAY_COMPONENT_ANIMATION>();
-    
-    LastIndex = ( *InternalVector)[ 0 ].LastIndex + 1;
-    LastOffset = 0;
-    
-    return ( void *) &( (*InternalVector)[ 0 ].MemoryArray[ ++(( *InternalVector)[ 0 ].LastIndex) ] );
-}
-
 void GAMEPLAY_COMPONENT_ANIMATION::operator =( const GAMEPLAY_COMPONENT_ANIMATION & other ) {
     
     Animation = other.Animation;
 }
-
-void GAMEPLAY_COMPONENT_ANIMATION::operator delete  ( void* ptr ) {
-    
-}
-
 
 void GAMEPLAY_COMPONENT_ANIMATION::UpdateAnimation( float time_step ) {
     
@@ -56,55 +41,3 @@ void GAMEPLAY_COMPONENT_ANIMATION::UpdateAnimation( float time_step ) {
         Animation.Reset();
     }
 }
-
-void GAMEPLAY_COMPONENT_ANIMATION::Clear() {
-    
-    LastIndex = -1;
-    LastOffset = -1;
-    
-    InternalVector->clear();
-
-    InitializeMemory<GAMEPLAY_COMPONENT_ANIMATION::INTERNAL_ARRAY_A, GAMEPLAY_COMPONENT_ANIMATION>();
-}
-
-void GAMEPLAY_COMPONENT_ANIMATION::SaveToStream( CORE_DATA_STREAM & stream ) {
-    
-    if ( InternalVector ) {
-        
-        stream << InternalVector->size();
-        
-        for ( size_t i = 0; i< InternalVector->size(); i++ ) {
-            
-            stream.InputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, sizeof(GAMEPLAY_COMPONENT_ANIMATION) * GAMEPLAY_COMPONENT_BASE_COUNT );
-            
-            stream << (*InternalVector)[ i ].LastIndex;
-        }
-    }
-}
-
-void GAMEPLAY_COMPONENT_ANIMATION::LoadFromStream( CORE_DATA_STREAM & stream ) {
-    
-    size_t size;
-    
-    stream >> size;
-    
-    InternalVector->resize( size );
-    
-    for ( size_t i = 0; i< size; i++ ) {
-        
-        InitializeMemory<INTERNAL_ARRAY_A, GAMEPLAY_COMPONENT_ANIMATION>( *InternalVector, i );
-        
-        X_VERY_LONG b = (X_VERY_LONG)  sizeof(GAMEPLAY_COMPONENT_ANIMATION) * GAMEPLAY_COMPONENT_BASE_COUNT;
-        stream.OutputBytes((char *) (*InternalVector)[ i ].MemoryArray, b );
-        
-        stream >> (*InternalVector)[ i ].LastIndex;
-        
-        LastIndex = (*InternalVector)[ i ].LastIndex;
-        LastOffset = i;
-    }
-}
-
-
-std::vector< GAMEPLAY_COMPONENT_ANIMATION::INTERNAL_ARRAY_A> * GAMEPLAY_COMPONENT_ANIMATION::InternalVector =  NULL;
-int GAMEPLAY_COMPONENT_ANIMATION::LastIndex = -1;
-int GAMEPLAY_COMPONENT_ANIMATION::LastOffset = -1;

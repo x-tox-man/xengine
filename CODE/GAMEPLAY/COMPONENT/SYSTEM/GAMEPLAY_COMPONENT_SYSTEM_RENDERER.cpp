@@ -15,7 +15,8 @@
 GAMEPLAY_COMPONENT_SYSTEM_RENDERER::GAMEPLAY_COMPONENT_SYSTEM_RENDERER() :
     GAMEPLAY_COMPONENT_SYSTEM(),
     Renderer( NULL ),
-    Tree( 0.1f ) {
+    Tree( 0.1f ),
+    CustomRenderComponentIndex( GAMEPLAY_COMPONENT_TYPE_Render ){
     
 }
 
@@ -27,13 +28,13 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Initialize() {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Update( float time_step ) {
+void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Update( void * ecs_base_pointer, float time_step ) {
     
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::RenderFrontToBack( GAMEPLAY_COMPONENT_AABB_NODE * node ) {
     
-    GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) node->GetEntity()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) node->GetEntity()->GetComponent( CustomRenderComponentIndex );
     GAMEPLAY_COMPONENT_POSITION * located = (GAMEPLAY_COMPONENT_POSITION * ) node->GetEntity()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     if ( node->GetEntity()->GetParent()) {
@@ -44,7 +45,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::RenderFrontToBack( GAMEPLAY_COMPONENT_A
     }
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render( GRAPHIC_RENDERER & renderer ) {
+void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) {
     
     GAMEPLAY_COMPONENT_AABB_NODE_FRONT_TO_BACK_FRUSTUM_COLLIDER
         collider;
@@ -87,17 +88,16 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Finalize() {
     GAMEPLAY_COMPONENT_SYSTEM::Finalize();
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) {
+void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::AddEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    EntitiesTable[ handle ] = new GAMEPLAY_COMPONENT_ENTITY_PROXY( entity );
+    GAMEPLAY_COMPONENT_SYSTEM::AddEntity( entity );
     
     Tree.Insert( entity );
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::RemoveEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) {
+void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::RemoveEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
     
-    abort();
-    EntitiesTable.erase( handle );
+    GAMEPLAY_COMPONENT_SYSTEM::RemoveEntity( entity );
     
     Tree.Remove( entity );
 }

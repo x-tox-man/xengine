@@ -26,12 +26,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_RENDERER, GAMEPLAY_COMPO
     virtual ~GAMEPLAY_COMPONENT_SYSTEM_RENDERER();
 
     virtual void Initialize() override;
-    virtual void Update( float time_step ) override;
-    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
+    virtual void Update( void * ecs_base_pointer, float time_step ) override;
+    virtual void Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) override;
     virtual void Finalize() override;
 
-    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) override;
-    virtual void RemoveEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity ) override;
+    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) override;
+    virtual void RemoveEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) override;
 
     void RenderFrontToBack( GAMEPLAY_COMPONENT_AABB_NODE * node );
 
@@ -43,12 +43,16 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_RENDERER, GAMEPLAY_COMPO
         Tree.Reset();
     }
 
+    inline void SetCustomRenderComponentIndex( int index ) { CustomRenderComponentIndex = index; }
+
 private :
 
     GRAPHIC_RENDERER
         * Renderer;
     GAMEPLAY_COMPONENT_AABB_TREE
         Tree;
+    int
+        CustomRenderComponentIndex;
 
 XS_CLASS_END
 

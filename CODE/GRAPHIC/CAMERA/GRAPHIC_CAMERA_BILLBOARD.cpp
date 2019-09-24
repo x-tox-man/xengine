@@ -17,7 +17,8 @@ GRAPHIC_CAMERA_BILLBOARD::GRAPHIC_CAMERA_BILLBOARD( float near_plane, float far_
     
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
     //CalculateModelMatrix( position, lookat );
-    abort();
+    
+    CORE_RUNTIME_Abort();
     Position = position;
 }
 

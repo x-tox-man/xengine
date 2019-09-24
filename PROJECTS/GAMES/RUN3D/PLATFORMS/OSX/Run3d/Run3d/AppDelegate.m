@@ -44,12 +44,9 @@
     [[self window] setDelegate: self];
     
     self.window = [[NSApplication sharedApplication] mainWindow];
-    
     [self.window setFrame:NSRectFromCGRect(CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f) ) display:YES];
-    [self.window.contentView setAcceptsTouchEvents:YES];
     
-    [self.ApplicationMainScreen->GetGlView() setAcceptsTouchEvents:YES];
-    [self.window.contentView addSubview:self.ApplicationMainScreen->GetGlView()];
+    self.ApplicationMainScreen->SetupWindow( self.window );
 }
 
 - (void) windowWillClose: (NSNotification *)notification {

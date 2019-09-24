@@ -47,8 +47,9 @@ void VIEWER3D::Initialize() {
     
     lookat.Normalize();
     
-    Camera = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_CAMERA >();
-    Camera->Initialize( 1.0f, 10000.0f, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), position, CORE_MATH_VECTOR::ZAxis * lookat, CORE_MATH_VECTOR::YAxis * lookat );
+    Camera = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_CAMERA >();
+    
+    Camera->GetComponentCamera()->Initialize( 1.0f, 10000.0f, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), position, CORE_MATH_VECTOR::ZAxis * lookat, CORE_MATH_VECTOR::YAxis * lookat );
     
     DirectionalLight = new GRAPHIC_SHADER_LIGHT;
     
@@ -86,7 +87,7 @@ void VIEWER3D::Initialize() {
     
     InitializeScene();
     
-    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera->GetCamera() );
+    GRAPHIC_RENDERER::GetInstance().SetCamera( &Camera->GetComponentCamera()->GetCamera() );
 }
 
 void VIEWER3D::Update( const float time_step ) {
@@ -125,7 +126,7 @@ void VIEWER3D::Update( const float time_step ) {
     
     CORE_MATH_VECTOR
         direction(250.0f, 0.0f, 0.0f, 0.0f ),
-        position = Camera->GetPosition(),
+        position = Camera->GetComponentCamera()->GetPosition(),
         result( direction * inverse );
     
     if ( PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetKeyboard().IsKeyPressed( KEYBOARD_KEY_CHAR_Z ) ) {
@@ -212,9 +213,9 @@ void VIEWER3D::Update( const float time_step ) {
 
 void VIEWER3D::Render( GRAPHIC_RENDERER & renderer ) {
     
-    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera->GetCamera() );
+    GRAPHIC_RENDERER::GetInstance().SetCamera( &Camera->GetComponentCamera()->GetCamera() );
     renderer.SetNumCascade( 0 );
-    Scene->Render( renderer );
+    Scene->Render( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_All );
     RenderSelectedObjectBox();
     
     if ( TrigerScreenshot ) {
@@ -228,7 +229,7 @@ void VIEWER3D::Load( const char * path, CORE_HELPERS_CALLBACK & callback ) {
     
     CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().EnableBackgroundContext(true);
     
-        auto program = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderPoNoUVTaBi"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", "OPENGL2" ) );
+        auto program = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderPoNoUVTaBi" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", "OPENGL2" ) );
     
         program->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     
@@ -251,7 +252,7 @@ void VIEWER3D::Screenshot() {
     
     RenderTarget.Apply();
     
-    Scene->Render( GRAPHIC_RENDERER::GetInstance() );
+    Scene->Render( GRAPHIC_RENDERER::GetInstance(), GAMEPLAY_COMPONENT_SYSTEM_MASK_All );
     
     GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderCubeAt00" , "png", "" ) );
@@ -290,7 +291,6 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
         CubeEffect->SetMaterial( mat );
         SERVICE_LOGGER_Error( "ALL APP InitializeGraphics 57" );
     }
-    
     static int component_index = 0;
     
     GRAPHIC_MATERIAL * material = new GRAPHIC_MATERIAL;
@@ -298,37 +298,26 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     
     effect->SetMaterial( material );
     
-    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<GAMEPLAY_COMPONENT_ENTITY>();
     
-    GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r, handle_ph;
-    
-    handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
-    handle_ph.Create< GAMEPLAY_COMPONENT_PHYSICS >( GAMEPLAY_COMPONENT_TYPE_Physics );
-    
-    component_entity->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
-    component_entity->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
-    component_entity->SetCompononent( handle_ph, GAMEPLAY_COMPONENT_TYPE_Physics );
-    
-    
+    GAMEPLAY_COMPONENT_ENTITY * entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT_PHYSICS >();
     
     RESOURCE_PROXY * proxy_object = new RESOURCE_PROXY( mesh );
     RESOURCE_PROXY * proxy_effect = new RESOURCE_PROXY( effect );
     
-    handle_r.GetComponent< GAMEPLAY_COMPONENT_RENDER >()->SetObject(  *proxy_object );
+    entity->GetComponentRender()->SetObject( *proxy_object );
     
     if ( mat != NULL ) {
         RESOURCE_PROXY
             proxy( mat );
         
-        handle_r.GetComponent< GAMEPLAY_COMPONENT_RENDER >()->SetMaterial( proxy );
+        entity->GetComponentRender()->SetMaterial( proxy );
         SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetTexture create mat\n" );
     }
-    handle_r.GetComponent< GAMEPLAY_COMPONENT_RENDER >()->SetEffect( *proxy_effect );
+    entity->GetComponentRender()->SetEffect( *proxy_effect );
     
     GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) Scene->GetRenderableSystemTable()[0];
     
-    render_system->AddEntity( component_entity->GetHandle(), component_entity );
+    render_system->AddEntity( entity->GetHandle() );
     render_system->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * bullet_system = ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) Scene->GetUpdatableSystemTable()[4];

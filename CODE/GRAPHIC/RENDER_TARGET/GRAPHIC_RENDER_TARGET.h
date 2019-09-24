@@ -40,12 +40,16 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
     inline void SetTargetTexture( GRAPHIC_TEXTURE * texture, int attachment ) { TargetTextures[ attachment ] = texture; }
     inline void SetItUsesDepth( bool uses ) { ItUsesDepth = uses; }
 
+    void CopyDepthFrom( GRAPHIC_RENDER_TARGET & other );
+
 #if OPENGLES2
     #include "GRAPHIC_RENDER_TARGET_OES2.hpp"
 #elif OPENGL2PLUS
     #include "GRAPHIC_RENDER_TARGET_OPENGL.hpp"
 #elif X_VK
     #include "GRAPHIC_RENDER_TARGET_VK.hpp"
+#elif X_METAL
+    #include "GRAPHIC_RENDER_TARGET_METAL.hpp"
 #else
     #error "Must implement graphic system"
 #endif

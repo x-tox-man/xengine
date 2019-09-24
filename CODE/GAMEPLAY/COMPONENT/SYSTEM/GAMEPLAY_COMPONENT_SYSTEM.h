@@ -34,8 +34,8 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_SYSTEM )
 
     virtual void Initialize();
 
-    virtual void Update( float time_step );
-    virtual void Render( GRAPHIC_RENDERER & renderer );
+    virtual void Update( void * ecs_base_pointer, float time_step );
+    virtual void Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer );
 
     virtual void Finalize();
 
@@ -44,8 +44,8 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_SYSTEM )
         EntitiesTable.clear();
     }
 
-    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity );
-    virtual void RemoveEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity );
+    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    virtual void RemoveEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
 
     void SaveToStream( CORE_DATA_STREAM & stream );
     void LoadFromStream( CORE_DATA_STREAM & stream );
@@ -53,7 +53,10 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_SYSTEM )
     inline int GetMask() const { return Mask; }
     inline void SetMask( int mask ) { Mask = mask; }
 
-    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >
+protected:
+
+    //By design Entities must be added and removed in systems the same way they are in the memory layout
+    std::vector< GAMEPLAY_COMPONENT_ENTITY_HANDLE >
         EntitiesTable;
     int
         Mask;

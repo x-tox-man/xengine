@@ -57,6 +57,7 @@ void CORE_DATA_STREAM::Close() {
 void CORE_DATA_STREAM::InitializeWithSize( int size ) {
     
     MemoryBuffer = CORE_MEMORY_ALLOCATOR_Allocate( size );
+    Size = size;
 }
 
 void CORE_DATA_STREAM::ResetOffset() {

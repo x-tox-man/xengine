@@ -16,7 +16,6 @@ GRAPHIC_RENDERER_TECHNIQUE_BLOOM::GRAPHIC_RENDERER_TECHNIQUE_BLOOM() :
     TextureBlock( NULL ),
     TextureBlock2( NULL ),
     PrimaryRenderTarget( NULL ),
-    FinalRenderTarget( NULL ),
     HorizontalBlurEffect( NULL ),
     VerticalBlurEffect( NULL ),
     CombineBloomEffect( NULL ) {
@@ -34,13 +33,13 @@ GRAPHIC_RENDERER_TECHNIQUE_BLOOM::~GRAPHIC_RENDERER_TECHNIQUE_BLOOM() {
 
 void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::Initialize( GRAPHIC_RENDERER & renderer ) {
     
-    HorizontalBlurEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::HZBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenGaussianHorrizontalBlurPostProcess" , "", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
+    HorizontalBlurEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::HZBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenGaussianHorrizontalBlurPostProcess" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
     
-    VerticalBlurEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::VBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenGaussianVerticalBlurPostProcess" , "", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
+    VerticalBlurEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_GAUSSIAN_BLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::VBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenGaussianVerticalBlurPostProcess" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
     
-    CombineBloomEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::CombineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenCombinePostProcess" , "", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
+    CombineBloomEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::CombineShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenCombinePostProcess" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
     
-    BloomEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BloomShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenBloomPostProcess" , "", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
+    BloomEffect = new GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BloomShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullscreenBloomPostProcess" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
     
     BloomEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     ((GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::PTR)BloomEffect)->BindAttributes();
@@ -65,7 +64,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
         PrimaryRenderTarget->BindForReading();
         PrimaryRenderTarget->SetReadBuffer( 0 );
         
-        /*{
+        {
             static int acc = 0;
             acc++;
             
@@ -76,7 +75,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
                 GRAPHIC_TEXTURE * texture2 = PrimaryRenderTarget->GetTargetTexture( 0 );
                 texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_BeforeBloom", "png", "" ) );
             }
-        }*/
+        }
         
         TextureBlock->SetTexture( PrimaryRenderTarget->GetTargetTexture( 0 ) );
         Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock ) ;
@@ -87,7 +86,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, BloomEffect );
         BloomRenderTarget->Discard();
         
-        /*{
+        {
             static int acc = 0;
             acc++;
             
@@ -101,7 +100,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
                 GRAPHIC_TEXTURE * texture2 = BloomRenderTarget->GetTargetTexture( 0 );
                 texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_Bloom", "png", "" ) );
             }
-        }*/
+        }
     }
     
     for (int blur_pass_index = 0; blur_pass_index < BlurPassCount; blur_pass_index++ ) {
@@ -119,21 +118,21 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
             GaussianRenderTarget1Table[blur_pass_index]->BindForWriting();
             PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, HorizontalBlurEffect );
             
-            /*{
-             static int acc = 0;
-             acc++;
+            {
+                static int acc = 0;
+                acc++;
 
-             if ( acc % 30 == 0 ) {
-             
-                 acc = 0;
-             
-                 GaussianRenderTarget1Table[blur_pass_index]->BindForReading();
-                 GaussianRenderTarget1Table[blur_pass_index]->SetReadBuffer( 0 );
-             
-                 GRAPHIC_TEXTURE * texture2 = GaussianRenderTarget1Table[blur_pass_index]->GetTargetTexture( 0 );
-                 texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_Gaussian", "png", "" ) );
-             }
-            }*/
+                if ( acc % 30 == 0 ) {
+
+                     acc = 0;
+
+                     GaussianRenderTarget1Table[blur_pass_index]->BindForReading();
+                     GaussianRenderTarget1Table[blur_pass_index]->SetReadBuffer( 0 );
+
+                     GRAPHIC_TEXTURE * texture2 = GaussianRenderTarget1Table[blur_pass_index]->GetTargetTexture( 0 );
+                     texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_Gaussian", "png", "" ) );
+                }
+            }
             GaussianRenderTarget1Table[blur_pass_index]->Discard();
         }
         
@@ -150,7 +149,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
             GaussianRenderTarget2Table[blur_pass_index]->BindForWriting();
             PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, VerticalBlurEffect );
             
-            /*{
+            {
                 static int acc = 0;
                 acc++;
                 
@@ -164,7 +163,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
                     GRAPHIC_TEXTURE * texture2 = GaussianRenderTarget2Table[blur_pass_index]->GetTargetTexture( 0 );
                     texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_Gaussian2", "png", "" ) );
                 }
-            }*/
+            }
             GaussianRenderTarget2Table[blur_pass_index]->Discard();
         }
         

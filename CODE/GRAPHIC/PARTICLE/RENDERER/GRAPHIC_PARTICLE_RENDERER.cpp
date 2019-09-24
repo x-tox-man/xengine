@@ -19,6 +19,8 @@ GRAPHIC_SHADER_BIND GetVertexComponent<GRAPHIC_PARTICLE>() {
     #include "GRAPHIC_PARTICLE_RENDERER_OES2.cpp"
 #elif X_VK
     #include "GRAPHIC_PARTICLE_RENDERER_VK.cpp"
+#elif X_METAL
+    #import "GRAPHIC_PARTICLE_RENDERER_METAL.mm"
 #else
     #error "Implement Platforms"
 #endif

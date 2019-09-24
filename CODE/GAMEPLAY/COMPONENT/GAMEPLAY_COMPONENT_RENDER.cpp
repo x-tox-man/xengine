@@ -14,7 +14,7 @@
 #include "GRAPHIC_OBJECT.h"
 
 GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
-    GAMEPLAY_COMPONENT(),
+    GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_RENDER ) ),
     ObjectProxy(),
     EffectProxy(),
     MaterialProxy(),
@@ -25,7 +25,7 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
 }
 
 GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER( const GAMEPLAY_COMPONENT_RENDER & other ) :
-    GAMEPLAY_COMPONENT(),
+    GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_RENDER ) ),
     ObjectProxy( other.ObjectProxy ),
     EffectProxy( other.EffectProxy ),
     MaterialProxy( other.MaterialProxy ),
@@ -37,20 +37,6 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER( const GAMEPLAY_COMPONENT_R
 
 GAMEPLAY_COMPONENT_RENDER::~GAMEPLAY_COMPONENT_RENDER() {
 
-}
-
-void * GAMEPLAY_COMPONENT_RENDER::operator new( size_t size ) {
-    
-    static std::vector< INTERNAL_ARRAY_R > * iv = InternalVector = InitializeMemory<INTERNAL_ARRAY_R, GAMEPLAY_COMPONENT_RENDER>();
-    
-    LastIndex = ( *InternalVector)[ 0 ].LastIndex + 1;
-    LastOffset = 0;
-    
-    return ( void *) &( (*InternalVector)[ 0 ].MemoryArray[ ++(( *InternalVector)[ 0 ].LastIndex) ] );
-}
-
-void GAMEPLAY_COMPONENT_RENDER::operator delete ( void* ptr ) {
-    
 }
 
 void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_COMPONENT_POSITION * component, GAMEPLAY_COMPONENT_POSITION * parent ) {
@@ -92,53 +78,6 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     }
 }
 
-void GAMEPLAY_COMPONENT_RENDER::Clear() {
-    
-    LastIndex = -1;
-    LastOffset = -1;
-    
-    InternalVector->clear();
-
-    InternalVector=InitializeMemory<INTERNAL_ARRAY_R, GAMEPLAY_COMPONENT_RENDER>();
-}
-
-void GAMEPLAY_COMPONENT_RENDER::SaveToStream( CORE_DATA_STREAM & stream ) {
-    
-    if ( InternalVector ) {
-        
-        stream << InternalVector->size();
-        
-        for ( size_t i = 0; i< InternalVector->size(); i++ ) {
-            
-            stream.InputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, sizeof(GAMEPLAY_COMPONENT_RENDER) * GAMEPLAY_COMPONENT_BASE_COUNT );
-            
-            stream << (*InternalVector)[ i ].LastIndex;
-        }
-    }
-}
-
-void GAMEPLAY_COMPONENT_RENDER::LoadFromStream( CORE_DATA_STREAM & stream ) {
-    
-    size_t size;
-    
-    stream >> size;
-    
-    InternalVector->resize( size );
-    
-    for ( size_t i = 0; i < size; i++ ) {
-        
-        InitializeMemory<INTERNAL_ARRAY_R, GAMEPLAY_COMPONENT_RENDER>( *InternalVector, i );
-        
-        X_VERY_LONG b = (X_VERY_LONG) sizeof(GAMEPLAY_COMPONENT_RENDER) * GAMEPLAY_COMPONENT_BASE_COUNT;
-        stream.OutputBytes((uint8_t *) (*InternalVector)[ i ].MemoryArray, b );
-        
-        stream >> (*InternalVector)[ i ].LastIndex;
-        
-        LastIndex = (*InternalVector)[ i ].LastIndex;
-        LastOffset = i;
-    }
-}
-
 void GAMEPLAY_COMPONENT_RENDER::ComputeSize( CORE_MATH_SHAPE & shape ) {
     
     GRAPHIC_OBJECT
@@ -146,8 +85,3 @@ void GAMEPLAY_COMPONENT_RENDER::ComputeSize( CORE_MATH_SHAPE & shape ) {
     
     object->ComputeAABBox( shape );
 }
-
-std::vector< GAMEPLAY_COMPONENT_RENDER::INTERNAL_ARRAY_R >
-    * GAMEPLAY_COMPONENT_RENDER::InternalVector;
-int GAMEPLAY_COMPONENT_RENDER::LastIndex = -1;
-int GAMEPLAY_COMPONENT_RENDER::LastOffset = -1;

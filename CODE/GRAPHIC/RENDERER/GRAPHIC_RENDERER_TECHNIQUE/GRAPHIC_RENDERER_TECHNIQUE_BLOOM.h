@@ -56,8 +56,7 @@ public:
         TextureBlock2;
     GRAPHIC_RENDER_TARGET::PTR
         PrimaryRenderTarget,
-        BloomRenderTarget,
-        FinalRenderTarget;
+        BloomRenderTarget;
     GRAPHIC_RENDER_TARGET::PTR
         GaussianRenderTarget1Table[ GRAPHIC_RENDERER_TECHNIQUE_BLOOM_MAX_BLUR ],
         GaussianRenderTarget2Table[ GRAPHIC_RENDERER_TECHNIQUE_BLOOM_MAX_BLUR ];

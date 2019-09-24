@@ -35,7 +35,7 @@ GAMEPLAY_COMPONENT_AABB_NODE::GAMEPLAY_COMPONENT_AABB_NODE( const GAMEPLAY_COMPO
 
 void GAMEPLAY_COMPONENT_AABB_NODE::Remove( GAMEPLAY_COMPONENT_ENTITY * entity ) {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 void GAMEPLAY_COMPONENT_AABB_NODE::Update( std::list< GAMEPLAY_COMPONENT_AABB_NODE * > & invalid_nodes ) {
@@ -180,6 +180,6 @@ void GAMEPLAY_COMPONENT_AABB_NODE::InsertBackToFront( GAMEPLAY_COMPONENT_AABB_NO
         Right->InsertBackToFront( node );
     }
     else {
-        abort();
+        CORE_RUNTIME_Abort();
     }
 }

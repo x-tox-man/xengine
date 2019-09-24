@@ -29,17 +29,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
     XS_DEFINE_SERIALIZABLE
 
-    void * operator new(size_t size);
-    void operator delete  ( void* ptr );
-
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Render)
 
     void Render( GRAPHIC_RENDERER &renderer, GAMEPLAY_COMPONENT_POSITION * component, GAMEPLAY_COMPONENT_POSITION * parent );
-
-    struct INTERNAL_ARRAY_R{
-        int LastIndex;
-        GAMEPLAY_COMPONENT_RENDER * MemoryArray;
-    };
 
     inline void SetObject( RESOURCE_PROXY & object ) { ObjectProxy = object; }
     inline void SetEffect( RESOURCE_PROXY & effect ) { EffectProxy = effect; }
@@ -54,19 +46,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
     inline RESOURCE_PROXY & GetMaterial() { return MaterialProxy; }
 
     inline void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
-
-    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
-
-        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
-    }
-
-    static void Clear();
-    static void SaveToStream( CORE_DATA_STREAM & stream );
-    static void LoadFromStream( CORE_DATA_STREAM & stream );
-
-    static int
-        LastIndex,
-        LastOffset;
+    inline float GetScaleFactor() const { return ScaleFactor; }
 
 private :
 
@@ -79,8 +59,6 @@ private :
         AABBNode;
     float
         ScaleFactor;
-    static std::vector< INTERNAL_ARRAY_R >
-        * InternalVector;
 
 XS_CLASS_END
 

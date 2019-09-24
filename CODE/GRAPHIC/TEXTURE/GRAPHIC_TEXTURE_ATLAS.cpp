@@ -44,21 +44,25 @@ GRAPHIC_TEXTURE_ATLAS::~GRAPHIC_TEXTURE_ATLAS() {
     GRAPHIC_TEXTURE::Finalize();
 }
 
-void GRAPHIC_TEXTURE_ATLAS::Initialize( void * texture_data ) {
+void GRAPHIC_TEXTURE_ATLAS::Initialize( CORE_DATA_BUFFER & texture_data ) {
     
     GRAPHIC_TEXTURE::Initialize( texture_data, true );
 }
 
 void GRAPHIC_TEXTURE_ATLAS::Load( const CORE_FILESYSTEM_PATH & atlas_path, const CORE_FILESYSTEM_PATH & image_path ) {
     
-    RESOURCE_IMAGE_PNG_LOADER loader;
+    RESOURCE_IMAGE_PNG_LOADER
+        loader;
+    CORE_DATA_BUFFER
+        buffer;
     
     GRAPHIC_TEXTURE_BLOCK * texture_block = new GRAPHIC_TEXTURE_BLOCK;
     GRAPHIC_TEXTURE * texture = NULL;
     
     RESOURCE_IMAGE * image = (RESOURCE_IMAGE*) loader.Load( image_path );
     
-    GRAPHIC_SYSTEM::CreateTexture( this, image->GetImageRawData(), false );
+    buffer.InitializeWithMemory( image->GetSize(), 1, image->GetImageRawData() );
+    GRAPHIC_SYSTEM::CreateTexture( this, buffer, false );
     
     texture = image->CreateTextureObject( false );
     

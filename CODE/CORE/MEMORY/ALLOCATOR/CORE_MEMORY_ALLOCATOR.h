@@ -20,6 +20,7 @@ public:
 
     static void * Allocate( size_t size );
     static void Free( void * memory_pointer );
+    static void Reallocate( void * memory_pointer, size_t size );
 
 private:
     CORE_MEMORY_ALLOCATOR();
@@ -31,6 +32,9 @@ private:
 
 #define CORE_MEMORY_ALLOCATOR_Allocate( __SIZE__ ) \
     CORE_MEMORY_ALLOCATOR::Allocate( __SIZE__ );
+
+#define CORE_MEMORY_ALLOCATOR_Reallocate( __DESTINATION__, __SIZE__ ) \
+    CORE_MEMORY_ALLOCATOR::Reallocate( __DESTINATION__, __SIZE__ );
 
 #define CORE_MEMORY_CopyBytes( __DESTINATION__, __SIZE__, __SOURCE__ ) \
     memcpy( __DESTINATION__, __SOURCE__, (int) __SIZE__ );

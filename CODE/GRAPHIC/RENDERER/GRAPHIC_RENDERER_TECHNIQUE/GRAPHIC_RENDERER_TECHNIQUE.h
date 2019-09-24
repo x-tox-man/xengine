@@ -11,6 +11,7 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "GRAPHIC_RENDERER.h"
+#include "GRAPHIC_RENDER_TARGET.h"
 
 XS_CLASS_BEGIN( GRAPHIC_RENDERER_TECHNIQUE )
 
@@ -26,7 +27,9 @@ public:
     CORE_HELPERS_CALLBACK_1< GRAPHIC_RENDERER & >
         RendererCallback,
         RendererCallback1;
-
+    GRAPHIC_RENDER_TARGET::PTR
+        RenderTarget,
+        FinalRenderTarget;
 XS_CLASS_END
 
 #endif /* GRAPHIC_RENDERER_TECHNIQUE_hpp */

@@ -15,89 +15,47 @@
 #include "GAMEPLAY_COMPONENT_ENTITY.h"
 #include "GAMEPLAY_COMPONENT_ENTITY_HANDLE.h"
 #include "CORE_HELPERS_UNIQUE.h"
+#include "CORE_DATA_STREAM.h"
 
 class GAMEPLAY_COMPONENT_BASE_ENTITY;
+
+#define ONE_COMPONENT_SIZE 64
+#define ECS_SIZE ( 8 * 1024 ) // 8 Kb of cache TODO : tweak
+#define ECS_ITEMS ( ECS_SIZE / ONE_COMPONENT_SIZE )
+#define ECS_ITEMS_INDEX ( ECS_ITEMS / sizeof( int ) )
 
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
 
     XS_DEFINE_UNIQUE( GAMEPLAY_COMPONENT_MANAGER )
+    //XS_DEFINE_SERIALIZABLE
 
     ~GAMEPLAY_COMPONENT_MANAGER();
 
     void Initialize();
     void Finalize();
 
-    template <typename __ENTITY_TARGET_TYPE__>
-    __ENTITY_TARGET_TYPE__ * CreateEntity() {
+    void RemoveEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
         
-        int index = (int) InternalVector.size();
-        
-        if( index == 0) {
-            
-            if ( InternalVector.size() != 16 ) {
-                
-                InternalVector.resize(16);
-            }
-            
-            InternalVector[0].MemoryArray = (GAMEPLAY_COMPONENT_ENTITY * ) CORE_MEMORY_ALLOCATOR::Allocate(2048 * sizeof( GAMEPLAY_COMPONENT_ENTITY ) );
-            InternalVector[0].LastIndex = 0;
-        }
-        
-        int size = sizeof( __ENTITY_TARGET_TYPE__ ) - sizeof( GAMEPLAY_COMPONENT_ENTITY );
-        
-#if DEBUG
-        if ((size / sizeof( GAMEPLAY_COMPONENT_ENTITY ) ) > 2048 - InternalVector[0].LastIndex - 1) {
-            abort();
-        }
-#endif
-        
-        __ENTITY_TARGET_TYPE__ * en = (__ENTITY_TARGET_TYPE__ *) new (InternalVector[ 0 ].MemoryArray + ( ++InternalVector[ 0 ].LastIndex ) ) __ENTITY_TARGET_TYPE__();
-        
-        while( size > 0 ) {
-            
-            InternalVector[ 0 ].LastIndex++;
-            size -= sizeof( GAMEPLAY_COMPONENT_ENTITY );
-        }
-        
-        en->GetHandle().SetIndex( InternalVector[ 0 ].LastIndex );
-        en->GetHandle().SetOffset( 0 );
-        
-        return en;
+        InvalidHandleTable.push_back( entity->GetHandle() );
     }
 
-    template <typename __ENTITY_TYPE__>
-    GAMEPLAY_COMPONENT_ENTITY * CloneEntity( __ENTITY_TYPE__ * entity ) {
+    inline GAMEPLAY_COMPONENT_ENTITY::PTR GetEntity( const GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle ) {
         
-        auto ent = ( GAMEPLAY_COMPONENT_ENTITY * ) CreateEntity< __ENTITY_TYPE__ >();
-        
-        for (int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS; i++) {
-            
-            if ( entity->GetComponent( i ) != NULL ) {
-                
-                const GAMEPLAY_COMPONENT_HANDLE & handle = entity->GetComponentHandle( i );
-                
-                ent->SetCompononent( handle.Clone(), i );
-            }
-        }
-        
-        for (int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++) {
-            
-            if ( entity->GetChild( i ) != NULL ) {
-                
-                ent->SetChild( entity->GetChild( i )->Clone(), i);
-            }
-        }
-        
-        return ent;
+        return ( GAMEPLAY_COMPONENT_ENTITY * ) ( ( ( uint8_t * ) ECSData.GetMemoryBuffer() ) + handle.GetOffset() );
     }
 
-    inline GAMEPLAY_COMPONENT_ENTITY * GetEntity( int index ) {
+    template< typename ... T >
+    GAMEPLAY_COMPONENT_ENTITY::PTR CreateEntityWithComponents() {
         
-        if ( index > InternalVector[ 0 ].LastIndex ) {
-            return NULL;
-        }
+        // using placement new
+        auto entity = new (((uint8_t *) ECSData.GetMemoryBuffer() + Offset)) GAMEPLAY_COMPONENT_ENTITY( sizeof...( T ) );
         
-        return &InternalVector[0].MemoryArray[ index ];
+        entity->GetHandle().SetOffset( Offset );
+        Offset += sizeof( GAMEPLAY_COMPONENT_ENTITY );
+        
+        (CreateComponents< T >(), ...);
+        
+        return entity;
     }
 
     void Clear();
@@ -107,18 +65,40 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
 
     inline GAMEPLAY_COMPONENT_ENTITY * FindEntity( const GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle ) {
     
-        return &InternalVector[ handle.GetOffset() ].MemoryArray[ handle.GetIndex() -1 ]; //Fix this minus One that hangs around
+        return GetEntity( handle );
+    }
+
+    inline void * GetEcsBasePointer() {
+        
+        return ECSData.GetMemoryBuffer();
     }
 
 private :
 
-    struct INTERNAL_ARRAY{
-        int LastIndex;
-        GAMEPLAY_COMPONENT_ENTITY * MemoryArray;
-    };
+    template< typename H >
+    void CreateComponents() {
+        
+        new (((uint8_t *) ECSData.GetMemoryBuffer() + Offset)) H();
+        Offset += sizeof( H );
+    }
 
-    std::vector< INTERNAL_ARRAY >
-        InternalVector;
+    /*template< typename H, typename Arg, typename ... Args >
+    void CreateComponents() {
+        
+        new (((uint8_t *) ECSData.GetMemoryBuffer() + Offset)) H();
+        Offset += sizeof( H );
+
+        CreateComponents< Arg, Args ... >();
+    }*/
+
+    CORE_DATA_STREAM
+        ECSData;
+    unsigned int
+        Offset;
+    std::map< CORE_HELPERS_IDENTIFIER, GAMEPLAY_COMPONENT_ENTITY_HANDLE >
+        NamedEntitiesTable;
+    std::vector< GAMEPLAY_COMPONENT_ENTITY_HANDLE >
+        InvalidHandleTable;
 
 XS_CLASS_END
 

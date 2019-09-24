@@ -14,17 +14,14 @@
 #include "R3D_PLAYER.h"
 #include "CORE_HELPERS_CALLBACK.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT, GAMEPLAY_COMPONENT_ENTITY )
+XS_CLASS_BEGIN( R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT )
+
+    static GAMEPLAY_COMPONENT_ENTITY::PTR CreateEntity( const CORE_MATH_VECTOR & position );
+    void CollidesWith( GAMEPLAY_COMPONENT_ENTITY * other );
+
+private:
 
     R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT();
-
-    void Initialize( const CORE_MATH_VECTOR & position );
-    virtual void CollidesWith( GAMEPLAY_COMPONENT_ENTITY * other ) override;
-
-    virtual GAMEPLAY_COMPONENT_ENTITY * Clone() const override {
-        
-        return new R3D_LEVEL_CHECKPOINT_COLLISION_OBJECT();
-    }
 
 XS_CLASS_END
 

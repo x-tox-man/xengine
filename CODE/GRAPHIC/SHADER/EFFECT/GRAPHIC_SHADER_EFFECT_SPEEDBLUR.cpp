@@ -48,9 +48,11 @@ void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::BindAttributes() {
 #if OPENGL2PLUS
     GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), ViewRayIdentifier.GetTextValue() ); )
 #elif X_VK
-    abort();
+    #error "TODO IMPLEMENT"
+#elif X_METAL
+    //#error "TODO IMPLEMENT"
 #else
-    abort();
+    #error "TODO IMPLEMENT"
 #endif
     
     if ( attribute->AttributeIndex != -1 ) {
@@ -69,9 +71,11 @@ void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::BindAttributes() {
 #if OPENGL2PLUS
     GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), InverseCurrentModelViewIdentifier.GetTextValue() ); )
 #elif X_VK
-    abort();
+    #error "TODO IMPLEMENT"
+#elif X_METAL
+    //#error "TODO IMPLEMENT"
 #else
-    abort();
+    #error "TODO IMPLEMENT"
 #endif
     
     if ( attribute->AttributeIndex != -1 ) {

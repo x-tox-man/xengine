@@ -62,10 +62,7 @@ public:
         NullTechniqueEffect;
     /*GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::PTR
         PointDefferedEffect;*/
-    GRAPHIC_RENDER_TARGET
-        RenderTarget;
-    GRAPHIC_RENDER_TARGET::PTR
-        FinalRenderTarget;
+
 
 XS_CLASS_END
 

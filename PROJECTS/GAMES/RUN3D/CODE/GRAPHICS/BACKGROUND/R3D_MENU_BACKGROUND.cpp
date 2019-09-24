@@ -7,15 +7,13 @@
 //
 
 #include "R3D_MENU_BACKGROUND.h"
-#include "GAMEPLAY_COMPONENT_BASE_ENTITY.h"
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
 #include "GRAPHIC_SHADER_PROGRAM.h"
 
 GAMEPLAY_COMPONENT_ENTITY::PTR R3D_MENU_BACKGROUND::Create( const CORE_MATH_VECTOR & size ) {
     
-    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_BASE_ENTITY >();
+    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
     
-    GAMEPLAY_HELPER::CreateComponent_PositionRender( entity );
     GAMEPLAY_HELPER::Set3DPlane( entity, size );
     
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "map-color" ), CORE_FILESYSTEM_PATH::FindFilePath("map_color_0", "png", "MAP" ) );

@@ -22,13 +22,14 @@ void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Initialize() {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Update( float time_step ) {
+void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Update( void * ecs_base_pointer, float time_step ) {
     
-    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    std::vector< GAMEPLAY_COMPONENT_ENTITY_HANDLE >::iterator it = EntitiesTable.begin();
     
     while (it != EntitiesTable.end() ) {
         
-        GAMEPLAY_COMPONENT_ANIMATION * animation = ( GAMEPLAY_COMPONENT_ANIMATION *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Animation );
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
+        GAMEPLAY_COMPONENT_ANIMATION * animation = entity->GetComponentAnimation();
         
         animation->UpdateAnimation( time_step );
         it++;
@@ -40,7 +41,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Finalize() {
     GAMEPLAY_COMPONENT_SYSTEM::Finalize();
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Render( GRAPHIC_RENDERER & renderer ) {
+void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) {
     
     CORE_RUNTIME_Abort();
 }

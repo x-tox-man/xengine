@@ -96,7 +96,7 @@ void SERVICE_HTTP_CLIENT::PerformRequestAsync( SERVICE_HTTP_REQUEST & request ) 
             
             break;
         default:
-            abort(); // TODO
+            CORE_RUNTIME_Abort(); // TODO
             break;
     }
     /* get it! */

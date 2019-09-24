@@ -76,35 +76,37 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::DebugDrawWorld() {
 /**
  * http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World
  */
-void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( float time_step ) {
+void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( void * ecs_base_pointer, float time_step ) {
     
     #ifdef __BULLET_PHYSICS__
         btTransform transformation;
         
         DynamicsWorld->stepSimulation( time_step, 10 );
     
-        std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+        std::vector< GAMEPLAY_COMPONENT_ENTITY_HANDLE >::iterator it = EntitiesTable.begin();
     
         while (it != EntitiesTable.end() ) {
             
-            GAMEPLAY_COMPONENT_PHYSICS * physics = ( GAMEPLAY_COMPONENT_PHYSICS *) (it->second)->GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+            auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
+            
+            GAMEPLAY_COMPONENT_PHYSICS * physics = entity->GetComponentPhysics();
             
             auto wt = &physics->GetBulletRigidBody()->getWorldTransform();
             
-            (it->second)->GetEntity()->SetPosition(CORE_MATH_VECTOR(wt->getOrigin().getX(), wt->getOrigin().getY(), wt->getOrigin().getZ(), 1.0f));
+            entity->SetPosition(CORE_MATH_VECTOR(wt->getOrigin().getX(), wt->getOrigin().getY(), wt->getOrigin().getZ(), 1.0f));
             btQuaternion q = wt->getRotation();
             
             CORE_MATH_QUATERNION oq( q.getX(), q.getY(), q.getZ(), q.getW() );
             oq.Normalize();
             
-            (it->second)->GetEntity()->SetOrientation( oq );
+            entity->SetOrientation( oq );
             
             it++;
         }
     #endif
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Render( GRAPHIC_RENDERER & renderer ) {
+void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) {
     
 }
 
@@ -113,9 +115,9 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Finalize() {
     GAMEPLAY_COMPONENT_SYSTEM::Finalize();
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity, int group, int mask ) {
+void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity, int group, int mask ) {
     
-    GAMEPLAY_COMPONENT_SYSTEM::AddEntity( handle, entity );
+    GAMEPLAY_COMPONENT_SYSTEM::AddEntity( entity );
     
     GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics);
     
@@ -125,7 +127,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddEntity( GAMEPLAY_COMPONEN
     #endif
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddStaticEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity, int group, int mask ) {
+void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddStaticEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity, int group, int mask ) {
     
     GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics);
     

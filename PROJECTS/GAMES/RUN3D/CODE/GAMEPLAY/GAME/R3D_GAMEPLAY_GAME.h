@@ -23,6 +23,7 @@
 #include "R3D_LEVEL_MANAGER.h"
 #include "GAMEPLAY_ACTION_SYSTEM.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_LIGHTING.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
 
 XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
 
@@ -53,6 +54,7 @@ XS_CLASS_BEGIN( R3D_GAMEPLAY_GAME )
     inline CORE_HELPERS_UNIQUE_IDENTIFIER & GetThisPlayerIndex() { return ThisPlayerIndex; }
 
     inline GAMEPLAY_COMPONENT_SYSTEM_LIGHTING * GetLightingSystem() { return (GAMEPLAY_COMPONENT_SYSTEM_LIGHTING *) Scene.GetRenderableSystemTable()[0]; }
+    inline GAMEPLAY_COMPONENT_SYSTEM_RENDERER * GetShipSpecialEffectSystem() { return (GAMEPLAY_COMPONENT_SYSTEM_RENDERER *) Scene.GetRenderableSystemTable()[3]; }
 
     float GetGameDuration() const { return GAMEPLAY_ACTION_SYSTEM::GetInstance().GetTimeline().GetTick() * 0.033f; }
 

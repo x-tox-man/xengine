@@ -20,7 +20,7 @@
 #include "PERIPHERIC_INTERACTION_SYSTEM.h"
 #include "GAMEPLAY_SCENE.h"
 #include "GRAPHIC_MATERIAL.h"
-#include "GAMEPLAY_CAMERA.h"
+#include "GAMEPLAY_COMPONENT_CAMERA.h"
 #include "GRAPHIC_OBJECT_SHAPE_CUBE.h"
 
 XS_CLASS_BEGIN( VIEWER3D )
@@ -46,9 +46,8 @@ private :
 
     GAMEPLAY_SCENE
         * Scene;
-    GAMEPLAY_CAMERA
-        * Camera;
     GAMEPLAY_COMPONENT_ENTITY
+        * Camera,
         * SelectedEntity;
     GRAPHIC_OBJECT_SHAPE_CUBE
         * CubeObject;

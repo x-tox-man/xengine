@@ -44,7 +44,7 @@ void XS_CLASS_SERIALIZER< std::string, CORE_DATA_JSON >::Serialize< std::true_ty
 template<> template<>
 void XS_CLASS_SERIALIZER< std::string, CORE_DATA_JSON >::Serialize< std::false_type >( const char * member_name,std::string & type, CORE_DATA_JSON & stream ) {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 template<> template<>

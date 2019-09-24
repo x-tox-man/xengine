@@ -38,12 +38,15 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::Apply( GRAPHIC_RENDERER & renderer,
 void GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::BindAttributes() {
     
     GRAPHIC_SHADER_ATTRIBUTE * attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    
     #if OPENGL2PLUS
         GFX_CHECK( attribute->AttributeIndex = glGetUniformLocation( EffectInstance->GetProgram().GetProgram()->GetShaderProgram(), BloomThresholdIdentifier.GetTextValue() ); )
     #elif X_VK
-        abort();
+        #error "TODO IMPLEMENT"
+    #elif X_METAL
+    //#error "TODO IMPLEMENT"
     #else
-        abort();
+        #error "TODO IMPLEMENT"
     #endif
     
     if ( attribute->AttributeIndex != -1 ) {

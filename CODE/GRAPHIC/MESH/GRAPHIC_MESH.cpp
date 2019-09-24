@@ -30,8 +30,6 @@ XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH * )
 GRAPHIC_MESH::GRAPHIC_MESH() :
     VertexCoreBuffer( NULL ),
     IndexCoreBuffer( NULL ),
-    Texture( NULL ),
-    NormalTexture( NULL ),
     VertexComponent( GRAPHIC_SHADER_BIND_None ),
     VertexStride( 0 ),
     PolygonRenderMode( GRAPHIC_MESH_POLYGON_RENDER_MODE_TriangleList ),
@@ -61,8 +59,6 @@ GRAPHIC_MESH::~GRAPHIC_MESH() {
 
     CORE_MEMORY_ObjectSafeDeallocation( VertexCoreBuffer );
     CORE_MEMORY_ObjectSafeDeallocation( IndexCoreBuffer );
-    CORE_MEMORY_ObjectSafeDeallocation( Texture );
-    CORE_MEMORY_ObjectSafeDeallocation( NormalTexture );
 }
 
 int GRAPHIC_MESH::ComputeVertexStride(GRAPHIC_SHADER_BIND bind) {

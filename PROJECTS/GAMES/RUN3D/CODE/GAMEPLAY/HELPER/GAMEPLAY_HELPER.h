@@ -18,22 +18,18 @@
 #include "GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.h"
 #include "PHYSICS_COLLISION_TYPE.h"
 #include "GRAPHIC_SHADER_LIGHT.h"
+#include "GAMEPLAY_COMPONENT_RENDER.h"
 
 XS_CLASS_BEGIN( GAMEPLAY_HELPER )
-
-    static void CreateComponent_PositionRenderPhysicsScriptAnimation( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
-    static void CreateComponent_PositionRenderScriptAnimation( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
-    static void CreateComponent_PositionRenderAnimation( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
-    static void CreateComponent_PositionRenderScript( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
-    static void CreateComponent_PositionRenderPhysics( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
-    static void CreateComponent_PositionRender( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
 
     static void Set3DObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     static GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR Set3DHeighFieldObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     static void Set3DPlane( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_MATH_VECTOR & size );
     static void Scale3dObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, float scale );
+    static void Scale3dComponent( GAMEPLAY_COMPONENT_RENDER::PTR entity, float scale );
 
     static void SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
+    static void SetSecondaryEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     static void SetShadowmapEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void SetTexture( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const CORE_HELPERS_IDENTIFIER & identifier = GRAPHIC_SHADER_PROGRAM::ColorTexture );
     static void SetNormal( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const char * texture_name, const CORE_FILESYSTEM_PATH & path, const
@@ -46,6 +42,7 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
     static void ConfigureGroundSpring( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
 
     static void AddToWorld( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    static void AddToSpecialEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToWorldTransparent( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToMotion( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
     static void AddToScripts( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
@@ -67,6 +64,9 @@ XS_CLASS_BEGIN( GAMEPLAY_HELPER )
     static void InitializeCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & direction, GRAPHIC_CAMERA & camera, const CORE_MATH_VECTOR & up );
 
     static void GetElevation( GAMEPLAY_COMPONENT_ENTITY::PTR entity, CORE_MATH_VECTOR & out_position, CORE_MATH_VECTOR & out_normal );
+
+    static void EnableEffectSpecial( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
+    static void DisableEffectSpecial( GAMEPLAY_COMPONENT_ENTITY::PTR entity );
 
 XS_CLASS_END
 

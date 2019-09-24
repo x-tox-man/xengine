@@ -153,7 +153,7 @@ void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXT
     GFX_CHECK( glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, info.Width, info.Height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL); )
 }
 
-void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_data, bool generate_mipmap ) {
+void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, CORE_DATA_STREAM & texture_data, bool generate_mipmap ) {
     
     GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
     GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )

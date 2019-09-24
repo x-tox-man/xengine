@@ -40,8 +40,7 @@ CORE_FILESYSTEM_FILE::~CORE_FILESYSTEM_FILE() {
 bool CORE_FILESYSTEM_FILE::OpenInput() {
  
     
-    //SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH OpenInput forbiddebn %s", Path.GetPath() );
-    
+    SERVICE_LOGGER_Error( "CORE_FILESYSTEM_PATH OpenInput forbidden %s", Path.GetPath() );
     CORE_RUNTIME_Abort();
     
     AssetFile = AAssetManager_open( CORE_FILESYSTEM::GetDefaultFilesystem().GetAndroidAssetManager(), Path.GetPath(), AASSET_MODE_UNKNOWN );

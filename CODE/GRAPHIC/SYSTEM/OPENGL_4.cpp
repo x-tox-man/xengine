@@ -265,7 +265,7 @@
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE ); )
     }
 
-    void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_data, bool generate_mipmap ) {
+    void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, CORE_DATA_STREAM & texture_data, bool generate_mipmap ) {
         
         GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
         GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )
@@ -617,7 +617,7 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int 
         if ( component & GRAPHIC_SHADER_BIND_Normal ) {
             
             GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Normal, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
-            
+                
             vertex_offset += 4;
         }
         
@@ -671,10 +671,11 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int 
         //GFX_CHECK( glBindBuffer(GL_ARRAY_BUFFER, 0); )
         
         GFX_CHECK( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexBuffer()) ; )
+        unsigned int count = (unsigned int) (mesh.GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int ) );
         
         GFX_CHECK( glDrawElements(
             GRAPHIC_MESH_POLYGON_RENDER_MODE_GetForOpengl4( mesh.GetPolygonRenderMode() ),      // mode
-            (int) (mesh.GetIndexCoreBuffer()->GetSize() / sizeof( size_t ) ) * 2,    // count
+            count,    // count
             GL_UNSIGNED_INT,   // type
             (void*) 0); )
     }

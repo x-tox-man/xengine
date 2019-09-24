@@ -10,7 +10,6 @@
 #include "GRAPHIC_UI_SYSTEM.h"
 #include "RUN3D_APPLICATION.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
-#include "GRAPHIC_PARTICLE_SYSTEM.h"
 #include "TOOLS_DEBUG_DRAW.h"
 #include "APPLICATION_CONFIGURATION.h"
 #include "APPLICATION_IDENTITY_MANAGER.h"
@@ -134,18 +133,22 @@ void R3D_RENDER::Initialize() {
     }
     BloomTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
+    auto defered_tr = new GRAPHIC_RENDER_TARGET;
+    defered_tr->Initialize(Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    
     DeferredShadingTechnique.PlanObject = &PlanObject;
     DeferredShadingTechnique.FinalRenderTarget = &PrimaryRenderTarget;
     DeferredShadingTechnique.SphereObject = &SphereObject;
     DeferredShadingTechnique.ConeObject = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) )->GetResource< GRAPHIC_OBJECT >();
     DeferredShadingTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
+    DeferredShadingTechnique.RenderTarget = defered_tr;
     DeferredShadingTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     SSAOTechnique.PlanObject = &PlanObject;
     SSAOTechnique.TextureBlock1 = TextureBlock1;
-    SSAOTechnique.SourceRenderTarget = &DeferredShadingTechnique.RenderTarget;
+    SSAOTechnique.SourceRenderTarget = DeferredShadingTechnique.RenderTarget;
     SSAOTechnique.RenderTarget = &FinalRenderTarget;
-    SSAOTechnique.FinalRenderTarget = &DeferredShadingTechnique.RenderTarget;
+    SSAOTechnique.FinalRenderTarget = DeferredShadingTechnique.RenderTarget;
     SSAOTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     CascadeShadowMapTechnique.CascadeCount = 3;
@@ -156,6 +159,16 @@ void R3D_RENDER::Initialize() {
     CascadeShadowMapTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
     CascadeShadowMapTechnique.RendererCallback1.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
     CascadeShadowMapTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
+    
+    TransparentTechnique.RendererCallback.Connect(
+        &Wrapper1<
+            R3D_RENDER,
+            GRAPHIC_RENDERER &,
+            &R3D_RENDER::RenderSceneTransparentWithParticles>,
+        this );
+    
+    TransparentTechnique.RenderTarget = &PrimaryRenderTarget;
+    TransparentTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
@@ -176,8 +189,23 @@ void R3D_RENDER::RenderOpaqueScene( GRAPHIC_RENDERER & renderer ) {
 
 void R3D_RENDER::RenderSceneTransparentWithParticles( GRAPHIC_RENDERER & renderer ) {
     
+    renderer.SetCamera(Camera);
+    renderer.SetNumCascade( 0 );
+    renderer.SetPassIndex( 0 );
+    
+    DeferredShadingTechnique.RenderTarget->BindForReading();
+    PrimaryRenderTarget.CopyDepthFrom( *DeferredShadingTechnique.RenderTarget );
+    /*static int t = 0;
+    t++;
+    if( t % 120 == 1) {
+        PrimaryRenderTarget.BindForReading();
+        PrimaryRenderTarget.GetTargetTexture( 0 )->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "test-depth" , "png", "" ) );
+    }*/
+    
+    //GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( renderer );
     R3D_APP_PTR->GetGame()->Render( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent );
-    GRAPHIC_PARTICLE_SYSTEM::GetInstance().Render( GRAPHIC_RENDERER::GetInstance() );
+    
+    renderer.SetCamera(RenderTargetCamera);
 }
 
 void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
@@ -222,15 +250,20 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     renderer.SetCamera( Camera );
     SSAOTechnique.SSAOEffect->SetCamera( Camera );
     DeferredShadingTechnique.GameCamera = Camera;
+    
     SpeedBlurTechnique.ApplyFirstPass( renderer );
     CascadeShadowMapTechnique.ApplyFirstPass( renderer );
     CascadeShadowMapTechnique.ApplySecondPass( renderer );
     DeferredShadingTechnique.ApplyFirstPass( renderer );
+    
     renderer.SetNumCascade( 0 );
     renderer.SetCamera( RenderTargetCamera );
+    
     SSAOTechnique.ApplyFirstPass( renderer );
     DeferredShadingTechnique.ApplySecondPass( renderer );
+    TransparentTechnique.ApplyFirstPass( renderer );
     BloomTechnique.ApplyFirstPass( renderer );
+    
     //SpeedBlurTechnique.ApplySecondPass( renderer );
 #else
     {
@@ -253,16 +286,8 @@ void R3D_RENDER::Render( GRAPHIC_RENDERER & renderer ) {
     }
 #endif
     
-    //RenderSceneTransparentWithParticles( renderer );
-    GRAPHIC_SYSTEM::DisableDepthTest();
-    /*static int testdd= 0;
-    if ( testdd++ > 120 ) {
-        
-        R3D_APP_PTR->GetGame()->GetBulletSystem()->DebugDrawWorld();
-    }*/
-    
     renderer.SetCamera( InterfaceCamera );
-    //GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
+    GRAPHIC_UI_SYSTEM::GetInstance().Render( renderer );
     
     renderer.SetCamera( Camera );
     //CascadeShadowMapTechnique.DebugFustrum( renderer );

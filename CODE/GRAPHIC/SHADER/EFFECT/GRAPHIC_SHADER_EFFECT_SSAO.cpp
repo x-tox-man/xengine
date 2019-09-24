@@ -8,6 +8,7 @@
 
 #include "GRAPHIC_SHADER_EFFECT_SSAO.h"
 #include "RESOURCE_IMAGE.h"
+#include "GRAPHIC_SYSTEM.h"
 
 GRAPHIC_SHADER_EFFECT_SSAO::GRAPHIC_SHADER_EFFECT_SSAO( GRAPHIC_SHADER_EFFECT::PTR effect ) :
     GRAPHIC_SHADER_EFFECT(),
@@ -84,6 +85,7 @@ void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {
     RESOURCE_IMAGE image;
     
     image.SetImageRawData( noise );
+    image.SetSize( sizeof(float) * SSAO_MAX_ROTATIONS * 4 );
     image.GetImageInfo().Height = 4;
     image.GetImageInfo().Width = 4;
     image.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;

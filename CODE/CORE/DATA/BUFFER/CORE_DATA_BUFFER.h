@@ -21,8 +21,8 @@ public:
     CORE_DATA_BUFFER();
     ~CORE_DATA_BUFFER();
 
-    void Initialize( X_VERY_LONG size, int section_count = 0 );
-    void InitializeWithMemory( X_VERY_LONG size, int section_count, void * memory );
+    void Initialize( unsigned int size, int section_count = 0 );
+    void InitializeWithMemory( unsigned int size, int section_count, void * memory );
     void Finalize();
 
     void setMarkerAtIndex( const CORE_HELPERS_IDENTIFIER * identifier, int section_index, int offset = 0, X_VERY_LONG item_size = 0 );
@@ -38,6 +38,7 @@ public:
 
     Scalar_SGet( int, Sections );
     Scalar_SGet( unsigned int, Size );
+    inline void * GetDataPointer() const { return DataPointer; }
 
     template<typename __SCALAR__>
     __SCALAR__ * getpointerAtIndex( __SCALAR__ offset )

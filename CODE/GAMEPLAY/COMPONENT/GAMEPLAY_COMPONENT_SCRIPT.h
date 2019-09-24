@@ -22,9 +22,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_SCRIPT, GAMEPLAY_COMP
     GAMEPLAY_COMPONENT_SCRIPT();
     virtual ~GAMEPLAY_COMPONENT_SCRIPT();
 
-    void * operator new(size_t size);
-    void operator delete  ( void* ptr );
-
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_SCRIPT, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Script)
 
     struct INTERNAL_ARRAY_S{
@@ -36,25 +33,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_SCRIPT, GAMEPLAY_COMP
 
     CORE_ABSTRACT_PROGRAM_FACTORY * GetScript() { return Script; }
 
-    static void Clear();
-    static void SaveToStream( CORE_DATA_STREAM & stream );
-    static void LoadFromStream( CORE_DATA_STREAM & stream );
-
-    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
-        
-        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
-    }
-
-    static int
-        LastIndex,
-        LastOffset;
-
 private :
 
     CORE_ABSTRACT_PROGRAM_FACTORY
         * Script;
-    static std::vector< INTERNAL_ARRAY_S >
-        * InternalVector;
 
 XS_CLASS_END
 

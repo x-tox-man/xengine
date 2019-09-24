@@ -89,7 +89,7 @@ GRAPHIC_UI_ELEMENT * ASSET_EDITOR::CreateUIText( const char * item_name, const c
     
     GRAPHIC_UI_TEXT * element = new GRAPHIC_UI_TEXT;
     
-    abort();
+    CORE_RUNTIME_Abort();
     /*element->SetSize(12);
     element->SetText( text_value );
     element->SetSize( 1.0f );

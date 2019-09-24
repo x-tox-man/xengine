@@ -19,7 +19,8 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY_PROXY )
 
     XS_DEFINE_SERIALIZABLE
 
-    inline GAMEPLAY_COMPONENT * GetComponent( int component_index ) { return Entity->GetComponent(component_index); }
+    template< typename _COMPONENT_TYPE_ >
+    inline _COMPONENT_TYPE_ * GetComponent( int component_index ) { return Entity->GetComponent(component_index); }
     inline GAMEPLAY_COMPONENT_ENTITY * GetEntity() { return Entity; }
     inline void SetEntity( GAMEPLAY_COMPONENT_ENTITY * entity ) { Entity = entity; }
 

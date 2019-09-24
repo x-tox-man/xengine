@@ -82,7 +82,7 @@ CORE_HELPERS_IDENTIFIER CORE_HELPERS_IDENTIFIER_SYSTEM::FindIdentifier() {
 
     unsigned int i = 0;
     
-    abort();
+    CORE_RUNTIME_Abort();
     
     return CORE_HELPERS_IDENTIFIER::Empty;
 }

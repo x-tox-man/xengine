@@ -20,5 +20,5 @@ void TOOLS_LOCALE_SYSTEM::Initialize( const char * locale_code ) {
 
 void  TOOLS_LOCALE_SYSTEM::FindResourceForLocale( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }

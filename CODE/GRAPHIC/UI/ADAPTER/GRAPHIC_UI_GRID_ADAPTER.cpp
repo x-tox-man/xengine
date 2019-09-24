@@ -29,7 +29,7 @@ void GRAPHIC_UI_GRID_ADAPTER::UpdateOffset( GRAPHIC_UI_ELEMENT * frame, const CO
     
     if ( IsHorizontal() ) {
         
-        abort();
+        CORE_RUNTIME_Abort();
     }
     else {
         

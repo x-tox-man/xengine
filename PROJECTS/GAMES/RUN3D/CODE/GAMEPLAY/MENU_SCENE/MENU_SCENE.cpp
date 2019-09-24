@@ -20,11 +20,10 @@ MENU_SCENE::MENU_SCENE() {
 
 void MENU_SCENE::Initialize() {
     
-    GRAPHICS_STEAM_CLOUD
-        cloud;
+    /*GRAPHICS_STEAM_CLOUD
+        cloud;*/
     
-    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
-    GAMEPLAY_HELPER::CreateComponent_PositionRender( entity );
+    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
     
     GAMEPLAY_HELPER::Set3DObject(entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "base_hub" ) );
     GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
@@ -35,8 +34,7 @@ void MENU_SCENE::Initialize() {
     
     GAMEPLAY_HELPER::AddToWorld( entity );
     
-    auto ship = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
-    GAMEPLAY_HELPER::CreateComponent_PositionRender( ship );
+    auto ship = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
     
     GAMEPLAY_HELPER::Set3DObject(ship, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     //ship->GetComponentRender()->GetObject().GetResource< GRAPHIC_OBJECT >()->SetTesselation( true );
@@ -45,12 +43,16 @@ void MENU_SCENE::Initialize() {
     GAMEPLAY_HELPER::SetEffect( ship, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
     GAMEPLAY_HELPER::SetTexture( ship, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     GAMEPLAY_HELPER::SetNormal( ship, "spaceship1_normal", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-normal", "png", "TEXTURES" ) );
-    GAMEPLAY_HELPER::SetDisplacement( ship, "spaceship1_displacement", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-displacement", "png", "TEXTURES" ) );
+    //GAMEPLAY_HELPER::SetDisplacement( ship, "spaceship1_displacement", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-displacement", "png", "TEXTURES" ) );
     
-    GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) ship->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    //GAMEPLAY_HELPER::SetSecondaryEffect( ship, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader_spaceship_special" ) );
+    //GAMEPLAY_HELPER::AddToSpecialEffect( ship );
+    //GAMEPLAY_HELPER::Scale3dComponent( (GAMEPLAY_COMPONENT_RENDER::PTR) ship->GetComponent( GAMEPLAY_COMPONENT_TYPE_Light ), 45.0f );
+    
+    //GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) ship->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
     GAMEPLAY_COMPONENT_POSITION::PTR pos = (GAMEPLAY_COMPONENT_POSITION::PTR) ship->GetComponent(GAMEPLAY_COMPONENT_TYPE_Position );
     CORE_MATH_QUATERNION q;
-    q.RotateY( 360.0f );
+    q.RotateY( 90.0f );
     
     pos->SetSpin( q );
     
@@ -59,19 +61,16 @@ void MENU_SCENE::Initialize() {
     
     //Background
 
-    auto background = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
-
-    GAMEPLAY_HELPER::CreateComponent_PositionRender(background);
+    auto background = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
 
     GAMEPLAY_HELPER::Set3DObject(background, CORE_HELPERS_UNIQUE_IDENTIFIER("skydome"));
     GAMEPLAY_HELPER::SetEffect(background, CORE_HELPERS_UNIQUE_IDENTIFIER("SHADER::SkyEffect"));
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER("space_diffuse"), CORE_FILESYSTEM_PATH::FindFilePath("high-resolution-space-1", "png", "TEXTURES"));
     GAMEPLAY_HELPER::SetTexture(background, "space_diffuse", CORE_FILESYSTEM_PATH::FindFilePath("high-resolution-space-1", "png", "TEXTURES"));
-    GAMEPLAY_HELPER::AddToWorld(background);
+    GAMEPLAY_HELPER::AddToWorld( background );
 
 
-    /*auto background = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity< GAMEPLAY_COMPONENT_ENTITY >();
-    GAMEPLAY_HELPER::CreateComponent_PositionRender( background );
+    /*auto background = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
     GAMEPLAY_HELPER::Set3DPlane( background, CORE_MATH_VECTOR( 100.0f, 100.0f ) );
     
     GAMEPLAY_HELPER::AddToWorld( background );
@@ -86,5 +85,5 @@ void MENU_SCENE::Initialize() {
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "space_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "high-resolution-space-1", "png", "TEXTURES" ) );
     GAMEPLAY_HELPER::SetTexture( background, "space_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "high-resolution-space-1", "png", "TEXTURES" ) );*/
     
-    cloud.Initialize();
+    //cloud.Initialize();
 }

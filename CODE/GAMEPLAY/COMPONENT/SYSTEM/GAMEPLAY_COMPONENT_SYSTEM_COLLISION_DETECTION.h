@@ -28,8 +28,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAM
     virtual ~GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION();
 
     virtual void Initialize() override;
-    virtual void Update( float time_step ) override;
-    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
+    virtual void Update( void * ecs_base_pointer, float time_step ) override;
+    virtual void Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) override;
     virtual void Finalize() override;
 
     inline void SetGravity( const CORE_MATH_VECTOR & gravity ) { Gravity = gravity; }
@@ -48,9 +48,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION, GAM
 
     #endif
 
-    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity) override { abort(); }
-    void AddEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity, int group, int mask );
-    void AddStaticEntity( GAMEPLAY_COMPONENT_ENTITY_HANDLE & handle, GAMEPLAY_COMPONENT_ENTITY * entity, int group, int mask );
+    virtual void AddEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) override {
+        
+        CORE_RUNTIME_Abort();
+    }
+    void AddEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity, int group, int mask );
+    void AddStaticEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity, int group, int mask );
 
     void DebugDrawWorld();
 

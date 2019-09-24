@@ -40,7 +40,7 @@ GRAPHIC_TEXTURE * GRAPHIC_TEXTURE_LOADER::Load( const CORE_FILESYSTEM_PATH & pat
 
 GRAPHIC_TEXTURE * GRAPHIC_TEXTURE_LOADER::Load( CORE_DATA_STREAM & stream, int resource_load_flag, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier) {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_TEXTURE_LOADER::ReloadResource( GRAPHIC_TEXTURE * resource_to_reload ) {

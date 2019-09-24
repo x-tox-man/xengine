@@ -21,8 +21,6 @@ GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::GRAPHIC_RENDERER_TECHNIQUE_DEFERRED
     TextureBlock4(),
     TextureBlock5(),
     TextureBlock6(),
-    RenderTarget(),
-    FinalRenderTarget( NULL ),
     AmbientDirectionalDefferedEffect( NULL ),
     SpotDeferredEffect( NULL ),
     PointDefferedEffect( NULL ),
@@ -36,11 +34,10 @@ GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::~GRAPHIC_RENDERER_TECHNIQUE_DEFERRE
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::Initialize( GRAPHIC_RENDERER & renderer ) {
     
-    RenderTarget.Initialize(renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
-    RenderTarget.AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
-    RenderTarget.AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
-    RenderTarget.AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
-    RenderTarget.AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
+    RenderTarget->AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
+    RenderTarget->AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
+    RenderTarget->AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
+    RenderTarget->AddAttachment( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
     
     AmbientDirectionalDefferedEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredAmbiantAndDirectionnal" ), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredAmbiantAndDirectionnal", "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
@@ -69,12 +66,12 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyFirstPass( GRAPHIC_RENDER
     
     renderer.GetCamera()->ActivateForRender();
     renderer.SetLightingIsEnabled( true );
-    RenderTarget.Apply();
+    RenderTarget->Apply();
     GRAPHIC_SYSTEM::ClearFrambufferColor();
     GRAPHIC_SYSTEM::ClearFrambufferDepth( 1.0 );
-    RenderTarget.BindForWriting();
+    RenderTarget->BindForWriting();
     RendererCallback( renderer );
-    RenderTarget.Discard();
+    RenderTarget->Discard();
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDERER & renderer ) {
@@ -92,34 +89,34 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     if ( FinalRenderTarget != NULL )
         FinalRenderTarget->Apply();
     
-    RenderTarget.BindForReading();
+    RenderTarget->BindForReading();
     
-    /*if ( (acc % 33) == 0 ) {
+    if ( (acc % 33) == 0 ) {
         GRAPHIC_TEXTURE * texture2;
-        RenderTarget.SetReadBuffer( 0 );
-        texture2 = RenderTarget.GetTargetTexture( 0 );
+        RenderTarget->SetReadBuffer( 0 );
+        texture2 = RenderTarget->GetTargetTexture( 0 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING1" , "png", "" ));
-        RenderTarget.SetReadBuffer( 1 );
-        texture2 = RenderTarget.GetTargetTexture( 1 );
+        RenderTarget->SetReadBuffer( 1 );
+        texture2 = RenderTarget->GetTargetTexture( 1 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING2" , "png", "" ));
-        RenderTarget.SetReadBuffer( 2 );
-        texture2 = RenderTarget.GetTargetTexture( 2 );
+        RenderTarget->SetReadBuffer( 2 );
+        texture2 = RenderTarget->GetTargetTexture( 2 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING3" , "png", "" ));
         
-        RenderTarget.SetReadBuffer( 3 );
-        texture2 = RenderTarget.GetTargetTexture( 3 );
+        RenderTarget->SetReadBuffer( 3 );
+        texture2 = RenderTarget->GetTargetTexture( 3 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING4" , "png", "" ));
         
-        RenderTarget.SetReadBuffer( 4 );
-        texture2 = RenderTarget.GetTargetTexture( 4 );
+        RenderTarget->SetReadBuffer( 4 );
+        texture2 = RenderTarget->GetTargetTexture( 4 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING5" , "png", "" ));
-    }*/
+    }
     
-    TextureBlock1.SetTexture( RenderTarget.GetTargetTexture( 0 ) );
-    TextureBlock2.SetTexture( RenderTarget.GetTargetTexture( 1 ) );
-    TextureBlock3.SetTexture( RenderTarget.GetTargetTexture( 2 ) );
-    TextureBlock4.SetTexture( RenderTarget.GetTargetTexture( 3 ) );
-    TextureBlock5.SetTexture( RenderTarget.GetTargetTexture( 4 ) );
+    TextureBlock1.SetTexture( RenderTarget->GetTargetTexture( 0 ) );
+    TextureBlock2.SetTexture( RenderTarget->GetTargetTexture( 1 ) );
+    TextureBlock3.SetTexture( RenderTarget->GetTargetTexture( 2 ) );
+    TextureBlock4.SetTexture( RenderTarget->GetTargetTexture( 3 ) );
+    TextureBlock5.SetTexture( RenderTarget->GetTargetTexture( 4 ) );
     
     Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut, &TextureBlock1 ) ;
     Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut1, &TextureBlock2 ) ;

@@ -21,13 +21,13 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Initialize() {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Update( float time_step ) {
+void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Update( void * ecs_base_pointer, float time_step ) {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( GRAPHIC_RENDERER & renderer ) {
+void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) {
     
-    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    std::vector< GAMEPLAY_COMPONENT_ENTITY_HANDLE >::iterator it = EntitiesTable.begin();
     
     renderer.GetSpotLightTable().clear();
     renderer.GetPointLightTable().clear();
@@ -35,17 +35,17 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( GRAPHIC_RENDERER & renderer ) {
     const GRAPHIC_CAMERA_FUSTRUM & fustrum = renderer.GetCamera()->GetFustrum();
     
     while (it != EntitiesTable.end() ) {
+    
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
         
-        GAMEPLAY_COMPONENT_ENTITY * entity = it->second->GetEntity();
-        
-        GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
-        GAMEPLAY_COMPONENT_POSITION * located = (GAMEPLAY_COMPONENT_POSITION * ) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+        GAMEPLAY_COMPONENT_POSITION * located = entity->GetComponentPosition();
+        GAMEPLAY_COMPONENT_RENDER * renderable = entity->GetComponentRender();
         
         float d = renderable->GetObject().GetResource<GRAPHIC_OBJECT>()->GetMeshTable()[0]->GetBoundingShape().GetHalfDiagonal().X();
         
         //if ( fustrum.SphereInFrustum( located->GetPosition(), ( d > 0.0f) ? d : 1.0f ) ) {
         
-            auto light = (GAMEPLAY_COMPONENT_LIGHT::PTR) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Light );
+            auto light = (GAMEPLAY_COMPONENT_LIGHT::PTR) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Light );
         
             GRAPHIC_OBJECT_RENDER_OPTIONS
                 options,
@@ -105,7 +105,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Render( GRAPHIC_RENDERER & renderer ) {
                     break;
                     
                 default:
-                    abort();
+                    CORE_RUNTIME_Abort();
                     break;
             }
         

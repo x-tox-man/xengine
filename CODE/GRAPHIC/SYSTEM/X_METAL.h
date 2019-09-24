@@ -12,7 +12,6 @@
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 
-#include "GRAPHIC_SYSTEM.h"
 #include "GRAPHIC_TEXTURE_INFO.h"
 #include "SERVICE_LOGGER.h"
 
@@ -42,5 +41,7 @@ abort();
 
 #define GRAPHIC_SYSTEM_ApplyFloatArray(index, size, array) \
 abort();
+
+
 
 #endif /* METAL_h */

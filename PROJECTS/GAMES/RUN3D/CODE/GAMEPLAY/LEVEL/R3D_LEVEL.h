@@ -35,6 +35,7 @@ XS_CLASS_BEGIN( R3D_LEVEL )
 
     void OnCheckpointCollision( GAMEPLAY_COMPONENT_ENTITY * entity );
     void OnPlayerCompleted( GAMEPLAY_COMPONENT_ENTITY * entity );
+    void OnPlayerTouchedCheckPoint( GAMEPLAY_COMPONENT_ENTITY * checkpoint, GAMEPLAY_COMPONENT_ENTITY * ship );
     inline R3D_GAME_LEVEL_INFO::PTR GetInfo() { return Info; }
     inline void SetInfo( R3D_GAME_LEVEL_INFO::PTR info ) { Info = info; }
 
@@ -61,6 +62,8 @@ private :
         Checkpoints;
     CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_ENTITY * >
         EndGameCallback;
+    CORE_HELPERS_CALLBACK_2< GAMEPLAY_COMPONENT_ENTITY *, GAMEPLAY_COMPONENT_ENTITY * >
+        TouchCheckpointCallback;
     R3D_GAME_LEVEL_INFO::PTR
         Info;
     CORE_ABSTRACT_PROGRAM_FACTORY

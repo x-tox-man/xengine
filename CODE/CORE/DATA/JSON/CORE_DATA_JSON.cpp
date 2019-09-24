@@ -64,7 +64,7 @@ void XSPrintf<unsigned int>( char * string_stream, const char * name, unsigned i
 template<>
 void XSPrintf<SCALAR>( char * string_stream, const char * name, SCALAR & value) {
     
-    abort();
+    CORE_RUNTIME_Abort();
     sprintf( string_stream, "\"%s\":%d", name, value );
 }
 
@@ -204,7 +204,7 @@ void XSscanf<unsigned int>( char * string_stream, const char * name, unsigned in
 template<>
 void XSscanf<SCALAR>( char * string_stream, const char * name, SCALAR & value, int & string_size ) {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 CORE_DATA_JSON::CORE_DATA_JSON() :

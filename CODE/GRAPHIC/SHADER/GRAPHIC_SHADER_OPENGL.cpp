@@ -72,6 +72,7 @@ bool GRAPHIC_SHADER::CompileShader( GLuint & shader, GLenum type,  const CORE_FI
         
         SERVICE_LOGGER_Error( "GRAPHIC_SHADER::CompileShader could not open file output" );
         
+        CORE_RUNTIME_Abort();
         return false;
     }
     
@@ -90,6 +91,7 @@ bool GRAPHIC_SHADER::CompileShader( GLuint & shader, GLenum type,  const CORE_FI
     else {
         
         SERVICE_LOGGER_Error( "error: only %d could be read", bytes_read );
+        CORE_RUNTIME_Abort();
     }
     
     file.Close();
@@ -97,6 +99,7 @@ bool GRAPHIC_SHADER::CompileShader( GLuint & shader, GLenum type,  const CORE_FI
     if (!source)
     {
         SERVICE_LOGGER_Error( "GRAPHIC_SHADER::CompileShader source error" );
+        CORE_RUNTIME_Abort();
         
         return false;
     }
@@ -126,6 +129,7 @@ bool GRAPHIC_SHADER::CompileShader( GLuint & shader, GLenum type,  const CORE_FI
             }
 
             CORE_MEMORY_ALLOCATOR_Free(log);
+            CORE_RUNTIME_Abort();
         }
     #endif
     

@@ -102,7 +102,7 @@ void GRAPHIC_SHADER_EFFECT::Discard() {
 
 void GRAPHIC_SHADER_EFFECT::Release() {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 GRAPHIC_SHADER_EFFECT::PTR GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmentPath( const CORE_FILESYSTEM_PATH & vertex_path, const CORE_FILESYSTEM_PATH & fragment_path, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {

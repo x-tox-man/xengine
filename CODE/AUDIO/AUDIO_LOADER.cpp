@@ -39,7 +39,7 @@ void AUDIO_LOADER_Reset( AUDIO_SOUND & sound ) {
     #if AUDIO_OGG
         OGG_Reset( sound );
     #else
-        abort();
+        #error "Must use AUDIO_OGG"
     #endif
 }
 
@@ -163,13 +163,13 @@ bool AUDIO_LOADER_ReadChunk( AUDIO_SOUND & sound, int chunk_index ) {
                      withChannels:sound.GetChannels()
                          fromFile:(ExtAudioFileRef * ) sound.GetExtAudioFile()];
     #elif PLATFORM_IOS && __AUDIO_OPENAL__
-        abort();
+        #error "cannot use PLATFORM_IOS && __AUDIO_OPENAL__ in this configuration"
     #elif PLATFORM_ANDROID
         MPG_123_Read( sound , chunk_index);
     #elif PLATFORM_WINDOWS
-
+        #error "TODO implement"
     #else
-        abort();
+        #error "Must define one audio platform"
     #endif
     
     return file_is_at_end;

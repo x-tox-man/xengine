@@ -42,9 +42,10 @@ void R3D_COMMAND_GAME_STATUS::Apply() {
     
     while ( it != PlayersUpdates.end() ) {
         
+        CORE_RUNTIME_Abort();
         //(*players)[it->first]->GetShip()->SetPosition( it->second.Position );
         //(*players)[it->first]->GetShip()->SetOrientation( it->second.ShipOrientation );
-        (*players)[it->first]->GetShip()->ApplyInputParamters( it->second.Thrust, it->second.Orientation );
+        //(*players)[it->first]->GetShip()->ApplyInputParamters( it->second.Thrust, it->second.Orientation );
         
         it++;
     }

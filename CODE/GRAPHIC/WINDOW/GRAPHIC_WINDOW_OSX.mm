@@ -14,7 +14,14 @@
 #include "GRAPHIC_SYSTEM.h"
 #include "CORE_PARALLEL_LOCK.h"
 
-GRAPHIC_WINDOW_OSX::GRAPHIC_WINDOW_OSX() : GRAPHIC_WINDOW()
+#if X_METAL
+    #import <Metal/Metal.h>
+    #import <MetalKit/MetalKit.h>
+    #import "METAL_VIEW_DELEGATE.h"
+#endif
+
+GRAPHIC_WINDOW_OSX::GRAPHIC_WINDOW_OSX() :
+    GRAPHIC_WINDOW()
 {
     
 }
@@ -28,19 +35,37 @@ CORE_HELPERS_CALLBACK_1< const char * >
 
 void GRAPHIC_WINDOW_OSX::Initialize()
 {
-    glView = [[CustomGlView alloc] initWithFrame:NSMakeRect( GetPositionX(), GetPositionY(), GetWidth(), GetHeight())];
+    #if X_METAL
     
-    [glView registerForDraggedTypes:[NSArray arrayWithObjects: NSFilenamesPboardType, nil]];
+    #elif OPENGL4
+        glView = [[CustomGlView alloc] initWithFrame:NSMakeRect( GetPositionX(), GetPositionY(), GetWidth(), GetHeight())];
+    
+        [glView registerForDraggedTypes:[NSArray arrayWithObjects: NSFilenamesPboardType, nil]];
+    #else
+        #error "TODO : Implement"
+    #endif
 }
 
 void GRAPHIC_WINDOW_OSX::Display() {
 
-    [glView startUpdate];
+    #if X_METAL
+        //#error "TODO : Implement"
+    #elif OPENGL4
+        [glView startUpdate];
+    #else
+        #error "TODO : Implement"
+    #endif
 }
 
 void GRAPHIC_WINDOW_OSX::EnableBackgroundContext(bool enable) {
     
-    [glView enableBackgroundContext:(BOOL)enable];
+    #if X_METAL
+        //#error "TODO : Implement"
+    #elif OPENGL4
+        [glView enableBackgroundContext:(BOOL)enable];
+    #else
+    #error "TODO : Implement"
+    #endif
 }
 
 void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
@@ -48,15 +73,44 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
     SetWidth( width );
     SetHeight( height );
     
-    CGRect newFrame = glView.frame;
-    newFrame.size.width = width;
-    newFrame.size.height = height;
-    [glView setFrame:newFrame];
-    [glView.superview setFrame:newFrame];
+    #if X_METAL
+        //#error "TODO : Implement"
+    #elif OPENGL4
+    
+        CGRect newFrame = glView.frame;
+        newFrame.size.width = width;
+        newFrame.size.height = height;
+    
+        [glView setFrame:newFrame];
+        [glView.superview setFrame:newFrame];
+    #else
+        #error "TODO : Implement"
+    #endif
     
     GRAPHIC_RENDERER::GetInstance().Resize(width, height);
 }
 
+void GRAPHIC_WINDOW_OSX::SetupWindow( NSWindow * window ) {
+    
+    //[window.contentView setAcceptsTouchEvents:YES];
+    window.contentView.allowedTouchTypes = NSTouchTypeMaskDirect;
+    
+    #if X_METAL
+        MTKView * v = (__bridge MTKView *) MetalView;
+        v.allowedTouchTypes = NSTouchTypeMaskDirect;
+        [window.contentView addSubview:v];
+    
+        GRAPHIC_SYSTEM::InitializeMetal( MetalView );
+    #elif OPENGL4
+        glView.allowedTouchTypes = NSTouchTypeMaskDirect;
+        [window.contentView addSubview:glView];
+    #else
+        #error "TODO : Implement"
+    #endif
+    
+}
+
+#if OPENGL4
 @implementation CustomGlView
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
@@ -244,3 +298,5 @@ void GRAPHIC_WINDOW_OSX::Resize( int width, int height ) {
     }
 }
 @end
+
+#endif

@@ -29,9 +29,9 @@ uniform sampler2DShadow d_texture2;
 uniform mediump mat4 ModelMatrix;
 uniform float cascadeEndClipSpace[3];
 uniform DirectionalLight directional_light;
+uniform float MaterialSpecularIntensity;
 
-
-uniform sampler2D gColorMap; 
+const float EPSILON = 0.00001;
 
 float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
 { 
@@ -43,7 +43,6 @@ float CalcShadowFactor(int CascadeIndex, vec4 LightSpacePos)
     float yOffset = 1.0 / 768.0;
 
     float Factor = 0.0;
-    const float EPSILON = 0.00001;
 
     for (int y = -1 ; y <= 1 ; y++) {
         for (int x = -1 ; x <= 1 ; x++) {
@@ -92,8 +91,8 @@ void main()
 
             break;
         }
-
     }
 
+    ShadowOut.g = MaterialSpecularIntensity;
     ShadowOut.a = 1.0;
 }

@@ -50,7 +50,7 @@ void GAMEPLAY_COMPONENT_AABB_TREE::Remove( GAMEPLAY_COMPONENT_ENTITY * entity ) 
     
     if ( render_component ) {
         
-        abort();
+        InvalidNodesList.push_back( &render_component->GetAABBNode() );
     }
 }
 
@@ -114,7 +114,7 @@ void GAMEPLAY_COMPONENT_AABB_TREE::Insert( GAMEPLAY_COMPONENT_ENTITY * entity, f
 
 void GAMEPLAY_COMPONENT_AABB_TREE::InsertBackToFront( GAMEPLAY_COMPONENT_AABB_NODE * node ) {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 void GAMEPLAY_COMPONENT_AABB_TREE::Insert( GAMEPLAY_COMPONENT_AABB_NODE * node, GAMEPLAY_COMPONENT_AABB_NODE ** parent ) {

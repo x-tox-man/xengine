@@ -17,6 +17,7 @@
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_SHADER_LIGHT.h"
 #include "CORE_PARALLEL_LOCK.h"
+#include "GRAPHIC_SYSTEM.h"
 
 #define GRAPHIC_MAX_NUM_CASCADES    8
 
@@ -40,8 +41,9 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     }
 
     void Render() {
-        
-        (*RenderCallback)();
+        GRAPHIC_SYSTEM::BeginRendering();
+            (*RenderCallback)();
+        GRAPHIC_SYSTEM::EndRendering();
     }
 
     void EndFrame() {

@@ -77,6 +77,8 @@ private :
         TextureBlock4;
     GRAPHIC_SHADER_EFFECT::PTR
         UIShaderTextured;
+    GRAPHIC_RENDERER_TECHNIQUE
+        TransparentTechnique;
     GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR
         SpeedBlurTechnique;
     GRAPHIC_RENDERER_TECHNIQUE_BLOOM
