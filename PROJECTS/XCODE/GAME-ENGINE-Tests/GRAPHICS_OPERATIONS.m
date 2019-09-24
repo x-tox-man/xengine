@@ -45,6 +45,7 @@
 #include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM.h"
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
@@ -58,6 +59,10 @@
 #include "GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM.h"
 #include "GRAPHIC_SHADER_EFFECT_SPEEDBLUR.h"
 #include "GRAPHIC_MATERIAL_COLLECTION.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
+#include "GAMEPLAY_COMPONENT.h"
+#include "GAMEPLAY_COMPONENT_POSITION.h"
+#include "GAMEPLAY_COMPONENT_RENDER.h"
 
 @interface GRAPHICS_OPERATIONS : XCTestCase
 
@@ -77,7 +82,7 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     
-    file_system.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
+    file_system.Initialize( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/" );
     
     CORE_FILESYSTEM::SetDefaultFilesystem( file_system );
     
@@ -96,7 +101,7 @@
     
     lookat.Normalize();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR::Zero, lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     RenderTarget.Initialize( Window->GetWidth(), Window->GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
 }
@@ -131,8 +136,8 @@
     lookat.FromMatrix( &rotation_mat[0] );
     lookat.Normalize();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), lookat );
-    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
+    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
@@ -175,8 +180,8 @@
     lookat.FromMatrix( &rotation_mat[0] );
     lookat.Normalize();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), lookat );
-    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
+    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
@@ -205,7 +210,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     for (int i = 0; i < animated_object->GetMeshTable().size(); i++ ) {
         
-        char * temp_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate(strlen( animation_path.GetPath() ) + 2 );
+        char temp_path[128];
         
         strcpy(temp_path, animation_path.GetPath() );
         
@@ -219,8 +224,6 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         animated_object->GetAnimationController()->Load( path );
         
         animated_object->GetAnimationController()->GetAnimation( i )->Initialize( animated_object->GetJointTable(), 0);
-        
-        CORE_MEMORY_ALLOCATOR_Free( temp_path );
     }
     
     animated_object->GetAnimationController()->Initialize();
@@ -245,7 +248,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     lookat.RotateX(45.0f);
     lookat.Normalize();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 1000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 1000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
@@ -287,7 +290,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     lookat.RotateX(M_PI_4);
     lookat.Normalize();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 1000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 1000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
@@ -340,7 +343,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     lookat.Normalize();
     
     //Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), lookat );
-    Camera = new GRAPHIC_CAMERA_ORTHOGONAL( 10.0f, -10.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat);
+    Camera = new GRAPHIC_CAMERA_ORTHOGONAL( 10.0f, -10.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
@@ -388,8 +391,8 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     lookat.FromMatrix( &rotation_mat[0] );
     lookat.Normalize();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), lookat );
-    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
+    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
@@ -409,28 +412,21 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     rd->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
-    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntity<GAMEPLAY_COMPONENT_ENTITY>();
-    
-    GAMEPLAY_COMPONENT_HANDLE position_handle, render_handle;
-    
-    position_handle.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    component_entity->SetCompononent( position_handle, GAMEPLAY_COMPONENT_TYPE_Position );
-    
-    render_handle.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
-    component_entity->SetCompononent( render_handle, GAMEPLAY_COMPONENT_TYPE_Render );
+    GAMEPLAY_COMPONENT_ENTITY * component_entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER>();
     
     RESOURCE_PROXY effect( CubeEffect );
     RESOURCE_PROXY object( CubeObject );
     
-    render_handle.GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetEffect( effect );
-    render_handle.GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetObject( object );
+    auto render = component_entity->GetComponentRender();
+    render->SetEffect( effect );
+    render->SetObject( object );
     
     scene->GetRenderableSystemTable()[0]->AddEntity( component_entity->GetHandle(), component_entity );
     
     RenderTarget.Apply();
     
     scene->Update( 0.033f );
-    scene->Render( GRAPHIC_RENDERER::GetInstance() );
+    scene->Render( GRAPHIC_RENDERER::GetInstance(), GAMEPLAY_COMPONENT_SYSTEM_MASK_ );
     
     GRAPHIC_TEXTURE * texture = RenderTarget.GetTargetTexture( 0 );
     texture->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "testRenderScene" , "png", "" ) );
@@ -452,8 +448,8 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     lookat.FromMatrix( &rotation_mat[0] );
     lookat.Normalize();
     
-    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), lookat );
-    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 100.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
+    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
@@ -516,7 +512,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     scene->Clear();
     
-    /*abort(); //TODO : Fix memory placement for all objects (ex resource proxy must not be valid anymore
+    /*#error "TODO implement" //TODO : Fix memory placement for all objects (ex resource proxy must not be valid anymore
     scene->LoadFrom( CORE_FILESYSTEM_PATH::FindFilePath("scene-test-2", "scx", "") );
     
     RenderTarget.Apply();
@@ -588,7 +584,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     PlanObject->InitializeShape();
     
-    auto RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, interface_lookat );
+    auto RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     option.SetPosition( CORE_MATH_VECTOR::Zero );
     option.SetOrientation( CORE_MATH_QUATERNION() );
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
@@ -608,7 +604,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         lookat.FromMatrix( &rotation_mat[0] );
         lookat.Normalize();
         
-        Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+        Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
         
         GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
         
@@ -712,7 +708,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     auto CubeEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
-    GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR SpeedBlurEffect = new GRAPHIC_SHADER_EFFECT_SPEEDBLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::FullScreenSpeedBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullScreenSpeedBlurShader" , "", "OPENGL2" ) ) );
+    GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PTR SpeedBlurEffect = new GRAPHIC_SHADER_EFFECT_SPEEDBLUR( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::FullScreenSpeedBlurShader"), CORE_FILESYSTEM_PATH::FindFilePath( "FullScreenSpeedBlurShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
     
     SpeedBlurEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
@@ -722,7 +718,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     PlanObject->InitializeShape();
     
-    auto RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, interface_lookat );
+    auto RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     option.SetPosition( CORE_MATH_VECTOR::Zero );
     option.SetOrientation( CORE_MATH_QUATERNION() );
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
@@ -731,7 +727,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     v_lookat.Normalize();
     
-    Camera->UpdateCamera( CORE_MATH_VECTOR( -10.0f, 0.0f, 10.0f, 0.0f), v_lookat );
+    Camera->UpdateCamera( CORE_MATH_VECTOR( -10.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis );
     
     CORE_MATH_MATRIX previous_mat( &Camera->GetProjectionMatrix()[0] );
     
@@ -742,7 +738,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
            (void*) &previous_mat[0],
            16* sizeof(float) );
 
-    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), v_lookat );
+    Camera->UpdateCamera( CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis );
     
     CORE_MATH_MATRIX current_mat( &Camera->GetProjectionMatrix()[0] );
     
@@ -772,7 +768,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
         lookat.FromMatrix( &rotation_mat[0] );
         lookat.Normalize();
         
-        Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), lookat );
+        Camera = new GRAPHIC_CAMERA( 1.0f, 100000.0f, Window->GetWidth(), Window->GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 10.0f, 0.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
         
         GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
         
@@ -818,6 +814,133 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
            (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
            (void*) &previous_mat[0],
            16* sizeof(float) );
+}
+
+/*-(void) testShapeModelViewZSorting {
+    
+    GRAPHIC_CAMERA camera;
+    AABBTree tree;
+    CORE_MATH_QUATERNION q;
+    AABBNodeFrontToBackFustrumCollider
+        collider;
+    
+    auto CubeObject = new GRAPHIC_OBJECT_SHAPE_CUBE;
+    
+    auto CubeEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShaderColor"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+    options;
+    
+    CubeEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    CubeEffect->SetMaterial( new GRAPHIC_MATERIAL );
+    
+    CubeObject->InitializeShape();
+    
+    CORE_HELPERS_CALLBACK_1< AABBNode * > callback( Wrapper1<AABBNodeFrontToBackFustrumCollider, AABBNode *, &AABBNodeFrontToBackFustrumCollider::Collide>, &collider );
+    
+    GAMEPLAY_COMPONENT_ENTITY
+    * entity1 = new GAMEPLAY_COMPONENT_ENTITY,
+    * entity2 = new GAMEPLAY_COMPONENT_ENTITY,
+    * entity3 = new GAMEPLAY_COMPONENT_ENTITY;
+    
+    {
+        GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r;
+        RESOURCE_PROXY proxy;
+        
+        proxy.SetResource( CubeObject );
+        
+        handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
+        handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
+        
+        entity1->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
+        entity1->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
+        entity1->SetPosition(CORE_MATH_VECTOR( -10.0f, 0.0f ) );
+        
+        GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity1->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+        
+        render->SetObject( proxy );
+    }
+    
+    {
+        GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r;
+        RESOURCE_PROXY proxy;
+        
+        proxy.SetResource( CubeObject );
+        
+        handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
+        handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
+        
+        entity2->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
+        entity2->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
+        entity2->SetPosition(CORE_MATH_VECTOR( 10.0f, 10.0f ) );
+        
+        GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity2->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+        
+        render->SetObject( proxy );
+    }
+    
+    {
+        GAMEPLAY_COMPONENT_HANDLE handle_p, handle_r;
+        RESOURCE_PROXY proxy;
+        
+        proxy.SetResource( CubeObject );
+        
+        handle_p.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
+        handle_r.Create< GAMEPLAY_COMPONENT_RENDER >( GAMEPLAY_COMPONENT_TYPE_Render );
+        
+        entity3->SetCompononent( handle_p, GAMEPLAY_COMPONENT_TYPE_Position );
+        entity3->SetCompononent( handle_r, GAMEPLAY_COMPONENT_TYPE_Render );
+        entity3->SetPosition(CORE_MATH_VECTOR( -11.0f, 1.0f ) );
+        
+        GAMEPLAY_COMPONENT_RENDER::PTR render = (GAMEPLAY_COMPONENT_RENDER::PTR) entity3->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+        
+        render->SetObject( proxy );
+    }
+    
+    
+    
+    tree.Insert( entity1 );
+    tree.Insert( entity2 );
+    tree.Insert( entity3 );
+    
+    CORE_MATH_MATRIX rotation_mat;
+    
+    rotation_mat.YRotate( M_PI_2 );
+    
+    q.RotateY( M_PI_2 );
+    q.FromMatrix( &rotation_mat[0] );
+    
+    camera.Reset(1.0f, 100.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR( -4.0f, 1.0f, 0.0f, 1.0f), q );
+    camera.ActivateForRender();
+    
+    tree.QueryTopToBottom( camera.GetFustrum(), callback );
+    
+    XCTAssert( collider.Amount == 2 );
+}*/
+
+-(void) testCameraXYZ {
+    
+    GRAPHIC_CAMERA camera;
+    CORE_MATH_MATRIX mvp, object_matrix;
+    camera.Reset( 1.0f, 150.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis,
+          CORE_MATH_VECTOR::YAxis );
+    
+    CORE_MATH_VECTOR vector( 0.0f, 0.0f, -10.0f, 1.0f ), result;
+    
+    mvp = camera.GetProjectionMatrix() * camera.GetViewMatrix() * object_matrix;
+    result = mvp * vector;
+}
+
+-(void) testCameraXYZ2 {
+    
+    GRAPHIC_CAMERA camera;
+    CORE_MATH_MATRIX mvp, object_matrix;
+    camera.Reset( 1.0f, 150.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR( 2.2f, -2.4f + 0.15f, -6.6f + 1.95f, 1.0f ), CORE_MATH_VECTOR::ZAxis,
+                 CORE_MATH_VECTOR::YAxis );
+    
+    CORE_MATH_VECTOR vector( 2.2f, -2.4f, -6.6f, 1.0f ), result;
+    
+    mvp = camera.GetProjectionMatrix() * camera.GetViewMatrix() * object_matrix;
+    result = mvp * vector;
 }
 
 @end

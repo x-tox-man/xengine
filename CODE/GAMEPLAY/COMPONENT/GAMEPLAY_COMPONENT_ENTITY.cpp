@@ -11,8 +11,6 @@
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_ANIMATION.h"
-#include "GAMEPLAY_COMPONENT_HANDLE.h"
-#include "GAMEPLAY_COMPONENT_BASE_ENTITY.h"
 #include "CORE_DATA_STREAM.h"
 #include "CORE_DATA_JSON.h"
 
@@ -24,26 +22,39 @@ CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GAMEPLAY_COMPONENT_ENTITY )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1(GAMEPLAY_COMPONENT_ENTITY, SetOrientation, const CORE_MATH_QUATERNION & )
 CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GAMEPLAY_COMPONENT_ENTITY )
 
-const int l = GAMEPLAY_COMPONENT_ENTITY_MAX_COMPONENTS;
-
-XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY )
-    XS_DEFINE_ClassMember( "Handle", GAMEPLAY_COMPONENT_ENTITY_HANDLE, Handle )
-    XS_DEFINE_ClassMemberArray( "Components", GAMEPLAY_COMPONENT_HANDLE , ( GAMEPLAY_COMPONENT_HANDLE* & ) *Components, l)
-XS_END_INTERNAL_MEMORY_LAYOUT
-
-XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY )
-XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY * )
+//XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY )
+//XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY * )
 
 GAMEPLAY_COMPONENT_ENTITY::GAMEPLAY_COMPONENT_ENTITY( const GAMEPLAY_COMPONENT_ENTITY & other ) :
-    Components(),
+    Handle(),
     Parent( other.GetParent() ),
-    ChildEntities() {
+    Childs(),
+    ComponentCount( 0 ) {
+}
+
+void GAMEPLAY_COMPONENT_ENTITY::Scale( float scale ) {
     
-    abort();
+    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
     
-    for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
+    render_component->SetScaleFactor( scale );
+    
+    if ( render_component ) {
         
-        ChildEntities[ i ] = NULL;
+        render_component->GetAABBNode().GetBox().SetHalfDiagonal( render_component->GetAABBNode().GetBox().GetHalfDiagonal() * scale );
+    }
+}
+
+void GAMEPLAY_COMPONENT_ENTITY::Resize( const CORE_MATH_VECTOR & size ) {
+    
+    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    
+    float scale = ( (render_component->GetAABBNode().GetBox().GetHalfDiagonal() *2).ComputeSquareLength() / size.ComputeSquareLength() );
+    
+    render_component->SetScaleFactor( scale );
+    
+    if ( render_component ) {
+        
+        render_component->GetAABBNode().GetBox().SetHalfDiagonal( size * 0.5f );
     }
 }
 
@@ -51,11 +62,18 @@ void GAMEPLAY_COMPONENT_ENTITY::SetPosition( const CORE_MATH_VECTOR & position )
     
     GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     GAMEPLAY_COMPONENT_PHYSICS * physics_component = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
     
     position_component->SetPosition( position );
+    
     if ( physics_component ) {
         
         physics_component->ForcePosition( position );
+    }
+    
+    if ( render_component ) {
+        
+        render_component->GetAABBNode().GetBox().SetPosition( position );
     }
 
     /*for( int i = 0; i < GAMEPLAY_COMPONENT_ENTITY_MAX_CHILDS; i++ ) {
@@ -72,6 +90,8 @@ void GAMEPLAY_COMPONENT_ENTITY::SetPositionOffset( const CORE_MATH_VECTOR & offs
     GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
     
     position_component->SetPositionOffset( offset );
+    
+    CORE_RUNTIME_Abort();
 }
 
 void GAMEPLAY_COMPONENT_ENTITY::SetOrientation( const CORE_MATH_QUATERNION & orientation ) {

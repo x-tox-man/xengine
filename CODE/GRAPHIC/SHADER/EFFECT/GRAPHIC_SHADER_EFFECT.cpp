@@ -75,18 +75,18 @@ void GRAPHIC_SHADER_EFFECT::BindAttribute( GRAPHIC_SHADER_ATTRIBUTE &shader_attr
     Program.GetProgram()->BindAttribute( shader_attribute, identifier);
 }
 
-void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing ) {
     
     GetProgram().Enable();
-    MaterialCollection->Apply(renderer, &GetProgram() );
-}
-
-void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer, bool activate_material ) {
+    MaterialCollection->Apply(renderer, &GetProgram(), does_lighting, does_texturing );
     
-    GetProgram().Enable();
+    if ( GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeIndex >= 0 ) {
+        
+        GRAPHIC_SYSTEM_ApplyVector( GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeIndex, 1, GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeValue.Value.FloatArray4 );
+    }
 }
 
-void GRAPHIC_SHADER_EFFECT::SelectMaterial( std::string & material_name ) {
+void GRAPHIC_SHADER_EFFECT::SelectMaterial( const char * material_name ) {
     
     auto material = MaterialCollection->GetMaterialForName( material_name );
     if ( material )
@@ -102,7 +102,7 @@ void GRAPHIC_SHADER_EFFECT::Discard() {
 
 void GRAPHIC_SHADER_EFFECT::Release() {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 GRAPHIC_SHADER_EFFECT::PTR GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmentPath( const CORE_FILESYSTEM_PATH & vertex_path, const CORE_FILESYSTEM_PATH & fragment_path, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {

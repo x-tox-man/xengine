@@ -41,5 +41,6 @@ void R3D_GAMEPLAY_GAME_DELEGATE::InternalUpdateGame( const float step ) {
 
 void R3D_GAMEPLAY_GAME_DELEGATE::SetPlayerUpdate( R3D_COMMAND_PLAYER_UPDATE::PTR player_update ) {
     
-    (*PlayersList)[ R3D_APP_PTR->GetGame()->GetThisPlayerIndex() ]->GetShip()->ApplyInputParamters( Thrust, Orientation );
+    abort();
+    //(*PlayersList)[ R3D_APP_PTR->GetGame()->GetThisPlayerIndex() ]->GetShip()->ApplyInputParamters( Thrust, Orientation );
 }

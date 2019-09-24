@@ -178,7 +178,7 @@ void GRAPHIC_MESH_MANAGER::Compile( const CORE_FILESYSTEM_PATH & path, const COR
             
             GRAPHIC_MESH_ANIMATION * animation = object->GetAnimationTable()[ 0 ];
             
-            char * new_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate( strlen(destination_path.GetPath()) + strlen(animation->GetAnimationName().c_str()) +2 );
+            char new_path[128];
             
             strcpy(new_path, destination_path.GetPath() );
             
@@ -205,7 +205,7 @@ void GRAPHIC_MESH_MANAGER::Compile( const CORE_FILESYSTEM_PATH & path, const COR
         
             GRAPHIC_MESH_ANIMATION * animation = object->GetAnimationTable()[ i ];
         
-            char * new_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate( strlen(destination_path.GetPath()) + strlen(animation->GetAnimationName().c_str()) +2 );
+            char new_path[128];
         
             strcpy(new_path, destination_path.GetPath() );
         
@@ -250,8 +250,6 @@ void GRAPHIC_MESH_MANAGER::Compile( const CORE_FILESYSTEM_PATH & path, const COR
             
                 CORE_RUNTIME_Abort();
             }
-            
-            CORE_MEMORY_ALLOCATOR_Free( new_path );
         }
     #endif
 }

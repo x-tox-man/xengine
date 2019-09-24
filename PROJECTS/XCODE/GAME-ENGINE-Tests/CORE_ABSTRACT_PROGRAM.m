@@ -50,7 +50,7 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     
-    file_system.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
+    file_system.Initialize( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/" );
     
     CORE_FILESYSTEM::SetDefaultFilesystem( file_system );
 }

@@ -17,43 +17,17 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_C
     GAMEPLAY_COMPONENT_ANIMATION();
     virtual ~GAMEPLAY_COMPONENT_ANIMATION();
 
-    void * operator new(size_t size);
-    void operator delete( void* ptr );
-
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Animation)
-
-    struct INTERNAL_ARRAY_A{
-        int LastIndex;
-        GAMEPLAY_COMPONENT_ANIMATION * MemoryArray;
-    };
-
-
 
     void UpdateAnimation( float time_step );
 
     void SetAnimation( const GRAPHIC_MESH_ANIMATION_CONTROLLER & animation ) { Animation = animation; }
-
-    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
-        
-        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
-    }
-
-    static void Clear();
-
-    static void SaveToStream( CORE_DATA_STREAM & stream );
-    static void LoadFromStream( CORE_DATA_STREAM & stream );
-
-    static int
-        LastIndex,
-        LastOffset;
 
 private :
 
 
     GRAPHIC_MESH_ANIMATION_CONTROLLER
         Animation;
-    static std::vector< INTERNAL_ARRAY_A >
-        * InternalVector;
 
 XS_CLASS_END
 

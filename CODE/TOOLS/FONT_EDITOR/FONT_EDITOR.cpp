@@ -235,6 +235,7 @@ void FONT_EDITOR::SaveFont( const FONT_DESCRIPTOR & descriptor,
     
     image = new RESOURCE_IMAGE;
     image->SetImageRawData( ( void* ) ImageBuffer );
+    image->SetSize( stream.GetSize() );
     image->GetImageInfo().Height = Height;
     image->GetImageInfo().Width = Width;
     image->GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;

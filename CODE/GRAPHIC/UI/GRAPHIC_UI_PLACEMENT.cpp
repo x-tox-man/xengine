@@ -94,7 +94,7 @@ void GRAPHIC_UI_PLACEMENT::OnPlacementPropertyChanged() {
 void GRAPHIC_UI_PLACEMENT::Copy( GRAPHIC_UI_PLACEMENT & other ) {
 
     other.RelativePosition = RelativePosition;
-    other.AbsolutePosition = AbsolutePosition,
+    other.AbsolutePosition = AbsolutePosition;
     other.Size = Size;
     other.Anchor = Anchor;
     other.Rotation = Rotation;

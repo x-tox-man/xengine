@@ -74,7 +74,7 @@
         
     }
     else {
-        abort();
+        CORE_RUNTIME_Abort();
     }
 }
 

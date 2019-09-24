@@ -28,3 +28,6 @@
 [submodule "LIBRARY/COMMON/OGG"]
 	path = LIBRARY/COMMON/OGG
 	url = https://git.xiph.org/ogg.git
+[submodule "LIBRARY/COMMON/CURL"]
+	path = LIBRARY/COMMON/CURL
+	url = git@github.com:curl/curl.git

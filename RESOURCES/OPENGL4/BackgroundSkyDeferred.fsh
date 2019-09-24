@@ -3,7 +3,6 @@
 in vec4 WorldPos0;
 in vec4 o_normal;
 in vec2 texCoord;
-in mat3 TBNMatrix_p;
 
 layout (location = 0) out vec4 WorldPosOut; 
 layout (location = 1) out vec4 DiffuseOut; 
@@ -22,4 +21,5 @@ void main()
     NormalOut = o_normal;
 
     ShadowOut = vec4( 1.0 );
+    SSAO = 0.0f;
 }

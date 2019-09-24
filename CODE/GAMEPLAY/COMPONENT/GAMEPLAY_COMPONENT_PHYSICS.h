@@ -31,13 +31,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COM
 
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Physics)
 
-    void * operator new(size_t size);
-    void operator delete( void* ptr );
-
-    struct INTERNAL_ARRAY_P{
-        int LastIndex;
-        GAMEPLAY_COMPONENT_PHYSICS * MemoryArray;
-    };
 
     inline CORE_MATH_SHAPE & GetShape() { return Shape; }
     inline const CORE_MATH_SHAPE & GetShape() const { return Shape; }
@@ -86,25 +79,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_PHYSICS, GAMEPLAY_COM
         #endif
     }
 
-    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
-        
-        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
-    }
-
     #ifdef __BULLET_PHYSICS__
         btTriangleMesh* CreateBvhTriangleMesh( GRAPHIC_OBJECT * object  );
         btTriangleMesh* GetTriangleMesh() const { return TriangleMesh; }
 
     #endif
-
-    static void Clear();
-
-    static void SaveToStream( CORE_DATA_STREAM & stream );
-    static void LoadFromStream( CORE_DATA_STREAM & stream );
-
-    static int
-        LastIndex,
-        LastOffset;
 
 private:
 
@@ -122,8 +101,6 @@ private:
         RollingFriction,
         SpinningFriction,
         Mass;
-    static std::vector< INTERNAL_ARRAY_P >
-        * InternalVector;
 
 #ifdef __BULLET_PHYSICS__
     btCollisionShape

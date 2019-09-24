@@ -39,6 +39,42 @@ CORE_MATH_SHAPE::~CORE_MATH_SHAPE() {
 
 }
 
+void CORE_MATH_SHAPE::AggregateWithBox( const CORE_MATH_SHAPE & other ) {
+    
+    float x_min = fmin( Position.X() - HalfDiagonal.X(), other.GetPosition().X() - other.GetHalfDiagonal().X() );
+    float y_min = fmin( Position.Y() - HalfDiagonal.Y(), other.GetPosition().Y() - other.GetHalfDiagonal().Y() );
+    float z_min = fmin( Position.Z() - HalfDiagonal.Z(), other.GetPosition().Z() - other.GetHalfDiagonal().Z() );
+    
+    float x_max = fmax( Position.X() + HalfDiagonal.X(), other.GetPosition().X() + other.GetHalfDiagonal().X() );
+    float y_max = fmax( Position.Y() + HalfDiagonal.Y(), other.GetPosition().Y() + other.GetHalfDiagonal().Y() );
+    float z_max = fmax( Position.Z() + HalfDiagonal.Z(), other.GetPosition().Z() + other.GetHalfDiagonal().Z() );
+    
+    Position.X( ( x_max + x_min ) * 0.5f );
+    Position.Y( ( y_max + y_min ) * 0.5f );
+    Position.Z( ( z_max + z_min ) * 0.5f );
+    
+    HalfDiagonal.X( fabs( x_max - x_min ) * 0.5f);
+    HalfDiagonal.Y( fabs( y_max - y_min ) * 0.5f);
+    HalfDiagonal.Z( fabs( y_max - z_min ) * 0.5f);
+}
+
+void CORE_MATH_SHAPE::ComputeMinMax( CORE_MATH_VECTOR & min, CORE_MATH_VECTOR & max ) const {
+    
+    min.Set( Position.X() - HalfDiagonal.X(), Position.Y() - HalfDiagonal.Y(), Position.Z() - HalfDiagonal.Z(), 0.0f );
+    
+    max.Set( Position.X() + HalfDiagonal.X(), Position.Y() + HalfDiagonal.Y(),Position.Z() + HalfDiagonal.Z(), 0.0f );
+}
+
+bool CORE_MATH_SHAPE::ContainsBox( const CORE_MATH_SHAPE & other ) {
+    
+    return Position.X() - HalfDiagonal.X() <= other.GetPosition().X() - other.GetHalfDiagonal().X() &&
+            Position.Y() - HalfDiagonal.Y()<= other.GetPosition().Y() - other.GetHalfDiagonal().Y() &&
+            Position.Z() - HalfDiagonal.Z()<= other.GetPosition().Z() - other.GetHalfDiagonal().Z() &&
+            Position.X() + HalfDiagonal.X() >= other.GetPosition().X() + other.GetHalfDiagonal().X() &&
+            Position.Y() + HalfDiagonal.Y() >= other.GetPosition().Y() + other.GetHalfDiagonal().Y() &&
+            Position.Z() + HalfDiagonal.Z() >= other.GetPosition().Z() + other.GetHalfDiagonal().Z();
+}
+
 bool CORE_MATH_SHAPE::GetIntersection( const CORE_MATH_SHAPE & other ) {
     
     CORE_MATH_VECTOR intersection;

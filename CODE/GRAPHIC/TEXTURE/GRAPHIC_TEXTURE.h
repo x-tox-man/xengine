@@ -16,6 +16,7 @@
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "CORE_FILESYSTEM_PATH.h"
 #include "RESOURCE.h"
+#include "CORE_DATA_BUFFER.h"
 
 class GRAPHIC_TEXTURE;
 class GRAPHIC_TEXTURE_LOADER;
@@ -34,6 +35,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_TEXTURE, GR_T_ANCESTOR_TYPE )
         GLuint & GetDepthTextureHandle() { return DepthTextureHandle; }
         void SetTextureHandle( GLuint handle ) { TextureHandle = handle; }
         void SetDepthTextureHandle( GLuint handle ) { DepthTextureHandle = handle; }
+    #elif X_METAL
+        inline void* GetTextureHandle() { return TextureHandle; }
+        inline void* GetDepthTextureHandle() { return DepthTextureHandle; }
+        inline void SetTextureHandle(void* texture ) { TextureHandle = texture; }
+        inline void SetDepthTextureHandle(void* texture ) { DepthTextureHandle = texture; }
     #elif X_VK
         inline VkSampler & GetVkSampler() { return Sampler; }
         inline VkImage & GetVkImage() { return Image; }
@@ -48,7 +54,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_TEXTURE, GR_T_ANCESTOR_TYPE )
         inline void SetVkImageView( VkImageView & view ) { Imageview = view; }
     #endif
 
-    virtual void Initialize( void * texture_data, bool generate_mip_map );
+    virtual void Initialize( CORE_DATA_BUFFER & texture_data, bool generate_mip_map );
     void Initialize( bool it_creates_depth = false, GRAPHIC_TEXTURE_IMAGE_TYPE depth_type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
     void InitializeDepth( GRAPHIC_TEXTURE_IMAGE_TYPE type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
 
@@ -74,6 +80,10 @@ private :
         GLuint
             TextureHandle,
             DepthTextureHandle;
+    #elif X_METAL
+        void
+            * TextureHandle,
+            * DepthTextureHandle;
     #elif X_VK
         VkSampler
             Sampler;

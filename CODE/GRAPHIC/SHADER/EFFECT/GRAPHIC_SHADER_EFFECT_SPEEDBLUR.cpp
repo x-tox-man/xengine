@@ -26,9 +26,9 @@ GRAPHIC_SHADER_EFFECT_SPEEDBLUR::~GRAPHIC_SHADER_EFFECT_SPEEDBLUR() {
 
 }
 
-void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply( GRAPHIC_RENDERER & renderer ) {
+void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply( GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing ) {
     
-    GRAPHIC_SHADER_EFFECT::Apply( renderer );
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, does_lighting, does_texturing );
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_view_ray = Program.getShaderAttribute( ViewRayIdentifier );
     GRAPHIC_SHADER_ATTRIBUTE & attr_previous_view_mat = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier );
@@ -48,9 +48,11 @@ void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::BindAttributes() {
 #if OPENGL2PLUS
     GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), ViewRayIdentifier.GetTextValue() ); )
 #elif X_VK
-    abort();
+    #error "TODO IMPLEMENT"
+#elif X_METAL
+    //#error "TODO IMPLEMENT"
 #else
-    abort();
+    #error "TODO IMPLEMENT"
 #endif
     
     if ( attribute->AttributeIndex != -1 ) {
@@ -69,9 +71,11 @@ void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::BindAttributes() {
 #if OPENGL2PLUS
     GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), InverseCurrentModelViewIdentifier.GetTextValue() ); )
 #elif X_VK
-    abort();
+    #error "TODO IMPLEMENT"
+#elif X_METAL
+    //#error "TODO IMPLEMENT"
 #else
-    abort();
+    #error "TODO IMPLEMENT"
 #endif
     
     if ( attribute->AttributeIndex != -1 ) {

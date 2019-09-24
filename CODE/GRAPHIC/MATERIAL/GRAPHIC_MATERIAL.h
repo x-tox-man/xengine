@@ -32,7 +32,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
     GRAPHIC_MATERIAL( const char * image_path );
     ~GRAPHIC_MATERIAL();
 
-    void Apply( GRAPHIC_RENDERER &, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * );
+    void Apply( GRAPHIC_RENDERER &, GRAPHIC_SHADER_PROGRAM_DATA_PROXY *, bool, bool );
     void ApplyTexture( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader );
     void Discard( GRAPHIC_RENDERER & renderer );
 
@@ -54,7 +54,12 @@ private:
     std::string
         Name;
     CORE_HELPERS_COLOR
-        Diffuse;
+        Diffuse,
+        Specular,
+        Ambient;
+    float
+        SpecularIntensity,
+        Shininess;
     std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * >
         TextureTable;
     bool

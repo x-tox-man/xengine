@@ -210,10 +210,11 @@ void RESOURCE_IMAGE_ATLAS_COMPILER::Compile( const char * destination_path, cons
     side_size++;
     
     RESOURCE_IMAGE * atlas_texture = new RESOURCE_IMAGE;
-    
-    void * memory = CORE_MEMORY_ALLOCATOR::Allocate( (size_t) (side_size * side_size * 16 ) );
+    int size = (side_size * side_size * 16 );
+    void * memory = CORE_MEMORY_ALLOCATOR::Allocate( (size_t) size );
     memset(memory, 18790648, (size_t) (side_size * side_size * 16 ));
     atlas_texture->SetImageRawData( memory );
+    atlas_texture->SetSize( size );
     atlas_texture->GetImageInfo().Height = side_size;
     atlas_texture->GetImageInfo().Width = side_size;
     atlas_texture->GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;

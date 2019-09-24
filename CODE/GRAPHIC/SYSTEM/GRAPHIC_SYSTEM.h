@@ -27,6 +27,7 @@
 #include "GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE.h"
 #include "GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h"
 #include "GRAPHIC_SYSTEM_BLEND_EQUATION.h"
+#include "GRAPHIC_SHADER_BIND.h"
 
 class GRAPHIC_TEXTURE;
 class GRAPHIC_RENDER_TARGET;
@@ -68,7 +69,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
 
     static void CreateTexture( GRAPHIC_TEXTURE * texture );
     static void CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type );
-    static void CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_data, bool generate_mipmap );
+    static void CreateTexture( GRAPHIC_TEXTURE * texture, CORE_DATA_BUFFER & texture_data, bool generate_mipmap );
     static void CreateSubTexture( GRAPHIC_TEXTURE * sub_texture, const GRAPHIC_TEXTURE & texture, const CORE_MATH_VECTOR & offset, const CORE_MATH_VECTOR & size, const void * data );
     static void ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
     static void ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index );
@@ -101,6 +102,17 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void ClearFrambufferDepth( float default_depth );
     static void ClearFrambufferColor();
     static void ClearFrambufferStencil();
+
+    static void BeginRendering();
+    static void EndRendering();
+
+#if X_METAL
+    static void * CreateMtlVertexDescriptor( GRAPHIC_SHADER_BIND bind);
+    static void * CreateMetalFunction( const char * function_name );
+    static void InitializeMetal( void * view );
+    static void * CreateMetalPipelineState( void * descriptor );
+    static void EnableMtlPipelineState( void * pipeline_state );
+#endif
 
     static CORE_PARALLEL_LOCK_MUTEX
         GraphicSystemLock;

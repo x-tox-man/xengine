@@ -77,8 +77,10 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape() {
                     break;*/
             }
             
-            float temp[] = { i * Length,  j * Length, height_offset * HeightScale,  1.0f, 0.0f, 1.0f, 0.0f, 1.0f, (float)(i / (float)(XWidth - 1)), (float)(j / (float)(YWidth - 1)) };
+            float temp[] = { i * Length, height_offset * HeightScale, j * Length,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, (float)(i / (float)(XWidth - 1)), (float)(j / (float)(YWidth - 1)) };
             //float temp[] = { i * Length, 0.0f,  j * Length ,  1.0f,       0.0f, 1.0f, 0.0f, 1.0f, };
+            
+            GenerateNormal( temp, i, j );
             
             memcpy( (void*)(vertex_data+offset), temp, 10 * sizeof( float ) );
             
@@ -97,7 +99,7 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape() {
             
             int base = j*YWidth + i;
             int base2 = (j+1)*YWidth +i;
-            int ind_temp[] = {base , base +1, base2+1, base2+1, base2, base};
+            int ind_temp[] = {base , base2 +1, base+1, base2, base2+1, base};
             
             memcpy( (void*)(index_data+ offset), ind_temp, 6 * sizeof( int ) );
             
@@ -124,9 +126,32 @@ void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::InitializeShape() {
     mesh->SetVertexCoreBuffer( vertex_buffer );
     
     mesh->GetBoundingShape().SetType( CORE_MATH_SHAPE_TYPE_Sphere );
-    mesh->GetBoundingShape().SetHalfDiagonal( CORE_MATH_VECTOR( XWidth * Length, YWidth * Length, Length, 0.0f));
+    mesh->GetBoundingShape().SetHalfDiagonal( CORE_MATH_VECTOR( XWidth * Length, 255.0f, YWidth * Length, 0.0f));
     
     mesh->CreateBuffers();
     
     AddNewMesh( mesh );
+}
+
+void GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::GenerateNormal(float temp[], int y, int x ) {
+    
+    float sy = GetHeightAt(x<XWidth-1 ? x+1 : x, y) - GetHeightAt(x > 0 ? x-1 : x, y);
+    if (x == 0 || x == XWidth-1)
+        sy *= 2;
+    
+    float sx = GetHeightAt(x, y<YWidth-1 ? y+1 : y) - GetHeightAt(x, y > 0 ?  y-1 : y);
+    if (y == 0 || y == YWidth -1)
+        sx *= 2;
+    
+    CORE_MATH_VECTOR vv (-sx * HeightScale, 2 * HeightScale, sy * HeightScale);
+    vv.Normalize();
+    temp[4] = vv.X();
+    temp[5] = vv.Y();
+    temp[6] = vv.Z();
+    temp[7] = 0.0f;
+}
+
+float GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::GetHeightAt( int x_offset, int y_offset ) {
+    
+    return *(((uint8_t *) Heights + ( XWidth * x_offset + y_offset ) ) );
 }

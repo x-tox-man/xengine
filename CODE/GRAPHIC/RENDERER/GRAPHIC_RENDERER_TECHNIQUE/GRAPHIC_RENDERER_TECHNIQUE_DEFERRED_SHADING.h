@@ -53,7 +53,8 @@ public:
         TextureBlock2,
         TextureBlock3,
         TextureBlock4,
-        TextureBlock5;
+        TextureBlock5,
+        TextureBlock6;
     GRAPHIC_SHADER_EFFECT::PTR
         AmbientDirectionalDefferedEffect,
         SpotDeferredEffect,
@@ -61,10 +62,7 @@ public:
         NullTechniqueEffect;
     /*GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::PTR
         PointDefferedEffect;*/
-    GRAPHIC_RENDER_TARGET
-        RenderTarget;
-    GRAPHIC_RENDER_TARGET::PTR
-        FinalRenderTarget;
+
 
 XS_CLASS_END
 

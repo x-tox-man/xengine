@@ -97,7 +97,7 @@ void MAIN_MENU_WINDOW_PRESENTER::SendCommandButtonClicked( GRAPHIC_UI_ELEMENT * 
     
     if (event == GRAPHIC_UI_ELEMENT_STATE_Pressed ) {
         
-        abort();
+        #error "TODO implement"
         /*APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE_ENTITY * action = new APPLICATION_GAMEPLAY_COMMAND_ACTION_MOVE_ENTITY;
          
          action->NewPosition = CORE_MATH_VECTOR(10.0f, 1.0f, 1.0f, 1.0f);

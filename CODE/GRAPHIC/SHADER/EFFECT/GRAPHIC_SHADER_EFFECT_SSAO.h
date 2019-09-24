@@ -24,7 +24,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_SSAO, GRAPHIC_SHADER_EFFECT 
     GRAPHIC_SHADER_EFFECT_SSAO( GRAPHIC_SHADER_EFFECT::PTR effect );
     virtual ~GRAPHIC_SHADER_EFFECT_SSAO();
 
-    virtual void Apply( GRAPHIC_RENDERER & ) override;
+    virtual void Apply( GRAPHIC_RENDERER &, bool, bool ) override;
     virtual void BindAttributes() override;
 
     inline void SetSampleRad( float rad ) { SampleRad = rad; }

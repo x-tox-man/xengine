@@ -16,9 +16,7 @@ UI_GARAGE_SHIP_CELL::UI_GARAGE_SHIP_CELL() :
     Accumulated( 0.0f ),
     ShipModel( NULL ) {
         
-    CORE_MATH_QUATERNION q;
-        
-    Camera.Reset(1.0f, 100.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR(0.0f, -2.0f, 0.0f, 0.0f ), q );
+    Camera.Reset(1.0f, 100.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR(0.0f, -2.0f, 0.0f, 0.0f ), CORE_MATH_VECTOR::XAxis, CORE_MATH_VECTOR::YAxis );
 }
 
 UI_GARAGE_SHIP_CELL::~UI_GARAGE_SHIP_CELL() {

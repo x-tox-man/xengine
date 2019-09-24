@@ -14,17 +14,18 @@
 
 XS_CLASS_BEGIN( GRAPHIC_PARTICLE_MANAGER )
 
-GRAPHIC_PARTICLE_MANAGER();
-~GRAPHIC_PARTICLE_MANAGER();
+    GRAPHIC_PARTICLE_MANAGER();
+    ~GRAPHIC_PARTICLE_MANAGER();
 
-void Update(float time_step);
-void Render( GRAPHIC_RENDERER & renderer );
+    void Update(float time_step);
+    void Render( GRAPHIC_RENDERER & renderer );
 
-void AddEmiter( GRAPHIC_PARTICLE_EMITER_BASE_CLASS & emiter );
+    void AddEmiter( GRAPHIC_PARTICLE_EMITER_BASE_CLASS & emiter );
 
-private :
+    private :
 
-std::vector<GRAPHIC_PARTICLE_EMITER_BASE_CLASS *> EmitersTable;
+    std::vector<GRAPHIC_PARTICLE_EMITER_BASE_CLASS *>
+        EmitersTable;
 
 XS_CLASS_END
 

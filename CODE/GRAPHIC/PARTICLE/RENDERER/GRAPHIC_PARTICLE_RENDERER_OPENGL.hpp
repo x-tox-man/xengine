@@ -18,7 +18,7 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     VertexBuffer->InitializeWithMemory( 9 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
     GRAPHIC_SYSTEM::UpdateVertexBuffer(&Mesh, *VertexBuffer);
     
-    effect->Apply( renderer );
+    effect->Apply( renderer, false, true );
     
     GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
     
@@ -41,7 +41,7 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     vertex_offset += 4;
     GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_Normal, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
     vertex_offset += 4;
-    GFX_CHECK(glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+    GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_CustomFloat, 1, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
     vertex_offset += 1;
     
     GFX_CHECK( glEnable( GL_PROGRAM_POINT_SIZE ); )

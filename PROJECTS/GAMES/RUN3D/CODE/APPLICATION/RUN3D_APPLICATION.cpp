@@ -21,6 +21,7 @@
 #include "CORE_DATA_UTF8_TEXT.h"
 #include "R3D_GAMEPLAY_GAME_MULTIPLAYER_DELEGATE.h"
 #include "MENU_SCENE.h"
+#include <dlfcn.h>
 
 RUN3D_APPLICATION::RUN3D_APPLICATION() :
     CORE_APPLICATION(),
@@ -36,7 +37,7 @@ To()
 #endif
 {
     #if PLATFORM_OSX
-        DefaultFileystem.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
+        DefaultFileystem.Initialize( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/" );
     #elif PLATFORM_IOS
         DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_ANDROID
@@ -56,6 +57,9 @@ RUN3D_APPLICATION::~RUN3D_APPLICATION() {
 
 void RUN3D_APPLICATION::Initialize() {
     
+    MENU_SCENE
+        scene;
+    
     SERVICE_LOGGER_Error( "int %d\n", (int) sizeof( int ) );
     SERVICE_LOGGER_Error( "unsigned int %d\n", (int) sizeof( unsigned int ) );
     SERVICE_LOGGER_Error( "size_t %d\n", (int) sizeof( size_t ) );
@@ -68,13 +72,12 @@ void RUN3D_APPLICATION::Initialize() {
     SERVICE_LOGGER_Error( "long long %d\n", (int) sizeof( long long ) );
 
     AudioManager.Initialize();
-    AUDIO_SYSTEM::GetInstance().PlayMusic( R3D_AUDIO_MUSIC_MANAGER::MusicPulse );
+    //AUDIO_SYSTEM::GetInstance().PlayMusic( R3D_AUDIO_MUSIC_MANAGER::MusicPulse );
     
     InitializeGraphics();
-    
     InitializeGameConfiguration();
-    
     InitializePhysics();
+    //InitializeDYLIB();
     
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
     CORE_ABSTRACT_RUNTIME_LUA * runtime = (CORE_ABSTRACT_RUNTIME_LUA *) CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().getDefaultProgramRuntimeTable()[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ];
@@ -83,18 +86,6 @@ void RUN3D_APPLICATION::Initialize() {
     
     Game = new R3D_GAMEPLAY_GAME;
     Game->Initialize();
-    
-    MENU_SCENE
-        scene;
-    
-    CORE_MATH_QUATERNION
-        q;
-    
-    q.RotateX( M_PI_2 );
-    
-    GetCamera()->UpdateCamera( CORE_MATH_VECTOR(-0.0f, -6.0f, 2.0f, 1.0f ), q );
-    
-    scene.Initialize();
     
     InitializeSingleplayerGame();
     
@@ -110,6 +101,15 @@ void RUN3D_APPLICATION::Initialize() {
     
     UI_MAIN_MENU & main_window = ( UI_MAIN_MENU & ) GRAPHIC_UI_SYSTEM::GetInstance().GetNavigation().InitializeNavigation<UI_MAIN_MENU>("MainWindow");
     main_window.Initialize();
+    
+    GAMEPLAY_COMPONENT_MANAGER::GetInstance().Initialize();
+    scene.Initialize();
+    CORE_MATH_MATRIX
+    m;
+    
+    m.XRotate( -M_PI_4 );
+    
+    GetCamera()->Reset(1.0f, 1500.0f, GRAPHIC_RENDERER::GetInstance().GetWidth(), GRAPHIC_RENDERER::GetInstance().GetWidth(), CORE_MATH_VECTOR(0.0f, 10.0f, -10.0f, 0.0f ), CORE_MATH_VECTOR::ZAxis * m, CORE_MATH_VECTOR::YAxis * m );
 }
 
 void RUN3D_APPLICATION::InitializeSingleplayerGame() {
@@ -132,6 +132,8 @@ void RUN3D_APPLICATION::Finalize() {
     AUDIO_SYSTEM::GetInstance().StopMusic();
     AUDIO_SYSTEM::GetInstance().Finalize();
     
+    GAMEPLAY_COMPONENT_MANAGER::GetInstance().Finalize();
+    
     CORE_ABSTRACT_PROGRAM_BINDER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_MANAGER::RemoveInstance();
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::RemoveInstance();
@@ -140,7 +142,6 @@ void RUN3D_APPLICATION::Finalize() {
     
     GRAPHIC_FONT_MANAGER::RemoveInstance();
     GRAPHIC_MESH_MANAGER::RemoveInstance();
-    GRAPHIC_PARTICLE_SYSTEM::RemoveInstance();
     GRAPHIC_RENDERER::RemoveInstance();
     PERIPHERIC_INTERACTION_SYSTEM::RemoveInstance();
     
@@ -178,7 +179,7 @@ void RUN3D_APPLICATION::Update( float time_step ) {
         
         Game->Update( step );
         
-        GRAPHIC_PARTICLE_SYSTEM::GetInstance().Update( time_step, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
+        //GRAPHIC_PARTICLE_SYSTEM::GetInstance().Update( time_step, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
     }
     
     NetworkManager.Update( time_step );
@@ -245,3 +246,30 @@ void RUN3D_APPLICATION::SetCamera( GRAPHIC_CAMERA::PTR camera ) {
     GameRenderer.SetCamera( camera );
 }
 
+void RUN3D_APPLICATION::InitializeDYLIB() {
+
+    char final_path[128];
+    void
+        * LibraryHandle = NULL;
+    
+    CORE_DATA_COPY_STRING( final_path, "/Users/christophebernard/Library/Developer/Xcode/DerivedData/Run3d-egysmdfsbfjkcsgyskywwumgybhw/Build/Products/Debug/libModules" );
+    CORE_DATA_STRING_CONCAT( final_path, ".dylib" );
+    
+    LibraryHandle = dlopen( final_path, RTLD_LOCAL);
+    
+    if (LibraryHandle) {
+        
+        printf("[%s] %s\n", __FILE__, dlerror());
+        void (*init_handle )() = (void(*)()) dlsym( LibraryHandle, "Initialize");
+        if (init_handle) {
+            
+            init_handle();
+        }
+        else {
+            printf("[%s] Unable to open libBus1a.dylib: %s\n", __FILE__, dlerror());
+        }
+    }
+    else {
+        printf("[%s] Unable to open libBus1a.dylib: %s\n", __FILE__, dlerror());
+    }
+}

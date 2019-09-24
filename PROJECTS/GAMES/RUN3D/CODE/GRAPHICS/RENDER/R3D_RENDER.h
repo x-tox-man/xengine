@@ -30,8 +30,8 @@ XS_CLASS_BEGIN( R3D_RENDER )
     R3D_RENDER();
 
     void Initialize();
-    void RenderScene( GRAPHIC_RENDERER & renderer );
-    void RenderSceneWithParticles( GRAPHIC_RENDERER & renderer );
+    void RenderOpaqueScene( GRAPHIC_RENDERER & renderer );
+    void RenderSceneTransparentWithParticles( GRAPHIC_RENDERER & renderer );
 
     void Render( GRAPHIC_RENDERER & renderer );
 
@@ -66,8 +66,6 @@ private :
         FinalRenderTarget,
         LightRenderTarget,
         SpecularRenderTarget,
-        GaussianRenderTarget1,
-        GaussianRenderTarget2,
         BloomRenderTarget,
         ShadowMapRenderTarget1,
         ShadowMapRenderTarget2,
@@ -79,6 +77,8 @@ private :
         TextureBlock4;
     GRAPHIC_SHADER_EFFECT::PTR
         UIShaderTextured;
+    GRAPHIC_RENDERER_TECHNIQUE
+        TransparentTechnique;
     GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR
         SpeedBlurTechnique;
     GRAPHIC_RENDERER_TECHNIQUE_BLOOM

@@ -15,13 +15,12 @@ in float time;
 out float oTime;
 
 uniform mat4 MVPMatrix;
-uniform vec4 geometryColor;
-uniform vec4 ScaleFactor;
 
 void main()
 {
-    oTime = normal.x;
-    
+	oTime = time;
+	gl_Position = normal;
     gl_Position = MVPMatrix * position;
-    gl_PointSize = oTime * ScaleFactor.x;
+    gl_PointSize = 35.0f;
+    
 }

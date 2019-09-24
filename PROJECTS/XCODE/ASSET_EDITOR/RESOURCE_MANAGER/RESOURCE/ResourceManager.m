@@ -121,7 +121,7 @@
                 result.identifier = [NSString stringWithCString:[[self.FilteredTypes objectAtIndex:row] Effect]->GetIdentifier().GetIdentifier() encoding:NSASCIIStringEncoding];
             }
             else {
-                abort();
+                CORE_RUNTIME_Abort();
             }
             
         }

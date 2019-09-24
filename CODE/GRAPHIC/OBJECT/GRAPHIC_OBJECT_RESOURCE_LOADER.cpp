@@ -56,8 +56,6 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( const CORE_FILESYSTEM_PAT
     stream.Open();
     stream.ResetOffset();
     
-    SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
-    
     XS_CLASS_SERIALIZER< GRAPHIC_OBJECT, CORE_DATA_STREAM >::Serialize<std::false_type>( "object", *object, stream );
     
     stream.Close();
@@ -74,8 +72,6 @@ GRAPHIC_OBJECT * GRAPHIC_OBJECT_RESOURCE_LOADER::Load( CORE_DATA_STREAM & stream
     
     GRAPHIC_OBJECT
         * object = new GRAPHIC_OBJECT;
-    
-    SERVICE_LOGGER_Error( "resource size %d\n", stream.GetAllocatedBytes() );
     
     XS_CLASS_SERIALIZER< GRAPHIC_OBJECT, CORE_DATA_STREAM >::Serialize<std::false_type>( "object", *object, stream );
     
@@ -129,7 +125,7 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
         
         GRAPHIC_MESH_ANIMATION * animation = object->GetAnimationTable()[ 0 ];
         
-        char * new_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate( strlen(destination_path.GetPath()) + strlen(animation->GetAnimationName().c_str()) +2 );
+        char new_path[128];
         
         strcpy(new_path, destination_path.GetPath() );
         
@@ -199,8 +195,6 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
             
             CORE_RUNTIME_Abort();
         }
-        
-        CORE_MEMORY_ALLOCATOR_Free( new_path );
     }
 }
 #endif

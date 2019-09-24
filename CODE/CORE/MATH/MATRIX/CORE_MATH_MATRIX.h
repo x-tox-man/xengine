@@ -58,7 +58,7 @@ XS_DEFINE_SERIALIZABLE
         Value[15] = v33;
     }
 
-    bool IsIdentity() const {
+    inline bool IsIdentity() const {
         
         return Value[0] == 1.0f && Value[15] == 1.0f && Value[5] == 1.0f && Value[10] == 1.0f &&
             Value[1] == 0.0f && Value[2] == 0.0f && Value[3] == 0.0f && Value[4] == 0.0f
@@ -66,32 +66,27 @@ XS_DEFINE_SERIALIZABLE
             && Value[11] == 0.0f && Value[12] == 0.0f && Value[13] == 0.0f && Value[14] == 0.0f;
     }
 
-    bool FastyIsIdentity() {
+    inline bool FastyIsIdentity() {
         
         const bool ide = Value[0] == 1.0f && Value[15] == 1.0f && Value[5] == 1.0f && Value[10] == 1.0f;
         
         return ide;
     }
 
-    void SetIdentity() {
+    inline void SetIdentity() {
         
         memcpy( Value, Identity, 16 * sizeof( float ) );
     }
 
     void Translate( float translation[3] );
-
     void Translate( const float translation[3] );
-
     void Translate( const CORE_MATH_VECTOR & translation );
 
     void XRotate( const float angle );
-
     void YRotate( const float angle );
-
     void ZRotate( const float angle );
 
     void Scale( const CORE_MATH_VECTOR & scale_vector );
-
     void Scale( const float scale_x, const float scale_y, const float scale_z );
 
     void GetInverse( CORE_MATH_MATRIX & inverse) const;
@@ -202,6 +197,8 @@ XS_DEFINE_SERIALIZABLE
         return Value[index];
     }
 
+    static CORE_MATH_MATRIX FromDirectionAndUpVector( const CORE_MATH_VECTOR & direction, const CORE_MATH_VECTOR & up);
+
     friend inline CORE_MATH_MATRIX operator * ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_MATRIX & rhs );
     friend inline CORE_SCALAR operator * ( float vector[4], const CORE_MATH_MATRIX & rhs );
     friend inline CORE_MATH_VECTOR operator * ( const CORE_MATH_VECTOR & vector, const CORE_MATH_MATRIX & rhs );
@@ -211,7 +208,7 @@ XS_DEFINE_SERIALIZABLE
 
     static float Identity[16];
 
-    private:
+private:
 
     float detCol( int col );
 
@@ -296,8 +293,6 @@ inline CORE_MATH_MATRIX operator + ( const CORE_MATH_MATRIX & lhs, const CORE_MA
     
     return result;
 }
-
-
 
 float * GLOBAL_MULTIPLY_MATRIX(float *lhs, float *rhs);
 

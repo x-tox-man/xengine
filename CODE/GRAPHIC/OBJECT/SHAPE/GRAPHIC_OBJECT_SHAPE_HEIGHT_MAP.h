@@ -31,6 +31,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP, GRAPHIC_OBJECT_SHA
 private :
 
     GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP();
+    void GenerateNormal(float temp[], int x, int y );
+    float GetHeightAt( int x_offset, int y_offset );
 
     const void
         * Heights;

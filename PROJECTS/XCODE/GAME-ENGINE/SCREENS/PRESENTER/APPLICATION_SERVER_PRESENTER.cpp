@@ -42,7 +42,7 @@ void APPLICATION_SERVER_PRESENTER::StartGameButtonClicked( GRAPHIC_UI_ELEMENT * 
         
         GameIsStarting = true;
         
-        abort();
+        #error "TODO implement"
         /*APPLICATION_GAMEPLAY_COMMAND_LOAD_GAME
             command;
         

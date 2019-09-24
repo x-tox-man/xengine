@@ -3,8 +3,6 @@
 in vec4 position;
 in vec4 normal;
 in vec2 tex0;
-//in vec3 tangent;
-//in vec3 bitangent;
 
 out vec4 o_normal;
 out vec2 texCoord;

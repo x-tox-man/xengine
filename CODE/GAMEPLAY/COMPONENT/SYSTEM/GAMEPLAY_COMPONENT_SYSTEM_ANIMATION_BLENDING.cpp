@@ -20,11 +20,11 @@ void GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING::Initialize() {
 
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING::Update( float time_step ) {
+void GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING::Update( void * ecs_base_pointer, float time_step ) {
 
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING::Render( GRAPHIC_RENDERER & renderer ) {
+void GAMEPLAY_COMPONENT_SYSTEM_ANIMATION_BLENDING::Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) {
 
 }
 

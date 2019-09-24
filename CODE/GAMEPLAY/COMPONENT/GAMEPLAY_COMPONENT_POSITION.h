@@ -33,15 +33,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_CO
 
     friend class GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION;
 
-    void * operator new(size_t size);
-    void operator delete  ( void* ptr );
-
     CORE_HELPERS_FACTORY_Element( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Position )
-
-    struct INTERNAL_ARRAY{
-        int LastIndex;
-        GAMEPLAY_COMPONENT_POSITION * MemoryArray;
-    };
 
     inline const CORE_MATH_VECTOR & GetPosition() const { return Pose.GetPosition(); }
     inline CORE_MATH_VECTOR & GetPosition() { return Pose.GetPosition(); }
@@ -61,19 +53,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_CO
 
     bool Intersects( const CORE_MATH_RAY & ray );
 
-    virtual GAMEPLAY_COMPONENT * GetComponentAt( int index, int offset ) override {
-        
-        return (GAMEPLAY_COMPONENT *) &(*InternalVector)[index].MemoryArray[offset];
-    }
-
-    static void Clear();
-    static void SaveToStream( CORE_DATA_STREAM & stream );
-    static void LoadFromStream( CORE_DATA_STREAM & stream );
-
-    static int
-        LastIndex,
-        LastOffset;
-
 private :
 
     CORE_MATH_VECTOR
@@ -83,8 +62,6 @@ private :
         Spin;
     CORE_MATH_POSE
         Pose;
-    static std::vector< INTERNAL_ARRAY >
-        * InternalVector;
 
 XS_CLASS_END
 

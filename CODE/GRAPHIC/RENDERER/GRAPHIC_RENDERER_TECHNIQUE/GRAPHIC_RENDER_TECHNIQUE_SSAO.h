@@ -38,9 +38,7 @@ public:
     GRAPHIC_SHADER_EFFECT::PTR
         SimpleBlurEffect;
     GRAPHIC_RENDER_TARGET::PTR
-        SourceRenderTarget,
-        RenderTarget,
-        FinalRenderTarget;
+        SourceRenderTarget;
 
 XS_CLASS_END
 

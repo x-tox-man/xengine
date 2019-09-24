@@ -24,7 +24,7 @@ public :
     /*template<typename __BOOL_TYPE__>
     void CustomSerialize(CORE_DATA_STREAM & stream) {
         
-        abort();
+        CORE_RUNTIME_Abort();
     }*/
     
     //Let specific implementations do the job

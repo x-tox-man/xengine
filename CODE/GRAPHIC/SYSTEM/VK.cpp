@@ -59,52 +59,52 @@
 
     void GRAPHIC_SYSTEM::EnableScissor( bool enable ) {
         
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::SetScissorRectangle( float x, float y, float width, float height ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::DisableBlend() {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::EnableBackfaceCulling() {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::DisableFaceCulling() {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER & data ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::SetPolygonMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE fill_mode ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::DisableDepthTest() {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ReleaseTexture( GRAPHIC_TEXTURE * texture ) {
@@ -117,15 +117,15 @@
 
     void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
-    void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, void * texture_data, bool generate_mipmap ) {
+    void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, CORE_DATA_STREAM & texture_data, bool generate_mipmap ) {
 
         /* create image */
         //init_image( info, texObj, textureName, extraUsages, extraFeatures );
@@ -391,57 +391,57 @@
 
     void GRAPHIC_SYSTEM::CreateSubTexture( GRAPHIC_TEXTURE * sub_texture, const GRAPHIC_TEXTURE & texture, const CORE_MATH_VECTOR & offset, const CORE_MATH_VECTOR & size, const void * data ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::DiscardTexture( GRAPHIC_TEXTURE * texture ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyShaderAttributeVector( const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( const float * matrix, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::CreateVertexBuffer( GRAPHIC_MESH & mesh ) {
@@ -510,12 +510,12 @@
 
     void GRAPHIC_SYSTEM::CreateIndexBuffer( GRAPHIC_MESH &mesh ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_MESH &mesh ) {
 
-        abort();
+        #error "TODO IMPLEMENT"
     }
 
     void GRAPHIC_SYSTEM::ReleaseBuffers( GRAPHIC_MESH & mesh ) {

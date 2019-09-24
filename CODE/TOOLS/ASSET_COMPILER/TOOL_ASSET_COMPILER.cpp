@@ -23,9 +23,9 @@ TOOL_ASSET_COMPILER::TOOL_ASSET_COMPILER(const char * source_path, const char * 
     #if PLATFORM_OSX
         DefaultFileystem.Initialize( destination_dir );
     #elif PLATFORM_IOS
-        abort();
+        #error "TODO implement"
     #elif PLATFORM_ANDROID
-        abort();
+        #error "TODO implement"
     #elif PLATFORM_WINDOWS
         DefaultFileystem.Initialize( destination_path );
     #endif
@@ -58,11 +58,11 @@ TOOL_ASSET_COMPILER::TOOL_ASSET_COMPILER(const char * source_path, const char * 
     }
     else if ( strcmp(ext, "font" ) == 0 ) {
         
-        abort();
+        CORE_RUNTIME_Abort();
     }
     else if ( strcmp( ext, "atlas" ) == 0 ) {
         
-        abort();
+        CORE_RUNTIME_Abort();
     }
     else if ( strcmp( ext, "png" ) == 0 ) {
         

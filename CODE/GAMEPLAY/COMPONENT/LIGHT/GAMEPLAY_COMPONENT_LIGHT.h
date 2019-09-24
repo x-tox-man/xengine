@@ -33,10 +33,6 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_LIGHT, GAMEPLAY_COMPO
     inline GRAPHIC_SHADER_LIGHT * GetLight() { return Light; }
     inline void SetLight( GRAPHIC_SHADER_LIGHT::PTR light ) { Light = light; }
 
-    static int
-    LastIndex,
-    LastOffset;
-
 private :
 
     GRAPHIC_SHADER_LIGHT::PTR

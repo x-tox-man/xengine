@@ -17,40 +17,9 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION, GAMEPLA
     virtual ~GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION();
 
     virtual void Initialize() override;
-    virtual void Update( float time_step ) override;
-    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
+    virtual void Update( void * ecs_base_pointer, float time_step ) override;
+    virtual void Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) override;
     virtual void Finalize() override;
-
-// AABB :
-/*
-    struct AABBNode{
-        AABBNode
-            * Left,
-            * Right;
-        CORE_MATH_VECTOR
-            AACenter,
-            AAExtent;
-        GAMEPLAY_COMPONENT_ENTITY_HANDLE
-            * Entity;
-        int
-            height;
-    };
-
-    AABBNode
-        * Root,
-        * LastInRow;
-
-
-    void Insert( GAMEPLAY_COMPONENT_ENTITY_HANDLE * Entity) {
-        
-    }
-
-    void Remove( GAMEPLAY_COMPONENT_ENTITY_HANDLE * Entity) {
-        
-    }
-    void Update() {
-        
-    }*/
 
 XS_CLASS_END
 

@@ -36,7 +36,7 @@ void GRAPHIC_MATERIAL_COLLECTION::SetMaterialForName( GRAPHIC_MATERIAL::PTR mate
     MaterialTable[ std::string( name ) ] = material;
 }
 
-GRAPHIC_MATERIAL::PTR GRAPHIC_MATERIAL_COLLECTION::GetMaterialForName( std::string & name ) {
+GRAPHIC_MATERIAL::PTR GRAPHIC_MATERIAL_COLLECTION::GetMaterialForName( const char * name ) {
     
     return MaterialTable[ std::string( name ) ];
 }
@@ -75,9 +75,12 @@ void GRAPHIC_MATERIAL_COLLECTION::LoadMaterialForName( const char * name ) {
     }
 }
 
-void GRAPHIC_MATERIAL_COLLECTION::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader ) {
+void GRAPHIC_MATERIAL_COLLECTION::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, bool does_lighting, bool does_texturing ) {
     
-    MaterialTable.begin()->second->Apply(renderer, shader );
+    if ( !MaterialTable.empty() ) {
+        
+        MaterialTable.begin()->second->Apply(renderer, shader, does_lighting, does_texturing );
+    }
 }
 
 void GRAPHIC_MATERIAL_COLLECTION::SetDiffuse( const CORE_HELPERS_COLOR & color ) {

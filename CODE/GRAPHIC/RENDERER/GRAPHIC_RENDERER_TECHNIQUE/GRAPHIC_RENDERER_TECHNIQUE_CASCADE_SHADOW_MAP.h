@@ -12,8 +12,8 @@
 #include "GRAPHIC_RENDERER_TECHNIQUE.h"
 #include "GRAPHIC_CAMERA_ORTHOGONAL.h"
 #include "GRAPHIC_RENDER_TARGET.h"
+#include "GAMEPLAY_COMPONENT_PARTICLE_SYSTEM.h"
 #include "CORE_MATH.h"
-#include "GRAPHIC_PARTICLE_SYSTEM.h"
 
 #define MAX_NUM_CASCADES        3
 #define NUM_FRUSTUM_CORNERS 8
@@ -39,6 +39,8 @@ public:
     virtual void ApplyFirstPass( GRAPHIC_RENDERER & renderer );
     virtual void ApplySecondPass( GRAPHIC_RENDERER & renderer );
 
+    void UpdateCameras( const CORE_MATH_VECTOR & position , const CORE_MATH_VECTOR & direction, const CORE_MATH_VECTOR & up );
+
     void CalculateCascadeOrthoProjection( GRAPHIC_RENDERER & renderer );
 
     void DebugFustrum( GRAPHIC_RENDERER & renderer );
@@ -56,8 +58,6 @@ public:
         ShadowMapRenderTarget1,
         ShadowMapRenderTarget2,
         ShadowMapRenderTarget3;
-    CORE_MATH_POSE
-        LightSourcePose;
 XS_CLASS_END
 
 

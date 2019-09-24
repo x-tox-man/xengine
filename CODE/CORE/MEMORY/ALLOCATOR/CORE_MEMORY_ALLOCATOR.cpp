@@ -29,3 +29,8 @@ void CORE_MEMORY_ALLOCATOR::Free( void * memory_pointer ) {
 
     free( memory_pointer );
 }
+
+void CORE_MEMORY_ALLOCATOR::Reallocate( void * memory_pointer, size_t size ) {
+    
+    memory_pointer = realloc(memory_pointer, size );
+}

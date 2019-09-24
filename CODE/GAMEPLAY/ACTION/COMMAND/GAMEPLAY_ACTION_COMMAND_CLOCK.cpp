@@ -34,7 +34,7 @@ GAMEPLAY_ACTION_COMMAND_CLOCK::GAMEPLAY_ACTION_COMMAND_CLOCK( const GAMEPLAY_ACT
     ReceivedTick( other.ReceivedTick ),
     AveragePing( other.AveragePing ) {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 GAMEPLAY_ACTION_COMMAND_CLOCK::GAMEPLAY_ACTION_COMMAND_CLOCK( NETWORK_PLAYER * player ) :

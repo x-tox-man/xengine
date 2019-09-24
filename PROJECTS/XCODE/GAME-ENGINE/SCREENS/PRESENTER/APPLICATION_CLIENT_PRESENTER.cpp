@@ -30,7 +30,7 @@ void APPLICATION_CLIENT_PRESENTER::Configure() {
     
     view->GetPlayersList().push_back(current_player);
     
-    abort();
+    #error "TODO implement"
     /*GAMEPLAY_ACTION_COMMAND_START_GAME::GameStartingCallback.Connect(Wrapper<APPLICATION_CLIENT_PRESENTER, &APPLICATION_CLIENT_PRESENTER::OnGameStarting>, this);*/
 }
 

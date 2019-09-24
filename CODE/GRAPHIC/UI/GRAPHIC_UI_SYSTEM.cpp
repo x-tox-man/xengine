@@ -95,6 +95,8 @@ void GRAPHIC_UI_SYSTEM::Render(GRAPHIC_RENDERER & renderer) {
     CORE_PARALLEL_LOCK Lock( UISystemLock );
     it = VisibleViewTable.begin();
     
+    GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+    
     while ( it != VisibleViewTable.end()) {
         
         if ( it->second->IsVisible() ) {

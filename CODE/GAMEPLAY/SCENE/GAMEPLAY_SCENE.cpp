@@ -78,11 +78,11 @@ void GAMEPLAY_SCENE::Update( float time_step ) {
     
     for ( size_t i = 0; i < UpdatableSystemTable.size(); i++ ) {
         
-        UpdatableSystemTable[ i ]->Update( time_step );
+        UpdatableSystemTable[ i ]->Update( GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEcsBasePointer(), time_step );
     }
 }
 
-void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
+void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer, int transparent_mask ) {
     
     if( renderer.GetPassIndex() == 0 ) {
         
@@ -92,23 +92,29 @@ void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer ) {
     GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
     GRAPHIC_SYSTEM::SetPolygonMode( GRAPHIC_SYSTEM_POLYGON_FILL_MODE_Full );
     
-    bool it_does_blend = false;
+    bool it_does_blend = transparent_mask & GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent;
     
     for ( size_t i = 0; i < RenderableSystemTable.size(); i++ ) {
         
-        if ( it_does_blend ) {
+        if ( it_does_blend && RenderableSystemTable[ i ]->GetMask() & GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent) {
             
-            //GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+            GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+            GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, false );
+            GRAPHIC_SYSTEM::DisableFaceCulling();
         }
         else {
             
             GRAPHIC_SYSTEM::DisableBlend();
         }
-        
-        RenderableSystemTable[ i ]->Render( renderer );
+        if ( transparent_mask == GAMEPLAY_COMPONENT_SYSTEM_MASK_All || RenderableSystemTable[ i ]->GetMask() & transparent_mask ) {
+            
+            RenderableSystemTable[ i ]->Render( GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEcsBasePointer(), renderer );
+        }
         
         it_does_blend = true;
     }
+    
+    GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
 }
 
 void GAMEPLAY_SCENE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
@@ -125,12 +131,7 @@ void GAMEPLAY_SCENE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
     
     stream.Open();
     
-    //Serialize Components
-    GAMEPLAY_COMPONENT_RENDER::SaveToStream( stream );
-    GAMEPLAY_COMPONENT_POSITION::SaveToStream( stream );
-    GAMEPLAY_COMPONENT_SCRIPT::SaveToStream( stream );
-    GAMEPLAY_COMPONENT_PHYSICS::SaveToStream( stream );
-    GAMEPLAY_COMPONENT_ACTION::SaveToStream( stream );
+    CORE_RUNTIME_Abort();
     
     //Serialize Entities
     /*GAMEPLAY_COMPONENT_MANAGER::GetInstance().SaveToStream( stream );
@@ -176,20 +177,14 @@ void GAMEPLAY_SCENE::LoadFrom( const CORE_FILESYSTEM_PATH & path ) {
         
         file.Close();
         
-        abort();
+        CORE_RUNTIME_Abort();
     }
 
     file.Close();
     
-    
     stream.Open();
     
-    //Serialize Components
-    GAMEPLAY_COMPONENT_RENDER::LoadFromStream( stream );
-    GAMEPLAY_COMPONENT_POSITION::LoadFromStream( stream );
-    GAMEPLAY_COMPONENT_SCRIPT::LoadFromStream( stream );
-    GAMEPLAY_COMPONENT_PHYSICS::LoadFromStream( stream );
-    GAMEPLAY_COMPONENT_ACTION::LoadFromStream( stream );
+    CORE_RUNTIME_Abort();
     
     //Serialize Entities
     GAMEPLAY_COMPONENT_MANAGER::GetInstance().LoadFromStream( stream );
@@ -216,12 +211,6 @@ void GAMEPLAY_SCENE::Clear() {
         update_table_iterator = UpdatableSystemTable.begin();
     std::vector< GAMEPLAY_COMPONENT_SYSTEM * >::iterator
         render_table_iterator = RenderableSystemTable.begin();
-    
-    GAMEPLAY_COMPONENT_ACTION::Clear();
-    GAMEPLAY_COMPONENT_SCRIPT::Clear();
-    GAMEPLAY_COMPONENT_POSITION::Clear();
-    GAMEPLAY_COMPONENT_RENDER::Clear();
-    GAMEPLAY_COMPONENT_PHYSICS::Clear();
     
     GAMEPLAY_COMPONENT_MANAGER::GetInstance().Clear();
     

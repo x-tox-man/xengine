@@ -321,15 +321,15 @@
         /*mat2.XRotate( euler_x );
         mat2.YRotate( euler_y );
         mat2.ZRotate( euler_z );*/
-        printf("%f %f %f\n", euler_x* 180.0f/M_PI, euler_y* 180.0f/M_PI, euler_z* 180.0f/M_PI );
+        //printf("%f %f %f\n", euler_x* 180.0f/M_PI, euler_y* 180.0f/M_PI, euler_z* 180.0f/M_PI );
         
         orientation.FromMatrix( mat.GetRow(0) );
         //orientation2.ToMatrix( mat2.GetRow(0) );
         //orientation2.FromMatrix( mat2.GetRow(0) );
         
-        mesh.GetBoundingShape().SetHalfDiagonal( extent );
-        mesh.GetBoundingShape().SetPosition( position );
-        mesh.GetBoundingShape().SetOrientation( orientation );
+        mesh.GetBoundingShape().SetHalfDiagonal( extent * 0.5f );
+        mesh.GetBoundingShape().SetPosition( CORE_MATH_VECTOR(0.0f, 0.0f, 0.0f, 1.0f ) );
+        //mesh.GetBoundingShape().SetOrientation( orientation );
         
         delete [] vector;
     }
@@ -380,7 +380,7 @@
                         int
                             vertex_size = 0;
                         
-                        mesh->SetName( mesh_name );
+                        mesh->SetName( mesh_name.c_str() );
                         
                         {
                             //TODO : all vertices will have x-y-z components. when collada supports it, enable this
@@ -485,7 +485,7 @@
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[0] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3);
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[1] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3 + 1);
                                     mesh->CurrenGeometrytTable[ accumulated_index ].Normals[2] = *(data->getNormals().getFloatValues()->getData()+ prim->getNormalIndices()[accumulated_index] * 3 + 2);
-                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[3] = 1.0f;
+                                    mesh->CurrenGeometrytTable[ accumulated_index ].Normals[3] = 0.0f;
                                 }
                                 
                                 if ( hasUV ) {
@@ -495,7 +495,7 @@
                                     mesh->CurrenGeometrytTable[ accumulated_index ].UV0[0] = *(data->getUVCoords().getFloatValues()->getData()+ uv_indices[accumulated_index ] * 2 );
                                     mesh->CurrenGeometrytTable[ accumulated_index ].UV0[1] = *(data->getUVCoords().getFloatValues()->getData()+ uv_indices[accumulated_index ] * 2 + 1);
                                     
-                                    printf( "%f\t%f\n", mesh->CurrenGeometrytTable[ accumulated_index ].UV0[0], mesh->CurrenGeometrytTable[ accumulated_index ].UV0[1] );
+                                    //printf( "%f\t%f\n", mesh->CurrenGeometrytTable[ accumulated_index ].UV0[0], mesh->CurrenGeometrytTable[ accumulated_index ].UV0[1] );
                                 }
                                 
                                 ++accumulated_index;
@@ -541,7 +541,7 @@
                         
                         vertex_buffer->Initialize( accumulated_index * vertex_size * sizeof( float ), 1 );
                         
-                        //ComputeMeshBoundingObject( data->getPositions().getFloatValues()->getData(), (int) data->getPositions().getFloatValues()->getCount() / 3, *mesh, (int) prim->getFaceCount() * 3, (int *) index_buffer->getpointerAtIndex(0,0) );
+                        ComputeMeshBoundingObject( data->getPositions().getFloatValues()->getData(), (int) data->getPositions().getFloatValues()->getCount() / 3, *mesh, (int) prim->getFaceCount() * 3, (int *) index_buffer->getpointerAtIndex(0,0) );
                         
                         for (int i = 0; i< accumulated_index; i++ ) {
                             
@@ -709,7 +709,7 @@
                                 
                                 if ( mat[j] - mat2[j] > 0.03f ) {
                                     
-                                    //abort();
+                                    //CORE_RUNTIME_Abort();
                                 }
                             }
                             
@@ -845,7 +845,7 @@
             int jointsPerVertex = *((unsigned int *) skinControllerData->getJointsPerVertex().getData() + i);
             
             if ( jointsPerVertex > 3 ) {
-                SERVICE_LOGGER_Warning( "COLLADA_LOADER_WRITER::writeSkinControllerData : jointsPerVertex higher than 3 > ignoring other components" );
+                //SERVICE_LOGGER_Warning( "COLLADA_LOADER_WRITER::writeSkinControllerData : jointsPerVertex higher than 3 > ignoring other components" );
                 jointsPerVertex = 3;
             }
             

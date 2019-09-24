@@ -137,7 +137,7 @@
         error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
         [[NSApplication sharedApplication] presentError:error];
         NSLog(@"Unresolved error %@, %@", error, error.userInfo);
-        abort();
+        CORE_RUNTIME_Abort();
     }
     return _persistentStoreCoordinator;
 }

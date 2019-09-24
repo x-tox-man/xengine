@@ -27,9 +27,9 @@ GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::~GRAPHIC_SHADER_EFFECT_FULLSCREE
 
 }
 
-void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply( GRAPHIC_RENDERER & renderer ) {
-    
-    GRAPHIC_SHADER_EFFECT::Apply( renderer );
+void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply( GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing ) {
+
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, does_lighting, does_texturing );
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_bloom_intensity = Program.getShaderAttribute( BloomIntensityIdentifier );
     GRAPHIC_SHADER_ATTRIBUTE & attr_base_intensity = Program.getShaderAttribute( BaseIntensityIdentifier );
@@ -52,9 +52,11 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
 #if OPENGL2PLUS
         GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BloomIntensityIdentifier.GetTextValue() ); )
 #elif X_VK
-        abort();
+        #error "TODO IMPLEMENT"
+#elif X_METAL
+    //#error "TODO IMPLEMENT"
 #else
-        abort();
+        #error "TODO IMPLEMENT"
 #endif
     
     if ( attribute->AttributeIndex != -1 ) {
@@ -74,9 +76,11 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
 #if OPENGL2PLUS
     GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BaseIntensityIdentifier.GetTextValue() ); )
 #elif X_VK
-    abort();
+    #error "TODO IMPLEMENT"
+#elif X_METAL
+    //#error "TODO IMPLEMENT"
 #else
-    abort();
+    #error "TODO IMPLEMENT"
 #endif
     
     if ( attribute->AttributeIndex != -1 ) {
@@ -96,9 +100,11 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
 #if OPENGL2PLUS
         GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BloomSaturationIdentifier.GetTextValue() ); )
 #elif X_VK
-        abort();
+        #error "TODO IMPLEMENT"
+#elif X_METAL
+    //#error "TODO IMPLEMENT"
 #else
-        abort();
+        #error "TODO IMPLEMENT"
 #endif
     
     if ( attribute->AttributeIndex != -1 ) {
@@ -117,9 +123,11 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {
 #if OPENGL2PLUS
     GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( Program.GetProgram()->GetShaderProgram(), BaseSaturationIdentifier.GetTextValue() ); )
 #elif X_VK
-        abort();
+    #error "TODO IMPLEMENT"
+#elif X_METAL
+    //#error "TODO IMPLEMENT"
 #else
-        abort();
+        #error "TODO IMPLEMENT"
 #endif
     
     if ( attribute->AttributeIndex != -1 ) {

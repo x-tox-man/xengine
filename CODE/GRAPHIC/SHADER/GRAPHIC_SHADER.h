@@ -37,6 +37,8 @@ private :
 	#include "GRAPHIC_SHADER_OPENGL.hpp"
 #elif X_VK
     #include "GRAPHIC_SHADER_VK.hpp"
+#elif X_METAL
+    #import "GRAPHIC_SHADER_METAL.hpp"
 #else
 	#error "Must include file to match graphic runtime"
 #endif

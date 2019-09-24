@@ -51,7 +51,7 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     
-    file_system.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
+    file_system.Initialize( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/" );
     
     CORE_FILESYSTEM::SetDefaultFilesystem( file_system );
 }
@@ -84,6 +84,7 @@
     img.GetImageInfo().Width = 256;
     img.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_GRAY;
     img.SetImageRawData( table );
+    img.SetSize( 256*256 );
     
     writer.Write( CORE_FILESYSTEM_PATH::FindFilePath( "map_test", "png", "MAP" ), &img );
 }
@@ -116,6 +117,7 @@
     destination.GetImageInfo().Width = img->GetImageInfo().Width;
     destination.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;
     destination.SetImageRawData( table );
+    destination.SetSize( img->GetImageInfo().Width * img->GetImageInfo().Height * 4 );
     
     writer.Write( CORE_FILESYSTEM_PATH::FindFilePath( "waves", "png", "TEXTURES" ), &destination );
 }
@@ -380,9 +382,9 @@
     
     //images[0]->Blit(images[1], 0, 100, 5, 5, 0);
     
-    //writer.Write( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/TEXTURES/blit.png", images[0] );
+    //writer.Write( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/TEXTURES/blit.png", images[0] );
     
-    atlas_compiler.Compile( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/TEXTURES/atlas_test", images );
+    atlas_compiler.Compile( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/TEXTURES/atlas_test", images );
 }
 
 -(void) testCoreData {
@@ -514,7 +516,7 @@
     
     images[0]->Blit(images[1], 0, 100, 5, 5, 0);
     
-    writer.Write( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/TEXTURES/blit.png", images[0] );
+    writer.Write( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/TEXTURES/blit.png", images[0] );
 }
 
 -(void) testSerialization {
@@ -613,7 +615,7 @@
     
     CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::GetInstance().Initialize();
     
-    entity.Initialize("/Users/christophebernard/Develop/Project/game-engine/RESOURCES/SCRIPTS/game.lua");
+    entity.Initialize("/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/SCRIPTS/game.lua");
 }
 
 @end

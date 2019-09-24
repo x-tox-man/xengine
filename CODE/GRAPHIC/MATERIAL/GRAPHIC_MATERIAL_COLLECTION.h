@@ -25,10 +25,10 @@ XS_CLASS_BEGIN( GRAPHIC_MATERIAL_COLLECTION )
     XS_DEFINE_SERIALIZABLE
 
     void SetMaterialForName( GRAPHIC_MATERIAL::PTR material, const char * name );
-    GRAPHIC_MATERIAL::PTR GetMaterialForName( std::string & name );
+    GRAPHIC_MATERIAL::PTR GetMaterialForName( const char * name );
     GRAPHIC_MATERIAL::PTR GetDefaultMaterial() { return MaterialTable.begin()->second; }
 
-    void Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader );
+    void Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, bool does_lighting, bool does_texturing );
 
     void LoadMaterialForName( const char * name );
 

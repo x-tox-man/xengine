@@ -46,4 +46,5 @@ void CORE_ABSTRACT_PROGRAM_RUNTIME_MANAGER::Initialize() {
     
     DefaultProgramRuntimeTable[ CORE_ABSTRACT_PROGRAM_RUNTIME_Lua ] = lua;
     DefaultProgramRuntimeTable[ CORE_ABSTRACT_PROGRAM_RUNTIME_V8 ] = v8;
+    DefaultProgramRuntimeTable[ CORE_ABSTRACT_PROGRAM_RUNTIME_NativeLibrary ] = NULL;
 }

@@ -345,7 +345,7 @@ void NETWORK_SERVER::DispatchMessageToAllPlayers(SERVICE_NETWORK_COMMAND * comma
 
 void NETWORK_SERVER::DispatchMessageToPlayer(NETWORK_PLAYER & player, CORE_DATA_STREAM & data_buffer) {
     
-    abort();
+    CORE_RUNTIME_Abort();
     
     for(int i = 0; i < THIS_GAME_MAX_NETWORK_PLAYER_SIZE; i ++ ) {
         
@@ -618,7 +618,8 @@ void NETWORK_SERVER::ProcessIncommingMessages() {
                      type == (int) GAMEPLAY_ACTION_TYPE_LoadGame) {
             }
             else {
-                abort();
+                
+                CORE_RUNTIME_Abort();
             }
         }
         

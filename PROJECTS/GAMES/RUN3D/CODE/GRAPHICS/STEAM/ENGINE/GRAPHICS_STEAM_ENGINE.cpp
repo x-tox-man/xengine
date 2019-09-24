@@ -8,7 +8,8 @@
 
 #include "GRAPHICS_STEAM_ENGINE.h"
 
-GRAPHICS_STEAM_ENGINE::GRAPHICS_STEAM_ENGINE() :
+/*GRAPHICS_STEAM_ENGINE::GRAPHICS_STEAM_ENGINE() :
+
     Emiter( NULL ) {
     
     GRAPHIC_PARTICLE_MANAGER * manager = new GRAPHIC_PARTICLE_MANAGER();
@@ -30,9 +31,9 @@ GRAPHICS_STEAM_ENGINE::GRAPHICS_STEAM_ENGINE() :
     Emiter->AddModifier( *((GRAPHIC_PARTICLE_MODIFIER<GRAPHIC_PARTICLE, GRAPHIC_PARTICLE_DYNAMIC_ATTRIBUTES, PARTICLE_SIZE> *) mod_g) );
     Emiter->AddModifier( *((GRAPHIC_PARTICLE_MODIFIER<GRAPHIC_PARTICLE, GRAPHIC_PARTICLE_DYNAMIC_ATTRIBUTES, PARTICLE_SIZE> *) mod_v) );
     Emiter->SetVelocity( CORE_MATH_VECTOR(0.0f, 0.0f, 0.0f, 0.0f ) );
-    Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[0] = 10.0f;
+    Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[0] = 0.0f;
     Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[1] = 10.0f;
-    Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[2] = 0.0f;
+    Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[2] = -5.0f;
     Emiter->GetRenderer().GetScaleFactorAttribute().AttributeValue.Value.FloatArray4[3] = 0.0f;
 
     manager->AddEmiter(*((GRAPHIC_PARTICLE_EMITER_BASE_CLASS *) Emiter));
@@ -57,7 +58,7 @@ void GRAPHICS_STEAM_ENGINE::Update( float step ) {
         if ( Emiter->GetParticleTable()[i].Life > 10.0f) {
             Emiter->GetParticleTable()[i].Life = 0.0f;
         }
-        Emiter->GetParticleTable()[i].Orientation.X( Emiter->GetParticleTable()[i].Life );
+        //Emiter->GetParticleTable()[i].Orientation.X( Emiter->GetParticleTable()[i].Life );
     }
 }
 
@@ -70,10 +71,12 @@ void GRAPHICS_STEAM_ENGINE::InternalEmit( GRAPHIC_PARTICLE_EMITER<GRAPHIC_PARTIC
         emiter.GetParticleTable()[i].Position = emiter.GetPosition();
         emiter.GetParticleTable()[i].Life = 0.0f;
         
-        emiter.GetParticleAttributeTable()[i].Velocity.Set( -emiter.GetVelocity().X() + (500-(rand() % 1000)) * 0.0001f , -emiter.GetVelocity().Y() + (500-(rand() % 1000)) * 0.0001f, emiter.GetVelocity().Z()*0.001f, 1.0f);
+        //emiter.GetParticleAttributeTable()[i].Velocity.Set( -emiter.GetVelocity().X() + (500-(rand() % 1000)) * 0.0001f , -emiter.GetVelocity().Y() + (500-(rand() % 1000)) * 0.0001f, emiter.GetVelocity().Z()*0.001f, 1.0f);
+        emiter.GetParticleAttributeTable()[i].Velocity.Set( emiter.GetVelocity().X(), emiter.GetVelocity().Y(), emiter.GetVelocity().Z() - 0.001f, 1.0f);
         
         emiter.GetParticleAttributeTable()[i].Modulator = 1.0f;
         emiter.GetParticleAttributeTable()[i].Lifetime = 5.0f;
     }
 }
+ */
 

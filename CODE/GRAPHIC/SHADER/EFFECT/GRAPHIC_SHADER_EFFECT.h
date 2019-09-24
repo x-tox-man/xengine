@@ -43,13 +43,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
 
     inline GRAPHIC_MATERIAL_COLLECTION::PTR GetMaterialCollection() { return MaterialCollection; }
     inline void SetMaterial( GRAPHIC_MATERIAL::PTR material, const char * name = "DefaultMaterial" ) { MaterialCollection->SetMaterialForName( material, name ); }
-    inline GRAPHIC_MATERIAL::PTR GetMaterial( const char * name = "DefaultMaterial" ) { std::string mat_name( name ); return MaterialCollection->GetMaterialForName( mat_name ); }
+    inline GRAPHIC_MATERIAL::PTR GetMaterial( const char * name = "DefaultMaterial" ) { return MaterialCollection->GetMaterialForName( name ); }
 
     inline void SetDiffuse( const CORE_HELPERS_COLOR & color ) { MaterialCollection->SetDiffuse( color ); }
 
-    virtual void Apply( GRAPHIC_RENDERER & renderer );
-    virtual void Apply( GRAPHIC_RENDERER & renderer, bool activate_material );
-    void SelectMaterial( std::string & material_name );
+    virtual void Apply( GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing );
+    void SelectMaterial( const char * material_name );
     virtual void Discard();
     virtual void BindAttributes();
     void BindAttribute( GRAPHIC_SHADER_ATTRIBUTE &shader_attribute, const CORE_HELPERS_IDENTIFIER & identifier );

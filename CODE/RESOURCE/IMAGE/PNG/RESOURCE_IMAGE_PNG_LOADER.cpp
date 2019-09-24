@@ -61,7 +61,7 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
         return NULL;
     }
     
-    unsigned char * header = (unsigned char *) CORE_MEMORY_ALLOCATOR::Allocate(8);
+    unsigned char header[8];
     
     file.OutputBytes(header, 8);
     file.Rewind();
@@ -88,8 +88,6 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
         
         file.Close();
         
-        CORE_MEMORY_ALLOCATOR_Free( header );
-        
         return NULL;
     }
     
@@ -101,8 +99,6 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
         
         file.Close();
         
-        CORE_MEMORY_ALLOCATOR_Free( header );
-        
         return NULL;
     }
     
@@ -111,8 +107,6 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
         png_destroy_read_struct(&png_ptr, &info_ptr,
                                 &end_info);
         file.Close();
-        
-        CORE_MEMORY_ALLOCATOR_Free( header );
         
         return NULL;
     }
@@ -141,12 +135,14 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
     image_resource->GetImageInfo().Width = width;
     image_resource->GetImageInfo().Height = height;
     
+    int pixel_size = 0;
+    
     switch (color_type) {
         case PNG_COLOR_TYPE_RGB_ALPHA :{
             
             image_resource->GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;
             
-            int pixel_size = GRAPHIC_TEXTURE_INFO_GetPixelBitSizeByColorType( image_resource->GetImageInfo().ImageType, bit_depth) / 8;
+            pixel_size = GRAPHIC_TEXTURE_INFO_GetPixelBitSizeByColorType( image_resource->GetImageInfo().ImageType, bit_depth) / 8;
             
             int offset = width * pixel_size;
             
@@ -165,7 +161,7 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
             
             image_resource->GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_RGB;
             
-            int pixel_size = GRAPHIC_TEXTURE_INFO_GetPixelBitSizeByColorType( image_resource->GetImageInfo().ImageType, bit_depth) / 8;
+            pixel_size = GRAPHIC_TEXTURE_INFO_GetPixelBitSizeByColorType( image_resource->GetImageInfo().ImageType, bit_depth) / 8;
             
             int offset = width * pixel_size;
             
@@ -183,7 +179,7 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
             
             image_resource->GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_GRAY;
             
-            int pixel_size = GRAPHIC_TEXTURE_INFO_GetPixelBitSizeByColorType( image_resource->GetImageInfo().ImageType, bit_depth) / 8;
+            pixel_size = GRAPHIC_TEXTURE_INFO_GetPixelBitSizeByColorType( image_resource->GetImageInfo().ImageType, bit_depth) / 8;
             
             int offset = width * pixel_size;
             
@@ -201,19 +197,23 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
             
             CORE_RUNTIME_Abort();
             
+            pixel_size = 0;
+            
             break;
         }
             
         default: {
             
             CORE_RUNTIME_Abort();
+            
+            pixel_size = 0;
+            
             break;
         }
     }
     
-    CORE_MEMORY_ALLOCATOR_Free( header );
-    
     image_resource->SetImageRawData( imageData );
+    image_resource->SetSize( height * width * pixel_size );
     image_resource->SetIdentifier( identifier );
     
     png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
@@ -226,11 +226,11 @@ RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( const CORE_FILESYSTEM_PATH & p
 
 RESOURCE_IMAGE * RESOURCE_IMAGE_PNG_LOADER::Load( CORE_DATA_STREAM & stream, int resource_load_flag, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
     
-    abort();
+    CORE_RUNTIME_Abort();
     return new RESOURCE_IMAGE();
 }
 
 void RESOURCE_IMAGE_PNG_LOADER::ReloadResource( RESOURCE_IMAGE * resource_to_reload ) {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }

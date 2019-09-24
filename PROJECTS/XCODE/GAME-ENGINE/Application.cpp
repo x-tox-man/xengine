@@ -72,7 +72,7 @@ MyTestApp::MyTestApp() :
     SERVICE_LOGGER_Error( "ALL APP create 1" );
         
     #if PLATFORM_OSX
-        DefaultFileystem.Initialize( "/Users/christophebernard/Develop/Project/game-engine/RESOURCES/" );
+        DefaultFileystem.Initialize( "/Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/" );
     #elif PLATFORM_IOS
         DefaultFileystem.Initialize( "None" );
     #elif PLATFORM_ANDROID
@@ -647,8 +647,6 @@ void MyTestApp::Update( float time_step ) {
         
         rotation_mat.XRotate( (vector[1]-0.5f)*2.0f * M_PI_2 );
         rotation_mat.ZRotate( (vector[0]-0.5f)*2.0f * M_PI_2 );
-        
-        printf( "x: %f   y: %f \n", vector[0], vector[1]);
     }
 
     rotation_mat.GetInverse(inverse);

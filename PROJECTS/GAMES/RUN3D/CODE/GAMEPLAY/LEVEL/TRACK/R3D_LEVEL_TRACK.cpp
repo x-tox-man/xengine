@@ -8,31 +8,35 @@
 
 #include "R3D_LEVEL_TRACK.h"
 #include "GAMEPLAY_HELPER.h"
+#include "GAMEPLAY_COMPONENT_POSITION.h"
+#include "GAMEPLAY_COMPONENT_RENDER.h"
 
-R3D_LEVEL_TRACK::R3D_LEVEL_TRACK() :
-    GAMEPLAY_COMPONENT_ENTITY() {
+R3D_LEVEL_TRACK::R3D_LEVEL_TRACK() {
     
 }
 
 
-void R3D_LEVEL_TRACK::Initialize( const CORE_MATH_VECTOR & position ) {
+GAMEPLAY_COMPONENT_ENTITY::PTR R3D_LEVEL_TRACK::CreateEntity( const CORE_MATH_VECTOR & position ) {
     
-    GAMEPLAY_HELPER::CreateComponent_PositionRenderPhysics( this );
+    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
     
-    GAMEPLAY_HELPER::Set3DObject( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "flat" ) );
-    GAMEPLAY_HELPER::SetEffect( this, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
-    GAMEPLAY_HELPER::SetTexture( this, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
-    GAMEPLAY_HELPER::SetNormal( this, "spaceship1_normal", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-normal", "png", "TEXTURES" ) );
+    GAMEPLAY_HELPER::Set3DObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "flat" ) );
+    GAMEPLAY_HELPER::SetEffect( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ) );
+    GAMEPLAY_HELPER::SetTexture( entity, "spaceship1_diffuse", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
+    GAMEPLAY_HELPER::SetNormal( entity, "spaceship1_normal", CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-normal", "png", "TEXTURES" ) );
     
-    GAMEPLAY_HELPER::SetPhysicsObject( this, position, 0.0f );
+    GAMEPLAY_HELPER::SetPhysicsObject( entity, position, 0.0f );
     //GAMEPLAY_HELPER::SetPhysicsBoxObject(this, position   , CORE_MATH_VECTOR( 0.5f, 0.5f, 0.5f, 0.0f), CORE_MATH_QUATERNION(), 0.0f);
     //GAMEPLAY_HELPER::SetPhysicsCustomMaterialCallback( this );
     
-    SetPosition( position );
+    entity->SetPosition( position );
+    
+    return entity;
 }
 
 void R3D_LEVEL_TRACK::AddToSystems() {
     
-    GAMEPLAY_HELPER::AddStaticToPhysics( this, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_WEAPONSHIP );
-    GAMEPLAY_HELPER::AddToWorld( this );
+    abort(); //TODO
+    //GAMEPLAY_HELPER::AddStaticToPhysics( this, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_WEAPONSHIP );
+    //GAMEPLAY_HELPER::AddToWorld( this );
 }

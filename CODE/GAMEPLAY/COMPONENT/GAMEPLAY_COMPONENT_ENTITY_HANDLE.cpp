@@ -10,25 +10,24 @@
 #include "CORE_DATA_JSON.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_ENTITY_HANDLE )
-    XS_DEFINE_ClassMember( "Offset", int, Offset )
-    XS_DEFINE_ClassMember( "Index", int, Index )
+    XS_DEFINE_ClassMember( "Offset", unsigned int, Offset )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GAMEPLAY_COMPONENT_ENTITY_HANDLE::GAMEPLAY_COMPONENT_ENTITY_HANDLE() :
-    Offset( -1 ),
-    Index( -1 ) {
+    Offset( UINT_MAX ),
+    Size( 0 ) {
     
 }
 
-GAMEPLAY_COMPONENT_ENTITY_HANDLE::GAMEPLAY_COMPONENT_ENTITY_HANDLE( int index, int offset ) :
+GAMEPLAY_COMPONENT_ENTITY_HANDLE::GAMEPLAY_COMPONENT_ENTITY_HANDLE( unsigned int offset, unsigned int size ) :
     Offset( offset ),
-    Index( index ) {
+    Size( size ) {
     
 }
 
 GAMEPLAY_COMPONENT_ENTITY_HANDLE::GAMEPLAY_COMPONENT_ENTITY_HANDLE( const GAMEPLAY_COMPONENT_ENTITY_HANDLE & other ) :
     Offset( other.Offset ),
-    Index( other.Index ) {
+    Size( other.Size ) {
     
 }
 
@@ -36,6 +35,3 @@ GAMEPLAY_COMPONENT_ENTITY_HANDLE::~GAMEPLAY_COMPONENT_ENTITY_HANDLE() {
     
 }
 
-bool operator < (const GAMEPLAY_COMPONENT_ENTITY_HANDLE & first, const GAMEPLAY_COMPONENT_ENTITY_HANDLE & second ) {
-    return first.GetOffset() < second.GetOffset() || first.GetIndex() < second.GetIndex();
-}

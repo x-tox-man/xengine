@@ -36,12 +36,13 @@ void Stop();
 void Pause();
 void Resume();
 
+char
+    ThreadName[64];
+
 private:
 
 CORE_PARALLEL_TASK
     * Task;
-char
-    * ThreadName;
 
 static const char * DefaultThreadName;
 
@@ -65,7 +66,6 @@ public:
 
 void Initialize( const char * thread_name, __TASK_TYPE & task ) {
     
-    ThreadName = (char *) CORE_MEMORY_ALLOCATOR::Allocate(strlen( thread_name ) );
     CORE_DATA_COPY_STRING( ThreadName, thread_name );
     
     TypedTask = &task;
@@ -85,8 +85,6 @@ void Initialize( const char * thread_name, __TASK_TYPE & task ) {
 
 __TASK_TYPE
     * TypedTask;
-char
-    * ThreadName;
 
 #if __P__THREAD__
     #include "CORE_PARALLEL_THREAD_POSIX.hpp"

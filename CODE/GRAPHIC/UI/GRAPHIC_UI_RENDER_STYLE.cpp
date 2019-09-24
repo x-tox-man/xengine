@@ -39,18 +39,12 @@ void GRAPHIC_UI_RENDER_STYLE::Apply( GRAPHIC_RENDERER & renderer, const GRAPHIC_
         option;
     
     renderer.EnableColor( true );
+    GRAPHIC_SYSTEM::DisableFaceCulling();
     
     if ( Shape && Effect ) {
         
         option.SetPosition( placement.GetAbsolutePosition() );
         option.SetScaleFactor( placement.GetSize() );
-        
-        CORE_MATH_QUATERNION
-            orientation;
-        
-        orientation.RotateY( placement.GetRotation() );
-        
-        option.SetOrientation( orientation );
         
         Effect->SetMaterial( Material );
         

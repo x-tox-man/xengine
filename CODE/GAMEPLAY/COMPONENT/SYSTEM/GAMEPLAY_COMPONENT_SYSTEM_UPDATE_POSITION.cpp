@@ -22,13 +22,13 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Initialize() {
     
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Update( float time_step ) {
+void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Update( void * ecs_base_pointer, float time_step ) {
     
-    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY_PROXY * >::iterator it = EntitiesTable.begin();
+    std::vector< GAMEPLAY_COMPONENT_ENTITY_HANDLE >::iterator it = EntitiesTable.begin();
     
     while (it != EntitiesTable.end() ) {
         
-        GAMEPLAY_COMPONENT_POSITION * position = ( GAMEPLAY_COMPONENT_POSITION *) it->second->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+        GAMEPLAY_COMPONENT_POSITION * position = (( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset()))->GetComponentPosition();
         
         position->SetPosition( position->GetPosition() + position->GetVelocity() * time_step );
         
@@ -42,7 +42,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Update( float time_step ) {
     }
 }
 
-void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Render( GRAPHIC_RENDERER & renderer ) {
+void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) {
     
     CORE_RUNTIME_Abort();
 }

@@ -10,7 +10,9 @@
 
 GRAPHIC_RENDERER_TECHNIQUE::GRAPHIC_RENDERER_TECHNIQUE() :
     RendererCallback(),
-    RendererCallback1() {
+    RendererCallback1(),
+    RenderTarget( NULL ),
+    FinalRenderTarget( NULL ) {
     
 }
 
@@ -24,6 +26,15 @@ void GRAPHIC_RENDERER_TECHNIQUE::Initialize( GRAPHIC_RENDERER & renderer ) {
 
 void GRAPHIC_RENDERER_TECHNIQUE::ApplyFirstPass( GRAPHIC_RENDERER & renderer ) {
     
+    if ( RenderTarget != NULL ) {
+        
+        RenderTarget->BindForWriting();
+    }
+    
+    RendererCallback( renderer );
+    
+    if ( RenderTarget != NULL )
+        RenderTarget->Discard();
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE::ApplySecondPass( GRAPHIC_RENDERER & renderer ) {

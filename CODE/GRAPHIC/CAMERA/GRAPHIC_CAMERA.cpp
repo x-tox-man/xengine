@@ -25,13 +25,15 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA() :
     Lookat.Normalize();
 }
 
-GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov ) {
+GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up_vector, float fov ) {
+    
+    Direction = -unnormalized_direction;
+    Direction.Normalize();
+    Position = position;
+    Up = up_vector;
     
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
-    CalculateModelMatrix( position, lookat );
-    
-    Lookat = lookat;
-    Position = position;
+    CalculateModelMatrix( position, Direction, Up );
     
     Near = near_plane;
     Far = far_plane;
@@ -50,13 +52,15 @@ void GRAPHIC_CAMERA::ActivateForRender() {
     Fustrum.UpdateFustrum( *this );
 }
 
-void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat, float fov ) {
+void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up_vector, float fov ) {
+    
+    Direction = -unnormalized_direction;
+    Direction.Normalize();
+    Position = position;
+    Up = up_vector;
     
     CalculateProjectionMatrix( near_plane, far_plane, width, height );
-    CalculateModelMatrix( position, lookat );
-    
-    Lookat = lookat;
-    Position = position;
+    CalculateModelMatrix( position, Direction, Up );
     
     Near = near_plane;
     Far = far_plane;
@@ -65,13 +69,14 @@ void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, floa
     Fov = fov;
 }
 
-void GRAPHIC_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
+void GRAPHIC_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up ) {
     
-    Lookat = lookat;
     Position = position;
-    
-    CalculateProjectionMatrix( Near, Far, Width, Height );
-    CalculateModelMatrix( position, lookat );
+    Direction = -unnormalized_direction;
+    Direction.Normalize();
+    Up = up;
+
+    CalculateModelMatrix( Position, Direction, Up );
 }
 
 void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plane, float width, float height ) {
@@ -103,7 +108,7 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
     AlternateProjectionMatrix[14] =  1.0f;
     AlternateProjectionMatrix[15] =  0.0f;*/
     
-    ProjectionMatrix[0] = cotan / aspect;
+    ProjectionMatrix[0] =  cotan / aspect;
     ProjectionMatrix[1] =  0.0f;
     ProjectionMatrix[2] =  0.0f;
     ProjectionMatrix[3] =  0.0f;
@@ -116,22 +121,34 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
     ProjectionMatrix[8] =  0.0f;
     ProjectionMatrix[9] =  0.0f;
     ProjectionMatrix[10] = -(far_plane + near_plane) / (far_plane - near_plane);
-    ProjectionMatrix[11] = -1.0f;
+    ProjectionMatrix[11] = -(2.0f * far_plane * near_plane) / (far_plane - near_plane);
 
 
     ProjectionMatrix[12] =  0.0f;
     ProjectionMatrix[13] =  0.0f;
-    ProjectionMatrix[14] =  -(2.0f * far_plane * near_plane) / (far_plane - near_plane);
+    ProjectionMatrix[14] =  -1.0f;
     ProjectionMatrix[15] =  0.0f;
 }
 
-void GRAPHIC_CAMERA::CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_QUATERNION & lookat ) {
+void GRAPHIC_CAMERA::CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & normalized_direction, const CORE_MATH_VECTOR & up_vector ) {
     
-    CORE_MATH_MATRIX tmp,scale, translation,rotation;
+    CORE_MATH_MATRIX tmp, translation,rotation;
     
-    lookat.ToMatrix( &rotation[0] );
-    translation.Translate( position );
+    translation.Translate( -position );
     
-    tmp = translation * rotation * scale;
-    tmp.GetInverse( ViewMatrix );
+    CORE_MATH_VECTOR N, U, V;
+    
+    N = normalized_direction;
+    U = up_vector;
+    U = U.ComputeCrossProduct(N);
+    U.Normalize();
+    V = N.ComputeCrossProduct(U);
+    
+    rotation[0] = U.X(); rotation[1] = U.Y(); rotation[2] = U.Z(); rotation[3] = 0.0f;
+    rotation[4] = V.X(); rotation[5] = V.Y(); rotation[6] = V.Z(); rotation[7] = 0.0f;
+    rotation[8] = N.X(); rotation[9] = N.Y(); rotation[10] = N.Z(); rotation[11] = 0.0f;
+    rotation[12] = 0.0f; rotation[13] = 0.0f; rotation[14] = 0.0f; rotation[15] = 1.0f;
+    
+    ViewMatrix = rotation * translation;
+    ProjectionViewMatrix = ProjectionMatrix * ViewMatrix;
 }

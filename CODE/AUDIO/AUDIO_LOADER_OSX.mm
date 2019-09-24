@@ -59,7 +59,7 @@ yieldAudioFile:(AudioFileID * ) audio_file {
     }
     else {
 
-        abort();
+        CORE_RUNTIME_Abort();
     }
     
     
@@ -238,7 +238,7 @@ yieldAudioFile:(AudioFileID * ) audio_file {
     theDataBuffer.mBuffers[0].mNumberChannels = channelsPerFrame;
     theDataBuffer.mBuffers[0].mData = chunk->Data;
     
-    //abort();
+    //CORE_RUNTIME_Abort();
     //frames_to_read is always halved why?
     
     err = ExtAudioFileRead( *file, &frames_to_read, &theDataBuffer );

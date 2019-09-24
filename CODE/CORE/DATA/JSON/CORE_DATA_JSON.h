@@ -18,32 +18,32 @@
 
 template <typename __TYPE__>
 void XSPrintf( char * string_stream, const char * name, __TYPE__ & value) {
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 template <typename __TYPE__>
 void XSPrintf( char * string_stream, const char * name, __TYPE__ * & value) {
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 template <typename __TYPE__>
 void XSPrintf( char * string_stream, const char * name, __TYPE__ ** value) {
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 template <typename __TYPE__>
 void XSscanf( char * string_stream, const char * name, __TYPE__ & value, int & string_size ) {
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 template <typename __TYPE__>
 void XSscanf( char * string_stream, const char * name, __TYPE__ * & value, int & string_size ) {
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 template <typename __TYPE__>
 void XSscanf( char * string_stream, const char * name, __TYPE__ ** value, int & string_size ) {
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 template<> void XSPrintf<bool>( char * string_stream, const char * name, bool & value );

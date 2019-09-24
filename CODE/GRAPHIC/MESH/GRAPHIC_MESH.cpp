@@ -12,7 +12,7 @@
 #include "CORE_DATA_JSON.h"
 #include "CORE_MEMORY.h"
 
-XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH )
+XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH ) 
     XS_DEFINE_ClassMember( "VertexCoreBuffer", CORE_DATA_BUFFER, VertexCoreBuffer )
     XS_DEFINE_ClassMember( "IndexCoreBuffer", CORE_DATA_BUFFER, IndexCoreBuffer )
     XS_DEFINE_ClassMember( "VertexComponent", GRAPHIC_SHADER_BIND, VertexComponent )
@@ -21,7 +21,7 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH )
     XS_DEFINE_ClassMember( "VertexStride", int, VertexStride )
     XS_DEFINE_ClassMember( "Transform", CORE_MATH_MATRIX, Transform )
     XS_DEFINE_ClassMember( "BoundingShape", CORE_MATH_SHAPE, BoundingShape )
-    XS_DEFINE_ClassMember( "MeshName", std::string, MeshName )
+    XS_DEFINE_ClassMemberArray( "MeshName", char, MeshName, 64 )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH )
@@ -30,13 +30,12 @@ XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH * )
 GRAPHIC_MESH::GRAPHIC_MESH() :
     VertexCoreBuffer( NULL ),
     IndexCoreBuffer( NULL ),
-    Texture( NULL ),
-    NormalTexture( NULL ),
     VertexComponent( GRAPHIC_SHADER_BIND_None ),
     VertexStride( 0 ),
     PolygonRenderMode( GRAPHIC_MESH_POLYGON_RENDER_MODE_TriangleList ),
     SurfaceRenderMode( GRAPHIC_MESH_SURFACE_RENDER_MODE_Wireframe ),
-    Transform()
+    Transform(),
+    MeshName()
     #if X_VK
     , Buffer(),
     Memory(),
@@ -60,8 +59,6 @@ GRAPHIC_MESH::~GRAPHIC_MESH() {
 
     CORE_MEMORY_ObjectSafeDeallocation( VertexCoreBuffer );
     CORE_MEMORY_ObjectSafeDeallocation( IndexCoreBuffer );
-    CORE_MEMORY_ObjectSafeDeallocation( Texture );
-    CORE_MEMORY_ObjectSafeDeallocation( NormalTexture );
 }
 
 int GRAPHIC_MESH::ComputeVertexStride(GRAPHIC_SHADER_BIND bind) {

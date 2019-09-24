@@ -19,7 +19,6 @@
 	#include <gl/GLU.h>
 	#include <gl/GL.h>
 	#include <glext.h>
-    
 #else
 	#include <OpenGL/gl3.h>
 	//#include <GLUT/GLUT.h>
@@ -41,7 +40,7 @@
         __METHOD__ \
         { \
         int error = glGetError(); \
-        if ( error || error == GL_INVALID_VALUE || error == GL_INVALID_OPERATION ) { SERVICE_LOGGER_Error( "GLError with %s  : - %d - %s\n", #__METHOD__ , error, gluErrorString(error) );  } \
+        if ( error || error == GL_INVALID_VALUE || error == GL_INVALID_OPERATION ) { SERVICE_LOGGER_Error( "GLError with %s  : - %d - %s\n", #__METHOD__ , error, "TODO gluErrorString(error)" );  } \
         }
 #endif
 

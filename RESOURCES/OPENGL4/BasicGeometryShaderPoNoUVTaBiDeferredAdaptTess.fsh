@@ -1,4 +1,4 @@
-#version 430 core
+#version 410 core
 
 in vec3 WorldPos_FS_in;
 in vec2 TexCoord_FS_in;

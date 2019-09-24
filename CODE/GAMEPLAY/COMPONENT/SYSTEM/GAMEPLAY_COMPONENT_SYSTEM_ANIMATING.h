@@ -18,8 +18,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_SYSTEM_ANIMATING, GAMEPLAY_COMP
     virtual ~GAMEPLAY_COMPONENT_SYSTEM_ANIMATING();
 
     virtual void Initialize() override;
-    virtual void Update( float time_step) override;
-    virtual void Render( GRAPHIC_RENDERER & renderer ) override;
+    virtual void Update( void * ecs_base_pointer, float time_step ) override;
+    virtual void Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer )override;
     virtual void Finalize() override;
 
 XS_CLASS_END

@@ -14,8 +14,6 @@
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_MESH_ANIMATION.h"
 #include "GRAPHIC_SHADER_BIND.h"
-#include "GRAPHIC_TEXTURE.h"
-#include "GRAPHIC_TEXTURE_LOADER.h"
 #include "GRAPHIC_MESH_POLYGON_RENDER_MODE.h"
 #include "GRAPHIC_MESH_SURFACE_RENDER_MODE.h"
 #include "CORE_MATH_SHAPE_BOX.h"
@@ -59,11 +57,6 @@ public:
     void ActivateBufferComponent( GRAPHIC_SHADER_BIND attribute );
     static int ComputeVertexStride(GRAPHIC_SHADER_BIND bind);
 
-    inline void SetTexture( GRAPHIC_TEXTURE * texture) { Texture = texture; }
-    inline void SetNormalTexture( GRAPHIC_TEXTURE * texture) { NormalTexture = texture; }
-    inline GRAPHIC_TEXTURE * GetTexture() { return Texture; }
-    inline GRAPHIC_TEXTURE * GetNormalTexture() { return NormalTexture; }
-
     inline const GRAPHIC_MESH_POLYGON_RENDER_MODE GetPolygonRenderMode() const { return PolygonRenderMode; }
     inline const GRAPHIC_MESH_SURFACE_RENDER_MODE GetSurfaceRenderMode() const { return SurfaceRenderMode; }
 
@@ -80,8 +73,8 @@ public:
     inline int GetVertexStride() const { return VertexStride; }
     inline GRAPHIC_MESH_POLYGON_RENDER_MODE GetPolygonRenderMode() { return PolygonRenderMode; }
 
-    inline std::string & GetName() { return MeshName; }
-    inline void SetName ( const std::string & name ) { MeshName = name; }
+    inline char * GetName() { return MeshName; }
+    inline void SetName ( const char * name ) { CORE_DATA_COPY_STRING( MeshName, name ); }
 
     #if __COMPILE_WITH__COLLADA__
 
@@ -106,9 +99,6 @@ private :
     CORE_DATA_BUFFER
         * VertexCoreBuffer,
         * IndexCoreBuffer;
-    GRAPHIC_TEXTURE
-        * Texture,
-        * NormalTexture;
     GRAPHIC_SHADER_BIND
         VertexComponent;
     GRAPHIC_MESH_POLYGON_RENDER_MODE
@@ -119,8 +109,8 @@ private :
         Transform;
     CORE_MATH_SHAPE
         BoundingShape;
-    std::string
-        MeshName;
+    char
+        MeshName[64];
     int
         VertexStride;
 
@@ -132,6 +122,8 @@ private :
     #include "GRAPHIC_MESH_OES2.h"
 #elif X_VK
     #include "GRAPHIC_MESH_VK.h"
+#elif X_METAL
+    #include "GRAPHIC_MESH_METAL.h"
 #elif DX11
 
 #endif

@@ -28,13 +28,11 @@ void GRAPHIC_CAMERA_FUSTRUM::UpdateFustrum( const GRAPHIC_CAMERA & camera ) {
     
     //Calculate fustrum orientation
     
-    CORE_MATH_QUATERNION orientation = camera.GetOrientation();
-    orientation.RotateX( ( float ) M_PI_2 );
-    orientation.RotateX( ( float ) M_PI_2 );
+    CORE_MATH_QUATERNION orientation = camera.GetOrientation().Inverse();
     CORE_MATH_VECTOR fustrum_border_vector;
-    CORE_MATH_MATRIX m, mm;
-    orientation.ToMatrix( m.GetRow(0) );
+    CORE_MATH_MATRIX m;
     
+    m = CORE_MATH_MATRIX::FromDirectionAndUpVector( -camera.GetDirection(), -camera.GetUp() );
     // front 0
     FrustumPlanes[0].Point = camera.GetPosition();
     
@@ -43,9 +41,7 @@ void GRAPHIC_CAMERA_FUSTRUM::UpdateFustrum( const GRAPHIC_CAMERA & camera ) {
                                                    camera.GetNear(),
                                                    0.0f);
     FrustumPlanes[0].Normal.Normalize();
-    FrustumPlanes[0].D = -FrustumPlanes[0].Point.X() * FrustumPlanes[0].Normal.X()
-        -FrustumPlanes[0].Point.Y() * FrustumPlanes[0].Normal.Y()
-        -FrustumPlanes[0].Point.Z() * FrustumPlanes[0].Normal.Z();
+    FrustumPlanes[0].D = - FrustumPlanes[0].Point.ComputeDotProduct( FrustumPlanes[0].Normal );
     
     // back 1
     FrustumPlanes[1].Point = camera.GetPosition() + m * CORE_MATH_VECTOR(0.0f, 0.0f, camera.GetFar(), 0.0f);
@@ -55,71 +51,61 @@ void GRAPHIC_CAMERA_FUSTRUM::UpdateFustrum( const GRAPHIC_CAMERA & camera ) {
                                                    -camera.GetFar(),
                                                    0.0f);
     FrustumPlanes[1].Normal.Normalize();
-    FrustumPlanes[1].D = -FrustumPlanes[1].Point.X() * FrustumPlanes[1].Normal.X()
-    -FrustumPlanes[1].Point.Y() * FrustumPlanes[1].Normal.Y()
-    -FrustumPlanes[1].Point.Z() * FrustumPlanes[1].Normal.Z();
+    FrustumPlanes[1].D = - FrustumPlanes[1].Point.ComputeDotProduct( FrustumPlanes[1].Normal );
     
     float l = ( float ) ( sin( M_PI / 6.0f ) * camera.GetFar() );
     
     // left 2
     {
+        CORE_MATH_MATRIX mm;
         fustrum_border_vector.Set( -l * 0.5f, 0.0f, (camera.GetFar() -camera.GetNear()) * 0.5f, 0.0f );
-        CORE_MATH_QUATERNION r;
-        r.RotateZ( ( float )  -M_PI_2 );
+        mm.YRotate( ( float )  M_PI_2 );
+        
         const CORE_MATH_VECTOR pt(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W());
         FrustumPlanes[2].Point = camera.GetPosition() + m * pt;
-        ( r * orientation ).ToMatrix( mm.GetRow(0) );
-        FrustumPlanes[2].Normal = mm * pt;
+        FrustumPlanes[2].Normal = m * mm * pt;
         FrustumPlanes[2].Normal.Normalize();
-        FrustumPlanes[2].D = -FrustumPlanes[2].Point.X() * FrustumPlanes[2].Normal.X()
-        -FrustumPlanes[2].Point.Y() * FrustumPlanes[2].Normal.Y()
-        -FrustumPlanes[2].Point.Z() * FrustumPlanes[2].Normal.Z();
+        FrustumPlanes[2].D = - FrustumPlanes[2].Point.ComputeDotProduct( FrustumPlanes[2].Normal );
     }
     
     
     // rigth 3
     {
+        CORE_MATH_MATRIX mm;
         fustrum_border_vector.Set( l * 0.5f, 0.0f, (camera.GetFar() -camera.GetNear()) * 0.5f, 0.0f );
-        CORE_MATH_QUATERNION r;
-        r.RotateZ( ( float ) M_PI_2 );
+        mm.YRotate( ( float )  -M_PI_2 );
+        
         const CORE_MATH_VECTOR pt(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W());
         FrustumPlanes[3].Point = camera.GetPosition() + m * pt;
-        ( r * orientation ).ToMatrix( mm.GetRow(0) );
-        FrustumPlanes[3].Normal = mm * pt;
+        FrustumPlanes[3].Normal = m * mm * pt;
         FrustumPlanes[3].Normal.Normalize();
-        FrustumPlanes[3].D = -FrustumPlanes[3].Point.X() * FrustumPlanes[3].Normal.X()
-        -FrustumPlanes[3].Point.Y() * FrustumPlanes[3].Normal.Y()
-        -FrustumPlanes[3].Point.Z() * FrustumPlanes[3].Normal.Z();
+        FrustumPlanes[3].D = - FrustumPlanes[3].Point.ComputeDotProduct( FrustumPlanes[3].Normal );
     }
     
     // top 4
     {
+        CORE_MATH_MATRIX mm;
         fustrum_border_vector.Set( 0.0f, l * 0.5f, (camera.GetFar() -camera.GetNear()) * 0.5f, 0.0f );
-        CORE_MATH_QUATERNION r;
-        r.RotateX( ( float ) M_PI_2 );
+        mm.XRotate( ( float )  M_PI_2 );
+        
         const CORE_MATH_VECTOR pt(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W());
         FrustumPlanes[4].Point = camera.GetPosition() + m * pt;
-        (r * orientation ).ToMatrix( mm.GetRow(0) );
-        FrustumPlanes[4].Normal = mm * pt;
+        FrustumPlanes[4].Normal = m * mm * pt;
         FrustumPlanes[4].Normal.Normalize();
-        FrustumPlanes[4].D = -FrustumPlanes[4].Point.X() * FrustumPlanes[4].Normal.X()
-        -FrustumPlanes[4].Point.Y() * FrustumPlanes[4].Normal.Y()
-        -FrustumPlanes[4].Point.Z() * FrustumPlanes[4].Normal.Z();
+        FrustumPlanes[4].D = - FrustumPlanes[4].Point.ComputeDotProduct( FrustumPlanes[4].Normal );
     }
     
     // bottom 5
     {
-        fustrum_border_vector.Set( 0.0f, - l * 0.5f, (camera.GetFar() -camera.GetNear()) * 0.5f, 0.0f );
-        CORE_MATH_QUATERNION r;
-        r.RotateX( ( float ) -M_PI_2 );
+        CORE_MATH_MATRIX mm;
+        fustrum_border_vector.Set( 0.0f, -l * 0.5f, (camera.GetFar() -camera.GetNear()) * 0.5f, 0.0f );
+        mm.XRotate( ( float ) -M_PI_2 );
+        
         const CORE_MATH_VECTOR pt(fustrum_border_vector.X(), fustrum_border_vector.Y(), fustrum_border_vector.Z(), fustrum_border_vector.W());
         FrustumPlanes[5].Point = camera.GetPosition() + m * pt;
-        (r * orientation ).ToMatrix( mm.GetRow(0) );
-        FrustumPlanes[5].Normal = mm * pt;
+        FrustumPlanes[5].Normal = m * mm * pt;
         FrustumPlanes[5].Normal.Normalize();
-        FrustumPlanes[5].D = -FrustumPlanes[5].Point.X() * FrustumPlanes[5].Normal.X()
-            -FrustumPlanes[5].Point.Y() * FrustumPlanes[5].Normal.Y()
-            -FrustumPlanes[5].Point.Z() * FrustumPlanes[5].Normal.Z();
+        FrustumPlanes[5].D = - FrustumPlanes[5].Point.ComputeDotProduct( FrustumPlanes[5].Normal );
     }
 }
 
@@ -214,4 +200,24 @@ void GRAPHIC_CAMERA_FUSTRUM::DebugDraw( const GRAPHIC_CAMERA & camera ) const {
         TOOLS_DEBUG_DRAW::Instance->DrawLine(GRAPHIC_RENDERER::GetInstance(), to3, to4);
     #endif
 #endif
+}
+
+bool GRAPHIC_CAMERA_FUSTRUM::BoxInFrustum( const CORE_MATH_SHAPE & box ) const {
+    
+    //http://old.cescg.org/CESCG-2002/DSykoraJJelinek/
+    float m, n; int i, result = true;
+    
+    for (i = 0; i < 6; i++) {
+        
+        m = (box.GetPosition().X() * FrustumPlanes[i].Normal.X() ) + (box.GetPosition().Y() * FrustumPlanes[i].Normal.Y()) + (box.GetPosition().Z() * FrustumPlanes[i].Normal.Z() ) + FrustumPlanes[i].D;
+        n = ( box.GetHalfDiagonal().X() * fabs( FrustumPlanes[i].Normal.X() ) ) + ( box.GetHalfDiagonal().Y() * fabs( FrustumPlanes[i].Normal.Y() ) ) + ( box.GetHalfDiagonal().Z() * fabs(FrustumPlanes[i].Normal.Z() ) );
+        
+        if (m + n < 0)
+            return false;
+        if (m - n < 0)
+            result = true;
+        
+    }
+    
+    return result;
 }

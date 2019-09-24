@@ -31,7 +31,7 @@ GAMEPLAY_ACTION_COMMAND_LOAD_GAME::GAMEPLAY_ACTION_COMMAND_LOAD_GAME( const GAME
     GAMEPLAY_ACTION(),
     Players() {
     
-    abort();
+    CORE_RUNTIME_Abort();
 }
 
 

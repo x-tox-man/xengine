@@ -188,4 +188,11 @@ void GRAPHIC_RENDER_TARGET::SetWriteBuffer( int type )
     GFX_CHECK( glDrawBuffer(GL_COLOR_ATTACHMENT0 + type); )
 }
 
+void GRAPHIC_RENDER_TARGET::CopyDepthFrom( GRAPHIC_RENDER_TARGET & other ) {
+    
+    GFX_CHECK( glBindFramebuffer(GL_READ_FRAMEBUFFER, other.FrameBuffer ); )
+    GFX_CHECK( glBindFramebuffer(GL_DRAW_FRAMEBUFFER, DepthrenderBuffer); )
+    GFX_CHECK( glBlitFramebuffer(0, 0, other.GetTargetTexture(0)->GetTextureInfo().Width, other.GetTargetTexture(0)->GetTextureInfo().Height, 0, 0, other.GetTargetTexture(0)->GetTextureInfo().Width, other.GetTargetTexture(0)->GetTextureInfo().Height, GL_DEPTH_BUFFER_BIT, GL_NEAREST); )
+}
+
 #endif

@@ -170,16 +170,24 @@ void R3D_GAMEPLAY_GAME::Initialize( ) {
     Scene.InsertUpdatableSystem( BulletSystem );
     
     BulletSystem->SetNearCallback( MyNearCallback );
-    BulletSystem->SetGravity( -2.81f );
+    BulletSystem->SetGravity( CORE_MATH_VECTOR( 0.0f, -2.81f, 0.0f) );
     BulletSystem->Initialize();
     BulletSystem->SetCollisionFilter( new PHYSICS_COLLISION_FILTER() );
     
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_LIGHTING );
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
     Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
+    Scene.InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
+    
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[0])->SetMask( GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[1])->SetMask( GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[2])->SetMask( GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent );
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[3])->SetMask( GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent );
     
     ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[1])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[2])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[3])->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) Scene.GetRenderableSystemTable()[3])->SetCustomRenderComponentIndex( GAMEPLAY_COMPONENT_TYPE_Light );
     
     LevelManager.Initialize();
     
@@ -217,9 +225,9 @@ void R3D_GAMEPLAY_GAME::Finalize() {
     }
 }
 
-void R3D_GAMEPLAY_GAME::Render( GRAPHIC_RENDERER & renderer ) {
+void R3D_GAMEPLAY_GAME::Render( GRAPHIC_RENDERER & renderer, int transparent_mask ) {
     
-    Scene.Render( renderer );
+    Scene.Render( renderer, transparent_mask );
 }
 
 void R3D_GAMEPLAY_GAME::Update( const float step ) {
@@ -282,8 +290,9 @@ void R3D_GAMEPLAY_GAME::InternalUpdateGame( const float step) {
     Delegate->SetOrientation( total_rotation );
 #else
     
-    float total_thrust = LevelManager.GetCurrentLevel()->GetPlayerTable()[ ThisPlayerIndex]->GetShip()->GetThrust() * 0.9f + thrust * 0.1f;
-    float total_rotation = LevelManager.GetCurrentLevel()->GetPlayerTable()[ ThisPlayerIndex]->GetShip()->GetRotation() * 0.9f + orientation * 0.1f;
+    auto cmp = (R3D_PLAYER_SHIP::PTR) LevelManager.GetCurrentLevel()->GetPlayerTable()[ ThisPlayerIndex]->GetShip()->GetComponent( R3D_GAMEPLAY_COMPONENT_TYPE_PlayerShip ) ;
+    float total_thrust = cmp->GetThrust() * 0.9f + thrust * 0.1f;
+    float total_rotation = cmp->GetRotation() * 0.9f + orientation * 0.1f;
     
     Delegate->SetThrust( total_thrust );
     Delegate->SetOrientation( total_rotation );
@@ -317,9 +326,9 @@ CORE_FIXED_STATE_EndOfStateEvent()
 
 CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVENT )
     static float t = 0.0f;
-    static GRAPHIC_CAMERA local_camera( 1.0f, 1500.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR(), CORE_MATH_QUATERNION() );
+    static GRAPHIC_CAMERA local_camera( 1.0f, 1500.0f, 1024.0f, 768.0f, CORE_MATH_VECTOR(), CORE_MATH_VECTOR::XAxis, CORE_MATH_VECTOR::YAxis );
     static const CORE_MATH_VECTOR & position = R3D_APP_PTR->GetCamera()->GetPosition();
-    static const CORE_MATH_QUATERNION & orientation = R3D_APP_PTR->GetCamera()->GetOrientation();
+    static const CORE_MATH_VECTOR & direction = R3D_APP_PTR->GetCamera()->GetDirection();
 
     if ( t > 1.0f ) {
         
@@ -327,20 +336,16 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STARTING, UPDATE_EVEN
         
         t = 0.0f;
         
-        R3D_APP_PTR->SetCamera( &GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[ GetContext().ThisPlayerIndex ]->GetShip()->GetRear() );
+        R3D_APP_PTR->SetCamera( &GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[ GetContext().ThisPlayerIndex ]->GetRear() );
     }
     else {
         
         if( GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex] != NULL &&  GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip() != NULL ) {
             
-            const GRAPHIC_CAMERA & camera = GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex]->GetShip()->GetRear();
+            const GRAPHIC_CAMERA & camera = GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable()[GetContext().ThisPlayerIndex]->GetRear();
             
-            float p = t;
             
-            CORE_MATH_QUATERNION q = camera.GetOrientation() * p + orientation * (1.0f - p);
-            q.Normalize();
-            
-            local_camera.UpdateCamera(camera.GetPosition() * p + position * (1.0f - p), q );
+            local_camera.UpdateCamera(camera.GetPosition(), direction );
             R3D_APP_PTR->SetCamera( &local_camera );
         }
     }
@@ -377,12 +382,12 @@ CORE_FIXED_STATE_DefineStateEvent( R3D_GAMEPLAY_GAME::GAME_STATE, UPDATE_EVENT )
 
     std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, R3D_PLAYER::PTR >::iterator it = GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable().begin();
 
-    while( it != GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable().end() ) {
+    /*while( it != GetContext().LevelManager.GetCurrentLevel()->GetPlayerTable().end() ) {
         
         it->second->GetShip()->Update( event.GetEventData() );
         
         it++;
-    }
+    }*/
 
     GetContext().GetLevel()->Update( event.GetEventData() );
 

@@ -58,6 +58,8 @@ private:
     #include "GRAPHIC_PARTICLE_RENDERER_OES2.hpp"
 #elif X_VK
     #include "GRAPHIC_PARTICLE_RENDERER_VK.hpp"
+#elif X_METAL
+    #include "GRAPHIC_PARTICLE_RENDERER_METAL.hpp"
 #else
     #error "Implement Platforms"
 #endif

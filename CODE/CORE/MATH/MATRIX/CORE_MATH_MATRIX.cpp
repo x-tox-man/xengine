@@ -300,6 +300,28 @@ float CORE_MATH_MATRIX::ComputeDeterminant() const
     return Value[0] * detA - Value[1] * detB + Value[2] * detC + Value[3] * detD;
 }
 
+CORE_MATH_MATRIX CORE_MATH_MATRIX::FromDirectionAndUpVector( const CORE_MATH_VECTOR & direction, const CORE_MATH_VECTOR & up) {
+    
+    CORE_MATH_VECTOR N, U, V;
+    
+    N = direction;
+    N.Normalize();
+    U = up;
+    U = U.ComputeCrossProduct(N);
+    U.Normalize();
+    V = N.ComputeCrossProduct(U);
+    
+    CORE_MATH_MATRIX
+        m;
+    
+    m[0] = U.X(); m[1] = U.Y(); m[2] = U.Z(); m[3] = 0.0f;
+    m[4] = V.X(); m[5] = V.Y(); m[6] = V.Z(); m[7] = 0.0f;
+    m[8] = N.X(); m[9] = N.Y(); m[10] = N.Z(); m[11] = 0.0f;
+    m[12] = 0.0f; m[13] = 0.0f; m[14] = 0.0f; m[15] = 1.0f;
+    
+    return m;
+}
+
 float * GLOBAL_MULTIPLY_MATRIX(float *lhs, float *rhs) {
 
     float temp[16];

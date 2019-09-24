@@ -38,8 +38,10 @@ void R3D_RESOURCES::Initialize() {
     RESOURCE_PROXY::PTR skydome_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR sky_effect_proxy = new RESOURCE_PROXY;
     RESOURCE_PROXY::PTR shadow_map_proxy = new RESOURCE_PROXY;
+    RESOURCE_PROXY::PTR shader_spaceship_special_proxy = new RESOURCE_PROXY;
+    RESOURCE_PROXY::PTR bullet_deferred_proxy = new RESOURCE_PROXY;
     
-    spaceship1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("spaceship", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
+    spaceship1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath( "spaceship", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     track_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("flat", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     weapon1_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("weapon1", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
     checkpoint_proxy->SetResource( GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath("checkpoint", "smx", "MODELS" ), 0, GRAPHIC_MESH_TYPE_ModelResource ) );
@@ -49,7 +51,8 @@ void R3D_RESOURCES::Initialize() {
     
     //auto effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBi", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferred", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
-    auto tesselation_effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "tess_shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferredAdaptTess", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ), GRAPHIC_SHADER_LOAD_OPTION_Vertex | GRAPHIC_SHADER_LOAD_OPTION_Fragment | GRAPHIC_SHADER_LOAD_OPTION_Tesselate );
+    auto bullet_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "shader_color" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiColorDeferred", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
+    auto tesselation_effect_deferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "tess_shader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderPoNoUVTaBiDeferredTess", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ), GRAPHIC_SHADER_LOAD_OPTION_Vertex | GRAPHIC_SHADER_LOAD_OPTION_Fragment | GRAPHIC_SHADER_LOAD_OPTION_Tesselate );
     auto basic_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "BasicGeometryShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto basic_terrain_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "TerrainShader" ), CORE_FILESYSTEM_PATH::FindFilePath( "BasicTerrainShaderDeferred", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
     auto checkpoint_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "CheckpointEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "CheckpointEffect", "vsh", GRAPHIC_SYSTEM::ShaderDirectoryPath ) );
@@ -57,6 +60,7 @@ void R3D_RESOURCES::Initialize() {
     auto text_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderTextured"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     auto sky_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SkyEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "BackgroundSkyDeferred" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     auto shadow_map_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowMapEffect"), CORE_FILESYSTEM_PATH::FindFilePath( "ShadowMapEffect" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    auto spaceship_special_effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SpaceShipSpecialEffect"), CORE_FILESYSTEM_PATH::FindFilePath( "SpaceShipSpecialEffect" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
     //effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     effect_deferred->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
@@ -64,10 +68,12 @@ void R3D_RESOURCES::Initialize() {
     basic_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     basic_terrain_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     checkpoint_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
-    particle_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    particle_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalCustom );
     text_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     sky_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     shadow_map_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    spaceship_special_effect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
+    bullet_deferred->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     
     shader_proxy->SetResource( effect_deferred );
     basic_geometry_shader_proxy->SetResource( basic_effect );
@@ -78,6 +84,8 @@ void R3D_RESOURCES::Initialize() {
     sky_effect_proxy->SetResource( sky_effect );
     shadow_map_proxy->SetResource( shadow_map_effect );
     tess_shader_proxy->SetResource( tesselation_effect_deferred );
+    shader_spaceship_special_proxy->SetResource( spaceship_special_effect );
+    bullet_deferred_proxy->SetResource( bullet_deferred );
     
     Resources->AddResource( spaceship1_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship" ) );
     Resources->AddResource( cone_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) );
@@ -95,6 +103,8 @@ void R3D_RESOURCES::Initialize() {
     Resources->AddResource( sky_effect_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SkyEffect" ) );
     Resources->AddResource( shadow_map_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowMapEffect" ) );
     Resources->AddResource( tess_shader_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "tess_shader" ) );
+    Resources->AddResource( shader_spaceship_special_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader_spaceship_special" ) );
+    Resources->AddResource( bullet_deferred_proxy, CORE_HELPERS_UNIQUE_IDENTIFIER( "shader_color" ) );
     
     CreateModel( "moon", CORE_HELPERS_UNIQUE_IDENTIFIER( "moon" ) );
     CreateModel( "turn", CORE_HELPERS_UNIQUE_IDENTIFIER( "turn" ) );

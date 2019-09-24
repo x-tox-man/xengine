@@ -10,6 +10,7 @@
 #include "CORE_RUNTIME_ENVIRONMENT.h"
 #include "CORE_MEMORY.h"
 #include "CORE_DATA_JSON.h"
+#include "CORE_DATA_BUFFER.h"
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( RESOURCE_IMAGE )
 
@@ -42,8 +43,9 @@ GRAPHIC_TEXTURE * RESOURCE_IMAGE::CreateTextureObject( bool generate_mip_map ) {
     texture->GetTextureInfo().ImageType = TextureInfo.ImageType;
     texture->GetTextureInfo().Width = TextureInfo.Width;
     texture->GetTextureInfo().Height = TextureInfo.Height;
-    
-    texture->Initialize( RawData, generate_mip_map );
+    CORE_DATA_BUFFER temp;
+    temp.InitializeWithMemory( Size, 1, RawData );
+    texture->Initialize( temp, generate_mip_map );
     
     if ( RawData ) {
         

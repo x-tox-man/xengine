@@ -32,7 +32,7 @@ void GRAPHIC_SHADER_PROGRAM::LoadProgram( const CORE_FILESYSTEM_PATH & path, int
         CORE_MEMORY_ObjectSafeDeallocation( vertex );
     }
     
-    if ( shader_load_options & GRAPHIC_SHADER_LOAD_OPTION_Vertex) {
+    if ( shader_load_options & GRAPHIC_SHADER_LOAD_OPTION_Fragment) {
         
         GRAPHIC_SHADER * fragment = new GRAPHIC_SHADER;
         
@@ -1215,6 +1215,26 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     if ( attribute->AttributeIndex != -1 ) {
         
         attribute->AttributeName = SSAOViewProjectionMatrix;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOViewMatrix.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = SSAOViewMatrix;
+        
+        setShaderAttribute(*attribute);
+    }
+    CORE_MEMORY_ObjectSafeDeallocation( attribute );
+    
+    attribute = new GRAPHIC_SHADER_ATTRIBUTE;
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, FrameResolution.GetTextValue() ); )
+    if ( attribute->AttributeIndex != -1 ) {
+        
+        attribute->AttributeName = FrameResolution;
         
         setShaderAttribute(*attribute);
     }

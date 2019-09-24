@@ -40,7 +40,7 @@ GRAPHIC_TEXTURE::~GRAPHIC_TEXTURE() {
     GRAPHIC_SYSTEM::ReleaseTexture( this );
 }
 
-void GRAPHIC_TEXTURE::Initialize( void * texture_data, bool generate_mip_map ) {
+void GRAPHIC_TEXTURE::Initialize( CORE_DATA_BUFFER & texture_data, bool generate_mip_map ) {
     
     GRAPHIC_SYSTEM::CreateTexture( this, texture_data, generate_mip_map );
 }
@@ -95,6 +95,7 @@ void GRAPHIC_TEXTURE::SaveDepthTo( const CORE_FILESYSTEM_PATH & path ) {
         GFX_CHECK( glReadPixels(0, 0, GetTextureInfo().Width, GetTextureInfo().Height, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, pixels); )
     
         img.SetImageRawData(pixels);
+        img.SetSize( size );
         img.GetImageInfo().Height = GetTextureInfo().Height;
         img.GetImageInfo().Width = GetTextureInfo().Width;
         img.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_GRAY;
@@ -104,10 +105,11 @@ void GRAPHIC_TEXTURE::SaveDepthTo( const CORE_FILESYSTEM_PATH & path ) {
     
         delete[] pixels;
     #else
-        abort();//implement
+        CORE_RUNTIME_Abort();//implement
     #endif
     
     img.SetImageRawData( NULL );
+    img.SetSize( 0 );
 }
 
 void GRAPHIC_TEXTURE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
@@ -125,7 +127,7 @@ void GRAPHIC_TEXTURE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
         GFX_CHECK( glReadPixels(0, 0, GetTextureInfo().Width, GetTextureInfo().Height, GL_RGBA, GL_UNSIGNED_BYTE, pixels); )
     
         img.SetImageRawData(pixels);
-    
+        img.SetSize( size );
         img.GetImageInfo().Height = GetTextureInfo().Height;
         img.GetImageInfo().Width = GetTextureInfo().Width;
         img.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE::GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;
@@ -136,8 +138,9 @@ void GRAPHIC_TEXTURE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
     
         delete[] pixels;
     #else
-        abort();//implement
+        CORE_RUNTIME_Abort();//implement
     #endif
     
     img.SetImageRawData( NULL );
+    img.SetSize( 0 );
 }
