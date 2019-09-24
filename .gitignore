@@ -15,6 +15,8 @@ bin/
 obj/
 **/bin/
 **/obj/
+**/*.obj
+**/*.log
 BUILDIR/
 LIBS/
 HEADERS/

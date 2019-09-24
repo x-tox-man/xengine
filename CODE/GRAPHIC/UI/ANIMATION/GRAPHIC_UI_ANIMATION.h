@@ -15,6 +15,8 @@
 #include "CORE_HELPERS_CALLBACK.h"
 #include "CORE_HELPERS_SCALAR.h"
 
+#include <functional>
+
 class GRAPHIC_UI_ELEMENT;
 
 struct GRAPHIC_UI_ANIMATION_INTERPOLATION_DATA {
