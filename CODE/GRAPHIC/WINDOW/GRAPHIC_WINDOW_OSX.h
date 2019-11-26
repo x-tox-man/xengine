@@ -9,7 +9,6 @@
 #include "CORE_HELPERS_CLASS.h"
 
 #import <AppKit/AppKit.h>
-#import <GLKit/GLKit.h>
 #import <Cocoa/Cocoa.h>
 #import "GRAPHIC_WINDOW.h"
 #import "CORE_HELPERS_CALLBACK.h"
@@ -17,6 +16,8 @@
 #if X_METAL
     #import "X_METAL.h"
 #elif OPENGL4
+
+    #import <GLKit/GLKit.h>
 
     @interface CustomGlView : NSOpenGLView< NSWindowDelegate >
 

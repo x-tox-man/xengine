@@ -13,29 +13,12 @@
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #import "METAL_SHADER_TYPES.h"
-
-static const NSUInteger kMaxBuffersInFlight = 3;
-
-static const size_t kAlignedUniformsSize = (sizeof(Uniforms) & ~0xFF) + 0x100;
+#import "GRAPHIC_SYSTEM.h"
+#import "GRAPHIC_RENDERER.h"
 
 @implementation METAL_VIEW_DELEGATE
 {
     id <MTLDevice> _device;
-    dispatch_semaphore_t _inFlightSemaphore;
-    /*
-    id <MTLCommandQueue> _commandQueue;
-
-    id <MTLBuffer> _dynamicUniformBuffer;
-    id <MTLRenderPipelineState> _pipelineState;
-    id <MTLDepthStencilState> _depthState;
-    
-
-    uint32_t _uniformBufferOffset;
-    uint8_t _uniformBufferIndex;
-
-    void* _uniformBufferAddress;
-
-    matrix_float4x4 _projectionMatrix;*/
 }
 
 -(nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)view;
@@ -44,9 +27,6 @@ static const size_t kAlignedUniformsSize = (sizeof(Uniforms) & ~0xFF) + 0x100;
     if(self)
     {
         _device = view.device;
-        _inFlightSemaphore = dispatch_semaphore_create(kMaxBuffersInFlight);
-        //[self _loadMetalWithView:view];
-        //[self _loadAssets];
         
         view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
         view.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
@@ -56,135 +36,13 @@ static const size_t kAlignedUniformsSize = (sizeof(Uniforms) & ~0xFF) + 0x100;
     return self;
 }
 
-/*- (void)_loadAssets
-{
-    /// Load assets into metal objects
-
-    MTKTextureLoader* textureLoader = [[MTKTextureLoader alloc] initWithDevice:_device];
-
-    NSDictionary *textureLoaderOptions =
-    @{
-      MTKTextureLoaderOptionTextureUsage       : @(MTLTextureUsageShaderRead),
-      MTKTextureLoaderOptionTextureStorageMode : @(MTLStorageModePrivate)
-      };
-
-    _colorMap = [textureLoader newTextureWithName:@"ColorMap"
-                                      scaleFactor:1.0
-                                           bundle:nil
-                                          options:textureLoaderOptions
-                                            error:&error];
-
-    if(!_colorMap || error)
-    {
-        NSLog(@"Error creating texture %@", error.localizedDescription);
-    }
-}
-
-- (void)_updateDynamicBufferState
-{
-    /// Update the state of our uniform buffers before rendering
-
-    _uniformBufferIndex = (_uniformBufferIndex + 1) % kMaxBuffersInFlight;
-
-    _uniformBufferOffset = kAlignedUniformsSize * _uniformBufferIndex;
-
-    _uniformBufferAddress = ((uint8_t*)_dynamicUniformBuffer.contents) + _uniformBufferOffset;
-}*/
-
-/*- (void)_updateGameState
-{
-    /// Update any game state before encoding renderint commands to our drawable
-
-    Uniforms * uniforms = (Uniforms*)_uniformBufferAddress;
-
-    uniforms->projectionMatrix = _projectionMatrix;
-
-    vector_float3 rotationAxis = {1, 1, 0};
-    matrix_float4x4 modelMatrix = matrix4x4_rotation(_rotation, rotationAxis);
-    matrix_float4x4 viewMatrix = matrix4x4_translation(0.0, 0.0, -8.0);
-
-    uniforms->modelViewMatrix = matrix_multiply(viewMatrix, modelMatrix);
-
-    _rotation += .01;
-}*/
-
 - (void)drawInMTKView:(nonnull MTKView *)view
 {
     /// Per frame updates here
 
-    dispatch_semaphore_wait(_inFlightSemaphore, DISPATCH_TIME_FOREVER);
-
-    /*id <MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
-    commandBuffer.label = @"MyCommand";
-
-    __block dispatch_semaphore_t block_sema = _inFlightSemaphore;
-    [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> buffer)
-     {
-         dispatch_semaphore_signal(block_sema);
-     }];
-
-    [self _updateDynamicBufferState];
-
-    [self _updateGameState];
-
-    /// Delay getting the currentRenderPassDescriptor until we absolutely need it to avoid
-    ///   holding onto the drawable and blocking the display pipeline any longer than necessary
-    MTLRenderPassDescriptor* renderPassDescriptor = view.currentRenderPassDescriptor;
-
-    if(renderPassDescriptor != nil) {
-
-        /// Final pass rendering code here
-
-        id <MTLRenderCommandEncoder> renderEncoder =
-        [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
-        renderEncoder.label = @"MyRenderEncoder";
-
-        [renderEncoder pushDebugGroup:@"DrawBox"];
-
-        [renderEncoder setFrontFacingWinding:MTLWindingCounterClockwise];
-        [renderEncoder setCullMode:MTLCullModeBack];
-        [renderEncoder setRenderPipelineState:_pipelineState];
-        [renderEncoder setDepthStencilState:_depthState];
-
-        [renderEncoder setVertexBuffer:_dynamicUniformBuffer
-                                offset:_uniformBufferOffset
-                               atIndex:BufferIndexUniforms];
-
-        [renderEncoder setFragmentBuffer:_dynamicUniformBuffer
-                                  offset:_uniformBufferOffset
-                                 atIndex:BufferIndexUniforms];
-
-        for (NSUInteger bufferIndex = 0; bufferIndex < _mesh.vertexBuffers.count; bufferIndex++)
-        {
-            MTKMeshBuffer *vertexBuffer = _mesh.vertexBuffers[bufferIndex];
-            if((NSNull*)vertexBuffer != [NSNull null])
-            {
-                [renderEncoder setVertexBuffer:vertexBuffer.buffer
-                                        offset:vertexBuffer.offset
-                                       atIndex:bufferIndex];
-            }
-        }
-
-        [renderEncoder setFragmentTexture:_colorMap
-                                  atIndex:TextureIndexColor];
-
-        for(MTKSubmesh *submesh in _mesh.submeshes)
-        {
-            [renderEncoder drawIndexedPrimitives:submesh.primitiveType
-                                      indexCount:submesh.indexCount
-                                       indexType:submesh.indexType
-                                     indexBuffer:submesh.indexBuffer.buffer
-                               indexBufferOffset:submesh.indexBuffer.offset];
-        }
-
-        [renderEncoder popDebugGroup];
-
-        [renderEncoder endEncoding];
-
-        [commandBuffer presentDrawable:view.currentDrawable];
-    }
-
-    [commandBuffer commit];*/
+    GRAPHIC_RENDERER::GetInstance().BeginFrame();
+    GRAPHIC_RENDERER::GetInstance().Render();
+    GRAPHIC_RENDERER::GetInstance().EndFrame();
 }
 
 - (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size

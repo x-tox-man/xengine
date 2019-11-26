@@ -16,6 +16,8 @@
 #include "GRAPHIC_SHADER_BIND.h"
 #include "GRAPHIC_SHADER_LOAD_OPTION.h"
 
+class GRAPHIC_RENDERER;
+
 XS_CLASS_BEGIN( GRAPHIC_SHADER_PROGRAM )
 
     GRAPHIC_SHADER_PROGRAM();
@@ -26,7 +28,7 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_PROGRAM )
     void LoadPartial( const CORE_FILESYSTEM_PATH & path, GRAPHIC_SHADER_TYPE shader_type );
     void Finalize();
 
-    void Enable();
+    void Enable( GRAPHIC_RENDERER & renderer );
     void Disable();
 
     GRAPHIC_SHADER_ATTRIBUTE & getShaderAttribute( const CORE_HELPERS_IDENTIFIER & identifier ) { return ShaderAttributeTable[identifier]; }

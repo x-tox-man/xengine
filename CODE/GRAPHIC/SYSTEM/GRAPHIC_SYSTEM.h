@@ -35,6 +35,7 @@ class GRAPHIC_SHADER_LIGHT;
 class GRAPHIC_SHADER_PROGRAM;
 class GRAPHIC_SHADER_ATTRIBUTE;
 class GRAPHIC_MESH;
+class GRAPHIC_RENDERER;
 
 XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
 
@@ -86,15 +87,15 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index );
     static void ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index );
 
-    static void ApplyShaderAttributeVector( const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute );
-    static void ApplyShaderAttributeVectorTable( const float * vector, int size, GRAPHIC_SHADER_ATTRIBUTE & attribute );
-    static void ApplyShaderAttributeFloat( const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute );
-    static void ApplyShaderAttributeMatrix( const float * matrixs, GRAPHIC_SHADER_ATTRIBUTE & attribute );
+    static void ApplyShaderAttributeVector( GRAPHIC_RENDERER & renderer, const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute );
+    static void ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & renderer, const float * vector, int size, GRAPHIC_SHADER_ATTRIBUTE & attribute );
+    static void ApplyShaderAttributeFloat( GRAPHIC_RENDERER & renderer, const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute );
+    static void ApplyShaderAttributeMatrix( GRAPHIC_RENDERER & renderer, const float * matrixs, GRAPHIC_SHADER_ATTRIBUTE & attribute );
 
     static void CreateVertexBuffer( GRAPHIC_MESH & mesh );
     static void CreateIndexBuffer( GRAPHIC_MESH & mesh );
     static void ReleaseBuffers(GRAPHIC_MESH &mesh);
-    static void ApplyBuffers(GRAPHIC_MESH &mesh);
+    static void ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH &mesh);
     static const char * GetShaderDirectoryPath() { return ShaderDirectoryPath; }
     static void SetClearColor( CORE_HELPERS_COLOR & color ) { ClearColor = color; }
 
@@ -106,12 +107,23 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void BeginRendering();
     static void EndRendering();
 
+    static void EnableDefaultFrameBuffer();
+    static void DisableDefaultFrameBuffer();
+
 #if X_METAL
+
+    static void BeginMtlFrame();
+    static void EndMtlFrame();
     static void * CreateMtlVertexDescriptor( GRAPHIC_SHADER_BIND bind);
     static void * CreateMetalFunction( const char * function_name );
     static void InitializeMetal( void * view );
-    static void * CreateMetalPipelineState( void * descriptor );
+    static void * CreateMetalPipelineState( void * descriptor, GRAPHIC_SHADER_PROGRAM & program );
     static void EnableMtlPipelineState( void * pipeline_state );
+    static void * CreateMetalDynamicUniformBuffer( unsigned long size );
+    static void EnableMtlUniforms( void * buffer, uint32_t offset, uint8_t index );
+    static void * GetMtlBufferPointer( void * buffer );
+    static void * CreateMtlTextureFromDescriptor( void * descriptor );
+    static void * CreateMtlRenderEncoder( void * descriptor );
 #endif
 
     static CORE_PARALLEL_LOCK_MUTEX

@@ -6,4 +6,3 @@
 //  Copyright © 2019 Christophe Bernard. All rights reserved.
 //
 
-#include "GRAPHIC_PARTICLE_RENDERER_METAL.hpp"

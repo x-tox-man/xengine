@@ -36,9 +36,9 @@ void GRAPHIC_SHADER_PROGRAM_DATA_PROXY::Initialize( GRAPHIC_SHADER_PROGRAM::PTR 
     Program = program;
 }
 
-void GRAPHIC_SHADER_PROGRAM_DATA_PROXY::Enable() {
+void GRAPHIC_SHADER_PROGRAM_DATA_PROXY::Enable( GRAPHIC_RENDERER & renderer ) {
     
-    Program->Enable();
+    Program->Enable( renderer );
 }
 
 void GRAPHIC_SHADER_PROGRAM_DATA_PROXY::Disable() {

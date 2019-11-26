@@ -29,19 +29,22 @@ abort();\
 }
 #endif
 
-
+//renderer in scope
 #define GRAPHIC_SYSTEM_ApplyMatrix(index, size, transpose, array) \
-abort();
+    memcpy( renderer.GetOffsetPointer( index ), array, 64 ); \
+    renderer.OffsetPointer( 64 );
 
 #define GRAPHIC_SYSTEM_ApplyVector(index, size, array) \
-abort();
+    memcpy( renderer.GetOffsetPointer( index ), array, 16 ); \
+    renderer.OffsetPointer( 16 );
 
 #define GRAPHIC_SYSTEM_ApplyFloat(index, value) \
-abort();
+    memcpy( renderer.GetOffsetPointer( index ), (void *) &value, 4 ); \
+    renderer.OffsetPointer( 4 );
 
 #define GRAPHIC_SYSTEM_ApplyFloatArray(index, size, array) \
-abort();
-
+    memcpy( renderer.GetOffsetPointer( index ), array, (size * 4) ); \
+    renderer.OffsetPointer( (size * 4) );
 
 
 #endif /* METAL_h */

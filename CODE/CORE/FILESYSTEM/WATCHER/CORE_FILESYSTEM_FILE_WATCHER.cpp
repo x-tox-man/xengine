@@ -30,6 +30,6 @@ void CORE_FILESYSTEM_FILE_WATCHER::Setup( const char * path, const CORE_HELPERS_
         Watcher = [[CORE_FILESYSTEM_FILE_WATCHER_OSX alloc] init];
         [Watcher setup:path andCallback:Callback];
     #else
-        #error "Cannot watch file on this configuration"
+        //#error "Cannot watch file on this configuration"
     #endif
 }

@@ -1286,7 +1286,7 @@ bool GRAPHIC_SHADER_PROGRAM::LinkProgram() {
     return status != 0;
 }
 
-void GRAPHIC_SHADER_PROGRAM::Enable() {
+void GRAPHIC_SHADER_PROGRAM::Enable( GRAPHIC_RENDERER & renderer ) {
     
     GFX_CHECK( glUseProgram(ShaderProgram); )
 }

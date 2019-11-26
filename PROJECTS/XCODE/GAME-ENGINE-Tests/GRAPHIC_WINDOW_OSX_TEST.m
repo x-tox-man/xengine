@@ -204,7 +204,6 @@ void GRAPHIC_WINDOW_OSX_TEST::Resize( int width, int height ) {
     //Do graphic system instead: a renderer is for a gfx implementation
     GRAPHIC_RENDERER::GetInstance().BeginFrame();
     GFX_CHECK( glViewport( 0, 0, CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight()); )
-    
     GRAPHIC_RENDERER::GetInstance().Render();
     GRAPHIC_RENDERER::GetInstance().EndFrame();
     

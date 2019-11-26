@@ -93,36 +93,17 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         GRAPHIC_SHADER_ATTRIBUTE & view_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ViewMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & time_mod = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
         GRAPHIC_SHADER_ATTRIBUTE & projection_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
-        
+
         ComputeModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
-        if ( mvp_matrix.AttributeIndex >= 0 ) {
-            
-            GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix.AttributeIndex, 1, 1, &result[0])
-        }
-        
-        if ( projection_matrix.AttributeIndex >= 0 ) {
-            
-            GRAPHIC_SYSTEM_ApplyMatrix(projection_matrix.AttributeIndex, 1, 1, &renderer.GetCamera()->GetProjectionMatrix()[0]);
-        }
-        
-        if ( model_matrix.AttributeIndex >= 0 ) {
-            
-            GRAPHIC_SYSTEM_ApplyMatrix(model_matrix.AttributeIndex, 1, 1, &object[0]);
-        }
-        
-        if ( view_matrix.AttributeIndex >= 0 ) {
-            
-            GRAPHIC_SYSTEM_ApplyMatrix(view_matrix.AttributeIndex, 1, 1, &renderer.GetCamera()->GetViewMatrix()[0]);
-        }
-        
-        if ( time_mod.AttributeIndex >= 0 ) {
-            
-            GRAPHIC_SYSTEM_ApplyFloat( time_mod.AttributeIndex, time_mod.AttributeValue.Value.FloatValue )
-        }
-        
+        effect->UpdateMatrix( renderer, mvp_matrix, &result[0] );
+        effect->UpdateMatrix( renderer, projection_matrix, &renderer.GetCamera()->GetProjectionMatrix()[0]);
+        effect->UpdateMatrix( renderer, model_matrix, &object[0]);
+        effect->UpdateMatrix( renderer, view_matrix, &renderer.GetCamera()->GetViewMatrix()[0]);
+        effect->UpdateFloat( renderer, time_mod, time_mod.AttributeValue.Value.FloatValue );
+
         GRAPHIC_SHADER_ATTRIBUTE * depth[3];
-        
+
         depth[0] = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
         depth[1] = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture1 );
         depth[2] = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture2 );
@@ -161,11 +142,11 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
                 cascade_end[ci] = -vres.Z();//Why is it negative? -> Bullshit in matrix vect mul
             }
             
-            GRAPHIC_SYSTEM_ApplyMatrix( shadowmap_mvp.AttributeIndex, 1, 1, &depthBias[0] )
-            GRAPHIC_SYSTEM_ApplyFloatArray( end_clip_space.AttributeIndex, renderer.GetNumCascade(), cascade_end )
+            effect->UpdateMatrix( renderer, shadowmap_mvp, &depthBias[0] );
+            effect->UpdateFloatArray( renderer, end_clip_space, renderer.GetNumCascade(), cascade_end );
         }
         
-        MeshTable[ i ]->ApplyBuffers();
+        MeshTable[ i ]->ApplyBuffers( renderer );
     }
     
     effect->Discard();
@@ -217,7 +198,7 @@ void GRAPHIC_OBJECT::ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPT
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    mvp = renderer.GetCamera()->GetProjectionViewMatrix() * object_matrix;
+    mvp = renderer.GetCamera()->GetProjectionMatrix() * renderer.GetCamera()->GetViewMatrix() * object_matrix;
 }
 
 void GRAPHIC_OBJECT::ComputeAABBox( CORE_MATH_SHAPE & box ) {

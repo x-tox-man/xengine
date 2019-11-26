@@ -18,6 +18,7 @@
 #include "GRAPHIC_MESH_SURFACE_RENDER_MODE.h"
 #include "CORE_MATH_SHAPE_BOX.h"
 #include "CORE_MATH_SHAPE_SPHERE.h"
+#include "GRAPHIC_RENDERER.h"
 
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH )
 
@@ -51,7 +52,7 @@ public:
     }
 
     void CreateBuffers();
-    void ApplyBuffers();
+    void ApplyBuffers( GRAPHIC_RENDERER & renderer );
     void ReleaseBuffers();
 
     void ActivateBufferComponent( GRAPHIC_SHADER_BIND attribute );

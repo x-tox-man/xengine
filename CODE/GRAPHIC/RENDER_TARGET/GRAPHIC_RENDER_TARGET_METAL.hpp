@@ -6,9 +6,7 @@
 //  Copyright © 2019 Christophe Bernard. All rights reserved.
 //
 
-#ifndef GRAPHIC_RENDER_TARGET_METAL_hpp
-#define GRAPHIC_RENDER_TARGET_METAL_hpp
 
-#include <stdio.h>
-
-#endif /* GRAPHIC_RENDER_TARGET_METAL_hpp */
+void
+    * _descriptor,
+    * _renderEncoder;

@@ -30,11 +30,20 @@ void GRAPHIC_RENDERER_TECHNIQUE::ApplyFirstPass( GRAPHIC_RENDERER & renderer ) {
         
         RenderTarget->BindForWriting();
     }
+    else {
+        GRAPHIC_SYSTEM::EnableDefaultFrameBuffer();
+    }
     
     RendererCallback( renderer );
     
-    if ( RenderTarget != NULL )
+    if ( RenderTarget != NULL ) {
+        
         RenderTarget->Discard();
+    }
+    else {
+        GRAPHIC_SYSTEM::DisableDefaultFrameBuffer();
+    }
+        
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE::ApplySecondPass( GRAPHIC_RENDERER & renderer ) {

@@ -5,7 +5,9 @@
 #elif __AUDIO_FILE_MPG__
     #define AUDIO_MPG 1
 #elif __AUDIO_FILE_OSX__
-    #define AUDIO_FILE_OSX
+    #define AUDIO_FILE_OSX 1
+#elif __AUDIO_FILE_IOS__
+    #define AUDIO_FILE_IOS 1
 #else
     #error "Must define one audiofile type"
 #endif

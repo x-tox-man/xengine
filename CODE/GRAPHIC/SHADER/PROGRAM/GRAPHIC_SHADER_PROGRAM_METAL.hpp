@@ -18,5 +18,11 @@ void
     * _pipelineState;
 void
     *_pipelineStateDescriptor;
+void
+    * _dynamicUniformBuffer;
+uint32_t
+    _uniformBufferOffset;
+uint8_t
+    _uniformBufferIndex;
 
 #endif /* GRAPHIC_SHADER_PROGRAM_METAL_hpp */

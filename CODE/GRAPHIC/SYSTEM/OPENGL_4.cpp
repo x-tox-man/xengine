@@ -265,7 +265,7 @@
         GFX_CHECK( glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE ); )
     }
 
-    void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, CORE_DATA_STREAM & texture_data, bool generate_mipmap ) {
+    void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, CORE_DATA_BUFFER & texture_data, bool generate_mipmap ) {
         
         GFX_CHECK( glActiveTexture(GL_TEXTURE0); )
         GFX_CHECK( glGenTextures( 1, &texture->GetTextureHandle() ); )
@@ -278,7 +278,7 @@
         
         GRAPHIC_TEXTURE_INFO & info = texture->GetTextureInfo();
         
-        GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_4_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, texture_data ); )
+        GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGL_4_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGL_4_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, texture_data.GetDataPointer() ); )
         //GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data ); )
         
         // TODO : generate mipmap -> disable for interface elements
@@ -474,7 +474,7 @@
         }
     }
 
-    void GRAPHIC_SYSTEM::ApplyShaderAttributeVector( const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+    void GRAPHIC_SYSTEM::ApplyShaderAttributeVector( GRAPHIC_RENDERER & renderer, const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
         
         GFX_CHECK( glUniform4fv(
                                 attribute.AttributeIndex,
@@ -482,13 +482,13 @@
                                 (const GLfloat * ) vector ); )
     }
 
-    void GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+    void GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( GRAPHIC_RENDERER & renderer, const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
         
         GFX_CHECK( glUniform1f( attribute.AttributeIndex,
                                 (const GLfloat ) value ); )
     }
 
-void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int size, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & renderer, const float * vector, int size, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
     GRAPHIC_SYSTEM_ApplyVector(
            attribute.AttributeIndex,
@@ -496,7 +496,7 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int 
            &vector[0] );
 }
 
-    void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( const float * matrix, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+    void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( GRAPHIC_RENDERER & renderer, const float * matrix, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
         
         GRAPHIC_SYSTEM_ApplyMatrix(
             attribute.AttributeIndex,
@@ -598,7 +598,15 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int 
         GFX_CHECK( glBufferData( GL_ELEMENT_ARRAY_BUFFER, mesh.GetIndexCoreBuffer()->GetSize(), mesh.GetIndexCoreBuffer()->getpointerAtIndex((unsigned int)0), GL_STATIC_DRAW ); )
     }
 
-    void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH & mesh) {
+    void GRAPHIC_SYSTEM::BeginRendering() {
+        
+    }
+
+    void GRAPHIC_SYSTEM::EndRendering() {
+        
+    }
+
+    void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH & mesh) {
         
         GFX_CHECK( glBindVertexArray( mesh.GetVertexArrays()); )
         GFX_CHECK( glBindBuffer(GL_ARRAY_BUFFER, mesh.GetVertexBuffer()); )

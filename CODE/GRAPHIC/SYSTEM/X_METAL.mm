@@ -14,6 +14,7 @@
 #include "GRAPHIC_SHADER_PROGRAM.h"
 #include "GRAPHIC_MESH.h"
 #include "GRAPHIC_SHADER_BIND.h"
+#include "CORE_HELPERS_IDENTIFIER.h"
 
 #if X_METAL
 
@@ -25,7 +26,6 @@
 #import "METAL_SHADER_TYPES.h"
 
 static const NSUInteger kMaxBuffersInFlight = 3;
-static const size_t kAlignedUniformsSize = (sizeof(Uniforms) & ~0xFF) + 0x100;
 
 CORE_PARALLEL_LOCK_MUTEX GRAPHIC_SYSTEM::GraphicSystemLock;
 const char * GRAPHIC_SYSTEM::ShaderDirectoryPath = "METAL";
@@ -41,18 +41,8 @@ id <MTLDevice>
     _device;
 id <MTLCommandQueue>
     _commandQueue;
-id <MTLBuffer>
-    _dynamicUniformBuffer;
 id <MTLDepthStencilState>
     _depthState;
-uint32_t
-    _uniformBufferOffset;
-uint8_t
-    _uniformBufferIndex;
-void*
-    _uniformBufferAddress;
-matrix_float4x4
-    _projectionMatrix;
 id<MTLLibrary>
     _defaultLibrary;
 METAL_VIEW_DELEGATE *
@@ -82,121 +72,126 @@ void * GRAPHIC_SYSTEM::CreateMtlVertexDescriptor( GRAPHIC_SHADER_BIND bind ) {
         
         mtlVertexDescriptor.attributes[VertexAttributePosition].format = MTLVertexFormatFloat4;
         mtlVertexDescriptor.attributes[VertexAttributePosition].offset = 0;
-        mtlVertexDescriptor.attributes[VertexAttributePosition].bufferIndex = BufferIndexMeshPositions;
+        mtlVertexDescriptor.attributes[VertexAttributePosition].bufferIndex = 0;
         
-        mtlVertexDescriptor.layouts[BufferIndexMeshPositions].stride = 16;
-        mtlVertexDescriptor.layouts[BufferIndexMeshPositions].stepRate = 1;
-        mtlVertexDescriptor.layouts[BufferIndexMeshPositions].stepFunction = MTLVertexStepFunctionPerVertex;
-        
-        stride += 4;
+        stride += 16;
     }
     
     if ( bind & GRAPHIC_SHADER_BIND_Normal ) {
         
         mtlVertexDescriptor.attributes[VertexAttributeNormal].format = MTLVertexFormatFloat4;
         mtlVertexDescriptor.attributes[VertexAttributeNormal].offset = stride;
-        mtlVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex = BufferIndexMeshNormals;
+        mtlVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex = 0;
         
-        mtlVertexDescriptor.layouts[BufferIndexMeshNormals].stride = 16;
-        mtlVertexDescriptor.layouts[BufferIndexMeshNormals].stepRate = 1;
-        mtlVertexDescriptor.layouts[BufferIndexMeshNormals].stepFunction = MTLVertexStepFunctionPerVertex;
-        
-        stride += 4;
+        stride += 16;
     }
     
     if ( bind & GRAPHIC_SHADER_BIND_Texcoord0 ) {
         
         mtlVertexDescriptor.attributes[VertexAttributeTexcoords].format = MTLVertexFormatFloat2;
         mtlVertexDescriptor.attributes[VertexAttributeTexcoords].offset = stride;
-        mtlVertexDescriptor.attributes[VertexAttributeTexcoords].bufferIndex = BufferIndexMeshTexcoords;
+        mtlVertexDescriptor.attributes[VertexAttributeTexcoords].bufferIndex = 0;
         
-        mtlVertexDescriptor.layouts[BufferIndexMeshTexcoords].stride = 8;
-        mtlVertexDescriptor.layouts[BufferIndexMeshTexcoords].stepRate = 1;
-        mtlVertexDescriptor.layouts[BufferIndexMeshTexcoords].stepFunction = MTLVertexStepFunctionPerVertex;
-        
-        stride += 2;
+        stride += 8;
     }
     
     if ( bind & GRAPHIC_SHADER_BIND_SkinWeight ) {
         
         mtlVertexDescriptor.attributes[VertexAttributeSkinWeight].format = MTLVertexFormatFloat3;
         mtlVertexDescriptor.attributes[VertexAttributeSkinWeight].offset = stride;
-        mtlVertexDescriptor.attributes[VertexAttributeSkinWeight].bufferIndex = BufferIndexMeshSkinWeight;
+        mtlVertexDescriptor.attributes[VertexAttributeSkinWeight].bufferIndex = 0;
         
-        mtlVertexDescriptor.layouts[BufferIndexMeshSkinWeight].stride = 12;
-        mtlVertexDescriptor.layouts[BufferIndexMeshSkinWeight].stepRate = 1;
-        mtlVertexDescriptor.layouts[BufferIndexMeshSkinWeight].stepFunction = MTLVertexStepFunctionPerVertex;
-        
-        stride += 3;
+        stride += 12;
     }
     
     if ( bind & GRAPHIC_SHADER_BIND_JointIndices ) {
         
         mtlVertexDescriptor.attributes[VertexAttributeJointIndices].format = MTLVertexFormatFloat3;
         mtlVertexDescriptor.attributes[VertexAttributeJointIndices].offset = stride;
-        mtlVertexDescriptor.attributes[VertexAttributeJointIndices].bufferIndex = BufferIndexMeshSkinWeight;
+        mtlVertexDescriptor.attributes[VertexAttributeJointIndices].bufferIndex = 0;
         
-        mtlVertexDescriptor.layouts[BufferIndexMeshJointIndices].stride = 12;
-        mtlVertexDescriptor.layouts[BufferIndexMeshJointIndices].stepRate = 1;
-        mtlVertexDescriptor.layouts[BufferIndexMeshJointIndices].stepFunction = MTLVertexStepFunctionPerVertex;
-        
-        stride += 3;
+        stride += 12;
     }
     
     if ( bind & GRAPHIC_SHADER_BIND_Tangents ) {
         
-        mtlVertexDescriptor.attributes[VertexAttributeTangents].format = MTLVertexFormatFloat3;
-        mtlVertexDescriptor.attributes[VertexAttributeTangents].offset = stride;
-        mtlVertexDescriptor.attributes[VertexAttributeTangents].bufferIndex = BufferIndexMeshSkinWeight;
+        mtlVertexDescriptor.attributes[VertexAttributeTangent].format = MTLVertexFormatFloat3;
+        mtlVertexDescriptor.attributes[VertexAttributeTangent].offset = stride;
+        mtlVertexDescriptor.attributes[VertexAttributeTangent].bufferIndex = 0;
         
-        mtlVertexDescriptor.layouts[BufferIndexMeshTangents].stride = 12;
-        mtlVertexDescriptor.layouts[BufferIndexMeshTangents].stepRate = 1;
-        mtlVertexDescriptor.layouts[BufferIndexMeshTangents].stepFunction = MTLVertexStepFunctionPerVertex;
-        
-        stride += 3;
+        stride += 12;
     }
     
     if ( bind & GRAPHIC_SHADER_BIND_Bitangents ) {
         
-        mtlVertexDescriptor.attributes[VertexAttributeBitangents].format = MTLVertexFormatFloat3;
-        mtlVertexDescriptor.attributes[VertexAttributeBitangents].offset = stride;
-        mtlVertexDescriptor.attributes[VertexAttributeBitangents].bufferIndex = BufferIndexMeshSkinWeight;
+        mtlVertexDescriptor.attributes[VertexAttributeBitangent].format = MTLVertexFormatFloat3;
+        mtlVertexDescriptor.attributes[VertexAttributeBitangent].offset = stride;
+        mtlVertexDescriptor.attributes[VertexAttributeBitangent].bufferIndex = 0;
         
-        mtlVertexDescriptor.layouts[BufferIndexMeshBitangents].stride = 12;
-        mtlVertexDescriptor.layouts[BufferIndexMeshBitangents].stepRate = 1;
-        mtlVertexDescriptor.layouts[BufferIndexMeshBitangents].stepFunction = MTLVertexStepFunctionPerVertex;
-        
-        stride += 3;
+        stride += 12;
     }
     
     if ( bind & GRAPHIC_SHADER_BIND_CustomFloat ) {
         
         mtlVertexDescriptor.attributes[VertexAttributeCustomFloat].format = MTLVertexFormatFloat;
         mtlVertexDescriptor.attributes[VertexAttributeCustomFloat].offset = stride;
-        mtlVertexDescriptor.attributes[VertexAttributeCustomFloat].bufferIndex = BufferIndexMeshSkinWeight;
+        mtlVertexDescriptor.attributes[VertexAttributeCustomFloat].bufferIndex = 0;
         
-        mtlVertexDescriptor.layouts[BufferIndexMeshCustomFloat].stride = 4;
-        mtlVertexDescriptor.layouts[BufferIndexMeshCustomFloat].stepRate = 1;
-        mtlVertexDescriptor.layouts[BufferIndexMeshCustomFloat].stepFunction = MTLVertexStepFunctionPerVertex;
-        
-        stride += 1;
+        stride += 4;
     }
     
-    return (__bridge void *) mtlVertexDescriptor;
+    mtlVertexDescriptor.layouts[0].stride = stride;
+    mtlVertexDescriptor.layouts[0].stepRate = 1;
+    mtlVertexDescriptor.layouts[0].stepFunction = MTLVertexStepFunctionPerVertex;
+    
+    return ( void *) CFBridgingRetain(mtlVertexDescriptor);
 }
 
-void * GRAPHIC_SYSTEM::CreateMetalPipelineState( void * descriptor ) {
+void * GRAPHIC_SYSTEM::CreateMetalPipelineState( void * descriptor, GRAPHIC_SHADER_PROGRAM & program ) {
     
     NSError *error = NULL;
+    MTLRenderPipelineReflection* reflectionObj;
+    MTLPipelineOption option = MTLPipelineOptionBufferTypeInfo | MTLPipelineOptionArgumentInfo;
     
-    id <MTLRenderPipelineState> pipeline_state = [_device newRenderPipelineStateWithDescriptor:(__bridge MTLRenderPipelineDescriptor *) descriptor error:&error];
+    id <MTLRenderPipelineState> pipeline_state = [_device newRenderPipelineStateWithDescriptor:( MTLRenderPipelineDescriptor *) CFBridgingRelease(descriptor) options:option reflection:&reflectionObj error:&error];
     
     if (!pipeline_state)
     {
         NSLog(@"Failed to created pipeline state, error %@", error);
+        
+        return NULL;
     }
     
-    return (__bridge void *) pipeline_state;
+    for (MTLArgument *arg in reflectionObj.vertexArguments)
+    {
+        //NSLog(@"Found arg: %@\n", arg.name);
+
+        if (arg.bufferDataType == MTLDataTypeStruct)
+        {
+            for( MTLStructMember * uniform in arg.bufferStructType.members )
+            {
+                NSLog(@"uniform: %@ type:%lu, location: %lu", uniform.name, (unsigned long)uniform.dataType, (unsigned long)uniform.offset);
+                
+                CORE_HELPERS_IDENTIFIER
+                    identifier( [uniform.name cStringUsingEncoding:NSASCIIStringEncoding] );
+                GRAPHIC_SHADER_ATTRIBUTE & attribute = program.GetShaderAttributeTable()[ identifier ];
+
+                attribute.AttributeIndex = uniform.offset;
+                attribute.AttributeName = identifier;
+            }
+        }
+    }
+    
+    return (void *) CFBridgingRetain(pipeline_state);
+}
+
+void * GRAPHIC_SYSTEM::CreateMetalDynamicUniformBuffer( unsigned long size ) {
+    
+    id <MTLBuffer> buffer = [_device newBufferWithLength:size
+                                                 options:MTLResourceStorageModeShared];
+
+    buffer.label = @"UniformBuffer";
+    return (void * ) CFBridgingRetain( buffer );
 }
 
 void GRAPHIC_SYSTEM::EnableMtlPipelineState( void * pipeline_state ) {
@@ -205,11 +200,37 @@ void GRAPHIC_SYSTEM::EnableMtlPipelineState( void * pipeline_state ) {
     [_renderEncoder setRenderPipelineState:pps];
 }
 
+void GRAPHIC_SYSTEM::EnableMtlUniforms( void * buffer, uint32_t offset, uint8_t index ) {
+    
+    id<MTLBuffer> uniform_buffer = (__bridge id<MTLBuffer>) buffer;
+    
+    [_renderEncoder setVertexBuffer:uniform_buffer
+                            offset:offset
+                           atIndex:1];
+
+    [_renderEncoder setFragmentBuffer:uniform_buffer
+                              offset:offset
+                             atIndex:1];
+}
+
+void * GRAPHIC_SYSTEM::GetMtlBufferPointer( void * buffer ) {
+    
+    return ( (__bridge id<MTLBuffer>) buffer).contents;
+}
+
+void * GRAPHIC_SYSTEM::CreateMtlTextureFromDescriptor( void * descriptor ) {
+    
+    // Create the texture from the device by using the descriptor
+    id<MTLTexture> mtl_texture = [_device newTextureWithDescriptor:(__bridge MTLTextureDescriptor *) descriptor];
+    
+    return (void*) CFBridgingRetain( mtl_texture );
+}
+
 void * GRAPHIC_SYSTEM::CreateMetalFunction( const char * function_name ) {
     
     id <MTLFunction> fc = [_defaultLibrary newFunctionWithName:[[NSString alloc] initWithCString:function_name encoding:NSASCIIStringEncoding] ];
     
-    return (__bridge void *) fc;
+    return (void *) CFBridgingRetain(fc);
 }
 
 void GRAPHIC_SYSTEM::InitializeMetal( void * view ) {
@@ -217,6 +238,7 @@ void GRAPHIC_SYSTEM::InitializeMetal( void * view ) {
     _view = (__bridge MTKView *) view;
     
     _view.device = MTLCreateSystemDefaultDevice();
+    _device = _view.device;
     _metalDelegate = [[METAL_VIEW_DELEGATE alloc] initWithMetalKitView:_view];
     _defaultLibrary = [_device newDefaultLibrary];
     
@@ -233,19 +255,14 @@ void GRAPHIC_SYSTEM::InitializeMetal( void * view ) {
     depthStateDesc.depthWriteEnabled = YES;
     _depthState = [_device newDepthStencilStateWithDescriptor:depthStateDesc];
     
-    NSUInteger uniformBufferSize = kAlignedUniformsSize * kMaxBuffersInFlight;
-    
-    _dynamicUniformBuffer = [_device newBufferWithLength:uniformBufferSize
-                                                 options:MTLResourceStorageModeShared];
-    
-    _dynamicUniformBuffer.label = @"UniformBuffer";
-    
     _commandQueue = [_device newCommandQueue];
     
     _metalAllocator = [[MTKMeshBufferAllocator alloc]
                                               initWithDevice: _device];
     
     _textureLoader = [[MTKTextureLoader alloc] initWithDevice:_device];
+    
+    _inFlightSemaphore = dispatch_semaphore_create(kMaxBuffersInFlight);
 }
 
 GRAPHIC_SYSTEM::~GRAPHIC_SYSTEM() {
@@ -293,35 +310,42 @@ void GRAPHIC_SYSTEM::SetScissorRectangle( float x, float y, float width, float h
 void GRAPHIC_SYSTEM::EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 void GRAPHIC_SYSTEM::DisableStencil() {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::DisableBlend() {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::EnableBackfaceCulling( const GRAPHIC_POLYGON_FACE face ) {
@@ -338,26 +362,41 @@ void GRAPHIC_SYSTEM::DisableFaceCulling() {
 void GRAPHIC_SYSTEM::UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER & data ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::SetPolygonMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE fill_mode ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::DisableDepthTest() {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::ReleaseTexture( GRAPHIC_TEXTURE * texture ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture ) {
     
     //#error "TODO IMPLEMENT"
+    MTLTextureDescriptor *textureDescriptor = [[MTLTextureDescriptor alloc] init];
+
+    // Indicate that each pixel has a blue, green, red, and alpha channel, where each channel is
+    // an 8-bit unsigned normalized value (i.e. 0 maps to 0.0 and 255 maps to 1.0)
+    textureDescriptor.pixelFormat = MTLPixelFormatRGBA8Unorm;
+
+    // Set the pixel dimensions of the texture
+    textureDescriptor.width = texture->GetTextureInfo().Width;
+    textureDescriptor.height = texture->GetTextureInfo().Height;
+    
+    texture->SetTextureHandle( CreateMtlTextureFromDescriptor( (__bridge void *) textureDescriptor ) );
 }
 
 void GRAPHIC_SYSTEM::SetTextureOptions( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_FILTERING filtering, GRAPHIC_TEXTURE_WRAP wrap, const CORE_HELPERS_COLOR & color ) {
@@ -373,6 +412,7 @@ void GRAPHIC_SYSTEM::CreateFrameBuffer( GRAPHIC_RENDER_TARGET * target, GRAPHIC_
 void GRAPHIC_SYSTEM::CreateDepthBuffer( GRAPHIC_RENDER_TARGET * target, int width, int height ) {
     
     //#error "TODO IMPLEMENT"
+    // Handled at IOS/OSX view's pixel format.
 }
 
 void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {
@@ -382,80 +422,104 @@ void GRAPHIC_SYSTEM::CreateDepthTexture( GRAPHIC_TEXTURE * texture, GRAPHIC_TEXT
 
 void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, CORE_DATA_BUFFER & texture_data, bool generate_mipmap ) {
     
-    NSError *error = NULL;
+    MTLTextureDescriptor *textureDescriptor = [[MTLTextureDescriptor alloc] init];
+
+    // Indicate that each pixel has a blue, green, red, and alpha channel, where each channel is
+    // an 8-bit unsigned normalized value (i.e. 0 maps to 0.0 and 255 maps to 1.0)
+    textureDescriptor.pixelFormat = MTLPixelFormatRGBA8Unorm;
+
+    // Set the pixel dimensions of the texture
+    textureDescriptor.width = texture->GetTextureInfo().Width;
+    textureDescriptor.height = texture->GetTextureInfo().Height;
+
+    // Create the texture from the device by using the descriptor
+    id<MTLTexture> mtl_texture = [_device newTextureWithDescriptor:textureDescriptor];
     
-    NSDictionary *textureLoaderOptions =
-    @{
-      MTKTextureLoaderOptionTextureUsage       : @(MTLTextureUsageShaderRead),
-      MTKTextureLoaderOptionTextureStorageMode : @(MTLStorageModePrivate)
-      };
+    MTLRegion region = {
+        { 0, 0, 0 },                   // MTLOrigin
+        {textureDescriptor.width, textureDescriptor.height, 1} // MTLSize
+    };
     
-    texture->SetTextureHandle( (__bridge void *)  [_textureLoader newTextureWithData:[NSData dataWithBytes:texture_data.GetDataPointer() length:texture_data.GetSize()] options:textureLoaderOptions error:&error] );
+    NSUInteger bytesPerRow = 4 * textureDescriptor.width;
     
-    if(texture->GetTextureHandle() == NULL || error)
-    {
-        NSLog(@"Error creating texture %@", error.localizedDescription);
-    }
+    [mtl_texture replaceRegion:region
+                   mipmapLevel:0
+                     withBytes:texture_data.GetDataPointer()
+                   bytesPerRow:bytesPerRow];
+    
+    texture->SetTextureHandle( (void *)  CFBridgingRetain(mtl_texture) );
+}
+
+void * GRAPHIC_SYSTEM::CreateMtlRenderEncoder( void * descriptor ) {
+    
+    _renderEncoder = [_commandBuffer renderCommandEncoderWithDescriptor: (__bridge MTLRenderPassDescriptor *) descriptor];
+    
+    return (__bridge void *) _renderEncoder;
 }
 
 void GRAPHIC_SYSTEM::CreateSubTexture( GRAPHIC_TEXTURE * sub_texture, const GRAPHIC_TEXTURE & texture, const CORE_MATH_VECTOR & offset, const CORE_MATH_VECTOR & size, const void * data ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::ApplyTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index ) {
     
     //#error "TODO IMPLEMENT"
+    
+    [_renderEncoder setFragmentTexture:(__bridge id <MTLTexture>)texture->GetTextureHandle() atIndex:texture_index];
 }
 
 void GRAPHIC_SYSTEM::ApplyDepthTexture( GRAPHIC_TEXTURE * texture, int texture_index, int shader_texture_attribute_index ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::DiscardTexture( GRAPHIC_TEXTURE * texture ) {
     
-    //#error "TODO IMPLEMENT"
+    //Not needed
 }
 
 void GRAPHIC_SYSTEM::ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
     
-    //#error "TODO IMPLEMENT"
+    [_renderEncoder setVertexBytes:(void* ) &light.InternalLight.Directional length:sizeof(GRAPHIC_SHADER_LIGHT_DIRECTIONAL) atIndex:BufferIndexDirectionalLightsConstants];
 }
 
 void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
     
-    //#error "TODO IMPLEMENT"
+    [_renderEncoder setVertexBytes:(void* ) &light.InternalLight.Ambient length:sizeof(GRAPHIC_SHADER_LIGHT_AMBIENT) atIndex:BufferIndexAmbientLightConstants];
 }
 
 void GRAPHIC_SYSTEM::ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
     
-    //#error "TODO IMPLEMENT"
+    [_renderEncoder setVertexBytes:(void* ) &light.InternalLight.Point length:sizeof(GRAPHIC_SHADER_LIGHT_POINT) atIndex:BufferIndexPointLightsConstants];
 }
 
 void GRAPHIC_SYSTEM::ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
     
-    //#error "TODO IMPLEMENT"
+    [_renderEncoder setVertexBytes:(void* ) &light.InternalLight.Spot length:sizeof(GRAPHIC_SHADER_LIGHT_SPOT) atIndex:BufferIndexSpotLightsConstants];
 }
 
-void GRAPHIC_SYSTEM::ApplyShaderAttributeVector( const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+void GRAPHIC_SYSTEM::ApplyShaderAttributeVector( GRAPHIC_RENDERER & renderer, const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
-    //#error "TODO IMPLEMENT"
+    //GRAPHIC_SYSTEM_ApplyFloatArray(<#index#>, <#size#>, <#array#>)(indexattribute.AttributeIndex, vector)
 }
 
-void GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+void GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( GRAPHIC_RENDERER & renderer, const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
-    //#error "TODO IMPLEMENT"
+    GRAPHIC_SYSTEM_ApplyFloat( attribute.AttributeIndex, value)
 }
 
-void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( const float * vector, int size, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & renderer, const float * vector, int size, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
-    //#error "TODO IMPLEMENT"
+    GRAPHIC_SYSTEM_ApplyVector( attribute.AttributeIndex, 16, vector)
 }
 
-void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( const float * matrix, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
+void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( GRAPHIC_RENDERER & renderer, const float * matrix, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
-    //#error "TODO IMPLEMENT"
+    
+    GRAPHIC_SYSTEM_ApplyMatrix( attribute.AttributeIndex, 64, 1, matrix );
 }
 
 void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {
@@ -472,70 +536,67 @@ void GRAPHIC_SYSTEM::CreateIndexBuffer(GRAPHIC_MESH &mesh) {
     mesh.SetMTKIndexBuffer( (void *) CFBridgingRetain(buffer) );
 }
 
-void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH & mesh) {
+void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH & mesh ) {
     
-    //#error "TODO IMPLEMENT"
+    MTKMeshBuffer *vertexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKVertexBuffer();
+    MTKMeshBuffer *indexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKIndexBuffer();
     
     [_renderEncoder setDepthStencilState:_depthState];
     
-    [_renderEncoder setVertexBuffer:_dynamicUniformBuffer
-                            offset:_uniformBufferOffset
-                           atIndex:BufferIndexUniforms];
-    
-    [_renderEncoder setFragmentBuffer:_dynamicUniformBuffer
-                              offset:_uniformBufferOffset
-                             atIndex:BufferIndexUniforms];
-    
-    /*for (NSUInteger bufferIndex = 0; bufferIndex < _mesh.vertexBuffers.count; bufferIndex++)
+    if((NSNull*)vertexBuffer != [NSNull null])
     {
-        MTKMeshBuffer *vertexBuffer = _mesh.vertexBuffers[bufferIndex];
-        if((NSNull*)vertexBuffer != [NSNull null])
-        {
-            [_renderEncoder setVertexBuffer:vertexBuffer.buffer
-                                    offset:vertexBuffer.offset
-                                   atIndex:bufferIndex];
-        }
+        [_renderEncoder setVertexBuffer:vertexBuffer.buffer
+                                offset:vertexBuffer.offset
+                               atIndex:0];
     }
     
-    [_renderEncoder setFragmentTexture:_colorMap
-                              atIndex:TextureIndexColor];
+    //[_renderEncoder setFragmentTexture:_colorMap atIndex:TextureIndexColor];
     
-    for(MTKSubmesh *submesh in _mesh.submeshes)
+    //for(MTKSubmesh *submesh in _mesh.submeshes)
     {
-        [_renderEncoder drawIndexedPrimitives:submesh.primitiveType
-                                  indexCount:submesh.indexCount
-                                   indexType:submesh.indexType
-                                 indexBuffer:submesh.indexBuffer.buffer
-                           indexBufferOffset:submesh.indexBuffer.offset];
-    }*/
+        unsigned int count = (unsigned int) (mesh.GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int ) );
+        
+        [_renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
+                                  indexCount:count 
+                                   indexType:MTLIndexTypeUInt32
+                                 indexBuffer:indexBuffer.buffer
+                           indexBufferOffset:0];
+        
+        renderer.MtlApplyCurrentOffset();
+    }
 }
 
 void GRAPHIC_SYSTEM::ReleaseBuffers(GRAPHIC_MESH &mesh) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::Clear() {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::ClearFrambufferDepth( float default_depth ) {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::ClearFrambufferColor() {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::ClearFrambufferStencil() {
     
     //#error "TODO IMPLEMENT"
+    CORE_RUNTIME_Abort();
 }
 
-void GRAPHIC_SYSTEM::BeginRendering() {
+void GRAPHIC_SYSTEM::BeginMtlFrame() {
     
     dispatch_semaphore_wait(_inFlightSemaphore, DISPATCH_TIME_FOREVER);
     
@@ -547,24 +608,52 @@ void GRAPHIC_SYSTEM::BeginRendering() {
      {
          dispatch_semaphore_signal(block_sema);
      }];
+}
+
+void GRAPHIC_SYSTEM::EndMtlFrame() {
     
-    _renderPassDescriptor = _view.currentRenderPassDescriptor;
+    [_commandBuffer presentDrawable:_view.currentDrawable];
+    [_commandBuffer commit];
+}
+
+void GRAPHIC_SYSTEM::BeginRendering() {
     
-    _renderEncoder = [_commandBuffer renderCommandEncoderWithDescriptor:_renderPassDescriptor];
-    _renderEncoder.label = @"MyRenderEncoder";
-    
-    [_renderEncoder pushDebugGroup:@"DrawBox"];
+    if ( true /*immediate*/ ) {
+        //pre-render
+        EnableDefaultFrameBuffer();
+    }
 }
 
 void GRAPHIC_SYSTEM::EndRendering() {
     
-    [_renderEncoder popDebugGroup];
-    
-    [_renderEncoder endEncoding];
-    
-    [_commandBuffer presentDrawable:_view.currentDrawable];
-
-    [_commandBuffer commit];
+    if ( true /*immediate*/ ) {
+        
+        DisableDefaultFrameBuffer();
+    }
 }
+
+void GRAPHIC_SYSTEM::EnableDefaultFrameBuffer() {
+    
+    _renderPassDescriptor = _view.currentRenderPassDescriptor;
+    _renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 0.0, 0.1, 1.0);
+    
+    _renderEncoder = [_commandBuffer renderCommandEncoderWithDescriptor:_renderPassDescriptor];
+    _renderEncoder.label = @"MyRenderEncoder";
+    
+    [_renderEncoder pushDebugGroup:@"DrawScene"];
+    
+    [_renderEncoder setCullMode:MTLCullModeBack];
+    [_renderEncoder setTriangleFillMode:MTLTriangleFillModeFill];
+    [_renderEncoder setFrontFacingWinding:MTLWindingCounterClockwise];
+}
+
+void GRAPHIC_SYSTEM::DisableDefaultFrameBuffer() {
+    
+    [_renderEncoder popDebugGroup];
+
+    [_renderEncoder endEncoding];
+}
+
+
 
 #endif

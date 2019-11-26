@@ -16,6 +16,8 @@
 #include "GRAPHIC_TEXTURE_LOADER.h"
 #include "GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE.h"
 
+#define MAX_FRAME_BUFFERS   8
+
 XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
 
     GRAPHIC_RENDER_TARGET();
@@ -56,12 +58,15 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
 
 private:
 
-    GRAPHIC_TEXTURE
-        * TargetTextures[8];
     bool
         ItUsesDepth;
+    int
+        Attachments;
     GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE
         Mode;
+    GRAPHIC_TEXTURE
+        * TargetTextures[ MAX_FRAME_BUFFERS ];
+    
 
 XS_CLASS_END
 

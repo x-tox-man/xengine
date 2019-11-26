@@ -38,6 +38,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
     void Initialize( const GRAPHIC_SHADER_BIND & bind );
     void Release();
 
+    void UpdateMatrix( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_ATTRIBUTE & attribute, const float * matrix);
+    void UpdateFloatArray( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_ATTRIBUTE & attribute, unsigned int count, float * array);
+    void UpdateFloat( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_ATTRIBUTE & attribute, const float value);
+
     inline GRAPHIC_SHADER_PROGRAM_DATA_PROXY & GetProgram() { return Program; }
     inline const GRAPHIC_SHADER_BIND & GetShaderBind() { return Bind; }
 

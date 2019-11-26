@@ -17,7 +17,7 @@
 #elif PLATFORM_OSX
     #include "AUDIO_LOADER_OSX.h"
 #elif PLATFORM_IOS
-    #include "AUDIO_LOADER_IOS.h"
+    //#include "AUDIO_LOADER_IOS.h"
 #elif PLATFORM_WINDOWS
     //#include "lame.h"
 #elif PLATFORM_ANDROID
@@ -38,6 +38,8 @@ void AUDIO_LOADER_Reset( AUDIO_SOUND & sound ) {
     
     #if AUDIO_OGG
         OGG_Reset( sound );
+    #elif AUDIO_FILE_IOS
+    //TODO
     #else
         #error "Must use AUDIO_OGG"
     #endif
@@ -163,7 +165,7 @@ bool AUDIO_LOADER_ReadChunk( AUDIO_SOUND & sound, int chunk_index ) {
                      withChannels:sound.GetChannels()
                          fromFile:(ExtAudioFileRef * ) sound.GetExtAudioFile()];
     #elif PLATFORM_IOS && __AUDIO_OPENAL__
-        #error "cannot use PLATFORM_IOS && __AUDIO_OPENAL__ in this configuration"
+        //#error "cannot use PLATFORM_IOS && __AUDIO_OPENAL__ in this configuration"
     #elif PLATFORM_ANDROID
         MPG_123_Read( sound , chunk_index);
     #elif PLATFORM_WINDOWS

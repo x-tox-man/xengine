@@ -32,15 +32,15 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, 
     Position = position;
     Up = up_vector;
     
-    CalculateProjectionMatrix( near_plane, far_plane, width, height );
-    CalculateModelMatrix( position, Direction, Up );
+    Fov = fov;
     
     Near = near_plane;
     Far = far_plane;
     Width = width;
     Height = height;
-
-    Fov = fov;
+    
+    CalculateProjectionMatrix( near_plane, far_plane, width, height );
+    CalculateModelMatrix( position, Direction, Up );
 }
 
 GRAPHIC_CAMERA::~GRAPHIC_CAMERA() {

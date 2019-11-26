@@ -31,8 +31,8 @@ CORE_MATH_MATRIX::~CORE_MATH_MATRIX() {
 void CORE_MATH_MATRIX::Translate( float translation[3] )  {
     
     Value[3] += translation[0];
-    Value[7] += translation[1];
-    Value[11] += translation[2];
+    Value[13] += translation[1];
+    Value[14] += translation[2];
 }
 
 void CORE_MATH_MATRIX::Translate( const float translation[3] ) {

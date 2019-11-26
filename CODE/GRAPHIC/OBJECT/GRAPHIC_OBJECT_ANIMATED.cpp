@@ -74,7 +74,7 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC
         GRAPHIC_SYSTEM_ApplyMatrix( attrSkinningMatrixTable->AttributeIndex, 128, 0, float_matrix_array_copy )
         GRAPHIC_SYSTEM_ApplyMatrix(attrBindShapeMatrix->AttributeIndex, 1, 1, AnimationController->GetAnimation( i )->GetBindShapeMatrix().Value.FloatMatrix4x4)
         
-        MeshTable[ i ]->ApplyBuffers();
+        MeshTable[ i ]->ApplyBuffers( renderer );
         
         CORE_MEMORY_ALLOCATOR_Free(float_matrix_array_copy);
         

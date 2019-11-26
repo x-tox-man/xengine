@@ -36,7 +36,10 @@ CORE_HELPERS_CALLBACK_1< const char * >
 void GRAPHIC_WINDOW_OSX::Initialize()
 {
     #if X_METAL
+        MTKView * v = (__bridge MTKView *) MetalView;
+        v.allowedTouchTypes = NSTouchTypeMaskDirect;
     
+        GRAPHIC_SYSTEM::InitializeMetal( MetalView );
     #elif OPENGL4
         glView = [[CustomGlView alloc] initWithFrame:NSMakeRect( GetPositionX(), GetPositionY(), GetWidth(), GetHeight())];
     
@@ -96,11 +99,7 @@ void GRAPHIC_WINDOW_OSX::SetupWindow( NSWindow * window ) {
     window.contentView.allowedTouchTypes = NSTouchTypeMaskDirect;
     
     #if X_METAL
-        MTKView * v = (__bridge MTKView *) MetalView;
-        v.allowedTouchTypes = NSTouchTypeMaskDirect;
-        [window.contentView addSubview:v];
-    
-        GRAPHIC_SYSTEM::InitializeMetal( MetalView );
+        
     #elif OPENGL4
         glView.allowedTouchTypes = NSTouchTypeMaskDirect;
         [window.contentView addSubview:glView];

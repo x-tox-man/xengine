@@ -292,10 +292,10 @@ void GAMEPLAY_COMPONENT_PHYSICS::SetMass(const float mass) {
     
     Mass = mass;
     
-    #ifdef __BULLET_PHYSICS__
-        btVector3 v;
+    double dmass = Mass;
     
-        BulletRigidBody->setMassProps( mass, v );
+    #ifdef __BULLET_PHYSICS__
+        BulletRigidBody->setMassProps( dmass, btVector3() );
     #endif
 }
 

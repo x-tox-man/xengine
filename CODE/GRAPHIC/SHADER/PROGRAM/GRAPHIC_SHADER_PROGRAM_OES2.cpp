@@ -980,7 +980,7 @@ void GRAPHIC_SHADER_PROGRAM::BindAttribute( GRAPHIC_SHADER_ATTRIBUTE & shader_at
     
     if ( shader_attribute.AttributeIndex != -1 ) {
         
-        shader_attribute.AttributeName = GeometryColor;
+        shader_attribute.AttributeName = identifier;
         
         setShaderAttribute( shader_attribute );
     }

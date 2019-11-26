@@ -77,6 +77,12 @@ bool CORE_FILESYSTEM_FILE::OpenOutput() {
 
     
     FilePointer = fopen( Path.GetPath(), "rb" );
+
+#if DEBUG
+    printf("open %s - %s\n", strerror(errno), Path.GetPath());
+    
+
+#endif
     
     if ( !FilePointer ) {
         

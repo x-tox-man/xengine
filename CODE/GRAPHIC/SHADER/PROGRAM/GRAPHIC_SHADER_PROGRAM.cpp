@@ -7,6 +7,7 @@
 //
 
 #include "GRAPHIC_SHADER_PROGRAM.h"
+#include "GRAPHIC_RENDERER.h"
 
 GRAPHIC_SHADER_PROGRAM::GRAPHIC_SHADER_PROGRAM():
     ShaderTable(),

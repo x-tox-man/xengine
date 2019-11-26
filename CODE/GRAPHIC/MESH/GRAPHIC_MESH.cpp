@@ -170,9 +170,9 @@ void GRAPHIC_MESH::CreateBuffers()
     GRAPHIC_SYSTEM::CreateIndexBuffer(*this);
 }
 
-void GRAPHIC_MESH::ApplyBuffers() {
+void GRAPHIC_MESH::ApplyBuffers( GRAPHIC_RENDERER & renderer ) {
     
-    GRAPHIC_SYSTEM::ApplyBuffers(*this);
+    GRAPHIC_SYSTEM::ApplyBuffers( renderer, *this );
 }
 
 void GRAPHIC_MESH::ReleaseBuffers() {

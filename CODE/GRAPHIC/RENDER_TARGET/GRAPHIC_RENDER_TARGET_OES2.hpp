@@ -13,6 +13,6 @@ GLuint
     FrameBuffer,
     DepthrenderBuffer;
 GLenum
-    DrawBuffers[1];
+    DrawBuffers[ MAX_FRAME_BUFFERS ];
 
 #endif

@@ -13,35 +13,54 @@
 #include "GRAPHIC_SYSTEM.h"
 #include "CORE_PARALLEL_LOCK.h"
 
+#if X_METAL
+    #import <Metal/Metal.h>
+    #import <MetalKit/MetalKit.h>
+    #import "METAL_VIEW_DELEGATE.h"
+#endif
+
 GRAPHIC_WINDOW_IOS::GRAPHIC_WINDOW_IOS() :
-    GRAPHIC_WINDOW(),
-    glView( NULL ),
+    GRAPHIC_WINDOW()
+#if OPENGL2PLUS
+    ,glView( NULL ),
     context( NULL )
+#endif
 {
     
 }
 
 GRAPHIC_WINDOW_IOS::~GRAPHIC_WINDOW_IOS() {
     
+#if OPENGL2PLUS
     glView.context = nil;
     [EAGLContext setCurrentContext:nil];
+#endif
 }
 
 void GRAPHIC_WINDOW_IOS::Initialize()
 {
-    context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    [EAGLContext setCurrentContext:context];
+    #if OPENGL2PLUS
+        context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        [EAGLContext setCurrentContext:context];
+        
+        glView.context = context;
+        
+        glView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    #elif X_METAL
+        MTKView * v = (__bridge MTKView *) MetalView;
     
-    glView.context = context;
-    
-    glView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+        GRAPHIC_SYSTEM::InitializeMetal( MetalView );
+    #endif
 }
 
 void GRAPHIC_WINDOW_IOS::EnableBackgroundContext(bool enable) {
     
-    [EAGLContext setCurrentContext:context];
+    #if OPENGL2PLUS
+        [EAGLContext setCurrentContext:context];
+    #endif
 }
 
+#if OPENGL2PLUS
 @implementation CustomGlView {
     NSTimer * displayTimer;
     CADisplayLink *displayLink;
@@ -113,3 +132,5 @@ void GRAPHIC_WINDOW_IOS::EnableBackgroundContext(bool enable) {
 }
 
 @end
+
+#endif

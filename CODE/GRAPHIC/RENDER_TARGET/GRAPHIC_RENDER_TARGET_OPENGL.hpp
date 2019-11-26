@@ -9,12 +9,10 @@
 #ifndef GAME_ENGINE_REBORN_GRAPHIC_RENDER_TARGET_OPENGL_h
 #define GAME_ENGINE_REBORN_GRAPHIC_RENDER_TARGET_OPENGL_h
 
-int
-    Attachments;
 GLuint
     FrameBuffer,
     DepthrenderBuffer;
 GLenum
-    DrawBuffers[8];
+    DrawBuffers[MAX_FRAME_BUFFERS];
 
 #endif

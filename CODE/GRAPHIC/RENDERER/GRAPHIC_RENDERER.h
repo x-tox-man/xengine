@@ -30,17 +30,32 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
 
     void Initialize() {
         
+        #if X_METAL
+            InitializeMtl();
+            BufferPassIndex = -1;
+        
+            MetalUniformBufferAddress = GRAPHIC_SYSTEM::GetMtlBufferPointer( MetalUniformBuffer );
+        #endif
     }
 
     void Finalize() {
+        
         
     }
     
     void BeginFrame() {
         
+        #if X_METAL
+
+            BufferPassIndex = (BufferPassIndex + 1 ) % 3;
+            UniformOffset = (512 * 64 * 4 * 10 ) * BufferPassIndex;
+            CurrentOffset = 0;
+            GRAPHIC_SYSTEM::BeginMtlFrame();
+        #endif
     }
 
     void Render() {
+        
         GRAPHIC_SYSTEM::BeginRendering();
             (*RenderCallback)();
         GRAPHIC_SYSTEM::EndRendering();
@@ -48,6 +63,9 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
 
     void EndFrame() {
         
+        #if X_METAL
+            GRAPHIC_SYSTEM::EndMtlFrame();
+        #endif
     }
 
     inline void SetCamera( GRAPHIC_CAMERA * camera ) { Camera = camera; };
@@ -164,8 +182,32 @@ private :
         ColorEnabled,
         LightingIsEnabled,
         DeferredLightingIsEnabled;
-    /*GAMEPLAY_SCENE_RENDER_OPTION
-        Option;*/
+
+    #if X_METAL
+
+    public:
+
+        inline void * GetOffsetPointer( unsigned int index) { return ( (uint8_t *) MetalUniformBufferAddress) + UniformOffset + index; }
+        inline void OffsetPointer( unsigned int offset ) { CurrentOffset  += offset; }
+        inline unsigned int GetCurrentOffset() const { return CurrentOffset; }
+        inline void MtlApplyCurrentOffset() { UniformOffset += CurrentOffset + (CurrentOffset % 256); CurrentOffset = 0; }
+
+        void InitializeMtl() {
+            //TODO : enabled when all init is finished
+            MetalUniformBuffer = GRAPHIC_SYSTEM::CreateMetalDynamicUniformBuffer( 512 * 64 * 4 * 10 * 3 );
+            
+            UniformOffset = 0;
+            BufferPassIndex = 0;
+        }
+
+        void
+            * MetalUniformBuffer,
+            * MetalUniformBufferAddress;
+        unsigned int
+            UniformOffset,
+            CurrentOffset,
+            BufferPassIndex;
+    #endif
 
 XS_CLASS_END
 

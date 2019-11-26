@@ -28,7 +28,7 @@ void GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::Apply( GRAPHIC_RENDERER & ren
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_previous_view_mat = Program.getShaderAttribute( PreviousModelViewProjectionIdentifier );
     
-    GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( attr_previous_view_mat.AttributeValue.Value.FloatMatrix4x4, attr_previous_view_mat );
+    GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( renderer, attr_previous_view_mat.AttributeValue.Value.FloatMatrix4x4, attr_previous_view_mat );
 }
 
 void GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::BindAttributes() {

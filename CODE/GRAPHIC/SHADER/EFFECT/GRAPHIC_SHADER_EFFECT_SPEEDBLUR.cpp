@@ -34,9 +34,9 @@ void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply( GRAPHIC_RENDERER & renderer, bool d
     GRAPHIC_SHADER_ATTRIBUTE & attr_previous_view_mat = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier );
     GRAPHIC_SHADER_ATTRIBUTE & attr_current_inverse_view_mat = Program.getShaderAttribute( InverseCurrentModelViewIdentifier );
     
-    GRAPHIC_SYSTEM::ApplyShaderAttributeVector( attr_view_ray.AttributeValue.Value.FloatArray4, attr_view_ray );
+    GRAPHIC_SYSTEM::ApplyShaderAttributeVector( renderer, attr_view_ray.AttributeValue.Value.FloatArray4, attr_view_ray );
     //GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( attr_previous_view_mat.AttributeValue.Value.FloatMatrix4x4, attr_previous_view_mat );
-    GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( attr_current_inverse_view_mat.AttributeValue.Value.FloatMatrix4x4, attr_current_inverse_view_mat );
+    GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( renderer, attr_current_inverse_view_mat.AttributeValue.Value.FloatMatrix4x4, attr_current_inverse_view_mat );
 }
 
 void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::BindAttributes() {

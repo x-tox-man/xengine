@@ -79,6 +79,8 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::RenderFrontToBack( GAMEPLA
         
         graphic_object->ComputeModelViewProjection( Options, graphic_object->GetMeshTable()[i]->GetTransform(), *Renderer, result, object );
         
+        GRAPHIC_RENDERER & renderer = *Renderer;
+        
         if ( MVPMatrix->AttributeIndex >= 0 ) {
             
             GRAPHIC_SYSTEM_ApplyMatrix( MVPMatrix->AttributeIndex, 1, 1, &result[0])
@@ -141,7 +143,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::RenderFrontToBack( GAMEPLA
             GRAPHIC_SYSTEM_ApplyFloatArray( EndClipSpace->AttributeIndex, Renderer->GetNumCascade(), cascade_end )
         }
         
-        graphic_object->GetMeshTable()[ i ]->ApplyBuffers();
+        graphic_object->GetMeshTable()[ i ]->ApplyBuffers( renderer );
     }
     
     

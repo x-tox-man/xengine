@@ -113,21 +113,21 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     
     if ( camera_world_position_attribute.AttributeIndex > -1 ) {
         
-        GRAPHIC_SYSTEM::ApplyShaderAttributeVector( &renderer.GetCamera()->GetPosition()[0], camera_world_position_attribute );
+        GRAPHIC_SYSTEM::ApplyShaderAttributeVector( renderer, &renderer.GetCamera()->GetPosition()[0], camera_world_position_attribute );
     }
     
     GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::LightSpecularPower );
     
     if ( attribute.AttributeIndex > -1 ) {
         
-        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( 0.99f, attribute );
+        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, 0.99f, attribute );
     }
     
     GRAPHIC_SHADER_ATTRIBUTE & attribute_mat_spec = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity );
     
     if ( attribute_mat_spec.AttributeIndex > -1 ) {
         
-        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( SpecularIntensity, attribute_mat_spec );
+        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, SpecularIntensity, attribute_mat_spec );
     }
 }
 

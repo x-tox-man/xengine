@@ -21,7 +21,7 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_SHADER_PROGRAM_DATA_PROXY )
 
     void Initialize( GRAPHIC_SHADER_PROGRAM::PTR program );
 
-    void Enable();
+    void Enable( GRAPHIC_RENDERER & );
     void Disable();
 
     const std::map<CORE_HELPERS_IDENTIFIER, GRAPHIC_SHADER_ATTRIBUTE > & GetShaderAttributeTable() const { return ShaderAttributeTable; }

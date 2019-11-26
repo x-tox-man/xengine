@@ -36,10 +36,14 @@ GRAPHIC_RENDERER::GRAPHIC_RENDERER():
         
     SpotLightTable.reserve( 256 );
     PointLightTable.reserve( 256 );
+        
 }
 
 GRAPHIC_RENDERER::~GRAPHIC_RENDERER() {
 
+    #if X_METAL
+        //TODO : delete MetalUniformBuffer
+    #endif
 }
 
 void GRAPHIC_RENDERER::EnableScissor( bool enable ) {

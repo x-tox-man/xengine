@@ -77,7 +77,8 @@ void GRAPHIC_SHADER_EFFECT::BindAttribute( GRAPHIC_SHADER_ATTRIBUTE &shader_attr
 
 void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing ) {
     
-    GetProgram().Enable();
+    GetProgram().Enable( renderer );
+    
     MaterialCollection->Apply(renderer, &GetProgram(), does_lighting, does_texturing );
     
     if ( GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeIndex >= 0 ) {
@@ -128,4 +129,28 @@ GRAPHIC_SHADER_EFFECT::PTR GRAPHIC_SHADER_EFFECT::LoadEffectWithVertexAndFragmen
     effect->GetMaterialCollection()->LoadMaterialForName( material_name );
     
     return effect;
+}
+
+void GRAPHIC_SHADER_EFFECT::UpdateMatrix( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_ATTRIBUTE & attribute, const float * matrix ) {
+    
+    if ( attribute.AttributeIndex >= 0 ) {
+        
+        GRAPHIC_SYSTEM_ApplyMatrix( attribute.AttributeIndex, 1, 1, matrix );
+    }
+}
+
+void GRAPHIC_SHADER_EFFECT::UpdateFloatArray( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_ATTRIBUTE & attribute, unsigned int count, float * array) {
+    
+    if ( attribute.AttributeIndex >= 0 ) {
+        
+        GRAPHIC_SYSTEM_ApplyVector( attribute.AttributeIndex, count, array );
+    }
+}
+
+void GRAPHIC_SHADER_EFFECT::UpdateFloat( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_ATTRIBUTE & attribute, const float value) {
+    
+    if ( attribute.AttributeIndex >= 0 ) {
+        
+        GRAPHIC_SYSTEM_ApplyFloat( attribute.AttributeIndex, value )
+    }
 }

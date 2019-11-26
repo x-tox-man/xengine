@@ -13,6 +13,7 @@
 #include "CORE_HELPERS_UNIQUE.h"
 #include "CORE_HELPERS_CALLBACK.h"
 #include "SERVICE_HTTP_REQUEST.h"
+
 #include <curl/curl.h>
 
 #define BASE_URL_MAX_LEN 256
