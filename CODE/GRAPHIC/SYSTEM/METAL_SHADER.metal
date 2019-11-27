@@ -92,7 +92,7 @@ vertex ColorInOut vertexShader(VertexPosColor in [[stage_in]],
 {
     ColorInOut out;
 
-    out.position = uniforms.MVPMatrix * float4( in.position, 1.0 );
+    out.position = transpose(uniforms.MVPMatrix) * float4( in.position, 1.0 );
     out.texCoord = in.texCoord;
 
     return out;
@@ -169,7 +169,7 @@ vertex BasicGeometryShader_ColorInOut SimpleBlur_vs(VertexPosNormalTexTanBi in [
 {
     BasicGeometryShader_ColorInOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
 
     return out;
@@ -221,7 +221,7 @@ vertex BackgroundSky_InOut BackgroundSky_vs(VertexPosNormalTexTanBi in [[stage_i
 {
     BackgroundSky_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.position.z =  out.position.w;
     out.texcoords = in.texcoords;
     out.normal = in.normal;
@@ -276,7 +276,7 @@ vertex BackgroundSkyDeferred_InOut BackgroundSkyDeferred_vs(VertexPosNormalTexTa
 {
     BackgroundSkyDeferred_InOut out;
     
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
 
     return out;
@@ -315,7 +315,7 @@ vertex BasicGeometryShaderPoNoUVDeferred_InOut BasicGeometryShaderPoNoUVDeferred
 {
     BasicGeometryShaderPoNoUVDeferred_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -353,7 +353,7 @@ vertex BasicGeometryShaderPoNoUVTaBi_InOut BasicGeometryShaderPoNoUVTaBi_vs(Vert
 {
     BasicGeometryShaderPoNoUVTaBi_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -391,7 +391,7 @@ vertex BasicGeometryShaderPoNoUVTaBiColorDeferred_InOut BasicGeometryShaderPoNoU
 {
     BasicGeometryShaderPoNoUVTaBiColorDeferred_InOut out;
     
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
 
     return out;
@@ -429,7 +429,7 @@ vertex BasicGeometryShaderPoNoUVTaBiDeferred_InOut BasicGeometryShaderPoNoUVTaBi
 {
     BasicGeometryShaderPoNoUVTaBiDeferred_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -467,7 +467,7 @@ vertex BasicGeometryShaderPoNoUVTaBiShadowMap_InOut BasicGeometryShaderPoNoUVTaB
 {
     BasicGeometryShaderPoNoUVTaBiShadowMap_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -505,7 +505,7 @@ vertex BasicParticle_InOut BasicParticle_vs(VertexPosNormalTexTanBi in [[stage_i
 {
     BasicParticle_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -543,7 +543,7 @@ vertex BasicTerrain_InOut BasicTerrain_vs(VertexPosNormalTexTanBi in [[stage_in]
 {
     BasicTerrain_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -581,7 +581,7 @@ vertex BasicTerrainDeferred_InOut BasicTerrainDeferred_vs(VertexPosNormalTexTanB
 {
     BasicTerrainDeferred_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -619,7 +619,7 @@ vertex CheckpointEffect_InOut CheckpointEffect_vs(VertexPosNormalTexTanBi in [[s
 {
     CheckpointEffect_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -657,7 +657,7 @@ vertex DeferredAmbiantAndDirectionnal_InOut DeferredAmbiantAndDirectionnal_vs(Ve
 {
     DeferredAmbiantAndDirectionnal_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -695,7 +695,7 @@ vertex DeferredPointLight_InOut DeferredPointLight_vs(VertexPosNormalTexTanBi in
 {
     DeferredPointLight_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -733,7 +733,7 @@ vertex DeferredSpotLight_InOut DeferredSpotLight_vs(VertexPosNormalTexTanBi in [
 {
     DeferredSpotLight_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -771,7 +771,7 @@ vertex Fullscreenbloompostprocess_InOut Fullscreenbloompostprocess_vs(VertexPosN
 {
     Fullscreenbloompostprocess_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -809,7 +809,7 @@ vertex FullscreenCombinePostProcess_InOut FullscreenCombinePostProcess_vs(Vertex
 {
     FullscreenCombinePostProcess_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -847,7 +847,7 @@ vertex FullscreenGaussianHorrizontalBlurPostProcess_InOut FullscreenGaussianHorr
 {
     FullscreenGaussianHorrizontalBlurPostProcess_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -885,7 +885,7 @@ vertex FullscreenGaussianVerticalBlurPostProcess_InOut FullscreenGaussianVertica
 {
     FullscreenGaussianVerticalBlurPostProcess_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -923,7 +923,7 @@ vertex FullscreenSpeedBlur_InOut FullscreenSpeedBlur_vs(VertexPosNormalTexTanBi 
 {
     FullscreenSpeedBlur_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -961,7 +961,7 @@ vertex LineShader_InOut LineShader_vs(VertexPosNormalTexTanBi in [[stage_in]],
 {
     LineShader_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -999,7 +999,7 @@ vertex NullTechnique_InOut NullTechnique_vs(VertexPosNormalTexTanBi in [[stage_i
 {
     NullTechnique_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1037,7 +1037,7 @@ vertex AnimationShader_InOut AnimationShader_vs(VertexPosNormalTexTanBi in [[sta
 {
     AnimationShader_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1075,7 +1075,7 @@ vertex ColorShader_InOut ColorShader_vs(VertexPosNormalTexTanBi in [[stage_in]],
 {
     ColorShader_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1113,7 +1113,7 @@ vertex ShadowmapEffect_InOut ShadowmapEffect_vs(VertexPosNormalTexTanBi in [[sta
 {
     ShadowmapEffect_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1151,7 +1151,7 @@ vertex SpaceShipSpecialEffect_InOut SpaceShipSpecialEffect_vs(VertexPosNormalTex
 {
     SpaceShipSpecialEffect_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1189,7 +1189,7 @@ vertex SSAOEffect_InOut SSAOEffect_vs(VertexPosNormalTexTanBi in [[stage_in]],
 {
     SSAOEffect_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1227,7 +1227,7 @@ vertex TerrainShader_InOut TerrainShader_vs(VertexPosNormalTexTanBi in [[stage_i
 {
     TerrainShader_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1263,7 +1263,7 @@ vertex Uitextured_InOut Uitextured_vs(VertexPosNormalTexTanBi in [[stage_in]],
 {
     Uitextured_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1295,7 +1295,7 @@ vertex UiColored_InOut UiColored_vs(VertexPosNormalTex in [[stage_in]],
 {
     UiColored_InOut out;
 
-    out.position = uniforms.MVPMatrix * in.position;
+    out.position = transpose(uniforms.MVPMatrix) * in.position;
     
     return out;
 }
