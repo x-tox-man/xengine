@@ -48,7 +48,7 @@ XS_CLASS_BEGIN( GAMEPLAY_ACTION_SYSTEM )
         stream.Close();
     }
 
-    //TODO : Place elsewhere
+    // TODO: Place elsewhere
     template <typename __COMMAND_TYPE__>
     static SERVICE_NETWORK_COMMAND * CreateNetworkCommand(__COMMAND_TYPE__ & command, float start, float end ) {
         
@@ -75,7 +75,7 @@ XS_CLASS_BEGIN( GAMEPLAY_ACTION_SYSTEM )
         return message;
     }
 
-    //TODO : Place elsewhere
+    // TODO: Place elsewhere
     template <typename __COMMAND_TYPE__>
     static SERVICE_NETWORK_COMMAND * CreateNetworkCommand(__COMMAND_TYPE__ & command, unsigned int tick ) {
         

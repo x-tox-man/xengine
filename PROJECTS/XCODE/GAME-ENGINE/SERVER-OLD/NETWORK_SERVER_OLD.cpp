@@ -333,7 +333,7 @@ void NETWORK_SERVER::OnLobbyTCPNewConnection( SERVICE_NETWORK_CONNECTION * conne
 
 void NETWORK_SERVER::OnTCPDataReceived( SERVICE_NETWORK_COMMAND * command ) {
     
-    //TODO: check race condition
+    // TODO: check race condition
     IncommingMessageQueue[IncommingMessageQueueIterator++] = command;
     
     if ( IncommingMessageQueueIterator == THIS_GAME_MAX_NETWORK_MESSAG_QUEUE_SIZE ) {

@@ -45,11 +45,11 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, bool does_l
     GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture5, TextureBlock );
     GRAPHIC_SHADER_EFFECT::Apply( renderer, does_lighting, does_texturing );
     
-    GRAPHIC_SHADER_ATTRIBUTE & ssao_kernel = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOKernel );
+    GRAPHIC_SHADER_ATTRIBUTE & ssao_kernel = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOKernel );
     
-    GRAPHIC_SHADER_ATTRIBUTE & ssao_sample_rad = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOSampleRad );
-    GRAPHIC_SHADER_ATTRIBUTE & proj = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix );
-    GRAPHIC_SHADER_ATTRIBUTE & view = Program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE & ssao_sample_rad = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOSampleRad );
+    GRAPHIC_SHADER_ATTRIBUTE & proj = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE & view = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewMatrix );
     
     GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( renderer, SSAOKernel, SSAO_MAX_KERNEL, ssao_kernel );
     GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, SampleRad, ssao_sample_rad );

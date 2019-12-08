@@ -67,7 +67,7 @@ void RESOURCE_CONTAINER::Load( const CORE_FILESYSTEM_PATH & path ) {
             
             auto resource = BASE_RESOURCE::FactoryCreate( it->second->GetType() );
             
-            CORE_RUNTIME_Abort(); //TODO : does not work
+            CORE_RUNTIME_Abort(); // TODO: does not work
             resource->Load( it->first, stream );
             
             it++;

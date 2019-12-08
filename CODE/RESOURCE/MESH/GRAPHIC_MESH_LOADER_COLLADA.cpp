@@ -285,7 +285,7 @@
         position[2] = minBox.center[2];
         position[3] = 0.0f;
         
-        //TODO:
+        // TODO:
         
         CORE_MATH_MATRIX mat;
         CORE_MATH_MATRIX mat2( CORE_MATH_MATRIX::Identity );
@@ -383,7 +383,7 @@
                         mesh->SetName( mesh_name.c_str() );
                         
                         {
-                            //TODO : all vertices will have x-y-z components. when collada supports it, enable this
+                            // TODO: all vertices will have x-y-z components. when collada supports it, enable this
                             
                             mesh->SetVertexCoreBuffer( vertex_buffer );
                             
@@ -414,7 +414,7 @@
                             
                             if ( data->getMeshPrimitives().getCount() > 0 ) {
                                 
-                                //TODO
+                                // TODO:
                             }
                             
                             if( hasUV && hasNormals ) {

@@ -48,6 +48,8 @@ void METAL_TEST::Initialize() {
     
     // Do any additional setup after loading the view.
     
+    GRAPHIC_SYSTEM::SetRendersOnScreen( false );
+    
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     
     AnimatedObject = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath( "spaceship" , "smx", "MODELS" ), 1337, GRAPHIC_MESH_TYPE_ModelResource );
@@ -60,11 +62,15 @@ void METAL_TEST::Initialize() {
     
     Effect->SetMaterial( mat );
     
-    GRAPHIC_CAMERA::PTR Camera = new GRAPHIC_CAMERA( 0.01f, 10.0f, GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, -0.1f, 1.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis, 45.0f );
+    Camera = new GRAPHIC_CAMERA( 0.01f, 10.0f, GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, -0.1f, 1.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis, 45.0f );
+    
+    RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
     PrimaryRenderTarget.Initialize( GetApplicationWindow().GetWidth(),GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    FinalRenderTarget.Initialize( GetApplicationWindow().GetWidth(),GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    BloomRenderTarget.Initialize( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() / 1, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     
     PrimaryRenderTarget.Discard();
     
@@ -75,6 +81,47 @@ void METAL_TEST::Initialize() {
     DefaultTechnique.RenderTarget = &PrimaryRenderTarget;
     DefaultTechnique.RendererCallback.Connect( &Wrapper1<METAL_TEST, GRAPHIC_RENDERER &, &METAL_TEST::RenderTechnique>, this );
     DefaultTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
+    
+    FinalTechnique.RendererCallback.Connect( &Wrapper1<METAL_TEST, GRAPHIC_RENDERER &, &METAL_TEST::RenderFinalFrameBuffer>, this );
+    FinalTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
+    
+    BloomTechnique.PlanObject = &PlanObject;
+    BloomTechnique.TextureBlock = new GRAPHIC_TEXTURE_BLOCK();
+    BloomTechnique.TextureBlock2 = new GRAPHIC_TEXTURE_BLOCK();
+    BloomTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
+    BloomTechnique.FinalRenderTarget = &FinalRenderTarget;
+    BloomTechnique.BloomRenderTarget = &BloomRenderTarget;
+    BloomTechnique.SetBlurPassCount( 3 );
+    
+    for (int blur_index = 1; blur_index < 4 ; blur_index++ ) {
+        
+        int blur_factor = (blur_index*blur_index);
+        
+        auto rt1 = new GRAPHIC_RENDER_TARGET;
+        rt1->Initialize( GetApplicationWindow().GetWidth() / (blur_factor), GetApplicationWindow().GetHeight() / (blur_factor), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+        auto rt2 = new GRAPHIC_RENDER_TARGET;
+        rt2->Initialize( GetApplicationWindow().GetWidth() / (blur_factor), GetApplicationWindow().GetHeight() / (blur_factor), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+        
+        BloomTechnique.GaussianRenderTarget1Table[ blur_index - 1 ] = rt1;
+        BloomTechnique.GaussianRenderTarget2Table[ blur_index - 1 ] = rt2;
+        
+        // TODO: Refactor
+        if( blur_index == 1 ) {
+            
+            GRAPHIC_SYSTEM::SetRendersOnScreen( true );
+            UIEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::Uitextured"), CORE_FILESYSTEM_PATH::FindFilePath( "Uitextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+               
+            UIEffect->Initialize( AnimatedObject->GetShaderBindParameter() );
+            auto mat2 = new GRAPHIC_MATERIAL;
+            mat2->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( rt2->GetTargetTexture( 0 ) ) );
+               
+            UIEffect->SetMaterial( mat2 );
+            
+            GRAPHIC_SYSTEM::SetRendersOnScreen( false );
+        }
+    }
+    
+    BloomTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
 }
 
 void METAL_TEST::Finalize() {
@@ -89,10 +136,30 @@ void METAL_TEST::Update( float time_step ) {
 
 void METAL_TEST::Render() {
     
-    Update( 0.016777f );
-    //DefaultTechnique.ApplyFirstPass( GRAPHIC_RENDERER::GetInstance() );
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        options;
     
-    RenderTechnique( GRAPHIC_RENDERER::GetInstance() );
+    options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
+    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    Update( 0.016777f );
+    GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
+    DefaultTechnique.ApplyFirstPass( GRAPHIC_RENDERER::GetInstance() );
+    BloomTechnique.ApplyFirstPass( GRAPHIC_RENDERER::GetInstance() );
+    FinalTechnique.ApplyFirstPass( GRAPHIC_RENDERER::GetInstance() );
+    
+    //RenderTechnique( GRAPHIC_RENDERER::GetInstance() );
+}
+
+void METAL_TEST::RenderFinalFrameBuffer( GRAPHIC_RENDERER & renderer ) {
+    
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        options;
+    
+    options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
+    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    
+    PlanObject.Render(GRAPHIC_RENDERER::GetInstance(), options, UIEffect );
 }
 
 void METAL_TEST::RenderTechnique( GRAPHIC_RENDERER & renderer ) {
@@ -114,6 +181,8 @@ void METAL_TEST::RenderTechnique( GRAPHIC_RENDERER & renderer ) {
     options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
     AnimatedObject->Render( renderer, options, Effect );
+    
+    renderer.SetCamera( RenderTargetCamera );
     
     /*options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
     options.SetOrientation( q2 );

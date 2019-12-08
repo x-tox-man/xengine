@@ -13,7 +13,7 @@ public :
 
 void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, GRAPHIC_SHADER_EFFECT * effect, GRAPHIC_RENDERER & renderer, int first_index, int last_index ) {
     
-    //TODO:
+    // TODO:
     renderer.SetLightingIsEnabled( false );
     VertexBuffer->InitializeWithMemory( 9 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
     GRAPHIC_SYSTEM::UpdateVertexBuffer(&Mesh, *VertexBuffer);
@@ -25,7 +25,7 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     CORE_MATH_MATRIX result = renderer.GetCamera()->GetProjectionMatrix();
     result *= renderer.GetCamera()->GetViewMatrix();
     
-    GRAPHIC_SHADER_ATTRIBUTE & attr = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE & attr = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
     
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
@@ -80,7 +80,7 @@ void InternalInitialize( GRAPHIC_SHADER_EFFECT * effect ) {
     IndexBuffer = new CORE_DATA_BUFFER;
     VertexBuffer = new CORE_DATA_BUFFER;
     
-    //TODO : refactor
+    // TODO: refactor
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_CustomFloat );

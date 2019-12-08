@@ -44,7 +44,7 @@ void SERVICE_NETWORK_LOBBY_CLIENT::Finalize() {
     if ( UDPListenConnection ) {
         
         UDPListenConnection->Stop();
-        //TODO
+        // TODO:
         //CORE_MEMORY_ObjectSafeDeallocation( UDPListenConnection );
     }
     

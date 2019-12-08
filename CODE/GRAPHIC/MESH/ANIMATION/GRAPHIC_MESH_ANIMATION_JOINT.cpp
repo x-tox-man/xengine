@@ -62,7 +62,7 @@ void * GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForTime( const float 
         
         if ( max >= time ) {
             
-            //TODO: float percentage = (time - min) / (max - min);
+            // TODO: float percentage = (time - min) / (max - min);
             
             return (float*) FloatMatrixBuffer.getpointerAtIndex(matrix_index * sizeof(float) * 16, 0);
         }
@@ -92,13 +92,13 @@ void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( const float time, CORE_MATH
         
         if ( max >= time ) {
             
-            //TODO : float percentage = (time - min) / (max - min);
+            // TODO: float percentage = (time - min) / (max - min);
             
             CORE_MATH_POSE * first = ( CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( pose_index * sizeof( CORE_MATH_POSE ), 0 );
             //CORE_MATH_POSE * second = ( CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( pose_index + 1 * sizeof( CORE_MATH_POSE ), 0 );
             
             pose.CopyFrom( *first );
-            //TODO :
+            // TODO:
             //first->Lerp( *second, pose, percentage );
             
             return;

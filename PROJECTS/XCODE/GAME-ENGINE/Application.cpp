@@ -218,7 +218,7 @@ void MyTestApp::Initialize() {
     
     AUDIO_SYSTEM::GetInstance().GetBank().Load();
    
-    //TODO : init game later
+    // TODO: init game later
     Game = new GAME();
     Game->Initialize();
 
@@ -381,7 +381,7 @@ void MyTestApp::Render() {
     
     #if PLATFORM_OSX
         memcpy(
-               (void*) GLOBAL_RESOURCES::GetInstance().BlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::InverseCurrentModelViewIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+               (void*) GLOBAL_RESOURCES::GetInstance().BlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::InverseCurrentModelViewIdentifier ).AttributeValue.Value.FloatMatrix4x4,
                (void*) &inv[0],
                16* sizeof(float) );
     #endif
@@ -549,7 +549,7 @@ void MyTestApp::Render() {
     
     #if PLATFORM_OSX
         memcpy(
-           (void*) GLOBAL_RESOURCES::GetInstance().BlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) GLOBAL_RESOURCES::GetInstance().BlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
            (void*) &previous_mat[0],
            16* sizeof(float) );
     #endif
@@ -596,7 +596,7 @@ void MyTestApp::Update( float time_step ) {
     
     #if PLATFORM_OSX
         memcpy(
-            (void*) GLOBAL_RESOURCES::GetInstance().BlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::ViewRayIdentifier ).AttributeValue.Value.FloatArray4,
+            (void*) GLOBAL_RESOURCES::GetInstance().BlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::ViewRayIdentifier ).AttributeValue.Value.FloatArray4,
             (void*) &deltaPosition[0],
             4* sizeof(float) );
         

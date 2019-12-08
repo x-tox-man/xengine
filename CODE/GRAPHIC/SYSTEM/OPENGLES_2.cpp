@@ -169,7 +169,7 @@ void GRAPHIC_SYSTEM::CreateTexture( GRAPHIC_TEXTURE * texture, CORE_DATA_STREAM 
     GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, OPENGLES_2_GetTextureFormat(info.ImageType), info.Width, info.Height, 0, OPENGLES_2_GetTextureFormat(info.ImageType), GL_UNSIGNED_BYTE, texture_data ); )
     //GFX_CHECK( glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data ); )
     
-    // TODO : generate mipmap -> disable for interface elements
+    // TODO: generate mipmap -> disable for interface elements
     if ( false ) { //generate_mipmap ) {
         
         //GFX_CHECK( glGenerateMipmap(GL_TEXTURE_2D); )
@@ -377,10 +377,10 @@ void GRAPHIC_SYSTEM::UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER &
 
 void GRAPHIC_SYSTEM::ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
     
-    GRAPHIC_SHADER_ATTRIBUTE & directional_light_color = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightColor );
-    GRAPHIC_SHADER_ATTRIBUTE & directional_light_direction = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightDirection );
-    GRAPHIC_SHADER_ATTRIBUTE & directional_light_diffuse_intensity = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightDiffuseIntensity );
-    GRAPHIC_SHADER_ATTRIBUTE & directional_light_ambient_intensity = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightAmbientIntensity );
+    GRAPHIC_SHADER_ATTRIBUTE & directional_light_color = program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightColor );
+    GRAPHIC_SHADER_ATTRIBUTE & directional_light_direction = program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightDirection );
+    GRAPHIC_SHADER_ATTRIBUTE & directional_light_diffuse_intensity = program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightDiffuseIntensity );
+    GRAPHIC_SHADER_ATTRIBUTE & directional_light_ambient_intensity = program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DirectionalLightAmbientIntensity );
     
     /*if ( directional_light_color.AttributeIndex != -1 ) {
         
@@ -404,7 +404,7 @@ void GRAPHIC_SYSTEM::ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, 
 
 void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
     
-    GRAPHIC_SHADER_ATTRIBUTE & ambient_light = program.getShaderAttribute( GRAPHIC_SHADER_PROGRAM::AmbientLight );
+    GRAPHIC_SHADER_ATTRIBUTE & ambient_light = program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::AmbientLight );
     
     GRAPHIC_SYSTEM_ApplyMatrix(
         ambient_light.AttributeIndex,
@@ -415,14 +415,14 @@ void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAP
 
 void GRAPHIC_SYSTEM::ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
     
-    GRAPHIC_SHADER_ATTRIBUTE & point_light_position = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Position : GRAPHIC_SHADER_PROGRAM::PointLight0Position );
-    GRAPHIC_SHADER_ATTRIBUTE & point_light_color = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Color : GRAPHIC_SHADER_PROGRAM::PointLight0Color );
-    GRAPHIC_SHADER_ATTRIBUTE & point_light_diffuse_intensity = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1DiffuseIntensity : GRAPHIC_SHADER_PROGRAM::PointLight0DiffuseIntensity );
-    GRAPHIC_SHADER_ATTRIBUTE & point_light_ambient_intensity = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1AmbientIntensity : GRAPHIC_SHADER_PROGRAM::PointLight0AmbientIntensity );
+    GRAPHIC_SHADER_ATTRIBUTE & point_light_position = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Position : GRAPHIC_SHADER_PROGRAM::PointLight0Position );
+    GRAPHIC_SHADER_ATTRIBUTE & point_light_color = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Color : GRAPHIC_SHADER_PROGRAM::PointLight0Color );
+    GRAPHIC_SHADER_ATTRIBUTE & point_light_diffuse_intensity = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1DiffuseIntensity : GRAPHIC_SHADER_PROGRAM::PointLight0DiffuseIntensity );
+    GRAPHIC_SHADER_ATTRIBUTE & point_light_ambient_intensity = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1AmbientIntensity : GRAPHIC_SHADER_PROGRAM::PointLight0AmbientIntensity );
     
-    GRAPHIC_SHADER_ATTRIBUTE & point_light_exp = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Exp : GRAPHIC_SHADER_PROGRAM::PointLight0Exp );
-    GRAPHIC_SHADER_ATTRIBUTE & point_light_linear = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Linear : GRAPHIC_SHADER_PROGRAM::PointLight0Linear );
-    GRAPHIC_SHADER_ATTRIBUTE & point_light_constant = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Constant : GRAPHIC_SHADER_PROGRAM::PointLight0Constant );
+    GRAPHIC_SHADER_ATTRIBUTE & point_light_exp = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Exp : GRAPHIC_SHADER_PROGRAM::PointLight0Exp );
+    GRAPHIC_SHADER_ATTRIBUTE & point_light_linear = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Linear : GRAPHIC_SHADER_PROGRAM::PointLight0Linear );
+    GRAPHIC_SHADER_ATTRIBUTE & point_light_constant = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::PointLight1Constant : GRAPHIC_SHADER_PROGRAM::PointLight0Constant );
     
     if ( point_light_position.AttributeIndex > 0 ) {
         
@@ -451,16 +451,16 @@ void GRAPHIC_SYSTEM::ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHI
 
 void GRAPHIC_SYSTEM::ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
     
-    GRAPHIC_SHADER_ATTRIBUTE & spot_light_position = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Position : GRAPHIC_SHADER_PROGRAM::SpotLight0Position );
-    GRAPHIC_SHADER_ATTRIBUTE & spot_light_direction = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Direction : GRAPHIC_SHADER_PROGRAM::SpotLight0Direction );
-    GRAPHIC_SHADER_ATTRIBUTE & spot_light_color = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Color : GRAPHIC_SHADER_PROGRAM::SpotLight0Color );
-    GRAPHIC_SHADER_ATTRIBUTE & spot_light_diffuse_intensity = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1DiffuseIntensity : GRAPHIC_SHADER_PROGRAM::SpotLight0DiffuseIntensity );
-    GRAPHIC_SHADER_ATTRIBUTE & spot_light_ambient_intensity = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1AmbientIntensity : GRAPHIC_SHADER_PROGRAM::SpotLight0AmbientIntensity );
+    GRAPHIC_SHADER_ATTRIBUTE & spot_light_position = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Position : GRAPHIC_SHADER_PROGRAM::SpotLight0Position );
+    GRAPHIC_SHADER_ATTRIBUTE & spot_light_direction = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Direction : GRAPHIC_SHADER_PROGRAM::SpotLight0Direction );
+    GRAPHIC_SHADER_ATTRIBUTE & spot_light_color = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Color : GRAPHIC_SHADER_PROGRAM::SpotLight0Color );
+    GRAPHIC_SHADER_ATTRIBUTE & spot_light_diffuse_intensity = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1DiffuseIntensity : GRAPHIC_SHADER_PROGRAM::SpotLight0DiffuseIntensity );
+    GRAPHIC_SHADER_ATTRIBUTE & spot_light_ambient_intensity = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1AmbientIntensity : GRAPHIC_SHADER_PROGRAM::SpotLight0AmbientIntensity );
     
-    GRAPHIC_SHADER_ATTRIBUTE & spot_light_exp = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Exp : GRAPHIC_SHADER_PROGRAM::SpotLight0Exp );
-    GRAPHIC_SHADER_ATTRIBUTE & spot_light_linear = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Linear : GRAPHIC_SHADER_PROGRAM::SpotLight0Linear );
-    GRAPHIC_SHADER_ATTRIBUTE & spot_light_constant = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Constant : GRAPHIC_SHADER_PROGRAM::SpotLight0Constant );
-    GRAPHIC_SHADER_ATTRIBUTE & spot_light_cutoff = program.getShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Cutoff : GRAPHIC_SHADER_PROGRAM::SpotLight0Cutoff );
+    GRAPHIC_SHADER_ATTRIBUTE & spot_light_exp = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Exp : GRAPHIC_SHADER_PROGRAM::SpotLight0Exp );
+    GRAPHIC_SHADER_ATTRIBUTE & spot_light_linear = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Linear : GRAPHIC_SHADER_PROGRAM::SpotLight0Linear );
+    GRAPHIC_SHADER_ATTRIBUTE & spot_light_constant = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Constant : GRAPHIC_SHADER_PROGRAM::SpotLight0Constant );
+    GRAPHIC_SHADER_ATTRIBUTE & spot_light_cutoff = program.GetShaderAttribute( index ? GRAPHIC_SHADER_PROGRAM::SpotLight1Cutoff : GRAPHIC_SHADER_PROGRAM::SpotLight0Cutoff );
     
     if ( spot_light_position.AttributeIndex > 0 ) {
         

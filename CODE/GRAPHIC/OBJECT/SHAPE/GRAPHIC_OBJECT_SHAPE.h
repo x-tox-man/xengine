@@ -30,7 +30,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(GRAPHIC_OBJECT_SHAPE, GRAPHIC_OBJECT)
 
 protected :
 
-    //TODO : Change to Material
+    // TODO: Change to Material
 
 XS_CLASS_END
 

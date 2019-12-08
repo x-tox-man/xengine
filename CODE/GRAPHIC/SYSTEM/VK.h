@@ -259,19 +259,19 @@ void GRAPHIC_VK_destroy_pipeline_cache( struct GRAPHIC_VK_ENGINE_INFO &info );
 void GRAPHIC_VK_destroy_descriptor_pool( struct GRAPHIC_VK_ENGINE_INFO &info );
 
 /*
-//TODO : graphic vertex buffer
+// TODO: graphic vertex buffer
 void destroy_vertex_buffer( struct sample_info &info );
-//TODO : graphic texture
+// TODO: graphic texture
 void destroy_textures( struct sample_info &info );
-//TODO : graphic render target
+// TODO: graphic render target
 void destroy_framebuffers( struct sample_info &info );
-//TODO : graphic shader
+// TODO: graphic shader
 void destroy_shaders( struct sample_info &info );
-//TODO : ???
+// TODO: ???
 void destroy_renderpass( struct sample_info &info );
 
 
-//TODO : ??
+// TODO: ??
 void destroy_descriptor_and_pipeline_layouts( struct GRAPHIC_VK_ENGINE_INFO & info );
 void destroy_uniform_buffer( struct GRAPHIC_VK_ENGINE_INFO & info );
 */

@@ -10,7 +10,7 @@
 #include "CORE_DATA_STREAM.h"
 #include "CORE_DATA_JSON.h"
 
-//TODO: std::string AnimationName;
+// TODO: std::string AnimationName;
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION )
     XS_DEFINE_ClassMember( "IndexTable", std::vector<int>, IndexTable )
@@ -86,7 +86,7 @@ void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForTime( const float time
         float * ptr = (float *)JointTable[i]->GetInterPolatedMatrix();
         const CORE_MATH_POSE & pose = JointTable[i]->GetInterPolatedPose();
         
-        // TODO : in place matrix copy
+        // TODO: in place matrix copy
         
         pose.ToMatrix( (float*)( matrix_buffer + offset) );
         

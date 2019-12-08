@@ -128,7 +128,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::RenderFrontToBack( GAMEPLA
             
             float cascade_end[8];
             
-            ShadowmapMVP = &Effect->GetProgram().getShaderAttribute( Renderer->GetShadowMapMVPName( cascade_index ) );
+            ShadowmapMVP = &Effect->GetProgram().GetShaderAttribute( Renderer->GetShadowMapMVPName( cascade_index ) );
             
             for (int ci = 0; ci < Renderer->GetNumCascade(); ci++) {
                 
@@ -165,19 +165,19 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::Render( void * ecs_base_po
     Renderer = &renderer;
     Tree.Update();
     
-    MVPMatrix = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-    ModelMatrix = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
-    ViewMatrix = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ViewMatrix );
-    TimeModulator = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
-    ProjectionMatrix = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
+    MVPMatrix = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+    ModelMatrix = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
+    ViewMatrix = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ViewMatrix );
+    TimeModulator = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
+    ProjectionMatrix = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
     
-    EndClipSpace = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CascadeEndClipSpace );
+    EndClipSpace = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::CascadeEndClipSpace );
     
-    Depth[0] = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
-    Depth[1] = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture1 );
-    Depth[2] = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture2 );
-    Depth[3] = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture3 );
-    Depth[4] = &Effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture4 );
+    Depth[0] = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
+    Depth[1] = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture1 );
+    Depth[2] = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture2 );
+    Depth[3] = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture3 );
+    Depth[4] = &Effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture4 );
     
     Renderer->GetCamera()->ActivateForRender();
     Tree.QueryTopToBottom( Renderer->GetCamera()->GetFustrum(), callback );

@@ -512,7 +512,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     scene->Clear();
     
-    /*#error "TODO implement" //TODO : Fix memory placement for all objects (ex resource proxy must not be valid anymore
+    /*#error "TODO implement" // TODO: Fix memory placement for all objects (ex resource proxy must not be valid anymore
     scene->LoadFrom( CORE_FILESYSTEM_PATH::FindFilePath("scene-test-2", "scx", "") );
     
     RenderTarget.Apply();
@@ -734,7 +734,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     previous_mat *= Camera->GetViewMatrix();
     
     memcpy(
-           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) SpeedBlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
            (void*) &previous_mat[0],
            16* sizeof(float) );
 
@@ -749,7 +749,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     
     
     memcpy(
-           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::InverseCurrentModelViewIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) SpeedBlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::InverseCurrentModelViewIdentifier ).AttributeValue.Value.FloatMatrix4x4,
            (void*) &inv[0],
            16* sizeof(float) );
     
@@ -787,7 +787,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     CORE_MATH_VECTOR deltaPosition = CORE_MATH_VECTOR( 10.0f, 0.0f, 0.0f, 0.0f);
     
     memcpy(
-           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::ViewRayIdentifier ).AttributeValue.Value.FloatArray4,
+           (void*) SpeedBlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::ViewRayIdentifier ).AttributeValue.Value.FloatArray4,
            (void*) &deltaPosition[0],
            4* sizeof(float) );
     
@@ -811,7 +811,7 @@ GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & obj
     }
     
     memcpy(
-           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) SpeedBlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
            (void*) &previous_mat[0],
            16* sizeof(float) );
 }

@@ -17,10 +17,6 @@
 #import <MetalKit/MetalKit.h>
 #import "GRAPHIC_RENDERER.h"
 
-static const NSUInteger kMaxBuffersInFlight = 3;
-
-static const size_t kAlignedUniformsSize = (sizeof(ObjectUniforms) & ~0xFF) + 0x100;
-
 void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind ) {
     
     //__bridge is used here because there is not retain increment to do in this function
@@ -30,8 +26,6 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     
     //CFBridgingRetain is used because we assign a retain object to this instance
     _pipelineState = GRAPHIC_SYSTEM::CreateMetalPipelineState( (void *) CFBridgingRetain(p), *this );
-    
-    _dynamicUniformBuffer = GRAPHIC_SYSTEM::CreateMetalDynamicUniformBuffer( sizeof(ObjectUniforms) );
 }
 
 void GRAPHIC_SHADER_PROGRAM::Initialize() {
@@ -46,12 +40,20 @@ void GRAPHIC_SHADER_PROGRAM::Initialize() {
     
     p.sampleCount = 1;
     
-    p.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
-    p.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float_Stencil8; //MTLPixelFormatInvalid
-    p.stencilAttachmentPixelFormat = MTLPixelFormatDepth32Float_Stencil8; //MTLPixelFormatInvalid
-    
-    _uniformBufferOffset = 0;
-    _uniformBufferIndex = 0;
+    if ( GRAPHIC_SYSTEM::RendersOnScreen() ) {
+        
+        MTKView * view = (__bridge MTKView *) GRAPHIC_SYSTEM::GetMtlView();
+        p.colorAttachments[0].pixelFormat = view.colorPixelFormat;
+        p.depthAttachmentPixelFormat = view.depthStencilPixelFormat;
+        p.stencilAttachmentPixelFormat = view.depthStencilPixelFormat;
+    }
+    else {
+        
+        p.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+        
+        p.depthAttachmentPixelFormat = MTLPixelFormatInvalid;
+        p.stencilAttachmentPixelFormat = MTLPixelFormatInvalid;
+    }
 }
 
 void GRAPHIC_SHADER_PROGRAM::LoadProgram( const CORE_FILESYSTEM_PATH & path, int shader_load_options ) {
@@ -118,20 +120,9 @@ void GRAPHIC_SHADER_PROGRAM::Finalize() {
 
 void GRAPHIC_SHADER_PROGRAM::Enable( GRAPHIC_RENDERER & renderer ) {
     
-    /*std::map<CORE_HELPERS_IDENTIFIER, GRAPHIC_SHADER_ATTRIBUTE>::iterator it = ShaderAttributeTable.begin();
-    
-    id <MTLBuffer> buffer = (__bridge id <MTLBuffer>) _dynamicUniformBuffer;
-
-    while (it != ShaderAttributeTable.end() ) {
-        
-        uint8_t * address = ((uint8_t*)buffer.contents + it->second.AttributeIndex);
-        memcpy( (void*) address, (void*) &it->second.AttributeValue.Value.FloatMatrix4x4[0], 16 * sizeof(float) );
-        it++;
-    }*/
-
     GRAPHIC_SYSTEM::EnableMtlPipelineState( _pipelineState );
     
-    GRAPHIC_SYSTEM::EnableMtlUniforms( renderer.MetalUniformBuffer, renderer.UniformOffset, _uniformBufferIndex );
+    GRAPHIC_SYSTEM::EnableMtlUniforms( renderer.MetalUniformBuffer, renderer.UniformOffset, -1 );
 }
 
 void GRAPHIC_SHADER_PROGRAM::Disable() {

@@ -202,7 +202,7 @@ void GRAPHIC_UI_FRAME::Hover( const CORE_MATH_VECTOR & cursor_position ) {
         
         if ( Adapter && PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetLeftButtonReleased() ) {
             
-            //TODO
+            // TODO:
             Adapter->OnDragEnd();
         }
     }

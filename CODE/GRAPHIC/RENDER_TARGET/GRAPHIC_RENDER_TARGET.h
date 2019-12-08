@@ -29,6 +29,12 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
     void Apply();
     void Discard();
 
+    void Clear();
+
+    // -- METAL API
+    void EnableTextureBlending();
+    // --
+
     void BindForWriting();
     void BindForReading();
     void SetReadBuffer( int type );

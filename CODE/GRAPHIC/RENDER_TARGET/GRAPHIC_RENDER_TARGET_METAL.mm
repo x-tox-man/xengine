@@ -119,6 +119,27 @@ void GRAPHIC_RENDER_TARGET::Discard() {
     [encoder endEncoding];
 }
 
+void GRAPHIC_RENDER_TARGET::EnableTextureBlending() {
+    
+    MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
+    
+    descriptor.colorAttachments[0].loadAction = MTLLoadActionLoad;
+}
+
+void GRAPHIC_RENDER_TARGET::Clear() {
+    
+    MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
+    
+    MTLLoadAction load_action = descriptor.colorAttachments[0].loadAction;
+    
+    descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+    
+    Apply();
+    Discard();
+    
+    descriptor.colorAttachments[0].loadAction = load_action;
+}
+
 void GRAPHIC_RENDER_TARGET::AddAttachment( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {
     
     //CORE_RUNTIME_Abort();
@@ -131,17 +152,17 @@ void GRAPHIC_RENDER_TARGET::BindForWriting() {
 
 void GRAPHIC_RENDER_TARGET::BindForReading() {
     
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_RENDER_TARGET::SetReadBuffer( int type )
 {
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_RENDER_TARGET::SetWriteBuffer( int type )
 {
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_RENDER_TARGET::CopyDepthFrom( GRAPHIC_RENDER_TARGET & other ) {

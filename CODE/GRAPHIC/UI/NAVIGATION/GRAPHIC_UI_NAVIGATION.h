@@ -109,7 +109,7 @@ public :
         // We are during Update loop
         CORE_PARALLEL_TASK_BEGIN(this)
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GetUILockMutex() )
-                //TODO : check page is correctly loaded
+                // TODO: check page is correctly loaded
                 if ( CurrentNavigationItem != NULL ) {
                     
                     NewNavigationItem->SetParentNavigationItem( CurrentNavigationItem );

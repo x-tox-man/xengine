@@ -31,7 +31,7 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_PROGRAM )
     void Enable( GRAPHIC_RENDERER & renderer );
     void Disable();
 
-    GRAPHIC_SHADER_ATTRIBUTE & getShaderAttribute( const CORE_HELPERS_IDENTIFIER & identifier ) { return ShaderAttributeTable[identifier]; }
+    GRAPHIC_SHADER_ATTRIBUTE & GetShaderAttribute( const CORE_HELPERS_IDENTIFIER & identifier ) { return ShaderAttributeTable[identifier]; }
     std::map<CORE_HELPERS_IDENTIFIER, GRAPHIC_SHADER_ATTRIBUTE> & GetShaderAttributeTable() { return ShaderAttributeTable; }
 
     void setShaderAttribute( const GRAPHIC_SHADER_ATTRIBUTE & attribute ) {

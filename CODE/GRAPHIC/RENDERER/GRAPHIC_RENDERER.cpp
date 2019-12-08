@@ -42,7 +42,7 @@ GRAPHIC_RENDERER::GRAPHIC_RENDERER():
 GRAPHIC_RENDERER::~GRAPHIC_RENDERER() {
 
     #if X_METAL
-        //TODO : delete MetalUniformBuffer
+        // TODO: delete MetalUniformBuffer
     #endif
 }
 

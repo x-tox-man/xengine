@@ -73,7 +73,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( MyTestApp, CORE_APPLICATION )
 
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( MyTestApp );
 
-    //TODO Define inside state machine
+    // TODO: Define inside state machine
     CORE_FIXED_STATE_MACHINE_DefineEvent( UPDATE_EVENT, float )
     CORE_FIXED_STATE_MACHINE_DefineEventVoid( GOTO_LOBBY )
 

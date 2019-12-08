@@ -49,7 +49,7 @@ void GRAPHIC_SHADER_PROGRAM::Finalize() {
 
 void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind ) {
     
-    //TODO : clean based on shader content
+    // TODO: clean based on shader content
     
     GRAPHIC_SHADER_ATTRIBUTE * attribute = NULL;
     

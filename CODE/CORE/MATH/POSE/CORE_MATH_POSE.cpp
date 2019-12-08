@@ -263,7 +263,7 @@ CORE_MATH_POSE & CORE_MATH_POSE::operator *= ( const CORE_MATH_POSE & other) {
 
 CORE_MATH_POSE operator * ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & rhs) {
     
-    //TODO : proper quaternion * vector math
+    // TODO: proper quaternion * vector math
     
     CORE_MATH_POSE pose;
     CORE_MATH_QUATERNION q;

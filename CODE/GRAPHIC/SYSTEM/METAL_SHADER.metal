@@ -760,14 +760,13 @@ fragment float4 DeferredSpotLight_fs(DeferredSpotLight_InOut in [[stage_in]],
 typedef struct
 {
     float4 position [[position]];
-    float2 texcoords;
-    float4 colorVarying;
     float4 normal;
-    float3 T,B,N;
+    float2 texcoords;
 } Fullscreenbloompostprocess_InOut;
 
-vertex Fullscreenbloompostprocess_InOut Fullscreenbloompostprocess_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+vertex Fullscreenbloompostprocess_InOut FullscreenBloomPostProcess_vs(VertexPosNormalTexTanBi in [[stage_in]],
+    constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]] )
+    //constant float & BloomThreshold [[ buffer(BufferIndexBloomThresholdConstants) ]] )
 {
     Fullscreenbloompostprocess_InOut out;
 
@@ -777,18 +776,26 @@ vertex Fullscreenbloompostprocess_InOut Fullscreenbloompostprocess_vs(VertexPosN
     return out;
 }
 
-fragment float4 Fullscreenbloompostprocess_fs(Fullscreenbloompostprocess_InOut in [[stage_in]],
-                                 constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                 constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+fragment float4 FullscreenBloomPostProcess_fs(Fullscreenbloompostprocess_InOut in [[stage_in]],
+    constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+    //constant float & BloomThreshold [[ buffer(BufferIndexBloomThresholdConstants) ]],
+    texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( 1.0 );
+    constexpr float BloomThreshold = 0.9;
+    
+    // Look up the original image color.
+    float4 colorSample = float4(colorMap.sample(colorSampler, in.texcoords.xy)*2);
+    
+    float4 tresh = float4(BloomThreshold);
+
+    // Adjust it to keep only values brighter than the specified threshold.
+    float4 colorOut = clamp( (colorSample - tresh) / (1.0 - tresh), float4(0.0), float4(1.0) );
+    
+    return colorOut;
 }
 
 // ------------------------------------------------------
@@ -798,11 +805,18 @@ fragment float4 Fullscreenbloompostprocess_fs(Fullscreenbloompostprocess_InOut i
 typedef struct
 {
     float4 position [[position]];
-    float2 texcoords;
-    float4 colorVarying;
     float4 normal;
-    float3 T,B,N;
+    float2 texcoords;
 } FullscreenCombinePostProcess_InOut;
+
+float4 AdjustSaturation(float4 color, float saturation)
+{
+    // The constants 0.3, 0.59, and 0.11 are chosen because the
+    // human eye is more sensitive to green light, and less to blue.
+    float grey = dot( float3( color ), float3( 0.3, 0.59, 0.11 ) );
+    
+    return mix( float4(grey,grey,grey, 1), color, saturation );
+}
 
 vertex FullscreenCombinePostProcess_InOut FullscreenCombinePostProcess_vs(VertexPosNormalTexTanBi in [[stage_in]],
                                             constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
@@ -816,17 +830,36 @@ vertex FullscreenCombinePostProcess_InOut FullscreenCombinePostProcess_vs(Vertex
 }
 
 fragment float4 FullscreenCombinePostProcess_fs(FullscreenCombinePostProcess_InOut in [[stage_in]],
-                                 constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                 constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
+                                texture2d<half> colorMap1     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( 1.0 );
+    constexpr float BaseSaturation = 0.7f;
+    constexpr float BloomSaturation = 1.0f;
+    constexpr float BaseIntensity = 0.7f;
+    constexpr float BloomIntensity = 1.0f;
+
+    // Look up the bloom and original base image colors.
+    float4 base = float4(colorMap.sample(colorSampler, in.texcoords.xy));
+    float4 bloom1 = float4(colorMap1.sample(colorSampler, in.texcoords.xy));
+
+    // Adjust color saturation and intensity.
+    base = AdjustSaturation( base, BaseSaturation ) * BaseIntensity;
+    bloom1 = AdjustSaturation( bloom1, BloomSaturation ) * BloomIntensity;
+
+    // Darken down the base image in areas where there is a lot of bloom,
+    // to prevent things looking excessively burned-out.
+    bloom1 *= (1 - clamp(bloom1, 0.0, 1.0));
+    
+    // Combine the two images.
+    float4 colorOut = bloom1 + base;
+    colorOut.a = 1;
+    
+    return colorOut;
 }
 
 // ------------------------------------------------------
@@ -836,14 +869,12 @@ fragment float4 FullscreenCombinePostProcess_fs(FullscreenCombinePostProcess_InO
 typedef struct
 {
     float4 position [[position]];
-    float2 texcoords;
-    float4 colorVarying;
     float4 normal;
-    float3 T,B,N;
+    float2 texcoords;
 } FullscreenGaussianHorrizontalBlurPostProcess_InOut;
 
 vertex FullscreenGaussianHorrizontalBlurPostProcess_InOut FullscreenGaussianHorrizontalBlurPostProcess_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+    constant FullscreenGaussianObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]] )
 {
     FullscreenGaussianHorrizontalBlurPostProcess_InOut out;
 
@@ -854,17 +885,31 @@ vertex FullscreenGaussianHorrizontalBlurPostProcess_InOut FullscreenGaussianHorr
 }
 
 fragment float4 FullscreenGaussianHorrizontalBlurPostProcess_fs(FullscreenGaussianHorrizontalBlurPostProcess_InOut in [[stage_in]],
-                                 constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                 constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+    constant FullscreenGaussianObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+    texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( 1.0 );
+    constexpr float weight[5] = { 0.227027, 0.1945946, 0.1216216, 0.054054, 0.016216 };
+
+    float2 tex_offset = 1.0 / (float2(colorMap.get_width(), colorMap.get_height()) * uniforms.FrameResolution);
+    // gets size of single texel
+    float2 txc = in.texcoords.xy;// * uniforms.FrameResolution.xy;
+    float4 colorOut;
+
+    colorOut.rgb = float4(colorMap.sample(colorSampler,txc)).rgb * weight[0];
+
+    for(int i = 1; i < 5; ++i)
+    {
+        colorOut.rgb += float4(colorMap.sample(colorSampler,txc + float2(tex_offset.x * i, 0.0))).rgb * weight[i];
+        colorOut.rgb += float4(colorMap.sample(colorSampler,txc - float2(tex_offset.x * i, 0.0))).rgb * weight[i];
+    }
+
+    colorOut.a = 1;
+        
+    return colorOut;
 }
 
 // ------------------------------------------------------
@@ -874,14 +919,12 @@ fragment float4 FullscreenGaussianHorrizontalBlurPostProcess_fs(FullscreenGaussi
 typedef struct
 {
     float4 position [[position]];
-    float2 texcoords;
-    float4 colorVarying;
     float4 normal;
-    float3 T,B,N;
+    float2 texcoords;
 } FullscreenGaussianVerticalBlurPostProcess_InOut;
 
 vertex FullscreenGaussianVerticalBlurPostProcess_InOut FullscreenGaussianVerticalBlurPostProcess_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+    constant FullscreenGaussianObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]] )
 {
     FullscreenGaussianVerticalBlurPostProcess_InOut out;
 
@@ -892,17 +935,31 @@ vertex FullscreenGaussianVerticalBlurPostProcess_InOut FullscreenGaussianVertica
 }
 
 fragment float4 FullscreenGaussianVerticalBlurPostProcess_fs(FullscreenGaussianVerticalBlurPostProcess_InOut in [[stage_in]],
-                                 constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                 constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+    constant FullscreenGaussianObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+    texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( 1.0 );
+    constexpr float weight[5] = { 0.227027, 0.1945946, 0.1216216, 0.054054, 0.016216 };
+
+    float2 tex_offset = 1.0 / (float2(colorMap.get_width(), colorMap.get_height()) * uniforms.FrameResolution);
+    
+    float2 txc = in.texcoords.xy;// * uniforms.FrameResolution.xy;
+    float4 colorOut;
+
+    colorOut.rgb = float4(colorMap.sample(colorSampler,txc)).rgb * weight[0];
+
+    for(int i = 1; i < 5; ++i)
+    {
+        colorOut.rgb += float4(colorMap.sample(colorSampler,txc + float2(0.0, tex_offset.y * i))).rgb * weight[i];
+        colorOut.rgb += float4(colorMap.sample(colorSampler,txc - float2(0.0, tex_offset.y * i))).rgb * weight[i];
+    }
+
+    colorOut.a = colorOut.r * colorOut.g * colorOut.b;
+        
+    return colorOut;
 }
 
 // ------------------------------------------------------

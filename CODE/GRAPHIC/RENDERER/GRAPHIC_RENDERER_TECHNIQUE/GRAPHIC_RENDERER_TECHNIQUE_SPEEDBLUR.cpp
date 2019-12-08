@@ -48,7 +48,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR::ApplyFirstPass( GRAPHIC_RENDERER & re
     current_mat.GetInverse( inv );
     
     memcpy(
-           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::InverseCurrentModelViewIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+           (void*) SpeedBlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::InverseCurrentModelViewIdentifier ).AttributeValue.Value.FloatMatrix4x4,
            (void*) &inv[0],
            16* sizeof(float) );
 }
@@ -66,7 +66,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR::ApplySecondPass( GRAPHIC_RENDERER & r
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
     memcpy(
-           (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::ViewRayIdentifier ).AttributeValue.Value.FloatArray4,
+           (void*) SpeedBlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_EFFECT_SPEEDBLUR::ViewRayIdentifier ).AttributeValue.Value.FloatArray4,
            (void*) &delta_position[0],
            4* sizeof(float) );
     
@@ -81,7 +81,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR::ApplySecondPass( GRAPHIC_RENDERER & r
         previous_mat *= renderer.GetCamera()->GetViewMatrix();
         
         memcpy(
-               (void*) SpeedBlurEffect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
+               (void*) SpeedBlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier ).AttributeValue.Value.FloatMatrix4x4,
                (void*) &previous_mat[0],
                16* sizeof(float) );
     }

@@ -23,7 +23,8 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_ATTRIBUTE )
     CORE_SCALAR
         AttributeValue;
     int
-        AttributeIndex;
+        AttributeIndex,
+        AttributeOffset;
 
 XS_CLASS_END
 

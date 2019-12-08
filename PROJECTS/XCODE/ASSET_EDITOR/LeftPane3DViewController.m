@@ -175,7 +175,7 @@
     
     Cpp3dDataProxy * proxy = [[Cpp3dDataProxy alloc] init];
     
-    CORE_RUNTIME_Abort();//TODO:
+    CORE_RUNTIME_Abort();// TODO:
     
     //proxy.Entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity( index );
     
@@ -328,7 +328,7 @@
         ( ( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT * ) app->Get3dViewer()->GetScene()->GetUpdatableSystemTable()[3] )->AddEntity( [self.custom3dTableViewDelegate.Entity Entity]->GetHandle(), [self.custom3dTableViewDelegate.Entity Entity] );
     }
     
-    //TODO:
+    // TODO:
     //ResourceType = @"Script";
     //[self performSegueWithIdentifier:@CHOOSE_RESOURCE_SEGUE sender:self];
 }

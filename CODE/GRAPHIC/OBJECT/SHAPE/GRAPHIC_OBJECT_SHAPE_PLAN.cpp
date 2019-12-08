@@ -19,12 +19,23 @@
 
 #define unit_s 0.5f // -0.5 to  0.5 makes 1.0f lenght
 
+#if X_METAL
+static float Static_PlanVertexData[] = {
+    -unit_s,  unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         0.0f, 0.0f,
+    unit_s,  unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         1.0f, 0.0f,
+    unit_s, -unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         1.0f, 1.0f,
+    -unit_s, -unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         0.0f, 1.0f,
+};
+#elif OPENGL2PLUS
 static float Static_PlanVertexData[] = {
     -unit_s,  unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         0.0f, 1.0f,
     unit_s,  unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         1.0f, 1.0f,
     unit_s, -unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         1.0f, 0.0f,
     -unit_s, -unit_s, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f, 1.0f,         0.0f, 0.0f,
 };
+#else
+#error "Not implemented"
+#endif
 
 GRAPHIC_OBJECT_SHAPE_PLAN::GRAPHIC_OBJECT_SHAPE_PLAN() :
     GRAPHIC_OBJECT_SHAPE(),

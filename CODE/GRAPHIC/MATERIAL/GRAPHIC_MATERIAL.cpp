@@ -82,7 +82,7 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const char * image_path ) :
     TryAndFillFor( image_path_2, "png", GRAPHIC_SHADER_PROGRAM::ColorTexture2 );
     TryAndFillFor( image_normal, "png", GRAPHIC_SHADER_PROGRAM::NormalTexture );
         
-    //TODO : other images
+    // TODO: other images
 }
 
 GRAPHIC_MATERIAL::~GRAPHIC_MATERIAL() {
@@ -92,7 +92,7 @@ GRAPHIC_MATERIAL::~GRAPHIC_MATERIAL() {
 
 void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, bool does_lighting, bool does_texturing ) {
     
-    GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
+    GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
     
     if ( renderer.IsColorEnabled() && color_attribute.AttributeIndex != 0 ) {
         
@@ -109,21 +109,21 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
         ApplyLights( shader, renderer );
     }
     
-    GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
+    GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
     
     if ( camera_world_position_attribute.AttributeIndex > -1 ) {
         
         GRAPHIC_SYSTEM::ApplyShaderAttributeVector( renderer, &renderer.GetCamera()->GetPosition()[0], camera_world_position_attribute );
     }
     
-    GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::LightSpecularPower );
+    GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::LightSpecularPower );
     
     if ( attribute.AttributeIndex > -1 ) {
         
         GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, 0.99f, attribute );
     }
     
-    GRAPHIC_SHADER_ATTRIBUTE & attribute_mat_spec = shader->getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity );
+    GRAPHIC_SHADER_ATTRIBUTE & attribute_mat_spec = shader->GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity );
     
     if ( attribute_mat_spec.AttributeIndex > -1 ) {
         
@@ -139,7 +139,7 @@ void GRAPHIC_MATERIAL::ApplyTexture( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader 
     
     while ( it != TextureTable.end() ) {
         
-        GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->getShaderAttribute( it->first );
+        GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->GetShaderAttribute( it->first );
         
         if ( it->first == GRAPHIC_SHADER_PROGRAM::DepthTexture ) {
             it->second->ApplyDepth(texture_index++, attribute.AttributeIndex );

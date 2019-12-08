@@ -190,10 +190,10 @@ private :
         inline void * GetOffsetPointer( unsigned int index) { return ( (uint8_t *) MetalUniformBufferAddress) + UniformOffset + index; }
         inline void OffsetPointer( unsigned int offset ) { CurrentOffset  += offset; }
         inline unsigned int GetCurrentOffset() const { return CurrentOffset; }
-        inline void MtlApplyCurrentOffset() { UniformOffset += CurrentOffset + (CurrentOffset % 256); CurrentOffset = 0; }
+        inline void MtlApplyCurrentOffset() { UniformOffset += CurrentOffset + (256 - (CurrentOffset % 256)); CurrentOffset = 0; }
 
         void InitializeMtl() {
-            //TODO : enabled when all init is finished
+            // TODO: enabled when all init is finished
             MetalUniformBuffer = GRAPHIC_SYSTEM::CreateMetalDynamicUniformBuffer( 512 * 64 * 4 * 10 * 3 );
             
             UniformOffset = 0;

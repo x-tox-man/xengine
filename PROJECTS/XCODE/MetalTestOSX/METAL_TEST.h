@@ -31,6 +31,7 @@
 #include "GRAPHIC_RENDER_TARGET.h"
 #include "GRAPHIC_RENDERER_TECHNIQUE.h"
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
+#include "GRAPHIC_RENDERER_TECHNIQUE_BLOOM.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(METAL_TEST, CORE_APPLICATION)
 
@@ -43,61 +44,35 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(METAL_TEST, CORE_APPLICATION)
     virtual void Update( float time_step ) override;
     virtual void Render() override;
     void RenderTechnique( GRAPHIC_RENDERER & renderer );
+    void RenderFinalFrameBuffer( GRAPHIC_RENDERER & renderer );
 
     CORE_FILESYSTEM
         DefaultFileystem;
 
 private:
 
+    GRAPHIC_CAMERA::PTR
+        Camera;
+    GRAPHIC_CAMERA_ORTHOGONAL::PTR
+        RenderTargetCamera;
     GRAPHIC_SHADER_EFFECT::PTR
-        Effect;
+        Effect,
+        UIEffect;
     GRAPHIC_OBJECT::PTR
         AnimatedObject;
     GRAPHIC_RENDER_TARGET
-        PrimaryRenderTarget;
+        PrimaryRenderTarget,
+        FinalRenderTarget,
+        BloomRenderTarget;
     GRAPHIC_RENDERER_TECHNIQUE
-        DefaultTechnique;
+        DefaultTechnique,
+        FinalTechnique;
+    GRAPHIC_RENDERER_TECHNIQUE_BLOOM
+        BloomTechnique;
     GRAPHIC_OBJECT_SHAPE_PLAN
         PlanObject;
-    CORE_MATH_MATRIX m1,m2;
-/*
-GRAPHIC_CAMERA_ORTHOGONAL
-    * InterfaceCamera,
-    * RenderTargetCamera;
-GRAPHIC_SHADER_LIGHT
-    Directional,
-    Ambient;
-GRAPHIC_OBJECT_SHAPE_PLAN
-    PlanObject;
-GRAPHIC_OBJECT_SHAPE_SPHERE
-    SphereObject;
-    FinalRenderTarget,
-    LightRenderTarget,
-    SpecularRenderTarget,
-    BloomRenderTarget,
-    ShadowMapRenderTarget1,
-    ShadowMapRenderTarget2,
-    ShadowMapRenderTarget3;
-GRAPHIC_TEXTURE_BLOCK::PTR
-    TextureBlock1,
-    TextureBlock2,
-    TextureBlock3,
-    TextureBlock4;
-GRAPHIC_SHADER_EFFECT::PTR
-    UIShaderTextured;
-GRAPHIC_RENDERER_TECHNIQUE
-    TransparentTechnique;
-GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR
-    SpeedBlurTechnique;
-GRAPHIC_RENDERER_TECHNIQUE_BLOOM
-    BloomTechnique;
-GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP
-    CascadeShadowMapTechnique;
-GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING
-    DeferredShadingTechnique;
-GRAPHIC_RENDER_TECHNIQUE_SSAO
-    SSAOTechnique;*/
-
+    CORE_MATH_MATRIX
+        m1,m2;
 
 XS_CLASS_END
 

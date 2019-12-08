@@ -31,15 +31,15 @@ void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::Apply( GRAPHIC_RENDERER & r
 
     GRAPHIC_SHADER_EFFECT::Apply( renderer, does_lighting, does_texturing );
     
-    GRAPHIC_SHADER_ATTRIBUTE & attr_bloom_intensity = Program.getShaderAttribute( BloomIntensityIdentifier );
-    GRAPHIC_SHADER_ATTRIBUTE & attr_base_intensity = Program.getShaderAttribute( BaseIntensityIdentifier );
-    GRAPHIC_SHADER_ATTRIBUTE & attr_bloom_saturation = Program.getShaderAttribute( BloomSaturationIdentifier );
-    GRAPHIC_SHADER_ATTRIBUTE & attr_base_saturation = Program.getShaderAttribute( BaseSaturationIdentifier );
+    GRAPHIC_SHADER_ATTRIBUTE & attr_bloom_intensity = Program.GetShaderAttribute( BloomIntensityIdentifier );
+    GRAPHIC_SHADER_ATTRIBUTE & attr_base_intensity = Program.GetShaderAttribute( BaseIntensityIdentifier );
+    GRAPHIC_SHADER_ATTRIBUTE & attr_bloom_saturation = Program.GetShaderAttribute( BloomSaturationIdentifier );
+    GRAPHIC_SHADER_ATTRIBUTE & attr_base_saturation = Program.GetShaderAttribute( BaseSaturationIdentifier );
     
-    GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, attr_bloom_intensity.AttributeValue.Value.FloatValue, attr_bloom_intensity );
+    /*GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, attr_bloom_intensity.AttributeValue.Value.FloatValue, attr_bloom_intensity );
     GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, attr_base_intensity.AttributeValue.Value.FloatValue, attr_base_intensity );
     GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, attr_bloom_saturation.AttributeValue.Value.FloatValue, attr_bloom_saturation );
-    GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, attr_base_saturation.AttributeValue.Value.FloatValue, attr_base_saturation );
+    GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, attr_base_saturation.AttributeValue.Value.FloatValue, attr_base_saturation );*/
 }
 
 void GRAPHIC_SHADER_EFFECT_FULLSCREEN_COMBINE_BLOOM::BindAttributes() {

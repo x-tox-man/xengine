@@ -62,7 +62,7 @@ void GRAPHIC_SHADER_PROGRAM::Finalize() {
 
 void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind ) {
     
-    //TODO : clean based on shader content
+    // TODO: clean based on shader content
     
     BoundParameters = shader_bind;
     
@@ -111,7 +111,7 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
         GFX_CHECK( glBindAttribLocation( ShaderProgram, GRAPHIC_SHADER_BIND_OPENGL4_Color, "color" ); )
     }
     
-    //TODO : color
+    // TODO: color
     
     if ( /*!ValidateProgram() ||*/ !LinkProgram() ) {
         

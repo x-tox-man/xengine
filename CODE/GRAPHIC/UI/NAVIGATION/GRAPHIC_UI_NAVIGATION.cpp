@@ -65,7 +65,7 @@ void GRAPHIC_UI_NAVIGATION::NavigationBackAsyncActionCompletedAnimation( GRAPHIC
     CORE_PARALLEL_TASK_BEGIN( this )
         CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX(GRAPHIC_UI_SYSTEM::GetInstance().GetLockMutex())
     
-            //TODO : check page is correctly loaded
+            // TODO: check page is correctly loaded
             if ( this->CurrentNavigationItem != NULL ) {
                 
                 GRAPHIC_UI_SYSTEM::GetInstance().UnregisterScreen(this->CurrentNavigationItem->GetScreenName().c_str());

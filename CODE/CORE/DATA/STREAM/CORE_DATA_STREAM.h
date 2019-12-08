@@ -52,7 +52,7 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
             MemoryBuffer = new_buffer;
         }
         
-        //TODO : byteswap :
+        // TODO: byteswap :
         
         CORE_MEMORY_COPY_BYTES_SWAPPED< __TYPE__ >( MemoryBuffer, Offset, data );
         

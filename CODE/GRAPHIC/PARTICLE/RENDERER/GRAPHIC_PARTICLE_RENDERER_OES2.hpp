@@ -25,7 +25,7 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     CORE_MATH_MATRIX result = renderer.GetCamera()->GetProjectionMatrix();
     result *= renderer.GetCamera()->GetViewMatrix();
     
-    GRAPHIC_SHADER_ATTRIBUTE & attr = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE & attr = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
     
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
@@ -68,7 +68,7 @@ void InternalInitialize( GRAPHIC_SHADER_EFFECT * effect ) {
     IndexBuffer = new CORE_DATA_BUFFER;
     VertexBuffer = new CORE_DATA_BUFFER;
     
-    //TODO : refactor
+    // TODO: refactor
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
     Mesh.ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);
     

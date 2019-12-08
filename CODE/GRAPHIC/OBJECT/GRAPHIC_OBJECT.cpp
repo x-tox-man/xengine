@@ -88,11 +88,11 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         
         effect->Apply( renderer, renderer.IsLightingEnabled(), options.IsTexturingEnabled() );
         
-        GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE & view_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ViewMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE & time_mod = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
-        GRAPHIC_SHADER_ATTRIBUTE & projection_matrix = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & view_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ViewMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & time_mod = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
+        GRAPHIC_SHADER_ATTRIBUTE & projection_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
 
         ComputeModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
@@ -104,9 +104,9 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
 
         GRAPHIC_SHADER_ATTRIBUTE * depth[3];
 
-        depth[0] = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
-        depth[1] = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture1 );
-        depth[2] = &effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture2 );
+        depth[0] = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
+        depth[1] = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture1 );
+        depth[2] = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture2 );
         
         for ( int cascade_index = 0; cascade_index < renderer.GetNumCascade(); cascade_index++ ) {
             
@@ -114,8 +114,8 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
                 depthMVP,
                 depthBias;
 
-            GRAPHIC_SHADER_ATTRIBUTE & shadowmap_mvp = effect->GetProgram().getShaderAttribute( renderer.GetShadowMapMVPName( cascade_index ) );
-            GRAPHIC_SHADER_ATTRIBUTE & end_clip_space = effect->GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::CascadeEndClipSpace );
+            GRAPHIC_SHADER_ATTRIBUTE & shadowmap_mvp = effect->GetProgram().GetShaderAttribute( renderer.GetShadowMapMVPName( cascade_index ) );
+            GRAPHIC_SHADER_ATTRIBUTE & end_clip_space = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::CascadeEndClipSpace );
             
             //Depth Textures are always last
             renderer.GetDepthTexture( cascade_index )->ApplyDepth(effect->GetMaterial()->GetTextureCount() + cascade_index , depth[cascade_index]->AttributeIndex );

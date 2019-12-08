@@ -39,7 +39,7 @@ void AUDIO_LOADER_Reset( AUDIO_SOUND & sound ) {
     #if AUDIO_OGG
         OGG_Reset( sound );
     #elif AUDIO_FILE_IOS
-    //TODO
+    // TODO:
     #else
         #error "Must use AUDIO_OGG"
     #endif

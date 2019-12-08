@@ -49,7 +49,7 @@ XS_CLASS_BEGIN(APPLICATION_COMMAND_MANAGER)
         stream.Close();
     }
 
-    //TODO : Place elsewhere
+    // TODO: Place elsewhere
     template <typename __COMMAND_TYPE__>
     static SERVICE_NETWORK_COMMAND * CreateNetworkCommand(__COMMAND_TYPE__ & command) {
         

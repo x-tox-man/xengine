@@ -44,22 +44,22 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void Initialize( const char * app_name, int app_version );
     static void Finalize();
 
-    static void EnableScissor( bool enable );
-    static void SetScissorRectangle(float x, float y, float width, float height);
+    static void EnableScissor( bool enable, void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
+    static void SetScissorRectangle(float x, float y, float width, float height, void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
 
-    static void EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination );
-    static void DisableBlend();
-    static void SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation );
+    static void EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination, void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
+    static void DisableBlend( void * __GRAPHIC_SYSTEM_CONTEXT = NULL);
+    static void SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation, void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
 
-    static void EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask );
-    static void DisableStencil();
-    static void SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail );
+    static void EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask, void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
+    static void DisableStencil( void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
+    static void SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail, void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
 
-    static void EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin = 0.0f, float range_end = 1.0f );
-    static void DisableDepthTest();
+    static void EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin = 0.0f, float range_end = 1.0f, void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
+    static void DisableDepthTest( void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
 
-    static void EnableAlpha();
-    static void DisableAlpha();
+    static void EnableAlpha( void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
+    static void DisableAlpha( void * __GRAPHIC_SYSTEM_CONTEXT = NULL );
 
     static void EnableBackfaceCulling( const GRAPHIC_POLYGON_FACE face );
     static void DisableFaceCulling();
@@ -110,6 +110,10 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void EnableDefaultFrameBuffer();
     static void DisableDefaultFrameBuffer();
 
+    // TODO: Remove this hack
+    static bool RendersOnScreen() { return ItRenderOnScreen; }
+    static void SetRendersOnScreen( bool on_screen ) { ItRenderOnScreen = on_screen; }
+
 #if X_METAL
 
     static void BeginMtlFrame();
@@ -117,6 +121,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void * CreateMtlVertexDescriptor( GRAPHIC_SHADER_BIND bind);
     static void * CreateMetalFunction( const char * function_name );
     static void InitializeMetal( void * view );
+    static void * GetMtlView();
     static void * CreateMetalPipelineState( void * descriptor, GRAPHIC_SHADER_PROGRAM & program );
     static void EnableMtlPipelineState( void * pipeline_state );
     static void * CreateMetalDynamicUniformBuffer( unsigned long size );
@@ -124,6 +129,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void * GetMtlBufferPointer( void * buffer );
     static void * CreateMtlTextureFromDescriptor( void * descriptor );
     static void * CreateMtlRenderEncoder( void * descriptor );
+    static void MtlReleasePipelineState( void * state );
 #endif
 
     static CORE_PARALLEL_LOCK_MUTEX
@@ -132,6 +138,8 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
         ShaderDirectoryPath;
     static CORE_HELPERS_COLOR
         ClearColor;
+    static bool
+        ItRenderOnScreen;
 
 XS_CLASS_END
 

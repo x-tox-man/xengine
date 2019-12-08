@@ -17,14 +17,14 @@ union SCALAR {
     
     bool BinaryValue;
     
-    //TODO: signed/unsigned
+    // TODO: signed/unsigned
     int IntegerValue;
     int IntegerArray2[2];
     int IntegerArray3[3];
     int IntegerArray4[4];
     int * IntegerPointer;
     
-    //TODO: float/double selection
+    // TODO: float/double selection
     float FloatValue;
     float FloatArray2[2];
     float FloatArray3[3];

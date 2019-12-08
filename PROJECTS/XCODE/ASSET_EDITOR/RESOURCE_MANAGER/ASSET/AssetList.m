@@ -93,7 +93,7 @@
         
         [self.assetlist addObject:path];
         
-        //TODO : Temporary
+        // TODO: Temporary
         if ( [ext isEqualToString:@"vsh"] ) {
             
             CORE_PARALLEL_TASK_SYNCHRONIZE_WITH_MUTEX( GRAPHIC_SYSTEM::GraphicSystemLock )

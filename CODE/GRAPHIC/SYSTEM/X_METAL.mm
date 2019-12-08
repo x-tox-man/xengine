@@ -30,6 +30,7 @@ static const NSUInteger kMaxBuffersInFlight = 3;
 CORE_PARALLEL_LOCK_MUTEX GRAPHIC_SYSTEM::GraphicSystemLock;
 const char * GRAPHIC_SYSTEM::ShaderDirectoryPath = "METAL";
 CORE_HELPERS_COLOR GRAPHIC_SYSTEM::ClearColor = CORE_COLOR_Blue;
+bool GRAPHIC_SYSTEM::ItRenderOnScreen = true;
 
 MTLCullMode METAL_GetPolygonFace( const GRAPHIC_POLYGON_FACE face ) {
     static MTLCullMode face_type[] { MTLCullModeFront, MTLCullModeBack, MTLCullModeNone, MTLCullModeNone };
@@ -165,12 +166,12 @@ void * GRAPHIC_SYSTEM::CreateMetalPipelineState( void * descriptor, GRAPHIC_SHAD
     for (MTLArgument *arg in reflectionObj.vertexArguments)
     {
         //NSLog(@"Found arg: %@\n", arg.name);
-
-        if (arg.bufferDataType == MTLDataTypeStruct)
-        {
+        
+        if ( arg.bufferStructType.members.count > 0) {
+            
             for( MTLStructMember * uniform in arg.bufferStructType.members )
             {
-                NSLog(@"uniform: %@ type:%lu, location: %lu", uniform.name, (unsigned long)uniform.dataType, (unsigned long)uniform.offset);
+                //NSLog(@"uniform: %@ type:%lu, location: %lu", uniform.name, (unsigned long)uniform.dataType, (unsigned long)uniform.offset);
                 
                 CORE_HELPERS_IDENTIFIER
                     identifier( [uniform.name cStringUsingEncoding:NSASCIIStringEncoding] );
@@ -216,6 +217,11 @@ void GRAPHIC_SYSTEM::EnableMtlUniforms( void * buffer, uint32_t offset, uint8_t 
 void * GRAPHIC_SYSTEM::GetMtlBufferPointer( void * buffer ) {
     
     return ( (__bridge id<MTLBuffer>) buffer).contents;
+}
+
+void GRAPHIC_SYSTEM::MtlReleasePipelineState( void * state ) {
+    
+    CFBridgingRelease( state );
 }
 
 void * GRAPHIC_SYSTEM::CreateMtlTextureFromDescriptor( void * descriptor ) {
@@ -265,6 +271,11 @@ void GRAPHIC_SYSTEM::InitializeMetal( void * view ) {
     _inFlightSemaphore = dispatch_semaphore_create(kMaxBuffersInFlight);
 }
 
+void * GRAPHIC_SYSTEM::GetMtlView() {
+    
+    return (__bridge void *) _view;
+}
+
 GRAPHIC_SYSTEM::~GRAPHIC_SYSTEM() {
     
 }
@@ -277,7 +288,7 @@ void GRAPHIC_SYSTEM::Finalize() {
     
 }
 
-void GRAPHIC_SYSTEM::EnableScissor(bool enable) {
+void GRAPHIC_SYSTEM::EnableScissor(bool enable, void * __GRAPHIC_SYSTEM_CONTEXT) {
     
     if ( !enable ) {
         
@@ -294,7 +305,7 @@ void GRAPHIC_SYSTEM::EnableScissor(bool enable) {
     }
 }
 
-void GRAPHIC_SYSTEM::SetScissorRectangle( float x, float y, float width, float height ) {
+void GRAPHIC_SYSTEM::SetScissorRectangle( float x, float y, float width, float height, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
     
@@ -307,42 +318,56 @@ void GRAPHIC_SYSTEM::SetScissorRectangle( float x, float y, float width, float h
     [_renderEncoder setScissorRect:rect];
 }
 
-void GRAPHIC_SYSTEM::EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask ) {
+void GRAPHIC_SYSTEM::EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
     CORE_RUNTIME_Abort();
 }
-void GRAPHIC_SYSTEM::DisableStencil() {
-    
-    //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
-}
-
-void GRAPHIC_SYSTEM::SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail ) {
+void GRAPHIC_SYSTEM::DisableStencil( void * __GRAPHIC_SYSTEM_CONTEXT) {
     
     //#error "TODO IMPLEMENT"
     CORE_RUNTIME_Abort();
 }
 
-void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination ) {
+void GRAPHIC_SYSTEM::SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
     CORE_RUNTIME_Abort();
 }
 
-void GRAPHIC_SYSTEM::DisableBlend() {
+void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination, void * __GRAPHIC_SYSTEM_CONTEXT ) {
+    
+    GRAPHIC_SHADER_PROGRAM * program = (GRAPHIC_SHADER_PROGRAM *) __GRAPHIC_SYSTEM_CONTEXT;
+    
+    MTLRenderPipelineDescriptor * p = (__bridge MTLRenderPipelineDescriptor * ) program->GetMtlPipelineDescriptor();
+    
+    p.colorAttachments[0].blendingEnabled = true;
+    p.colorAttachments[0].rgbBlendOperation = MTLBlendOperationAdd;
+    p.colorAttachments[0].alphaBlendOperation = MTLBlendOperationAdd;
+    p.colorAttachments[0].sourceRGBBlendFactor = MTLBlendFactorOne;
+    p.colorAttachments[0].sourceAlphaBlendFactor = MTLBlendFactorOne;
+    
+    p.colorAttachments[0].destinationRGBBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
+    p.colorAttachments[0].destinationAlphaBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
+    
+    MtlReleasePipelineState( program->GetMtlPipelineState() );
+    void * state = CreateMetalPipelineState( (void *) CFBridgingRetain(p), *program );
+    program->SetMtlPipelineState( state );
+}
+
+void GRAPHIC_SYSTEM::DisableBlend( void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
     CORE_RUNTIME_Abort();
 }
 
-void GRAPHIC_SYSTEM::SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation ) {
+void GRAPHIC_SYSTEM::SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
     CORE_RUNTIME_Abort();
 }
 
-void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end ) {
+void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
     CORE_RUNTIME_Abort();
@@ -371,7 +396,7 @@ void GRAPHIC_SYSTEM::SetPolygonMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE fill
     CORE_RUNTIME_Abort();
 }
 
-void GRAPHIC_SYSTEM::DisableDepthTest() {
+void GRAPHIC_SYSTEM::DisableDepthTest( void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
     CORE_RUNTIME_Abort();
@@ -541,7 +566,7 @@ void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH & m
     MTKMeshBuffer *vertexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKVertexBuffer();
     MTKMeshBuffer *indexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKIndexBuffer();
     
-    [_renderEncoder setDepthStencilState:_depthState];
+    //[_renderEncoder setDepthStencilState:_depthState];
     
     if((NSNull*)vertexBuffer != [NSNull null])
     {
@@ -618,7 +643,7 @@ void GRAPHIC_SYSTEM::EndMtlFrame() {
 
 void GRAPHIC_SYSTEM::BeginRendering() {
     
-    if ( true /*immediate*/ ) {
+    if ( false /*immediate*/ ) {
         //pre-render
         EnableDefaultFrameBuffer();
     }
@@ -626,7 +651,7 @@ void GRAPHIC_SYSTEM::BeginRendering() {
 
 void GRAPHIC_SYSTEM::EndRendering() {
     
-    if ( true /*immediate*/ ) {
+    if ( false /*immediate*/ ) {
         
         DisableDefaultFrameBuffer();
     }

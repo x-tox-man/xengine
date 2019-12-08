@@ -63,8 +63,8 @@ void GRAPHIC_OBJECT_SHAPE_AXIS::InitializeShape() {
     
     GetShaderTable()[ 0 ]->Enable();
     
-    GRAPHIC_SHADER_ATTRIBUTE * attr = &GetShaderTable()[0]->getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
-    GRAPHIC_SHADER_ATTRIBUTE * attrModel = &GetShaderTable()[0]->getShaderAttribute(GRAPHIC_SHADER_PROGRAM::ModelMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE * attr = &GetShaderTable()[0]->GetShaderAttribute(GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE * attrModel = &GetShaderTable()[0]->GetShaderAttribute(GRAPHIC_SHADER_PROGRAM::ModelMatrix );
     
     GLOBAL_IDENTITY_MATRIX(attr->AttributeValue.Value.FloatMatrix4x4);
     

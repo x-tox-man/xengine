@@ -75,7 +75,7 @@ bool CORE_FILESYSTEM_FILE::OpenOutput() {
 
 int CORE_FILESYSTEM_FILE::InputBytes( const void * bytes, int size ) {
     
-    //TODO : not permitted on asset dir
+    // TODO: not permitted on asset dir
     CORE_RUNTIME_Abort();
     
     return -1;

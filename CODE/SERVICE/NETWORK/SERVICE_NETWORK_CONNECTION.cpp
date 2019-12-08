@@ -144,7 +144,7 @@ void SERVICE_NETWORK_CONNECTION::TCPReceivePacket(uv_stream_t *req, ssize_t nrea
         } while ( strncmp(((char*)stream.GetMemoryBuffer() + stream.GetOffset() + 8 ), "--END--", 7 ) != 0 );
     }
     
-    //TODO : Clean memory
+    // TODO: Clean memory
 }
 
 void SERVICE_NETWORK_CONNECTION::UDPSend( uv_udp_send_t* req, int status ) {
@@ -163,7 +163,7 @@ void SERVICE_NETWORK_CONNECTION::TCPSend( uv_write_t* req, int status ) {
 
 void SERVICE_NETWORK_CONNECTION::AllocateReceiveBuffer( uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf ) {
     
-    //TODO : Release memory
+    // TODO: Release memory
     
     buf->base = (char*) CORE_MEMORY_ALLOCATOR_Allocate(suggested_size);
     buf->len = suggested_size;
@@ -262,7 +262,7 @@ void SERVICE_NETWORK_CONNECTION::Stop() {
         case SERVICE_NETWORK_CONNECTION_TYPE_Udp: {
             
             if( Info.ItIsReceiver ) {
-                //TODO: Check this
+                // TODO: Check this
                 UV_CHECK_ERROR( uv_udp_recv_stop( &UVConnection.UDPType.UDPSocket ); )
             }
             

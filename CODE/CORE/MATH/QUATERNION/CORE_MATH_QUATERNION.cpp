@@ -100,7 +100,7 @@ void CORE_MATH_QUATERNION::ToMatrix( float * matrix  ) const {
         }
     #endif
     
-    //TODO test if quaternion is not normalized
+    // TODO: test if quaternion is not normalized
     //if ( is_normalized != 1.0f ) {
         
         /*float n = sqrtf(quaternion[0]*quaternion[0] + quaternion[1]*quaternion[1] + quaternion[2]*quaternion[2] + quaternion[3]*quaternion[3]);
@@ -203,7 +203,7 @@ void CORE_MATH_QUATERNION::RotateZ( float angle ) {
 
 void CORE_MATH_QUATERNION::Normalize() {
     
-    //TODO test if quaternion is not normalized
+    // TODO: test if quaternion is not normalized
     //if ( is_normalized != 1.0f ) {
     
     float n = sqrtf(Value[0]*Value[0] + Value[1]*Value[1] + Value[2]*Value[2] + Value[3]*Value[3]);

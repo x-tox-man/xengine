@@ -24,20 +24,14 @@
 typedef NS_ENUM(NSInteger, BufferIndex)
 {
     BufferIndexMeshPositions = 0,
-    /*BufferIndexMeshNormals   = 1,
-    BufferIndexMeshTexcoords  = 2,
-    BufferIndexMeshTexcoords1  = 3,
-    BufferIndexMeshSkinWeight  = 4,
-    BufferIndexMeshJointIndices = 5,
-    BufferIndexMeshTangents = 6,
-    BufferIndexMeshBitangents = 7,
-    BufferIndexMeshCustomFloat = 8,*/
     BufferIndexUniforms = 1,
     BufferIndexConstants = 2,
     BufferIndexDirectionalLightsConstants = 3,
     BufferIndexAmbientLightConstants = 4,
     BufferIndexPointLightsConstants = 5,
-    BufferIndexSpotLightsConstants = 6
+    BufferIndexSpotLightsConstants = 6,
+    BufferIndexBloomThresholdConstants = 7,
+    BufferIndexCameraUniforms = 8
 };
 
 typedef NS_ENUM(NSInteger, VertexAttribute)
@@ -55,26 +49,19 @@ typedef NS_ENUM(NSInteger, VertexAttribute)
 
 typedef NS_ENUM(NSInteger, TextureIndex)
 {
-    TextureIndex1Color    = 0,
-    TextureIndex2Color    = 1,
-    TextureIndex3Color    = 2,
-    TextureIndex4Color    = 3,
-    TextureIndex5Color    = 4,
-    TextureIndex6Color    = 5,
-    TextureIndex7Color    = 6,
-    TextureIndex8Color    = 7,
-    TextureIndex1Normal   = 8,
-    TextureIndex1Depth   = 9,
-    TextureIndex2Depth   = 10,
-    TextureIndex3Depth   = 11
+    TextureIndex1Color      = 0,
+    TextureIndex2Color      = 1,
+    TextureIndex3Color      = 2,
+    TextureIndex4Color      = 3,
+    TextureIndex5Color      = 4,
+    TextureIndex6Color      = 5,
+    TextureIndex7Color      = 6,
+    TextureIndex8Color      = 7,
+    TextureIndex1Normal     = 8,
+    TextureIndex1Depth      = 9,
+    TextureIndex2Depth      = 10,
+    TextureIndex3Depth      = 11
 };
-
-typedef struct
-{
-    matrix_float4x4
-        ProjectionMatrix,
-        ViewMatrix;
-} CameraUniforms;
 
 typedef struct
 {
@@ -82,6 +69,14 @@ typedef struct
         ModelMatrix,
         MVPMatrix;
 } ObjectUniforms;
+
+typedef struct {
+    vector_float2
+        FrameResolution;
+    matrix_float4x4
+        ModelMatrix,
+        MVPMatrix;
+} FullscreenGaussianObjectUniforms;
 
 /*
  ProjectionMatrix,

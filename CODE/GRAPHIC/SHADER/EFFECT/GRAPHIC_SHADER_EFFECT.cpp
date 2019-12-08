@@ -81,9 +81,9 @@ void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer, bool does_lightin
     
     MaterialCollection->Apply(renderer, &GetProgram(), does_lighting, does_texturing );
     
-    if ( GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeIndex >= 0 ) {
+    if ( GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeIndex >= 0 ) {
         
-        GRAPHIC_SYSTEM_ApplyVector( GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeIndex, 1, GetProgram().getShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeValue.Value.FloatArray4 );
+        GRAPHIC_SYSTEM_ApplyVector( GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeIndex, 2, GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeValue.Value.FloatArray2 );
     }
 }
 

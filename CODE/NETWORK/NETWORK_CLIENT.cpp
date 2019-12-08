@@ -226,7 +226,7 @@ void NETWORK_CLIENT::Finalize() {
 
 void NETWORK_CLIENT::OnTCPDataReceived( SERVICE_NETWORK_COMMAND * command ) {
     
-    //TODO: check race condition
+    // TODO: check race condition
     IncommingMessageQueue[IncommingMessageQueueIterator++] = command;
     
     if ( IncommingMessageQueueIterator == THIS_GAME_MAX_NETWORK_MESSAG_QUEUE_SIZE ) {

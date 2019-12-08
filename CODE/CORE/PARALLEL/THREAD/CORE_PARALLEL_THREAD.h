@@ -78,7 +78,7 @@ void Initialize( const char * thread_name, __TASK_TYPE & task ) {
        
        CreateThread( NULL, 0, &__TASK_TYPE::ExecuteWindows, ( void* ) TypedTask, 0, 0 );
 
-        //TODO WINDOWS PART : Attention, this code is awfully
+        // TODO: WINDOWS PART : Attention, this code is awfully
 #endif
     }
 

@@ -9,7 +9,7 @@
 #include "GRAPHIC_UI_FRAME_LIST_ADAPTER.h"
 #include "GRAPHIC_UI_FRAME.h"
 
-// TODO : Refactor this to inherit from a scrollView
+// TODO: Refactor this to inherit from a scrollView
 GRAPHIC_UI_FRAME_LIST_ADAPTER::GRAPHIC_UI_FRAME_LIST_ADAPTER( GRAPHIC_UI_FRAME * frame, GRAPHIC_UI_ELEMENT * ui_template ) :
     GRAPHIC_UI_FRAME_SCROLLVIEW_ADAPTER(),
     Frame( frame ),

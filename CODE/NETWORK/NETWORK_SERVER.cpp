@@ -492,7 +492,7 @@ void NETWORK_SERVER::OnTCPDataReceived( SERVICE_NETWORK_COMMAND * command ) {
     
     CORE_PARALLEL_LOCK Lock( ServerLock );
     
-    //TODO: check race condition
+    // TODO: check race condition
     IncommingMessageQueue[IncommingMessageQueueIterator++] = command;
     
     assert( command != NULL && command->Data != NULL );
@@ -704,7 +704,7 @@ void NETWORK_SERVER::SetReady( bool ready ){
 
 void NETWORK_SERVER::SendStartingMessage() {
     
-    //TODO change this
+    // TODO: change this
     if ( StartingGameCounter < 60 ) {
         
         if ( StartingGameTicTacCounter ) {

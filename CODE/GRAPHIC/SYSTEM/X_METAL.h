@@ -35,8 +35,8 @@ abort();\
     renderer.OffsetPointer( 64 );
 
 #define GRAPHIC_SYSTEM_ApplyVector(index, size, array) \
-    memcpy( renderer.GetOffsetPointer( index ), array, 16 ); \
-    renderer.OffsetPointer( 16 );
+    memcpy( renderer.GetOffsetPointer( index ), array, size * 4 ); \
+    renderer.OffsetPointer( size * 4 );
 
 #define GRAPHIC_SYSTEM_ApplyFloat(index, value) \
     memcpy( renderer.GetOffsetPointer( index ), (void *) &value, 4 ); \

@@ -77,7 +77,7 @@
                     
                     break;
                 }
-                //TODO Configure view
+                // TODO: Configure view
                 return [tableView makeViewWithIdentifier:@"PhysicsComponent" owner:self];
                 break;
             }
@@ -101,7 +101,7 @@
                     break;
                 }
                 
-                //TODO Configure view
+                // TODO: Configure view
                 return [tableView makeViewWithIdentifier:@"RenderComponent" owner:self];
                 break;
             }
@@ -125,12 +125,12 @@
                     break;
                 }
                 
-                //TODO Configure view
+                // TODO: Configure view
                 return [tableView makeViewWithIdentifier:@"ScriptComponent" owner:self];
                 break;
             }
             default:
-                //TODO Configure view
+                // TODO: Configure view
                 return [tableView makeViewWithIdentifier:@"EmptyComponent" owner:self];
                 break;
         }

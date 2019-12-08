@@ -19,7 +19,7 @@ GAMEPLAY_COMPONENT_SCRIPT::GAMEPLAY_COMPONENT_SCRIPT( const GAMEPLAY_COMPONENT_S
     GAMEPLAY_COMPONENT( sizeof ( GAMEPLAY_COMPONENT_SCRIPT ) ),
     Script() {
     
-    CORE_RUNTIME_Abort(); // TODO : clone program
+    CORE_RUNTIME_Abort(); // TODO: clone program
 }
 
 
