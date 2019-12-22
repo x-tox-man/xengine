@@ -181,6 +181,20 @@ void * GRAPHIC_SYSTEM::CreateMetalPipelineState( void * descriptor, GRAPHIC_SHAD
                 attribute.AttributeName = identifier;
             }
         }
+        else if( arg.bufferPointerType ) {
+            
+            NSLog(@"uniform: %@ type:%lu, location: %lu", arg.name, (unsigned long)arg.bufferDataSize, (unsigned long)arg.index);
+            
+            CORE_HELPERS_IDENTIFIER
+                identifier( [arg.name cStringUsingEncoding:NSASCIIStringEncoding] );
+            GRAPHIC_SHADER_ATTRIBUTE & attribute = program.GetShaderAttributeTable()[ identifier ];
+
+            attribute.GPUBuffer = CreateMetalDynamicUniformBuffer( (unsigned long)128*16 * sizeof(float) * 3);
+            attribute.AttributeIndex = 0;
+            attribute.AttributeOffset = arg.index;
+            attribute.AttributeName = identifier;
+            
+        }
     }
     
     return (void *) CFBridgingRetain(pipeline_state);
@@ -375,7 +389,7 @@ void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION ope
 
 void GRAPHIC_SYSTEM::EnableBackfaceCulling( const GRAPHIC_POLYGON_FACE face ) {
     
-    [_renderEncoder setFrontFacingWinding:MTLWindingCounterClockwise];
+    [_renderEncoder setFrontFacingWinding:MTLWindingClockwise];
     [_renderEncoder setCullMode:METAL_GetPolygonFace( face )];
 }
 
@@ -528,7 +542,8 @@ void GRAPHIC_SYSTEM::ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC
 
 void GRAPHIC_SYSTEM::ApplyShaderAttributeVector( GRAPHIC_RENDERER & renderer, const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
-    //GRAPHIC_SYSTEM_ApplyFloatArray(<#index#>, <#size#>, <#array#>)(indexattribute.AttributeIndex, vector)
+    //GRAPHIC_SYSTEM_ApplyFloatArray(index, size, array)(indexattribute.AttributeIndex, vector)
+    CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( GRAPHIC_RENDERER & renderer, const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
@@ -538,7 +553,16 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( GRAPHIC_RENDERER & renderer, con
 
 void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & renderer, const float * vector, int size, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
-    GRAPHIC_SYSTEM_ApplyVector( attribute.AttributeIndex, 16, vector)
+    if ( attribute.AttributeOffset > 0 ) {
+        
+        void *addr = GetMtlBufferPointer( attribute.GPUBuffer );
+        
+        memcpy( (void*)((float*)addr + (size/4 * renderer.BufferPassIndex)), (void*) vector, size );
+        
+        [_renderEncoder setVertexBuffer:(__bridge id <MTLBuffer>) attribute.GPUBuffer
+             offset:(size * renderer.BufferPassIndex)
+            atIndex:attribute.AttributeOffset];
+    }
 }
 
 void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( GRAPHIC_RENDERER & renderer, const float * matrix, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
@@ -566,7 +590,7 @@ void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH & m
     MTKMeshBuffer *vertexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKVertexBuffer();
     MTKMeshBuffer *indexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKIndexBuffer();
     
-    //[_renderEncoder setDepthStencilState:_depthState];
+    [_renderEncoder setDepthStencilState:_depthState];
     
     if((NSNull*)vertexBuffer != [NSNull null])
     {
@@ -575,9 +599,6 @@ void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH & m
                                atIndex:0];
     }
     
-    //[_renderEncoder setFragmentTexture:_colorMap atIndex:TextureIndexColor];
-    
-    //for(MTKSubmesh *submesh in _mesh.submeshes)
     {
         unsigned int count = (unsigned int) (mesh.GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int ) );
         
@@ -660,16 +681,16 @@ void GRAPHIC_SYSTEM::EndRendering() {
 void GRAPHIC_SYSTEM::EnableDefaultFrameBuffer() {
     
     _renderPassDescriptor = _view.currentRenderPassDescriptor;
-    _renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 0.0, 0.1, 1.0);
+    _renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 1.0);
     
     _renderEncoder = [_commandBuffer renderCommandEncoderWithDescriptor:_renderPassDescriptor];
     _renderEncoder.label = @"MyRenderEncoder";
     
     [_renderEncoder pushDebugGroup:@"DrawScene"];
     
-    [_renderEncoder setCullMode:MTLCullModeBack];
+    [_renderEncoder setCullMode:MTLCullModeFront];
     [_renderEncoder setTriangleFillMode:MTLTriangleFillModeFill];
-    [_renderEncoder setFrontFacingWinding:MTLWindingCounterClockwise];
+    [_renderEncoder setFrontFacingWinding:MTLWindingClockwise];
 }
 
 void GRAPHIC_SYSTEM::DisableDefaultFrameBuffer() {

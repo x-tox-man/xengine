@@ -34,11 +34,6 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
     
     //GRAPHIC_SYSTEM::CreateFrameBuffer( this, mode );
     
-    if ( ItUsesDepth ) {
-        
-        GRAPHIC_SYSTEM::CreateDepthBuffer( this, width, height );
-    }
-    
     MTLRenderPassDescriptor * descriptor = [[MTLRenderPassDescriptor alloc] init];
     _descriptor = (void *) CFBridgingRetain(descriptor);
     
@@ -54,7 +49,6 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
 
         // Indicate that each pixel has a blue, green, red, and alpha channel, where each channel is
         // an 8-bit unsigned normalized value (i.e. 0 maps to 0.0 and 255 maps to 1.0)
-        textureDescriptor.pixelFormat = MTLPixelFormatRGBA8Unorm;
 
         // Set the pixel dimensions of the texture
         textureDescriptor.width = TargetTextures[i]->GetTextureInfo().Width;
@@ -70,16 +64,44 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
         
         descriptor.colorAttachments[0].texture = (__bridge id <MTLTexture>) tex;
         descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
-        descriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 0.0, 0.1, 0.0);
+        descriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0);
         descriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
         
         //GFX_CHECK( glFramebufferTexture2D( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, TargetTextures[i]->GetTextureHandle(), 0 ); )
     }
     
-    if ( generates_separate_depth_texture ) {
+    if ( true ) {//ItUsesDepth ) {
         
-        //GFX_CHECK( glFramebufferTexture( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, TargetTextures[0]->GetDepthTextureHandle(), 0/*mipmap level*/); )
+        GRAPHIC_SYSTEM::CreateDepthBuffer( this, width, height );
+        
+        MTLTextureDescriptor *textureDescriptor = [[MTLTextureDescriptor alloc] init];
+
+        // Indicate that each pixel has a blue, green, red, and alpha channel, where each channel is
+        // an 8-bit unsigned normalized value (i.e. 0 maps to 0.0 and 255 maps to 1.0)
+        textureDescriptor.pixelFormat = MTLPixelFormatRGBA8Unorm;
+
+        // Set the pixel dimensions of the texture
+        textureDescriptor.width = width;
+        textureDescriptor.height = height;
+        textureDescriptor.textureType = MTLTextureType2D;
+        textureDescriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;
+        textureDescriptor.storageMode = MTLStorageModePrivate;
+        textureDescriptor.pixelFormat = MTLPixelFormatDepth32Float;
+        
+        void * tex = GRAPHIC_SYSTEM::CreateMtlTextureFromDescriptor( (__bridge void *) textureDescriptor );
+        
+        descriptor.depthAttachment.texture = (__bridge id <MTLTexture>) tex;
+        descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+        descriptor.depthAttachment.clearDepth = 1.0;
+        descriptor.depthAttachment.storeAction = MTLStoreActionStore;
     }
+    
+    // For opengl only
+    /*if ( generates_separate_depth_texture ) {
+        
+        
+    }*/
+    // /
     
     _renderEncoder = NULL;
     
@@ -106,9 +128,9 @@ void GRAPHIC_RENDER_TARGET::Apply() {
     encoder.label = @"MyRenderEncoder";
     
     [encoder pushDebugGroup:@"GRAPHIC_RENDER_TARGET_RenderToTexture"];
-    [encoder setCullMode:MTLCullModeBack];
+    [encoder setCullMode:MTLCullModeFront];
     [encoder setTriangleFillMode:MTLTriangleFillModeFill];
-    [encoder setFrontFacingWinding:MTLWindingCounterClockwise];
+    [encoder setFrontFacingWinding:MTLWindingClockwise];
 }
 
 void GRAPHIC_RENDER_TARGET::Discard() {

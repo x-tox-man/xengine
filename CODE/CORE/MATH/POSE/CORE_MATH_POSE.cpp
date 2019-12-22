@@ -94,9 +94,9 @@ void CORE_MATH_POSE::FromMatrix( const float * mat ) {
     
     Orientation.FromMatrix( mat );
     
-    Position.X( mat[3]);
-    Position.Y( mat[7]);
-    Position.Z( mat[11]);
+    Position.X( mat[12]);
+    Position.Y( mat[13]);
+    Position.Z( mat[14]);
 }
 
 void CORE_MATH_POSE::FromMatrix( const CORE_MATH_MATRIX & mat ) {
@@ -153,9 +153,9 @@ void CORE_MATH_POSE::FromMatrix( const CORE_MATH_MATRIX & mat ) {
     
     Orientation.FromMatrix( &mat[0] );
     
-    Position.X( mat[3]);
-    Position.Y( mat[7]);
-    Position.Z( mat[11]);
+    Position.X( mat[12]);
+    Position.Y( mat[13]);
+    Position.Z( mat[14]);
     Position.W( mat[15]);
 }
 
@@ -211,9 +211,9 @@ void CORE_MATH_POSE::ToMatrix( CORE_MATH_MATRIX & matrix ) const {
     
     Orientation.ToMatrix( matrix.GetRow(0) );
     
-    matrix[3] = Position.X();
-    matrix[7] = Position.Y();
-    matrix[11] = Position.Z();
+    matrix[12] = Position.X();
+    matrix[13] = Position.Y();
+    matrix[14] = Position.Z();
     
     // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToMatrix/
     //setRotate( Orientation, Position, matrix );
@@ -224,9 +224,9 @@ void CORE_MATH_POSE::ToMatrix( float * matrix ) const {
     
     Orientation.ToMatrix( matrix );
     
-    matrix[3] = Position.X();
-    matrix[7] = Position.Y();
-    matrix[11] = Position.Z();
+    matrix[12] = Position.X();
+    matrix[13] = Position.Y();
+    matrix[14] = Position.Z();
     
     // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToMatrix/
     //setRotate( Orientation, Position, matrix );
@@ -272,9 +272,9 @@ CORE_MATH_POSE operator * ( const CORE_MATH_POSE & lhs, const CORE_MATH_POSE & r
     
     lhs.ToMatrix(m);
     
-    m[3] = 0.0f;
-    m[7] = 0.0f;
-    m[11] = 0.0f;
+    m[12] = 0.0f;
+    m[13] = 0.0f;
+    m[14] = 0.0f;
     
     pose.SetPosition( m * rhs.GetPosition() + lhs.GetPosition());
     pose.GetPosition().W( 1.0f );

@@ -44,6 +44,11 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>MetalTestOIOS copy.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>MetalTestOIOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -52,12 +57,17 @@
 		<key>MetalTestOSX copy.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>11</integer>
 		</dict>
 		<key>MetalTestOSX.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>5</integer>
+		</dict>
+		<key>Opengl4TestOSX.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 		<key>gamePOC.xcscheme_^#shared#^_</key>
 		<dict>

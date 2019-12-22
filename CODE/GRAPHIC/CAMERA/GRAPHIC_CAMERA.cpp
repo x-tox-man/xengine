@@ -120,13 +120,13 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
 
     ProjectionMatrix[8] =  0.0f;
     ProjectionMatrix[9] =  0.0f;
-    ProjectionMatrix[10] = -(far_plane + near_plane) / (far_plane - near_plane);
-    ProjectionMatrix[11] = -(2.0f * far_plane * near_plane) / (far_plane - near_plane);
+    ProjectionMatrix[10] = far_plane / ( near_plane - far_plane);
+    ProjectionMatrix[11] = -1.0f;
 
 
     ProjectionMatrix[12] =  0.0f;
     ProjectionMatrix[13] =  0.0f;
-    ProjectionMatrix[14] =  -1.0f;
+    ProjectionMatrix[14] =  near_plane * (far_plane / ( near_plane - far_plane));
     ProjectionMatrix[15] =  0.0f;
 }
 
@@ -149,6 +149,6 @@ void GRAPHIC_CAMERA::CalculateModelMatrix( const CORE_MATH_VECTOR & position, co
     rotation[8] = N.X(); rotation[9] = N.Y(); rotation[10] = N.Z(); rotation[11] = 0.0f;
     rotation[12] = 0.0f; rotation[13] = 0.0f; rotation[14] = 0.0f; rotation[15] = 1.0f;
     
-    ViewMatrix = rotation * translation;
+    ViewMatrix = translation * rotation;
     ProjectionViewMatrix = ProjectionMatrix * ViewMatrix;
 }

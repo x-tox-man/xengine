@@ -195,4 +195,14 @@ void GRAPHIC_RENDER_TARGET::CopyDepthFrom( GRAPHIC_RENDER_TARGET & other ) {
     GFX_CHECK( glBlitFramebuffer(0, 0, other.GetTargetTexture(0)->GetTextureInfo().Width, other.GetTargetTexture(0)->GetTextureInfo().Height, 0, 0, other.GetTargetTexture(0)->GetTextureInfo().Width, other.GetTargetTexture(0)->GetTextureInfo().Height, GL_DEPTH_BUFFER_BIT, GL_NEAREST); )
 }
 
+void GRAPHIC_RENDER_TARGET::EnableTextureBlending() {
+    
+    
+}
+
+void GRAPHIC_RENDER_TARGET::Clear() {
+    
+    
+}
+
 #endif

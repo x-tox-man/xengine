@@ -198,7 +198,7 @@ void GRAPHIC_OBJECT::ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPT
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    mvp = renderer.GetCamera()->GetProjectionMatrix() * renderer.GetCamera()->GetViewMatrix() * object_matrix;
+    mvp = object_matrix * renderer.GetCamera()->GetViewMatrix() * renderer.GetCamera()->GetProjectionMatrix();
 }
 
 void GRAPHIC_OBJECT::ComputeAABBox( CORE_MATH_SHAPE & box ) {

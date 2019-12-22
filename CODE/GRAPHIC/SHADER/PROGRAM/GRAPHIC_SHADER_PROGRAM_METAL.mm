@@ -51,7 +51,7 @@ void GRAPHIC_SHADER_PROGRAM::Initialize() {
         
         p.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
         
-        p.depthAttachmentPixelFormat = MTLPixelFormatInvalid;
+        p.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
         p.stencilAttachmentPixelFormat = MTLPixelFormatInvalid;
     }
 }

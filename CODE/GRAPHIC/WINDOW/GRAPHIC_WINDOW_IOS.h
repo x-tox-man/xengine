@@ -47,7 +47,7 @@ private :
     #if X_METAL
         void
             * MetalView;
-    #elif OPENGL4
+    #elif OPENGL2PLUS
         CustomGlView
             * glView;
     #else

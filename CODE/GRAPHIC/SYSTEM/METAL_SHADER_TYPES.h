@@ -31,7 +31,8 @@ typedef NS_ENUM(NSInteger, BufferIndex)
     BufferIndexPointLightsConstants = 5,
     BufferIndexSpotLightsConstants = 6,
     BufferIndexBloomThresholdConstants = 7,
-    BufferIndexCameraUniforms = 8
+    BufferIndexCameraUniforms = 8,
+    SkinningMatrixBuffer = 9
 };
 
 typedef NS_ENUM(NSInteger, VertexAttribute)
@@ -69,6 +70,15 @@ typedef struct
         ModelMatrix,
         MVPMatrix;
 } ObjectUniforms;
+
+typedef struct {
+    vector_float2
+        FrameResolution;
+    matrix_float4x4
+        ModelMatrix,
+        MVPMatrix,
+        attrBindShapeMatrix;
+} AnimatedObjectUniforms;
 
 typedef struct {
     vector_float2

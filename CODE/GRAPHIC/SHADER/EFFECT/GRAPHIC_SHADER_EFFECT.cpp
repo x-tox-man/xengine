@@ -143,7 +143,9 @@ void GRAPHIC_SHADER_EFFECT::UpdateFloatArray( GRAPHIC_RENDERER & renderer, GRAPH
     
     if ( attribute.AttributeIndex >= 0 ) {
         
-        GRAPHIC_SYSTEM_ApplyVector( attribute.AttributeIndex, count, array );
+        //GRAPHIC_SYSTEM_ApplyVector(attribute.AttributeIndex, count, array )
+        
+        GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable(renderer, array, count * sizeof( float ), attribute);
     }
 }
 

@@ -19,9 +19,18 @@
     CORE_PARALLEL_LOCK_MUTEX GRAPHIC_SYSTEM::GraphicSystemLock;
     const char * GRAPHIC_SYSTEM::ShaderDirectoryPath = "OPENGL4";
     CORE_HELPERS_COLOR GRAPHIC_SYSTEM::ClearColor = CORE_COLOR_Blue;
+    bool GRAPHIC_SYSTEM::ItRenderOnScreen = true;
 
     GRAPHIC_SYSTEM::~GRAPHIC_SYSTEM() {
 
+    }
+
+    void GRAPHIC_SYSTEM::EnableDefaultFrameBuffer() {
+        //METAL API convenience method
+    }
+
+    void GRAPHIC_SYSTEM::DisableDefaultFrameBuffer() {
+        //METAL API convenience method
     }
 
     void GRAPHIC_SYSTEM::Initialize( const char * app_name, int app_version ) {
@@ -101,7 +110,7 @@
         return reference_equations[ equation ];
     }
 
-    void GRAPHIC_SYSTEM::EnableScissor(bool enable) {
+    void GRAPHIC_SYSTEM::EnableScissor(bool enable, void * __GRAPHIC_SYSTEM_CONTEXT) {
         if ( enable ) {
             
             GFX_CHECK( glEnable( GL_SCISSOR_TEST ); )
@@ -111,43 +120,43 @@
         }
     }
 
-    void GRAPHIC_SYSTEM::SetScissorRectangle( float x, float y, float width, float height ) {
+    void GRAPHIC_SYSTEM::SetScissorRectangle( float x, float y, float width, float height, void * __GRAPHIC_SYSTEM_CONTEXT ) {
         
         GFX_CHECK( glScissor((GLint)x, (GLint)y, (GLsizei)width, (GLsizei)height); )
     }
 
-    void GRAPHIC_SYSTEM::EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask ) {
+    void GRAPHIC_SYSTEM::EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask, void * __GRAPHIC_SYSTEM_CONTEXT ) {
         
         GFX_CHECK( glEnable( GL_STENCIL_TEST ); )
         GFX_CHECK( glStencilFunc( OPENGL_4_GetCompareOperation( operation ), ref, mask); )
     }
-    void GRAPHIC_SYSTEM::DisableStencil() {
+    void GRAPHIC_SYSTEM::DisableStencil( void * __GRAPHIC_SYSTEM_CONTEXT ) {
         
         GFX_CHECK( glDisable( GL_STENCIL_TEST ); )
     }
 
-    void GRAPHIC_SYSTEM::SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail ) {
+    void GRAPHIC_SYSTEM::SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail, void * __GRAPHIC_SYSTEM_CONTEXT ) {
         
         GFX_CHECK( glStencilOpSeparate( OPENGL_4_GetPolygonFace( face ), OPENGL_4_GetStendilFailOperation( stencil_fail ), OPENGL_4_GetStendilFailOperation( stencil_pass ), OPENGL_4_GetStendilFailOperation( stencil_and_depth_fail ) ); )
     }
 
-    void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination ) {
+    void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination, void * __GRAPHIC_SYSTEM_CONTEXT ) {
         
         GFX_CHECK( glEnable( GL_BLEND ); )
         GFX_CHECK( glBlendFunc( OPENGL_4_GetBlendOperation( source ), OPENGL_4_GetBlendOperation( destination ) ); )
     }
 
-    void GRAPHIC_SYSTEM::DisableBlend() {
+    void GRAPHIC_SYSTEM::DisableBlend( void * __GRAPHIC_SYSTEM_CONTEXT ) {
         
         GFX_CHECK( glDisable( GL_BLEND ); )
     }
 
-    void GRAPHIC_SYSTEM::SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation ) {
+    void GRAPHIC_SYSTEM::SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation, void * __GRAPHIC_SYSTEM_CONTEXT ) {
         
         GFX_CHECK( glBlendEquation( OPENGL_4_GetBlendEquation( equation ) ); )
     }
 
-    void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end ) {
+    void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
         GFX_CHECK( glEnable( GL_DEPTH_TEST ); )
         
@@ -181,7 +190,7 @@
         GFX_CHECK( glPolygonMode( GL_FRONT_AND_BACK, LOCAL_PolygonFillMode[ fill_mode ] ); )
     }
 
-    void GRAPHIC_SYSTEM::DisableDepthTest() {
+    void GRAPHIC_SYSTEM::DisableDepthTest( void * __GRAPHIC_SYSTEM_CONTEXT ) {
         
         GFX_CHECK( glDisable( GL_DEPTH_TEST ); )
         GFX_CHECK( glDepthMask( GL_FALSE ); )

@@ -40,6 +40,17 @@ typedef struct
 
 typedef struct
 {
+    float4 position [[attribute(VertexAttributePosition)]];
+    float4 normal [[attribute(VertexAttributeNormal)]];
+    float2 texcoords [[attribute(VertexAttributeTexcoords)]];
+    float3 tangent [[attribute(VertexAttributeTangent)]];
+    float3 bitangent [[attribute(VertexAttributeBitangent)]];
+    float3 weights [[attribute(VertexAttributeSkinWeight)]];
+    float3 joint_indices [[attribute(VertexAttributeJointIndices)]];
+} VertexPosNormalTexTanBiWeJoIn;
+
+typedef struct
+{
     float4 position [[position]];
     float2 texCoord;
 } ColorInOut;
@@ -92,7 +103,7 @@ vertex ColorInOut vertexShader(VertexPosColor in [[stage_in]],
 {
     ColorInOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * float4( in.position, 1.0 );
+    out.position = uniforms.MVPMatrix * float4( in.position, 1.0 );
     out.texCoord = in.texCoord;
 
     return out;
@@ -134,7 +145,7 @@ vertex BasicGeometryShader_ColorInOut BasicGeometryShader_vs(VertexPosNormalTexT
 {
     BasicGeometryShader_ColorInOut out;
     
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
 
     return out;
@@ -169,7 +180,7 @@ vertex BasicGeometryShader_ColorInOut SimpleBlur_vs(VertexPosNormalTexTanBi in [
 {
     BasicGeometryShader_ColorInOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
 
     return out;
@@ -221,7 +232,7 @@ vertex BackgroundSky_InOut BackgroundSky_vs(VertexPosNormalTexTanBi in [[stage_i
 {
     BackgroundSky_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.position.z =  out.position.w;
     out.texcoords = in.texcoords;
     out.normal = in.normal;
@@ -276,7 +287,7 @@ vertex BackgroundSkyDeferred_InOut BackgroundSkyDeferred_vs(VertexPosNormalTexTa
 {
     BackgroundSkyDeferred_InOut out;
     
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
 
     return out;
@@ -315,7 +326,7 @@ vertex BasicGeometryShaderPoNoUVDeferred_InOut BasicGeometryShaderPoNoUVDeferred
 {
     BasicGeometryShaderPoNoUVDeferred_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -353,7 +364,7 @@ vertex BasicGeometryShaderPoNoUVTaBi_InOut BasicGeometryShaderPoNoUVTaBi_vs(Vert
 {
     BasicGeometryShaderPoNoUVTaBi_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -391,7 +402,7 @@ vertex BasicGeometryShaderPoNoUVTaBiColorDeferred_InOut BasicGeometryShaderPoNoU
 {
     BasicGeometryShaderPoNoUVTaBiColorDeferred_InOut out;
     
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
 
     return out;
@@ -429,7 +440,7 @@ vertex BasicGeometryShaderPoNoUVTaBiDeferred_InOut BasicGeometryShaderPoNoUVTaBi
 {
     BasicGeometryShaderPoNoUVTaBiDeferred_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -467,7 +478,7 @@ vertex BasicGeometryShaderPoNoUVTaBiShadowMap_InOut BasicGeometryShaderPoNoUVTaB
 {
     BasicGeometryShaderPoNoUVTaBiShadowMap_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -505,7 +516,7 @@ vertex BasicParticle_InOut BasicParticle_vs(VertexPosNormalTexTanBi in [[stage_i
 {
     BasicParticle_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -543,7 +554,7 @@ vertex BasicTerrain_InOut BasicTerrain_vs(VertexPosNormalTexTanBi in [[stage_in]
 {
     BasicTerrain_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -581,7 +592,7 @@ vertex BasicTerrainDeferred_InOut BasicTerrainDeferred_vs(VertexPosNormalTexTanB
 {
     BasicTerrainDeferred_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -619,7 +630,7 @@ vertex CheckpointEffect_InOut CheckpointEffect_vs(VertexPosNormalTexTanBi in [[s
 {
     CheckpointEffect_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -657,7 +668,7 @@ vertex DeferredAmbiantAndDirectionnal_InOut DeferredAmbiantAndDirectionnal_vs(Ve
 {
     DeferredAmbiantAndDirectionnal_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -695,7 +706,7 @@ vertex DeferredPointLight_InOut DeferredPointLight_vs(VertexPosNormalTexTanBi in
 {
     DeferredPointLight_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -733,7 +744,7 @@ vertex DeferredSpotLight_InOut DeferredSpotLight_vs(VertexPosNormalTexTanBi in [
 {
     DeferredSpotLight_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -764,13 +775,13 @@ typedef struct
     float2 texcoords;
 } Fullscreenbloompostprocess_InOut;
 
-vertex Fullscreenbloompostprocess_InOut FullscreenBloomPostProcess_vs(VertexPosNormalTexTanBi in [[stage_in]],
+vertex Fullscreenbloompostprocess_InOut FullscreenBloomPostProcess_vs(VertexPosNormalTex in [[stage_in]],
     constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]] )
     //constant float & BloomThreshold [[ buffer(BufferIndexBloomThresholdConstants) ]] )
 {
     Fullscreenbloompostprocess_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -795,7 +806,7 @@ fragment float4 FullscreenBloomPostProcess_fs(Fullscreenbloompostprocess_InOut i
     // Adjust it to keep only values brighter than the specified threshold.
     float4 colorOut = clamp( (colorSample - tresh) / (1.0 - tresh), float4(0.0), float4(1.0) );
     
-    return colorOut;
+    return float4(1.0);
 }
 
 // ------------------------------------------------------
@@ -818,12 +829,12 @@ float4 AdjustSaturation(float4 color, float saturation)
     return mix( float4(grey,grey,grey, 1), color, saturation );
 }
 
-vertex FullscreenCombinePostProcess_InOut FullscreenCombinePostProcess_vs(VertexPosNormalTexTanBi in [[stage_in]],
+vertex FullscreenCombinePostProcess_InOut FullscreenCombinePostProcess_vs(VertexPosNormalTex in [[stage_in]],
                                             constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
     FullscreenCombinePostProcess_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -873,12 +884,13 @@ typedef struct
     float2 texcoords;
 } FullscreenGaussianHorrizontalBlurPostProcess_InOut;
 
-vertex FullscreenGaussianHorrizontalBlurPostProcess_InOut FullscreenGaussianHorrizontalBlurPostProcess_vs(VertexPosNormalTexTanBi in [[stage_in]],
+vertex FullscreenGaussianHorrizontalBlurPostProcess_InOut FullscreenGaussianHorrizontalBlurPostProcess_vs(
+    VertexPosNormalTex in [[stage_in]],
     constant FullscreenGaussianObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]] )
 {
     FullscreenGaussianHorrizontalBlurPostProcess_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -923,12 +935,13 @@ typedef struct
     float2 texcoords;
 } FullscreenGaussianVerticalBlurPostProcess_InOut;
 
-vertex FullscreenGaussianVerticalBlurPostProcess_InOut FullscreenGaussianVerticalBlurPostProcess_vs(VertexPosNormalTexTanBi in [[stage_in]],
+vertex FullscreenGaussianVerticalBlurPostProcess_InOut FullscreenGaussianVerticalBlurPostProcess_vs(
+    VertexPosNormalTex in [[stage_in]],
     constant FullscreenGaussianObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]] )
 {
     FullscreenGaussianVerticalBlurPostProcess_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -980,7 +993,7 @@ vertex FullscreenSpeedBlur_InOut FullscreenSpeedBlur_vs(VertexPosNormalTexTanBi 
 {
     FullscreenSpeedBlur_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1018,7 +1031,7 @@ vertex LineShader_InOut LineShader_vs(VertexPosNormalTexTanBi in [[stage_in]],
 {
     LineShader_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1056,7 +1069,7 @@ vertex NullTechnique_InOut NullTechnique_vs(VertexPosNormalTexTanBi in [[stage_i
 {
     NullTechnique_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1087,31 +1100,59 @@ typedef struct
     float4 colorVarying;
     float4 normal;
     float3 T,B,N;
+    float3 LightDirection_tangentspace;
+    float3 EyeDirection_tangentspace;
 } AnimationShader_InOut;
 
-vertex AnimationShader_InOut AnimationShader_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+vertex AnimationShader_InOut AnimationShader_vs(VertexPosNormalTexTanBiWeJoIn in [[stage_in]],
+                                            constant AnimatedObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                            //constant DirectionalLight & dir_light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
+                                            const device float4x4 * jointsMatrix  [[ buffer(SkinningMatrixBuffer) ]] )
 {
     AnimationShader_InOut out;
-
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    
+    float4x4 blend_result = in.weights.x * jointsMatrix[ int( in.joint_indices.x ) ]+ in.weights.y * jointsMatrix[ int( in.joint_indices.y ) ] + in.weights.z * jointsMatrix[ int( in.joint_indices.z ) ];
+    
+    //out.T = (uniforms.ModelMatrix * normalize( float4(in.tangent, 1.0 ))).xyz;
+    //out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
+    //out.N = (uniforms.ModelMatrix * normalize( in.normal )).xyz;
+    
+    //position_p = ModelMatrix * position;
+    //normal_p = ModelMatrix * normal;
+    //tangent_p = tangent;
+    
+    /*float3x3 TBNMatrix = transpose(
+           float3x3(
+             out.T,
+             out.B,
+             out.N
+    ));*/
+    
+    //out.LightDirection_tangentspace = /*TBNMatrix * */- dir_light.Direction.xyz;
+    //out.EyeDirection_tangentspace =  TBNMatrix * CameraWorldPosition.xyz;
+    
+    //gl_Position = MVPMatrix * position * attrBindShapeMatrix * blend_result;
+    
+    out.position = uniforms.MVPMatrix * in.position;// * uniforms.attrBindShapeMatrix;
     out.texcoords = in.texcoords;
     
     return out;
 }
 
 fragment float4 AnimationShader_fs(AnimationShader_InOut in [[stage_in]],
-                                 constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                 constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 constant AnimatedObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                 //constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
+                                 //constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
+                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]]/*,
+                                 texture2d<half> normalMap     [[ textANIMAure(TextureIndex1Normal) ]]*/)
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( 1.0 );
+    half4 colorSample = colorMap.sample(colorSampler, in.texcoords.xy);
+    
+    return float4(colorSample);
 }
 
 // ------------------------------------------------------
@@ -1132,7 +1173,7 @@ vertex ColorShader_InOut ColorShader_vs(VertexPosNormalTexTanBi in [[stage_in]],
 {
     ColorShader_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1170,7 +1211,7 @@ vertex ShadowmapEffect_InOut ShadowmapEffect_vs(VertexPosNormalTexTanBi in [[sta
 {
     ShadowmapEffect_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1208,7 +1249,7 @@ vertex SpaceShipSpecialEffect_InOut SpaceShipSpecialEffect_vs(VertexPosNormalTex
 {
     SpaceShipSpecialEffect_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1246,7 +1287,7 @@ vertex SSAOEffect_InOut SSAOEffect_vs(VertexPosNormalTexTanBi in [[stage_in]],
 {
     SSAOEffect_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1284,7 +1325,7 @@ vertex TerrainShader_InOut TerrainShader_vs(VertexPosNormalTexTanBi in [[stage_i
 {
     TerrainShader_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1312,21 +1353,21 @@ typedef struct
 {
     float4 position [[position]];
     float2 texcoords;
-    float4 colorVarying;
-} Uitextured_InOut;
+    //float4 colorVarying;
+} UIShaderTextured_InOut;
 
-vertex Uitextured_InOut Uitextured_vs(VertexPosNormalTexTanBi in [[stage_in]],
+vertex UIShaderTextured_InOut UIShaderTextured_vs(VertexPosNormalTexTanBi in [[stage_in]],
                                             constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
-    Uitextured_InOut out;
+    UIShaderTextured_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
     return out;
 }
 
-fragment float4 Uitextured_fs(Uitextured_InOut in [[stage_in]],
+fragment float4 UIShaderTextured_fs(UIShaderTextured_InOut in [[stage_in]],
                                  constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]] )
 {
@@ -1334,7 +1375,7 @@ fragment float4 Uitextured_fs(Uitextured_InOut in [[stage_in]],
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( colorMap.sample( colorSampler, in.texcoords.xy ) ) * in.colorVarying;
+    return float4( colorMap.sample( colorSampler, in.texcoords.xy ) );// * in.colorVarying;
 }
 
 // ------------------------------------------------------
@@ -1345,19 +1386,19 @@ typedef struct
 {
     float4 position [[position]];
     float4 colorVarying;
-} UiColored_InOut;
+} UIShaderColored_InOut;
 
-vertex UiColored_InOut UiColored_vs(VertexPosNormalTex in [[stage_in]],
+vertex UIShaderColored_InOut UIShaderColored_vs(VertexPosNormalTexTanBi in [[stage_in]],
                                     constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
-    UiColored_InOut out;
+    UIShaderColored_InOut out;
 
-    out.position = transpose(uniforms.MVPMatrix) * in.position;
+    out.position = uniforms.MVPMatrix * in.position;
     
     return out;
 }
 
-fragment float4 UiColored_fs(UiColored_InOut in [[stage_in]],
+fragment float4 UIShaderColored_fs(UIShaderColored_InOut in [[stage_in]],
                              constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
     return float4( in.colorVarying );

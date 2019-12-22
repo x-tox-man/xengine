@@ -42,6 +42,7 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_PROGRAM )
         ShaderAttributeTable[attribute.AttributeName].AttributeIndex = attribute.AttributeIndex;
         ShaderAttributeTable[attribute.AttributeName].AttributeName = attribute.AttributeName;
         ShaderAttributeTable[attribute.AttributeName].AttributeValue = attribute.AttributeValue;
+        ShaderAttributeTable[attribute.AttributeName].GPUBuffer = attribute.GPUBuffer;
     }
 
 protected:

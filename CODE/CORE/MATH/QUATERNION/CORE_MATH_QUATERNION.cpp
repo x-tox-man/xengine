@@ -63,9 +63,9 @@ void CORE_MATH_QUATERNION::FromMatrix( const float * matrix  ) {
     Value[3] = sqrtf( 1.0f + matrix[0] + matrix[5] + matrix[10] ) * 0.5f;
     double w4 = (4.0 * (double)Value[3]);
     
-    Value[0] = ( float ) ( ( (double)matrix[9] - (double)matrix[6] ) / w4 );
-    Value[1] = ( float ) ( ( (double)matrix[2] - (double)matrix[8] ) / w4 );
-    Value[2] = ( float ) ( ( (double)matrix[4] - (double)matrix[1] ) / w4 );
+    Value[0] = ( float ) ( ( (double)matrix[6] - (double)matrix[9] ) / w4 );
+    Value[1] = ( float ) ( ( (double)matrix[8] - (double)matrix[2] ) / w4 );
+    Value[2] = ( float ) ( ( (double)matrix[1] - (double)matrix[4] ) / w4 );
 }
 
 void CORE_MATH_QUATERNION::FromVector( const CORE_MATH_VECTOR & vector ) {
@@ -117,32 +117,16 @@ void CORE_MATH_QUATERNION::ToMatrix( float * matrix  ) const {
     2*qx*qz - 2*qy*qw	2*qy*qz + 2*qx*qw	1 - 2*qx2 - 2*qy2*/
     
     rot_matrix[0] =  1.0f - 2.0f * Y() * Y() - 2.0f * Z() * Z();
-    rot_matrix[1] =  2.0f * X() * Y() - ( 2.0f * Z() * W());
-    rot_matrix[2] =  (2.0f * X() * Z()) + ( 2.0f * Y() * W());
+    rot_matrix[4] =  2.0f * X() * Y() - ( 2.0f * Z() * W());
+    rot_matrix[8] =  (2.0f * X() * Z()) + ( 2.0f * Y() * W());
     
-    rot_matrix[4] =  2.0f * X() * Y() + ( 2.0f * Z() * W());
+    rot_matrix[1] =  2.0f * X() * Y() + ( 2.0f * Z() * W());
     rot_matrix[5] =  1.0f - 2.0f * X() * X() - 2.0f * Z() * Z();
-    rot_matrix[6] =  ( 2.0f * Y() * Z() ) - ( 2.0f * X() * W() );
+    rot_matrix[9] =  ( 2.0f * Y() * Z() ) - ( 2.0f * X() * W() );
     
-    rot_matrix[8] =  ( 2.0f * X() * Z() ) - ( 2.0f * Y() * W() );
-    rot_matrix[9] =  ( 2.0f * Y() * Z() ) + ( 2.0f * X() * W() );
+    rot_matrix[2] =  ( 2.0f * X() * Z() ) - ( 2.0f * Y() * W() );
+    rot_matrix[6] =  ( 2.0f * Y() * Z() ) + ( 2.0f * X() * W() );
     rot_matrix[10] = 1.0f - 2.0f * X() * X() - 2.0f * Y() * Y();
-    
-    /*rot_matrix[0] =  1.0f - 2.0f * (double)Z() * (double)Z() - 2.0f * (double)W() * (double)W();
-    rot_matrix[1] =  2.0f * Y() * Z() - ( 2.0f * W() * X());
-    rot_matrix[2] =  (2.0f * Y() * W()) + ( 2.0f * Z() * X());
-    
-    rot_matrix[4] =  2.0f * Y() * Z() + ( 2.0f * W() * X());
-    rot_matrix[5] =  1.0f - 2.0f * Y() * Y() - 2.0f * W() * W();
-    rot_matrix[6] =  ( 2.0f * Z() * W() ) - ( 2.0f * Y() * X() );
-    
-    rot_matrix[8] =  ( 2.0f * Y() * W() ) - ( 2.0f * Z() * X() );
-    rot_matrix[9] =  ( 2.0f * Z() * W() ) + ( 2.0f * Y() * X() );
-    rot_matrix[10] = 1.0f - 2.0f * Y() * Y() - 2.0f * Z() * Z();*/
-    
-    /*rot_matrix.ZRotate( heading );
-    rot_matrix.YRotate( attitude );
-    rot_matrix.XRotate( bank );*/
     
     memcpy(matrix, rot_matrix.GetRow(0), 16* sizeof(float) );
 }

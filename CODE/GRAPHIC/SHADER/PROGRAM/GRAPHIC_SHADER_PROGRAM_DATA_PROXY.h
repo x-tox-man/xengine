@@ -36,6 +36,9 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_SHADER_PROGRAM_DATA_PROXY )
         ShaderAttributeTable[attribute.AttributeName].AttributeIndex = attribute.AttributeIndex;
         ShaderAttributeTable[attribute.AttributeName].AttributeName = attribute.AttributeName;
         ShaderAttributeTable[attribute.AttributeName].AttributeValue = attribute.AttributeValue;
+        
+        //No good :
+        ShaderAttributeTable[attribute.AttributeName].GPUBuffer = attribute.GPUBuffer;
     }
 
 protected:

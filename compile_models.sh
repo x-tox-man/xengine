@@ -1,1 +1,1 @@
-find /Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS_BASE -exec /Users/christophebernard/Develop/Project/game-engine/TOOLS/MACOS/ASSET_COMPILER/AssetCompiler-GL4 {} /Users/christophebernard/Develop/Project/game-engine/RESOURCES/MODELS/ \;
+find /Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/MODELS_BASE -exec /Users/c.bernard/DEVELOP/PROJECTS/game-engine/TOOLS/MACOS/ASSET_COMPILER/AssetCompiler-GL4 {} /Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES/MODELS/ \;

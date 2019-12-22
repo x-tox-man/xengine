@@ -83,14 +83,18 @@ void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForTime( const float time
     
     for ( size_t i = 0; i < JointTable.size(); i++ ) {
         
-        float * ptr = (float *)JointTable[i]->GetInterPolatedMatrix();
+        //float * ptr = (float *)JointTable[i]->GetInterPolatedMatrix();
         const CORE_MATH_POSE & pose = JointTable[i]->GetInterPolatedPose();
         
         // TODO: in place matrix copy
         
         pose.ToMatrix( (float*)( matrix_buffer + offset) );
         
-        //memcpy( (void*)(matrix_buffer+offset), (void*)ptr, 16 * sizeof(float));
+        //CORE_MATH_MATRIX mat( matrix_buffer + offset), inverse;
+        //mat.GetInverse(inverse);
+        
+        
+        //memcpy( (void*)(matrix_buffer+offset), (void*)inverse.GetRow(0), 16 * sizeof(float));
     
         offset += 16;
     }

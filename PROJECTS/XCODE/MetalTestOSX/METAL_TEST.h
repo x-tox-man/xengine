@@ -32,6 +32,7 @@
 #include "GRAPHIC_RENDERER_TECHNIQUE.h"
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
 #include "GRAPHIC_RENDERER_TECHNIQUE_BLOOM.h"
+#include "GRAPHIC_OBJECT_ANIMATED.h"
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(METAL_TEST, CORE_APPLICATION)
 
@@ -51,15 +52,20 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(METAL_TEST, CORE_APPLICATION)
 
 private:
 
+    GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path );
+
     GRAPHIC_CAMERA::PTR
         Camera;
     GRAPHIC_CAMERA_ORTHOGONAL::PTR
         RenderTargetCamera;
     GRAPHIC_SHADER_EFFECT::PTR
         Effect,
-        UIEffect;
+        UIEffect,
+        AnimatedEffect;
     GRAPHIC_OBJECT::PTR
         AnimatedObject;
+    GRAPHIC_OBJECT_ANIMATED::PTR
+        NakedGirlObject;
     GRAPHIC_RENDER_TARGET
         PrimaryRenderTarget,
         FinalRenderTarget,

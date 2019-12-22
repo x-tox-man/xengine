@@ -198,6 +198,7 @@ XS_DEFINE_SERIALIZABLE
     }
 
     static CORE_MATH_MATRIX FromDirectionAndUpVector( const CORE_MATH_VECTOR & direction, const CORE_MATH_VECTOR & up);
+    CORE_MATH_MATRIX Transpose() const;
 
     friend inline CORE_MATH_MATRIX operator * ( const CORE_MATH_MATRIX & lhs, const CORE_MATH_MATRIX & rhs );
     friend inline CORE_SCALAR operator * ( float vector[4], const CORE_MATH_MATRIX & rhs );
@@ -299,6 +300,7 @@ float * GLOBAL_MULTIPLY_MATRIX(float *lhs, float *rhs);
 void GLOBAL_IDENTITY_MATRIX(float * matrix);
 void GLOBAL_COPY_MATRIX(float * dest, float * source );
 bool GLOBAL_EQUALS_MATRIX(float * lhs, float * rhs );
+void GLOBAL_INVERSE_MATRIX( float * matrix_to_inverse );
 
 void GLOBAL_ROTATE_MATRIX( float * matrix, float rotate_x, float rotate_y, float rotate_z );
 void GLOBAL_TRANSLATE_MATRIX(float * matrix, float * vector );

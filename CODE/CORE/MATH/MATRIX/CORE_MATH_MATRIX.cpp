@@ -30,23 +30,23 @@ CORE_MATH_MATRIX::~CORE_MATH_MATRIX() {
 
 void CORE_MATH_MATRIX::Translate( float translation[3] )  {
     
-    Value[3] += translation[0];
+    Value[12] += translation[0];
     Value[13] += translation[1];
     Value[14] += translation[2];
 }
 
 void CORE_MATH_MATRIX::Translate( const float translation[3] ) {
     
-    Value[3] += translation[0];
-    Value[7] += translation[1];
-    Value[11] += translation[2];
+    Value[12] += translation[0];
+    Value[13] += translation[1];
+    Value[14] += translation[2];
 }
 
 void CORE_MATH_MATRIX::Translate( const CORE_MATH_VECTOR & translation ) {
     
-    Value[3] += translation[0];
-    Value[7] += translation[1];
-    Value[11] += translation[2];
+    Value[12] += translation[0];
+    Value[13] += translation[1];
+    Value[14] += translation[2];
 }
 
 void CORE_MATH_MATRIX::XRotate( const float angle ) {
@@ -314,10 +314,10 @@ CORE_MATH_MATRIX CORE_MATH_MATRIX::FromDirectionAndUpVector( const CORE_MATH_VEC
     CORE_MATH_MATRIX
         m;
     
-    m[0] = U.X(); m[1] = U.Y(); m[2] = U.Z(); m[3] = 0.0f;
-    m[4] = V.X(); m[5] = V.Y(); m[6] = V.Z(); m[7] = 0.0f;
-    m[8] = N.X(); m[9] = N.Y(); m[10] = N.Z(); m[11] = 0.0f;
-    m[12] = 0.0f; m[13] = 0.0f; m[14] = 0.0f; m[15] = 1.0f;
+    m[0] = U.X(); m[4] = U.Y(); m[8] = U.Z();   m[12] = 0.0f;
+    m[1] = V.X(); m[5] = V.Y(); m[9] = V.Z();   m[13] = 0.0f;
+    m[2] = N.X(); m[6] = N.Y(); m[10] = N.Z();  m[14] = 0.0f;
+    m[3] = 0.0f;  m[7] = 0.0f;  m[11] = 0.0f;   m[15] = 1.0f;
     
     return m;
 }
@@ -446,9 +446,31 @@ void GLOBAL_ROTATE_MATRIX( float * matrix, float rotate_x, float rotate_y, float
 
 void GLOBAL_TRANSLATE_MATRIX(float * matrix, float * vector ) {
     
-    matrix[3] += vector[0];
-    matrix[7] += vector[1];
-    matrix[11] += vector[2];
+    matrix[12] += vector[0];
+    matrix[13] += vector[1];
+    matrix[14] += vector[2];
+}
+
+CORE_MATH_MATRIX CORE_MATH_MATRIX::Transpose() const {
+    
+    CORE_MATH_MATRIX transpose( *this );
+    
+    transpose[1] = Value[4];
+    transpose[2] = Value[8];
+    transpose[3] = Value[12];
+    transpose[4] = Value[1];
+    
+    transpose[6] = Value[9];
+    transpose[7] = Value[14];
+    transpose[8] = Value[2];
+    transpose[9] = Value[6];
+    
+    transpose[11] = Value[14];
+    transpose[12] = Value[3];
+    transpose[13] = Value[7];
+    transpose[14] = Value[11];
+    
+    return transpose;
 }
 
 float CORE_MATH_MATRIX::Identity[16] = { 1.0f, 0.0f, 0.0f, 0.0f,
