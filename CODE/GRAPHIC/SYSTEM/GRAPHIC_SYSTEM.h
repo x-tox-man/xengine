@@ -36,6 +36,7 @@ class GRAPHIC_SHADER_PROGRAM;
 class GRAPHIC_SHADER_ATTRIBUTE;
 class GRAPHIC_MESH;
 class GRAPHIC_RENDERER;
+class GRAPHIC_MATERIAL;
 
 XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
 
@@ -109,6 +110,8 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
 
     static void EnableDefaultFrameBuffer();
     static void DisableDefaultFrameBuffer();
+
+    static void ApplyMaterial( const GRAPHIC_MATERIAL & material );
 
     // TODO: Remove this hack
     static bool RendersOnScreen() { return ItRenderOnScreen; }

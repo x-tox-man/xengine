@@ -74,7 +74,7 @@
 
 -(void)testSerializeScene {
     
-    GAMEPLAY_SCENE * scene = new GAMEPLAY_SCENE();
+    /*GAMEPLAY_SCENE * scene = new GAMEPLAY_SCENE();
     
     scene->InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION );
     scene->InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_ANIMATING );
@@ -88,7 +88,7 @@
     GAMEPLAY_COMPONENT_HANDLE handle;
     
     handle.Create< GAMEPLAY_COMPONENT_POSITION >( GAMEPLAY_COMPONENT_TYPE_Position );
-    component_entity->SetCompononent( handle, GAMEPLAY_COMPONENT_TYPE_Position );
+    component_entity->SetCompononent( handle, GAMEPLAY_COMPONENT_TYPE_Position );*/
     
     //scene->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath("scene-test", "scx", "") );
     

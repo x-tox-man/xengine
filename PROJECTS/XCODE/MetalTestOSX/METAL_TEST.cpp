@@ -19,6 +19,18 @@ METAL_TEST::METAL_TEST() :
     
     SetApplicationInstance( *this );
         
+        CORE_MATH_MATRIX m1, m2, rs;
+        m1[0] = 1.177f;
+        m1[5] = 1.570f;
+        m1[10] = -1.001f;
+        m1[11] = -1.0f;
+        m1[14] = -0.1001f;
+        m1[15] = -0.0f;
+        
+        m2[14] = -8.0f;
+        
+        rs = m1 * m2;
+        
         SERVICE_LOGGER_Error( "ALL APP create 1" );
             
         #if PLATFORM_OSX
@@ -53,13 +65,11 @@ void METAL_TEST::Initialize() {
     
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     
-    AnimatedObject = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath( "spaceship" , "smx", "MODELS" ), 1337, GRAPHIC_MESH_TYPE_ModelResource );
-    
-    NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ));
+    StaticObject = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath( "spaceship" , "smx", "MODELS" ), 1337, GRAPHIC_MESH_TYPE_ModelResource );
     
     Effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BasicGeometryShader"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
-    Effect->Initialize( AnimatedObject->GetShaderBindParameter() );
+    Effect->Initialize( StaticObject->GetShaderBindParameter() );
     auto mat = new GRAPHIC_MATERIAL;
     mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( text ) );
     
@@ -67,10 +77,11 @@ void METAL_TEST::Initialize() {
     
     AnimatedEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::AnimatedObject"), CORE_FILESYSTEM_PATH::FindFilePath( "AnimationShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
-    AnimatedEffect->Initialize( NakedGirlObject->GetShaderBindParameter() );
-    AnimatedEffect->SetMaterial( mat );
+    NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ));
     
-    Camera = new GRAPHIC_CAMERA( 0.01f, 1000.0f, GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis, 45.0f );
+    AnimatedEffect->Initialize( NakedGirlObject->GetShaderBindParameter() );
+    
+    Camera = new GRAPHIC_CAMERA( 0.1f, 100.0f, GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR( 0.0f, -8.0f, -25.0f, 1.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis, 65.0f );
     
     RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
@@ -126,6 +137,42 @@ void METAL_TEST::Initialize() {
     }
     
     BloomTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
+    
+    DirectionalLight = new GRAPHIC_SHADER_LIGHT;
+    
+    CORE_MATH_VECTOR diffuse(1.0f, 1.0f, 1.0f, 1.0f);
+    CORE_MATH_VECTOR direction(1.0f, 0.0f, 0.0f, 0.0f);
+    
+    DirectionalLight->InitializeDirectional( diffuse, direction, 0.5f, 0.5f);
+    
+    CORE_MATH_VECTOR diffuse_1(0.9f, 0.0f, 0.0f, 1.0f);
+    CORE_MATH_VECTOR diffuse_2(0.0f, 0.0f, 0.9f, 1.0f);
+    
+    CORE_MATH_VECTOR direction_1(0.0f, 1.0f, 0.0f, 0.0f);
+    CORE_MATH_VECTOR direction_2(0.0f, -1.0f, 0.0f, 0.0f);
+    
+    CORE_MATH_VECTOR point1_position(-10.0f, 0.0f, 0.0f, 1.0f);
+    CORE_MATH_VECTOR point2_position(10.0f, 0.0f, 0.0f, 1.0f);
+    
+    PointLightOne = new GRAPHIC_SHADER_LIGHT;
+    PointLightOne->InitializePoint(diffuse_1, point1_position, 0.001f, 0.01f, 0.5f, 1.0f, 1.0f);
+    
+    PointLightTwo = new GRAPHIC_SHADER_LIGHT;
+    PointLightTwo->InitializePoint(diffuse_2, point2_position, 0.001f, 0.01f, 0.5f, 1.0f, 1.0f);
+    
+    SpotLightOne = new GRAPHIC_SHADER_LIGHT;
+    SpotLightOne->InitializeSpot(diffuse_1, point1_position, direction_1, 0.1f, 0.2f, 0.4f, 0.001f, 1.0f, 1.0f );
+    
+    SpotLightTwo = new GRAPHIC_SHADER_LIGHT;
+    SpotLightTwo->InitializeSpot(diffuse_2, point2_position, direction_2, 0.1f, 0.2f, 0.9f, 0.1f, 1.0f, 1.0f );
+    AmbientLight = new GRAPHIC_SHADER_LIGHT;
+    AmbientLight->InitializeAmbient( CORE_MATH_VECTOR(1.0f, 1.0f, 1.0f, 1.0f), 1.0f, 0.7f);
+    GRAPHIC_RENDERER::GetInstance().SetAmbientLight( AmbientLight );
+    GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( DirectionalLight );
+    //GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightOne, 0 );
+    //GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightTwo, 1 );
+    //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightOne, 0 );
+    //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightTwo, 1 );
 }
 
 void METAL_TEST::Finalize() {
@@ -134,10 +181,29 @@ void METAL_TEST::Finalize() {
 
 void METAL_TEST::Update( float time_step ) {
     
+    static float angle = 0.0f;
+    angle += time_step *M_PI_4;
     m1.XRotate(time_step * M_PI_2 );
     m2.XRotate(time_step * M_PI_4 );
     
-    NakedGirlObject->GetAnimationController()->Update(time_step );
+    if ( time_step + NakedGirlObject->GetAnimationController()->GetCurrentTimeFrame() < NakedGirlObject->GetAnimationController()->GetAnimation( 0 )->GetJointTable()[0]->GetDuration() ) {
+        
+        NakedGirlObject->GetAnimationController()->Update( time_step );
+    }
+    else {
+        
+        NakedGirlObject->GetAnimationController()->Reset();
+    }
+    
+    CORE_MATH_VECTOR direction(1.0f, 0.0f, 0.0f, 0.0f);
+    
+    CORE_MATH_MATRIX m;
+    
+    m.YRotate( angle );
+    
+    CORE_MATH_VECTOR vv = direction * m;
+    
+    memcpy( (void*) DirectionalLight->InternalLight.Directional.Direction, (void*) &vv[0], 16);
 }
 
 void METAL_TEST::Render() {
@@ -148,7 +214,7 @@ void METAL_TEST::Render() {
     options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
     options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
-    Update( 0.016777f );
+    Update( 0.0333333f );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     DefaultTechnique.ApplyFirstPass( GRAPHIC_RENDERER::GetInstance() );
@@ -174,27 +240,25 @@ void METAL_TEST::RenderTechnique( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_OBJECT_RENDER_OPTIONS
         options;
-    CORE_MATH_QUATERNION q1,q2;
+    CORE_MATH_QUATERNION
+        q1,q2;
     
     //q1.FromMatrix( m1.GetRow(0) );
     //q2.FromMatrix( m2.GetRow(0) );
-    q1.RotateX(-90.0f);
+    q1.RotateX(45.0f);
     
     GRAPHIC_RENDERER::GetInstance().SetNumCascade( 0 );
     renderer.SetCamera( Camera );
     GRAPHIC_RENDERER::GetInstance().GetCamera()->ActivateForRender();
     
     options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
-    //options.SetOrientation( q1 );
-    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    options.SetOrientation( q1 );
     
-    //AnimatedObject->Render( renderer, options, Effect );
     NakedGirlObject->Render( renderer, options, AnimatedEffect );
     
-    /*options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
-    options.SetOrientation( q2 );
-    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
-    AnimatedObject->Render( renderer, options, Effect );*/
+    options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
+    //options.SetOrientation( q2 );
+    //StaticObject->Render( renderer, options, Effect );
 }
 
 GRAPHIC_OBJECT_ANIMATED * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path ) {
@@ -202,6 +266,8 @@ GRAPHIC_OBJECT_ANIMATED * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTE
     GRAPHIC_OBJECT_ANIMATED * animated_object = GRAPHIC_MESH_MANAGER::GetInstance().LoadObjectAnimated( object_path, 1337, GRAPHIC_MESH_TYPE_ModelResource );
     
     animated_object->SetAnimationController( new GRAPHIC_MESH_ANIMATION_CONTROLLER );
+    
+    auto collection = new GRAPHIC_MATERIAL_COLLECTION;
     
     for (int i = 0; i < animated_object->GetMeshTable().size(); i++ ) {
         
@@ -219,11 +285,36 @@ GRAPHIC_OBJECT_ANIMATED * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTE
         
         animated_object->GetAnimationController()->Load( path );
         
+        
         animated_object->GetAnimationController()->GetAnimation( i )->Initialize( animated_object->GetJointTable(), 0);
+        
+        auto mat = new GRAPHIC_MATERIAL;
+        
+        auto image = RESOURCE_IMAGE::LoadResourceForPath( animated_object->GetMeshTable()[i]->GetName(), CORE_FILESYSTEM_PATH::FindFilePath( animated_object->GetMeshTable()[i]->GetName(), "png", "TEXTURES_BASE" ) );
+        
+        if ( image == NULL ) {
+            
+            auto mat2 = collection->GetMaterialForName( "DE_Lingerie00_Face" );
+            collection->SetMaterialForName(mat2, animated_object->GetMeshTable()[i]->GetName() );
+            
+            continue;
+        }
+        
+        mat->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( image->CreateTextureObject( true ) ) );
+        
+        char normal_texture_name[128];
+        
+        CORE_DATA_COPY_STRING( normal_texture_name, animated_object->GetMeshTable()[i]->GetName() );
+        CORE_DATA_STRING_CONCAT( normal_texture_name, "-normal" );
+        
+        image=RESOURCE_IMAGE::LoadResourceForPath( normal_texture_name, CORE_FILESYSTEM_PATH::FindFilePath( normal_texture_name, "png", "TEXTURES_BASE" ) );
+        mat->SetTexture(GRAPHIC_SHADER_PROGRAM::NormalTexture, new GRAPHIC_TEXTURE_BLOCK( image->CreateTextureObject( true ) ) );
+        
+        collection->SetMaterialForName(mat, animated_object->GetMeshTable()[i]->GetName() );
     }
     
     animated_object->GetAnimationController()->Initialize();
-    animated_object->GetMeshTable()[0]->SetTransform( CORE_MATH_MATRIX() );
+    AnimatedEffect->SetMaterialCollection( collection );
     
     return animated_object;
 }

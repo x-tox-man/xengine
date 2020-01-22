@@ -75,11 +75,11 @@ void GRAPHIC_SHADER_EFFECT::BindAttribute( GRAPHIC_SHADER_ATTRIBUTE &shader_attr
     Program.GetProgram()->BindAttribute( shader_attribute, identifier);
 }
 
-void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing ) {
+void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer, const char * material_name, bool does_lighting, bool does_texturing ) {
     
     GetProgram().Enable( renderer );
     
-    MaterialCollection->Apply(renderer, &GetProgram(), does_lighting, does_texturing );
+    MaterialCollection->Apply( renderer, &GetProgram(), material_name, does_lighting, does_texturing );
     
     if ( GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeIndex >= 0 ) {
         
@@ -135,7 +135,7 @@ void GRAPHIC_SHADER_EFFECT::UpdateMatrix( GRAPHIC_RENDERER & renderer, GRAPHIC_S
     
     if ( attribute.AttributeIndex >= 0 ) {
         
-        GRAPHIC_SYSTEM_ApplyMatrix( attribute.AttributeIndex, 1, 1, matrix );
+        GRAPHIC_SYSTEM_ApplyMatrix( attribute.AttributeIndex, 1, 0, matrix );
     }
 }
 
@@ -156,3 +156,6 @@ void GRAPHIC_SHADER_EFFECT::UpdateFloat( GRAPHIC_RENDERER & renderer, GRAPHIC_SH
         GRAPHIC_SYSTEM_ApplyFloat( attribute.AttributeIndex, value )
     }
 }
+
+const char
+    * GRAPHIC_SHADER_EFFECT::DefaultMaterialName = "DefaultMaterial";

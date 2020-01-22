@@ -124,20 +124,25 @@ XS_DEFINE_SERIALIZABLE
     inline CORE_MATH_MATRIX & operator *= ( const CORE_MATH_MATRIX & rhs ) {
         
         float lhs[16];
-        
+
         memcpy( lhs, Value, 16 * sizeof( float ) );
-        
+
+        int offset = 0;
+           
         for (int r = 0 ; r < 4; r ++ ) {
-            
-            for (int c = 0 ; c < 4; c ++ ) {
-                
-                int offset = ( r * 4 ) + c;
-                
-                Value[ offset ]  = lhs[ ( r * 4 ) + 0 ] * rhs[ c + ( 4 * 0 ) ];
-                Value[ offset ] += lhs[ ( r * 4 ) + 1 ] * rhs[ c + ( 4 * 1 ) ];
-                Value[ offset ] += lhs[ ( r * 4 ) + 2 ] * rhs[ c + ( 4 * 2 ) ];
-                Value[ offset ] += lhs[ ( r * 4 ) + 3 ] * rhs[ c + ( 4 * 3 ) ];
-            }
+           
+           for (int c = 0 ; c < 4; c ++ ) {
+               
+               float num = 0.0f;
+               for (int k = 0; k < 4; k++) {
+                   
+                   num += lhs[ c + ( 4 * k ) ] * rhs[( r * 4 ) + k];
+               }
+               
+               Value[ offset ] = num;
+
+               offset++;
+           }
         }
         
         return *this;
@@ -222,16 +227,21 @@ inline CORE_MATH_MATRIX operator * ( const CORE_MATH_MATRIX & lhs, const CORE_MA
     
     CORE_MATH_MATRIX result;
 
+    int offset = 0;
+    
     for (int r = 0 ; r < 4; r ++ ) {
         
         for (int c = 0 ; c < 4; c ++ ) {
             
-            int offset = ( r * 4 ) + c;
+            float num = 0.0f;
+            for (int k = 0; k < 4; k++) {
+                
+                num += lhs[ c + ( 4 * k ) ] * rhs[( r * 4 ) + k];
+            }
             
-            result[ offset ]  = lhs[ ( r * 4 ) + 0 ] * rhs[ c + ( 4 * 0 ) ];
-            result[ offset ] += lhs[ ( r * 4 ) + 1 ] * rhs[ c + ( 4 * 1 ) ];
-            result[ offset ] += lhs[ ( r * 4 ) + 2 ] * rhs[ c + ( 4 * 2 ) ];
-            result[ offset ] += lhs[ ( r * 4 ) + 3 ] * rhs[ c + ( 4 * 3 ) ];
+            result[ offset ] = num;
+
+            offset++;
         }
     }
     

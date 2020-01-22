@@ -22,6 +22,16 @@ class GRAPHIC_SHADER_PROGRAM_DATA_PROXY;
 
 typedef RESOURCE< GRAPHIC_MATERIAL, GRAPHIC_MATERIAL_RESOURCE_LOADER > GR_M_ANCESTOR_TYPE;
 
+typedef struct {
+    CORE_HELPERS_COLOR
+        Diffuse,
+        Specular,
+        Ambient;
+    float
+        SpecularIntensity,
+        Shininess;
+} InnerMaterial;
+
 XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
 
     XS_DEFINE_SERIALIZABLE
@@ -39,12 +49,15 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
     inline GRAPHIC_TEXTURE_BLOCK * GetTexture(const CORE_HELPERS_IDENTIFIER & identifier) {return TextureTable[identifier];  }
     inline void SetTexture( const CORE_HELPERS_IDENTIFIER & identifier, GRAPHIC_TEXTURE_BLOCK * texture ) { TextureTable[identifier] = texture; }
 
-    inline const CORE_HELPERS_COLOR & GetDiffuse() const { return Diffuse; }
-    inline CORE_HELPERS_COLOR & GetDiffuse() { return Diffuse; }
-    inline void SetDiffuse( const CORE_HELPERS_COLOR & diffuse ) { Diffuse = diffuse; }
+    inline const CORE_HELPERS_COLOR & GetDiffuse() const { return InnerMaterial.Diffuse; }
+    inline CORE_HELPERS_COLOR & GetDiffuse() { return InnerMaterial.Diffuse; }
+    inline void SetDiffuse( const CORE_HELPERS_COLOR & diffuse ) { InnerMaterial.Diffuse = diffuse; }
 
     inline int GetTextureCount() const { return TextureTable.size(); }
     int GetFirstDepthTextureIndex() const;
+
+    InnerMaterial
+        InnerMaterial;
 
 private:
 
@@ -53,13 +66,6 @@ private:
 
     std::string
         Name;
-    CORE_HELPERS_COLOR
-        Diffuse,
-        Specular,
-        Ambient;
-    float
-        SpecularIntensity,
-        Shininess;
     std::map< CORE_HELPERS_IDENTIFIER, GRAPHIC_TEXTURE_BLOCK * >
         TextureTable;
     bool

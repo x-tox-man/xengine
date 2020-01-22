@@ -793,17 +793,9 @@
         animation->GetInverseBindMatrixes().InitializeWithMemory(size, 0, inverse_bind_matrices);
         animation->SetBindShapeMatrix(bind_shape_matrix);
         
-        //void * pointer = buffer.getpointerAtIndex( 0 );
-        
-        //allocate buffer with #BASE_JOINTS_PER_VERTEX
-        
+
         unsigned int BASE_JOINTS_PER_VERTEX = 0;
-        
-        /*for ( unsigned int i = 0; i < skinControllerData->getJointsPerVertex().getCount(); i++ ) {
-         int jpv = *((unsigned int *) skinControllerData->getJointsPerVertex().getData() + i );
-         BASE_JOINTS_PER_VERTEX = ( jpv > BASE_JOINTS_PER_VERTEX) ? jpv : BASE_JOINTS_PER_VERTEX;
-         }*/
-        
+
         BASE_JOINTS_PER_VERTEX = 3;
         
         unsigned int joint_index_offset = 0;
@@ -834,7 +826,6 @@
         
         assert ( new_buffer_size > buffer->GetSize() );
         
-        //void * new_buffer = CORE_MEMORY_ALLOCATOR::Allocate(new_buffer_size);
         void * alternate_new_buffer = CORE_MEMORY_ALLOCATOR::Allocate( mesh->CurrenGeometrytTableSize * final_stride );
         
         //loop through all joints and weights
@@ -929,7 +920,6 @@
             
             memcpy( ptr + i, (void *) &object_id, sizeof(int));
         }
-        
         
         animation->SetJointIndexTable( (int *) ptr, (int) (skin_controller->getJoints().getCount() * 4 ) );
         

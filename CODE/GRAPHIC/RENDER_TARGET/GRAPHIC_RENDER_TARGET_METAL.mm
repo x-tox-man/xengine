@@ -56,7 +56,7 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
         textureDescriptor.textureType = MTLTextureType2D;
         textureDescriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;
         textureDescriptor.storageMode = MTLStorageModePrivate;
-        textureDescriptor.pixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+        textureDescriptor.pixelFormat = MTLPixelFormatBGRA8Unorm;
         
         void * tex = GRAPHIC_SYSTEM::CreateMtlTextureFromDescriptor( (__bridge void *) textureDescriptor );
         
@@ -128,9 +128,9 @@ void GRAPHIC_RENDER_TARGET::Apply() {
     encoder.label = @"MyRenderEncoder";
     
     [encoder pushDebugGroup:@"GRAPHIC_RENDER_TARGET_RenderToTexture"];
-    [encoder setCullMode:MTLCullModeFront];
+    [encoder setCullMode:MTLCullModeBack];
     [encoder setTriangleFillMode:MTLTriangleFillModeFill];
-    [encoder setFrontFacingWinding:MTLWindingClockwise];
+    [encoder setFrontFacingWinding:MTLWindingCounterClockwise];
 }
 
 void GRAPHIC_RENDER_TARGET::Discard() {

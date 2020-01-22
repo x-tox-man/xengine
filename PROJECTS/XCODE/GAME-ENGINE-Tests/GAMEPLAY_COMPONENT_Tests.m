@@ -35,7 +35,7 @@
 
 -(void)testCreateEntity {
     
-    GAMEPLAY_COMPONENT_MANAGER::GetInstance().
+    //GAMEPLAY_COMPONENT_MANAGER::GetInstance().
 }
 
 

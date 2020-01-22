@@ -12,6 +12,7 @@
 #include "GRAPHIC_RENDER_TARGET.h"
 #include "GRAPHIC_SHADER_LIGHT.h"
 #include "GRAPHIC_SHADER_PROGRAM.h"
+#include "GRAPHIC_MATERIAL.h"
 #include "GRAPHIC_MESH.h"
 #include "GRAPHIC_SHADER_BIND.h"
 #include "CORE_HELPERS_IDENTIFIER.h"
@@ -267,7 +268,7 @@ void GRAPHIC_SYSTEM::InitializeMetal( void * view ) {
     _view.delegate = _metalDelegate;
     
     _view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
-    _view.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+    _view.colorPixelFormat = MTLPixelFormatBGRA8Unorm;
     _view.sampleCount = 1;
     
     MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
@@ -389,7 +390,7 @@ void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION ope
 
 void GRAPHIC_SYSTEM::EnableBackfaceCulling( const GRAPHIC_POLYGON_FACE face ) {
     
-    [_renderEncoder setFrontFacingWinding:MTLWindingClockwise];
+    [_renderEncoder setFrontFacingWinding:MTLWindingCounterClockwise];
     [_renderEncoder setCullMode:METAL_GetPolygonFace( face )];
 }
 
@@ -522,22 +523,29 @@ void GRAPHIC_SYSTEM::DiscardTexture( GRAPHIC_TEXTURE * texture ) {
 
 void GRAPHIC_SYSTEM::ApplyLightDirectional( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
     
-    [_renderEncoder setVertexBytes:(void* ) &light.InternalLight.Directional length:sizeof(GRAPHIC_SHADER_LIGHT_DIRECTIONAL) atIndex:BufferIndexDirectionalLightsConstants];
+    //[_renderEncoder setVertexBytes:( void* ) &light.InternalLight.Directional length:sizeof(GRAPHIC_SHADER_LIGHT_DIRECTIONAL) atIndex:BufferIndexDirectionalLightsConstants];
+    
+    [_renderEncoder setFragmentBytes:( void* ) &light.InternalLight.Directional length:( 2* sizeof(GRAPHIC_SHADER_LIGHT_DIRECTIONAL)) atIndex:BufferIndexDirectionalLightsConstants];
 }
 
 void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program ) {
     
-    [_renderEncoder setVertexBytes:(void* ) &light.InternalLight.Ambient length:sizeof(GRAPHIC_SHADER_LIGHT_AMBIENT) atIndex:BufferIndexAmbientLightConstants];
+    [_renderEncoder setFragmentBytes:( void* ) &light.InternalLight.Ambient length:( 2* sizeof(GRAPHIC_SHADER_LIGHT_AMBIENT) ) atIndex:BufferIndexAmbientLightConstants];
 }
 
 void GRAPHIC_SYSTEM::ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
     
-    [_renderEncoder setVertexBytes:(void* ) &light.InternalLight.Point length:sizeof(GRAPHIC_SHADER_LIGHT_POINT) atIndex:BufferIndexPointLightsConstants];
+    [_renderEncoder setFragmentBytes:( void* ) &light.InternalLight.Point length:( 2* sizeof(GRAPHIC_SHADER_LIGHT_POINT) ) atIndex:BufferIndexPointLightsConstants];
 }
 
 void GRAPHIC_SYSTEM::ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
     
-    [_renderEncoder setVertexBytes:(void* ) &light.InternalLight.Spot length:sizeof(GRAPHIC_SHADER_LIGHT_SPOT) atIndex:BufferIndexSpotLightsConstants];
+    [_renderEncoder setFragmentBytes:( void* ) &light.InternalLight.Spot length:( 2* sizeof(GRAPHIC_SHADER_LIGHT_SPOT) ) atIndex:BufferIndexSpotLightsConstants];
+}
+
+void GRAPHIC_SYSTEM::ApplyMaterial( const GRAPHIC_MATERIAL & material ) {
+    
+    [_renderEncoder setFragmentBytes:( void* ) &material.InnerMaterial length:( 2* sizeof( InnerMaterial ) ) atIndex:MaterialUniforms];
 }
 
 void GRAPHIC_SYSTEM::ApplyShaderAttributeVector( GRAPHIC_RENDERER & renderer, const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
@@ -567,8 +575,7 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & rendere
 
 void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( GRAPHIC_RENDERER & renderer, const float * matrix, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
-    
-    GRAPHIC_SYSTEM_ApplyMatrix( attribute.AttributeIndex, 64, 1, matrix );
+    GRAPHIC_SYSTEM_ApplyMatrix( attribute.AttributeIndex, 64, 0, matrix );
 }
 
 void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {
@@ -603,7 +610,7 @@ void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH & m
         unsigned int count = (unsigned int) (mesh.GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int ) );
         
         [_renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
-                                  indexCount:count 
+                                  indexCount:count
                                    indexType:MTLIndexTypeUInt32
                                  indexBuffer:indexBuffer.buffer
                            indexBufferOffset:0];
@@ -688,9 +695,9 @@ void GRAPHIC_SYSTEM::EnableDefaultFrameBuffer() {
     
     [_renderEncoder pushDebugGroup:@"DrawScene"];
     
-    [_renderEncoder setCullMode:MTLCullModeFront];
+    [_renderEncoder setCullMode:MTLCullModeBack];
     [_renderEncoder setTriangleFillMode:MTLTriangleFillModeFill];
-    [_renderEncoder setFrontFacingWinding:MTLWindingClockwise];
+    [_renderEncoder setFrontFacingWinding:MTLWindingCounterClockwise];
 }
 
 void GRAPHIC_SYSTEM::DisableDefaultFrameBuffer() {

@@ -18,7 +18,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM, GRAPHIC_SH
     GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM( GRAPHIC_SHADER_EFFECT::PTR effect );
     virtual ~GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM();
 
-    virtual void Apply( GRAPHIC_RENDERER &, bool, bool ) override;
+    virtual void Apply( GRAPHIC_RENDERER &, const char *, bool, bool ) override;
     virtual void BindAttributes() override;
 
     static CORE_HELPERS_IDENTIFIER

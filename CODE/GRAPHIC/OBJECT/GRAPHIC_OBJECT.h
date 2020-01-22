@@ -66,6 +66,8 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_OBJECT, GR_O_ANCESTOR_TYPE )
 
 protected:
 
+    const char * GetMaterialName( int mesh_index, GRAPHIC_SHADER_EFFECT * effect );
+
     std::vector< GRAPHIC_MESH_ANIMATION_JOINT *>
         JointTable;
     std::vector< GRAPHIC_MESH *>

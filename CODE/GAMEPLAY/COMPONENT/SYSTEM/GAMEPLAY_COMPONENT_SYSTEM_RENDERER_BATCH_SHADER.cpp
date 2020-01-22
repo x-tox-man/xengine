@@ -83,22 +83,22 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::RenderFrontToBack( GAMEPLA
         
         if ( MVPMatrix->AttributeIndex >= 0 ) {
             
-            GRAPHIC_SYSTEM_ApplyMatrix( MVPMatrix->AttributeIndex, 1, 1, &result[0])
+            GRAPHIC_SYSTEM_ApplyMatrix( MVPMatrix->AttributeIndex, 1, 0, &result[0])
         }
         
         if ( ProjectionMatrix->AttributeIndex >= 0 ) {
             
-            GRAPHIC_SYSTEM_ApplyMatrix(ProjectionMatrix->AttributeIndex, 1, 1, &Renderer->GetCamera()->GetProjectionMatrix()[0]);
+            GRAPHIC_SYSTEM_ApplyMatrix(ProjectionMatrix->AttributeIndex, 1, 0, &Renderer->GetCamera()->GetProjectionMatrix()[0]);
         }
         
         if ( ModelMatrix->AttributeIndex >= 0 ) {
             
-            GRAPHIC_SYSTEM_ApplyMatrix( ModelMatrix->AttributeIndex, 1, 1, &object[0]);
+            GRAPHIC_SYSTEM_ApplyMatrix( ModelMatrix->AttributeIndex, 1, 0, &object[0]);
         }
         
         if ( ViewMatrix->AttributeIndex >= 0 ) {
             
-            GRAPHIC_SYSTEM_ApplyMatrix( ViewMatrix->AttributeIndex, 1, 1, &Renderer->GetCamera()->GetViewMatrix()[0]);
+            GRAPHIC_SYSTEM_ApplyMatrix( ViewMatrix->AttributeIndex, 1, 0, &Renderer->GetCamera()->GetViewMatrix()[0]);
         }
         
         if ( TimeModulator->AttributeIndex >= 0 ) {
@@ -139,13 +139,12 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::RenderFrontToBack( GAMEPLA
                 cascade_end[ci] = -vres.Z();//Why is it negative? -> Bullshit in matrix vect mul
             }
             
-            GRAPHIC_SYSTEM_ApplyMatrix( ShadowmapMVP->AttributeIndex, 1, 1, &depthBias[0] )
+            GRAPHIC_SYSTEM_ApplyMatrix( ShadowmapMVP->AttributeIndex, 1, 0, &depthBias[0] )
             GRAPHIC_SYSTEM_ApplyFloatArray( EndClipSpace->AttributeIndex, Renderer->GetNumCascade(), cascade_end )
         }
         
         graphic_object->GetMeshTable()[ i ]->ApplyBuffers( renderer );
     }
-    
     
     /*if ( node->GetEntity()->GetParent()) {
         renderable->Render( *Renderer, located, (GAMEPLAY_COMPONENT_POSITION * ) node->GetEntity()->GetParent()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position ) );
@@ -181,7 +180,8 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::Render( void * ecs_base_po
     
     Renderer->GetCamera()->ActivateForRender();
     Tree.QueryTopToBottom( Renderer->GetCamera()->GetFustrum(), callback );
-    Effect->Apply(renderer, false, true );
+    abort(); // Cannot work for objects with multiple textures
+    //Effect->Apply(renderer, false, true );
     collider.RenderFrontToBack( callback_render );
     Effect->Discard();
 }

@@ -22,7 +22,11 @@ XS_IMPLEMENT_INTERNAL_STL_MAP_MEMORY_LAYOUT(GRAPHIC_TEXTURE_BLOCK *, CORE_HELPER
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MATERIAL )
     XS_DEFINE_ClassMember( "Name", std::string, Name )
-    XS_DEFINE_ClassMember( "Diffuse", CORE_HELPERS_COLOR, Diffuse )
+    XS_DEFINE_ClassMember( "Diffuse", CORE_HELPERS_COLOR, InnerMaterial.Diffuse )
+    XS_DEFINE_ClassMember( "Specular", CORE_HELPERS_COLOR, InnerMaterial.Diffuse )
+    XS_DEFINE_ClassMember( "Ambient", CORE_HELPERS_COLOR, InnerMaterial.Diffuse )
+    XS_DEFINE_ClassMember( "SpecularIntensity", float, InnerMaterial.SpecularIntensity )
+    XS_DEFINE_ClassMember( "Shininess", float, InnerMaterial.Shininess )
     XS_DEFINE_ClassMember( "TextureTable", TEX_TAB_TYPE, TextureTable )
     XS_DEFINE_ClassMember( "DepthIsEnabled", bool, DepthIsEnabled )
     XS_DEFINE_ClassMember( "CubeMapIsEnabled", bool, CubeMapIsEnabled )
@@ -31,41 +35,39 @@ XS_END_INTERNAL_MEMORY_LAYOUT
 GRAPHIC_MATERIAL::GRAPHIC_MATERIAL() :
     GR_M_ANCESTOR_TYPE(),
     Name(),
-    Diffuse( CORE_COLOR_White ),
+    InnerMaterial(),
     TextureTable(),
     DepthIsEnabled( false ),
-    CubeMapIsEnabled( false ),
-    Specular( CORE_COLOR_White ),
-    Ambient( CORE_COLOR_White ),
-    SpecularIntensity( 1.0f ),
-    Shininess( 1.0f ) {
+    CubeMapIsEnabled( false ) {
     
+    InnerMaterial.Diffuse = CORE_COLOR_White;
+    InnerMaterial.Specular = CORE_COLOR_White;
+    InnerMaterial.Ambient = CORE_COLOR_White;
+    InnerMaterial.SpecularIntensity = 1.0f;
+    InnerMaterial.Shininess = 1.0f;
 }
 
 GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const GRAPHIC_MATERIAL & other ) :
     GR_M_ANCESTOR_TYPE(),
     Name( other.Name ),
-    Diffuse( other.Diffuse ),
     TextureTable( other.TextureTable ),
     DepthIsEnabled( other.DepthIsEnabled ),
-    CubeMapIsEnabled( other.CubeMapIsEnabled ),
-    Specular( other.Specular ),
-    Ambient( other.Ambient ),
-    SpecularIntensity( other.SpecularIntensity ),
-    Shininess( other.Shininess ) {
+    CubeMapIsEnabled( other.CubeMapIsEnabled ) {
     
+    InnerMaterial.Diffuse = other.InnerMaterial.Diffuse;
+    InnerMaterial.Specular = other.InnerMaterial.Specular;
+    InnerMaterial.Ambient = other.InnerMaterial.Ambient;
+    InnerMaterial.SpecularIntensity = other.InnerMaterial.SpecularIntensity;
+    InnerMaterial.Shininess = other.InnerMaterial.Shininess;
 }
 
 GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const char * image_path ) :
+    GR_M_ANCESTOR_TYPE(),
     Name( image_path ),
-    Diffuse( CORE_COLOR_White ),
+    InnerMaterial(),
     TextureTable(),
     DepthIsEnabled( false ),
-    CubeMapIsEnabled( false ),
-    Specular( CORE_COLOR_White ),
-    Ambient( CORE_COLOR_White ),
-    SpecularIntensity( 1.0f ),
-    Shininess( 1.0f ) {
+    CubeMapIsEnabled( false ) {
     
 #if DEBUG
     assert( strlen( image_path ) < 256 - 11 );
@@ -82,6 +84,12 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL( const char * image_path ) :
     TryAndFillFor( image_path_2, "png", GRAPHIC_SHADER_PROGRAM::ColorTexture2 );
     TryAndFillFor( image_normal, "png", GRAPHIC_SHADER_PROGRAM::NormalTexture );
         
+    InnerMaterial.Diffuse = CORE_COLOR_White;
+    InnerMaterial.Specular = CORE_COLOR_White;
+    InnerMaterial.Ambient = CORE_COLOR_White;
+    InnerMaterial.SpecularIntensity = 1.0f;
+    InnerMaterial.Shininess = 1.0f;
+        
     // TODO: other images
 }
 
@@ -96,7 +104,7 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     
     if ( renderer.IsColorEnabled() && color_attribute.AttributeIndex != 0 ) {
         
-        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1,  &Diffuse[0] )
+        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1,  &InnerMaterial.Diffuse[0] )
     }
     
     if ( does_texturing ) {
@@ -108,6 +116,8 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
         
         ApplyLights( shader, renderer );
     }
+    
+    GRAPHIC_SYSTEM::ApplyMaterial( *this );
     
     GRAPHIC_SHADER_ATTRIBUTE & camera_world_position_attribute = shader->GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::CameraWorldPosition );
     
@@ -127,7 +137,7 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     
     if ( attribute_mat_spec.AttributeIndex > -1 ) {
         
-        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, SpecularIntensity, attribute_mat_spec );
+        GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, InnerMaterial.SpecularIntensity, attribute_mat_spec );
     }
 }
 
@@ -142,6 +152,7 @@ void GRAPHIC_MATERIAL::ApplyTexture( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader 
         GRAPHIC_SHADER_ATTRIBUTE & attribute = shader->GetShaderAttribute( it->first );
         
         if ( it->first == GRAPHIC_SHADER_PROGRAM::DepthTexture ) {
+            
             it->second->ApplyDepth(texture_index++, attribute.AttributeIndex );
         }
         else {

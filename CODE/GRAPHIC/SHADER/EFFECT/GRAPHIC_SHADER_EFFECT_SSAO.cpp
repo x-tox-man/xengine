@@ -35,7 +35,7 @@ void GRAPHIC_SHADER_EFFECT_SSAO::BindAttributes() {
     GenerateSSAOKernel();
 }
 
-void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, bool does_lighting, bool does_texturing ) {
+void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, const char * material_name, bool does_lighting, bool does_texturing ) {
     
     CORE_MATH_MATRIX
         mv,
@@ -43,7 +43,7 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, bool does_l
         id;
     
     GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture5, TextureBlock );
-    GRAPHIC_SHADER_EFFECT::Apply( renderer, does_lighting, does_texturing );
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name, does_lighting, does_texturing );
     
     GRAPHIC_SHADER_ATTRIBUTE & ssao_kernel = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOKernel );
     
@@ -56,8 +56,8 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, bool does_l
     
     mv = Camera->GetProjectionMatrix() * Camera->GetViewMatrix();// * inv;
     
-    GRAPHIC_SYSTEM_ApplyMatrix(proj.AttributeIndex, 1, 1, &mv[0] );
-    GRAPHIC_SYSTEM_ApplyMatrix(view.AttributeIndex, 1, 1, &Camera->GetViewMatrix()[0] );
+    GRAPHIC_SYSTEM_ApplyMatrix(proj.AttributeIndex, 1, 0, &mv[0] );
+    GRAPHIC_SYSTEM_ApplyMatrix(view.AttributeIndex, 1, 0, &Camera->GetViewMatrix()[0] );
 }
 
 void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {

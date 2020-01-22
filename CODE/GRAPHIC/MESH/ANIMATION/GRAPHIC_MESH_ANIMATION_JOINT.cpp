@@ -57,7 +57,7 @@ void * GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForTime( const float 
     
     for ( size_t i = 1; i < TimeTableBuffer.GetSize(); i++ ) {
         
-        float min = *((float*) TimeTableBuffer.getpointerAtIndex(matrix_index * sizeof(float), 0));
+        float min = *((float*) TimeTableBuffer.getpointerAtIndex( matrix_index * sizeof(float), 0));
         float max = *((float*) TimeTableBuffer.getpointerAtIndex( ( matrix_index + 1 ) * sizeof(float), 0));
         
         if ( max >= time ) {

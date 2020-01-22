@@ -79,7 +79,9 @@ void GRAPHIC_MESH_ANIMATION_SKELETON::ComputeWorldMatrix( const float time ) {
         
         float * ptr = (float *) RootSubSkeleton.SubSkelettonTable[i].Joint->YieldFloatMatrixBufferForTime( time );
         
-        RootSubSkeleton.SubSkelettonTable[i].Joint->SetWorldMatrix( ptr );
+        CORE_MATH_MATRIX identity;
+        
+        RootSubSkeleton.SubSkelettonTable[i].Joint->SetWorldMatrix( identity.GetRow(0) );
         RootSubSkeleton.SubSkelettonTable[i].Joint->SetSkinningMatrix( ptr );
         
         SetupWorldMatrix( RootSubSkeleton.SubSkelettonTable[i], ptr, time );

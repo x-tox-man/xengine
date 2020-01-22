@@ -28,7 +28,7 @@ XS_CLASS_BEGIN( GRAPHIC_MATERIAL_COLLECTION )
     GRAPHIC_MATERIAL::PTR GetMaterialForName( const char * name );
     GRAPHIC_MATERIAL::PTR GetDefaultMaterial() { return MaterialTable.begin()->second; }
 
-    void Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, bool does_lighting, bool does_texturing );
+    void Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, const char * material_name, bool does_lighting, bool does_texturing );
 
     void LoadMaterialForName( const char * name );
 
@@ -36,7 +36,7 @@ XS_CLASS_BEGIN( GRAPHIC_MATERIAL_COLLECTION )
 
 private:
 
-    std::map<std::string, GRAPHIC_MATERIAL::PTR>
+    std::map< std::string, GRAPHIC_MATERIAL::PTR >
         MaterialTable;
 
     static std::string DefaultMaterialName;

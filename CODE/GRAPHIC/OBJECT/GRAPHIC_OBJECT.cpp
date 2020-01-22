@@ -86,7 +86,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             result,
             object;
         
-        effect->Apply( renderer, renderer.IsLightingEnabled(), options.IsTexturingEnabled() );
+        effect->Apply( renderer, GetMaterialName( (int) i, effect), renderer.IsLightingEnabled(), options.IsTexturingEnabled() );
         
         GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
@@ -163,22 +163,17 @@ void GRAPHIC_OBJECT::ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPT
     if ( options.GetParent() ) {
         
         CORE_MATH_VECTOR cp = options.GetPosition() * orientation_mat;
-        
+        abort(); //TODO: object_matrix = scaling_matrix * orientation_mat * translation_matrix;
         options.GetParent()->GetOrientation().ToMatrix( &orientation_mat[0] );
         object_matrix.Translate( options.GetParent()->GetPosition() );
-        object_matrix *= orientation_mat;
+        object_matrix = object_matrix * orientation_mat;
         
         options.GetOrientation().ToMatrix( &orientation_mat[0] );
         
         scaling_matrix.Scale( options.GetScaleFactor() );
         translation_matrix.Translate( options.GetPosition() );
         
-        object_matrix *= translation_matrix * orientation_mat * scaling_matrix;
-        
-        if ( !transform.IsIdentity() ) {
-            
-            object_matrix *= transform;
-        }
+        object_matrix = object_matrix * translation_matrix * orientation_mat * scaling_matrix;
     }
     else {
         
@@ -188,17 +183,12 @@ void GRAPHIC_OBJECT::ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPT
         translation_matrix.Translate( options.GetPosition() );
         
         object_matrix = translation_matrix * orientation_mat * scaling_matrix;
-        
-        if ( !transform.IsIdentity() ) {
-            
-            object_matrix *= transform;
-        }
     }
     
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    mvp = object_matrix * renderer.GetCamera()->GetViewMatrix() * renderer.GetCamera()->GetProjectionMatrix();
+    mvp = renderer.GetCamera()->GetProjectionMatrix() * renderer.GetCamera()->GetViewMatrix() * object_matrix * transform;
 }
 
 void GRAPHIC_OBJECT::ComputeAABBox( CORE_MATH_SHAPE & box ) {
@@ -228,4 +218,16 @@ void GRAPHIC_OBJECT::SetTesselation( bool enable ) {
 GRAPHIC_SHADER_BIND & GRAPHIC_OBJECT::GetShaderBindParameter() {
     
     return MeshTable[0]->GetVertexComponent();
+}
+
+
+const char * GRAPHIC_OBJECT::GetMaterialName( int mesh_index, GRAPHIC_SHADER_EFFECT * effect ) {
+    
+    if ( strlen( MeshTable[ mesh_index ]->GetName() ) > 0 ) {
+        
+        return MeshTable[ mesh_index ]->GetName();
+    }
+    else {
+        return GRAPHIC_SHADER_EFFECT::DefaultMaterialName;
+    }
 }

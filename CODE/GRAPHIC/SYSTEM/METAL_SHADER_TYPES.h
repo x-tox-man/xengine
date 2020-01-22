@@ -32,7 +32,8 @@ typedef NS_ENUM(NSInteger, BufferIndex)
     BufferIndexSpotLightsConstants = 6,
     BufferIndexBloomThresholdConstants = 7,
     BufferIndexCameraUniforms = 8,
-    SkinningMatrixBuffer = 9
+    SkinningMatrixBuffer = 9,
+    MaterialUniforms = 10
 };
 
 typedef NS_ENUM(NSInteger, VertexAttribute)
@@ -68,6 +69,7 @@ typedef struct
 {
     matrix_float4x4
         ModelMatrix,
+        ViewMatrix,
         MVPMatrix;
 } ObjectUniforms;
 
@@ -76,6 +78,7 @@ typedef struct {
         FrameResolution;
     matrix_float4x4
         ModelMatrix,
+        ViewMatrix,
         MVPMatrix,
         attrBindShapeMatrix;
 } AnimatedObjectUniforms;
@@ -87,6 +90,16 @@ typedef struct {
         ModelMatrix,
         MVPMatrix;
 } FullscreenGaussianObjectUniforms;
+
+typedef struct {
+    vector_float4
+        Diffuse,
+        Specular,
+        Ambient;
+    float
+        SpecularIntensity,
+        Shininess;
+} Material;
 
 /*
  ProjectionMatrix,

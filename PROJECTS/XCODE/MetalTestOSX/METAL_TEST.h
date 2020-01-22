@@ -63,7 +63,7 @@ private:
         UIEffect,
         AnimatedEffect;
     GRAPHIC_OBJECT::PTR
-        AnimatedObject;
+        StaticObject;
     GRAPHIC_OBJECT_ANIMATED::PTR
         NakedGirlObject;
     GRAPHIC_RENDER_TARGET
@@ -79,6 +79,13 @@ private:
         PlanObject;
     CORE_MATH_MATRIX
         m1,m2;
+    GRAPHIC_SHADER_LIGHT
+        * AmbientLight,
+        * DirectionalLight,
+        * PointLightOne,
+        * PointLightTwo,
+        * SpotLightOne,
+        * SpotLightTwo;
 
 XS_CLASS_END
 

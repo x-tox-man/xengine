@@ -30,7 +30,7 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     //---------------
     //MVPmatrix = projection * view * model; // Remember : inverted !
     
-    GRAPHIC_SYSTEM_ApplyMatrix( attr.AttributeIndex, 1, 1, &result[0])
+    GRAPHIC_SYSTEM_ApplyMatrix( attr.AttributeIndex, 1, 0, &result[0])
     
     int vertex_offset = 0;
     GRAPHIC_SHADER_BIND component = Mesh.GetVertexComponent();

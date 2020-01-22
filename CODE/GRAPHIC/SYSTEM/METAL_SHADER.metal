@@ -95,6 +95,107 @@ typedef struct {
     float Constant;
 } SpotLight;
 
+
+// ------------------------------------------------------
+// functions
+// ------------------------------------------------------
+
+float3 ComputeNormalMapping( float3x3 TBNMatrix_p, float3 base_normal ) {
+    
+    base_normal = 2.0 * base_normal - float3( 1.0, 1.0, 1.0 );
+
+    float3 final_normal;
+
+    final_normal = TBNMatrix_p * base_normal;
+    final_normal = normalize( final_normal );
+    
+    return final_normal;
+}
+
+float4 CalcDirectionalLight( float4 color, float3 light_direction, float3 normal, float3 world_position, float specular_intensity, float3 eye_world_position, float light_specular_power, float diffuse_intensity )
+{
+    float diffuse_factor = dot( normal, -light_direction );
+    
+    float4 diffuse_color = float4(0, 0, 0, 0);
+    float4 specular_color = float4(0, 0, 0, 0);
+    
+    if ( diffuse_factor > 0 ) {
+        
+        diffuse_color = color * diffuse_intensity * diffuse_factor;
+        
+        float3 vertex_to_eye = normalize( eye_world_position - world_position );
+        float3 light_reflect = normalize( reflect( light_direction, normal) );
+        
+        float specular_factor = dot( vertex_to_eye, light_reflect );
+        
+        if ( specular_factor > 0 ) {
+            
+            specular_factor = pow( specular_factor, light_specular_power );
+            specular_color = color * specular_intensity * specular_factor;
+        }
+    }
+
+    return diffuse_color + specular_color;
+}
+
+
+/*float4 CalcLightInternal( PointLight point, float3 light_direction, float3 normal, float3 position, float specular_intensity, float3 eye_world_position, float light_specular_power )
+{
+    float4 ambient_color = point.Color * point.AmbientIntensity;
+    float diffuse_factor = dot( normal, -light_direction.zyx);
+    
+    float4 diffuse_color = float4(0, 0, 0, 0);
+    float4 specular_color = float4(0, 0, 0, 0);
+    
+    if ( diffuse_factor > 0 ) {
+        
+        diffuse_color = point.Color * point.DiffuseIntensity * diffuse_factor;
+        
+        float3 vertex_to_eye = normalize( eye_world_position - position);
+        float3 light_reflect = normalize( reflect( light_direction, normal) );
+        
+        float specular_factor = dot( vertex_to_eye, light_reflect );
+        
+        if ( specular_factor > 0 ) {
+            specular_factor = pow( specular_factor, light_specular_power );
+            specular_color = point.Color * specular_intensity * specular_factor;
+        }
+    }
+
+    return diffuse_color + specular_color;
+}
+
+float4 CalcPointLight( float3 world_pos, float3 light_position, PointLight point, float3 normal, float specular_intensity )
+{
+    float3 light_direction = world_pos - light_position;
+    
+    float light_distance = length( light_direction );
+    light_direction = normalize( light_direction );
+
+    float4 color_l = CalcLightInternal( point, light_direction, normal, world_pos, specular_intensity );
+
+    float attenuation = point.Constant +
+        point.Linear * light_distance +
+        point.Exp * light_distance * light_distance;
+
+    return color_l / attenuation;
+}
+
+float4 CalcSpotLight(float3 world_pos, SpotLight light, float3 normal, float specular_intensity)
+{
+    float3 light_to_pixel = normalize( world_pos - light_position.xyz);
+    float spot_factor = dot( light_to_pixel, light.Direction.xyz );
+
+    if ( spot_factor > light.Cutoff) {
+        
+        float4 color = CalcPointLight( world_pos, light.Base, normal, specular_intensity);
+        return color * ( 1.0 - (1.0 - spot_factor ) * 1.0/(1.0 - light.Cutoff));
+    }
+    else {
+        return float4(0.0);
+    }
+}*/
+
 // ------------------------------------------------------
 // Default shader
 // ------------------------------------------------------
@@ -1096,6 +1197,7 @@ fragment float4 NullTechnique_fs(NullTechnique_InOut in [[stage_in]],
 typedef struct
 {
     float4 position [[position]];
+    float4 wposition;
     float2 texcoords;
     float4 colorVarying;
     float4 normal;
@@ -1105,54 +1207,54 @@ typedef struct
 } AnimationShader_InOut;
 
 vertex AnimationShader_InOut AnimationShader_vs(VertexPosNormalTexTanBiWeJoIn in [[stage_in]],
-                                            constant AnimatedObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                            //constant DirectionalLight & dir_light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
+                                            constant AnimatedObjectUniforms & uniforms [[ buffer( BufferIndexUniforms ) ]],
                                             const device float4x4 * jointsMatrix  [[ buffer(SkinningMatrixBuffer) ]] )
 {
     AnimationShader_InOut out;
     
     float4x4 blend_result = in.weights.x * jointsMatrix[ int( in.joint_indices.x ) ]+ in.weights.y * jointsMatrix[ int( in.joint_indices.y ) ] + in.weights.z * jointsMatrix[ int( in.joint_indices.z ) ];
     
-    //out.T = (uniforms.ModelMatrix * normalize( float4(in.tangent, 1.0 ))).xyz;
-    //out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
-    //out.N = (uniforms.ModelMatrix * normalize( in.normal )).xyz;
+    out.T = (uniforms.ModelMatrix * normalize( float4(in.tangent, 1.0 ))).xyz;
+    out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
+    out.N = (uniforms.ModelMatrix * normalize( in.normal )).xyz;
     
     //position_p = ModelMatrix * position;
     //normal_p = ModelMatrix * normal;
     //tangent_p = tangent;
     
-    /*float3x3 TBNMatrix = transpose(
-           float3x3(
-             out.T,
-             out.B,
-             out.N
-    ));*/
-    
     //out.LightDirection_tangentspace = /*TBNMatrix * */- dir_light.Direction.xyz;
     //out.EyeDirection_tangentspace =  TBNMatrix * CameraWorldPosition.xyz;
     
-    //gl_Position = MVPMatrix * position * attrBindShapeMatrix * blend_result;
-    
-    out.position = uniforms.MVPMatrix * in.position;// * uniforms.attrBindShapeMatrix;
+    out.wposition = transpose(blend_result) * uniforms.attrBindShapeMatrix * in.position;
+    out.position =  uniforms.MVPMatrix * out.wposition;
     out.texcoords = in.texcoords;
     
     return out;
 }
 
 fragment float4 AnimationShader_fs(AnimationShader_InOut in [[stage_in]],
-                                 constant AnimatedObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                 //constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 //constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]]/*,
-                                 texture2d<half> normalMap     [[ textANIMAure(TextureIndex1Normal) ]]*/)
+                                 constant AnimatedObjectUniforms & uniforms [[ buffer( BufferIndexUniforms ) ]],
+                                 constant DirectionalLight & dir_light [[ buffer( BufferIndexDirectionalLightsConstants ) ]],
+                                 constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
+                                 constant Material & material [[ buffer( MaterialUniforms ) ]],
+                                 texture2d<half> colorMap     [[ texture( 0 ) ]],
+                                 texture2d<half> normalMap     [[ texture( 1 ) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
     half4 colorSample = colorMap.sample(colorSampler, in.texcoords.xy);
+    half4 base_normal = normalMap.sample(colorSampler, in.texcoords.xy);
     
-    return float4(colorSample);
+    float3x3 TBN = float3x3( in.T, in.B, in.N );
+    
+    float3 normal = ComputeNormalMapping( TBN, float3( base_normal.xyz ) );
+    float3 eye_world_position = uniforms.ViewMatrix.columns[3].xyz;
+    
+    float4 color= float4( colorSample ) * CalcDirectionalLight(dir_light.Color, dir_light.Direction.xyz, normal, in.wposition.xyz, 0.0, eye_world_position, material.SpecularIntensity * 0.0, dir_light.DiffuseIntensity );
+    
+    return color;
 }
 
 // ------------------------------------------------------

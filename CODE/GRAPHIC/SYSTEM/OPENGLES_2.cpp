@@ -409,7 +409,7 @@ void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAP
     GRAPHIC_SYSTEM_ApplyMatrix(
         ambient_light.AttributeIndex,
         1,
-        1,
+        0,
         (const GLfloat * )&light.InternalLight.Ambient);
 }
 
@@ -512,7 +512,7 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( const float * matrix, GRAPHIC_S
     GRAPHIC_SYSTEM_ApplyMatrix(
         attribute.AttributeIndex,
         1,
-        1,
+        0,
         (const GLfloat * ) matrix);
 }
 

@@ -27,7 +27,7 @@ GRAPHIC_CAMERA::GRAPHIC_CAMERA() :
 
 GRAPHIC_CAMERA::GRAPHIC_CAMERA( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up_vector, float fov ) {
     
-    Direction = -unnormalized_direction;
+    Direction = unnormalized_direction;
     Direction.Normalize();
     Position = position;
     Up = up_vector;
@@ -54,7 +54,7 @@ void GRAPHIC_CAMERA::ActivateForRender() {
 
 void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, float height, const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up_vector, float fov ) {
     
-    Direction = -unnormalized_direction;
+    Direction = unnormalized_direction;
     Direction.Normalize();
     Position = position;
     Up = up_vector;
@@ -72,7 +72,7 @@ void GRAPHIC_CAMERA::Reset( float near_plane, float far_plane, float width, floa
 void GRAPHIC_CAMERA::UpdateCamera( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & unnormalized_direction, const CORE_MATH_VECTOR & up ) {
     
     Position = position;
-    Direction = -unnormalized_direction;
+    Direction = unnormalized_direction;
     Direction.Normalize();
     Up = up;
 
@@ -108,6 +108,9 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
     AlternateProjectionMatrix[14] =  1.0f;
     AlternateProjectionMatrix[15] =  0.0f;*/
     
+#if OPENGL2PLUS
+    //ROW MAJOR
+    abort();
     ProjectionMatrix[0] =  cotan / aspect;
     ProjectionMatrix[1] =  0.0f;
     ProjectionMatrix[2] =  0.0f;
@@ -120,21 +123,44 @@ void GRAPHIC_CAMERA::CalculateProjectionMatrix( float near_plane, float far_plan
 
     ProjectionMatrix[8] =  0.0f;
     ProjectionMatrix[9] =  0.0f;
-    ProjectionMatrix[10] = far_plane / ( near_plane - far_plane);
+    ProjectionMatrix[10] = -(far_plane) / (far_plane - near_plane);
     ProjectionMatrix[11] = -1.0f;
-
 
     ProjectionMatrix[12] =  0.0f;
     ProjectionMatrix[13] =  0.0f;
-    ProjectionMatrix[14] =  near_plane * (far_plane / ( near_plane - far_plane));
+    ProjectionMatrix[14] =  -(far_plane * near_plane) / (far_plane - near_plane);
     ProjectionMatrix[15] =  0.0f;
+#elif X_METAL
+    //COLUMN MAJOR
+    ProjectionMatrix[0] =  cotan / aspect;
+    ProjectionMatrix[1] =  0.0f;
+    ProjectionMatrix[2] =  0.0f;
+    ProjectionMatrix[3] =  0.0f;
+
+    ProjectionMatrix[4] =  0.0f;
+    ProjectionMatrix[5] =  cotan;
+    ProjectionMatrix[6] =  0.0f;
+    ProjectionMatrix[7] =  0.0f;
+
+    ProjectionMatrix[8] =  0.0f;
+    ProjectionMatrix[9] =  0.0f;
+    ProjectionMatrix[10] = far_plane / (near_plane - far_plane);
+    ProjectionMatrix[11] = -1.0f;
+
+    ProjectionMatrix[12] =  0.0f;
+    ProjectionMatrix[13] =  0.0f;
+    ProjectionMatrix[14] =  (near_plane * far_plane) / (near_plane - far_plane);
+    ProjectionMatrix[15] =  0.0f;
+#elif VK
+    #error "Implement"
+#endif
 }
 
 void GRAPHIC_CAMERA::CalculateModelMatrix( const CORE_MATH_VECTOR & position, const CORE_MATH_VECTOR & normalized_direction, const CORE_MATH_VECTOR & up_vector ) {
     
     CORE_MATH_MATRIX tmp, translation,rotation;
     
-    translation.Translate( -position );
+    translation.Translate( position );
     
     CORE_MATH_VECTOR N, U, V;
     
@@ -144,9 +170,9 @@ void GRAPHIC_CAMERA::CalculateModelMatrix( const CORE_MATH_VECTOR & position, co
     U.Normalize();
     V = N.ComputeCrossProduct(U);
     
-    rotation[0] = U.X(); rotation[1] = U.Y(); rotation[2] = U.Z(); rotation[3] = 0.0f;
-    rotation[4] = V.X(); rotation[5] = V.Y(); rotation[6] = V.Z(); rotation[7] = 0.0f;
-    rotation[8] = N.X(); rotation[9] = N.Y(); rotation[10] = N.Z(); rotation[11] = 0.0f;
+    rotation[0] = U.X(); rotation[1] = V.X(); rotation[2] = N.X(); rotation[3] = 0.0f;
+    rotation[4] = U.Y(); rotation[5] = V.Y(); rotation[6] = N.Y(); rotation[7] = 0.0f;
+    rotation[8] = U.Z(); rotation[9] = V.Z(); rotation[10] = N.Z(); rotation[11] = 0.0f;
     rotation[12] = 0.0f; rotation[13] = 0.0f; rotation[14] = 0.0f; rotation[15] = 1.0f;
     
     ViewMatrix = translation * rotation;

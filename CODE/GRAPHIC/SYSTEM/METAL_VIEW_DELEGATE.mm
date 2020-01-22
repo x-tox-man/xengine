@@ -29,7 +29,7 @@
         _device = view.device;
         
         view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
-        view.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+        view.colorPixelFormat = MTLPixelFormatBGRA8Unorm;
         view.sampleCount = 1;
     }
 

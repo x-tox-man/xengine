@@ -510,7 +510,7 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & rendere
         GRAPHIC_SYSTEM_ApplyMatrix(
             attribute.AttributeIndex,
             1,
-            1,
+            0,
             &matrix[0] );
     }
 
