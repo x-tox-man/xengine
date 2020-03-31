@@ -8,42 +8,34 @@
 
 #include "METAL_TEST.h"
 #include "GRAPHIC_MESH_ANIMATION_CONTROLLER.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.h"
+#include "GAMEPLAY_COMPONENT_MANAGER.h"
+#include "GAMEPLAY_COMPONENT_ANIMATION.h"
+#include "RESOURCE_PROXY.h"
 
 METAL_TEST::METAL_TEST() :
     CORE_APPLICATION(),
-    DefaultFileystem(),
     PlanObject(),
     PrimaryRenderTarget(),
+    CascadeShadowMapTechnique(),
+    DeferredShadingTechnique(),
     m1(),
     m2() {
     
     SetApplicationInstance( *this );
         
-        CORE_MATH_MATRIX m1, m2, rs;
-        m1[0] = 1.177f;
-        m1[5] = 1.570f;
-        m1[10] = -1.001f;
-        m1[11] = -1.0f;
-        m1[14] = -0.1001f;
-        m1[15] = -0.0f;
+    #if PLATFORM_OSX
+        DefaultFileystem.Initialize( "/Users/c.bernard/Library/Containers/cbe.MetalTestOSX/Data/RESOURCES/" );
+    #elif PLATFORM_IOS
+        DefaultFileystem.Initialize( "None" );
+    #elif PLATFORM_ANDROID
+        //DefaultFileystem.Initialize( "None" );
+    #elif PLATFORM_WINDOWS
+        DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\game-engine-clean\\RESOURCES\\" );
+    #endif
         
-        m2[14] = -8.0f;
-        
-        rs = m1 * m2;
-        
-        SERVICE_LOGGER_Error( "ALL APP create 1" );
-            
-        #if PLATFORM_OSX
-            DefaultFileystem.Initialize( "/Users/c.bernard/Library/Containers/cbe.MetalTestOSX/Data/RESOURCES/" );
-        #elif PLATFORM_IOS
-            DefaultFileystem.Initialize( "None" );
-        #elif PLATFORM_ANDROID
-            //DefaultFileystem.Initialize( "None" );
-        #elif PLATFORM_WINDOWS
-            DefaultFileystem.Initialize( "C:\\Users\\X\\Documents\\game-engine-clean\\RESOURCES\\" );
-        #endif
-            
-        CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );
+    CORE_FILESYSTEM::SetDefaultFilesystem( DefaultFileystem );
 }
 
 METAL_TEST::~METAL_TEST() {
@@ -51,6 +43,12 @@ METAL_TEST::~METAL_TEST() {
 }
 
 void METAL_TEST::Initialize() {
+    
+    GetGame().GetScene().InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION );
+    GetGame().GetScene().InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_ANIMATING );
+    GetGame().GetScene().InsertRenderableSystem( new GAMEPLAY_COMPONENT_SYSTEM_RENDERER );
+    
+    ((GAMEPLAY_COMPONENT_SYSTEM_RENDERER::PTR) GetGame().GetScene().GetRenderableSystemTable()[0])->SetMask( GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
     
     CORE_HELPERS_CALLBACK * myCallback = new CORE_HELPERS_CALLBACK( &Wrapper<CORE_APPLICATION, &CORE_APPLICATION::Render>, this );
     
@@ -65,21 +63,29 @@ void METAL_TEST::Initialize() {
     
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
     
-    StaticObject = GRAPHIC_MESH_MANAGER::GetInstance().LoadObject( CORE_FILESYSTEM_PATH::FindFilePath( "spaceship" , "smx", "MODELS" ), 1337, GRAPHIC_MESH_TYPE_ModelResource );
+    StaticObject = RESOURCE<GRAPHIC_OBJECT, GRAPHIC_OBJECT_RESOURCE_LOADER>::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "StaticObject" ), CORE_FILESYSTEM_PATH::FindFilePath( "spaceship" , "smx", "MODELS" ) );
     
-    Effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BasicGeometryShader"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    {
+        Effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BasicGeometryShader"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+        
+        Effect->Initialize( StaticObject->GetShaderBindParameter() );
+        auto mat = new GRAPHIC_MATERIAL;
+        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( text ) );
+        
+        Effect->SetMaterial( mat );
+    }
     
-    Effect->Initialize( StaticObject->GetShaderBindParameter() );
-    auto mat = new GRAPHIC_MATERIAL;
-    mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( text ) );
+    {
+        AnimatedEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::AnimatedObject"), CORE_FILESYSTEM_PATH::FindFilePath( "AnimationShaderDeferred" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+        AnimatedShadowMapEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::AnimatedShadowMapObject"), CORE_FILESYSTEM_PATH::FindFilePath( "AnimationShadowMapShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+        
+        NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "Dying" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "Dying.VoidPirateController" , "abx", "MODELS" ));
+        //NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ));
+        
+        AnimatedShadowMapEffect->Initialize( NakedGirlObject->GetShaderBindParameter() );
+        AnimatedEffect->Initialize( NakedGirlObject->GetShaderBindParameter() );
+    }
     
-    Effect->SetMaterial( mat );
-    
-    AnimatedEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::AnimatedObject"), CORE_FILESYSTEM_PATH::FindFilePath( "AnimationShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
-    
-    NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ));
-    
-    AnimatedEffect->Initialize( NakedGirlObject->GetShaderBindParameter() );
     
     Camera = new GRAPHIC_CAMERA( 0.1f, 100.0f, GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR( 0.0f, -8.0f, -25.0f, 1.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis, 65.0f );
     
@@ -98,19 +104,44 @@ void METAL_TEST::Initialize() {
     //DefaultTechnique.PlanObject = &PlanObject;
     //DefaultTechnique.TextureBlock = TextureBlock1;
     DefaultTechnique.RenderTarget = &PrimaryRenderTarget;
-    DefaultTechnique.RendererCallback.Connect( &Wrapper1<METAL_TEST, GRAPHIC_RENDERER &, &METAL_TEST::RenderTechnique>, this );
+    DefaultTechnique.RendererCallback.Connect( &Wrapper2<GAMEPLAY_GAME, GRAPHIC_RENDERER &, int, &GAMEPLAY_GAME::Render>, &GetGame() );
     DefaultTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
-    FinalTechnique.RendererCallback.Connect( &Wrapper1<METAL_TEST, GRAPHIC_RENDERER &, &METAL_TEST::RenderFinalFrameBuffer>, this );
+    //FinalTechnique.RenderTarget = &PrimaryRenderTarget;
+    FinalTechnique.RendererCallback.Connect( &Wrapper2<METAL_TEST, GRAPHIC_RENDERER &, int, &METAL_TEST::RenderFinalFrameBuffer>, this );
     FinalTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
     
     BloomTechnique.PlanObject = &PlanObject;
     BloomTechnique.TextureBlock = new GRAPHIC_TEXTURE_BLOCK();
     BloomTechnique.TextureBlock2 = new GRAPHIC_TEXTURE_BLOCK();
     BloomTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
-    BloomTechnique.FinalRenderTarget = &FinalRenderTarget;
+    //BloomTechnique.FinalRenderTarget = &FinalRenderTarget;
     BloomTechnique.BloomRenderTarget = &BloomRenderTarget;
     BloomTechnique.SetBlurPassCount( 3 );
+    
+    CascadeShadowMapTechnique.CascadeCount = 3;
+    CascadeShadowMapTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
+    
+    for ( int i = 0; i < METAL_TEST_MAX_SHAWOW_CASCADE; i ++ ) {
+        
+        CascadeShadowMapTechnique.ShadowMapRenderTarget[ i ] = new GRAPHIC_RENDER_TARGET;
+        CascadeShadowMapTechnique.ShadowMapRenderTarget[ i ]->InitializeDepthTexture( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
+    }
+    
+    CascadeShadowMapTechnique.RendererCallback.Connect( &Wrapper2<GAMEPLAY_GAME, GRAPHIC_RENDERER &, int, &GAMEPLAY_GAME::Render>, &GetGame() );
+    //CascadeShadowMapTechnique.RendererCallback1.Connect( &Wrapper1<METAL_TEST, GRAPHIC_RENDERER &, &METAL_TEST::RenderTechnique>, this );
+    CascadeShadowMapTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
+    
+    
+    DeferredShadingTechnique.PlanObject = &PlanObject;
+    DeferredShadingTechnique.FinalRenderTarget = &PrimaryRenderTarget;
+    //DeferredShadingTechnique.SphereObject = &SphereObject;
+    //DeferredShadingTechnique.ConeObject = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) )->GetResource< GRAPHIC_OBJECT >();
+    DeferredShadingTechnique.RendererCallback.Connect( &Wrapper2<GAMEPLAY_GAME, GRAPHIC_RENDERER &, int, &GAMEPLAY_GAME::Render>, &GetGame() );
+    //DeferredShadingTechnique.RenderTarget = defered_tr;
+    DeferredShadingTechnique.ConfigureGBufferBeforeInit( GRAPHIC_RENDERER::GetInstance(), GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING_GBUFFER_ALL );
+    DeferredShadingTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );
+    
     
     GRAPHIC_SYSTEM::SetRendersOnScreen( true );
     UIEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::UIShaderTextured"), CORE_FILESYSTEM_PATH::FindFilePath( "UIShaderTextured" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
@@ -172,7 +203,26 @@ void METAL_TEST::Initialize() {
     //GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightOne, 0 );
     //GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightTwo, 1 );
     //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightOne, 0 );
-    //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightTwo, 1 );
+    //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightTwo, 1 );v
+    
+    RESOURCE_CONTAINER
+        container;
+    
+    auto proxy = new RESOURCE_PROXY;
+    proxy->SetResource( StaticObject );
+    proxy->SetType( RESOURCE_TYPE_ModelResource );
+    container.AddResource( proxy, StaticObject->GetIdentifier() );
+    container.Save( CORE_FILESYSTEM_PATH::FindFilePath( "containertest" , "rs", "" ) );
+    
+    RESOURCE_CONTAINER
+        container2;
+    
+    container2.Load( CORE_FILESYSTEM_PATH::FindFilePath( "containertest" , "rs", "" ) );
+    
+    GRAPHIC_RENDERER::GetInstance().SetCascadeEnd( 0, -5.0f );
+    GRAPHIC_RENDERER::GetInstance().SetCascadeEnd( 1, 50.0f );
+    GRAPHIC_RENDERER::GetInstance().SetCascadeEnd( 2, 55.0f );
+    GRAPHIC_RENDERER::GetInstance().SetCascadeEnd( 3, 1500.0f );
 }
 
 void METAL_TEST::Finalize() {
@@ -186,15 +236,6 @@ void METAL_TEST::Update( float time_step ) {
     m1.XRotate(time_step * M_PI_2 );
     m2.XRotate(time_step * M_PI_4 );
     
-    if ( time_step + NakedGirlObject->GetAnimationController()->GetCurrentTimeFrame() < NakedGirlObject->GetAnimationController()->GetAnimation( 0 )->GetJointTable()[0]->GetDuration() ) {
-        
-        NakedGirlObject->GetAnimationController()->Update( time_step );
-    }
-    else {
-        
-        NakedGirlObject->GetAnimationController()->Reset();
-    }
-    
     CORE_MATH_VECTOR direction(1.0f, 0.0f, 0.0f, 0.0f);
     
     CORE_MATH_MATRIX m;
@@ -204,27 +245,53 @@ void METAL_TEST::Update( float time_step ) {
     CORE_MATH_VECTOR vv = direction * m;
     
     memcpy( (void*) DirectionalLight->InternalLight.Directional.Direction, (void*) &vv[0], 16);
+    
+    //CascadeShadowMapTechnique.UpdateCameras( - vv, vv, CORE_MATH_VECTOR::YAxis );
+    CascadeShadowMapTechnique.UpdateCameras( CORE_MATH_VECTOR( 0.0f, -8.0f, 4.0f, 1.0f) , CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
+    
+    GetGame().Update( time_step );
 }
 
 void METAL_TEST::Render() {
     
     GRAPHIC_OBJECT_RENDER_OPTIONS
         options;
+    GRAPHIC_RENDERER
+        & renderer = GRAPHIC_RENDERER::GetInstance();
     
     options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
     options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
+    //TODO: NOT COOL !
     Update( 0.0333333f );
+    //TODO: SCENE TECHNIQUE => DEPENDS ON A SCENE TO WORK
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
-    DefaultTechnique.ApplyFirstPass( GRAPHIC_RENDERER::GetInstance() );
+
+    CascadeShadowMapTechnique.ApplyFirstPass( renderer );
+    CascadeShadowMapTechnique.ApplySecondPass( renderer );
+    
+    renderer.SetNumCascade( 0 );
+    DeferredShadingTechnique.ApplyFirstPass( renderer );
+    
+    //renderer.SetCamera( RenderTargetCamera );
+    
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
     
-    BloomTechnique.ApplyFirstPass( GRAPHIC_RENDERER::GetInstance() );
-    FinalTechnique.ApplyFirstPass( GRAPHIC_RENDERER::GetInstance() );
+    //SSAOTechnique.ApplyFirstPass( renderer );
+    DeferredShadingTechnique.ApplySecondPass( renderer );
+    
+    renderer.SetNumCascade( 0 );
+    renderer.DisableBlend();
+    //DefaultTechnique.ApplyFirstPass( renderer );
+    
+    renderer.SetNumCascade( 0 );
+    //POST PROCESS
+    //BloomTechnique.ApplyFirstPass( renderer );
+    FinalTechnique.ApplyFirstPass( renderer );
 }
 
-void METAL_TEST::RenderFinalFrameBuffer( GRAPHIC_RENDERER & renderer ) {
+void METAL_TEST::RenderFinalFrameBuffer( GRAPHIC_RENDERER & renderer, int dummy ) {
     
     GRAPHIC_OBJECT_RENDER_OPTIONS
         options;
@@ -233,7 +300,15 @@ void METAL_TEST::RenderFinalFrameBuffer( GRAPHIC_RENDERER & renderer ) {
     options.SetOrientation( CORE_MATH_QUATERNION() );
     options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
-    PlanObject.Render(GRAPHIC_RENDERER::GetInstance(), options, UIEffect );
+    auto block = new GRAPHIC_TEXTURE_BLOCK();
+    
+    block->SetTexture( PrimaryRenderTarget.GetTargetTexture( 0 ) );
+    
+    auto mat = new GRAPHIC_MATERIAL;
+    mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, block );
+    UIEffect->SetMaterial( mat );
+    
+    PlanObject.Render( renderer, options, UIEffect );
 }
 
 void METAL_TEST::RenderTechnique( GRAPHIC_RENDERER & renderer ) {
@@ -245,7 +320,7 @@ void METAL_TEST::RenderTechnique( GRAPHIC_RENDERER & renderer ) {
     
     //q1.FromMatrix( m1.GetRow(0) );
     //q2.FromMatrix( m2.GetRow(0) );
-    q1.RotateX(45.0f);
+    //q1.RotateX(45.0f);
     
     GRAPHIC_RENDERER::GetInstance().SetNumCascade( 0 );
     renderer.SetCamera( Camera );
@@ -261,9 +336,9 @@ void METAL_TEST::RenderTechnique( GRAPHIC_RENDERER & renderer ) {
     //StaticObject->Render( renderer, options, Effect );
 }
 
-GRAPHIC_OBJECT_ANIMATED * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path ) {
+GRAPHIC_OBJECT * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path ) {
     
-    GRAPHIC_OBJECT_ANIMATED * animated_object = GRAPHIC_MESH_MANAGER::GetInstance().LoadObjectAnimated( object_path, 1337, GRAPHIC_MESH_TYPE_ModelResource );
+    GRAPHIC_OBJECT * animated_object = RESOURCE<GRAPHIC_OBJECT, GRAPHIC_OBJECT_RESOURCE_LOADER>::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "NakedGirlObject" ), object_path );
     
     animated_object->SetAnimationController( new GRAPHIC_MESH_ANIMATION_CONTROLLER );
     
@@ -272,7 +347,7 @@ GRAPHIC_OBJECT_ANIMATED * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTE
     for (int i = 0; i < animated_object->GetMeshTable().size(); i++ ) {
         
         char
-            temp_path[128];
+            temp_path[256];
         
         strcpy(temp_path, animation_path.GetPath() );
         
@@ -286,7 +361,7 @@ GRAPHIC_OBJECT_ANIMATED * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTE
         animated_object->GetAnimationController()->Load( path );
         
         
-        animated_object->GetAnimationController()->GetAnimation( i )->Initialize( animated_object->GetJointTable(), 0);
+        //animated_object->GetAnimationController()->GetAnimation( i )->Initialize( animated_object->GetJointTable(), 0);
         
         auto mat = new GRAPHIC_MATERIAL;
         
@@ -313,8 +388,41 @@ GRAPHIC_OBJECT_ANIMATED * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTE
         collection->SetMaterialForName(mat, animated_object->GetMeshTable()[i]->GetName() );
     }
     
-    animated_object->GetAnimationController()->Initialize();
-    AnimatedEffect->SetMaterialCollection( collection );
+    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT_RENDER >();
+    
+    CORE_MATH_QUATERNION
+        q1;
+    
+    //q1.RotateX(45.0f);
+    
+    entity->SetPosition( CORE_MATH_VECTOR( 0.0f,0.0f,-50.0f,0.0f) );
+    entity->SetOrientation( q1 );
+    
+    auto proxy = new RESOURCE_PROXY;
+    
+    proxy = new RESOURCE_PROXY;
+    proxy->SetResource( animated_object );
+
+    entity->GetComponentRender()->SetObject( *proxy );
+
+    proxy = new RESOURCE_PROXY;
+    proxy->SetResource( AnimatedEffect );
+    entity->GetComponentRender()->SetEffect( *proxy );
+    
+    proxy = new RESOURCE_PROXY;
+    proxy->SetResource( AnimatedShadowMapEffect );
+    entity->GetComponentRender()->SetShadowMapEffectProxy( *proxy );
+    
+    proxy = new RESOURCE_PROXY;
+    proxy->SetResource( collection );
+    entity->GetComponentRender()->SetMaterialCollection( *proxy );
+    
+    entity->GetComponentAnimation()->SetAnimation( *animated_object->GetAnimationController() );
+    
+    //TODO: fix this index bullshit
+    GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( entity );
+    GetGame().GetScene().GetUpdatableSystemTable()[1]->AddEntity( entity );
+    GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
     
     return animated_object;
 }

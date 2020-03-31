@@ -730,4 +730,8 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & rendere
         
         GFX_CHECK( glClear( GL_STENCIL_BUFFER_BIT ); )
     }
+
+    void GRAPHIC_SYSTEM::ApplyMaterial( const GRAPHIC_MATERIAL & material ) {
+        
+    }
 #endif

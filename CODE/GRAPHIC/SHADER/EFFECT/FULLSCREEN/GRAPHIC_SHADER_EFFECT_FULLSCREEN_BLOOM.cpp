@@ -27,9 +27,9 @@ GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::~GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM(
 
 }
 
-void GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::Apply( GRAPHIC_RENDERER & renderer, const char * material_name, bool does_lighting, bool does_texturing ) {
+void GRAPHIC_SHADER_EFFECT_FULLSCREEN_BLOOM::Apply( GRAPHIC_RENDERER & renderer, const char * material_name ) {
     
-    GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name, does_lighting, does_texturing );
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name );
     GRAPHIC_SHADER_ATTRIBUTE & attr_threshold = EffectInstance->GetProgram().GetShaderAttribute( BloomThresholdIdentifier );
     
     //GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, attr_threshold.AttributeValue.Value.FloatValue, attr_threshold );

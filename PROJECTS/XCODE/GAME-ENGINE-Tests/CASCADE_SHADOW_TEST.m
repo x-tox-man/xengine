@@ -225,7 +225,6 @@
     rd->AddEntity( component_entity2->GetHandle(), component_entity2 );
     rd->AddEntity( ground_component_entity->GetHandle(), ground_component_entity );
     
-    GRAPHIC_RENDERER::GetInstance().SetPassIndex( 1 );
     {
         GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera );
         
@@ -239,7 +238,6 @@
         ShadowMapRenderTarget.Discard();
     }
     
-    GRAPHIC_RENDERER::GetInstance().SetPassIndex( 0 );
     {
         GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
         GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( 0, LightShadowCamera);

@@ -16,6 +16,7 @@
 #include "GRAPHIC_MESH.h"
 #include "GRAPHIC_SHADER_BIND.h"
 #include "CORE_HELPERS_IDENTIFIER.h"
+#include "GRAPHIC_RENDERER_STATE_DESCRIPTOR.h"
 
 #if X_METAL
 
@@ -254,6 +255,40 @@ void * GRAPHIC_SYSTEM::CreateMetalFunction( const char * function_name ) {
     return (void *) CFBridgingRetain(fc);
 }
 
+MTLPixelFormat GetMtlDepthStencilPixelFormatFromDescriptor( GRAPHIC_TEXTURE_IMAGE_TYPE depth, GRAPHIC_TEXTURE_IMAGE_TYPE stencil ) {
+    
+    if ( depth == GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 && stencil == GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8 ) {
+        return MTLPixelFormatDepth32Float_Stencil8;
+    }
+    else {
+        abort();
+        //TODO:
+        return MTLPixelFormatDepth32Float_Stencil8;
+    }
+}
+
+unsigned long GetMTLPixelFormatFromDescriptor( GRAPHIC_TEXTURE_IMAGE_TYPE color ) {
+    
+    switch ( color ) {
+            
+        case GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA:
+            return MTLPixelFormatBGRA8Unorm;
+            
+        case GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32:
+            return MTLPixelFormatDepth32Float;
+            
+        case GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8:
+            return MTLPixelFormatStencil8;
+            
+        case GRAPHIC_TEXTURE_IMAGE_TYPE_None:
+            return MTLPixelFormatInvalid;
+            
+        default:
+            abort();
+            return MTLPixelFormatInvalid;
+    }
+}
+
 void GRAPHIC_SYSTEM::InitializeMetal( void * view ) {
     
     _view = (__bridge MTKView *) view;
@@ -267,8 +302,8 @@ void GRAPHIC_SYSTEM::InitializeMetal( void * view ) {
     
     _view.delegate = _metalDelegate;
     
-    _view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
-    _view.colorPixelFormat = MTLPixelFormatBGRA8Unorm;
+    _view.depthStencilPixelFormat = GetMtlDepthStencilPixelFormatFromDescriptor( GRAPHIC_RENDERER::GetInstance().GetDescriptor().DepthAttachmentPixelFormat, GRAPHIC_RENDERER::GetInstance().GetDescriptor().StencilAttachmentPixelFormat);
+    _view.colorPixelFormat = (MTLPixelFormat) GetMTLPixelFormatFromDescriptor( GRAPHIC_RENDERER::GetInstance().GetDescriptor().ColorAttachmentPixelFormat[ 0 ] );
     _view.sampleCount = 1;
     
     MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
@@ -336,21 +371,30 @@ void GRAPHIC_SYSTEM::SetScissorRectangle( float x, float y, float width, float h
 void GRAPHIC_SYSTEM::EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 void GRAPHIC_SYSTEM::DisableStencil( void * __GRAPHIC_SYSTEM_CONTEXT) {
     
     //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination, void * __GRAPHIC_SYSTEM_CONTEXT ) {
+    
+    //NULL OP : this will be handled by the GRAPHIC_RENDERER
+    
+    /*assert( __GRAPHIC_SYSTEM_CONTEXT != NULL );
+    
+    //Create a representation of shader states
+    //Fetch the MTLRenderPipelineDescriptor coorresponding from a cache, instead of recreating it everytime.
+    
+    //MTLPipelineDescriptorCache
     
     GRAPHIC_SHADER_PROGRAM * program = (GRAPHIC_SHADER_PROGRAM *) __GRAPHIC_SYSTEM_CONTEXT;
     
@@ -367,25 +411,50 @@ void GRAPHIC_SYSTEM::EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, c
     
     MtlReleasePipelineState( program->GetMtlPipelineState() );
     void * state = CreateMetalPipelineState( (void *) CFBridgingRetain(p), *program );
-    program->SetMtlPipelineState( state );
+    program->SetMtlPipelineState( state );*/
 }
 
 void GRAPHIC_SYSTEM::DisableBlend( void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
-    //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
+    /*assert( __GRAPHIC_SYSTEM_CONTEXT != NULL );
+    
+    GRAPHIC_SHADER_PROGRAM * program = (GRAPHIC_SHADER_PROGRAM *) __GRAPHIC_SYSTEM_CONTEXT;
+    
+    MTLRenderPipelineDescriptor * p = (__bridge MTLRenderPipelineDescriptor * ) program->GetMtlPipelineDescriptor();
+    
+    p.colorAttachments[0].blendingEnabled = false;
+    
+    MtlReleasePipelineState( program->GetMtlPipelineState() );
+    void * state = CreateMetalPipelineState( (void *) CFBridgingRetain(p), *program );
+    program->SetMtlPipelineState( state );*/
 }
 
 void GRAPHIC_SYSTEM::SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
-    //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
+    abort();
+    
+    /*GRAPHIC_SHADER_PROGRAM * program = (GRAPHIC_SHADER_PROGRAM *) __GRAPHIC_SYSTEM_CONTEXT;
+    
+    MTLRenderPipelineDescriptor * p = (__bridge MTLRenderPipelineDescriptor * ) program->GetMtlPipelineDescriptor();
+    
+    p.colorAttachments[0].blendingEnabled = true;
+    p.colorAttachments[0].rgbBlendOperation = MTLBlendOperationAdd;
+    p.colorAttachments[0].alphaBlendOperation = MTLBlendOperationAdd;
+    p.colorAttachments[0].sourceRGBBlendFactor = MTLBlendFactorOne;
+    p.colorAttachments[0].sourceAlphaBlendFactor = MTLBlendFactorOne;
+    
+    p.colorAttachments[0].destinationRGBBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
+    p.colorAttachments[0].destinationAlphaBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
+    
+    MtlReleasePipelineState( program->GetMtlPipelineState() );
+    void * state = CreateMetalPipelineState( (void *) CFBridgingRetain(p), *program );
+    program->SetMtlPipelineState( state );*/
 }
 
 void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::EnableBackfaceCulling( const GRAPHIC_POLYGON_FACE face ) {
@@ -408,13 +477,13 @@ void GRAPHIC_SYSTEM::UpdateVertexBuffer( GRAPHIC_MESH * mesh, CORE_DATA_BUFFER &
 void GRAPHIC_SYSTEM::SetPolygonMode( const GRAPHIC_SYSTEM_POLYGON_FILL_MODE fill_mode ) {
     
     //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::DisableDepthTest( void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
     //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::ReleaseTexture( GRAPHIC_TEXTURE * texture ) {
@@ -597,7 +666,10 @@ void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH & m
     MTKMeshBuffer *vertexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKVertexBuffer();
     MTKMeshBuffer *indexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKIndexBuffer();
     
-    [_renderEncoder setDepthStencilState:_depthState];
+    if ( renderer.GetDescriptor().ItDoesDepthTest ) {
+        
+        [_renderEncoder setDepthStencilState:_depthState];
+    }
     
     if((NSNull*)vertexBuffer != [NSNull null])
     {
@@ -628,7 +700,7 @@ void GRAPHIC_SYSTEM::ReleaseBuffers(GRAPHIC_MESH &mesh) {
 void GRAPHIC_SYSTEM::Clear() {
     
     //#error "TODO IMPLEMENT"
-    CORE_RUNTIME_Abort();
+    //CORE_RUNTIME_Abort();
 }
 
 void GRAPHIC_SYSTEM::ClearFrambufferDepth( float default_depth ) {
@@ -706,7 +778,5 @@ void GRAPHIC_SYSTEM::DisableDefaultFrameBuffer() {
 
     [_renderEncoder endEncoding];
 }
-
-
 
 #endif

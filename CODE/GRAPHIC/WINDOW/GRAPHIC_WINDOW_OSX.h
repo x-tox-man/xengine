@@ -11,6 +11,7 @@
 #import <AppKit/AppKit.h>
 #import <Cocoa/Cocoa.h>
 #import "GRAPHIC_WINDOW.h"
+#import "CORE_APPLICATION.h"
 #import "CORE_HELPERS_CALLBACK.h"
 
 #if X_METAL

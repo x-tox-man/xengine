@@ -84,37 +84,13 @@ void GAMEPLAY_SCENE::Update( float time_step ) {
 
 void GAMEPLAY_SCENE::Render( GRAPHIC_RENDERER & renderer, int transparent_mask ) {
     
-    if( renderer.GetPassIndex() == 0 ) {
-        
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
-    }
-    
-    GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
-    GRAPHIC_SYSTEM::SetPolygonMode( GRAPHIC_SYSTEM_POLYGON_FILL_MODE_Full );
-    
-    bool it_does_blend = transparent_mask & GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent;
-    
     for ( size_t i = 0; i < RenderableSystemTable.size(); i++ ) {
         
-        if ( it_does_blend && RenderableSystemTable[ i ]->GetMask() & GAMEPLAY_COMPONENT_SYSTEM_MASK_Transparent) {
-            
-            GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
-            GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, false );
-            GRAPHIC_SYSTEM::DisableFaceCulling();
-        }
-        else {
-            
-            GRAPHIC_SYSTEM::DisableBlend();
-        }
         if ( transparent_mask == GAMEPLAY_COMPONENT_SYSTEM_MASK_All || RenderableSystemTable[ i ]->GetMask() & transparent_mask ) {
             
             RenderableSystemTable[ i ]->Render( GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEcsBasePointer(), renderer );
         }
-        
-        it_does_blend = true;
     }
-    
-    GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
 }
 
 void GAMEPLAY_SCENE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {

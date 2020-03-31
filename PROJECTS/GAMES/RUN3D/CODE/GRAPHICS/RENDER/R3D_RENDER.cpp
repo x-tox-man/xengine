@@ -153,9 +153,9 @@ void R3D_RENDER::Initialize() {
     
     CascadeShadowMapTechnique.CascadeCount = 3;
     CascadeShadowMapTechnique.PrimaryRenderTarget = &PrimaryRenderTarget;
-    CascadeShadowMapTechnique.ShadowMapRenderTarget1 = &ShadowMapRenderTarget1;
-    CascadeShadowMapTechnique.ShadowMapRenderTarget2 = &ShadowMapRenderTarget2;
-    CascadeShadowMapTechnique.ShadowMapRenderTarget3 = &ShadowMapRenderTarget3;
+    CascadeShadowMapTechnique.ShadowMapRenderTarget[0] = &ShadowMapRenderTarget1;
+    CascadeShadowMapTechnique.ShadowMapRenderTarget[1] = &ShadowMapRenderTarget2;
+    CascadeShadowMapTechnique.ShadowMapRenderTarget[2] = &ShadowMapRenderTarget3;
     CascadeShadowMapTechnique.RendererCallback.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
     CascadeShadowMapTechnique.RendererCallback1.Connect( &Wrapper1<R3D_RENDER, GRAPHIC_RENDERER &, &R3D_RENDER::RenderOpaqueScene>, this );
     CascadeShadowMapTechnique.Initialize( GRAPHIC_RENDERER::GetInstance() );

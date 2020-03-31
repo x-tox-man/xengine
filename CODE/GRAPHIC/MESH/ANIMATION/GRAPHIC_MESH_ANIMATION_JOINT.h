@@ -16,6 +16,7 @@
 #include "CORE_MATH_POSE.h"
 #include "CORE_MEMORY.h"
 #include "CORE_DATA_TYPES.h"
+#include "GRAPHIC_MESH_SKELETON_JOINT.h"
 
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_JOINT )
 
@@ -29,10 +30,10 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_JOINT )
     inline float * GetMatrixBuffer() { return (float *) FloatMatrixBuffer.getpointerAtIndex( 0, 0 ); }
     inline CORE_MATH_POSE * GetPoseBuffer() { return (CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( 0, 0 ); }
 
-    inline void SetJointName( const char * name ) { CORE_DATA_COPY_STRING(JointName, name); }
+    inline void SetName( const char * name ) { CORE_DATA_COPY_STRING(Name, name); }
+    inline char * GetName() { return Name; }
 
     inline void * GetFloatMatrixBuffer( int offset = 0 ) { return FloatMatrixBuffer.getpointerAtIndex( offset, 0); }
-    inline CORE_DATA_BUFFER &  GetTimeTableBuffer() { return TimeTableBuffer; }
 
     inline void * GetInterPolatedMatrix() { return &InterPolatedMatrix; };
     inline const CORE_MATH_POSE & GetInterPolatedPose() { return InterpolatedPose; };
@@ -43,32 +44,33 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_JOINT )
     void SetWorldPose( CORE_MATH_POSE & pose ) { WorldPose.CopyFrom( pose ); }
     void SetSkinningPose( CORE_MATH_POSE & skinning_pose ) { InterpolatedPose.CopyFrom( skinning_pose ); }
 
-    void * YieldFloatMatrixBufferForTime( const float time );
-    void YieldPoseForTime( const float time, CORE_MATH_POSE & pose );
-    char * GetJointName() { return JointName; }
+    float * YieldFloatMatrixBufferForIndex( const int matrix_index );
+    void YieldPoseForTime( const int pose_index, CORE_MATH_POSE & pose );
 
-    float GetDuration();
+    inline void SetSkeletonJoint( GRAPHIC_MESH_SKELETON_JOINT::PTR joint ) { SkeletonJoint =  joint; }
+    inline GRAPHIC_MESH_SKELETON_JOINT::PTR GetSkeletonJoint() { return SkeletonJoint; }
 
 private:
 
-    CORE_DATA_BUFFER
-        FloatMatrixBuffer;
-    CORE_DATA_BUFFER
-        PoseBuffer;
+    char
+        Name[256];
+
     CORE_MATH_MATRIX
         InterPolatedMatrix;
-    CORE_MATH_POSE
-        InterpolatedPose;
+    CORE_DATA_BUFFER
+        FloatMatrixBuffer;
     CORE_SCALAR
         WorldMatrix;
+
+    CORE_DATA_BUFFER
+        PoseBuffer;
+    CORE_MATH_POSE
+        InterpolatedPose;
     CORE_MATH_POSE
         WorldPose;
-    CORE_DATA_BUFFER
-        TimeTableBuffer;
-    char
-        JointName[256];
-    CORE_SCALAR
-        BindShapeMatrix;
+
+    GRAPHIC_MESH_SKELETON_JOINT::PTR
+        SkeletonJoint;
 
 XS_CLASS_END
 

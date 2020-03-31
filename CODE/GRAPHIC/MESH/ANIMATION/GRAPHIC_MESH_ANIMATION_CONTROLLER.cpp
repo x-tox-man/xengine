@@ -13,11 +13,13 @@
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "GRAPHIC_OBJECT.h"
 
 #define MAX_ANIMATION 32
 
 GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER() :
     CurrentTimeFrame( 0.0f ),
+    CurrentTimeFrameIndex( 0 ),
     MeshAnimationTable(),
     ThisFrameAnimationMatrixArrayTable() {
     
@@ -25,6 +27,7 @@ GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER() :
 
 GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER( const GRAPHIC_MESH_ANIMATION_CONTROLLER & other ) :
     CurrentTimeFrame( other.CurrentTimeFrame ),
+    CurrentTimeFrameIndex( other.CurrentTimeFrameIndex ),
     MeshAnimationTable( other.MeshAnimationTable ),
     ThisFrameAnimationMatrixArrayTable() {
     
@@ -72,22 +75,47 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Load( const CORE_FILESYSTEM_PATH & path 
     CORE_DATA_LOADER< GRAPHIC_MESH_ANIMATION >::Load( MeshAnimationTable[ MeshAnimationTable.size() -1 ], path );
 }
 
-void GRAPHIC_MESH_ANIMATION_CONTROLLER::Update( const float time ) {
+void GRAPHIC_MESH_ANIMATION_CONTROLLER::Update( const float time, GRAPHIC_MESH_SKELETON_JOINT * skeleton ) {
     
     CurrentTimeFrame += time;
     
     for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
         
-        MeshAnimationTable[i]->ComputeSkinningMatrixTableForTime( CurrentTimeFrame, ThisFrameAnimationMatrixArrayTable[ i ] );
+        float * frame_reference = ThisFrameAnimationMatrixArrayTable[ i ];
+        MeshAnimationTable[i]->ComputeSkinningMatrixTableForFrameIndex( skeleton, GetFrameIndex(), frame_reference );
     }
+    
+    //TODO: Average animations?
+    for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
+        
+    }
+}
+
+inline unsigned int GRAPHIC_MESH_ANIMATION_CONTROLLER::GetFrameIndex() {
+    
+    float * ptr = (float*) MeshAnimationTable[0]->GetTimeTableBuffer().getpointerAtIndex(0, 0) + CurrentTimeFrameIndex;
+    
+    for (int i = 0; i < MeshAnimationTable[0]->GetTimeTableBuffer().GetSize() / 4; i++ ) {
+        
+        if ( CurrentTimeFrame > *ptr  ) {
+            
+            CurrentTimeFrameIndex++;
+            ptr++;
+            continue;
+        }
+        break;
+    }
+    
+    return CurrentTimeFrameIndex;
 }
 
 void GRAPHIC_MESH_ANIMATION_CONTROLLER::Reset() {
     
     CurrentTimeFrame = 0.0f;
+    CurrentTimeFrameIndex = 0;
     
-    for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
+    /*for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
         
-        MeshAnimationTable[i]->ComputeSkinningMatrixTableForTime( CurrentTimeFrame, ThisFrameAnimationMatrixArrayTable[ i ] );
-    }
+        MeshAnimationTable[i]->ComputeSkinningMatrixTableForFrameIndex( CurrentTimeFrame, ThisFrameAnimationMatrixArrayTable[ i ] );
+    }*/
 }

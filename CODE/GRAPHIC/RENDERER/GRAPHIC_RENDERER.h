@@ -13,17 +13,18 @@
 #include "CORE_HELPERS_UNIQUE.h"
 #include "GRAPHIC_CAMERA.h"
 #include "GRAPHIC_TEXTURE.h"
-#include "CORE_APPLICATION.h"
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_SHADER_LIGHT.h"
 #include "CORE_PARALLEL_LOCK.h"
 #include "GRAPHIC_SYSTEM.h"
+#include "GRAPHIC_RENDERER_STATE_DESCRIPTOR.h"
 
 #define GRAPHIC_MAX_NUM_CASCADES    8
 
 class GRAPHIC_SHADER_EFFECT;
 
 XS_CLASS_BEGIN( GRAPHIC_RENDERER )
+
     XS_DEFINE_UNIQUE( GRAPHIC_RENDERER )
 
     ~GRAPHIC_RENDERER();
@@ -87,8 +88,6 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     std::vector< GRAPHIC_SHADER_LIGHT *> & GetSpotLightTable() { return SpotLightTable; }
     std::vector< GRAPHIC_SHADER_LIGHT *> & GetPointLightTable() { return PointLightTable; }
 
-    inline int GetPassIndex() const { return PassIndex; }
-    inline void SetPassIndex(int pass) { PassIndex = pass; }
     inline void SetDepthTexture( int index, GRAPHIC_TEXTURE * depth ) { DepthTextureTable[ index ] = depth;}
     inline GRAPHIC_TEXTURE * GetDepthTexture( int index ) const { return DepthTextureTable[ index ]; }
 
@@ -104,6 +103,9 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline void EnableColor( bool enable ) { ColorEnabled = enable; }
     inline void SetResizeViewCallback(CORE_HELPERS_CALLBACK_2<int, int> & callback) {ResizeViewCallback = callback; }
 
+inline bool IsTexturingEnabled() const { return TexturingIsEnabled; }
+inline void SetTexturingIsEnabled( bool enabled ) { TexturingIsEnabled = enabled; }
+
     inline bool IsLightingEnabled() const { return LightingIsEnabled; }
     inline void SetLightingIsEnabled( bool enabled ) { LightingIsEnabled = enabled; }
     inline bool IsDeferredLightingEnabled() const { return DeferredLightingIsEnabled; }
@@ -112,6 +114,10 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline void SetDeferredPointIndex( int index ) { DeferredPointIndex = index; }
     inline int GetDeferredSpotIndex() const { return DeferredSpotIndex; }
     inline int GetDeferredPointIndex() const { return DeferredPointIndex; }
+
+    inline bool IsShadowMappingEnabled() const { return ShadowMappingIsEnabled; }
+    inline void SetShadowMappingEnabled( bool enabled ) { ShadowMappingIsEnabled = enabled; }
+
 
     inline void SetCurrentLightMatrix( const CORE_MATH_MATRIX & matrix ) { CurrentLightMatrix = matrix; }
     inline const CORE_MATH_MATRIX & GetCurrentLightMatrix() { return CurrentLightMatrix; }
@@ -143,8 +149,34 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
 #endif
         
         return Height;
-        
     }
+
+    void EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination ) {
+        
+        Descriptor.ItDoesBlending = true;
+        
+        Descriptor.BlendingSourceOperation = source;
+        Descriptor.BlendingDestinationOperation = destination;
+    }
+
+    void DisableBlend() {
+        
+        Descriptor.ItDoesBlending = false;
+    }
+
+    void EnableDepthTest() {
+        
+        Descriptor.ItDoesDepthTest = true;
+    }
+
+    void DisableDepthTest() {
+        
+        Descriptor.ItDoesDepthTest = false;
+    }
+
+    inline const GRAPHIC_RENDERER_STATE_DESCRIPTOR & GetDescriptor() const { return Descriptor; }
+    inline GRAPHIC_RENDERER_STATE_DESCRIPTOR & GetDescriptor() { return Descriptor; }
+    inline void SetDescriptor( const GRAPHIC_RENDERER_STATE_DESCRIPTOR & desc ) { return Descriptor = desc; }
 
 private :
     
@@ -167,24 +199,26 @@ private :
         ScissorRectangle;
     CORE_MATH_MATRIX
         CurrentLightMatrix;
+    GRAPHIC_RENDERER_STATE_DESCRIPTOR
+        Descriptor;
     int
         LightCount,
-        PassIndex,
         NumCascade,
         Width,
         Height,
         DeferredSpotIndex,
         DeferredPointIndex;
-    float
-        CascadeEnd[ GRAPHIC_MAX_NUM_CASCADES ];
     bool
         ScissorIsEnabled,
         ColorEnabled,
         LightingIsEnabled,
-        DeferredLightingIsEnabled;
+        DeferredLightingIsEnabled,
+        TexturingIsEnabled,
+        ShadowMappingIsEnabled;
+    float
+        CascadeEnd[ GRAPHIC_MAX_NUM_CASCADES ];
 
     #if X_METAL
-
     public:
 
         inline void * GetOffsetPointer( unsigned int index) { return ( (uint8_t *) MetalUniformBufferAddress) + UniformOffset + index; }

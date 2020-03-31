@@ -12,15 +12,13 @@
 void LinkTogether( const GRAPHIC_SHADER_BIND shader_bind );
 void BindAttribute( GRAPHIC_SHADER_ATTRIBUTE & shader_attribute, const CORE_HELPERS_IDENTIFIER & identifier );
 inline void * GetMtlPipelineDescriptor() { return _pipelineStateDescriptor; }
-inline void SetMtlPipelineState( void * state ) { _pipelineState = state; }
-
-inline void * GetMtlPipelineState() { return _pipelineState; }
+void * GetMtlCachedPipelineState( const GRAPHIC_RENDERER & renderer );
 
 private:
 
 void
-    * _pipelineState;
-void
     *_pipelineStateDescriptor;
+std::map< GRAPHIC_RENDERER_STATE_DESCRIPTOR, void * >
+    MetalPipelineStateCache;
 
 #endif /* GRAPHIC_SHADER_PROGRAM_METAL_hpp */

@@ -54,7 +54,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::Initialize( GRAPHIC_RENDERER & renderer )
     //GaussianRenderTarget2Table[0]->SetTextureLoadMode( GRAPHIC_STEXTURE_LOAD_MODE_Keep );
     // -- END OF SPECIFIC METAL CODE
     
-    GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha, (void *) VerticalBlurEffect->GetProgram().GetProgram() );
+    renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
     
     GaussianRenderTarget2Table[0]->EnableTextureBlending();
 
@@ -69,12 +69,14 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
     option.SetPosition( CORE_MATH_VECTOR::Zero );
     option.SetOrientation( CORE_MATH_QUATERNION() );
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    renderer.DisableDepthTest();
     
     GaussianRenderTarget2Table[0]->Clear();
     
     {
         PrimaryRenderTarget->BindForReading();
         PrimaryRenderTarget->SetReadBuffer( 0 );
+        
         
         /*{
             static int acc = 0;

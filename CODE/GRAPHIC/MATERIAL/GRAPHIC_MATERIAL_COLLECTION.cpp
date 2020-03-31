@@ -13,6 +13,7 @@
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.h"
 
 typedef std::map<std::string, GRAPHIC_MATERIAL::PTR> MAT_TAB_STRING;
 
@@ -24,6 +25,11 @@ XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_MATERIAL_COLLECTION::GRAPHIC_MATERIAL_COLLECTION() :
     MaterialTable() {
+    
+}
+
+GRAPHIC_MATERIAL_COLLECTION::GRAPHIC_MATERIAL_COLLECTION( const GRAPHIC_MATERIAL_COLLECTION & other) :
+    MaterialTable( other.MaterialTable ) {
     
 }
 
@@ -75,14 +81,9 @@ void GRAPHIC_MATERIAL_COLLECTION::LoadMaterialForName( const char * name ) {
     }
 }
 
-void GRAPHIC_MATERIAL_COLLECTION::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, const char * material_name, bool does_lighting, bool does_texturing ) {
+void GRAPHIC_MATERIAL_COLLECTION::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, const char * material_name ) {
     
-    MaterialTable[std::string( material_name )]->Apply(renderer, shader, does_lighting, does_texturing );
-    
-    /*if ( !MaterialTable.empty() ) {
-        
-        MaterialTable.begin()->second->Apply(renderer, shader, does_lighting, does_texturing );
-    }*/
+    MaterialTable[std::string( material_name )]->Apply(renderer, shader );
 }
 
 void GRAPHIC_MATERIAL_COLLECTION::SetDiffuse( const CORE_HELPERS_COLOR & color ) {

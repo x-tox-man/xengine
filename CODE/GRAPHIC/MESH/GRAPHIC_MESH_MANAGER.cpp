@@ -31,6 +31,9 @@ GRAPHIC_OBJECT * GRAPHIC_MESH_MANAGER::LoadObject( const CORE_FILESYSTEM_PATH & 
     GRAPHIC_OBJECT
         * object = new GRAPHIC_OBJECT;
     
+    //TODO: Deprecated RESOURCE<GRAPHIC_OBJECT, GRAPHIC_OBJECT_RESOURCE_LOADER>::LoadResourceForPath(const CORE_HELPERS_UNIQUE_IDENTIFIER &identifier, const CORE_FILESYSTEM_PATH &path)
+    abort();
+    
     switch ( meshTypeToLoad )
     {
         #ifdef __COMPILE_WITH__COLLADA__
@@ -99,10 +102,12 @@ GRAPHIC_OBJECT * GRAPHIC_MESH_MANAGER::LoadObject( const CORE_FILESYSTEM_PATH & 
     return object;
 }
 
-GRAPHIC_OBJECT_ANIMATED * GRAPHIC_MESH_MANAGER::LoadObjectAnimated( const CORE_FILESYSTEM_PATH & path, int meshIdentifier, int meshTypeToLoad ) {
+GRAPHIC_OBJECT * GRAPHIC_MESH_MANAGER::LoadObjectAnimated( const CORE_FILESYSTEM_PATH & path, int meshIdentifier, int meshTypeToLoad ) {
     
-    GRAPHIC_OBJECT_ANIMATED
-        * object = new GRAPHIC_OBJECT_ANIMATED;
+    GRAPHIC_OBJECT
+        * object = new GRAPHIC_OBJECT;
+    
+    abort();//TODO: Deprecated use : RESOURCE<GRAPHIC_OBJECT, GRAPHIC_OBJECT_RESOURCE_LOADER>::LoadResourceForPath(const CORE_HELPERS_UNIQUE_IDENTIFIER &identifier, const CORE_FILESYSTEM_PATH &path)
     
     switch ( meshTypeToLoad )
     {
@@ -186,7 +191,7 @@ void GRAPHIC_MESH_MANAGER::Compile( const CORE_FILESYSTEM_PATH & path, const COR
             ++last_dot;
             *last_dot = '\0';
             
-            strcat(new_path, animation->GetAnimationName().c_str() );
+            strcat(new_path, animation->GetName().c_str() );
             strcat(new_path, ".abx" );
             
             CORE_FILESYSTEM_PATH
@@ -213,7 +218,7 @@ void GRAPHIC_MESH_MANAGER::Compile( const CORE_FILESYSTEM_PATH & path, const COR
             ++last_dot;
             *last_dot = '\0';
         
-            strcat(new_path, animation->GetAnimationName().c_str() );
+            strcat(new_path, animation->GetName().c_str() );
             strcat(new_path, ".abx" );
             
             char buff[2];

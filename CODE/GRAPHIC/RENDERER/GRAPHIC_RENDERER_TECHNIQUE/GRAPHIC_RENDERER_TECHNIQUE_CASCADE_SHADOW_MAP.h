@@ -55,9 +55,9 @@ public:
         CascadeCount;
     GRAPHIC_RENDER_TARGET::PTR
         PrimaryRenderTarget,
-        ShadowMapRenderTarget1,
-        ShadowMapRenderTarget2,
-        ShadowMapRenderTarget3;
+        ShadowMapRenderTarget[ MAX_NUM_CASCADES ];
+    GRAPHIC_SHADER_EFFECT::PTR
+        ShadowMapEffect;
 XS_CLASS_END
 
 

@@ -24,7 +24,12 @@ public:
     virtual void ApplyFirstPass( GRAPHIC_RENDERER & renderer );
     virtual void ApplySecondPass( GRAPHIC_RENDERER & renderer );
 
-    CORE_HELPERS_CALLBACK_1< GRAPHIC_RENDERER & >
+    inline void SetTransparentMask( int mask ) { TransparentMask = mask; }
+    inline int GetTransparentMask() const { return TransparentMask; }
+
+    int
+        TransparentMask;
+    CORE_HELPERS_CALLBACK_2< GRAPHIC_RENDERER &, int >
         RendererCallback,
         RendererCallback1;
     GRAPHIC_RENDER_TARGET::PTR

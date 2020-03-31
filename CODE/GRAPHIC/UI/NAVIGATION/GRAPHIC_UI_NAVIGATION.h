@@ -14,6 +14,7 @@
 #include "CORE_FIXED_STATE_MACHINE.h"
 #include "CORE_HELPERS_UNIQUE.h"
 #include "CORE_PARALLEL.h"
+#include "CORE_APPLICATION.h"
 
 class NAVIGATION_ITEM {
     

@@ -46,5 +46,6 @@ abort();\
     memcpy( renderer.GetOffsetPointer( index ), array, (size * 4) ); \
     renderer.OffsetPointer( (size * 4) );
 
+unsigned long GetMTLPixelFormatFromDescriptor( GRAPHIC_TEXTURE_IMAGE_TYPE color );
 
 #endif /* METAL_h */

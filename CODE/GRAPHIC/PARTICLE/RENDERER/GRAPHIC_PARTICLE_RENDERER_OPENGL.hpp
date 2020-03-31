@@ -18,8 +18,10 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     VertexBuffer->InitializeWithMemory( 9 * sizeof(float) * __ARRAY_SIZE__, 0, (void*) &particle_table[0] );
     GRAPHIC_SYSTEM::UpdateVertexBuffer(&Mesh, *VertexBuffer);
     
-    effect->Apply( renderer, false, true );
+    abort();//TODO: correct material name
+    effect->Apply( renderer, "" );
     
+    abort();
     GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
     
     CORE_MATH_MATRIX result = renderer.GetCamera()->GetProjectionMatrix();

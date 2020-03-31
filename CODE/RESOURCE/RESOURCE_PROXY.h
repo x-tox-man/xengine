@@ -29,6 +29,7 @@ XS_CLASS_BEGIN_WITH_COPY( RESOURCE_PROXY )
     inline bool ShouldLoad() { return ItShouldLoad; }
     inline void SetItShouldLoad( bool should_load ) { ItShouldLoad = should_load; }
     inline RESOURCE_TYPE GetType() { return Type; }
+    inline void SetType( const RESOURCE_TYPE type ) { Type = type; }
     inline const CORE_HELPERS_UNIQUE_IDENTIFIER & GetIdentifier() { return Identifier; }
 
     void operator = ( const RESOURCE_PROXY & other ) {

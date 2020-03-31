@@ -11,10 +11,10 @@
 #include "CORE_DATA_STREAM.h"
 #include "CORE_DATA_JSON.h"
 
-// TODO: Move GRAPHIC_MESH_SUB_SKELETON to own class
+// TODO: Move GRAPHIC_MESH_SKELETON_JOINT to own class
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION_SKELETON )
-    XS_DEFINE_ClassMember( "RootSubSkeleton", GRAPHIC_MESH_SUB_SKELETON, RootSubSkeleton )
+    XS_DEFINE_ClassMember( "RootSubSkeleton", GRAPHIC_MESH_SKELETON_JOINT, RootSubSkeleton )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_MESH_ANIMATION_SKELETON::GRAPHIC_MESH_ANIMATION_SKELETON() :
@@ -26,34 +26,26 @@ GRAPHIC_MESH_ANIMATION_SKELETON::~GRAPHIC_MESH_ANIMATION_SKELETON() {
 
 }
 
-void GRAPHIC_MESH_ANIMATION_SKELETON::Initialize( const std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & table ) {
-    
-    for (int i = 0; i < RootSubSkeleton.ChildCount; i++ ) {
-        
-        RootSubSkeleton.SubSkelettonTable[i].Initialize( table );
-    }
-}
-
-void SetupWorldMatrix( GRAPHIC_MESH_SUB_SKELETON & sub_skeletton, float * world_matrix, const float time) {
+void SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT & sub_skeletton, float * world_matrix, const float time) {
     
     for ( int i = 0; i < sub_skeletton.ChildCount; i++ ) {
         
         CORE_SCALAR sub_world_matrix;
         
-        float * joint =  (float*) sub_skeletton.SubSkelettonTable[i].Joint->YieldFloatMatrixBufferForTime( time );
+        float * joint =  (float*) sub_skeletton.SubJointTable[i].Joint.YieldFloatMatrixBufferForTime( time );
         
         memcpy( (void *)sub_world_matrix.Value.FloatMatrix4x4, world_matrix, 16 * sizeof( float ) );
         
         GLOBAL_MULTIPLY_MATRIX(sub_world_matrix.Value.FloatMatrix4x4, joint);
         
-        sub_skeletton.SubSkelettonTable[i].Joint->SetWorldMatrix( sub_world_matrix.Value.FloatMatrix4x4 );
-        sub_skeletton.SubSkelettonTable[i].Joint->SetSkinningMatrix(sub_world_matrix.Value.FloatMatrix4x4 );
+        sub_skeletton.SubJointTable[i].Joint.SetWorldMatrix( sub_world_matrix.Value.FloatMatrix4x4 );
+        sub_skeletton.SubJointTable[i].Joint.SetSkinningMatrix(sub_world_matrix.Value.FloatMatrix4x4 );
         
-        SetupWorldMatrix( sub_skeletton.SubSkelettonTable[i], sub_world_matrix.Value.FloatMatrix4x4, time);
+        SetupWorldMatrix( sub_skeletton.SubJointTable[i], sub_world_matrix.Value.FloatMatrix4x4, time);
     }
 }
 
-void SetupWorldPose( GRAPHIC_MESH_SUB_SKELETON & sub_skeletton, CORE_MATH_POSE & world_pose, const float time) {
+void SetupWorldPose( GRAPHIC_MESH_SKELETON_JOINT & sub_skeletton, CORE_MATH_POSE & world_pose, const float time) {
     
     for ( int i = 0; i < sub_skeletton.ChildCount; i++ ) {
         
@@ -61,14 +53,14 @@ void SetupWorldPose( GRAPHIC_MESH_SUB_SKELETON & sub_skeletton, CORE_MATH_POSE &
             pose,
             temporary;
         
-        sub_skeletton.SubSkelettonTable[i].Joint->YieldPoseForTime( time, pose );
+        sub_skeletton.SubJointTable[i].Joint.YieldPoseForTime( time, pose );
     
         temporary.CopyFrom( world_pose * pose );
         
-        sub_skeletton.SubSkelettonTable[i].Joint->SetWorldPose( temporary );
-        sub_skeletton.SubSkelettonTable[i].Joint->SetSkinningPose( temporary );
+        sub_skeletton.SubJointTable[i].Joint.SetWorldPose( temporary );
+        sub_skeletton.SubJointTable[i].Joint.SetSkinningPose( temporary );
         
-        SetupWorldPose( sub_skeletton.SubSkelettonTable[i], temporary, time);
+        SetupWorldPose( sub_skeletton.SubJointTable[i], temporary, time);
     }
 }
 
@@ -77,14 +69,14 @@ void GRAPHIC_MESH_ANIMATION_SKELETON::ComputeWorldMatrix( const float time ) {
     //in case of multiple root nodes :
     for ( int i = 0; i < RootSubSkeleton.ChildCount; i++ ) {
         
-        float * ptr = (float *) RootSubSkeleton.SubSkelettonTable[i].Joint->YieldFloatMatrixBufferForTime( time );
+        float * ptr = (float *) RootSubSkeleton.SubJointTable[i].Joint.YieldFloatMatrixBufferForTime( time );
         
         CORE_MATH_MATRIX identity;
         
-        RootSubSkeleton.SubSkelettonTable[i].Joint->SetWorldMatrix( identity.GetRow(0) );
-        RootSubSkeleton.SubSkelettonTable[i].Joint->SetSkinningMatrix( ptr );
+        RootSubSkeleton.SubJointTable[i].Joint.SetWorldMatrix( identity.GetRow(0) );
+        RootSubSkeleton.SubJointTable[i].Joint.SetSkinningMatrix( ptr );
         
-        SetupWorldMatrix( RootSubSkeleton.SubSkelettonTable[i], ptr, time );
+        SetupWorldMatrix( RootSubSkeleton.SubJointTable[i], ptr, time );
     }
 }
 
@@ -95,11 +87,11 @@ void GRAPHIC_MESH_ANIMATION_SKELETON::ComputeWorldPose( const float time ) {
         
         CORE_MATH_POSE pose;
         
-        RootSubSkeleton.SubSkelettonTable[i].Joint->YieldPoseForTime( time, pose );
+        RootSubSkeleton.SubJointTable[i].Joint.YieldPoseForTime( time, pose );
         
-        RootSubSkeleton.SubSkelettonTable[i].Joint->SetWorldPose( pose );
-        RootSubSkeleton.SubSkelettonTable[i].Joint->SetSkinningPose( pose );
+        RootSubSkeleton.SubJointTable[i].Joint.SetWorldPose( pose );
+        RootSubSkeleton.SubJointTable[i].Joint.SetSkinningPose( pose );
         
-        SetupWorldPose( RootSubSkeleton.SubSkelettonTable[i], pose, time );
+        SetupWorldPose( RootSubSkeleton.SubJointTable[i], pose, time );
     }
 }

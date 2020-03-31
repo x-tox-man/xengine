@@ -30,7 +30,7 @@ public:
         
     }
     
-    virtual void Load( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {}
+    virtual BASE_RESOURCE * Load( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) { abort; return NULL; }
     virtual void Save( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {}
     
     inline const CORE_HELPERS_UNIQUE_IDENTIFIER & GetIdentifier() const { return Identifier; }
@@ -61,9 +61,9 @@ public:
         
     }
     
-    virtual void Load( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) override {
+    virtual BASE_RESOURCE * Load( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) override {
         
-        ResourceCache->LoadResourceFromStream( identifier, stream );
+        return ResourceCache->LoadResourceFromStream( identifier, stream );
     }
     
     virtual void Save( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) override {

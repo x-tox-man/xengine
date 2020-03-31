@@ -133,7 +133,7 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
         ++last_dot;
         *last_dot = '\0';
         
-        strcat(new_path, animation->GetAnimationName().c_str() );
+        strcat(new_path, animation->GetName().c_str() );
         strcat(new_path, ".abx" );
         
         CORE_FILESYSTEM_PATH
@@ -152,7 +152,7 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
         
         GRAPHIC_MESH_ANIMATION * animation = object->GetAnimationTable()[ i ];
         
-        char * new_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate( strlen(destination_path.GetPath()) + strlen(animation->GetAnimationName().c_str()) +2 );
+        char * new_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate( strlen(destination_path.GetPath()) + strlen(animation->GetName().c_str()) +2 );
         
         strcpy(new_path, destination_path.GetPath() );
         
@@ -160,7 +160,7 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
         ++last_dot;
         *last_dot = '\0';
         
-        strcat(new_path, animation->GetAnimationName().c_str() );
+        strcat(new_path, animation->GetName().c_str() );
         strcat(new_path, ".abx" );
         
         char buff[2];

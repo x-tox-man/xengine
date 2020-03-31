@@ -11,7 +11,12 @@
 
 GRAPHIC_SHADER_PROGRAM::GRAPHIC_SHADER_PROGRAM():
     ShaderTable(),
-    ShaderAttributeTable() {
+    ShaderAttributeTable()
+#if X_METAL
+    ,_pipelineStateDescriptor( NULL ),
+    MetalPipelineStateCache()
+#endif
+{
     
 };
 

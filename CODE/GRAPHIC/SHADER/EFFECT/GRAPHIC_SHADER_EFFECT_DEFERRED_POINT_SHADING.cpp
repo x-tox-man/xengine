@@ -8,6 +8,7 @@
 
 #include "GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING.h"
 #include "GRAPHIC_SYSTEM.h"
+#include "GRAPHIC_RENDERER_STATE_DESCRIPTOR.h"
 
 GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING( GRAPHIC_SHADER_EFFECT::PTR effect ) :
     GRAPHIC_SHADER_EFFECT() {
@@ -22,9 +23,9 @@ GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::~GRAPHIC_SHADER_EFFECT_DEFERRED_PO
     
 }
 
-void GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::Apply( GRAPHIC_RENDERER & renderer, const char * material_name, bool does_lighting, bool does_texturing ) {
+void GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::Apply( GRAPHIC_RENDERER & renderer, const char * material_name ) {
     
-    GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name, does_lighting, does_texturing );
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name );
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_previous_view_mat = Program.GetShaderAttribute( PreviousModelViewProjectionIdentifier );
     
