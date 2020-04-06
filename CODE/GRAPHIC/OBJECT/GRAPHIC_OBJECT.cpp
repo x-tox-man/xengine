@@ -105,18 +105,31 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             //abort();
             size_t size = (int) AnimationController->GetAnimation( (int) i)->GetJointTable().size() * 16 * sizeof( float );
             
-            memcpy( float_matrix_array_copy, AnimationController->GetCurrentSkinningForAnimation( i ), size );
-    #if OPENGL4
-            GRAPHIC_SYSTEM_ApplyMatrix( attrSkinningMatrixTable.AttributeIndex, 64, 0, float_matrix_array_copy )
-    #else
-            //Only for METAL
-            attrSkinningMatrixTable.AttributeIndex = 0;
-            attrSkinningMatrixTable.AttributeOffset = 9;
+            memcpy( float_matrix_array_copy, AnimationController->GetCurrentSkinningForAnimation( (int) i ), size );
             
-            renderer.BufferPassIndex = i;
+            float * ptr = (float*) AnimationController->GetAnimation( (int)i )->GetInverseBindMatrixes().getpointerAtIndex(0, 0);
+
+            int offset = 0;
+
+            for ( size_t mi = 0; mi < AnimationController->GetAnimation( (int)i )->GetJointTable().size(); mi++ ) {
+                
+                GLOBAL_MULTIPLY_MATRIX(float_matrix_array_copy + offset, ptr + offset );
+                offset += 16;
+            }
             
-            effect->UpdateFloatArray(renderer, attrSkinningMatrixTable, 64*16, float_matrix_array_copy );
-    #endif
+            int num_joints = (int)(size / 64);
+                    
+            #if OPENGL4
+                    GRAPHIC_SYSTEM_ApplyMatrix( attrSkinningMatrixTable.AttributeIndex, num_joints, 0, float_matrix_array_copy )
+            #else
+                    //Only for METAL
+                    attrSkinningMatrixTable.AttributeIndex = 0;
+                    attrSkinningMatrixTable.AttributeOffset = 9;
+                    
+                    renderer.BufferPassIndex = (unsigned int) i;
+                    
+                    effect->UpdateFloatArray(renderer, attrSkinningMatrixTable, num_joints*16, float_matrix_array_copy );
+            #endif
 
             effect->UpdateMatrix(renderer, attrBindShapeMatrix, AnimationController->GetAnimation( (int) i )->GetBindShapeMatrix().Value.FloatMatrix4x4);
         }

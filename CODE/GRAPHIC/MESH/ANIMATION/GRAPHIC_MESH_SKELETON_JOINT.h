@@ -22,7 +22,7 @@ XS_CLASS_BEGIN( GRAPHIC_MESH_SKELETON_JOINT )
     inline void SetName( const char * name ) { CORE_DATA_COPY_STRING( Name, name); }
     inline char * GetName() { return Name; }
 
-    void print();
+    void print( int level );
 
     int
         Index,

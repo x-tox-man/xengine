@@ -87,7 +87,7 @@ void METAL_TEST::Initialize() {
     }
     
     
-    Camera = new GRAPHIC_CAMERA( 0.1f, 100.0f, GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR( 0.0f, -8.0f, -25.0f, 1.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis, 65.0f );
+    Camera = new GRAPHIC_CAMERA( 0.1f, 1000.0f, GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR( 0.0f, -8.0f, -25.0f, 1.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis, 65.0f );
     
     RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
@@ -263,7 +263,7 @@ void METAL_TEST::Render() {
     options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
     //TODO: NOT COOL !
-    Update( 0.0333333f );
+    Update( 0.0133333f );
     //TODO: SCENE TECHNIQUE => DEPENDS ON A SCENE TO WORK
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );

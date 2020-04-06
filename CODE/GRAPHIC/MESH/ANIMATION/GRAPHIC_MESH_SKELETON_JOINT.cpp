@@ -31,10 +31,15 @@ GRAPHIC_MESH_SKELETON_JOINT::~GRAPHIC_MESH_SKELETON_JOINT() {
     //JOINTS will be relesed elsewhere
 }
 
-void GRAPHIC_MESH_SKELETON_JOINT::print() {
+void GRAPHIC_MESH_SKELETON_JOINT::print(int level ) {
+    
+    for (int i = 0; i< level;i++ ) {
+        printf( "  " );
+    }
+    printf( "%s\n", GetName() );
     
     for (int i = 0; i < ChildCount; i++ ) {
         
-        ChildJointTable[i].print();
+        ChildJointTable[i].print( level + 1);
     }
 }

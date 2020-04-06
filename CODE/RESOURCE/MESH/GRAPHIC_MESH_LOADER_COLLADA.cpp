@@ -67,9 +67,9 @@
         
         int index = -1;
         
-        for ( int i = 0; i < animatedJoints.size(); i++ ) {
+        for ( int i = 0; i < graphicObject->GetAnimationTable()[0]->GetJointTable().size(); i++ ) {
             
-            if( animatedJoints[i] != NULL && strcmp(node_name, animatedJoints[i]->GetName() ) == 0 ) {
+            if( graphicObject->GetAnimationTable()[0]->GetJointTable()[i] != NULL && strcmp(node_name, graphicObject->GetAnimationTable()[0]->GetJointTable()[i]->GetName() ) == 0 ) {
                 
                 return i;
             }
@@ -84,11 +84,11 @@
         skeleton.ChildJointTable = ( GRAPHIC_MESH_SKELETON_JOINT *) CORE_MEMORY_ALLOCATOR::Allocate( sizeof( GRAPHIC_MESH_SKELETON_JOINT ) * (int) node.getChildNodes().getCount() );
         
         skeleton.SetName( node.getName().c_str() );
-        skeleton.Index = (int) node.getUniqueId().getObjectId();
+        skeleton.Index = (int) indexTable[node.getUniqueId().getObjectId()];
          
         int found_node = FindNodeId( node.getName().c_str() );
         if ( found_node > -1 ) {
-            new_joints_table[ skeleton.Index ] = animatedJoints[ found_node ];
+            new_joints_table[ skeleton.Index ] = graphicObject->GetAnimationTable()[0]->GetJointTable()[ found_node ];
         }
         else {
             new_joints_table[ skeleton.Index ] = NULL;
@@ -835,7 +835,9 @@
 
         BASE_JOINTS_PER_VERTEX = 3;
         
-        unsigned int joint_index_offset = 0;
+        
+        //TODO: Why????
+        unsigned int joint_index_offset = 1;
         
         int new_buffer_size = buffer->GetSize()
         + (int) ( BASE_JOINTS_PER_VERTEX * skinControllerData->getJointsPerVertex().getCount()* sizeof( float ) )
@@ -872,11 +874,6 @@
             
             int jointsPerVertex = *((unsigned int *) skinControllerData->getJointsPerVertex().getData() + i);
             
-            if ( jointsPerVertex > 3 ) {
-                //SERVICE_LOGGER_Warning( "COLLADA_LOADER_WRITER::writeSkinControllerData : jointsPerVertex higher than 3 > ignoring other components" );
-                jointsPerVertex = 3;
-            }
-            
             for (int new_geometry_index = 0; new_geometry_index < mesh->CurrenGeometrytTableSize; new_geometry_index++ ) {
                 
                 if ( mesh->CurrenGeometrytTable[ new_geometry_index ].vertex_index == i ) {
@@ -887,10 +884,13 @@
                     
                     for( int joint_per_vertex_index = 0; joint_per_vertex_index < jointsPerVertex; joint_per_vertex_index++ ) {
                         
-                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + joint_per_vertex_index));
+                        if ( joint_per_vertex_index > 2 ) {
+                            continue;
+                        }
                         
-                        int weight_index = skinControllerData->getWeightIndices().getData()[ joint_index_offset + joint_per_vertex_index];
-                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[joint_per_vertex_index] = *(skinControllerData->getWeights().getFloatValues()->getData() + weight_index );
+                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + joint_per_vertex_index ));
+                        
+                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[joint_per_vertex_index] = *(skinControllerData->getWeights().getFloatValues()->getData() + joint_index_offset + joint_per_vertex_index );
                         
                         if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 0.0f ) {
                             
@@ -902,10 +902,17 @@
                             
                             mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
                         }
+                        
+                        
                     }
+                    
+                    //printf( "%f %f %f\n", mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0], mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1], mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2]);
+                    
+                    //printf( "%d %d %d\n", (int)mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0], (int)mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1], (int)mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[2]);
+                    //assert( mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 1.01f);
                 }
             }
-            
+                
             joint_index_offset += jointsPerVertex;
         }
         
@@ -921,6 +928,7 @@
             memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 16 ),   (void*)mesh->CurrenGeometrytTable[v_index].tangents,        12 );
             memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 19),    (void*)mesh->CurrenGeometrytTable[v_index].binormal,        12 );
             
+            //assert( mesh->CurrenGeometrytTable[v_index].joint_index[0] != 0.0f && mesh->CurrenGeometrytTable[v_index].joint_weights[0] != 0.0f );
             //printf("windex %d %d %d\n", (int)mesh->CurrenGeometrytTable[v_index].joint_index[0], (int)mesh->CurrenGeometrytTable[v_index].joint_index[1], (int)mesh->CurrenGeometrytTable[v_index].joint_index[2]);
             
             /*SERVICE_LOGGER_Error( "%f %f %f\n", mesh->CurrenGeometrytTable[v_index].tangents[0], mesh->CurrenGeometrytTable[v_index].tangents[1], mesh->CurrenGeometrytTable[v_index].tangents[2] );
@@ -960,7 +968,7 @@
             
             if ( object_id < animatedJoints.size() ) {
                 
-                animation->GetJointTable()[i] = animatedJoints[ i ];
+                animation->GetJointTable()[ object_id ] = animatedJoints[ object_id ];
             }
             else {
                 

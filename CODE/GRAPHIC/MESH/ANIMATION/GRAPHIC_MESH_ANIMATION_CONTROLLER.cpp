@@ -85,6 +85,8 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Update( const float time, GRAPHIC_MESH_S
         MeshAnimationTable[i]->ComputeSkinningMatrixTableForFrameIndex( skeleton, GetFrameIndex(), frame_reference );
     }
     
+    //skeleton->print(0);
+    
     //TODO: Average animations?
     for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
         

@@ -59,12 +59,13 @@ void GRAPHIC_MESH_ANIMATION::SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * ske
     
     if ( JointTable[ skeletton->Index ] != NULL ) {
         
+        assert( strcmp( skeletton->GetName(), JointTable[ skeletton->Index ]->GetName() )  == 0 );
         mat = CORE_MATH_MATRIX( JointTable[ skeletton->Index ]->YieldFloatMatrixBufferForIndex( animation_step_index ) );
     }
     
-    final_world_mat = world_matrix * mat;
+    final_world_mat = mat * world_matrix;
     
-    memcpy( (void*) (*ptr_index + skeletton->Index * 16), final_world_mat.GetRow(0), 64);
+    memcpy( (void*) ((float *) (*ptr_index) + skeletton->Index * 16), final_world_mat.GetRow(0), 64);
 
     for ( int i = 0; i < skeletton->ChildCount; i++ ) {
         
@@ -79,6 +80,7 @@ void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_ME
     
     if ( JointTable[ skeletton->Index ] != NULL ) {
         
+        assert( strcmp( skeletton->GetName(), JointTable[ skeletton->Index ]->GetName() )  == 0 );
         matrix_ptr = JointTable[ skeletton->Index ]->YieldFloatMatrixBufferForIndex( animation_step_index );
         mat= CORE_MATH_MATRIX( matrix_ptr );
     }
@@ -90,7 +92,7 @@ void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_ME
     }
     
     if ( matrix_ptr != NULL ) {
-        memcpy( (void*) (matrix_buffer + skeletton->Index * 16), (void*) matrix_ptr, 64 );
+        memcpy( (void*) ((float*) matrix_buffer + skeletton->Index * 16), (void*) matrix_ptr, 64 );
     }
     
     //Compute the skeletton World matrices to temp buffer
