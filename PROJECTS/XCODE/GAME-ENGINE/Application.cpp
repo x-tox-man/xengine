@@ -390,7 +390,7 @@ void MyTestApp::Render() {
         #if PLATFORM_OSX
             {
                 GRAPHIC_RENDERER::GetInstance().SetCamera( LightCamera );
-                GRAPHIC_RENDERER::GetInstance().SetPassIndex(1);
+                //GRAPHIC_RENDERER::GetInstance().SetPassIndex(1);
                 
                 GLOBAL_RESOURCES::GetInstance().ShadowMapRenderTarget.Apply();
                 Game->GetScene()->Render();
@@ -407,7 +407,7 @@ void MyTestApp::Render() {
         
         {
             
-            GRAPHIC_RENDERER::GetInstance().SetPassIndex(0);
+            //GRAPHIC_RENDERER::GetInstance().SetPassIndex(0);
             GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
             
             #if PLATFORM_OSX
@@ -766,7 +766,7 @@ void MyTestApp::Update( float time_step ) {
         
         quat.Normalize();
         
-        quat.ToMatrix( (float* ) ((GRAPHIC_OBJECT_ANIMATED *)GLOBAL_RESOURCES::GetInstance().NakedGirlObject)->GetAnimationController()->GetAnimation( 0 )->GetSkeleton().GetRootSubSkeleton().SubSkelettonTable[0].Joint->GetInterPolatedMatrix() );
+        quat.ToMatrix( (float* ) ((GRAPHIC_OBJECT *)GLOBAL_RESOURCES::GetInstance().NakedGirlObject)->GetAnimationController()->GetAnimation( 0 )->GetSkeleton().SubSkelettonTable[0].Joint->GetInterPolatedMatrix() );
     }
     
     GRAPHIC_UI_SYSTEM::GetInstance().Update(time_step);

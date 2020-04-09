@@ -14,9 +14,7 @@ GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::GRAPHIC_RENDERER_TECHNIQUE_CASCAD
     LightShadowCamera(),
     CascadeCount( 0 ),
     PrimaryRenderTarget( NULL ),
-    ShadowMapRenderTarget1( NULL ),
-    ShadowMapRenderTarget2( NULL ),
-    ShadowMapRenderTarget3( NULL ) {
+    ShadowMapRenderTarget() {
     
 }
 
@@ -34,101 +32,65 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::Initialize( GRAPHIC_RENDERER
         rt_lookat( 0.0f, 0.0f, 0.0f, 1.0f );
     
     for ( int i = 0; i < CascadeCount; i++) {
+        
         LightShadowCamera[i] = new GRAPHIC_CAMERA_ORTHOGONAL( renderer.GetCamera()->GetNear(), renderer.GetCamera()->GetFar(), renderer.GetCamera()->GetWidth(), renderer.GetCamera()->GetHeight(), CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
         LightShadowCamera[i]->ActivateForRender();
+        
+        GRAPHIC_SYSTEM::SetTextureOptions( ShadowMapRenderTarget[ i ]->GetTargetTexture( 0 ), GRAPHIC_TEXTURE_FILTERING_Nearest, GRAPHIC_TEXTURE_WRAP_Border, CORE_COLOR_Transparent );
     }
     
-    GRAPHIC_SYSTEM::SetTextureOptions(ShadowMapRenderTarget1->GetTargetTexture( 0 ), GRAPHIC_TEXTURE_FILTERING_Nearest, GRAPHIC_TEXTURE_WRAP_Border, CORE_COLOR_Transparent);
-    GRAPHIC_SYSTEM::SetTextureOptions(ShadowMapRenderTarget2->GetTargetTexture( 0 ), GRAPHIC_TEXTURE_FILTERING_Nearest, GRAPHIC_TEXTURE_WRAP_Border, CORE_COLOR_Transparent );
-    GRAPHIC_SYSTEM::SetTextureOptions(ShadowMapRenderTarget3->GetTargetTexture( 0 ), GRAPHIC_TEXTURE_FILTERING_Nearest, GRAPHIC_TEXTURE_WRAP_Border, CORE_COLOR_Transparent );
+    ShadowMapEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowmapEffect"), CORE_FILESYSTEM_PATH::FindFilePath( "ShadowmapEffect" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    
+    ShadowMapEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_RENDERER & renderer ) {
     
     Camera = renderer.GetCamera();
     renderer.SetNumCascade( 0 );
+    renderer.EnableDepthTest();
+    GRAPHIC_RENDERER_STATE_DESCRIPTOR backup_desc = renderer.GetDescriptor();
+    renderer.GetDescriptor().DisableColor();
     
-    GRAPHIC_RENDERER::GetInstance().SetPassIndex( 1 );
     {
         CalculateCascadeOrthoProjection( renderer );
         
-        GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[0] );
-        renderer.SetCamera( LightShadowCamera[0] );
+        for ( int i = 0; i < CascadeCount; i++) {
         
-        LightShadowCamera[0]->InitOrthoProjTransform(CascadeProjectionInfo[ 0 ].Left, CascadeProjectionInfo[ 0 ].Right, CascadeProjectionInfo[ 0 ].Bottom, CascadeProjectionInfo[ 0 ].Top, CascadeProjectionInfo[ 0 ].Near,  CascadeProjectionInfo[ 0 ].Far );
-        
-        ShadowMapRenderTarget1->Apply();
-        GRAPHIC_SYSTEM::DisableBlend();
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
-        GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
-        RendererCallback( renderer );
-        /*{
-            static int acc = 0;
+            GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[ i ] );
+            renderer.SetCamera( LightShadowCamera[ i ] );
             
-            acc++;
-            if ( acc % 33 == 0 ) {
-                
-                GRAPHIC_TEXTURE * texture2;
-                
-                texture2= ShadowMapRenderTarget1->GetTargetTexture( 0 );
-                texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth1", "png", "" ) );
-            }
-        }*/
-        ShadowMapRenderTarget1->Discard();
-        
-        GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[1] );
-        renderer.SetCamera( LightShadowCamera[1] );
-        
-        LightShadowCamera[1]->InitOrthoProjTransform(CascadeProjectionInfo[ 1 ].Left, CascadeProjectionInfo[ 1 ].Right, CascadeProjectionInfo[ 1 ].Bottom, CascadeProjectionInfo[ 1 ].Top, CascadeProjectionInfo[ 1 ].Near,  CascadeProjectionInfo[ 1 ].Far );
-        
-        ShadowMapRenderTarget2->Apply();
-        GRAPHIC_SYSTEM::DisableBlend();
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
-        GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
-        RendererCallback( renderer );
-        
-        {
-            static int acc = 0;
+            LightShadowCamera[ i ]->InitOrthoProjTransform(CascadeProjectionInfo[ i ].Left, CascadeProjectionInfo[ i ].Right, CascadeProjectionInfo[ i ].Bottom, CascadeProjectionInfo[ i ].Top, CascadeProjectionInfo[ i ].Near,  CascadeProjectionInfo[ i ].Far );
             
-            acc++;
-            if ( acc % 33 == 0 ) {
+            ShadowMapRenderTarget[ i ]->Clear();
+            ShadowMapRenderTarget[ i ]->Apply();
+            
+            renderer.DisableBlend();
+            renderer.EnableDepthTest();
+            
+            GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
+            //GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
+            
+            renderer.SetShadowMappingEnabled( true );
+            RendererCallback( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
+            renderer.SetShadowMappingEnabled( false );
+            /*{
+                static int acc = 0;
                 
-                GRAPHIC_TEXTURE * texture2;
-                
-                texture2= ShadowMapRenderTarget2->GetTargetTexture( 0 );
-                texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth2", "png", "" ) );
-            }
+                acc++;
+                if ( acc % 33 == 0 ) {
+                    
+                    GRAPHIC_TEXTURE * texture2;
+                    
+                    texture2= ShadowMapRenderTarget[ i ]->GetTargetTexture( 0 );
+                    texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth1", "png", "" ) );
+                }
+            }*/
+            ShadowMapRenderTarget[ i ]->Discard();
         }
-        
-        ShadowMapRenderTarget2->Discard();
-        
-        GRAPHIC_RENDERER::GetInstance().SetCamera( LightShadowCamera[2] );
-        renderer.SetCamera( LightShadowCamera[2] );
-        
-        LightShadowCamera[2]->InitOrthoProjTransform(CascadeProjectionInfo[ 2 ].Left, CascadeProjectionInfo[ 2 ].Right, CascadeProjectionInfo[ 2 ].Bottom, CascadeProjectionInfo[ 2 ].Top, CascadeProjectionInfo[ 2 ].Near, CascadeProjectionInfo[ 2 ].Far );
-        
-        ShadowMapRenderTarget3->Apply();
-        GRAPHIC_SYSTEM::DisableBlend();
-        GRAPHIC_SYSTEM::EnableDepthTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Greater, true );
-        GRAPHIC_SYSTEM::ClearFrambufferDepth( 0.0f );
-        RendererCallback( renderer );
-        
-        {
-            static int acc = 0;
-            
-            acc++;
-            if ( acc % 33 == 0 ) {
-                
-                GRAPHIC_TEXTURE * texture2;
-                texture2 = ShadowMapRenderTarget3->GetTargetTexture( 0 );
-                texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadoToPlan-depth3", "png", "" ) );
-            }
-        }
-        
-        ShadowMapRenderTarget3->Discard();
     }
     
-    GRAPHIC_RENDERER::GetInstance().SetPassIndex( 0 );
+    renderer.SetDescriptor( backup_desc );
     renderer.SetCamera( Camera );
 }
 
@@ -137,16 +99,13 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplySecondPass( GRAPHIC_REN
     {
         renderer.GetCamera()->ActivateForRender();
         
+        for ( int i = 0; i < CascadeCount; i++) {
+            
+            GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( i, LightShadowCamera[ i ] );
+            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( i, ShadowMapRenderTarget[ i ]->GetTargetTexture( 0 ) );
+        }
         
-        GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( 0, LightShadowCamera[ 0 ] );
-        GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( 1, LightShadowCamera[ 1 ] );
-        GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( 2, LightShadowCamera[ 2 ]);
-        
-        GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 0, ShadowMapRenderTarget1->GetTargetTexture( 0 ) );
-        GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 1, ShadowMapRenderTarget2->GetTargetTexture( 0 ) );
-        GRAPHIC_RENDERER::GetInstance().SetDepthTexture( 2, ShadowMapRenderTarget3->GetTargetTexture( 0 ) );
-        
-        {
+        /*{
             static int acc = 0;
             
             acc++;
@@ -154,19 +113,19 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplySecondPass( GRAPHIC_REN
                 
                 GRAPHIC_TEXTURE * texture2;
                 
-                ShadowMapRenderTarget1->Apply();
-                texture2= ShadowMapRenderTarget1->GetTargetTexture( 0 );
+                ShadowMapRenderTarget[ 0 ]->Apply();
+                texture2= ShadowMapRenderTarget[ 0 ]->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth1", "png", "" ) );
                 
-                ShadowMapRenderTarget2->Apply();
-                texture2= ShadowMapRenderTarget2->GetTargetTexture( 0 );
+                ShadowMapRenderTarget[ 1 ]->Apply();
+                texture2= ShadowMapRenderTarget[ 1 ]->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth2", "png", "" ) );
                 
-                ShadowMapRenderTarget3->Apply();
-                texture2 = ShadowMapRenderTarget3->GetTargetTexture( 0 );
+                ShadowMapRenderTarget[ 2 ]->Apply();
+                texture2 = ShadowMapRenderTarget[ 2 ]->GetTargetTexture( 0 );
                 texture2->SaveDepthTo( CORE_FILESYSTEM_PATH::FindFilePath( "testCastSimpleCubeShadowToPlan-depth3", "png", "" ) );
             }
-        }
+        }*/
 
         //PrimaryRenderTarget->Apply();
         

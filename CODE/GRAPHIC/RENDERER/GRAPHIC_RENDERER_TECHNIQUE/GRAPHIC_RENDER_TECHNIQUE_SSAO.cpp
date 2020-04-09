@@ -13,7 +13,9 @@ GRAPHIC_RENDER_TECHNIQUE_SSAO::GRAPHIC_RENDER_TECHNIQUE_SSAO() :
     Material(),
     MaterialBlur(),
     PlanObject( NULL ),
-    TextureBlock1( NULL ),
+    TextureBlock1(),
+    TextureBlock2(),
+    TextureBlock3(),
     SourceRenderTarget( NULL ),
     SSAOEffect( NULL ),
     SimpleBlurEffect( NULL ) {
@@ -28,7 +30,7 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::Initialize( GRAPHIC_RENDERER & renderer ) {
     
     //SSAOEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SSAOEffect" ), CORE_FILESYSTEM_PATH::FindFilePath( "SSAOEffect", "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
-    SSAOEffect = new GRAPHIC_SHADER_EFFECT_SSAO( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SSAOEffect"), CORE_FILESYSTEM_PATH::FindFilePath( "SSAOEffect" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
+    SSAOEffect = new GRAPHIC_SHADER_EFFECT_SSAO( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::SSAOEffectDeferred"), CORE_FILESYSTEM_PATH::FindFilePath( "SSAOEffectDeferred" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
     
     SSAOEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     
@@ -52,26 +54,33 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
     SourceRenderTarget->BindForReading();
     SourceRenderTarget->SetReadBuffer( 0 );
     renderer.SetLightingIsEnabled( false );
-    TextureBlock1 = new GRAPHIC_TEXTURE_BLOCK();
-    TextureBlock1->SetTexture( SourceRenderTarget->GetTargetTexture( 0 ) );
     
-    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock1 ) ;
+    TextureBlock1.SetTexture( SourceRenderTarget->GetTargetTexture( 0 ) );
+    TextureBlock2.SetTexture( SourceRenderTarget->GetTargetTexture( 1 ) );
+    TextureBlock3.SetTexture( SourceRenderTarget->GetTargetTexture( 2 ) );
+    TextureBlock4.SetTexture( SourceRenderTarget->GetDepthTexture() ); // Depth
+    
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, &TextureBlock1 ) ;
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture1, &TextureBlock2 ) ;
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture2, &TextureBlock3 ) ;
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture3, &TextureBlock4 ) ;
+    
     SSAOEffect->SetMaterial( &Material );
 
     
     PlanObject->Render( renderer, option, SSAOEffect );
     
     RenderTarget->Discard();
-    SourceRenderTarget->Discard();
+    //SourceRenderTarget->Discard();
 
     {
         RenderTarget->BindForReading();
         RenderTarget->SetReadBuffer( 0 );
-        TextureBlock1->SetTexture( RenderTarget->GetTargetTexture( 0 ) );
-        MaterialBlur.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, TextureBlock1 );
+        TextureBlock1.SetTexture( RenderTarget->GetTargetTexture( 0 ) );
+        MaterialBlur.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, &TextureBlock1 );
         SimpleBlurEffect->SetMaterial( &MaterialBlur );
         
-        {
+        /*{
             static int acc = 0;
             acc++;
             
@@ -82,7 +91,7 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
                 GRAPHIC_TEXTURE * texture2 = RenderTarget->GetTargetTexture( 0 );
                 texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_SSAO2", "png", "" ) );
             }
-        }
+        }*/
         
         FinalRenderTarget->BindForWriting();
         GRAPHIC_SYSTEM::DisableBlend();
@@ -93,7 +102,7 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
         FinalRenderTarget->BindForReading();
         FinalRenderTarget->SetReadBuffer( 4 );
         
-        {
+        /*{
             static int acc = 0;
             acc++;
             
@@ -104,9 +113,9 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
                 GRAPHIC_TEXTURE * texture2 = FinalRenderTarget->GetTargetTexture( 4 );
                 texture2->SaveTo( CORE_FILESYSTEM_PATH::FindFilePath( "GRAPHIC_RENDER_TECHNIQUE_SSAO4", "png", "" ) );
             }
-        }
+        }*/
         
-        RenderTarget->Discard();
+        //RenderTarget->Discard();
         FinalRenderTarget->Discard();
     }
     

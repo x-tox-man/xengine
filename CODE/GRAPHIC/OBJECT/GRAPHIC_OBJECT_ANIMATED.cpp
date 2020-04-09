@@ -40,7 +40,7 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC
         
         float * float_matrix_array_copy = float_matrix_array_copy_base[i][ii];
         
-        effect->Apply( renderer, GetMaterialName(i, effect), renderer.IsLightingEnabled(), options.IsTexturingEnabled() );
+        effect->Apply( renderer, GetMaterialName(i, effect) );
         
         GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
@@ -144,62 +144,4 @@ void GRAPHIC_OBJECT_ANIMATED::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC
     ii = (ii + 1) % 3;
     
     effect->Discard();
-    
-    
-    //
-    //
-    //
-    
-    /*effect->Apply( renderer, options.IsTexturingEnabled(), true );
-    
-    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
-        
-        CORE_MATH_MATRIX
-            result,
-            object;
-        
-        effect->SelectMaterial( MeshTable[i]->GetName() );
-        
-        GRAPHIC_SHADER_ATTRIBUTE * mvp_matrix = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE * attrModel = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
-        GRAPHIC_SHADER_ATTRIBUTE * attrSkinningMatrixTable = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SkinningMatrixTable );
-        GRAPHIC_SHADER_ATTRIBUTE * attrBindShapeMatrix = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::AttrBindShapeMatrix );
-        
-        GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_SourceAlpha, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
-        
-        ComputeModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
-        
-        GRAPHIC_SYSTEM_ApplyMatrix(mvp_matrix->AttributeIndex, 1, 0, &result[0])
-        
-        float * float_matrix_array = AnimationController->GetCurrentSkinningForAnimation( i );
-        
-        int size = (int) AnimationController->GetAnimation(i)->GetJointTable().size() * 16 * sizeof( float );
-        //Hardcoded from shader
-        int max_size = 4 * 16 *128;
-        
-        float * float_matrix_array_copy = (float*) CORE_MEMORY_ALLOCATOR_Allocate( max_size );
-        
-        memcpy(float_matrix_array_copy, float_matrix_array, size);
-        //memset(float_matrix_array_copy, 0, size );
-        
-        float * ptr = (float*) AnimationController->GetAnimation( i )->GetInverseBindMatrixes().getpointerAtIndex(0, 0);
-        
-        int offset = 0;
-        
-        for ( size_t mi = 0; mi < AnimationController->GetAnimation( i )->GetJointTable().size(); mi++ ) {
-            
-            GLOBAL_MULTIPLY_MATRIX(float_matrix_array_copy + offset, ptr + offset );
-            
-            offset += 16;
-        }
-        
-        GRAPHIC_SYSTEM_ApplyMatrix( attrSkinningMatrixTable->AttributeIndex, 128, 0, float_matrix_array_copy )
-        GRAPHIC_SYSTEM_ApplyMatrix(attrBindShapeMatrix->AttributeIndex, 1, 1, AnimationController->GetAnimation( i )->GetBindShapeMatrix().Value.FloatMatrix4x4)
-        
-        MeshTable[ i ]->ApplyBuffers( renderer );
-        
-        CORE_MEMORY_ALLOCATOR_Free(float_matrix_array_copy);
-        
-        effect->Discard();
-    }*/
 }

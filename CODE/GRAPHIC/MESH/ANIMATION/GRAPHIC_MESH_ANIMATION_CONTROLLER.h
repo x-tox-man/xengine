@@ -12,8 +12,6 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "GRAPHIC_MESH_ANIMATION.h"
-#include "GRAPHIC_OBJECT.h"
-#include "GRAPHIC_OBJECT_RESOURCE_LOADER.h"
 
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_CONTROLLER )
 
@@ -32,10 +30,11 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_CONTROLLER )
         Initialize();
     }
 
-    void Update( const float time );
+    void Update( const float time, GRAPHIC_MESH_SKELETON_JOINT * skeleton );
     void Reset();
 
-    float GetCurrentTimeFrame() { return CurrentTimeFrame; }
+    inline float GetCurrentTimeFrame() { return CurrentTimeFrame; }
+    inline unsigned int GetFrameIndex();
     GRAPHIC_MESH_ANIMATION * GetAnimation( int index ) { return MeshAnimationTable[ index ]; }
     const GRAPHIC_MESH_ANIMATION * GetAnimation( int index ) const { return MeshAnimationTable[ index ]; }
 
@@ -43,9 +42,14 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_CONTROLLER )
 
 private :
 
-    std::vector< GRAPHIC_MESH_ANIMATION * > MeshAnimationTable;
-    std::vector< float * > ThisFrameAnimationMatrixArrayTable;
-    float CurrentTimeFrame;
+    std::vector< GRAPHIC_MESH_ANIMATION * >
+        MeshAnimationTable;
+    std::vector< float * >
+        ThisFrameAnimationMatrixArrayTable;
+    float
+        CurrentTimeFrame;
+    int
+        CurrentTimeFrameIndex;
 
 XS_CLASS_END
 

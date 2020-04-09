@@ -1,0 +1,54 @@
+//
+//  GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.cpp
+//  GAME-ENGINE
+//
+//  Created by Christophe Bernard on 19/05/17.
+//  Copyright © 2017 Christophe Bernard. All rights reserved.
+//
+
+#include "GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.h"
+#include "GRAPHIC_MATERIAL_COLLECTION.h"
+#include "CORE_DATA_LOADER.h"
+
+GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER::GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER() {
+    
+}
+
+GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER::~GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER() {
+    
+}
+
+GRAPHIC_MATERIAL_COLLECTION * GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER::Load( const CORE_FILESYSTEM_PATH & path, int resource_load_flag, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+    
+    GRAPHIC_MATERIAL_COLLECTION::PTR material = new GRAPHIC_MATERIAL_COLLECTION();
+    
+    CORE_DATA_LOADER< GRAPHIC_MATERIAL_COLLECTION >::Load(material, path );
+    
+    return material;
+}
+
+GRAPHIC_MATERIAL_COLLECTION * GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER::Load( CORE_DATA_STREAM & stream, int resource_load_flag, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
+    
+    GRAPHIC_MATERIAL_COLLECTION::PTR material = NULL;
+    
+    CORE_DATA_LOADER< GRAPHIC_MATERIAL_COLLECTION >::Load( material, stream );
+    
+    return material;
+}
+
+void GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER::ReloadResource( GRAPHIC_MATERIAL_COLLECTION * resource_to_reload ) {
+    
+}
+
+#if ASSET_COMPILER
+void GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH & source_file, const CORE_FILESYSTEM_PATH & destination_file ) {
+    
+    abort();
+}
+#endif
+
+GRAPHIC_MATERIAL_COLLECTION * GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER::LoadObject( const CORE_FILESYSTEM_PATH & path, int meshIdentifier, int meshTypeToLoad ) {
+    
+    abort();
+    return NULL;
+}

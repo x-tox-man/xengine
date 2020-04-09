@@ -20,6 +20,7 @@ void Render( std::array< __PARTICLE_TYPE__, __ARRAY_SIZE__ > & particle_table, G
     
     effect->Apply( renderer );
     
+    abort();
     GRAPHIC_SYSTEM::EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
     
     CORE_MATH_MATRIX result = renderer.GetCamera()->GetProjectionMatrix();

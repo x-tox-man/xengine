@@ -10,6 +10,7 @@
 #include "GAMEPLAY_COMPONENT_ENTITY.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_POSITION.h"
+#include "GAMEPLAY_COMPONENT_ANIMATION.h"
 #include "GAMEPLAY_COMPONENT_TYPE.h"
 
 GAMEPLAY_COMPONENT_SYSTEM_RENDERER::GAMEPLAY_COMPONENT_SYSTEM_RENDERER() :
@@ -36,12 +37,21 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::RenderFrontToBack( GAMEPLAY_COMPONENT_A
     
     GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) node->GetEntity()->GetComponent( CustomRenderComponentIndex );
     GAMEPLAY_COMPONENT_POSITION * located = (GAMEPLAY_COMPONENT_POSITION * ) node->GetEntity()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    GAMEPLAY_COMPONENT_ANIMATION * animation = (GAMEPLAY_COMPONENT_ANIMATION * ) node->GetEntity()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Animation );
     
-    if ( node->GetEntity()->GetParent()) {
-        renderable->Render( *Renderer, located, (GAMEPLAY_COMPONENT_POSITION * ) node->GetEntity()->GetParent()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position ) );
+    auto parent = node->GetEntity()->GetParent();
+    
+    if ( animation != NULL ) {
+        renderable->GetObject().GetResource<GRAPHIC_OBJECT>()->SetAnimationController( &animation->GetAnimation() );
+    }
+    
+    if ( parent ) {
+        
+        renderable->Render( *Renderer, located, (GAMEPLAY_COMPONENT_POSITION * ) parent->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position ) );
     }
     else {
-        renderable->Render( *Renderer, located, NULL );
+        
+        renderable->Render( *Renderer, located );
     }
 }
 

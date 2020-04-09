@@ -25,6 +25,7 @@
 #include "GRAPHIC_OBJECT_RENDER_OPTIONS.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
 #include "CORE_MATH_SHAPE.h"
+#include "GRAPHIC_MESH_ANIMATION_CONTROLLER.h"
 
 class GRAPHIC_MESH;
 class GRAPHIC_OBJECT;
@@ -49,9 +50,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_OBJECT, GR_O_ANCESTOR_TYPE )
     virtual void Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect );
 
     inline std::vector< GRAPHIC_MESH *> & GetMeshTable() { return MeshTable;}
-    inline std::vector< GRAPHIC_MESH_ANIMATION_JOINT *> & GetJointTable() { return JointTable; }
     GRAPHIC_SHADER_BIND & GetShaderBindParameter();
-
 
     #if __COMPILE_WITH__COLLADA__
         inline std::vector< GRAPHIC_MESH_ANIMATION *> & GetAnimationTable() { return AnimationTable; }
@@ -64,16 +63,23 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_OBJECT, GR_O_ANCESTOR_TYPE )
 
     void ComputeAABBox( CORE_MATH_SHAPE & box );
 
+    inline GRAPHIC_MESH_ANIMATION_CONTROLLER * GetAnimationController() { return AnimationController; };
+    inline void SetAnimationController( GRAPHIC_MESH_ANIMATION_CONTROLLER * animation ) { AnimationController = animation; };
+
+    inline GRAPHIC_MESH_SKELETON_JOINT & GetSkeleton() { return Skeleton; }
+
 protected:
 
     const char * GetMaterialName( int mesh_index, GRAPHIC_SHADER_EFFECT * effect );
 
-    std::vector< GRAPHIC_MESH_ANIMATION_JOINT *>
-        JointTable;
     std::vector< GRAPHIC_MESH *>
         MeshTable;
+    GRAPHIC_MESH_SKELETON_JOINT
+        Skeleton;
     GRAPHIC_SHADER_BIND
         ShaderBindParameter;
+    GRAPHIC_MESH_ANIMATION_CONTROLLER
+        * AnimationController;
 
 XS_CLASS_END
 

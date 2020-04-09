@@ -557,18 +557,18 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & rendere
         if ( components & GRAPHIC_SHADER_BIND_SkinWeight ) {
             
             GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
-            vertex_offset += 3;
+            vertex_offset += 4;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_JointIndices ) {
             
             GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices); )
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
                       )
             
-            vertex_offset += 3;
+            vertex_offset += 4;
         }
         
         if ( components & GRAPHIC_SHADER_BIND_Tangents ) {
@@ -647,17 +647,17 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & rendere
         
         if ( component & GRAPHIC_SHADER_BIND_SkinWeight ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_SkinWeight, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
             
-            vertex_offset += 3;
+            vertex_offset += 4;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_JointIndices ) {
             
-            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+            GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGL4_JointIndices, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
                       )
             
-            vertex_offset += 3;
+            vertex_offset += 4;
         }
         
         if ( component & GRAPHIC_SHADER_BIND_Tangents ) {
@@ -729,5 +729,9 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & rendere
     void GRAPHIC_SYSTEM::ClearFrambufferStencil() {
         
         GFX_CHECK( glClear( GL_STENCIL_BUFFER_BIT ); )
+    }
+
+    void GRAPHIC_SYSTEM::ApplyMaterial( const GRAPHIC_MATERIAL & material ) {
+        
     }
 #endif

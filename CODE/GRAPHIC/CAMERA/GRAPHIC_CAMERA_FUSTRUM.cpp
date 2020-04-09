@@ -207,6 +207,8 @@ bool GRAPHIC_CAMERA_FUSTRUM::BoxInFrustum( const CORE_MATH_SHAPE & box ) const {
     //http://old.cescg.org/CESCG-2002/DSykoraJJelinek/
     float m, n; int i, result = true;
     
+    return true;
+    
     for (i = 0; i < 6; i++) {
         
         m = (box.GetPosition().X() * FrustumPlanes[i].Normal.X() ) + (box.GetPosition().Y() * FrustumPlanes[i].Normal.Y()) + (box.GetPosition().Z() * FrustumPlanes[i].Normal.Z() ) + FrustumPlanes[i].D;

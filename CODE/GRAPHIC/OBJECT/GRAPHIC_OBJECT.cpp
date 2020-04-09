@@ -24,31 +24,29 @@
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_OBJECT )
     XS_DEFINE_ClassMember( "MeshTable", std::vector< GRAPHIC_MESH * > , MeshTable )
-    XS_DEFINE_ClassMember( "JointTable", std::vector< GRAPHIC_MESH_ANIMATION_JOINT *>, JointTable )
+    XS_DEFINE_ClassMember( "Skeleton", GRAPHIC_MESH_SKELETON_JOINT, Skeleton )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_OBJECT::GRAPHIC_OBJECT() :
     GR_O_ANCESTOR_TYPE(),
     MeshTable(),
-    JointTable()
+    AnimationController()
 #if __COMPILE_WITH__COLLADA__
     ,AnimationTable()
 #endif
 {
     
-    JointTable.resize(0);
 }
 
 GRAPHIC_OBJECT::GRAPHIC_OBJECT( const GRAPHIC_OBJECT & other) :
     GR_O_ANCESTOR_TYPE(),
     MeshTable( other.MeshTable),
-    JointTable(other.JointTable)
+    AnimationController()
     #if __COMPILE_WITH__COLLADA__
         ,AnimationTable( other.AnimationTable)
     #endif
 {
     
-    JointTable.resize(0);
 }
 
 GRAPHIC_OBJECT::~GRAPHIC_OBJECT() {
@@ -58,11 +56,6 @@ GRAPHIC_OBJECT::~GRAPHIC_OBJECT() {
     for ( size_t i = 0; i < MeshTable.size(); i++ ) {
 
         CORE_MEMORY_ObjectSafeDeallocation( MeshTable[ i ] );
-    }
-
-    for ( size_t i = 0; i < JointTable.size(); i++ ) {
-
-        CORE_MEMORY_ObjectSafeDeallocation( JointTable[ i ] );
     }
     
     #if __COMPILE_WITH__COLLADA__
@@ -79,20 +72,22 @@ void GRAPHIC_OBJECT::AddNewMesh( GRAPHIC_MESH * mesh ) {
 }
 
 void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_RENDER_OPTIONS & options, GRAPHIC_SHADER_EFFECT * effect ) {
+
+    CORE_MATH_MATRIX
+        result,
+        object;
     
-    for ( size_t i = 0; i < MeshTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshTable.size() ; i++ ) {
         
-        CORE_MATH_MATRIX
-            result,
-            object;
-        
-        effect->Apply( renderer, GetMaterialName( (int) i, effect), renderer.IsLightingEnabled(), options.IsTexturingEnabled() );
+        effect->Apply( renderer, GetMaterialName( (int) i, effect) );
         
         GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & view_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ViewMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & time_mod = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::TimeModulator );
         GRAPHIC_SHADER_ATTRIBUTE & projection_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ProjectionMatrix );
+        GRAPHIC_SHADER_ATTRIBUTE & attrSkinningMatrixTable = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SkinningMatrixTable );
+        GRAPHIC_SHADER_ATTRIBUTE & attrBindShapeMatrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::AttrBindShapeMatrix );
 
         ComputeModelViewProjection( options, MeshTable[i]->GetTransform(), renderer, result, object );
         
@@ -101,6 +96,43 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         effect->UpdateMatrix( renderer, model_matrix, &object[0]);
         effect->UpdateMatrix( renderer, view_matrix, &renderer.GetCamera()->GetViewMatrix()[0]);
         effect->UpdateFloat( renderer, time_mod, time_mod.AttributeValue.Value.FloatValue );
+        
+        if ( attrSkinningMatrixTable.AttributeIndex > -1 )
+        {
+            const int max_size = 4 * 16 *128;
+            float float_matrix_array_copy[ max_size ];
+            
+            //abort();
+            size_t size = (int) AnimationController->GetAnimation( (int) i)->GetJointTable().size() * 16 * sizeof( float );
+            
+            memcpy( float_matrix_array_copy, AnimationController->GetCurrentSkinningForAnimation( (int) i ), size );
+            
+            float * ptr = (float*) AnimationController->GetAnimation( (int)i )->GetInverseBindMatrixes().getpointerAtIndex(0, 0);
+
+            int offset = 0;
+
+            for ( size_t mi = 0; mi < AnimationController->GetAnimation( (int)i )->GetJointTable().size(); mi++ ) {
+                
+                GLOBAL_MULTIPLY_MATRIX(float_matrix_array_copy + offset, ptr + offset );
+                offset += 16;
+            }
+            
+            int num_joints = (int)(size / 64);
+                    
+            #if OPENGL4
+                    GRAPHIC_SYSTEM_ApplyMatrix( attrSkinningMatrixTable.AttributeIndex, num_joints, 0, float_matrix_array_copy )
+            #else
+                    //Only for METAL
+                    attrSkinningMatrixTable.AttributeIndex = 0;
+                    attrSkinningMatrixTable.AttributeOffset = 9;
+                    
+                    renderer.BufferPassIndex = (unsigned int) i;
+                    
+                    effect->UpdateFloatArray(renderer, attrSkinningMatrixTable, num_joints*16, float_matrix_array_copy );
+            #endif
+
+            effect->UpdateMatrix(renderer, attrBindShapeMatrix, AnimationController->GetAnimation( (int) i )->GetBindShapeMatrix().Value.FloatMatrix4x4);
+        }
 
         GRAPHIC_SHADER_ATTRIBUTE * depth[3];
 

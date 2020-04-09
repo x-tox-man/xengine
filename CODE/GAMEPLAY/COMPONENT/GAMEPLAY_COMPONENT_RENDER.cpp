@@ -17,8 +17,8 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_RENDER ) ),
     ObjectProxy(),
     EffectProxy(),
+    ShadowMapEffectProxy(),
     MaterialProxy(),
-    ShadowmapEffectProxy(),
     AABBNode( 0.1f ),
     ScaleFactor( 1.0f ) {
     
@@ -28,8 +28,8 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER( const GAMEPLAY_COMPONENT_R
     GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_RENDER ) ),
     ObjectProxy( other.ObjectProxy ),
     EffectProxy( other.EffectProxy ),
+    ShadowMapEffectProxy( other.ShadowMapEffectProxy ),
     MaterialProxy( other.MaterialProxy ),
-    ShadowmapEffectProxy( other.ShadowmapEffectProxy ),
     AABBNode( other.AABBNode ),
     ScaleFactor( other.ScaleFactor ) {
     
@@ -53,29 +53,42 @@ void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_CO
     options.SetOrientation(component->GetOrientation() );
     options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
     
-    if ( parent != NULL ) {
+    assert( parent != NULL );
         
-        parent_options.SetPosition( parent->GetPosition() + parent->GetPositionOffset() );
-        parent_options.SetOrientation(parent->GetOrientation() );
-        parent_options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
-        
-        options.SetParent( &parent_options );
+    parent_options.SetPosition( parent->GetPosition() + parent->GetPositionOffset() );
+    parent_options.SetOrientation(parent->GetOrientation() );
+    parent_options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
+    
+    options.SetParent( &parent_options );
+    
+    if ( renderer.IsShadowMappingEnabled() ) {
+        effect = ShadowMapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
     }
 
-    if ( renderer.GetPassIndex() == 0 ) {
-        
-        effect->SetMaterial( MaterialProxy.GetResource< GRAPHIC_MATERIAL >() );
-        object->Render( renderer, options, effect );
+    effect->SetMaterialCollection( MaterialProxy.GetResource< GRAPHIC_MATERIAL_COLLECTION >() );
+    object->Render( renderer, options, effect );
+}
+
+void GAMEPLAY_COMPONENT_RENDER::Render( GRAPHIC_RENDERER & renderer, GAMEPLAY_COMPONENT_POSITION * component ) {
+    
+    GRAPHIC_OBJECT
+        * object = ObjectProxy.GetResource< GRAPHIC_OBJECT >();
+    GRAPHIC_OBJECT_RENDER_OPTIONS
+        options,
+        parent_options;
+    GRAPHIC_SHADER_EFFECT
+        * effect = EffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
+    
+    options.SetPosition( component->GetPosition() + component->GetPositionOffset() );
+    options.SetOrientation(component->GetOrientation() );
+    options.SetScaleFactor( CORE_MATH_VECTOR(ScaleFactor, ScaleFactor,ScaleFactor, 1.0f) );
+    
+    if ( renderer.IsShadowMappingEnabled() ) {
+        effect = ShadowMapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
     }
-    else if ( renderer.GetPassIndex() == 1 ) {
-        
-        auto shadow_effect = ShadowmapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
-        options.SetTexturing( false );
-        
-        if ( shadow_effect ) {
-            object->Render( renderer, options, shadow_effect );
-        }
-    }
+
+    effect->SetMaterialCollection( MaterialProxy.GetResource< GRAPHIC_MATERIAL_COLLECTION >() );
+    object->Render( renderer, options, effect );
 }
 
 void GAMEPLAY_COMPONENT_RENDER::ComputeSize( CORE_MATH_SHAPE & shape ) {

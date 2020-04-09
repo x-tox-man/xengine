@@ -45,8 +45,8 @@ typedef struct
     float2 texcoords [[attribute(VertexAttributeTexcoords)]];
     float3 tangent [[attribute(VertexAttributeTangent)]];
     float3 bitangent [[attribute(VertexAttributeBitangent)]];
-    float3 weights [[attribute(VertexAttributeSkinWeight)]];
-    float3 joint_indices [[attribute(VertexAttributeJointIndices)]];
+    float4 weights [[attribute(VertexAttributeSkinWeight)]];
+    float4 joint_indices [[attribute(VertexAttributeJointIndices)]];
 } VertexPosNormalTexTanBiWeJoIn;
 
 typedef struct
@@ -88,13 +88,12 @@ typedef struct {
     float4 Direction;
     float4 Orientation;
     float Cutoff;
-    float AmbientIntensity;
+    float AmbientIntensity; //Goes to material?
     float DiffuseIntensity;
     float Exp;
     float Linear;
     float Constant;
 } SpotLight;
-
 
 // ------------------------------------------------------
 // functions
@@ -112,7 +111,7 @@ float3 ComputeNormalMapping( float3x3 TBNMatrix_p, float3 base_normal ) {
     return final_normal;
 }
 
-float4 CalcDirectionalLight( float4 color, float3 light_direction, float3 normal, float3 world_position, float specular_intensity, float3 eye_world_position, float light_specular_power, float diffuse_intensity )
+float4 CalcDirectionalLight( float4 color, float3 light_direction, float3 normal, float3 world_position, float3 eye_world_position, float specular_power, float diffuse_intensity )
 {
     float diffuse_factor = dot( normal, -light_direction );
     
@@ -130,71 +129,44 @@ float4 CalcDirectionalLight( float4 color, float3 light_direction, float3 normal
         
         if ( specular_factor > 0 ) {
             
-            specular_factor = pow( specular_factor, light_specular_power );
-            specular_color = color * specular_intensity * specular_factor;
+            specular_factor = pow( specular_factor, specular_power );
+            specular_color = color * specular_power * specular_factor;
         }
     }
 
     return diffuse_color + specular_color;
 }
 
-
-/*float4 CalcLightInternal( PointLight point, float3 light_direction, float3 normal, float3 position, float specular_intensity, float3 eye_world_position, float light_specular_power )
-{
-    float4 ambient_color = point.Color * point.AmbientIntensity;
-    float diffuse_factor = dot( normal, -light_direction.zyx);
-    
-    float4 diffuse_color = float4(0, 0, 0, 0);
-    float4 specular_color = float4(0, 0, 0, 0);
-    
-    if ( diffuse_factor > 0 ) {
-        
-        diffuse_color = point.Color * point.DiffuseIntensity * diffuse_factor;
-        
-        float3 vertex_to_eye = normalize( eye_world_position - position);
-        float3 light_reflect = normalize( reflect( light_direction, normal) );
-        
-        float specular_factor = dot( vertex_to_eye, light_reflect );
-        
-        if ( specular_factor > 0 ) {
-            specular_factor = pow( specular_factor, light_specular_power );
-            specular_color = point.Color * specular_intensity * specular_factor;
-        }
-    }
-
-    return diffuse_color + specular_color;
-}
-
-float4 CalcPointLight( float3 world_pos, float3 light_position, PointLight point, float3 normal, float specular_intensity )
+float4 CalcPointLight( float4 color, float3 normal, float3 world_pos, float3 eye_world_position, float3 light_position, float specular_power, float diffuse_intensity, float light_constant, float light_linear, float light_exp )
 {
     float3 light_direction = world_pos - light_position;
     
     float light_distance = length( light_direction );
     light_direction = normalize( light_direction );
 
-    float4 color_l = CalcLightInternal( point, light_direction, normal, world_pos, specular_intensity );
+    float4 color_l = CalcDirectionalLight( color, light_direction, normal, world_pos, eye_world_position, specular_power, diffuse_intensity );
 
-    float attenuation = point.Constant +
-        point.Linear * light_distance +
-        point.Exp * light_distance * light_distance;
+    float attenuation = light_constant +
+        light_linear * light_distance +
+        light_exp * light_distance * light_distance;
 
     return color_l / attenuation;
 }
 
-float4 CalcSpotLight(float3 world_pos, SpotLight light, float3 normal, float specular_intensity)
+float4 CalcSpotLight(float3 world_pos, float3 eye_world_position, SpotLight light, float3 normal, float specular_power)
 {
-    float3 light_to_pixel = normalize( world_pos - light_position.xyz);
+    float3 light_to_pixel = normalize( world_pos - light.Position.xyz);
     float spot_factor = dot( light_to_pixel, light.Direction.xyz );
 
     if ( spot_factor > light.Cutoff) {
         
-        float4 color = CalcPointLight( world_pos, light.Base, normal, specular_intensity);
+        float4 color = CalcPointLight( light.Color, normal, world_pos.xyz, eye_world_position, light.Position.xyz, specular_power, light.DiffuseIntensity, light.Constant, light.Linear, light.Exp );
         return color * ( 1.0 - (1.0 - spot_factor ) * 1.0/(1.0 - light.Cutoff));
     }
     else {
         return float4(0.0);
     }
-}*/
+}
 
 // ------------------------------------------------------
 // Default shader
@@ -780,13 +752,15 @@ fragment float4 DeferredAmbiantAndDirectionnal_fs(DeferredAmbiantAndDirectionnal
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> colorMap1     [[ texture(TextureIndex2Color) ]],
+                                texture2d<half> colorMap2     [[ texture(TextureIndex3Color) ]],
+                                texture2d<half> colorMap3     [[ texture(TextureIndex4Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( 1.0 );
+    return float4( colorMap1.sample(colorSampler, in.texcoords ) );
 }
 
 // ------------------------------------------------------
@@ -797,34 +771,48 @@ typedef struct
 {
     float4 position [[position]];
     float2 texcoords;
-    float4 colorVarying;
-    float4 normal;
-    float3 T,B,N;
+    float4 LightPosition;
 } DeferredPointLight_InOut;
 
 vertex DeferredPointLight_InOut DeferredPointLight_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+    constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+    constant PointLight & point_light [[ buffer(PointLightUniforms) ]])
 {
     DeferredPointLight_InOut out;
 
     out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
+    out.LightPosition = point_light.Position; // in world position
     
     return out;
 }
 
-fragment float4 DeferredPointLight_fs(DeferredPointLight_InOut in [[stage_in]],
-                                 constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                 constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+fragment float4 DeferredPointLight_fs(
+    DeferredPointLight_InOut in [[stage_in]],
+    constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+    constant PointLight & point_light [[ buffer(PointLightUniforms) ]],
+    texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
+    texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]],
+    texture2d<half> positionMap     [[ texture(TextureIndex2Color) ]],
+    texture2d<half> specularMap     [[ texture(TextureIndex5Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( 1.0 );
+    float4 world_pos = float4( positionMap.sample(colorSampler, in.texcoords ) );
+    float3 diffuse = float4( colorMap.sample(colorSampler, in.texcoords ) ).xyz; //texture( o_texture_1, in.texcoords ).xyz;
+    float3 normal = float4( normalMap.sample(colorSampler, in.texcoords ) ).xyz; //texture( o_texture_2, in.texcoords ).xyz;
+    //float shadow = texture( o_texture_3, tx ).r;
+    //float3 ssao = texture( o_texture_4, tx ).xyz;
+    float specular_intensity = 1.0; //float4( specularMap.sample(colorSampler, in.texcoords ) ).x;
+    
+    float3 eye_world_position = uniforms.ViewMatrix.columns[3].xyz;
+
+    //TODO: Fetch and use material
+    float3 colorOut = diffuse * CalcPointLight( point_light.Color, normal, world_pos.xyz, eye_world_position, in.LightPosition.xyz, specular_intensity, point_light.DiffuseIntensity, point_light.Constant, point_light.Linear, point_light.Exp ).xyz;
+    
+    return float4( colorOut, 1.0);
 }
 
 // ------------------------------------------------------
@@ -835,34 +823,49 @@ typedef struct
 {
     float4 position [[position]];
     float2 texcoords;
-    float4 colorVarying;
-    float4 normal;
-    float3 T,B,N;
+    float4 LightPosition;
 } DeferredSpotLight_InOut;
 
 vertex DeferredSpotLight_InOut DeferredSpotLight_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                            constant SpotLight & spot_light [[ buffer(SpotLightUniforms) ]] )
 {
     DeferredSpotLight_InOut out;
 
     out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
+    out.LightPosition = spot_light.Position; // in world position
     
     return out;
 }
 
 fragment float4 DeferredSpotLight_fs(DeferredSpotLight_InOut in [[stage_in]],
                                  constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                 constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
+                                 //constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
+                                 //constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
+                                 constant SpotLight & spot_light [[ buffer(SpotLightUniforms) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]],
+                                 texture2d<half> positionMap     [[ texture(TextureIndex2Color) ]],
+                                 texture2d<half> specularMap     [[ texture(TextureIndex5Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( 1.0 );
+    float4 world_pos = float4( positionMap.sample(colorSampler, in.texcoords ) );
+    float3 diffuse = float4( colorMap.sample(colorSampler, in.texcoords ) ).xyz; //texture( o_texture_1, in.texcoords ).xyz;
+    float3 normal = float4( normalMap.sample(colorSampler, in.texcoords ) ).xyz; //texture( o_texture_2, in.texcoords ).xyz;
+    //float shadow = texture( o_texture_3, tx ).r;
+    //float3 ssao = texture( o_texture_4, tx ).xyz;
+    float specular_intensity = 1.0; //float4( specularMap.sample(colorSampler, in.texcoords ) ).x;
+    
+    float3 eye_world_position = uniforms.ViewMatrix.columns[3].xyz;
+
+    //TODO: Fetch and use material
+    float3 colorOut = diffuse * CalcSpotLight( world_pos.xyz, eye_world_position, spot_light, normal, specular_intensity ).xyz;
+    
+    return float4( colorOut, 1.0);
 }
 
 // ------------------------------------------------------
@@ -1212,7 +1215,7 @@ vertex AnimationShader_InOut AnimationShader_vs(VertexPosNormalTexTanBiWeJoIn in
 {
     AnimationShader_InOut out;
     
-    float4x4 blend_result = in.weights.x * jointsMatrix[ int( in.joint_indices.x ) ]+ in.weights.y * jointsMatrix[ int( in.joint_indices.y ) ] + in.weights.z * jointsMatrix[ int( in.joint_indices.z ) ];
+    float4x4 blend_result = in.weights.x * jointsMatrix[ int( in.joint_indices.x ) ]+ in.weights.y * jointsMatrix[ int( in.joint_indices.y ) ] + in.weights.z * jointsMatrix[ int( in.joint_indices.z ) ] + in.weights.w * jointsMatrix[ int( in.joint_indices.w ) ];
     
     out.T = (uniforms.ModelMatrix * normalize( float4(in.tangent, 1.0 ))).xyz;
     out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
@@ -1225,8 +1228,9 @@ vertex AnimationShader_InOut AnimationShader_vs(VertexPosNormalTexTanBiWeJoIn in
     //out.LightDirection_tangentspace = /*TBNMatrix * */- dir_light.Direction.xyz;
     //out.EyeDirection_tangentspace =  TBNMatrix * CameraWorldPosition.xyz;
     
-    out.wposition = transpose(blend_result) * uniforms.attrBindShapeMatrix * in.position;
+    out.wposition = uniforms.attrBindShapeMatrix * in.position * blend_result;
     out.position =  uniforms.MVPMatrix * out.wposition;
+    out.wposition = uniforms.ModelMatrix * out.wposition;
     out.texcoords = in.texcoords;
     
     return out;
@@ -1237,8 +1241,8 @@ fragment float4 AnimationShader_fs(AnimationShader_InOut in [[stage_in]],
                                  constant DirectionalLight & dir_light [[ buffer( BufferIndexDirectionalLightsConstants ) ]],
                                  constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
                                  constant Material & material [[ buffer( MaterialUniforms ) ]],
-                                 texture2d<half> colorMap     [[ texture( 0 ) ]],
-                                 texture2d<half> normalMap     [[ texture( 1 ) ]] )
+                                 texture2d<half> colorMap     [[ texture( TextureIndex1Color ) ]],
+                                 texture2d<half> normalMap     [[ texture( TextureIndex1Normal ) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1252,9 +1256,110 @@ fragment float4 AnimationShader_fs(AnimationShader_InOut in [[stage_in]],
     float3 normal = ComputeNormalMapping( TBN, float3( base_normal.xyz ) );
     float3 eye_world_position = uniforms.ViewMatrix.columns[3].xyz;
     
-    float4 color= float4( colorSample ) * CalcDirectionalLight(dir_light.Color, dir_light.Direction.xyz, normal, in.wposition.xyz, 0.0, eye_world_position, material.SpecularIntensity * 0.0, dir_light.DiffuseIntensity );
+    float4 color = float4( colorSample ) * CalcDirectionalLight( dir_light.Color, dir_light.Direction.xyz, normal.xyz, in.wposition.xyz, eye_world_position, material.SpecularIntensity, dir_light.DiffuseIntensity );
     
     return color;
+}
+
+vertex AnimationShader_InOut AnimationShadowMapShader_vs(VertexPosNormalTexTanBiWeJoIn in [[stage_in]],
+                                            constant AnimatedObjectUniforms & uniforms [[ buffer( BufferIndexUniforms ) ]],
+                                            const device float4x4 * jointsMatrix  [[ buffer(SkinningMatrixBuffer) ]] )
+{
+    AnimationShader_InOut out;
+    
+    float4x4 blend_result = in.weights.x * jointsMatrix[ int( in.joint_indices.x ) ]+ in.weights.y * jointsMatrix[ int( in.joint_indices.y ) ] + in.weights.z * jointsMatrix[ int( in.joint_indices.z ) ] + in.weights.w * jointsMatrix[ int( in.joint_indices.w ) ];
+    
+    out.wposition = uniforms.attrBindShapeMatrix * in.position * blend_result;
+    out.position =  uniforms.MVPMatrix * out.wposition;
+    out.wposition = uniforms.ModelMatrix * out.wposition;
+    
+    return out;
+}
+
+fragment float4 AnimationShadowMapShader_fs(AnimationShader_InOut in [[stage_in]],
+                                 constant AnimatedObjectUniforms & uniforms [[ buffer( BufferIndexUniforms ) ]],
+                                 constant DirectionalLight & dir_light [[ buffer( BufferIndexDirectionalLightsConstants ) ]],
+                                 constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
+                                 constant Material & material [[ buffer( MaterialUniforms ) ]],
+                                 texture2d<half> colorMap     [[ texture( TextureIndex1Color ) ]],
+                                 texture2d<half> normalMap     [[ texture( TextureIndex1Normal ) ]] )
+{
+    return float4( in.position.z );
+}
+
+// ------------------------------------------------------
+// Animation Shader Deferred
+// ------------------------------------------------------
+
+typedef struct
+{
+    float4 position [[position]];
+    float4 wposition;
+    float2 texcoords;
+    float4 colorVarying;
+    float4 normal;
+    float3 T,B,N;
+    float3 LightDirection_tangentspace;
+    float3 EyeDirection_tangentspace;
+} AnimationShaderDeferred_InOut;
+
+vertex AnimationShaderDeferred_InOut AnimationShaderDeferred_vs(VertexPosNormalTexTanBiWeJoIn in [[stage_in]],
+                                            constant AnimatedObjectUniforms & uniforms [[ buffer( BufferIndexUniforms ) ]],
+                                            const device float4x4 * jointsMatrix  [[ buffer(SkinningMatrixBuffer) ]] )
+{
+    AnimationShaderDeferred_InOut out;
+    
+    float4x4 blend_result = in.weights.x * jointsMatrix[ int( in.joint_indices.x ) ];
+    
+    blend_result += in.weights.y * jointsMatrix[ int( in.joint_indices.y ) ];
+    blend_result += in.weights.z * jointsMatrix[ int( in.joint_indices.z ) ];
+    blend_result += in.weights.w * jointsMatrix[ int( in.joint_indices.w ) ];
+    
+    out.T = (uniforms.ModelMatrix * normalize( float4(in.tangent, 1.0 ))).xyz;
+    out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
+    out.N = (uniforms.ModelMatrix * normalize( in.normal )).xyz;
+    
+    //position_p = ModelMatrix * position;
+    //normal_p = ModelMatrix * normal;
+    //tangent_p = tangent;
+    
+    //out.LightDirection_tangentspace = /*TBNMatrix * */- dir_light.Direction.xyz;
+    //out.EyeDirection_tangentspace =  TBNMatrix * CameraWorldPosition.xyz;
+    
+    out.wposition = uniforms.attrBindShapeMatrix * in.position * blend_result;
+    out.position =  uniforms.MVPMatrix * out.wposition;
+    out.wposition = uniforms.ModelMatrix * out.wposition;
+    out.texcoords = in.texcoords;
+    
+    return out;
+}
+
+fragment GBufferDataFragmentOut AnimationShaderDeferred_fs(AnimationShaderDeferred_InOut in [[stage_in]],
+                                 constant AnimatedObjectUniforms & uniforms [[ buffer( BufferIndexUniforms ) ]],
+                                 constant DirectionalLight & dir_light [[ buffer( BufferIndexDirectionalLightsConstants ) ]],
+                                 constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
+                                 constant Material & material [[ buffer( MaterialUniforms ) ]],
+                                 texture2d<half> colorMap     [[ texture( TextureIndex1Color ) ]],
+                                 texture2d<half> normalMap     [[ texture( TextureIndex1Normal ) ]] )
+{
+    GBufferDataFragmentOut out;
+    
+    constexpr sampler colorSampler(mip_filter::linear,
+                                   mag_filter::linear,
+                                   min_filter::linear);
+    
+    half4 colorSample = colorMap.sample(colorSampler, in.texcoords.xy);
+    half4 base_normal = normalMap.sample(colorSampler, in.texcoords.xy);
+    
+    float3x3 TBN = float3x3( in.T, in.B, in.N );
+    
+    out.Position = in.wposition;
+    out.Diffuse = float4( colorSample );
+    out.Normal = float4( ComputeNormalMapping( TBN, float3( base_normal.xyz ) ), 1.0 );
+    out.Specular = 1.0;
+    //out.Shadow = 0.0;
+    
+    return out;
 }
 
 // ------------------------------------------------------
@@ -1407,6 +1512,77 @@ fragment float4 SSAOEffect_fs(SSAOEffect_InOut in [[stage_in]],
                                    min_filter::linear);
     
     return float4( 1.0 );
+}
+
+vertex SSAOEffect_InOut SSAOEffectDeferred_vs(VertexPosNormalTexTanBi in [[stage_in]],
+                                              const device float4 * SSAOKernel [[ buffer(SSAOKernelConstants) ]],
+                                            constant SSAOObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+{
+    SSAOEffect_InOut out;
+
+    out.position = uniforms.MVPMatrix * in.position;
+    out.texcoords = in.texcoords;
+    
+    return out;
+}
+
+fragment float4 SSAOEffectDeferred_fs(SSAOEffect_InOut in [[stage_in]],
+                                 constant SSAOObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                 constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
+                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
+                                 const device float4 * SSAOKernel [[ buffer(SSAOKernelConstants) ]],
+                                 texture2d<half> positionMap     [[ texture(TextureIndex1Color) ]],
+                                 texture2d<half> diffuseMap     [[ texture(TextureIndex2Color) ]],
+                                 texture2d<half> normalMap     [[ texture(TextureIndex3Color) ]],
+                                 texture2d<half> depthMap     [[ texture(TextureIndex4Color) ]],
+                                 texture2d<half> randomMap     [[ texture(TextureIndex5Color) ]] )
+{
+    constexpr sampler colorSampler(mip_filter::linear,
+                                   mag_filter::linear,
+                                   min_filter::linear);
+    
+    const int MAX_KERNEL_SIZE = 64;
+    const float SSAO_FACTOR = 1.0 / MAX_KERNEL_SIZE;
+    const float SSAOSampleRad = 0.1;
+    
+    const float2 noiseScale = float2(1024.0/4.0, 768.0/4.0); // screen = 1024*768
+    
+    half Depth = depthMap.sample( colorSampler, in.texcoords).r;
+    
+    float ViewZ = uniforms.ProjectionMatrix[3][2] / (2 * Depth -1 - uniforms.ProjectionMatrix[2][2]);
+
+    half3 Pos    = half3( half2(positionMap.sample(colorSampler, in.texcoords ).xy), ViewZ );
+    //float3 diffuseMap = float3( positionMap.sample(colorSampler, in.texcoords ).xyz);
+    //float3 Normal = (uniforms.ViewMatrix * float4( float3( normalMap.sample(colorSampler, in.texcoords ).xyz), 0.0 )).xyz;
+    float3 randomVec = float3( randomMap.sample(colorSampler, in.texcoords ).xyz);
+
+    //float3 tangent   = normalize(randomVec - Normal * dot(randomVec, Normal));
+    //float3 bitangent = cross(Normal, tangent);
+    //mat3 TBN       = mat3(tangent, bitangent, Normal);
+
+    half4 SSAO = half4(0.0);
+
+    for (int i = 0 ; i < MAX_KERNEL_SIZE ; i++) {
+
+        half3 samplePos = Pos + half3(SSAOKernel[i].xyz);//;( TBN * SSAOKernel[i].xyz ) * SSAOSampleRad;
+        half4 offset = half4(samplePos, 1.0); // make it a 4-vector
+
+        offset = half4(uniforms.SSAOViewProjectionMatrix * float4(offset)); // project on the near clipping plane
+        offset.xy /= offset.w; // perform perspective divide
+        offset.xy = (offset.xy * 0.5) + half2(0.5); // transform to (0,1) range
+
+        float sampleDepth = positionMap.sample(colorSampler, float2(offset.xy) ).x;
+        
+        if (abs(Pos.z - sampleDepth) < SSAOSampleRad) {
+            SSAO += step(abs( float(samplePos.z) ), abs(sampleDepth) );
+        }
+    }
+
+    SSAO = (1.0 - (SSAO * SSAO_FACTOR));
+
+    SSAO = half4(pow(float(SSAO.r), 2.0));
+    
+    return float4(SSAO);
 }
 
 // ------------------------------------------------------

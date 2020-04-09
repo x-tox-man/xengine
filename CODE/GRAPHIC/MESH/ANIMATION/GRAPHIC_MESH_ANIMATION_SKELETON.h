@@ -15,7 +15,7 @@
 #include "CORE_DATA_BUFFER.h"
 #include "GRAPHIC_MESH_ANIMATION_JOINT.h"
 #include "GRAPHIC_MESH_ANIMATION_MODE.h"
-#include "GRAPHIC_MESH_SUB_SKELETON.h"
+#include "GRAPHIC_MESH_SKELETON_JOINT.h"
 
 #include "assert.h"
 
@@ -26,12 +26,10 @@ XS_CLASS_BEGIN( GRAPHIC_MESH_ANIMATION_SKELETON )
     GRAPHIC_MESH_ANIMATION_SKELETON();
     ~GRAPHIC_MESH_ANIMATION_SKELETON();
 
-    void Initialize( const std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & table );
-
     void ComputeWorldMatrix( const float time );
     void ComputeWorldPose( const float time );
 
-    inline GRAPHIC_MESH_SUB_SKELETON & GetRootSubSkeleton() { return RootSubSkeleton; }
+    inline GRAPHIC_MESH_SKELETON_JOINT & GetRootSubSkeleton() { return RootSubSkeleton; }
 
 
     #if DEBUG
@@ -39,14 +37,14 @@ XS_CLASS_BEGIN( GRAPHIC_MESH_ANIMATION_SKELETON )
             
             for (int i = 0; i < RootSubSkeleton.ChildCount; i++ ) {
                 
-                RootSubSkeleton.SubSkelettonTable[i].print();
+                RootSubSkeleton.SubJointTable[i].print();
             }
         }
     #endif
 
 private :
 
-    GRAPHIC_MESH_SUB_SKELETON
+    GRAPHIC_MESH_SKELETON_JOINT
         RootSubSkeleton;
 
 XS_CLASS_END

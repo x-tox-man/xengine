@@ -52,7 +52,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_SHADER_EFFECT, GRAPHIC_SHADER_EF
 
     inline void SetDiffuse( const CORE_HELPERS_COLOR & color ) { MaterialCollection->SetDiffuse( color ); }
 
-    virtual void Apply( GRAPHIC_RENDERER & renderer, const char * material_name, bool does_lighting, bool does_texturing );
+    virtual void Apply( GRAPHIC_RENDERER & renderer, const char * material_name );
     void SelectMaterial( const char * material_name );
     virtual void Discard();
     virtual void BindAttributes();

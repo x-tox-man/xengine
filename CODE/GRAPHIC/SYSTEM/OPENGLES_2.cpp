@@ -329,18 +329,18 @@ void GRAPHIC_SYSTEM::CreateVertexBuffer(GRAPHIC_MESH &mesh) {
     if ( components & GRAPHIC_SHADER_BIND_SkinWeight ) {
         
         GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGLES2_SkinWeight); )
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_SkinWeight, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
         
-        vertex_offset += 3;
+        vertex_offset += 4;
     }
     
     if ( components & GRAPHIC_SHADER_BIND_JointIndices ) {
         
         GFX_CHECK( glEnableVertexAttribArray(GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices); )
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
                   )
         
-        vertex_offset += 3;
+        vertex_offset += 4;
     }
     
     if ( components & GRAPHIC_SHADER_BIND_Tangents ) {
@@ -561,17 +561,17 @@ void GRAPHIC_SYSTEM::ApplyBuffers(GRAPHIC_MESH &mesh) {
     
     if ( component & GRAPHIC_SHADER_BIND_SkinWeight ) {
         
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_SkinWeight, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_SkinWeight, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat))); )
         
-        vertex_offset += 3;
+        vertex_offset += 4;
     }
     
     if ( component & GRAPHIC_SHADER_BIND_JointIndices ) {
         
-        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
+        GFX_CHECK(glVertexAttribPointer(GRAPHIC_SHADER_BIND_OPENGLES2_JointIndices, 4, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (void*)(vertex_offset * sizeof(GLfloat)));
                   )
         
-        vertex_offset += 3;
+        vertex_offset += 4;
     }
     
     if ( component & GRAPHIC_SHADER_BIND_Tangents ) {

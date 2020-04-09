@@ -16,9 +16,7 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION_JOINT )
     XS_DEFINE_ClassMember( "PoseBuffer", CORE_DATA_BUFFER, PoseBuffer )
     XS_DEFINE_ClassMember( "WorldMatrix", CORE_SCALAR, WorldMatrix )
     XS_DEFINE_ClassMember( "WorldPose", CORE_MATH_POSE, WorldPose )
-    XS_DEFINE_ClassMember( "TimeTableBuffer", CORE_DATA_BUFFER, TimeTableBuffer )
-    XS_DEFINE_ClassMemberArray( "JointName", char, JointName, (size_t) 256 )
-    XS_DEFINE_ClassMember( "BindShapeMatrix", CORE_SCALAR, BindShapeMatrix )
+    XS_DEFINE_ClassMemberArray( "Name", char, Name, (size_t) 256 )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION_JOINT )
@@ -30,9 +28,8 @@ GRAPHIC_MESH_ANIMATION_JOINT::GRAPHIC_MESH_ANIMATION_JOINT() :
     InterpolatedPose(),
     WorldMatrix(),
     WorldPose(),
-    TimeTableBuffer(),
-    JointName(),
-    BindShapeMatrix() {
+    Name(),
+    SkeletonJoint( NULL ) {
 }
 
 GRAPHIC_MESH_ANIMATION_JOINT::~GRAPHIC_MESH_ANIMATION_JOINT() {
@@ -49,9 +46,9 @@ void GRAPHIC_MESH_ANIMATION_JOINT::Initialize( int matrix_size, int count ) {
     PoseBuffer.Initialize( count * sizeof( CORE_MATH_POSE ) );
 }
 
-void * GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForTime( const float time ) {
+float * GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForIndex( int matrix_index ) {
     
-    int matrix_index = 0;
+    /*int matrix_index = 0;
     
     assert(time >= 0.0f );
     
@@ -74,14 +71,14 @@ void * GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForTime( const float 
         ++matrix_index;
     }
     
-    assert(matrix_index == TimeTableBuffer.GetSize() -1 );
+    assert(matrix_index == TimeTableBuffer.GetSize() -1 );*/
     
-    return FloatMatrixBuffer.getpointerAtIndex((matrix_index-1) * sizeof(float) * 16, 0);
+    return (float *) FloatMatrixBuffer.getpointerAtIndex( matrix_index * sizeof(float) * 16, 0);
 }
 
-void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( const float time, CORE_MATH_POSE & pose ) {
+void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( const int pose_index, CORE_MATH_POSE & pose ) {
     
-    int pose_index = 0;
+    /*int pose_index = 0;
     
     assert(time >= 0.0f );
     
@@ -113,12 +110,7 @@ void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( const float time, CORE_MATH
         ++pose_index;
     }
     
-    assert(pose_index == TimeTableBuffer.GetSize() -1 );
+    assert(pose_index == TimeTableBuffer.GetSize() -1 );*/
     
-    pose.CopyFrom(  *(( CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( ( pose_index - 1 ) * sizeof( CORE_MATH_POSE ), 0) ));
-}
-
-float GRAPHIC_MESH_ANIMATION_JOINT::GetDuration() {
-    
-    return *(float*) TimeTableBuffer.getpointerAtIndex( (TimeTableBuffer.GetSize()/4) - 1 );
+    pose.CopyFrom(  *(( CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( pose_index * sizeof( CORE_MATH_POSE ), 0) ));
 }

@@ -17,7 +17,7 @@
     #include "CORE_HELPERS_IDENTIFIER.h"
     #include "COLLADASaxFWLIErrorHandler.h"
     #include "COLLADAFW.h"
-    #include "GRAPHIC_MESH_SUB_SKELETON.h"
+    #include "GRAPHIC_MESH_SKELETON_JOINT.h"
     #include "CORE_FILESYSTEM.h"
 
     union PRIMITIVE_LIST
@@ -72,12 +72,15 @@
         
         ~COLLADA_LOADER_WRITER() {};
         
-        void fillSkeleton(
+        /*void fillSkeleton(
             std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & joints,
             int base_index,
             int * index_table,
             COLLADAFW::Node * node,
-            GRAPHIC_MESH_SUB_SKELETON & skeleton );
+            GRAPHIC_MESH_SKELETON_JOINT & skeleton );*/
+        
+        void FillSkeleton( GRAPHIC_MESH_SKELETON_JOINT & skeleton, COLLADAFW::Node & nodes, std::vector< GRAPHIC_MESH_ANIMATION_JOINT::PTR > & new_joints_table );
+        int FindNodeId( const char * node_name );
         
         virtual void cancel(const COLLADAFW::String& errorMessage);
         
@@ -154,6 +157,8 @@
         virtual bool writeKinematicsScene( const COLLADAFW::KinematicsScene* kinematicsScene );
         
         GRAPHIC_OBJECT * graphicObject;
+        std::vector< GRAPHIC_MESH_ANIMATION_JOINT::PTR > animatedJoints;
+        std::vector< int > indexTable;
         
     private:
         bool ComputeBufferSizeForItem( int & buffer_size, int & section_count, const COLLADAFW::FloatOrDoubleArray & array );
@@ -166,13 +171,11 @@
     XS_CLASS_BEGIN( GRAPHIC_MESH_LOADER_COLLADA )
     public:
         GRAPHIC_MESH_LOADER_COLLADA();
-        virtual    ~GRAPHIC_MESH_LOADER_COLLADA();
+        virtual ~GRAPHIC_MESH_LOADER_COLLADA();
         
         void LoadFile( GRAPHIC_OBJECT & meshToLoad, const CORE_FILESYSTEM_PATH & file_path );
         
     private:
-
-        GRAPHIC_OBJECT * graphicObject;
         
         static const CORE_HELPERS_IDENTIFIER
             VertexSemanticIdentifier,

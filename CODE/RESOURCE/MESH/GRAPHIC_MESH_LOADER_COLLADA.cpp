@@ -26,7 +26,10 @@
         return false;
     }
 
-    COLLADA_LOADER_WRITER::COLLADA_LOADER_WRITER():COLLADAFW::IWriter() {
+    COLLADA_LOADER_WRITER::COLLADA_LOADER_WRITER():
+        COLLADAFW::IWriter(),
+        graphicObject( NULL ),
+        animatedJoints() {
         
     };
 
@@ -60,19 +63,60 @@
         return true;
     }
 
-    void COLLADA_LOADER_WRITER::fillSkeleton(
+    int COLLADA_LOADER_WRITER::FindNodeId( const char * node_name ) {
+        
+        int index = -1;
+        
+        for ( int i = 0; i < graphicObject->GetAnimationTable()[0]->GetJointTable().size(); i++ ) {
+            
+            if( graphicObject->GetAnimationTable()[0]->GetJointTable()[i] != NULL && strcmp(node_name, graphicObject->GetAnimationTable()[0]->GetJointTable()[i]->GetName() ) == 0 ) {
+                
+                return i;
+            }
+        }
+        //TODO: What's up here here???
+        return index;
+    }
+
+    void COLLADA_LOADER_WRITER::FillSkeleton( GRAPHIC_MESH_SKELETON_JOINT & skeleton, COLLADAFW::Node & node, std::vector< GRAPHIC_MESH_ANIMATION_JOINT::PTR > & new_joints_table ) {
+        
+        skeleton.ChildCount = (int) node.getChildNodes().getCount();
+        skeleton.ChildJointTable = ( GRAPHIC_MESH_SKELETON_JOINT *) CORE_MEMORY_ALLOCATOR::Allocate( sizeof( GRAPHIC_MESH_SKELETON_JOINT ) * (int) node.getChildNodes().getCount() );
+        
+        skeleton.SetName( node.getName().c_str() );
+        skeleton.Index = (int) indexTable[node.getUniqueId().getObjectId()];
+         
+        int found_node = FindNodeId( node.getName().c_str() );
+        if ( found_node > -1 ) {
+            new_joints_table[ skeleton.Index ] = graphicObject->GetAnimationTable()[0]->GetJointTable()[ found_node ];
+        }
+        else {
+            new_joints_table[ skeleton.Index ] = NULL;
+        }
+        
+        memcpy((void*) &skeleton.Transform.Value.FloatMatrix4x4, (void*)&node.getTransformationMatrix().getElement(0), 16 * sizeof(float));
+        
+        printf( "FillSkeleton %d %s\n", skeleton.Index, node.getName().c_str());
+        
+        for( int i = 0; i < (int) node.getChildNodes().getCount(); i++ ) {
+            
+            FillSkeleton( skeleton.ChildJointTable[ i ], *node.getChildNodes()[ i ], new_joints_table );
+        }
+    }
+
+    /*void COLLADA_LOADER_WRITER::fillSkeleton(
                                              std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & joints,
                                              int base_index,
                                              int * index_table,
                                              COLLADAFW::Node * node,
-                                             GRAPHIC_MESH_SUB_SKELETON & skeleton ) {
+                                             GRAPHIC_MESH_SKELETON_JOINT & skeleton ) {
         
         CORE_SCALAR
         scalar;
         
         memcpy((void*) &scalar.Value.FloatMatrix4x4, (void*)&node->getTransformationMatrix().getElement(0), 16 * sizeof(float));
         
-        skeleton.SubSkelettonTable = ( GRAPHIC_MESH_SUB_SKELETON *) CORE_MEMORY_ALLOCATOR::Allocate( sizeof( GRAPHIC_MESH_SUB_SKELETON ) * node->getChildNodes().getCount() );
+        skeleton.SubSkelettonTable = ( GRAPHIC_MESH_SKELETON_JOINT *) CORE_MEMORY_ALLOCATOR::Allocate( sizeof( GRAPHIC_MESH_SKELETON_JOINT ) * node->getChildNodes().getCount() );
         
         skeleton.ChildCount = (int) node->getChildNodes().getCount();
         skeleton.Joint = joints[ node->getObjectId() ];
@@ -92,7 +136,7 @@
             
             fillSkeleton( joints, base_index, index_table, node->getChildNodes()[i], skeleton.SubSkelettonTable[i] );
         }
-    }
+    }*/
 
     /** When this method is called, the writer must write the entire visual scene.
      @return The writer should return true, if writing succeeded, false otherwise.*/
@@ -110,36 +154,25 @@
         
         if ( graphicObject->GetAnimationTable().size() > 0 ) {
             
+            assert( graphicObject->GetAnimationTable().size() == 1 ); //handle multiple animations later
+            
             for (int an_ind = 0; an_ind < graphicObject->GetAnimationTable().size(); an_ind++ ) {
-                
-                GRAPHIC_MESH_ANIMATION * animation = graphicObject->GetAnimationTable()[an_ind];
                 
                 for (int i = 0; i < visualScene->getRootNodes().getCount(); i++ ) {
                     
-                    // get the root node objectId plus one because it is not a joint index
-                    long base_id = visualScene->getRootNodes()[i]->getUniqueId().getObjectId() + 1;
+                    //Hack: Ignore NODES only take joints for root nodes
+                    if ( visualScene->getRootNodes()[i]->getType() != COLLADAFW::Node::NodeType::JOINT ){
+                        continue;
+                    }
                     
-                    if ( animation->GetAnimationName().compare( visualScene->getRootNodes()[i]->getName() ) == 0 ) {
+                    std::vector< GRAPHIC_MESH_ANIMATION_JOINT::PTR > tempTable;
+                    tempTable.resize( graphicObject->GetAnimationTable()[0]->GetJointTable().size() );
+                    
+                    FillSkeleton( graphicObject->GetSkeleton(), *visualScene->getRootNodes()[i], tempTable );
+                    
+                    for ( int ai = 0; ai < graphicObject->GetAnimationTable()[0]->GetJointTable().size(); ai ++ ) {
                         
-                        int size = animation->GetJointIndexTable().GetSize() / 4;
-                        int * ptr = (int*) animation->GetJointIndexTable().getpointerAtIndex(0, 0);
-                        
-                        for ( int j = 0; j < size; j++ ) {
-                            
-                            long joint_index = *( ptr + j );
-                            
-                            animation->GetJointTable()[j] = graphicObject->GetJointTable()[ joint_index - base_id ];
-                            animation->GetIndexTable()[j] = (int) (joint_index - base_id);
-                            
-                            accumulatedVector[ joint_index ] = animation->GetJointTable()[j];
-                            index_table[ joint_index ] = j;
-                        }
-                        
-                        fillSkeleton( accumulatedVector, (int)base_id, index_table, visualScene->getRootNodes()[i], animation->GetSkeleton().GetRootSubSkeleton() );
-                        
-                        animation->print();
-                        
-                        break;
+                        graphicObject->GetAnimationTable()[0]->GetJointTable()[ai] = tempTable[ ai ];
                     }
                 }
             }
@@ -655,18 +688,18 @@
             case COLLADAFW::Animation::AnimationType::ANIMATION_CURVE : {
                 
                 const COLLADAFW::AnimationCurve *
-                curve = (COLLADAFW::AnimationCurve*)animation;
+                    curve = (COLLADAFW::AnimationCurve*)animation;
                 GRAPHIC_MESH_ANIMATION_JOINT *
-                skeleton = new GRAPHIC_MESH_ANIMATION_JOINT();
+                    skeleton = new GRAPHIC_MESH_ANIMATION_JOINT();
                 
-                unsigned int size = (int) this->graphicObject->GetJointTable().size();
+                unsigned int size = (int) this->animatedJoints.size();
                 
-                skeleton->GetTimeTableBuffer().Initialize((int) (curve->getInputValues().getFloatValues()->getCount() * sizeof( float) ) );
+                graphicObject->GetAnimationTable()[0]->GetTimeTableBuffer().Initialize((int) (curve->getInputValues().getFloatValues()->getCount() * sizeof( float) ) );
                 
-                memcpy( skeleton->GetTimeTableBuffer().getpointerAtIndex(0, 0), curve->getInputValues().getFloatValues()->getData(), curve->getInputValues().getFloatValues()->getCount() * sizeof(float) );
+                memcpy( graphicObject->GetAnimationTable()[0]->GetTimeTableBuffer().getpointerAtIndex(0, 0), curve->getInputValues().getFloatValues()->getData(), curve->getInputValues().getFloatValues()->getCount() * sizeof(float) );
                 
-                this->graphicObject->GetJointTable().resize(size+1);
-                this->graphicObject->GetJointTable()[ size ] = skeleton;
+                animatedJoints[ animation->getUniqueId().getObjectId() ] = skeleton;
+                printf( "joint_index %d %s\n", animation->getUniqueId().getObjectId(), animation->getName().c_str() );
                 
                 int dimension = (int) curve->getOutDimension();
                 
@@ -675,7 +708,7 @@
                     int animation_values_count = (int) curve->getInputValues().getValuesCount();
                     
                     skeleton->Initialize(dimension, animation_values_count);
-                    skeleton->SetJointName(animation->getName().c_str() );
+                    skeleton->SetName(animation->getName().c_str() );
                     
                     if ( curve->getOutputValues().getType() == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT ) {
                         
@@ -715,7 +748,6 @@
                             
                             buffer++;
                         }
-                        
                     }
                     else {
                         
@@ -767,10 +799,15 @@
         GRAPHIC_MESH_ANIMATION *
         animation = new GRAPHIC_MESH_ANIMATION();
         
-        animation->SetAnimationName( skinControllerData->getName() );
+        animation->SetName( skinControllerData->getName() );
         
         graphicObject->GetAnimationTable().resize(skinControllerData->getUniqueId().getObjectId() + 1 );
         graphicObject->GetAnimationTable()[ skinControllerData->getUniqueId().getObjectId() ] = animation;
+        graphicObject->GetAnimationTable()[ skinControllerData->getUniqueId().getObjectId()]->GetJointTable().resize( skinControllerData->getJointsCount() );
+        animatedJoints.resize( skinControllerData->getJointsCount() );
+        
+        //animationTable.resize( skinControllerData->getUniqueId().getObjectId() + 1 );
+        //animationTable[ skinControllerData->getUniqueId().getObjectId() ] = animation;
         
         float bind_shape_matrix[ 16 ];
         
@@ -798,7 +835,9 @@
 
         BASE_JOINTS_PER_VERTEX = 3;
         
-        unsigned int joint_index_offset = 0;
+        
+        //TODO: Why????
+        unsigned int joint_index_offset = 1;
         
         int new_buffer_size = buffer->GetSize()
         + (int) ( BASE_JOINTS_PER_VERTEX * skinControllerData->getJointsPerVertex().getCount()* sizeof( float ) )
@@ -835,11 +874,6 @@
             
             int jointsPerVertex = *((unsigned int *) skinControllerData->getJointsPerVertex().getData() + i);
             
-            if ( jointsPerVertex > 3 ) {
-                //SERVICE_LOGGER_Warning( "COLLADA_LOADER_WRITER::writeSkinControllerData : jointsPerVertex higher than 3 > ignoring other components" );
-                jointsPerVertex = 3;
-            }
-            
             for (int new_geometry_index = 0; new_geometry_index < mesh->CurrenGeometrytTableSize; new_geometry_index++ ) {
                 
                 if ( mesh->CurrenGeometrytTable[ new_geometry_index ].vertex_index == i ) {
@@ -850,10 +884,13 @@
                     
                     for( int joint_per_vertex_index = 0; joint_per_vertex_index < jointsPerVertex; joint_per_vertex_index++ ) {
                         
-                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + joint_per_vertex_index));
+                        if ( joint_per_vertex_index > 2 ) {
+                            continue;
+                        }
                         
-                        int weight_index = skinControllerData->getWeightIndices().getData()[ joint_index_offset + joint_per_vertex_index];
-                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[joint_per_vertex_index] = *(skinControllerData->getWeights().getFloatValues()->getData() + weight_index );
+                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + joint_per_vertex_index ));
+                        
+                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[joint_per_vertex_index] = *(skinControllerData->getWeights().getFloatValues()->getData() + joint_index_offset + joint_per_vertex_index );
                         
                         if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 0.0f ) {
                             
@@ -865,10 +902,17 @@
                             
                             mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
                         }
+                        
+                        
                     }
+                    
+                    //printf( "%f %f %f\n", mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0], mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1], mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2]);
+                    
+                    //printf( "%d %d %d\n", (int)mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0], (int)mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1], (int)mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[2]);
+                    //assert( mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 1.01f);
                 }
             }
-            
+                
             joint_index_offset += jointsPerVertex;
         }
         
@@ -879,10 +923,15 @@
             memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride ),        (void*)mesh->CurrenGeometrytTable[v_index].position,        16 );
             memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 4 ),    (void*)mesh->CurrenGeometrytTable[v_index].Normals,         16 );
             memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 8),     (void*)mesh->CurrenGeometrytTable[v_index].UV0,             8 );
-            memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 10),     (void*)mesh->CurrenGeometrytTable[v_index].joint_weights,     12 );
-            memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 13),     (void*)mesh->CurrenGeometrytTable[v_index].joint_index,   12 );
-            memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 16 ),   (void*)mesh->CurrenGeometrytTable[v_index].tangents,        12 );
-            memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 19),    (void*)mesh->CurrenGeometrytTable[v_index].binormal,        12 );
+            
+            memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 10),     (void*)mesh->CurrenGeometrytTable[v_index].joint_weights,     16 );
+            memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 14),     (void*)mesh->CurrenGeometrytTable[v_index].joint_index,   16 );
+            
+            memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 18 ),   (void*)mesh->CurrenGeometrytTable[v_index].tangents,        12 );
+            memcpy( (void*)((int*)alternate_new_buffer + v_index * off_stride + 21),    (void*)mesh->CurrenGeometrytTable[v_index].binormal,        12 );
+            
+            //assert( mesh->CurrenGeometrytTable[v_index].joint_index[0] != 0.0f && mesh->CurrenGeometrytTable[v_index].joint_weights[0] != 0.0f );
+            //printf("windex %d %d %d\n", (int)mesh->CurrenGeometrytTable[v_index].joint_index[0], (int)mesh->CurrenGeometrytTable[v_index].joint_index[1], (int)mesh->CurrenGeometrytTable[v_index].joint_index[2]);
             
             /*SERVICE_LOGGER_Error( "%f %f %f\n", mesh->CurrenGeometrytTable[v_index].tangents[0], mesh->CurrenGeometrytTable[v_index].tangents[1], mesh->CurrenGeometrytTable[v_index].tangents[2] );
             
@@ -899,33 +948,35 @@
         
         return true;
     }
-
+    
     /** When this method is called, the writer must write the controller.
      @return The writer should return true, if writing succeeded, false otherwise.*/
     bool COLLADA_LOADER_WRITER::writeController( const COLLADAFW::Controller* controller )
     {
         COLLADAFW::SkinController *
-        skin_controller = (COLLADAFW::SkinController *) controller;
+            skin_controller = (COLLADAFW::SkinController *) controller;
         
-        GRAPHIC_MESH_ANIMATION *
-        animation = graphicObject->GetAnimationTable()[ controller->getUniqueId().getObjectId() ];
+        GRAPHIC_MESH_ANIMATION::PTR animation = graphicObject->GetAnimationTable()[ controller->getUniqueId().getObjectId() ];
         
-        animation->GetJointTable().resize(skin_controller->getJoints().getCount());
-        
-        int * ptr = (int *) CORE_MEMORY_ALLOCATOR::Allocate(skin_controller->getJoints().getCount()*4);
+        animation->GetJointTable().resize( skin_controller->getJoints().getCount() );
+        indexTable.resize( skin_controller->getJoints().getCount() );
         
         for ( int i = 0; i <skin_controller->getJoints().getCount(); i++  ) {
             
             int object_id = (int) skin_controller->getJoints().getData()[i].getObjectId();
             
-            memcpy( ptr + i, (void *) &object_id, sizeof(int));
+            printf( "object id : %d\n", object_id );
+            indexTable[i] = object_id;
+            
+            if ( object_id < animatedJoints.size() ) {
+                
+                animation->GetJointTable()[ object_id ] = animatedJoints[ object_id ];
+            }
+            else {
+                
+                animation->GetJointTable()[i] = NULL;
+            }
         }
-        
-        animation->SetJointIndexTable( (int *) ptr, (int) (skin_controller->getJoints().getCount() * 4 ) );
-        
-        std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> dummy_joint_table;
-        
-        animation->Initialize( dummy_joint_table, (int) skin_controller->getJoints().getCount() );
         
         return true;
     }
@@ -945,8 +996,7 @@
         return true;
     }
 
-    GRAPHIC_MESH_LOADER_COLLADA::GRAPHIC_MESH_LOADER_COLLADA( void ) :
-    graphicObject( NULL )
+    GRAPHIC_MESH_LOADER_COLLADA::GRAPHIC_MESH_LOADER_COLLADA( void )
     {
     }
 
@@ -962,8 +1012,8 @@
         COLLADASaxFWL::Loader loader( &errorHandler );
         COLLADAFW::Root root(&loader, &writer);
         
-        graphicObject = &meshToLoad;
         writer.graphicObject = &meshToLoad;
+        
         
         // Load scene graph
         bool success = root.loadDocument( file_path.GetPath() );

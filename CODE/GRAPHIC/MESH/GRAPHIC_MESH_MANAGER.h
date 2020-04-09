@@ -15,8 +15,6 @@
 #include "GRAPHIC_OBJECT.h"
 #include "CORE_FILESYSTEM.h"
 
-class GRAPHIC_OBJECT_ANIMATED;
-
 enum GRAPHIC_MESH_TYPE {
     GRAPHIC_MESH_TYPE_None = 0,
     GRAPHIC_MESH_TYPE_OpenCollada,
@@ -31,7 +29,7 @@ XS_CLASS_BEGIN( GRAPHIC_MESH_MANAGER )
     ~GRAPHIC_MESH_MANAGER();
     
     GRAPHIC_OBJECT * LoadObject( const CORE_FILESYSTEM_PATH & path, int meshIdentifier, int meshTypeToLoad );
-    GRAPHIC_OBJECT_ANIMATED * LoadObjectAnimated( const CORE_FILESYSTEM_PATH & path, int meshIdentifier, int meshTypeToLoad );
+    GRAPHIC_OBJECT * LoadObjectAnimated( const CORE_FILESYSTEM_PATH & path, int meshIdentifier, int meshTypeToLoad );
 
     void GetMesh( int meshIdentifier );
 

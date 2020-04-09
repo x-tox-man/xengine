@@ -98,7 +98,7 @@ GRAPHIC_MATERIAL::~GRAPHIC_MATERIAL() {
     TextureTable.clear();
 }
 
-void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, bool does_lighting, bool does_texturing ) {
+void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader ) {
     
     GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
     
@@ -107,12 +107,12 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
         GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1,  &InnerMaterial.Diffuse[0] )
     }
     
-    if ( does_texturing ) {
+    if ( renderer.IsTexturingEnabled() ) {
         
         ApplyTexture( shader );
     }
     
-    if ( does_lighting ) {
+    if ( renderer.IsLightingEnabled() ) {
         
         ApplyLights( shader, renderer );
     }

@@ -9,6 +9,7 @@
 #include "GRAPHIC_SHADER_EFFECT_SSAO.h"
 #include "RESOURCE_IMAGE.h"
 #include "GRAPHIC_SYSTEM.h"
+#include "GRAPHIC_RENDERER_STATE_DESCRIPTOR.h"
 
 GRAPHIC_SHADER_EFFECT_SSAO::GRAPHIC_SHADER_EFFECT_SSAO( GRAPHIC_SHADER_EFFECT::PTR effect ) :
     GRAPHIC_SHADER_EFFECT(),
@@ -35,28 +36,34 @@ void GRAPHIC_SHADER_EFFECT_SSAO::BindAttributes() {
     GenerateSSAOKernel();
 }
 
-void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, const char * material_name, bool does_lighting, bool does_texturing ) {
+void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, const char * material_name ) {
     
     CORE_MATH_MATRIX
         mv,
         inv,
         id;
     
-    GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture5, TextureBlock );
-    GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name, does_lighting, does_texturing );
+    GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture4, TextureBlock );
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name );
     
     GRAPHIC_SHADER_ATTRIBUTE & ssao_kernel = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOKernel );
-    
     GRAPHIC_SHADER_ATTRIBUTE & ssao_sample_rad = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOSampleRad );
-    GRAPHIC_SHADER_ATTRIBUTE & proj = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE & view_proj = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix );
+    GRAPHIC_SHADER_ATTRIBUTE & proj = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOProjectionMatrix );
     GRAPHIC_SHADER_ATTRIBUTE & view = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewMatrix );
     
-    GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( renderer, SSAOKernel, SSAO_MAX_KERNEL, ssao_kernel );
-    GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, SampleRad, ssao_sample_rad );
+#if X_METAL
+    ssao_kernel.AttributeOffset = 14;//SSAOKernelConstants;
+#endif
+    GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( renderer, SSAOKernel, SSAO_MAX_KERNEL * 4, ssao_kernel );
+    //GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, SampleRad, ssao_sample_rad );
     
     mv = Camera->GetProjectionMatrix() * Camera->GetViewMatrix();// * inv;
     
-    GRAPHIC_SYSTEM_ApplyMatrix(proj.AttributeIndex, 1, 0, &mv[0] );
+    //GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix(renderer, &mv[0], proj );
+    //GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix(renderer, &Camera->GetViewMatrix()[0], view );
+    GRAPHIC_SYSTEM_ApplyMatrix(proj.AttributeIndex, 1, 0, &Camera->GetProjectionMatrix()[0] );
+    GRAPHIC_SYSTEM_ApplyMatrix(view_proj.AttributeIndex, 1, 0, &mv[0] );
     GRAPHIC_SYSTEM_ApplyMatrix(view.AttributeIndex, 1, 0, &Camera->GetViewMatrix()[0] );
 }
 

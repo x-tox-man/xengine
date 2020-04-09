@@ -85,9 +85,9 @@ void GRAPHIC_CAMERA_ORTHOGONAL::InitOrthoProjTransform( float left, float right,
     
     float * m = ProjectionMatrix.GetRow(0);
     
-    m[0] = 2.0f/(r - l);    m[1] = 0.0f;            m[2] = 0.0f;            m[3] = -(r + l)/(r - l);
-    m[4] = 0.0f;            m[5] = 2.0f/(t - b);    m[6] = 0.0f;            m[7] = -(t + b)/(t - b);
-    m[8] = 0.0f;            m[9] = 0.0f;            m[10] = 2.0f/(f - n);   m[11] = -(f + n) / (f - n );
+    m[0] = 2.0f/(r - l);    m[1] = 0.0f;            m[2] = 0.0f;            m[3] = (r + l)/(l - r);
+    m[4] = 0.0f;            m[5] = 2.0f/(t - b);    m[6] = 0.0f;            m[7] = (t + b)/(b - t);
+    m[8] = 0.0f;            m[9] = 0.0f;            m[10] = 1.0f/(f - n);   m[11] = n / (n - f);
     m[12] = 0.0f;           m[13] = 0.0f;           m[14] = 0.0f;           m[15] = 1.0;
     
     CalculateModelMatrix( GetPosition(), GetDirection(), GetUp() );

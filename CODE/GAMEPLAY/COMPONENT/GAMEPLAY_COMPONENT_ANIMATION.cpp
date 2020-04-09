@@ -30,11 +30,11 @@ void GAMEPLAY_COMPONENT_ANIMATION::operator =( const GAMEPLAY_COMPONENT_ANIMATIO
     Animation = other.Animation;
 }
 
-void GAMEPLAY_COMPONENT_ANIMATION::UpdateAnimation( float time_step ) {
+void GAMEPLAY_COMPONENT_ANIMATION::Update( float time_step, GRAPHIC_MESH_SKELETON_JOINT * skeleton ) {
     
-    if ( time_step + Animation.GetCurrentTimeFrame() < Animation.GetAnimation( 0 )->GetJointTable()[0]->GetDuration() ) {
+    if ( time_step + Animation.GetCurrentTimeFrame() < Animation.GetAnimation( 0 )->GetDuration() ) {
         
-        Animation.Update( time_step );
+        Animation.Update( time_step, skeleton );
     }
     else {
         

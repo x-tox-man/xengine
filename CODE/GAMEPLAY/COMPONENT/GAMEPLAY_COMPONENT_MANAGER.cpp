@@ -29,7 +29,8 @@ GAMEPLAY_COMPONENT_MANAGER::GAMEPLAY_COMPONENT_MANAGER() :
     ECSData(),
     NamedEntitiesTable(),
     Offset( 0 ) {
-        
+    
+    Initialize();
 }
 
 GAMEPLAY_COMPONENT_MANAGER::~GAMEPLAY_COMPONENT_MANAGER() {

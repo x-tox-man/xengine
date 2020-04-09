@@ -19,9 +19,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_C
 
     CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Animation)
 
-    void UpdateAnimation( float time_step );
+    void Update( float time_step, GRAPHIC_MESH_SKELETON_JOINT * skeleton );
 
-    void SetAnimation( const GRAPHIC_MESH_ANIMATION_CONTROLLER & animation ) { Animation = animation; }
+    inline void SetAnimation( const GRAPHIC_MESH_ANIMATION_CONTROLLER & animation ) { Animation = animation; }
+    inline GRAPHIC_MESH_ANIMATION_CONTROLLER & GetAnimation() { return Animation; }
 
 private :
 

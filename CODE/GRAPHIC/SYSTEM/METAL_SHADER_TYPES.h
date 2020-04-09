@@ -33,7 +33,11 @@ typedef NS_ENUM(NSInteger, BufferIndex)
     BufferIndexBloomThresholdConstants = 7,
     BufferIndexCameraUniforms = 8,
     SkinningMatrixBuffer = 9,
-    MaterialUniforms = 10
+    MaterialUniforms = 10,
+    CameraWorldPositionUniform = 11,
+    SpotLightUniforms = 12,
+    PointLightUniforms = 13,
+    SSAOKernelConstants = 14
 };
 
 typedef NS_ENUM(NSInteger, VertexAttribute)
@@ -73,6 +77,20 @@ typedef struct
         MVPMatrix;
 } ObjectUniforms;
 
+typedef struct
+{
+    matrix_float4x4
+        ModelMatrix,
+        ViewMatrix,
+        MVPMatrix,
+        SSAOProjectionMatrix,
+        SSAOViewProjectionMatrix,
+        SSAOViewMatrix,
+        ProjectionMatrix;
+    float
+        SSAOSampleRad;
+} SSAOObjectUniforms;
+
 typedef struct {
     vector_float2
         FrameResolution;
@@ -100,6 +118,15 @@ typedef struct {
         SpecularIntensity,
         Shininess;
 } Material;
+
+typedef struct
+{
+    vector_float4   Position     [[color(0)]];
+    vector_float4   Diffuse      [[color(1)]];
+    vector_float4   Normal       [[color(2)]]; // Add normal texture output
+    vector_float4   Specular      [[color(3)]];
+    //float Shadow                [[color(4)]];
+} GBufferDataFragmentOut;
 
 /*
  ProjectionMatrix,

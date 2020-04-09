@@ -21,7 +21,6 @@ GRAPHIC_RENDERER::GRAPHIC_RENDERER():
     AmbientLight( NULL ),
     SpotLightTable(),
     PointLightTable(),
-    PassIndex( 0 ),
     NumCascade( 3 ),
     Width( 0 ),
     Height( 0 ),
@@ -32,7 +31,8 @@ GRAPHIC_RENDERER::GRAPHIC_RENDERER():
     ScissorIsEnabled( false ),
     ColorEnabled( false ),
     LightingIsEnabled( true ),
-    DeferredLightingIsEnabled( false ) {
+    DeferredLightingIsEnabled( false ),
+    TexturingIsEnabled( true ) {
         
     SpotLightTable.reserve( 256 );
     PointLightTable.reserve( 256 );
@@ -73,6 +73,7 @@ const CORE_HELPERS_IDENTIFIER & GRAPHIC_RENDERER::GetShadowMapMVPName( int casca
 #endif
     
     switch (cascade_index) {
+            
         case 0:
             
             return GRAPHIC_SHADER_PROGRAM::ShadowMapMVP1;

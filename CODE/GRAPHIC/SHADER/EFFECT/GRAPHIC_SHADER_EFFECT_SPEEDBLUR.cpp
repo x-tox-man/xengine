@@ -12,6 +12,7 @@
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "GRAPHIC_RENDERER_STATE_DESCRIPTOR.h"
 
 GRAPHIC_SHADER_EFFECT_SPEEDBLUR::GRAPHIC_SHADER_EFFECT_SPEEDBLUR( GRAPHIC_SHADER_EFFECT::PTR effect ) :
     GRAPHIC_SHADER_EFFECT() {
@@ -26,9 +27,9 @@ GRAPHIC_SHADER_EFFECT_SPEEDBLUR::~GRAPHIC_SHADER_EFFECT_SPEEDBLUR() {
 
 }
 
-void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply( GRAPHIC_RENDERER & renderer, const char * material_name, bool does_lighting, bool does_texturing ) {
+void GRAPHIC_SHADER_EFFECT_SPEEDBLUR::Apply( GRAPHIC_RENDERER & renderer, const char * material_name ) {
     
-    GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name, does_lighting, does_texturing );
+    GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name );
     
     GRAPHIC_SHADER_ATTRIBUTE & attr_view_ray = Program.GetShaderAttribute( ViewRayIdentifier );
     GRAPHIC_SHADER_ATTRIBUTE & attr_previous_view_mat = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier );

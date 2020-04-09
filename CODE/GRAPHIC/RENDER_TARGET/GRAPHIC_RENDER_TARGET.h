@@ -43,6 +43,7 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
     void AddAttachment( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type );
 
     inline GRAPHIC_TEXTURE * GetTargetTexture( int attachment) { return TargetTextures[ attachment ]; }
+    GRAPHIC_TEXTURE * GetDepthTexture() { return DepthTexture; }
     inline bool UsesDepth() { return ItUsesDepth; }
 
     inline void SetTargetTexture( GRAPHIC_TEXTURE * texture, int attachment ) { TargetTextures[ attachment ] = texture; }
@@ -71,7 +72,8 @@ private:
     GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE
         Mode;
     GRAPHIC_TEXTURE
-        * TargetTextures[ MAX_FRAME_BUFFERS ];
+        * TargetTextures[ MAX_FRAME_BUFFERS ],
+        * DepthTexture;
     
 
 XS_CLASS_END

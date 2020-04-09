@@ -28,6 +28,7 @@
 #include "GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h"
 #include "GRAPHIC_SYSTEM_BLEND_EQUATION.h"
 #include "GRAPHIC_SHADER_BIND.h"
+#include "GRAPHIC_RENDERER_STATE_DESCRIPTOR.h"
 
 class GRAPHIC_TEXTURE;
 class GRAPHIC_RENDER_TARGET;
@@ -133,6 +134,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void * CreateMtlTextureFromDescriptor( void * descriptor );
     static void * CreateMtlRenderEncoder( void * descriptor );
     static void MtlReleasePipelineState( void * state );
+    static void * GetCachedStateFromRenderer( GRAPHIC_RENDERER &, GRAPHIC_SHADER_PROGRAM * );
 #endif
 
     static CORE_PARALLEL_LOCK_MUTEX

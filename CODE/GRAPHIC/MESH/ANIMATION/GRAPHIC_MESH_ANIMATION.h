@@ -15,7 +15,6 @@
 #include "CORE_DATA_BUFFER.h"
 #include "GRAPHIC_MESH_ANIMATION_JOINT.h"
 #include "GRAPHIC_MESH_ANIMATION_MODE.h"
-#include "GRAPHIC_MESH_ANIMATION_SKELETON.h"
 
 #include "assert.h"
 
@@ -26,52 +25,42 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION )
 
     XS_DEFINE_SERIALIZABLE
 
-    void Initialize( std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & joint_table, int vectorSize );
-
     std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & GetJointTable() { return JointTable; }
-    std::vector<int> & GetIndexTable() { return IndexTable; }
 
-    void ComputeSkinningMatrixTableForTime( const float time, float * matrix_buffer );
+    void ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_MESH_SKELETON_JOINT * skeletton, const int animation_step_index, float * matrix_buffer );
 
     CORE_DATA_BUFFER & GetInverseBindMatrixes() { return InverseBindMatrixes; }
     CORE_SCALAR & GetBindShapeMatrix() { return BindShapeMatrix; }
-    CORE_DATA_BUFFER & GetJointIndexTable() { return JointIndexTable; }
-    void SetAnimationName( const std::string & name ) { AnimationName = name; }
-    const std::string & GetAnimationName() { return AnimationName; }
-    GRAPHIC_MESH_ANIMATION_SKELETON & GetSkeleton() { return Skeleton; };
+    void SetName( const std::string & name ) { Name = name; }
+    const std::string & GetName() { return Name; }
 
-    #if __COMPILE_WITH__COLLADA__
-        void print() {
-            
-            //Skeleton.print();
-        }
+    inline CORE_DATA_BUFFER &  GetTimeTableBuffer() { return TimeTableBuffer; }
 
-        void SetBindShapeMatrix( const float * shape_matrix_data ){
-            
-            memcpy( (void*)BindShapeMatrix.Value.FloatMatrix4x4, (void*)shape_matrix_data, 16 * sizeof(float) );
-        }
+    inline float GetDuration() {
+        
+        return *(float*) TimeTableBuffer.getpointerAtIndex( (TimeTableBuffer.GetSize() / 4 ) - 1 );
+    }
 
-        void SetJointIndexTable( int * joint_index_table, int size ) { JointIndexTable.InitializeWithMemory(size, 0, joint_index_table); }
-    #endif
+    void SetBindShapeMatrix( const float * shape_matrix_data ){
+        
+        memcpy( (void*)BindShapeMatrix.Value.FloatMatrix4x4, (void*)shape_matrix_data, 16 * sizeof(float) );
+    }
 
 private :
 
-    std::vector<GRAPHIC_MESH_ANIMATION_JOINT *>
+    void SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * skeletton, const int animation_step_index, float ** ptr_index, CORE_MATH_MATRIX & world_matrix );
+
+    std::vector<GRAPHIC_MESH_ANIMATION_JOINT::PTR>
         JointTable;
-    std::vector<int>
-        IndexTable;
     GRAPHIC_MESH_ANIMATION_MODE
         Mode;
-    GRAPHIC_MESH_ANIMATION_SKELETON
-        Skeleton;
-    CORE_DATA_BUFFER
-        JointIndexTable;
     std::string
-        AnimationName;
+        Name;
     CORE_SCALAR
         BindShapeMatrix;
     CORE_DATA_BUFFER
-        InverseBindMatrixes;
+        InverseBindMatrixes,
+        TimeTableBuffer;
 
 XS_CLASS_END
 

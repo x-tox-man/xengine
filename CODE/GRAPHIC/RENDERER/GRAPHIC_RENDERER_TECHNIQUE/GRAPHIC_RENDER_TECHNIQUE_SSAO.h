@@ -31,8 +31,11 @@ public:
         MaterialBlur;
     GRAPHIC_OBJECT_SHAPE_PLAN::PTR
         PlanObject;
-    GRAPHIC_TEXTURE_BLOCK::PTR
-        TextureBlock1;
+    GRAPHIC_TEXTURE_BLOCK
+        TextureBlock1,
+        TextureBlock2,
+        TextureBlock3,
+        TextureBlock4;
     GRAPHIC_SHADER_EFFECT_SSAO::PTR
         SSAOEffect;
     GRAPHIC_SHADER_EFFECT::PTR

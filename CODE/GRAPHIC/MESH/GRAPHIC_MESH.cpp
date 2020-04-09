@@ -82,12 +82,12 @@ int GRAPHIC_MESH::ComputeVertexStride(GRAPHIC_SHADER_BIND bind) {
     
     if ( bind & GRAPHIC_SHADER_BIND_SkinWeight ) {
         
-        stride += 3;
+        stride += 4;
     }
     
     if ( bind & GRAPHIC_SHADER_BIND_JointIndices ) {
         
-        stride += 3;
+        stride += 4;
     }
     
     if ( bind & GRAPHIC_SHADER_BIND_Tangents ) {
@@ -129,12 +129,12 @@ void GRAPHIC_MESH::ActivateBufferComponent( GRAPHIC_SHADER_BIND attribute ) {
     
     if ( attribute & GRAPHIC_SHADER_BIND_SkinWeight ) {
         
-        VertexStride += 3;
+        VertexStride += 4;
     }
     
     if ( attribute & GRAPHIC_SHADER_BIND_JointIndices ) {
         
-        VertexStride += 3;
+        VertexStride += 4;
     }
     
     if ( attribute & GRAPHIC_SHADER_BIND_Tangents ) {

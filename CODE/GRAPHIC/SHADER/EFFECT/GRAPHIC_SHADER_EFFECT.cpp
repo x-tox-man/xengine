@@ -75,11 +75,11 @@ void GRAPHIC_SHADER_EFFECT::BindAttribute( GRAPHIC_SHADER_ATTRIBUTE &shader_attr
     Program.GetProgram()->BindAttribute( shader_attribute, identifier);
 }
 
-void GRAPHIC_SHADER_EFFECT::Apply(GRAPHIC_RENDERER & renderer, const char * material_name, bool does_lighting, bool does_texturing ) {
+void GRAPHIC_SHADER_EFFECT::Apply( GRAPHIC_RENDERER & renderer, const char * material_name ) {
     
     GetProgram().Enable( renderer );
     
-    MaterialCollection->Apply( renderer, &GetProgram(), material_name, does_lighting, does_texturing );
+    MaterialCollection->Apply( renderer, &GetProgram(), material_name );
     
     if ( GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeIndex >= 0 ) {
         

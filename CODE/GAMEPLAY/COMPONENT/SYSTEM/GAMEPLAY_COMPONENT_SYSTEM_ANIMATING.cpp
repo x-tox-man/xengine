@@ -8,6 +8,7 @@
 
 #include "GAMEPLAY_COMPONENT_SYSTEM_ANIMATING.h"
 #include "GAMEPLAY_COMPONENT_ANIMATION.h"
+#include "GAMEPLAY_COMPONENT_RENDER.h"
 
 GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::GAMEPLAY_COMPONENT_SYSTEM_ANIMATING() :
     GAMEPLAY_COMPONENT_SYSTEM() {
@@ -30,8 +31,11 @@ void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Update( void * ecs_base_pointer, float
         
         auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
         GAMEPLAY_COMPONENT_ANIMATION * animation = entity->GetComponentAnimation();
+        GAMEPLAY_COMPONENT_RENDER * render = entity->GetComponentRender();
         
-        animation->UpdateAnimation( time_step );
+        assert( animation != NULL || render != NULL );
+        
+        animation->Update( time_step, & render->GetObject().GetResource< GRAPHIC_OBJECT>()->GetSkeleton() );
         it++;
     }
 }

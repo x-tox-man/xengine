@@ -113,16 +113,16 @@ class __CLASS_NAME__: public __ANCESTOR__, public __ANCESTOR__2 \
     private : \
     __TYPE__ __ACCESS_NAME__; \
     public : \
-    const __TYPE__ & Get##__ACCESS_NAME__( void ) const { return __ACCESS_NAME__; } \
-    __TYPE__ & Get##__ACCESS_NAME__( void ) { return __ACCESS_NAME__; } \
-    void Set##__ACCESS_NAME__( const __TYPE__ & parameter ) { __ACCESS_NAME__ = parameter; } \
+    inline const __TYPE__ & Get##__ACCESS_NAME__( void ) const { return __ACCESS_NAME__; } \
+    inline __TYPE__ & Get##__ACCESS_NAME__( void ) { return __ACCESS_NAME__; } \
+    inline void Set##__ACCESS_NAME__( const __TYPE__ & parameter ) { __ACCESS_NAME__ = parameter; } \
 
 #define Pointer_SGet( __TYPE__, __ACCESS_NAME__ ) \
 private : \
     __TYPE__ * __ACCESS_NAME__; \
 public : \
-    const __TYPE__ & get##__ACCESS_NAME__( void ) const { return *__ACCESS_NAME__; } \
-    void set##__ACCESS_NAME__( const __TYPE__ & parameter ) { __ACCESS_NAME__ = parameter; } \
+    inline const __TYPE__ & get##__ACCESS_NAME__( void ) const { return *__ACCESS_NAME__; } \
+    inline void set##__ACCESS_NAME__( const __TYPE__ & parameter ) { __ACCESS_NAME__ = parameter; } \
 
 #define XS_DEFINE_SERIALIZABLE \
     public : \

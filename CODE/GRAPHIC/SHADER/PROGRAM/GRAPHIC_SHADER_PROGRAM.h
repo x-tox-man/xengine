@@ -15,6 +15,7 @@
 #include "GRAPHIC_SYSTEM_RUNTIME_ENVIRONMENT.h"
 #include "GRAPHIC_SHADER_BIND.h"
 #include "GRAPHIC_SHADER_LOAD_OPTION.h"
+#include "GRAPHIC_RENDERER_STATE_DESCRIPTOR.h"
 
 class GRAPHIC_RENDERER;
 
@@ -148,6 +149,7 @@ static const CORE_HELPERS_IDENTIFIER
     MaterialSpecularIntensity,
     TimeModulator,
     PreviousModelViewProjectionIdentifier,
+    SSAOProjectionMatrix,
     SSAOViewProjectionMatrix,
     SSAOViewMatrix,
     SSAOSampleRad,

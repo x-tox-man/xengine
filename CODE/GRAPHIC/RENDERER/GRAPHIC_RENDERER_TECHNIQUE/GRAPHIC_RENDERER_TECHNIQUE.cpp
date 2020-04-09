@@ -7,8 +7,10 @@
 //
 
 #include "GRAPHIC_RENDERER_TECHNIQUE.h"
+#include "GAMEPLAY_COMPONENT_SYSTEM.h"
 
 GRAPHIC_RENDERER_TECHNIQUE::GRAPHIC_RENDERER_TECHNIQUE() :
+    TransparentMask(),
     RendererCallback(),
     RendererCallback1(),
     RenderTarget( NULL ),
@@ -31,10 +33,14 @@ void GRAPHIC_RENDERER_TECHNIQUE::ApplyFirstPass( GRAPHIC_RENDERER & renderer ) {
         RenderTarget->BindForWriting();
     }
     else {
+        renderer.GetDescriptor().DisableColor();
+        renderer.GetDescriptor().SetColorAttachmentPixelFormat( 0, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
+        renderer.GetDescriptor().SetDepthAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
+        renderer.GetDescriptor().SetStencilAttachmentPixelFormat(GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8 );
         GRAPHIC_SYSTEM::EnableDefaultFrameBuffer();
     }
     
-    RendererCallback( renderer );
+    RendererCallback( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
     
     if ( RenderTarget != NULL ) {
         

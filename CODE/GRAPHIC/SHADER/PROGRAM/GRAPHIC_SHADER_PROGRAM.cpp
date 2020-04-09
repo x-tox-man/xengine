@@ -11,7 +11,12 @@
 
 GRAPHIC_SHADER_PROGRAM::GRAPHIC_SHADER_PROGRAM():
     ShaderTable(),
-    ShaderAttributeTable() {
+    ShaderAttributeTable()
+#if X_METAL
+    ,_pipelineStateDescriptor( NULL ),
+    MetalPipelineStateCache()
+#endif
+{
     
 };
 
@@ -113,6 +118,7 @@ const CORE_HELPERS_IDENTIFIER
     GRAPHIC_SHADER_PROGRAM::MaterialSpecularIntensity( "MaterialSpecularIntensity" ),
     GRAPHIC_SHADER_PROGRAM::TimeModulator( "TimeModulator" ),
     GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier( "PreviousModelViewProjectionIdentifier" ),
+    GRAPHIC_SHADER_PROGRAM::SSAOProjectionMatrix( "SSAOProjectionMatrix" ),
     GRAPHIC_SHADER_PROGRAM::SSAOSampleRad( "SSAOSampleRad" ),
     GRAPHIC_SHADER_PROGRAM::SSAOKernel( "SSAOKernel" ),
     GRAPHIC_SHADER_PROGRAM::SSAOTexture( "SSAOTexture" ),

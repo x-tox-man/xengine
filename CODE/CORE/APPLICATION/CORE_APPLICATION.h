@@ -14,13 +14,15 @@
 #include "GRAPHIC_WINDOW.h"
 #include "CORE_HELPERS_CALLBACK.h"
 #include "CORE_MEMORY.h"
+#include "GAMEPLAY_GAME.h"
 
 XS_CLASS_BEGIN( CORE_APPLICATION )
 
     CORE_APPLICATION() :
         ApplicationWindow(),
         ApplicationName(),
-        ApplicationVersion() {
+        ApplicationVersion(),
+        Game() {
         
     }
 
@@ -52,12 +54,15 @@ XS_CLASS_BEGIN( CORE_APPLICATION )
 
         CORE_DATA_COPY_STRING(ApplicationVersion, applicationVersion );
     }
+
+    inline GAMEPLAY_GAME & GetGame() { return Game; }
     
-    const char * getApplicationName() const { return ApplicationName; }
-    const char * getApplicationVersion() const { return ApplicationVersion; }
-    void SetApplicationWindow( GRAPHIC_WINDOW & application_window) { ApplicationWindow = &application_window; }
-    const GRAPHIC_WINDOW & GetApplicationWindow() const { return *ApplicationWindow; }
-    GRAPHIC_WINDOW & GetApplicationWindow() { return *ApplicationWindow; }
+    inline const char * getApplicationName() const { return ApplicationName; }
+    inline const char * getApplicationVersion() const { return ApplicationVersion; }
+    inline void SetApplicationWindow( GRAPHIC_WINDOW & application_window) { ApplicationWindow = &application_window; }
+    inline const GRAPHIC_WINDOW & GetApplicationWindow() const { return *ApplicationWindow; }
+    inline GRAPHIC_WINDOW & GetApplicationWindow() { return *ApplicationWindow; }
+
     char
         * ApplicationName,
         * ApplicationVersion;
@@ -72,7 +77,11 @@ XS_CLASS_BEGIN( CORE_APPLICATION )
         * ApplicationWindow;
     static CORE_APPLICATION
         * Instance;
-    
+    GAMEPLAY_GAME
+        Game;
+    CORE_FILESYSTEM
+        DefaultFileystem;
+
 XS_CLASS_END
 
 #endif /* defined(__CORE_APPLICATION__) */

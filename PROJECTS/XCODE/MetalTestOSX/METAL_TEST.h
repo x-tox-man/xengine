@@ -32,12 +32,16 @@
 #include "GRAPHIC_RENDERER_TECHNIQUE.h"
 #include "GRAPHIC_OBJECT_SHAPE_PLAN.h"
 #include "GRAPHIC_RENDERER_TECHNIQUE_BLOOM.h"
-#include "GRAPHIC_OBJECT_ANIMATED.h"
+#include "GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.h"
+#include "GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING.h"
+#include "GRAPHIC_RENDER_TECHNIQUE_SSAO.h"
+
+#define METAL_TEST_MAX_SHAWOW_CASCADE 3
 
 XS_CLASS_BEGIN_WITH_ANCESTOR(METAL_TEST, CORE_APPLICATION)
 
     METAL_TEST();
-    virtual ~METAL_TEST();
+    virtual ~METAL_TEST() override;
 
     virtual void Initialize() override;
     virtual void Finalize() override;
@@ -45,14 +49,11 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(METAL_TEST, CORE_APPLICATION)
     virtual void Update( float time_step ) override;
     virtual void Render() override;
     void RenderTechnique( GRAPHIC_RENDERER & renderer );
-    void RenderFinalFrameBuffer( GRAPHIC_RENDERER & renderer );
-
-    CORE_FILESYSTEM
-        DefaultFileystem;
+    void RenderFinalFrameBuffer( GRAPHIC_RENDERER & renderer, int );
 
 private:
 
-    GRAPHIC_OBJECT_ANIMATED * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path );
+    GRAPHIC_OBJECT * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path );
 
     GRAPHIC_CAMERA::PTR
         Camera;
@@ -61,18 +62,26 @@ private:
     GRAPHIC_SHADER_EFFECT::PTR
         Effect,
         UIEffect,
-        AnimatedEffect;
+        AnimatedEffect,
+        AnimatedShadowMapEffect;
     GRAPHIC_OBJECT::PTR
         StaticObject;
-    GRAPHIC_OBJECT_ANIMATED::PTR
+    GRAPHIC_OBJECT::PTR
         NakedGirlObject;
     GRAPHIC_RENDER_TARGET
         PrimaryRenderTarget,
         FinalRenderTarget,
-        BloomRenderTarget;
+        BloomRenderTarget,
+        ShadowMapRenderTarget[ METAL_TEST_MAX_SHAWOW_CASCADE ];
     GRAPHIC_RENDERER_TECHNIQUE
         DefaultTechnique,
         FinalTechnique;
+    GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP
+        CascadeShadowMapTechnique;
+    GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING
+        DeferredShadingTechnique;
+    GRAPHIC_RENDER_TECHNIQUE_SSAO
+        SSAOTechnique;
     GRAPHIC_RENDERER_TECHNIQUE_BLOOM
         BloomTechnique;
     GRAPHIC_OBJECT_SHAPE_PLAN

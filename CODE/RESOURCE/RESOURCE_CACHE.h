@@ -104,7 +104,9 @@ public:
     void SaveResourceFromStream( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {
         auto rs = ItemMap[ identifier ];
         
-        XS_CLASS_SERIALIZER< __RESOURCE_TYPE__, CORE_DATA_STREAM >::template Serialize<std::true_type>( "resource", rs, stream );
+        assert( rs != NULL );
+        
+        XS_CLASS_SERIALIZER< __RESOURCE_TYPE__, CORE_DATA_STREAM >::template Serialize<std::true_type>( identifier.GetIdentifier(), rs, stream );
     }
     
     void FlushCache( ) {

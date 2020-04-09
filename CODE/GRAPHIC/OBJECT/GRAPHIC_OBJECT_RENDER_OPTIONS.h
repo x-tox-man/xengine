@@ -32,8 +32,6 @@ XS_CLASS_BEGIN( GRAPHIC_OBJECT_RENDER_OPTIONS )
 
     inline void SetParent( GRAPHIC_OBJECT_RENDER_OPTIONS * parent ) { Parent = parent; }
     inline GRAPHIC_OBJECT_RENDER_OPTIONS * GetParent() const { return Parent; }
-    inline void SetTexturing( bool texturing ) { Texturing = texturing; }
-    inline bool IsTexturingEnabled() const { return Texturing; }
 
 private:
 
@@ -44,8 +42,6 @@ private:
         ScaleFactor;
     GRAPHIC_OBJECT_RENDER_OPTIONS
         * Parent;
-    bool
-        Texturing;
 
 XS_CLASS_END
 
