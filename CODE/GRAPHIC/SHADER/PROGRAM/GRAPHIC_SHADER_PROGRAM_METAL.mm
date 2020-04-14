@@ -260,17 +260,25 @@ void * GRAPHIC_SHADER_PROGRAM::GetMtlCachedPipelineState( const GRAPHIC_RENDERER
         
         p.depthAttachmentPixelFormat = (MTLPixelFormat) GetMTLDepthStencilPixelFormatFromDescriptor( desc.DepthAttachmentPixelFormat, desc.StencilAttachmentPixelFormat );
         
-        if ( desc.StencilAttachmentPixelFormat != GRAPHIC_TEXTURE_IMAGE_TYPE_None ) {
+        if ( desc.StencilAttachmentPixelFormat != GRAPHIC_TEXTURE_IMAGE_TYPE_None && desc.DepthAttachmentPixelFormat != GRAPHIC_TEXTURE_IMAGE_TYPE_None ) {
             
+            p.stencilAttachmentPixelFormat = p.depthAttachmentPixelFormat;
+        }
+        else if ( desc.StencilAttachmentPixelFormat != GRAPHIC_TEXTURE_IMAGE_TYPE_None && desc.DepthAttachmentPixelFormat == GRAPHIC_TEXTURE_IMAGE_TYPE_None ) {
+         
+            abort();
             p.stencilAttachmentPixelFormat = p.depthAttachmentPixelFormat;
         }
         else {
             p.stencilAttachmentPixelFormat = MTLPixelFormatInvalid;
         }
-        
-        MetalPipelineStateCache[ desc ] = (void * ) GRAPHIC_SYSTEM::CreateMetalPipelineState( (void *) CFBridgingRetain(p), *this );
+         
+        void * pp = (void * ) GRAPHIC_SYSTEM::CreateMetalPipelineState( (void *) CFBridgingRetain(p), *this );
+        assert( pp != NULL );
+        MetalPipelineStateCache[ desc ] = pp;
         
         pipeline = MetalPipelineStateCache[ desc ];
+        assert( pipeline != nil );
     }
     
     return pipeline;

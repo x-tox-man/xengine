@@ -23,13 +23,15 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
     GRAPHIC_RENDER_TARGET();
     ~GRAPHIC_RENDER_TARGET();
 
-    bool Initialize( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool generates_separate_depth_texture, int attachments, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode );
+    bool Initialize( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool uses_stencil, bool generates_separate_depth_texture, int attachments, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode );
     bool InitializeDepthTexture( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
     void Finalize();
     void Apply();
     void Discard();
 
     void Clear();
+    void ClearDepth();
+    void ClearStencil();
 
     // -- METAL API
     void EnableTextureBlending();
@@ -66,15 +68,16 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
 private:
 
     bool
-        ItUsesDepth;
+        ItUsesDepth,
+        ItUsesStencil;
     int
         Attachments;
     GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE
         Mode;
     GRAPHIC_TEXTURE
         * TargetTextures[ MAX_FRAME_BUFFERS ],
-        * DepthTexture;
-    
+        * DepthTexture,
+        * StencilTexture;
 
 XS_CLASS_END
 

@@ -14,8 +14,17 @@
 #include "GRAPHIC_SYSTEM_BLEND_OPERATION.h"
 #include "GRAPHIC_SYSTEM_BLEND_EQUATION.h"
 #include "GRAPHIC_TEXTURE_INFO.h"
+#include "GRAPHIC_POLYGON_FACE.h"
+#include "GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION.h"
 
 #define GRAPHIC_RENDERER_STATE_DESCRIPTOR_MAX_TARGETS   8
+
+struct GRAPHIC_RENDERER_STATE_DESCRIPTOR_STENCIL_DESCRIPTOR {
+    GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION
+        StencilPassAction,
+        StencilFailAction,
+        StencilAndDepthFailAction;
+};
 
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_RENDERER_STATE_DESCRIPTOR )
 
@@ -24,9 +33,12 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_RENDERER_STATE_DESCRIPTOR )
     void operator = ( const GRAPHIC_RENDERER_STATE_DESCRIPTOR & other ) {
         
         ItDoesBlending = other.ItDoesBlending;
+        ItDoesStencilTest = other.ItDoesStencilTest;
         ItDoesDepthTest = other.ItDoesDepthTest;
         BlendFunction = other.BlendFunction;
         SampleCount = other.SampleCount;
+
+        
         BlendingSourceOperation = other.BlendingSourceOperation;
         BlendingDestinationOperation = other.BlendingDestinationOperation;
         DepthAttachmentPixelFormat = other.DepthAttachmentPixelFormat;
@@ -63,12 +75,20 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_RENDERER_STATE_DESCRIPTOR )
         ColorAttachmentPixelFormat[ GRAPHIC_RENDERER_STATE_DESCRIPTOR_MAX_TARGETS ],
         DepthAttachmentPixelFormat,
         StencilAttachmentPixelFormat;
+    GRAPHIC_SYSTEM_COMPARE_OPERATION
+        StencilOperation;
     bool
         ItDoesBlending,
+        ItDoesStencilTest,
         ItDoesDepthTest;
+    int
+        StencilRef;
     unsigned int
-        SampleCount;
+        SampleCount,
+        StencilMask;
 
+    GRAPHIC_RENDERER_STATE_DESCRIPTOR_STENCIL_DESCRIPTOR
+        StencilFaceTable[ GRAPHIC_POLYGON_FACE_FrontAndBack ];
 XS_CLASS_END
 
 inline bool operator == ( const GRAPHIC_RENDERER_STATE_DESCRIPTOR & a, const GRAPHIC_RENDERER_STATE_DESCRIPTOR & b ) {
@@ -82,7 +102,12 @@ inline bool operator == ( const GRAPHIC_RENDERER_STATE_DESCRIPTOR & a, const GRA
 
 inline bool operator < ( const GRAPHIC_RENDERER_STATE_DESCRIPTOR & a, const GRAPHIC_RENDERER_STATE_DESCRIPTOR & b ) {
     
-    bool t = ( (int) a.ItDoesBlending < (int) b.ItDoesBlending ) ||
+    bool t = ( (int) a.ItDoesDepthTest < (int) b.ItDoesDepthTest ) ||
+    a.StencilRef < b.StencilRef ||
+    a.StencilMask < b.StencilMask ||
+    ( (int) a.StencilOperation < (int) b.StencilOperation ) ||
+    ( (int) a.ItDoesStencilTest < (int) b.ItDoesStencilTest ) ||
+    ( (int) a.ItDoesBlending < (int) b.ItDoesBlending ) ||
     a.BlendingSourceOperation < b.BlendingSourceOperation ||
     a.BlendingDestinationOperation < b.BlendingDestinationOperation ||
     a.BlendFunction < b.BlendFunction ||

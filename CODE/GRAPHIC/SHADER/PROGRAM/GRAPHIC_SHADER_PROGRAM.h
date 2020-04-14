@@ -152,9 +152,10 @@ static const CORE_HELPERS_IDENTIFIER
     SSAOProjectionMatrix,
     SSAOViewProjectionMatrix,
     SSAOViewMatrix,
-    SSAOSampleRad,
+    SSAOSampleRadFOVRatio,
     SSAOKernel,
     SSAOTexture,
+    FOVRatio,
     FrameResolution;
 
 #if OPENGLES2

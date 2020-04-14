@@ -933,6 +933,9 @@
             //assert( mesh->CurrenGeometrytTable[v_index].joint_index[0] != 0.0f && mesh->CurrenGeometrytTable[v_index].joint_weights[0] != 0.0f );
             //printf("windex %d %d %d\n", (int)mesh->CurrenGeometrytTable[v_index].joint_index[0], (int)mesh->CurrenGeometrytTable[v_index].joint_index[1], (int)mesh->CurrenGeometrytTable[v_index].joint_index[2]);
             
+            //assert( mesh->CurrenGeometrytTable[v_index].joint_index[0] != 0.0f && mesh->CurrenGeometrytTable[v_index].joint_weights[0] != 0.0f );
+            //printf("windex %d %d %d\n", (int)mesh->CurrenGeometrytTable[v_index].joint_index[0], (int)mesh->CurrenGeometrytTable[v_index].joint_index[1], (int)mesh->CurrenGeometrytTable[v_index].joint_index[2]);
+            
             /*SERVICE_LOGGER_Error( "%f %f %f\n", mesh->CurrenGeometrytTable[v_index].tangents[0], mesh->CurrenGeometrytTable[v_index].tangents[1], mesh->CurrenGeometrytTable[v_index].tangents[2] );
             
             SERVICE_LOGGER_Error( "%f %f %f\n", mesh->CurrenGeometrytTable[v_index].binormal[0], mesh->CurrenGeometrytTable[v_index].binormal[1], mesh->CurrenGeometrytTable[v_index].binormal[2] );*/

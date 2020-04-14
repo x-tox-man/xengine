@@ -59,11 +59,11 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape() {
             float lati_ratio_offset = (lati + 1 ) * ratio;
             
             index_data[ cube_index * 6 + 0 ] = cube_index * 4 ;
-            index_data[ cube_index * 6 + 1 ] = cube_index * 4 + 3;
-            index_data[ cube_index * 6 + 2 ] = cube_index * 4 + 2;
+            index_data[ cube_index * 6 + 1 ] = cube_index * 4 + 2;
+            index_data[ cube_index * 6 + 2 ] = cube_index * 4 + 3;
             index_data[ cube_index * 6 + 3 ] = cube_index * 4;
-            index_data[ cube_index * 6 + 4 ] = cube_index * 4 + 2;
-            index_data[ cube_index * 6 + 5 ] = cube_index * 4 + 1;
+            index_data[ cube_index * 6 + 4 ] = cube_index * 4 + 1;
+            index_data[ cube_index * 6 + 5 ] = cube_index * 4 + 2;
             
             cube_index++;
             
@@ -98,23 +98,23 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape() {
 
 void GRAPHIC_OBJECT_SHAPE_SPHERE::computePoint( float * data_pointer, float longi_ratio, float lati_ratio, int point_index ) {
     
-    static float base_vector[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
+    static CORE_MATH_VECTOR base_vector( CORE_MATH_VECTOR::YAxis );
     CORE_MATH_MATRIX rotation_matrix ( CORE_MATH_MATRIX::Identity );
     
     rotation_matrix.XRotate( ( float ) ( -longi_ratio * M_PI ) );
     rotation_matrix.YRotate( ( float ) ( lati_ratio * M_PI * 2.0f ) );
     
-    CORE_SCALAR vector;
+    CORE_MATH_VECTOR vector;
     
-    vector = base_vector * rotation_matrix;
+    vector = rotation_matrix * base_vector;
     
-    data_pointer[ point_index * 8 + 0 ] = vector.Value.FloatArray4[ 0 ];
-    data_pointer[ point_index * 8 + 1 ] = vector.Value.FloatArray4[ 1 ];
-    data_pointer[ point_index * 8 + 2 ] = vector.Value.FloatArray4[ 2 ];
+    data_pointer[ point_index * 8 + 0 ] = vector.X();
+    data_pointer[ point_index * 8 + 1 ] = vector.Y();
+    data_pointer[ point_index * 8 + 2 ] = vector.Z();
     data_pointer[ point_index * 8 + 3 ] = 1.0f;
     
-    data_pointer[ point_index * 8 + 4 ] = vector.Value.FloatArray4[ 0 ];
-    data_pointer[ point_index * 8 + 5 ] = vector.Value.FloatArray4[ 1 ];
-    data_pointer[ point_index * 8 + 6 ] = vector.Value.FloatArray4[ 2 ];
+    data_pointer[ point_index * 8 + 4 ] = vector.X();
+    data_pointer[ point_index * 8 + 5 ] = vector.Y();
+    data_pointer[ point_index * 8 + 6 ] = vector.Z();
     data_pointer[ point_index * 8 + 7 ] = 1.0f;
 }

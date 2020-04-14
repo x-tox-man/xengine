@@ -135,6 +135,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void * CreateMtlRenderEncoder( void * descriptor );
     static void MtlReleasePipelineState( void * state );
     static void * GetCachedStateFromRenderer( GRAPHIC_RENDERER &, GRAPHIC_SHADER_PROGRAM * );
+    static void * MtlGetCachedStencilStateFromRenderer( GRAPHIC_RENDERER & );
 #endif
 
     static CORE_PARALLEL_LOCK_MUTEX

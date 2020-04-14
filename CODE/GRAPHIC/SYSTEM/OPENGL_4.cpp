@@ -156,7 +156,7 @@
         GFX_CHECK( glBlendEquation( OPENGL_4_GetBlendEquation( equation ) ); )
     }
 
-    void GRAPHIC_SYSTEM::EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end, void * __GRAPHIC_SYSTEM_CONTEXT ) {
+    void GRAPHIC_SYSTEM::`EnableDepthTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, bool mask, float range_begin, float range_end, void * __GRAPHIC_SYSTEM_CONTEXT ) {
     
         GFX_CHECK( glEnable( GL_DEPTH_TEST ); )
         

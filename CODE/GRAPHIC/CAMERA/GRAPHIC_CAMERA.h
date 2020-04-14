@@ -32,6 +32,7 @@ XS_CLASS_BEGIN( GRAPHIC_CAMERA )
     inline float GetWidth() const { return Width; }
     inline float GetHeight() const { return Height; }
     inline float GetFov() const { return Fov; }
+    float GetAspectRatio() const { return fabsf(Width / Height); }
 
     inline const CORE_MATH_VECTOR & GetUp() const { return Up; }
     inline const CORE_MATH_VECTOR & GetDirection() const { return Direction; }

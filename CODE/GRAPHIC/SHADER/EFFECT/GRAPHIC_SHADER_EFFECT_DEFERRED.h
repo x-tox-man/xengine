@@ -15,16 +15,19 @@
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "CORE_HELPERS_IDENTIFIER.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING, GRAPHIC_SHADER_EFFECT )
+XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_SHADER_EFFECT_DEFERRED, GRAPHIC_SHADER_EFFECT )
 
-    GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING( GRAPHIC_SHADER_EFFECT::PTR effect );
-    virtual ~GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING();
+    GRAPHIC_SHADER_EFFECT_DEFERRED( GRAPHIC_SHADER_EFFECT::PTR effect );
+    virtual ~GRAPHIC_SHADER_EFFECT_DEFERRED();
 
     virtual void Apply( GRAPHIC_RENDERER &, const char * material_name ) override;
     virtual void BindAttributes() override;
 
     static CORE_HELPERS_IDENTIFIER
-        PreviousModelViewProjectionIdentifier;
+        PreviousCameraWorldPositionIdentifier,
+        PreviousrojectionIdentifier;
+    GRAPHIC_CAMERA::PTR
+        PreviousCamera;
 
 XS_CLASS_END
 

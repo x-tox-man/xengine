@@ -54,6 +54,11 @@ void METAL_TEST::Initialize() {
     
     //CORE_HELPERS_CALLBACK_2<int, int> resizeCallback( &Wrapper2<METAL_TEST, int, int, &METAL_TEST::OnScreenResized>, this );
     
+    SphereObject = new GRAPHIC_OBJECT_SHAPE_SPHERE( 5 );
+    SphereObject->InitializeShape();
+    
+    ConeObject = RESOURCE<GRAPHIC_OBJECT, GRAPHIC_OBJECT_RESOURCE_LOADER>::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ),  CORE_FILESYSTEM_PATH::FindFilePath("cone", "smx", "MODELS" ) );
+    
     GRAPHIC_RENDERER::GetInstance().Initialize();
     GRAPHIC_RENDERER::GetInstance().SetRenderCallback( myCallback );
     
@@ -62,8 +67,9 @@ void METAL_TEST::Initialize() {
     GRAPHIC_SYSTEM::SetRendersOnScreen( false );
     
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048", "png", "TEXTURES" ) );
+    auto tex_normal = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "spaceship1_diffuse" ), CORE_FILESYSTEM_PATH::FindFilePath( "BitsUV2048-normal", "png", "TEXTURES" ) );
     
-    StaticObject = RESOURCE<GRAPHIC_OBJECT, GRAPHIC_OBJECT_RESOURCE_LOADER>::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "StaticObject" ), CORE_FILESYSTEM_PATH::FindFilePath( "spaceship" , "smx", "MODELS" ) );
+    StaticObject = RESOURCE<GRAPHIC_OBJECT, GRAPHIC_OBJECT_RESOURCE_LOADER>::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "StaticObject" ), CORE_FILESYSTEM_PATH::FindFilePath( "flat" , "smx", "MODELS" ) );
     
     {
         Effect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BasicGeometryShader"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
@@ -71,31 +77,45 @@ void METAL_TEST::Initialize() {
         Effect->Initialize( StaticObject->GetShaderBindParameter() );
         auto mat = new GRAPHIC_MATERIAL;
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( text ) );
+        mat->SetTexture(GRAPHIC_SHADER_PROGRAM::NormalTexture, new GRAPHIC_TEXTURE_BLOCK( tex_normal ) );
         
         Effect->SetMaterial( mat );
     }
     
     {
-        AnimatedEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::AnimatedObject"), CORE_FILESYSTEM_PATH::FindFilePath( "AnimationShaderDeferred" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+        EffectDeferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BasicGeometryShaderDeferred"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicGeometryShaderDeferred" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+        ShadowMapEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::ShadowmapEffect"), CORE_FILESYSTEM_PATH::FindFilePath( "ShadowmapEffect" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+        //ShadowMapEffect->Initialize( StaticObject->GetShaderBindParameter() );
+        EffectDeferred->Initialize( StaticObject->GetShaderBindParameter() );
+        auto mat = new GRAPHIC_MATERIAL;
+        mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture, new GRAPHIC_TEXTURE_BLOCK( text ) );
+        
+        Effect->SetMaterial( mat );
+        
+        CreateStaticObject(StaticObject, EffectDeferred, mat );
+    }
+    
+    {
+        AnimatedEffectDeferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::AnimatedObject"), CORE_FILESYSTEM_PATH::FindFilePath( "AnimationShaderDeferred" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
         AnimatedShadowMapEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::AnimatedShadowMapObject"), CORE_FILESYSTEM_PATH::FindFilePath( "AnimationShadowMapShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
         
         NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "Dying" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "Dying.VoidPirateController" , "abx", "MODELS" ));
         //NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ));
         
         AnimatedShadowMapEffect->Initialize( NakedGirlObject->GetShaderBindParameter() );
-        AnimatedEffect->Initialize( NakedGirlObject->GetShaderBindParameter() );
+        AnimatedEffectDeferred->Initialize( NakedGirlObject->GetShaderBindParameter() );
     }
     
     
-    Camera = new GRAPHIC_CAMERA( 0.1f, 1000.0f, GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR( 0.0f, -8.0f, -25.0f, 1.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis, 65.0f );
+    Camera = new GRAPHIC_CAMERA( 1.0f, 1000.0f, GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight(), CORE_MATH_VECTOR( 0.0f, -16.0f, -5.0f, 1.0f), CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis, 65.0f );
     
     RenderTargetCamera = new GRAPHIC_CAMERA_ORTHOGONAL( -100.0f, 100.0f, 1.0f, 1.0f, CORE_MATH_VECTOR::Zero, CORE_MATH_VECTOR::ZAxis, CORE_MATH_VECTOR::YAxis );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
     
-    PrimaryRenderTarget.Initialize( GetApplicationWindow().GetWidth(),GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
-    FinalRenderTarget.Initialize( GetApplicationWindow().GetWidth(),GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
-    BloomRenderTarget.Initialize( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() / 1, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    PrimaryRenderTarget.Initialize( GetApplicationWindow().GetWidth(),GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    FinalRenderTarget.Initialize( GetApplicationWindow().GetWidth(),GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, false, true, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    BloomRenderTarget.Initialize( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() / 1, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     
     PrimaryRenderTarget.Discard();
     
@@ -140,8 +160,8 @@ void METAL_TEST::Initialize() {
     {
         DeferredShadingTechnique.PlanObject = &PlanObject;
         DeferredShadingTechnique.FinalRenderTarget = &PrimaryRenderTarget;
-        //DeferredShadingTechnique.SphereObject = &SphereObject;
-        //DeferredShadingTechnique.ConeObject = R3D_RESOURCES::GetInstance().FindResourceProxy( CORE_HELPERS_UNIQUE_IDENTIFIER( "cone" ) )->GetResource< GRAPHIC_OBJECT >();
+        DeferredShadingTechnique.SphereObject = SphereObject;
+        DeferredShadingTechnique.ConeObject = ConeObject;
         DeferredShadingTechnique.RendererCallback.Connect( &Wrapper2<GAMEPLAY_GAME, GRAPHIC_RENDERER &, int, &GAMEPLAY_GAME::Render>, &GetGame() );
         //DeferredShadingTechnique.RenderTarget = defered_tr;
         DeferredShadingTechnique.ConfigureGBufferBeforeInit( GRAPHIC_RENDERER::GetInstance(), GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING_GBUFFER_ALL );
@@ -172,9 +192,9 @@ void METAL_TEST::Initialize() {
         int blur_factor = (blur_index*blur_index);
         
         auto rt1 = new GRAPHIC_RENDER_TARGET;
-        rt1->Initialize( GetApplicationWindow().GetWidth() / (blur_factor), GetApplicationWindow().GetHeight() / (blur_factor), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+        rt1->Initialize( GetApplicationWindow().GetWidth() / (blur_factor), GetApplicationWindow().GetHeight() / (blur_factor), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
         auto rt2 = new GRAPHIC_RENDER_TARGET;
-        rt2->Initialize( GetApplicationWindow().GetWidth() / (blur_factor), GetApplicationWindow().GetHeight() / (blur_factor), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+        rt2->Initialize( GetApplicationWindow().GetWidth() / (blur_factor), GetApplicationWindow().GetHeight() / (blur_factor), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, false, 1, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
         
         BloomTechnique.GaussianRenderTarget1Table[ blur_index - 1 ] = rt1;
         BloomTechnique.GaussianRenderTarget2Table[ blur_index - 1 ] = rt2;
@@ -199,7 +219,7 @@ void METAL_TEST::Initialize() {
     CORE_MATH_VECTOR point2_position(10.0f, 0.0f, 0.0f, 1.0f);
     
     PointLightOne = new GRAPHIC_SHADER_LIGHT;
-    PointLightOne->InitializePoint(diffuse_1, point1_position, 0.001f, 0.01f, 0.5f, 1.0f, 1.0f);
+    PointLightOne->InitializePoint(diffuse_1, point1_position, 0.1f, 0.1f, 0.5f, 1.0f, 1.0f);
     
     PointLightTwo = new GRAPHIC_SHADER_LIGHT;
     PointLightTwo->InitializePoint(diffuse_2, point2_position, 0.001f, 0.01f, 0.5f, 1.0f, 1.0f);
@@ -213,10 +233,10 @@ void METAL_TEST::Initialize() {
     AmbientLight->InitializeAmbient( CORE_MATH_VECTOR(1.0f, 1.0f, 1.0f, 1.0f), 1.0f, 0.7f);
     GRAPHIC_RENDERER::GetInstance().SetAmbientLight( AmbientLight );
     GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( DirectionalLight );
-    //GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightOne, 0 );
-    //GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightTwo, 1 );
-    //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightOne, 0 );
-    //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightTwo, 1 );v
+    GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightOne, 0 );
+    GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightTwo, 1 );
+    GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightOne, 0 );
+    GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightTwo, 1 );
     
     RESOURCE_CONTAINER
         container;
@@ -267,18 +287,23 @@ void METAL_TEST::Update( float time_step ) {
 
 void METAL_TEST::Render() {
     
-    GRAPHIC_OBJECT_RENDER_OPTIONS
-        options;
     GRAPHIC_RENDERER
         & renderer = GRAPHIC_RENDERER::GetInstance();
     
-    options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
-    options.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+    #if X_METAL
+        FinalRenderTarget.Clear();
+        PrimaryRenderTarget.Clear();
+        FinalRenderTarget.Clear();
+        BloomRenderTarget.Clear();
+        //ShadowMapRenderTarget[0].Clear();
+        //ShadowMapRenderTarget[1].Clear();
+        //ShadowMapRenderTarget[2].Clear();
+    #endif
     
     //TODO: NOT COOL !
-    Update( 0.0133333f );
+    Update( 0.033333f );
     //TODO: SCENE TECHNIQUE => DEPENDS ON A SCENE TO WORK
-    
+
     SSAOTechnique.SSAOEffect->SetCamera( Camera );
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( Camera );
@@ -289,12 +314,10 @@ void METAL_TEST::Render() {
     renderer.SetNumCascade( 0 );
     DeferredShadingTechnique.ApplyFirstPass( renderer );
     
-    //renderer.SetCamera( RenderTargetCamera );
-    
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
     
     SSAOTechnique.ApplyFirstPass( renderer );
-    //SSAOTechnique.ApplyFirstPass( renderer );
+    DeferredShadingTechnique.SetPreviousCamera( Camera );
     DeferredShadingTechnique.ApplySecondPass( renderer );
     
     renderer.SetNumCascade( 0 );
@@ -345,7 +368,7 @@ void METAL_TEST::RenderTechnique( GRAPHIC_RENDERER & renderer ) {
     options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
     options.SetOrientation( q1 );
     
-    NakedGirlObject->Render( renderer, options, AnimatedEffect );
+    NakedGirlObject->Render( renderer, options, AnimatedEffectDeferred );
     
     options.SetPosition( CORE_MATH_VECTOR( 0.0f, 0.0f, 0.0f, 1.0f ) );
     //options.SetOrientation( q2 );
@@ -411,7 +434,7 @@ GRAPHIC_OBJECT * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTEM_PATH & 
     
     //q1.RotateX(45.0f);
     
-    entity->SetPosition( CORE_MATH_VECTOR( 0.0f,0.0f,-50.0f,0.0f) );
+    entity->SetPosition( CORE_MATH_VECTOR( 0.0f,0.0f,-10.0f,0.0f) );
     entity->SetOrientation( q1 );
     
     auto proxy = new RESOURCE_PROXY;
@@ -422,7 +445,7 @@ GRAPHIC_OBJECT * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTEM_PATH & 
     entity->GetComponentRender()->SetObject( *proxy );
 
     proxy = new RESOURCE_PROXY;
-    proxy->SetResource( AnimatedEffect );
+    proxy->SetResource( AnimatedEffectDeferred );
     entity->GetComponentRender()->SetEffect( *proxy );
     
     proxy = new RESOURCE_PROXY;
@@ -441,4 +464,45 @@ GRAPHIC_OBJECT * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTEM_PATH & 
     GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
     
     return animated_object;
+}
+
+void METAL_TEST::CreateStaticObject( GRAPHIC_OBJECT * object, GRAPHIC_SHADER_EFFECT::PTR effect, GRAPHIC_MATERIAL * mat ) {
+    
+    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
+    
+    CORE_MATH_QUATERNION
+        q1;
+    
+    q1.RotateX( 90.0f );
+    
+    entity->SetPosition( CORE_MATH_VECTOR( 0.0f,0.0f,-50.0f,0.0f) );
+    entity->Scale( 10.0f);
+    entity->SetOrientation( q1 );
+    
+    auto proxy = new RESOURCE_PROXY;
+    
+    proxy = new RESOURCE_PROXY;
+    proxy->SetResource( object );
+
+    entity->GetComponentRender()->SetObject( *proxy );
+
+    proxy = new RESOURCE_PROXY;
+    proxy->SetResource( effect );
+    entity->GetComponentRender()->SetEffect( *proxy );
+    
+    proxy = new RESOURCE_PROXY;
+    proxy->SetResource( ShadowMapEffect );
+    entity->GetComponentRender()->SetShadowMapEffectProxy( *proxy );
+    
+    auto collection = new GRAPHIC_MATERIAL_COLLECTION;
+    collection->SetMaterialForName(mat, object->GetMeshTable()[0]->GetName() );
+    
+    proxy = new RESOURCE_PROXY;
+    proxy->SetResource( collection );
+    
+    entity->GetComponentRender()->SetMaterialCollection( *proxy );
+    
+    //TODO: fix this index bullshit
+    GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( entity );
+    GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
 }

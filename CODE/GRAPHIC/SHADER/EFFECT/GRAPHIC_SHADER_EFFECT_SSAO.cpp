@@ -10,6 +10,7 @@
 #include "RESOURCE_IMAGE.h"
 #include "GRAPHIC_SYSTEM.h"
 #include "GRAPHIC_RENDERER_STATE_DESCRIPTOR.h"
+#include "CORE_MATH.h"
 
 GRAPHIC_SHADER_EFFECT_SSAO::GRAPHIC_SHADER_EFFECT_SSAO( GRAPHIC_SHADER_EFFECT::PTR effect ) :
     GRAPHIC_SHADER_EFFECT(),
@@ -43,20 +44,32 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, const char 
         inv,
         id;
     
+
     GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture4, TextureBlock );
+    
     GRAPHIC_SHADER_EFFECT::Apply( renderer, material_name );
     
     GRAPHIC_SHADER_ATTRIBUTE & ssao_kernel = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOKernel );
-    GRAPHIC_SHADER_ATTRIBUTE & ssao_sample_rad = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOSampleRad );
+    GRAPHIC_SHADER_ATTRIBUTE & ssao_sample_rad = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOSampleRadFOVRatio );
     GRAPHIC_SHADER_ATTRIBUTE & view_proj = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix );
     GRAPHIC_SHADER_ATTRIBUTE & proj = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOProjectionMatrix );
     GRAPHIC_SHADER_ATTRIBUTE & view = Program.GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::SSAOViewMatrix );
     
 #if X_METAL
-    ssao_kernel.AttributeOffset = 14;//SSAOKernelConstants;
+    ssao_kernel.AttributeOffset = 12;//SSAOKernelConstants;
 #endif
-    GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( renderer, SSAOKernel, SSAO_MAX_KERNEL * 4, ssao_kernel );
-    //GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( renderer, SampleRad, ssao_sample_rad );
+    float v4[4];
+    
+    v4[0] = SampleRad;
+    v4[1] = Camera->GetAspectRatio();;
+    v4[2] = Camera->GetFov();
+    v4[3] = 1.0f;
+    
+    float TanHalfFOV = tanf( DEG_TO_RAD * (Camera->GetFov() / 2.0f));
+    v4[2] = TanHalfFOV;
+    
+    GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( renderer, SSAOKernel, SSAO_MAX_KERNEL * 16, ssao_kernel );
+    GRAPHIC_SYSTEM::ApplyShaderAttributeVector(renderer, v4, ssao_sample_rad);
     
     mv = Camera->GetProjectionMatrix() * Camera->GetViewMatrix();// * inv;
     
@@ -78,23 +91,25 @@ void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {
 
         SSAOKernel[ i * 4 + 0 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
         SSAOKernel[ i * 4 + 1 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
-        SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
+        SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %200) * 0.01f ) ) * scale* 0.03f;
         SSAOKernel[ i * 4 + 3 ] = 1.0f;
     }
-    float * noise = (float*) malloc( sizeof(float) * SSAO_MAX_ROTATIONS * 4);
+    float * noise = (float*) malloc( sizeof(float) * SSAO_MAX_ROTATIONS);
     
+    float ratio = (1.0f/256.0f);
     for (unsigned int i = 0; i < 16; i++)
     {
-        noise[ i * 4 + 0 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f );
-        noise[ i * 4 + 1 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f );
-        noise[ i * 4 + 2 ] = ( ( ( rand() %20000) * 0.0001f ) -1.0f );
-        noise[ i * 4 + 3 ] = 1.0f;
+        uint8_t * ptr = (uint8_t *) &noise[i];
+        ptr[ 0 ] = (uint8_t)( ( ( rand() %256) ) );
+        ptr[ 1 ] = (uint8_t)( ( ( rand() %256) ) );
+        ptr[ 2 ] = (uint8_t) 255;
+        ptr[ 3 ] = (uint8_t) 255;
     }
     
     RESOURCE_IMAGE image;
     
     image.SetImageRawData( noise );
-    image.SetSize( sizeof(float) * SSAO_MAX_ROTATIONS * 4 );
+    image.SetSize( sizeof(float) * SSAO_MAX_ROTATIONS );
     image.GetImageInfo().Height = 4;
     image.GetImageInfo().Width = 4;
     image.GetImageInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA;

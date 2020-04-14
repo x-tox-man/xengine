@@ -54,18 +54,24 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(METAL_TEST, CORE_APPLICATION)
 private:
 
     GRAPHIC_OBJECT * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path );
+    void CreateStaticObject( GRAPHIC_OBJECT * object, GRAPHIC_SHADER_EFFECT::PTR effect, GRAPHIC_MATERIAL * mat );
 
     GRAPHIC_CAMERA::PTR
         Camera;
+    GRAPHIC_OBJECT_SHAPE_SPHERE::PTR
+        SphereObject;
     GRAPHIC_CAMERA_ORTHOGONAL::PTR
         RenderTargetCamera;
     GRAPHIC_SHADER_EFFECT::PTR
         Effect,
         UIEffect,
-        AnimatedEffect,
+        AnimatedEffectDeferred,
+        EffectDeferred,
+        ShadowMapEffect,
         AnimatedShadowMapEffect;
     GRAPHIC_OBJECT::PTR
-        StaticObject;
+        StaticObject,
+        ConeObject;
     GRAPHIC_OBJECT::PTR
         NakedGirlObject;
     GRAPHIC_RENDER_TARGET

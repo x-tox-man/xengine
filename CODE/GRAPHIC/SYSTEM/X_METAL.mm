@@ -64,6 +64,52 @@ MTLRenderPassDescriptor
     * _renderPassDescriptor;
 MTKView
     * _view;
+std::map< GRAPHIC_RENDERER_STATE_DESCRIPTOR, void * >
+    MetalDepthStateDescriptCache;
+
+void * GRAPHIC_SYSTEM::MtlGetCachedStencilStateFromRenderer( GRAPHIC_RENDERER & renderer ) {
+    
+    void * state = MetalDepthStateDescriptCache[ renderer.GetDescriptor() ];
+    
+    int size = MetalDepthStateDescriptCache.size();
+    
+    if ( state == NULL && renderer.GetDescriptor().ItDoesStencilTest ) {
+        
+        MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
+        depthStateDesc.depthCompareFunction = renderer.GetDescriptor().ItDoesDepthTest ? MTLCompareFunctionLess : MTLCompareFunctionAlways;
+        depthStateDesc.depthWriteEnabled = renderer.GetDescriptor().ItDoesDepthTest ? YES : NO;
+        
+        MTLStencilDescriptor *backfaceStencilDescriptor = [[MTLStencilDescriptor alloc]
+         init];
+        backfaceStencilDescriptor.stencilCompareFunction = MTLCompareFunctionAlways;
+        backfaceStencilDescriptor.stencilFailureOperation = MTLStencilOperationKeep;
+        backfaceStencilDescriptor.depthStencilPassOperation = MTLStencilOperationIncrementWrap;
+        backfaceStencilDescriptor.writeMask = renderer.GetDescriptor().StencilMask;
+        
+        MTLStencilDescriptor *frontfaceStencilDescriptor = [[MTLStencilDescriptor alloc]
+         init];
+        frontfaceStencilDescriptor.stencilCompareFunction = MTLCompareFunctionAlways;
+        frontfaceStencilDescriptor.stencilFailureOperation = MTLStencilOperationKeep;
+        frontfaceStencilDescriptor.depthStencilPassOperation = MTLStencilOperationDecrementWrap;
+        frontfaceStencilDescriptor.writeMask = renderer.GetDescriptor().StencilMask;
+        
+        //Need to check they are the same!
+        depthStateDesc.backFaceStencil = backfaceStencilDescriptor;
+        depthStateDesc.frontFaceStencil = frontfaceStencilDescriptor;
+        
+        id <MTLDepthStencilState> tempState = [_device newDepthStencilStateWithDescriptor:depthStateDesc];
+        state = ( void *) CFBridgingRetain( tempState );
+        
+        MetalDepthStateDescriptCache[ renderer.GetDescriptor() ] = state;
+        
+        assert( MetalDepthStateDescriptCache[ renderer.GetDescriptor() ]  != NULL );
+    }
+    else if (state == NULL ) {
+        state = (__bridge void * ) _depthState;
+    }
+    
+    return state;
+}
 
 void * GRAPHIC_SYSTEM::CreateMtlVertexDescriptor( GRAPHIC_SHADER_BIND bind ) {
     
@@ -312,6 +358,7 @@ void GRAPHIC_SYSTEM::InitializeMetal( void * view ) {
     MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
     depthStateDesc.depthCompareFunction = MTLCompareFunctionLess;
     depthStateDesc.depthWriteEnabled = YES;
+    
     _depthState = [_device newDepthStencilStateWithDescriptor:depthStateDesc];
     
     _commandQueue = [_device newCommandQueue];
@@ -607,10 +654,14 @@ void GRAPHIC_SYSTEM::ApplyLightAmbient( const GRAPHIC_SHADER_LIGHT & light, GRAP
 
 void GRAPHIC_SYSTEM::ApplyLightPoint( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
     
+    [_renderEncoder setVertexBytes:( void* ) &light.InternalLight.Point length:( 2* sizeof(GRAPHIC_SHADER_LIGHT_POINT)) atIndex:BufferIndexPointLightsConstants];
+    
     [_renderEncoder setFragmentBytes:( void* ) &light.InternalLight.Point length:( 2* sizeof(GRAPHIC_SHADER_LIGHT_POINT) ) atIndex:BufferIndexPointLightsConstants];
 }
 
 void GRAPHIC_SYSTEM::ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC_SHADER_PROGRAM & program, int index ) {
+    
+    [_renderEncoder setVertexBytes:( void* ) &light.InternalLight.Spot length:( 2* sizeof(GRAPHIC_SHADER_LIGHT_SPOT) ) atIndex:BufferIndexSpotLightsConstants];
     
     [_renderEncoder setFragmentBytes:( void* ) &light.InternalLight.Spot length:( 2* sizeof(GRAPHIC_SHADER_LIGHT_SPOT) ) atIndex:BufferIndexSpotLightsConstants];
 }
@@ -623,7 +674,7 @@ void GRAPHIC_SYSTEM::ApplyMaterial( const GRAPHIC_MATERIAL & material ) {
 void GRAPHIC_SYSTEM::ApplyShaderAttributeVector( GRAPHIC_RENDERER & renderer, const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
     
     //GRAPHIC_SYSTEM_ApplyFloatArray(index, size, array)(indexattribute.AttributeIndex, vector)
-    CORE_RUNTIME_Abort();
+    GRAPHIC_SYSTEM_ApplyFloatArray( attribute.AttributeIndex, 4, vector )
 }
 
 void GRAPHIC_SYSTEM::ApplyShaderAttributeFloat( GRAPHIC_RENDERER & renderer, const float value, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
@@ -673,10 +724,8 @@ void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH & m
     MTKMeshBuffer *vertexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKVertexBuffer();
     MTKMeshBuffer *indexBuffer = (__bridge MTKMeshBuffer *) mesh.GetMTKIndexBuffer();
     
-    if ( renderer.GetDescriptor().ItDoesDepthTest ) {
-        
-        [_renderEncoder setDepthStencilState:_depthState];
-    }
+    id <MTLDepthStencilState> cachedStencilState = (__bridge id<MTLDepthStencilState>) MtlGetCachedStencilStateFromRenderer( renderer );
+    [_renderEncoder setDepthStencilState:cachedStencilState];
     
     if((NSNull*)vertexBuffer != [NSNull null])
     {

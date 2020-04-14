@@ -202,7 +202,7 @@ void GRAPHIC_RENDER_TARGET::EnableTextureBlending() {
 
 void GRAPHIC_RENDER_TARGET::Clear() {
     
-    
+    abort();
 }
 
 #endif

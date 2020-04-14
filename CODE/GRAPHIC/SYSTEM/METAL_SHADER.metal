@@ -33,6 +33,12 @@ typedef struct
 {
     float4 position [[attribute(VertexAttributePosition)]];
     float4 normal [[attribute(VertexAttributeNormal)]];
+} VertexPosNormal;
+
+typedef struct
+{
+    float4 position [[attribute(VertexAttributePosition)]];
+    float4 normal [[attribute(VertexAttributeNormal)]];
     float2 texcoords [[attribute(VertexAttributeTexcoords)]];
     float3 tangent [[attribute(VertexAttributeTangent)]];
     float3 bitangent [[attribute(VertexAttributeBitangent)]];
@@ -237,6 +243,62 @@ fragment float4 BasicGeometryShader_fs(BasicGeometryShader_ColorInOut in [[stage
     return float4(colorSample);
 }
 
+typedef struct
+{
+    float4 position [[position]];
+    float4 wposition;
+    float2 texcoords;
+    float4 colorVarying;
+    float4 normal;
+    float3 T,B,N;
+    float3 LightDirection_tangentspace;
+    float3 EyeDirection_tangentspace;
+} BasicShaderDeferred_InOut;
+
+vertex BasicShaderDeferred_InOut BasicGeometryShaderDeferred_vs(VertexPosNormalTexTanBi in [[stage_in]],
+                               constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+{
+    BasicShaderDeferred_InOut out;
+    
+    out.T = (uniforms.ModelMatrix * normalize( float4(in.tangent, 1.0 ))).xyz;
+    out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
+    out.N = (uniforms.ModelMatrix * normalize( in.normal )).xyz;
+    
+    out.position = uniforms.MVPMatrix * in.position;
+    out.wposition = uniforms.ModelMatrix * in.position;
+    out.texcoords = in.texcoords;
+
+    return out;
+}
+
+fragment GBufferDataFragmentOut BasicGeometryShaderDeferred_fs(BasicShaderDeferred_InOut in [[stage_in]],
+                                 constant AnimatedObjectUniforms & uniforms [[ buffer( BufferIndexUniforms ) ]],
+                                 constant DirectionalLight & dir_light [[ buffer( BufferIndexDirectionalLightsConstants ) ]],
+                                 constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
+                                 constant Material & material [[ buffer( MaterialUniforms ) ]],
+                                 texture2d<half> colorMap     [[ texture( TextureIndex1Color ) ]],
+                                 texture2d<half> normalMap     [[ texture( TextureIndex2Color ) ]] )
+{
+    GBufferDataFragmentOut out;
+    
+    constexpr sampler colorSampler(mip_filter::linear,
+                                   mag_filter::linear,
+                                   min_filter::linear);
+    
+    half4 colorSample = colorMap.sample(colorSampler, in.texcoords.xy);
+    half4 base_normal = normalMap.sample(colorSampler, in.texcoords.xy);
+    
+    float3x3 TBN = float3x3( in.T, in.B, in.N );
+    
+    out.Position = in.wposition;
+    out.Diffuse = float4( colorSample );
+    out.Normal = float4( ComputeNormalMapping( TBN, float3( base_normal.xyz ) ), 1.0 );
+    out.Specular = 1.0;
+    //out.Shadow = 0.0;
+    
+    return out;
+}
+
 // ------------------------------------------------------
 // Simple Blur Shader
 // ------------------------------------------------------
@@ -329,7 +391,7 @@ fragment float4 BackgroundSky_fs(BackgroundSky_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -371,7 +433,7 @@ fragment float4 BackgroundSkyDeferred_fs(BackgroundSkyDeferred_InOut in [[stage_
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -410,7 +472,7 @@ fragment float4 BasicGeometryShaderPoNoUVDeferred_fs(BasicGeometryShaderPoNoUVDe
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -448,7 +510,7 @@ fragment float4 BasicGeometryShaderPoNoUVTaBi_fs(BasicGeometryShaderPoNoUVTaBi_I
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -486,7 +548,7 @@ fragment float4 BasicGeometryShaderPoNoUVTaBiColorDeferred_fs(BasicGeometryShade
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -524,7 +586,7 @@ fragment float4 BasicGeometryShaderPoNoUVTaBiDeferred_fs(BasicGeometryShaderPoNo
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -562,7 +624,7 @@ fragment float4 BasicGeometryShaderPoNoUVTaBiShadowMap_fs(BasicGeometryShaderPoN
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -600,7 +662,7 @@ fragment float4 BasicParticle_fs(BasicParticle_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -638,7 +700,7 @@ fragment float4 BasicTerrain_fs(BasicTerrain_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -676,7 +738,7 @@ fragment float4 BasicTerrainDeferred_fs(BasicTerrainDeferred_InOut in [[stage_in
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -714,7 +776,7 @@ fragment float4 CheckpointEffect_fs(CheckpointEffect_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -734,38 +796,71 @@ typedef struct
     float4 colorVarying;
     float4 normal;
     float3 T,B,N;
+    float2 ViewRay;
 } DeferredAmbiantAndDirectionnal_InOut;
 
 vertex DeferredAmbiantAndDirectionnal_InOut DeferredAmbiantAndDirectionnal_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+                                            constant DeferredLightObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
     DeferredAmbiantAndDirectionnal_InOut out;
 
     out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
+    out.ViewRay.x = in.position.x * uniforms.FOVRatio.z * uniforms.FOVRatio.y;
+    out.ViewRay.y = in.position .y * uniforms.FOVRatio.y;
+    
     return out;
 }
 
 fragment float4 DeferredAmbiantAndDirectionnal_fs(DeferredAmbiantAndDirectionnal_InOut in [[stage_in]],
-                                 constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                 constant DeferredLightObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> colorMap1     [[ texture(TextureIndex2Color) ]],
-                                texture2d<half> colorMap2     [[ texture(TextureIndex3Color) ]],
-                                texture2d<half> colorMap3     [[ texture(TextureIndex4Color) ]])
+                                 texture2d<float> ssaoMap     [[ texture(TextureIndex1Color) ]],
+                                 texture2d<float> diffuseMap     [[ texture(TextureIndex2Color) ]],
+                                 texture2d<float> normalMap     [[ texture(TextureIndex3Color) ]],
+                                 texture2d<float> specularMap     [[ texture(TextureIndex4Color) ]],
+                                 depth2d<float> depthMap[[ texture(TextureIndex5Color) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( colorMap1.sample(colorSampler, in.texcoords ) );
+    float3 eye_world_position = uniforms.ViewMatrix.columns[3].xyz;
+
+    float4 Color = float4( diffuseMap.sample(colorSampler, in.texcoords ) );
+    float4 Normal = float4( normalMap.sample(colorSampler, in.texcoords ) );
+    
+    float shadow = 1.0;//texture( o_texture_3, texCoord ).r;
+    float ssao = ssaoMap.sample(colorSampler, in.texcoords ).x;
+    float4 ssao4 = float4(float3(ssao), 1.0);
+
+    float specular_intensity = specularMap.sample(colorSampler, in.texcoords ).x;
+    
+    float Depth = depthMap.sample( colorSampler, in.texcoords);
+    float ViewZ = uniforms.PreviousProjection[3][2] / (2 * Depth -1 - uniforms.PreviousProjection[2][2]);
+    
+    float ViewX = in.ViewRay.x * ViewZ;
+    float ViewY = in.ViewRay.y * ViewZ;
+    
+    float3 wposition = float3( ViewX, ViewY, ViewZ );
+
+    //float4 colorOut = Color * CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, wposition, eye_world_position, specular_intensity, light.DiffuseIntensity ) * shadow + Color * ambient_light.Color.rgba * ambient_light.AmbientIntensity * ssao4 ;
+    float4 colorOut = CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, wposition, eye_world_position, specular_intensity, light.DiffuseIntensity );
+    colorOut.a = 1.0;
+    
+    return colorOut;
 }
 
 // ------------------------------------------------------
 // Deferred Point Light Shader
 // ------------------------------------------------------
+
+float2 CalcTexCoords( float2 pos ) {
+    
+    return pos;
+}
 
 typedef struct
 {
@@ -774,14 +869,14 @@ typedef struct
     float4 LightPosition;
 } DeferredPointLight_InOut;
 
-vertex DeferredPointLight_InOut DeferredPointLight_vs(VertexPosNormalTexTanBi in [[stage_in]],
-    constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-    constant PointLight & point_light [[ buffer(PointLightUniforms) ]])
+vertex DeferredPointLight_InOut DeferredPointLight_vs(VertexPosNormal in [[stage_in]],
+    constant DeferredLightObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+    constant PointLight & point_light [[ buffer(BufferIndexPointLightsConstants) ]])
 {
     DeferredPointLight_InOut out;
 
     out.position = uniforms.MVPMatrix * in.position;
-    out.texcoords = in.texcoords;
+    out.texcoords = CalcTexCoords( in.position.xy );
     out.LightPosition = point_light.Position; // in world position
     
     return out;
@@ -789,12 +884,12 @@ vertex DeferredPointLight_InOut DeferredPointLight_vs(VertexPosNormalTexTanBi in
 
 fragment float4 DeferredPointLight_fs(
     DeferredPointLight_InOut in [[stage_in]],
-    constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-    constant PointLight & point_light [[ buffer(PointLightUniforms) ]],
+    constant DeferredLightObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+    constant PointLight & point_light [[ buffer(BufferIndexPointLightsConstants) ]],
     texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-    texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]],
-    texture2d<half> positionMap     [[ texture(TextureIndex2Color) ]],
-    texture2d<half> specularMap     [[ texture(TextureIndex5Color) ]])
+    texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]],
+    texture2d<half> positionMap     [[ texture(TextureIndex3Color) ]],
+    texture2d<half> specularMap     [[ texture(TextureIndex4Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -812,7 +907,7 @@ fragment float4 DeferredPointLight_fs(
     //TODO: Fetch and use material
     float3 colorOut = diffuse * CalcPointLight( point_light.Color, normal, world_pos.xyz, eye_world_position, in.LightPosition.xyz, specular_intensity, point_light.DiffuseIntensity, point_light.Constant, point_light.Linear, point_light.Exp ).xyz;
     
-    return float4( colorOut, 1.0);
+    return float4( 1.0, 0.0, 0.0, 1.0);
 }
 
 // ------------------------------------------------------
@@ -826,28 +921,28 @@ typedef struct
     float4 LightPosition;
 } DeferredSpotLight_InOut;
 
-vertex DeferredSpotLight_InOut DeferredSpotLight_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                            constant SpotLight & spot_light [[ buffer(SpotLightUniforms) ]] )
+vertex DeferredSpotLight_InOut DeferredSpotLight_vs(VertexPosNormal in [[stage_in]],
+                                            constant DeferredLightObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                            constant SpotLight & spot_light [[ buffer(BufferIndexSpotLightsConstants) ]] )
 {
     DeferredSpotLight_InOut out;
 
     out.position = uniforms.MVPMatrix * in.position;
-    out.texcoords = in.texcoords;
+    out.texcoords = CalcTexCoords( in.position.xy );
     out.LightPosition = spot_light.Position; // in world position
     
     return out;
 }
 
 fragment float4 DeferredSpotLight_fs(DeferredSpotLight_InOut in [[stage_in]],
-                                 constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                 constant DeferredLightObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
                                  //constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  //constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 constant SpotLight & spot_light [[ buffer(SpotLightUniforms) ]],
+                                 constant SpotLight & spot_light [[ buffer(BufferIndexSpotLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]],
-                                 texture2d<half> positionMap     [[ texture(TextureIndex2Color) ]],
-                                 texture2d<half> specularMap     [[ texture(TextureIndex5Color) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]],
+                                 texture2d<half> positionMap     [[ texture(TextureIndex3Color) ]],
+                                 texture2d<half> specularMap     [[ texture(TextureIndex4Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1108,7 +1203,7 @@ fragment float4 FullscreenSpeedBlur_fs(FullscreenSpeedBlur_InOut in [[stage_in]]
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1146,7 +1241,7 @@ fragment float4 LineShader_fs(LineShader_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1162,19 +1257,15 @@ fragment float4 LineShader_fs(LineShader_InOut in [[stage_in]],
 typedef struct
 {
     float4 position [[position]];
-    float2 texcoords;
-    float4 colorVarying;
     float4 normal;
-    float3 T,B,N;
 } NullTechnique_InOut;
 
-vertex NullTechnique_InOut NullTechnique_vs(VertexPosNormalTexTanBi in [[stage_in]],
+vertex NullTechnique_InOut NullTechnique_vs(VertexPosNormal in [[stage_in]],
                                             constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
     NullTechnique_InOut out;
 
     out.position = uniforms.MVPMatrix * in.position;
-    out.texcoords = in.texcoords;
     
     return out;
 }
@@ -1184,13 +1275,13 @@ fragment float4 NullTechnique_fs(NullTechnique_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    return float4( 1.0 );
+    return float4( 0.0 );
 }
 
 // ------------------------------------------------------
@@ -1242,7 +1333,7 @@ fragment float4 AnimationShader_fs(AnimationShader_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
                                  constant Material & material [[ buffer( MaterialUniforms ) ]],
                                  texture2d<half> colorMap     [[ texture( TextureIndex1Color ) ]],
-                                 texture2d<half> normalMap     [[ texture( TextureIndex1Normal ) ]] )
+                                 texture2d<half> normalMap     [[ texture( TextureIndex2Color ) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1272,7 +1363,7 @@ vertex AnimationShader_InOut AnimationShadowMapShader_vs(VertexPosNormalTexTanBi
     out.wposition = uniforms.attrBindShapeMatrix * in.position * blend_result;
     out.position =  uniforms.MVPMatrix * out.wposition;
     out.wposition = uniforms.ModelMatrix * out.wposition;
-    
+ 
     return out;
 }
 
@@ -1282,7 +1373,7 @@ fragment float4 AnimationShadowMapShader_fs(AnimationShader_InOut in [[stage_in]
                                  constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
                                  constant Material & material [[ buffer( MaterialUniforms ) ]],
                                  texture2d<half> colorMap     [[ texture( TextureIndex1Color ) ]],
-                                 texture2d<half> normalMap     [[ texture( TextureIndex1Normal ) ]] )
+                                 texture2d<half> normalMap     [[ texture( TextureIndex2Color ) ]] )
 {
     return float4( in.position.z );
 }
@@ -1309,11 +1400,7 @@ vertex AnimationShaderDeferred_InOut AnimationShaderDeferred_vs(VertexPosNormalT
 {
     AnimationShaderDeferred_InOut out;
     
-    float4x4 blend_result = in.weights.x * jointsMatrix[ int( in.joint_indices.x ) ];
-    
-    blend_result += in.weights.y * jointsMatrix[ int( in.joint_indices.y ) ];
-    blend_result += in.weights.z * jointsMatrix[ int( in.joint_indices.z ) ];
-    blend_result += in.weights.w * jointsMatrix[ int( in.joint_indices.w ) ];
+    float4x4 blend_result = in.weights.x * jointsMatrix[ int( in.joint_indices.x ) ]+ in.weights.y * jointsMatrix[ int( in.joint_indices.y ) ] + in.weights.z * jointsMatrix[ int( in.joint_indices.z ) ] + in.weights.w * jointsMatrix[ int( in.joint_indices.w ) ];
     
     out.T = (uniforms.ModelMatrix * normalize( float4(in.tangent, 1.0 ))).xyz;
     out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
@@ -1340,7 +1427,7 @@ fragment GBufferDataFragmentOut AnimationShaderDeferred_fs(AnimationShaderDeferr
                                  constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
                                  constant Material & material [[ buffer( MaterialUniforms ) ]],
                                  texture2d<half> colorMap     [[ texture( TextureIndex1Color ) ]],
-                                 texture2d<half> normalMap     [[ texture( TextureIndex1Normal ) ]] )
+                                 texture2d<half> normalMap     [[ texture( TextureIndex2Color ) ]] )
 {
     GBufferDataFragmentOut out;
     
@@ -1391,7 +1478,7 @@ fragment float4 ColorShader_fs(ColorShader_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1429,7 +1516,7 @@ fragment float4 ShadowmapEffect_fs(ShadowmapEffect_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1467,7 +1554,7 @@ fragment float4 SpaceShipSpecialEffect_fs(SpaceShipSpecialEffect_InOut in [[stag
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1486,6 +1573,7 @@ typedef struct
     float2 texcoords;
     float4 colorVarying;
     float4 normal;
+    float2 ViewRay;
     float3 T,B,N;
 } SSAOEffect_InOut;
 
@@ -1505,7 +1593,7 @@ fragment float4 SSAOEffect_fs(SSAOEffect_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1523,6 +1611,9 @@ vertex SSAOEffect_InOut SSAOEffectDeferred_vs(VertexPosNormalTexTanBi in [[stage
     out.position = uniforms.MVPMatrix * in.position;
     out.texcoords = in.texcoords;
     
+    out.ViewRay.x = in.position.x * uniforms.SSAOSampleRadFOVRatio.z * uniforms.SSAOSampleRadFOVRatio.y;
+    out.ViewRay.y = in.position .y * uniforms.SSAOSampleRadFOVRatio.y;
+    
     return out;
 }
 
@@ -1531,11 +1622,11 @@ fragment float4 SSAOEffectDeferred_fs(SSAOEffect_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  const device float4 * SSAOKernel [[ buffer(SSAOKernelConstants) ]],
-                                 texture2d<half> positionMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> diffuseMap     [[ texture(TextureIndex2Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex3Color) ]],
-                                 texture2d<half> depthMap     [[ texture(TextureIndex4Color) ]],
-                                 texture2d<half> randomMap     [[ texture(TextureIndex5Color) ]] )
+                                 texture2d<float> positionMap     [[ texture(TextureIndex1Color) ]],
+                                 texture2d<float> diffuseMap     [[ texture(TextureIndex2Color) ]],
+                                 texture2d<float> normalMap     [[ texture(TextureIndex3Color) ]],
+                                 depth2d<float> depthMap     [[ texture(TextureIndex4Color) ]],
+                                 texture2d<float> randomMap     [[ texture(TextureIndex5Color) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
@@ -1543,44 +1634,50 @@ fragment float4 SSAOEffectDeferred_fs(SSAOEffect_InOut in [[stage_in]],
     
     const int MAX_KERNEL_SIZE = 64;
     const float SSAO_FACTOR = 1.0 / MAX_KERNEL_SIZE;
-    const float SSAOSampleRad = 0.1;
+    const float SSAOSampleRad = 1.5;
     
     const float2 noiseScale = float2(1024.0/4.0, 768.0/4.0); // screen = 1024*768
     
-    half Depth = depthMap.sample( colorSampler, in.texcoords).r;
+    float Depth = depthMap.sample( colorSampler, in.texcoords);
+    float ViewZ = uniforms.SSAOProjectionMatrix[3][2] / (2 * Depth -1 - uniforms.SSAOProjectionMatrix[2][2]);
     
-    float ViewZ = uniforms.ProjectionMatrix[3][2] / (2 * Depth -1 - uniforms.ProjectionMatrix[2][2]);
+    float ViewX = in.ViewRay.x * ViewZ;
+    float ViewY = in.ViewRay.y * ViewZ;
+    
+    float3 Pos = float3( ViewX, ViewY, ViewZ );
 
-    half3 Pos    = half3( half2(positionMap.sample(colorSampler, in.texcoords ).xy), ViewZ );
+    //float3 Pos    = float3( positionMap.sample(colorSampler, in.texcoords ).xy, ViewZ );
     //float3 diffuseMap = float3( positionMap.sample(colorSampler, in.texcoords ).xyz);
-    //float3 Normal = (uniforms.ViewMatrix * float4( float3( normalMap.sample(colorSampler, in.texcoords ).xyz), 0.0 )).xyz;
-    float3 randomVec = float3( randomMap.sample(colorSampler, in.texcoords ).xyz);
+    float3 Normal = (uniforms.ViewMatrix * float4( float3( normalMap.sample(colorSampler, in.texcoords ).xyz), 0.0 )).xyz;
+    float3 randomVec = float3( randomMap.sample(colorSampler, in.texcoords * noiseScale ).xyz);
 
-    //float3 tangent   = normalize(randomVec - Normal * dot(randomVec, Normal));
-    //float3 bitangent = cross(Normal, tangent);
-    //mat3 TBN       = mat3(tangent, bitangent, Normal);
+    float3 tangent   = normalize(randomVec - Normal * dot(randomVec, Normal));
+    float3 bitangent = cross(Normal, tangent);
+    float3x3 TBN       = float3x3(tangent, bitangent, Normal);
 
-    half4 SSAO = half4(0.0);
+    float4 SSAO = float4(0.0);
 
     for (int i = 0 ; i < MAX_KERNEL_SIZE ; i++) {
-
-        half3 samplePos = Pos + half3(SSAOKernel[i].xyz);//;( TBN * SSAOKernel[i].xyz ) * SSAOSampleRad;
-        half4 offset = half4(samplePos, 1.0); // make it a 4-vector
-
-        offset = half4(uniforms.SSAOViewProjectionMatrix * float4(offset)); // project on the near clipping plane
-        offset.xy /= offset.w; // perform perspective divide
-        offset.xy = (offset.xy * 0.5) + half2(0.5); // transform to (0,1) range
-
-        float sampleDepth = positionMap.sample(colorSampler, float2(offset.xy) ).x;
         
-        if (abs(Pos.z - sampleDepth) < SSAOSampleRad) {
-            SSAO += step(abs( float(samplePos.z) ), abs(sampleDepth) );
+        float3 rnd = TBN * SSAOKernel[i].xyz  * SSAOSampleRad;
+        float3 samplePos = Pos + rnd;//;( TBN * SSAOKernel[i].xyz ) * SSAOSampleRad;
+        float4 offset = float4(samplePos, 1.0); // make it a 4-vector
+
+        offset = uniforms.SSAOViewProjectionMatrix * offset; // project on the near clipping plane
+        offset.xy /= offset.w; // perform perspective divide
+        offset.xy = (offset.xy * 0.5) + float2(0.5); // transform to (0,1) range
+
+        float dDepth = depthMap.sample( colorSampler, offset.xy);
+        float dViewZ = uniforms.SSAOProjectionMatrix[3][2] / (2 * dDepth -1 - uniforms.SSAOProjectionMatrix[2][2]);
+        
+        if (abs(Pos.z - dViewZ) < SSAOSampleRad) {
+            SSAO += step(abs(samplePos.z), abs(dViewZ) );
         }
     }
 
     SSAO = (1.0 - (SSAO * SSAO_FACTOR));
 
-    SSAO = half4(pow(float(SSAO.r), 2.0));
+    SSAO = float4(pow(SSAO.r, 2.0));
     
     return float4(SSAO);
 }
@@ -1614,7 +1711,7 @@ fragment float4 TerrainShader_fs(TerrainShader_InOut in [[stage_in]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex1Normal) ]])
+                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,

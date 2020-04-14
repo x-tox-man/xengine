@@ -17,8 +17,10 @@
 
 GRAPHIC_RENDER_TARGET::GRAPHIC_RENDER_TARGET() :
     ItUsesDepth( false ),
+    ItUsesStencil( false ),
+    Attachments( 0 ),
     DepthTexture( NULL ),
-    Attachments( 0 ) {
+    StencilTexture( NULL ) {
     
 }
 
@@ -27,9 +29,10 @@ GRAPHIC_RENDER_TARGET::~GRAPHIC_RENDER_TARGET() {
     Finalize();
 }
 
-bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool generates_separate_depth_texture, int attachments, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode ) {
+bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool uses_stencil, bool generates_separate_depth_texture, int attachments, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode ) {
     
     ItUsesDepth = uses_depth;
+    ItUsesStencil = uses_stencil;
     Attachments = attachments;
     Mode = mode;
     
@@ -69,7 +72,7 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
         TargetTextures[i]->SetTextureHandle( tex );
         
         descriptor.colorAttachments[i].texture = (__bridge id <MTLTexture>) tex;
-        descriptor.colorAttachments[i].loadAction = MTLLoadActionClear;
+        descriptor.colorAttachments[i].loadAction = MTLLoadActionLoad;
         descriptor.colorAttachments[i].clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0);
         descriptor.colorAttachments[i].storeAction = MTLStoreActionStore;
         
@@ -92,16 +95,17 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
         textureDescriptor.textureType = MTLTextureType2D;
         textureDescriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;
         textureDescriptor.storageMode = MTLStorageModePrivate;
-        textureDescriptor.pixelFormat = MTLPixelFormatDepth32Float;
+        
+        textureDescriptor.pixelFormat = (ItUsesStencil) ?MTLPixelFormatDepth32Float_Stencil8 : MTLPixelFormatDepth32Float;
         
         GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetColorAttachmentPixelFormat( 0, GRAPHIC_TEXTURE_IMAGE_TYPE_None );
         GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetDepthAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
-        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetStencilAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_None );
+        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetStencilAttachmentPixelFormat( (ItUsesStencil) ?GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8 : GRAPHIC_TEXTURE_IMAGE_TYPE_None );
         
         void * tex = GRAPHIC_SYSTEM::CreateMtlTextureFromDescriptor( (__bridge void *) textureDescriptor );
         
         descriptor.depthAttachment.texture = (__bridge id <MTLTexture>) tex;
-        descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+        descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
         descriptor.depthAttachment.clearDepth = 1.0;
         descriptor.depthAttachment.storeAction = MTLStoreActionStore;
         
@@ -112,14 +116,17 @@ bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IM
         DepthTexture->GetTextureInfo().ImageType = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32;
         
         DepthTexture->SetTextureHandle( tex );
+        
+        if ( ItUsesStencil) {
+            descriptor.stencilAttachment.texture = (__bridge id <MTLTexture>) tex;
+            descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
+            descriptor.stencilAttachment.clearStencil = 0.0;
+            descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
+        }
     }
-    
-    // For opengl only
-    /*if ( generates_separate_depth_texture ) {
-        
-        
-    }*/
-    // /
+    else if ( ItUsesStencil ) {
+        abort(); // TODO
+    }
     
     _renderEncoder = NULL;
     
@@ -168,7 +175,7 @@ bool GRAPHIC_RENDER_TARGET::InitializeDepthTexture( int width, int height, GRAPH
         TargetTextures[i]->SetTextureHandle( tex );
         
         descriptor.colorAttachments[i].texture = (__bridge id <MTLTexture>) tex;
-        descriptor.colorAttachments[i].loadAction = MTLLoadActionClear;
+        descriptor.colorAttachments[i].loadAction = MTLLoadActionLoad;
         descriptor.colorAttachments[i].clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0);
         descriptor.colorAttachments[i].storeAction = MTLStoreActionStore;
         
@@ -201,7 +208,7 @@ bool GRAPHIC_RENDER_TARGET::InitializeDepthTexture( int width, int height, GRAPH
         void * tex = GRAPHIC_SYSTEM::CreateMtlTextureFromDescriptor( (__bridge void *) textureDescriptor );
         
         descriptor.depthAttachment.texture = (__bridge id <MTLTexture>) tex;
-        descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+        descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
         descriptor.depthAttachment.clearDepth = 1.0;
         descriptor.depthAttachment.storeAction = MTLStoreActionStore;
         
@@ -266,6 +273,12 @@ void GRAPHIC_RENDER_TARGET::Apply() {
         GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetStencilAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_None );
     }
     
+    if( descriptor.depthAttachment.texture != NULL && descriptor.depthAttachment.texture.pixelFormat == MTLPixelFormatDepth32Float_Stencil8 ) {
+        
+        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetDepthAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
+        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetStencilAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8 );
+    }
+    
     encoder.label = @"MyRenderEncoder";
     
     [encoder pushDebugGroup:@"GRAPHIC_RENDER_TARGET_RenderToTexture"];
@@ -286,21 +299,128 @@ void GRAPHIC_RENDER_TARGET::EnableTextureBlending() {
     
     MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
     
-    descriptor.colorAttachments[0].loadAction = MTLLoadActionLoad;
+    for ( int i = 0; i < Attachments; i++ ) {
+        
+        descriptor.colorAttachments[i].loadAction = MTLLoadActionLoad;
+    }
 }
 
 void GRAPHIC_RENDER_TARGET::Clear() {
     
     MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
-    
     MTLLoadAction load_action = descriptor.colorAttachments[0].loadAction;
     
-    descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+    if ( descriptor.depthAttachment ) {
+        
+        descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+    }
+    
+    if ( descriptor.stencilAttachment.texture ) {
+        
+        descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+    }
+    
+    for ( int i = 0; i < Attachments; i++ ) {
+        descriptor.colorAttachments[i].loadAction = MTLLoadActionClear;
+    }
     
     Apply();
     Discard();
     
-    descriptor.colorAttachments[0].loadAction = load_action;
+    for ( int i = 0; i < Attachments; i++ ) {
+        descriptor.colorAttachments[i].loadAction = load_action;
+    }
+    
+    if ( descriptor.depthAttachment ) {
+        
+        descriptor.depthAttachment.loadAction = load_action;
+    }
+    
+    if ( descriptor.stencilAttachment.texture ) {
+        
+        descriptor.stencilAttachment.loadAction = load_action;
+    }
+}
+
+void GRAPHIC_RENDER_TARGET::ClearDepth() {
+    
+    MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
+    descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+    /*MTLLoadAction color_load_action = descriptor.colorAttachments[0].loadAction;
+    MTLLoadAction stencil_load_action = descriptor.stencilAttachment.loadAction;
+    MTLLoadAction depth_load_action = descriptor.depthAttachment.loadAction;
+    
+    if ( descriptor.stencilAttachment ) {
+        
+        descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
+    }
+    
+    if ( descriptor.depthAttachment ) {
+        
+        descriptor.depthAttachment.clearDepth = 1.0;
+        descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+    }
+    
+    for ( int i = 0; i < Attachments; i++ ) {
+        descriptor.colorAttachments[i].loadAction = MTLLoadActionLoad;
+    }
+    
+    Apply();
+    Discard();
+    
+    if ( descriptor.stencilAttachment ) {
+        
+        descriptor.stencilAttachment.loadAction = stencil_load_action;
+    }
+    
+    if ( descriptor.depthAttachment ) {
+        
+        descriptor.depthAttachment.loadAction = depth_load_action;
+    }
+    
+    for ( int i = 0; i < Attachments; i++ ) {
+        descriptor.colorAttachments[i].loadAction = color_load_action;
+    }*/
+}
+
+void GRAPHIC_RENDER_TARGET::ClearStencil() {
+    
+    MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
+    descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+    /*MTLLoadAction color_load_action = descriptor.colorAttachments[0].loadAction;
+    MTLLoadAction stencil_load_action = descriptor.stencilAttachment.loadAction;
+    MTLLoadAction depth_load_action = descriptor.depthAttachment.loadAction;
+    
+    if ( descriptor.stencilAttachment ) {
+        
+        descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+    }
+    
+    if ( descriptor.depthAttachment ) {
+        
+        descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+    }
+    
+    for ( int i = 0; i < Attachments; i++ ) {
+        descriptor.colorAttachments[i].loadAction = MTLLoadActionLoad;
+    }
+    
+    Apply();
+    Discard();
+    
+    if ( descriptor.stencilAttachment ) {
+        
+        descriptor.stencilAttachment.loadAction = stencil_load_action;
+    }
+    
+    if ( descriptor.depthAttachment ) {
+        
+        descriptor.depthAttachment.loadAction = depth_load_action;
+    }
+    
+    for ( int i = 0; i < Attachments; i++ ) {
+        descriptor.colorAttachments[i].loadAction = color_load_action;
+    }*/
 }
 
 void GRAPHIC_RENDER_TARGET::AddAttachment( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type ) {
@@ -340,7 +460,7 @@ void GRAPHIC_RENDER_TARGET::AddAttachment( int width, int height, GRAPHIC_TEXTUR
     TargetTextures[attachment_index]->SetTextureHandle( tex );
     
     descriptor.colorAttachments[attachment_index].texture = (__bridge id <MTLTexture>) tex;
-    descriptor.colorAttachments[attachment_index].loadAction = MTLLoadActionClear;
+    descriptor.colorAttachments[attachment_index].loadAction = MTLLoadActionLoad;
     descriptor.colorAttachments[attachment_index].clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0);
     descriptor.colorAttachments[attachment_index].storeAction = MTLStoreActionStore;*/
 }
@@ -352,7 +472,21 @@ void GRAPHIC_RENDER_TARGET::BindForWriting() {
 
 void GRAPHIC_RENDER_TARGET::BindForReading() {
     
-    //Apply();
+    MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
+    
+    if ( descriptor.stencilAttachment ) {
+        
+        descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
+    }
+    
+    if ( descriptor.depthAttachment ) {
+        
+        descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+    }
+    
+    for ( int i = 0; i < Attachments; i++ ) {
+        descriptor.colorAttachments[i].loadAction = MTLLoadActionLoad;
+    }
 }
 
 void GRAPHIC_RENDER_TARGET::SetReadBuffer( int type )

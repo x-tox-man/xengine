@@ -119,9 +119,10 @@ const CORE_HELPERS_IDENTIFIER
     GRAPHIC_SHADER_PROGRAM::TimeModulator( "TimeModulator" ),
     GRAPHIC_SHADER_PROGRAM::PreviousModelViewProjectionIdentifier( "PreviousModelViewProjectionIdentifier" ),
     GRAPHIC_SHADER_PROGRAM::SSAOProjectionMatrix( "SSAOProjectionMatrix" ),
-    GRAPHIC_SHADER_PROGRAM::SSAOSampleRad( "SSAOSampleRad" ),
+    GRAPHIC_SHADER_PROGRAM::SSAOSampleRadFOVRatio( "SSAOSampleRadFOVRatio" ),
     GRAPHIC_SHADER_PROGRAM::SSAOKernel( "SSAOKernel" ),
     GRAPHIC_SHADER_PROGRAM::SSAOTexture( "SSAOTexture" ),
     GRAPHIC_SHADER_PROGRAM::SSAOViewProjectionMatrix( "SSAOViewProjectionMatrix" ),
+    GRAPHIC_SHADER_PROGRAM::FOVRatio( "FOVRatio" ),
     GRAPHIC_SHADER_PROGRAM::SSAOViewMatrix( "SSAOViewMatrix" ),
     GRAPHIC_SHADER_PROGRAM::FrameResolution( "FrameResolution" );

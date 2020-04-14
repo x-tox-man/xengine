@@ -14,7 +14,7 @@ GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::GRAPHIC_RENDERER_TECHNIQUE_DEFERRED
     Material(),
     ConeObject( NULL ),
     SphereObject( NULL ),
-    GameCamera( NULL ),
+    PreviousCamera( NULL ),
     PlanObject( NULL ),
     TextureBlock1(),
     TextureBlock2(),
@@ -42,7 +42,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ConfigureGBufferBeforeInit( GR
     RenderTarget = new GRAPHIC_RENDER_TARGET;
     GBUFFER_TYPES = types;
     
-    RenderTarget->Initialize( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, 4, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    RenderTarget->Initialize( renderer.GetWidth(), renderer.GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, true, true, true, 4, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     
     /*if ( true ) { //types & GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING_GBUFFER_Diffuse ) {
         
@@ -70,18 +70,22 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::Initialize( GRAPHIC_RENDERER &
     //Must call ConfigureGBufferBeforeInit
     assert( GBUFFER_TYPES != GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING_GBUFFER_None );
     
-    AmbientDirectionalDefferedEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredAmbiantAndDirectionnal" ), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredAmbiantAndDirectionnal", "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    AmbientDirectionalDefferedEffect = new GRAPHIC_SHADER_EFFECT_DEFERRED( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredAmbiantAndDirectionnal"), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredAmbiantAndDirectionnal" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
     
-    PointDefferedEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredPoint" ), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredPointLight", "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    //AmbientDirectionalDefferedEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredAmbiantAndDirectionnal" ), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredAmbiantAndDirectionnal", "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
-    SpotDeferredEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredSpot" ), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredSpotLight", "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    PointDefferedEffect = new GRAPHIC_SHADER_EFFECT_DEFERRED( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredPoint"), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredPointLight" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
+    //PointDefferedEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredPoint" ), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredPointLight", "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
+    
+    SpotDeferredEffect = new GRAPHIC_SHADER_EFFECT_DEFERRED( GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredSpot"), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredSpotLight" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) ) );
+    //SpotDeferredEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::DeferredSpot" ), CORE_FILESYSTEM_PATH::FindFilePath( "DeferredSpotLight", "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
     NullTechniqueEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::NullTechnique" ), CORE_FILESYSTEM_PATH::FindFilePath( "NullTechnique", "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
     AmbientDirectionalDefferedEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     //AmbientDirectionalDefferedEffect->BindAttributes();
     
-    PointDefferedEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    PointDefferedEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
     //PointDefferedEffect->BindAttributes();
     
     SpotDeferredEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
@@ -98,10 +102,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyFirstPass( GRAPHIC_RENDER
     
     RenderTarget->Clear();
     
-    //GRAPHIC_SYSTEM::ClearFrambufferColor();
-    //GRAPHIC_SYSTEM::ClearFrambufferDepth( 1.0 );
-    
-    RenderTarget->BindForWriting();
+    RenderTarget->Apply();
     RendererCallback( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
     RenderTarget->Discard();
 }
@@ -118,9 +119,11 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     option.SetOrientation( CORE_MATH_QUATERNION() );
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
-    if ( FinalRenderTarget != NULL )
+    if ( FinalRenderTarget != NULL ) {
+        FinalRenderTarget->ClearDepth();
         FinalRenderTarget->Apply();
-    
+    }
+        
     RenderTarget->BindForReading();
     
     /*if ( (acc % 33) == 0 ) {
@@ -166,11 +169,12 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     GRAPHIC_SYSTEM::Clear();
 
     PlanObject->Render( renderer, option, AmbientDirectionalDefferedEffect );
+    renderer.EnableDepthTest();
     GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, false );
     
     renderer.SetDeferredLightingIsEnabled( true );
     GRAPHIC_CAMERA::PTR backup_camera = renderer.GetCamera();
-    renderer.SetCamera( GameCamera );
+    renderer.SetCamera( PreviousCamera );
     
     ApplyPointLightPass( renderer );
     ApplySpotLightPass( renderer );
@@ -178,8 +182,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     renderer.SetDeferredLightingIsEnabled( false );
     renderer.SetLightingIsEnabled( false );
     renderer.SetCamera( backup_camera );
-    
-    GRAPHIC_SYSTEM::DisableStencil();
+    renderer.DisableStencilTest();
 
     if ( FinalRenderTarget != NULL ) {
         
@@ -194,16 +197,26 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
         GRAPHIC_TEXTURE * texture2 = FinalRenderTarget->GetTargetTexture( 0 );
         texture2->SaveTo(CORE_FILESYSTEM_PATH::FindFilePath( "testGRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADINGFinal" , "png", "" ));*/
     }
+    
+    renderer.GetDescriptor().ItDoesStencilTest = false;
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyStencilPassForPoint( GRAPHIC_RENDERER & renderer, GRAPHIC_OBJECT_RENDER_OPTIONS & option, GRAPHIC_SHADER_LIGHT * light ) {
     
-    GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
+    renderer.EnableDepthTest();
+    
+    FinalRenderTarget->Discard();
+    FinalRenderTarget->ClearStencil();
+    FinalRenderTarget->Apply();
+    //GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
+    
+    renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+    renderer.DisableBlend();
     GRAPHIC_SYSTEM::DisableFaceCulling();
-    GRAPHIC_SYSTEM::ClearFrambufferStencil();
-    GRAPHIC_SYSTEM::EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Always, 0, 0 );
-    GRAPHIC_SYSTEM::SetStencilOperation( GRAPHIC_POLYGON_FACE_Back, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_IncrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
-    GRAPHIC_SYSTEM::SetStencilOperation( GRAPHIC_POLYGON_FACE_Front, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_DecrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
+    
+    renderer.EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Always, 0, 0 );
+    renderer.SetStencilOperation( GRAPHIC_POLYGON_FACE_Back, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_IncrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
+    renderer.SetStencilOperation( GRAPHIC_POLYGON_FACE_Front, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_DecrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
     
     SphereObject->Render( renderer, option, NullTechniqueEffect );
 }
@@ -226,16 +239,17 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyPointLightPass( GRAPHIC_R
         
         ApplyStencilPassForPoint( renderer, option, light );
         
-        GRAPHIC_SYSTEM::EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_NotEqual, 0, 0xFF );
-        GRAPHIC_SYSTEM::DisableDepthTest();
-        renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_One );
-        GRAPHIC_SYSTEM::SetBlendFunction( GRAPHIC_SYSTEM_BLEND_EQUATION_Add );
+        renderer.EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Always, 0, 0xFF );
+        renderer.DisableDepthTest();
+        renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+        renderer.SetBlendFunction( GRAPHIC_SYSTEM_BLEND_EQUATION_Add );
+
         GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Front );
         
         SphereObject->Render( renderer, option, PointDefferedEffect );
         
         GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
-        GRAPHIC_SYSTEM::DisableBlend();
+        renderer.DisableBlend();
     }
     
     renderer.SetDeferredPointIndex( -1 );
@@ -243,12 +257,17 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyPointLightPass( GRAPHIC_R
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyStencilPassForSpot( GRAPHIC_RENDERER & renderer, GRAPHIC_OBJECT_RENDER_OPTIONS & option, GRAPHIC_SHADER_LIGHT * light ) {
     
-    GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
+    renderer.EnableDepthTest();
+    
+    FinalRenderTarget->Discard();
+    FinalRenderTarget->ClearStencil();
+    FinalRenderTarget->Apply();
+    //GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
     GRAPHIC_SYSTEM::DisableFaceCulling();
-    GRAPHIC_SYSTEM::ClearFrambufferStencil();
-    GRAPHIC_SYSTEM::EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Always, 0, 0 );
-    GRAPHIC_SYSTEM::SetStencilOperation( GRAPHIC_POLYGON_FACE_Back, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_IncrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
-    GRAPHIC_SYSTEM::SetStencilOperation( GRAPHIC_POLYGON_FACE_Front, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_DecrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
+    
+    renderer.EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Always, 0, 0 );
+    renderer.SetStencilOperation( GRAPHIC_POLYGON_FACE_Back, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_IncrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
+    renderer.SetStencilOperation( GRAPHIC_POLYGON_FACE_Front, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_DecrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
     
     SphereObject->Render( renderer, option, NullTechniqueEffect );
 }
@@ -257,6 +276,8 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySpotLightPass( GRAPHIC_RE
     
     GRAPHIC_OBJECT_RENDER_OPTIONS
         option;
+    
+    return;
     
     for (unsigned int i = 0 ; i < renderer.GetSpotLightTable().size(); i++) {
         
@@ -295,10 +316,12 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySpotLightPass( GRAPHIC_RE
         GRAPHIC_SYSTEM::EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_NotEqual, 0, 0xFF );
         GRAPHIC_SYSTEM::DisableDepthTest();
         renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_One );
-        GRAPHIC_SYSTEM::SetBlendFunction( GRAPHIC_SYSTEM_BLEND_EQUATION_Add );
+        renderer.SetBlendFunction( GRAPHIC_SYSTEM_BLEND_EQUATION_Add );
+
         GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Front );
         
         SphereObject->Render( renderer, option, SpotDeferredEffect );
+        //TODO: ConeObject
         
         GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
         renderer.DisableBlend();
@@ -325,4 +348,12 @@ float GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::CalculateSpotLightSphereAndEx
     (2 * light.InternalLight.Spot.Exp);
     
     return ret;
+}
+
+void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::SetPreviousCamera( GRAPHIC_CAMERA::PTR camera ) {
+    
+    PreviousCamera = camera;
+    AmbientDirectionalDefferedEffect->PreviousCamera = camera;
+    SpotDeferredEffect->PreviousCamera = camera;
+    PointDefferedEffect->PreviousCamera = camera;
 }

@@ -78,8 +78,8 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline void SetRenderCallback( CORE_HELPERS_CALLBACK * renderCallback ) { RenderCallback = renderCallback; }
     inline void SetDirectionalLight( GRAPHIC_SHADER_LIGHT * light ) { DirectionalLight = light; }
     inline void SetAmbientLight( GRAPHIC_SHADER_LIGHT * light ) { AmbientLight = light; }
-    inline void SetPointLight( GRAPHIC_SHADER_LIGHT * light, int light_index ) { PointLightTable[ light_index ] = light; }
-    inline void SetSpotLight( GRAPHIC_SHADER_LIGHT * light, int light_index ) { SpotLightTable[ light_index ] = light; }
+    inline void SetPointLight( GRAPHIC_SHADER_LIGHT * light, int light_index ) { PointLightTable.push_back( light ); }
+    inline void SetSpotLight( GRAPHIC_SHADER_LIGHT * light, int light_index ) { SpotLightTable.push_back( light ); }
     inline const GRAPHIC_SHADER_LIGHT * GetDirectionalLight() const { return DirectionalLight; }
     inline const GRAPHIC_SHADER_LIGHT * GetPointLight( int index ) const { return PointLightTable[ index ]; }
     inline const GRAPHIC_SHADER_LIGHT * GetSpotLight( int index ) const { return SpotLightTable[ index ]; }
@@ -103,8 +103,8 @@ XS_CLASS_BEGIN( GRAPHIC_RENDERER )
     inline void EnableColor( bool enable ) { ColorEnabled = enable; }
     inline void SetResizeViewCallback(CORE_HELPERS_CALLBACK_2<int, int> & callback) {ResizeViewCallback = callback; }
 
-inline bool IsTexturingEnabled() const { return TexturingIsEnabled; }
-inline void SetTexturingIsEnabled( bool enabled ) { TexturingIsEnabled = enabled; }
+    inline bool IsTexturingEnabled() const { return TexturingIsEnabled; }
+    inline void SetTexturingIsEnabled( bool enabled ) { TexturingIsEnabled = enabled; }
 
     inline bool IsLightingEnabled() const { return LightingIsEnabled; }
     inline void SetLightingIsEnabled( bool enabled ) { LightingIsEnabled = enabled; }
@@ -151,7 +151,7 @@ inline void SetTexturingIsEnabled( bool enabled ) { TexturingIsEnabled = enabled
         return Height;
     }
 
-    void EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination ) {
+    inline void EnableBlend( const GRAPHIC_SYSTEM_BLEND_OPERATION source, const GRAPHIC_SYSTEM_BLEND_OPERATION destination ) {
         
         Descriptor.ItDoesBlending = true;
         
@@ -159,19 +159,45 @@ inline void SetTexturingIsEnabled( bool enabled ) { TexturingIsEnabled = enabled
         Descriptor.BlendingDestinationOperation = destination;
     }
 
-    void DisableBlend() {
+    inline void DisableBlend() {
         
         Descriptor.ItDoesBlending = false;
     }
 
-    void EnableDepthTest() {
+    inline void SetBlendFunction( const GRAPHIC_SYSTEM_BLEND_EQUATION equation ) {
+        
+        Descriptor.BlendFunction = equation;
+    }
+
+
+    inline void EnableDepthTest() {
         
         Descriptor.ItDoesDepthTest = true;
     }
 
-    void DisableDepthTest() {
+    inline void DisableDepthTest() {
         
         Descriptor.ItDoesDepthTest = false;
+    }
+
+    inline void EnableStencilTest( const GRAPHIC_SYSTEM_COMPARE_OPERATION operation, int ref, unsigned int mask ) {
+        
+        Descriptor.ItDoesStencilTest = true;
+        Descriptor.StencilOperation = operation;
+        Descriptor.StencilRef = ref;
+        Descriptor.StencilMask = mask;
+    }
+
+    inline void SetStencilOperation( const GRAPHIC_POLYGON_FACE face, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_fail, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_pass, const GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION stencil_and_depth_fail ) {
+        
+        Descriptor.StencilFaceTable[face].StencilPassAction = stencil_pass;;
+        Descriptor.StencilFaceTable[face].StencilFailAction = stencil_fail;
+        Descriptor.StencilFaceTable[face].StencilAndDepthFailAction = stencil_and_depth_fail;
+    }
+
+    inline void DisableStencilTest() {
+        
+        Descriptor.ItDoesStencilTest = false;
     }
 
     inline const GRAPHIC_RENDERER_STATE_DESCRIPTOR & GetDescriptor() const { return Descriptor; }

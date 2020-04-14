@@ -35,9 +35,7 @@ typedef NS_ENUM(NSInteger, BufferIndex)
     SkinningMatrixBuffer = 9,
     MaterialUniforms = 10,
     CameraWorldPositionUniform = 11,
-    SpotLightUniforms = 12,
-    PointLightUniforms = 13,
-    SSAOKernelConstants = 14
+    SSAOKernelConstants = 12
 };
 
 typedef NS_ENUM(NSInteger, VertexAttribute)
@@ -83,12 +81,24 @@ typedef struct
         ModelMatrix,
         ViewMatrix,
         MVPMatrix,
+        PreviousProjection;
+    vector_float4
+        PreviousCameraWorldPosition,
+        FOVRatio;
+} DeferredLightObjectUniforms;
+
+typedef struct
+{
+    matrix_float4x4
+        ModelMatrix,
+        ViewMatrix,
+        MVPMatrix,
         SSAOProjectionMatrix,
         SSAOViewProjectionMatrix,
         SSAOViewMatrix,
         ProjectionMatrix;
-    float
-        SSAOSampleRad;
+    vector_float4
+        SSAOSampleRadFOVRatio;
 } SSAOObjectUniforms;
 
 typedef struct {

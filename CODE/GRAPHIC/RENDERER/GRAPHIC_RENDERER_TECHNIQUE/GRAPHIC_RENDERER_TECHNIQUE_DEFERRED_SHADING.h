@@ -17,7 +17,7 @@
 #include "GRAPHIC_OBJECT_SHAPE_SPHERE.h"
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
-#include "GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING.h"
+#include "GRAPHIC_SHADER_EFFECT_DEFERRED.h"
 
 enum GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING_GBUFFER_TYPES {
     GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING_GBUFFER_WorldPos = 0x00000001,
@@ -49,11 +49,12 @@ public:
 
     float CalculatePointLightSphereAndExtent(const GRAPHIC_SHADER_LIGHT &) const;
     float CalculateSpotLightSphereAndExtent(const GRAPHIC_SHADER_LIGHT &) const;
+    void SetPreviousCamera( GRAPHIC_CAMERA::PTR camera );
 
     GRAPHIC_MATERIAL
         Material;
     GRAPHIC_CAMERA::PTR
-        GameCamera;
+        PreviousCamera;
     GRAPHIC_OBJECT::PTR
         ConeObject;
     GRAPHIC_OBJECT_SHAPE_PLAN::PTR
@@ -67,15 +68,14 @@ public:
         TextureBlock4,
         TextureBlock5,
         TextureBlock6;
-    GRAPHIC_SHADER_EFFECT::PTR
+    GRAPHIC_SHADER_EFFECT_DEFERRED::PTR
         AmbientDirectionalDefferedEffect,
         SpotDeferredEffect,
-        PointDefferedEffect,
+        PointDefferedEffect;
+    GRAPHIC_SHADER_EFFECT::PTR
         NullTechniqueEffect;
     int
         GBUFFER_TYPES;
-    /*GRAPHIC_SHADER_EFFECT_DEFERRED_POINT_SHADING::PTR
-        PointDefferedEffect;*/
 
 XS_CLASS_END
 
