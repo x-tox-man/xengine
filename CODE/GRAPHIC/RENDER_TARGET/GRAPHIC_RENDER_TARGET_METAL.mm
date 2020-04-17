@@ -231,7 +231,7 @@ void GRAPHIC_RENDER_TARGET::Finalize() {
     CORE_RUNTIME_Abort();
 }
 
-void GRAPHIC_RENDER_TARGET::Apply() {
+void GRAPHIC_RENDER_TARGET::Apply( GRAPHIC_RENDERER & renderer ) {
     
     _renderEncoder = GRAPHIC_SYSTEM::CreateMtlRenderEncoder( (void *) _descriptor );
     id <MTLRenderCommandEncoder> encoder = (__bridge id <MTLRenderCommandEncoder>) _renderEncoder;
@@ -243,40 +243,39 @@ void GRAPHIC_RENDER_TARGET::Apply() {
         MTLPixelFormat pxf = descriptor.colorAttachments[i].texture.pixelFormat;
         
         if ( descriptor.colorAttachments[i].texture != NULL && descriptor.colorAttachments[i].texture.pixelFormat == MTLPixelFormatBGRA8Unorm ) {
-            GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetColorAttachmentPixelFormat( i, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
+            renderer.GetDescriptor().SetColorAttachmentPixelFormat( i, GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA );
         }
         else {
-            GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetColorAttachmentPixelFormat( i, GRAPHIC_TEXTURE_IMAGE_TYPE_None );
+            renderer.GetDescriptor().SetColorAttachmentPixelFormat( i, GRAPHIC_TEXTURE_IMAGE_TYPE_None );
         }
     }
     
     for ( int i = Attachments; i < MAX_FRAME_BUFFERS; i++ ) {
         
-        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetColorAttachmentPixelFormat( i, GRAPHIC_TEXTURE_IMAGE_TYPE_None );
+        renderer.GetDescriptor().SetColorAttachmentPixelFormat( i, GRAPHIC_TEXTURE_IMAGE_TYPE_None );
     }
     
     if( descriptor.depthAttachment.texture != NULL && descriptor.depthAttachment.texture.pixelFormat == MTLPixelFormatDepth32Float ) {
         
-        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetDepthAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
+        renderer.GetDescriptor().SetDepthAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
     }
     else {
-        
-        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetDepthAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_None );
+        renderer.GetDescriptor().SetDepthAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_None );
     }
     
     if( descriptor.stencilAttachment.texture != NULL && descriptor.stencilAttachment.texture.pixelFormat == MTLPixelFormatStencil8 ) {
         
-        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetStencilAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8 );
+        renderer.GetDescriptor().SetStencilAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8 );
     }
     else {
         
-        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetStencilAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_None );
+        renderer.GetDescriptor().SetStencilAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_None );
     }
     
     if( descriptor.depthAttachment.texture != NULL && descriptor.depthAttachment.texture.pixelFormat == MTLPixelFormatDepth32Float_Stencil8 ) {
         
-        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetDepthAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
-        GRAPHIC_RENDERER::GetInstance().GetDescriptor().SetStencilAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8 );
+        renderer.GetDescriptor().SetDepthAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32 );
+        renderer.GetDescriptor().SetStencilAttachmentPixelFormat( GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8 );
     }
     
     encoder.label = @"MyRenderEncoder";
@@ -308,9 +307,30 @@ void GRAPHIC_RENDER_TARGET::EnableTextureBlending() {
 void GRAPHIC_RENDER_TARGET::Clear() {
     
     MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
-    MTLLoadAction load_action = descriptor.colorAttachments[0].loadAction;
     
-    if ( descriptor.depthAttachment ) {
+    if ( descriptor.depthAttachment != nil ) {
+        
+        descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+    }
+    else {
+        
+        descriptor.depthAttachment.loadAction = MTLLoadActionDontCare;
+    }
+    
+    if ( descriptor.stencilAttachment != nil ) {
+        
+        descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+    }
+    else {
+        
+        descriptor.stencilAttachment.loadAction = MTLLoadActionDontCare;
+    }
+    
+    for ( int i = 0; i < Attachments; i++ ) {
+        descriptor.colorAttachments[i].loadAction = MTLLoadActionClear;
+    }
+    
+    /*if ( descriptor.depthAttachment ) {
         
         descriptor.depthAttachment.loadAction = MTLLoadActionClear;
     }
@@ -324,7 +344,7 @@ void GRAPHIC_RENDER_TARGET::Clear() {
         descriptor.colorAttachments[i].loadAction = MTLLoadActionClear;
     }
     
-    Apply();
+    Apply( GRAPHIC_RENDERER::GetInstance() );
     Discard();
     
     for ( int i = 0; i < Attachments; i++ ) {
@@ -339,7 +359,7 @@ void GRAPHIC_RENDER_TARGET::Clear() {
     if ( descriptor.stencilAttachment.texture ) {
         
         descriptor.stencilAttachment.loadAction = load_action;
-    }
+    }*/
 }
 
 void GRAPHIC_RENDER_TARGET::ClearDepth() {
@@ -467,22 +487,24 @@ void GRAPHIC_RENDER_TARGET::AddAttachment( int width, int height, GRAPHIC_TEXTUR
 
 void GRAPHIC_RENDER_TARGET::BindForWriting() {
     
-    Apply();
+    /*MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
+    
+    if ( GRAPHIC_RENDERER::GetInstance().GetDescriptor().ItDoesDepthTest ) {
+        descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+        descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+    }
+    
+    for ( int i = 0; i < Attachments; i++ ) {
+        descriptor.colorAttachments[i].loadAction = MTLLoadActionClear;
+    }*/
 }
 
 void GRAPHIC_RENDER_TARGET::BindForReading() {
     
     MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
     
-    if ( descriptor.stencilAttachment ) {
-        
-        descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
-    }
-    
-    if ( descriptor.depthAttachment ) {
-        
-        descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
-    }
+    descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+    descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
     
     for ( int i = 0; i < Attachments; i++ ) {
         descriptor.colorAttachments[i].loadAction = MTLLoadActionLoad;

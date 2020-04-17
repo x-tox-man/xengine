@@ -15,6 +15,7 @@
 #include "GRAPHIC_TEXTURE.h"
 #include "GRAPHIC_TEXTURE_LOADER.h"
 #include "GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE.h"
+#include "GRAPHIC_RENDERER.h"
 
 #define MAX_FRAME_BUFFERS   8
 
@@ -26,7 +27,7 @@ XS_CLASS_BEGIN( GRAPHIC_RENDER_TARGET )
     bool Initialize( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool uses_stencil, bool generates_separate_depth_texture, int attachments, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode );
     bool InitializeDepthTexture( int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type = GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH16 );
     void Finalize();
-    void Apply();
+    void Apply( GRAPHIC_RENDERER & renderer );
     void Discard();
 
     void Clear();

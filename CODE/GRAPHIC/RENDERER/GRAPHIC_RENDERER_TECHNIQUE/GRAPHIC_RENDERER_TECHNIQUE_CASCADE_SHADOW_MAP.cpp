@@ -63,7 +63,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplyFirstPass( GRAPHIC_REND
             LightShadowCamera[ i ]->InitOrthoProjTransform(CascadeProjectionInfo[ i ].Left, CascadeProjectionInfo[ i ].Right, CascadeProjectionInfo[ i ].Bottom, CascadeProjectionInfo[ i ].Top, CascadeProjectionInfo[ i ].Near,  CascadeProjectionInfo[ i ].Far );
             
             ShadowMapRenderTarget[ i ]->Clear();
-            ShadowMapRenderTarget[ i ]->Apply();
+            ShadowMapRenderTarget[ i ]->Apply( renderer );
             
             renderer.DisableBlend();
             renderer.EnableDepthTest();

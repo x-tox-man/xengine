@@ -102,7 +102,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyFirstPass( GRAPHIC_RENDER
     
     RenderTarget->Clear();
     
-    RenderTarget->Apply();
+    RenderTarget->Apply( renderer );
     RendererCallback( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
     RenderTarget->Discard();
 }
@@ -119,12 +119,15 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     option.SetOrientation( CORE_MATH_QUATERNION() );
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
+    RenderTarget->BindForReading();
+    
     if ( FinalRenderTarget != NULL ) {
         FinalRenderTarget->ClearDepth();
-        FinalRenderTarget->Apply();
+        FinalRenderTarget->Apply( renderer );
     }
-        
-    RenderTarget->BindForReading();
+    else {
+        abort();//TODO:
+    }
     
     /*if ( (acc % 33) == 0 ) {
         GRAPHIC_TEXTURE * texture2;
@@ -151,13 +154,13 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     TextureBlock2.SetTexture( RenderTarget->GetTargetTexture( 1 ) );
     TextureBlock3.SetTexture( RenderTarget->GetTargetTexture( 2 ) );
     TextureBlock4.SetTexture( RenderTarget->GetTargetTexture( 3 ) );
-    //TextureBlock5.SetTexture( RenderTarget->GetTargetTexture( 4 ) );
+    TextureBlock5.SetTexture( RenderTarget->GetDepthTexture() );
     
     Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut, &TextureBlock1 ) ;
     Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut1, &TextureBlock2 ) ;
     Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut2, &TextureBlock3 ) ;
     Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut3, &TextureBlock4 ) ;
-    //Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut4, &TextureBlock5 ) ;
+    Material.SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTextureOut4, &TextureBlock5 ) ;
     
     AmbientDirectionalDefferedEffect->SetMaterial( &Material );
     PointDefferedEffect->SetMaterial( &Material );
@@ -165,12 +168,12 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     
     renderer.SetLightingIsEnabled( true );
     
-    GRAPHIC_SYSTEM::DisableDepthTest();
+    renderer.DisableDepthTest();
     GRAPHIC_SYSTEM::Clear();
 
     PlanObject->Render( renderer, option, AmbientDirectionalDefferedEffect );
     renderer.EnableDepthTest();
-    GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, false );
+    renderer.EnableDepthTest();//GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, false );
     
     renderer.SetDeferredLightingIsEnabled( true );
     GRAPHIC_CAMERA::PTR backup_camera = renderer.GetCamera();
@@ -207,7 +210,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyStencilPassForPoint( GRAP
     
     FinalRenderTarget->Discard();
     FinalRenderTarget->ClearStencil();
-    FinalRenderTarget->Apply();
+    FinalRenderTarget->Apply( renderer );
     //GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
     
     renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
@@ -261,7 +264,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyStencilPassForSpot( GRAPH
     
     FinalRenderTarget->Discard();
     FinalRenderTarget->ClearStencil();
-    FinalRenderTarget->Apply();
+    FinalRenderTarget->Apply( renderer );
     //GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
     GRAPHIC_SYSTEM::DisableFaceCulling();
     

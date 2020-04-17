@@ -215,8 +215,8 @@ void METAL_TEST::Initialize() {
     CORE_MATH_VECTOR direction_1(0.0f, 1.0f, 0.0f, 0.0f);
     CORE_MATH_VECTOR direction_2(0.0f, -1.0f, 0.0f, 0.0f);
     
-    CORE_MATH_VECTOR point1_position(-10.0f, 0.0f, 0.0f, 1.0f);
-    CORE_MATH_VECTOR point2_position(10.0f, 0.0f, 0.0f, 1.0f);
+    CORE_MATH_VECTOR point1_position(-10.0f, 0.0f, -50.0f, 1.0f);
+    CORE_MATH_VECTOR point2_position(10.0f, 0.0f, -50.0f, 1.0f);
     
     PointLightOne = new GRAPHIC_SHADER_LIGHT;
     PointLightOne->InitializePoint(diffuse_1, point1_position, 0.1f, 0.1f, 0.5f, 1.0f, 1.0f);
@@ -234,9 +234,9 @@ void METAL_TEST::Initialize() {
     GRAPHIC_RENDERER::GetInstance().SetAmbientLight( AmbientLight );
     GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( DirectionalLight );
     GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightOne, 0 );
-    GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightTwo, 1 );
-    GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightOne, 0 );
-    GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightTwo, 1 );
+    //GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightTwo, 1 );
+    //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightOne, 0 );
+    //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightTwo, 1 );
     
     RESOURCE_CONTAINER
         container;
@@ -316,7 +316,7 @@ void METAL_TEST::Render() {
     
     GRAPHIC_RENDERER::GetInstance().SetCamera( RenderTargetCamera );
     
-    SSAOTechnique.ApplyFirstPass( renderer );
+    //SSAOTechnique.ApplyFirstPass( renderer );
     DeferredShadingTechnique.SetPreviousCamera( Camera );
     DeferredShadingTechnique.ApplySecondPass( renderer );
     

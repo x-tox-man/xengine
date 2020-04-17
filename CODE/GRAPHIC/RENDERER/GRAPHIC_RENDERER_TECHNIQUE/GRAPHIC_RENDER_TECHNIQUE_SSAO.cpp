@@ -49,11 +49,15 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
     option.SetOrientation( CORE_MATH_QUATERNION() );
     option.SetScaleFactor(CORE_MATH_VECTOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
     
-    RenderTarget->BindForWriting();
-    
     SourceRenderTarget->BindForReading();
     SourceRenderTarget->SetReadBuffer( 0 );
+    
     renderer.SetLightingIsEnabled( false );
+    renderer.DisableDepthTest();
+    renderer.DisableStencilTest();
+    
+    RenderTarget->BindForWriting();
+    RenderTarget->Apply( renderer );
     
     TextureBlock1.SetTexture( SourceRenderTarget->GetTargetTexture( 0 ) );
     TextureBlock2.SetTexture( SourceRenderTarget->GetTargetTexture( 1 ) );
@@ -67,7 +71,6 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
     
     SSAOEffect->SetMaterial( &Material );
 
-    
     PlanObject->Render( renderer, option, SSAOEffect );
     
     RenderTarget->Discard();
@@ -94,13 +97,14 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
         }*/
         
         FinalRenderTarget->BindForWriting();
-        GRAPHIC_SYSTEM::DisableBlend();
+        FinalRenderTarget->Apply( renderer );
+        renderer.DisableBlend();
 
-        GRAPHIC_SYSTEM::DisableDepthTest();
+        renderer.DisableDepthTest();
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, SimpleBlurEffect );
         
-        FinalRenderTarget->BindForReading();
-        FinalRenderTarget->SetReadBuffer( 4 );
+        //FinalRenderTarget->BindForReading();
+        //FinalRenderTarget->SetReadBuffer( 4 );
         
         /*{
             static int acc = 0;
