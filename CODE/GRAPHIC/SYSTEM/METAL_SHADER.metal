@@ -844,7 +844,7 @@ fragment float4 DeferredAmbiantAndDirectionnal_fs(DeferredAmbiantAndDirectionnal
     float specular_intensity = specularMap.sample(colorSampler, in.texcoords ).x;
 
     //float4 colorOut = Color * CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, wposition, eye_world_position, specular_intensity, light.DiffuseIntensity ) * shadow + Color * ambient_light.Color.rgba * ambient_light.AmbientIntensity * ssao4 ;
-    float4 colorOut = CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, world_pos.xyz, eye_world_position, specular_intensity, light.DiffuseIntensity );
+    float4 colorOut = Color * CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, world_pos.xyz, eye_world_position, specular_intensity, light.DiffuseIntensity );
     colorOut.a = 1.0;
     
     return colorOut;

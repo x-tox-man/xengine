@@ -837,7 +837,7 @@
         
         
         //TODO: Why????
-        unsigned int joint_index_offset = 1;
+        unsigned int joint_index_offset = 0;
         
         int new_buffer_size = buffer->GetSize()
         + (int) ( BASE_JOINTS_PER_VERTEX * skinControllerData->getJointsPerVertex().getCount()* sizeof( float ) )
@@ -889,33 +889,22 @@
                     mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
                     mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[3] = 0.0f;
                     
+                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0] = 0.0f;
+                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1] = 0.0f;
+                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[2] = 0.0f;
+                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[3] = 0.0f;
+                    
                     for( int joint_per_vertex_index = 0; joint_per_vertex_index < jointsPerVertex; joint_per_vertex_index++ ) {
                         
                         if ( joint_per_vertex_index > 3 ) {
                             continue;
                         }
                         
-                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + joint_per_vertex_index ));
-                        
-                        assert( (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] == 0.0f || (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] >= 1.0f );
+                        mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] = *(skinControllerData->getJointIndices().getData() + joint_index_offset + joint_per_vertex_index);
                         
                         mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[joint_per_vertex_index] = *(skinControllerData->getWeights().getFloatValues()->getData() + joint_index_offset + joint_per_vertex_index );
                         
-                        /*printf( "first index %d %d %d, next index, %d %d %d\n", (int) mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[0], (int) mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[1], (int) mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[2],
-                               (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0], (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1],
-                               (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[2]);
-                        
-                        if (  joint_per_vertex_index > 0 && joint_per_vertex_index == jointsPerVertex - 1 ) {
-                            if ( abs(mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[0] - mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0] ) > 5 ||
-                                ( mesh->CurrenGeometrytTable[ new_geometry_index -1 ].joint_weights[1] > 0.0f && mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] > 0.0f && (
-                                abs(mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[1] - mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1] ) > 5 )) ||
-                                ((mesh->CurrenGeometrytTable[ new_geometry_index -1 ].joint_weights[2] > 0.0f && mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] > 0.0f && (
-                                abs(mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[2] - mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[2] ) > 5) ) ) ) {
-                                
-                                printf( "I sense a great disturbance in the force\n");
-                            }
-                        }*/
-                        
+                        assert( (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] == 0.0f || (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] >= 1.0f );
                         assert( (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0] > 0 );
                         
                         if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 0.0f ) {
@@ -929,13 +918,10 @@
                             mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
                         }
                         
-                        
+                        if (  (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0] == 31 && (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1] == 61) {
+                            printf( "gotcha" );
+                        }
                     }
-                    
-                    //printf( "%f %f %f\n", mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0], mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1], mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2]);
-                    
-                    //printf( "%d %d %d\n", (int)mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0], (int)mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1], (int)mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[2]);
-                    //assert( mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 1.01f);
                 }
             }
                 
