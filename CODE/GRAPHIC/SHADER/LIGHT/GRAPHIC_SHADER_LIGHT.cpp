@@ -41,6 +41,7 @@ void GRAPHIC_SHADER_LIGHT::InitializePoint(
     InternalLight.Point.Color[0] = color[0];
     InternalLight.Point.Color[1] = color[1];
     InternalLight.Point.Color[2] = color[2];
+    InternalLight.Point.Color[3] = color[3];
     
     InternalLight.Point.Position[0] = position[0];
     InternalLight.Point.Position[1] = position[1];

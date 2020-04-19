@@ -39,16 +39,19 @@ void GRAPHIC_SHADER_EFFECT_DEFERRED::Apply( GRAPHIC_RENDERER & renderer, const c
     assert( PreviousCamera != NULL );
     
     float v4[4];
-    float TanHalfFOV = tanf( DEG_TO_RAD * (renderer.GetCamera()->GetFov() / 2.0f));
+    float TanHalfFOV = tanf( DEG_TO_RAD * (PreviousCamera->GetFov() / 2.0f));
     
     v4[0] = 0.0f;
-    v4[1] = renderer.GetCamera()->GetAspectRatio();;
+    v4[1] = PreviousCamera->GetAspectRatio();;
     v4[2] = TanHalfFOV;
     v4[3] = 1.0f;
     
+    CORE_MATH_MATRIX inverse_view_proj;
+    
+    PreviousCamera->GetProjectionViewMatrix().GetInverse( inverse_view_proj );
     GRAPHIC_SYSTEM::ApplyShaderAttributeVector(renderer, v4, fov_and_ratio);
-    GRAPHIC_SYSTEM::ApplyShaderAttributeVector( renderer, &renderer.GetCamera()->GetPosition()[0],attr_previous_camera_world_position );
-    GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( renderer, &renderer.GetCamera()->GetProjectionMatrix()[0], attr_previous_proj_mat );
+    GRAPHIC_SYSTEM::ApplyShaderAttributeVector( renderer, &PreviousCamera->GetPosition()[0],attr_previous_camera_world_position );
+    GRAPHIC_SYSTEM::ApplyShaderAttributeMatrix( renderer, &inverse_view_proj[0], attr_previous_proj_mat );
 }
 
 void GRAPHIC_SHADER_EFFECT_DEFERRED::BindAttributes() {

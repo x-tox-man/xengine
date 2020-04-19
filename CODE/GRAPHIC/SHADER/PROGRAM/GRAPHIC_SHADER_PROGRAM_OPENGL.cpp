@@ -1181,10 +1181,10 @@ void GRAPHIC_SHADER_PROGRAM::LinkTogether( const GRAPHIC_SHADER_BIND shader_bind
     CORE_MEMORY_ObjectSafeDeallocation( attribute );
     
     attribute = new GRAPHIC_SHADER_ATTRIBUTE;
-    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOSampleRad.GetTextValue() ); )
+    GFX_CHECK( attribute->AttributeIndex=glGetUniformLocation( ShaderProgram, SSAOSampleRadFOVRatio.GetTextValue() ); )
     if ( attribute->AttributeIndex != -1 ) {
         
-        attribute->AttributeName = SSAOSampleRad;
+        attribute->AttributeName = SSAOSampleRadFOVRatio;
         
         setShaderAttribute(*attribute);
     }

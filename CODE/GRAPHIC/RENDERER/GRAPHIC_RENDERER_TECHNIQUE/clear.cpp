@@ -105,6 +105,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyFirstPass( GRAPHIC_RENDER
     RenderTarget->Apply( renderer );
     RendererCallback( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
     RenderTarget->Discard();
+    RenderTarget->BindForReading();
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDERER & renderer ) {
@@ -190,6 +191,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     if ( FinalRenderTarget != NULL ) {
         
         FinalRenderTarget->Discard();
+        FinalRenderTarget->BindForReading();
 
 
     /*if ( (acc % 33) == 0 ) {

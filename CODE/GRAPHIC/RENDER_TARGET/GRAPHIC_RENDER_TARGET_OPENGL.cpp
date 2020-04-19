@@ -23,7 +23,7 @@ GRAPHIC_RENDER_TARGET::~GRAPHIC_RENDER_TARGET() {
     Finalize();
 }
 
-bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool generates_separate_depth_texture, int attachments, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode ) {
+bool GRAPHIC_RENDER_TARGET::Initialize(int width, int height, GRAPHIC_TEXTURE_IMAGE_TYPE type, bool uses_depth, bool uses_stencil, bool generates_separate_depth_texture, int attachments, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE mode ) {
     
     ItUsesDepth = uses_depth;
     Attachments = attachments;
@@ -132,7 +132,7 @@ void GRAPHIC_RENDER_TARGET::Finalize() {
     }
 }
 
-void GRAPHIC_RENDER_TARGET::Apply() {
+void GRAPHIC_RENDER_TARGET::Apply( GRAPHIC_RENDERER & renderer ) {
     
     // Activation du test de profondeur
     GFX_CHECK( glEnable( GL_DEPTH_TEST ); )
@@ -193,6 +193,16 @@ void GRAPHIC_RENDER_TARGET::CopyDepthFrom( GRAPHIC_RENDER_TARGET & other ) {
     GFX_CHECK( glBindFramebuffer(GL_READ_FRAMEBUFFER, other.FrameBuffer ); )
     GFX_CHECK( glBindFramebuffer(GL_DRAW_FRAMEBUFFER, DepthrenderBuffer); )
     GFX_CHECK( glBlitFramebuffer(0, 0, other.GetTargetTexture(0)->GetTextureInfo().Width, other.GetTargetTexture(0)->GetTextureInfo().Height, 0, 0, other.GetTargetTexture(0)->GetTextureInfo().Width, other.GetTargetTexture(0)->GetTextureInfo().Height, GL_DEPTH_BUFFER_BIT, GL_NEAREST); )
+}
+
+void GRAPHIC_RENDER_TARGET::ClearDepth() {
+    
+    abort();
+}
+
+void GRAPHIC_RENDER_TARGET::ClearStencil() {
+    
+    abort();
 }
 
 void GRAPHIC_RENDER_TARGET::EnableTextureBlending() {

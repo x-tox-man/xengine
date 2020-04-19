@@ -156,7 +156,7 @@ float4 CalcPointLight( float4 color, float3 normal, float3 world_pos, float3 eye
         light_linear * light_distance +
         light_exp * light_distance * light_distance;
 
-    return color_l / attenuation;
+    return (color_l / attenuation);
 }
 
 float4 CalcSpotLight(float3 world_pos, float3 eye_world_position, SpotLight light, float3 normal, float specular_power)
@@ -826,6 +826,11 @@ fragment float4 DeferredAmbiantAndDirectionnal_fs(DeferredAmbiantAndDirectionnal
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
+        
+    float Depth = depthMap.sample( colorSampler, in.texcoords);
+    
+    float4 world_pos = uniforms.PreviousProjection * float4( in.texcoords.x * 2.0 - 1.0, -(in.texcoords.y * 2.0 - 1.0), Depth, 1.0 ); //
+    world_pos /= world_pos.w;
     
     float3 eye_world_position = uniforms.ViewMatrix.columns[3].xyz;
 
@@ -837,17 +842,9 @@ fragment float4 DeferredAmbiantAndDirectionnal_fs(DeferredAmbiantAndDirectionnal
     float4 ssao4 = float4(float3(ssao), 1.0);
 
     float specular_intensity = specularMap.sample(colorSampler, in.texcoords ).x;
-    
-    float Depth = depthMap.sample( colorSampler, in.texcoords);
-    float ViewZ = uniforms.PreviousProjection[3][2] / (2 * Depth -1 - uniforms.PreviousProjection[2][2]);
-    
-    float ViewX = in.ViewRay.x * ViewZ;
-    float ViewY = in.ViewRay.y * ViewZ;
-    
-    float3 wposition = float3( ViewX, ViewY, ViewZ );
 
     //float4 colorOut = Color * CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, wposition, eye_world_position, specular_intensity, light.DiffuseIntensity ) * shadow + Color * ambient_light.Color.rgba * ambient_light.AmbientIntensity * ssao4 ;
-    float4 colorOut = CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, wposition, eye_world_position, specular_intensity, light.DiffuseIntensity );
+    float4 colorOut = CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, world_pos.xyz, eye_world_position, specular_intensity, light.DiffuseIntensity );
     colorOut.a = 1.0;
     
     return colorOut;
@@ -895,7 +892,6 @@ fragment float4 DeferredPointLight_fs(
     texture2d<float> positionMap     [[ texture(TextureIndex1Color) ]],
     texture2d<float> diffuseffMap     [[ texture(TextureIndex2Color) ]],
     texture2d<float> normalMap     [[ texture(TextureIndex3Color) ]],
-    
     texture2d<float> specularMap     [[ texture(TextureIndex4Color) ]],
     depth2d<float> depthMap     [[ texture(TextureIndex5Color) ]] )
 {
@@ -903,19 +899,13 @@ fragment float4 DeferredPointLight_fs(
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    //float4 world_pos = float4( positionMap.sample(colorSampler, in.texcoords ) );
+    float Depth = depthMap.sample( colorSampler, in.texcoords);
     
-    float2 tx = in.texcoords;
-    float Depth = depthMap.sample( colorSampler, tx);
-    float ViewZ = uniforms.PreviousProjection[3][2] / (2 * Depth -1 - uniforms.PreviousProjection[2][2]);
+    float4 world_pos = uniforms.PreviousProjection * float4( in.texcoords.x * 2.0 - 1.0, -(in.texcoords.y * 2.0 - 1.0), Depth, 1.0 ); //
+    world_pos /= world_pos.w;
     
-    float ViewX = in.ViewRay.x * ViewZ;
-    float ViewY = in.ViewRay.y * ViewZ;
-    
-    float4 world_pos = positionMap.sample( colorSampler, tx);//uniforms.MVPMatrix * float4( ViewX, ViewY, ViewZ, 1.0 );
-    
-    float4 diffuse = float4( diffuseffMap.sample(colorSampler, tx ) ); //texture( o_texture_1, in.texcoords ).xyz;
-    float3 normal = float4( normalMap.sample(colorSampler, tx ) ).xyz; //texture( o_texture_2, in.texcoords ).xyz;
+    float4 diffuse = float4( diffuseffMap.sample(colorSampler, in.texcoords ) ); //texture( o_texture_1, in.texcoords ).xyz;
+    float3 normal = float4( normalMap.sample(colorSampler, in.texcoords ) ).xyz; //texture( o_texture_2, in.texcoords ).xyz;
     //float shadow = texture( o_texture_3, tx ).r;
     //float3 ssao = texture( o_texture_4, tx ).xyz;
     float specular_intensity = 1.0; //float4( specularMap.sample(colorSampler, in.texcoords ) ).x;
@@ -957,17 +947,22 @@ fragment float4 DeferredSpotLight_fs(DeferredSpotLight_InOut in [[stage_in]],
                                  //constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
                                  //constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  constant SpotLight & spot_light [[ buffer(BufferIndexSpotLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]],
-                                 texture2d<half> positionMap     [[ texture(TextureIndex3Color) ]],
-                                 texture2d<half> specularMap     [[ texture(TextureIndex4Color) ]])
+                                 texture2d<float> positionMap     [[ texture(TextureIndex1Color) ]],
+                                 texture2d<float> diffuseffMap     [[ texture(TextureIndex2Color) ]],
+                                 texture2d<float> normalMap     [[ texture(TextureIndex3Color) ]],
+                                 texture2d<float> specularMap     [[ texture(TextureIndex4Color) ]],
+                                 depth2d<float> depthMap     [[ texture(TextureIndex5Color) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    float4 world_pos = float4( positionMap.sample(colorSampler, in.texcoords ) );
-    float3 diffuse = float4( colorMap.sample(colorSampler, in.texcoords ) ).xyz; //texture( o_texture_1, in.texcoords ).xyz;
+    float Depth = depthMap.sample( colorSampler, in.texcoords);
+    
+    float4 world_pos = uniforms.PreviousProjection * float4( in.texcoords.x * 2.0 - 1.0, -(in.texcoords.y * 2.0 - 1.0), Depth, 1.0 ); //
+    world_pos /= world_pos.w;
+    
+    float3 diffuse = float4( diffuseffMap.sample(colorSampler, in.texcoords ) ).xyz; //texture( o_texture_1, in.texcoords ).xyz;
     float3 normal = float4( normalMap.sample(colorSampler, in.texcoords ) ).xyz; //texture( o_texture_2, in.texcoords ).xyz;
     //float shadow = texture( o_texture_3, tx ).r;
     //float3 ssao = texture( o_texture_4, tx ).xyz;

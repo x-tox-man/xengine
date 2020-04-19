@@ -215,14 +215,14 @@ void METAL_TEST::Initialize() {
     CORE_MATH_VECTOR direction_1(0.0f, 1.0f, 0.0f, 0.0f);
     CORE_MATH_VECTOR direction_2(0.0f, -1.0f, 0.0f, 0.0f);
     
-    CORE_MATH_VECTOR point1_position(-10.0f, 0.0f, -50.0f, 1.0f);
-    CORE_MATH_VECTOR point2_position(10.0f, 0.0f, -50.0f, 1.0f);
+    CORE_MATH_VECTOR point1_position(-10.0f, 0.0f, 0.0f, 1.0f);
+    CORE_MATH_VECTOR point2_position(10.0f, 0.0f, 0.0f, 1.0f);
     
     PointLightOne = new GRAPHIC_SHADER_LIGHT;
-    PointLightOne->InitializePoint(diffuse_1, point1_position, 0.1f, 0.1f, 0.5f, 1.0f, 1.0f);
+    PointLightOne->InitializePoint(diffuse_1, point1_position, 0.0032f, 0.5f, 0.009f, 1.0f, 1.0f);
     
     PointLightTwo = new GRAPHIC_SHADER_LIGHT;
-    PointLightTwo->InitializePoint(diffuse_2, point2_position, 0.001f, 0.01f, 0.5f, 1.0f, 1.0f);
+    PointLightTwo->InitializePoint(diffuse_2, point2_position, 0.0032f, 0.5f, 0.009f, 1.0f, 1.0f);
     
     SpotLightOne = new GRAPHIC_SHADER_LIGHT;
     SpotLightOne->InitializeSpot(diffuse_1, point1_position, direction_1, 0.1f, 0.2f, 0.4f, 0.001f, 1.0f, 1.0f );
@@ -234,7 +234,7 @@ void METAL_TEST::Initialize() {
     GRAPHIC_RENDERER::GetInstance().SetAmbientLight( AmbientLight );
     GRAPHIC_RENDERER::GetInstance().SetDirectionalLight( DirectionalLight );
     GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightOne, 0 );
-    //GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightTwo, 1 );
+    GRAPHIC_RENDERER::GetInstance().SetPointLight( PointLightTwo, 1 );
     //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightOne, 0 );
     //GRAPHIC_RENDERER::GetInstance().SetSpotLight( SpotLightTwo, 1 );
     
@@ -289,16 +289,6 @@ void METAL_TEST::Render() {
     
     GRAPHIC_RENDERER
         & renderer = GRAPHIC_RENDERER::GetInstance();
-    
-    #if X_METAL
-        FinalRenderTarget.Clear();
-        PrimaryRenderTarget.Clear();
-        FinalRenderTarget.Clear();
-        BloomRenderTarget.Clear();
-        //ShadowMapRenderTarget[0].Clear();
-        //ShadowMapRenderTarget[1].Clear();
-        //ShadowMapRenderTarget[2].Clear();
-    #endif
     
     //TODO: NOT COOL !
     Update( 0.033333f );

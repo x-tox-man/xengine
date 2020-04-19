@@ -85,8 +85,8 @@ public:
             float Normals[4];
             float UV0[2];
             float UV1[2];
-            float joint_weights[3];
-            float joint_index[3];
+            float joint_weights[4];
+            float joint_index[4];
             float tangents[3];
             float binormal[3];
         } VERTEX_ELEMENT;

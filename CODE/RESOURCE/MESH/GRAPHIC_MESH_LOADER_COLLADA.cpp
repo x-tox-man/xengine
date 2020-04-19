@@ -833,7 +833,7 @@
 
         unsigned int BASE_JOINTS_PER_VERTEX = 0;
 
-        BASE_JOINTS_PER_VERTEX = 3;
+        BASE_JOINTS_PER_VERTEX = 4;
         
         
         //TODO: Why????
@@ -844,6 +844,9 @@
         + (int) ( BASE_JOINTS_PER_VERTEX * skinControllerData->getJointsPerVertex().getCount()* sizeof( unsigned int ) );
         
         int stride = 0;
+        
+        mesh->ActivateBufferComponent( GRAPHIC_SHADER_BIND_SkinWeight );
+        mesh->ActivateBufferComponent( GRAPHIC_SHADER_BIND_JointIndices );
         
         if ( mesh->GetVertexComponent() & GRAPHIC_SHADER_BIND_Position )
             stride+= 4;
@@ -859,9 +862,12 @@
             stride+= 3;
         if ( mesh->GetVertexComponent() & GRAPHIC_SHADER_BIND_Bitangents )
             stride+= 3;
+        if ( mesh->GetVertexComponent() & GRAPHIC_SHADER_BIND_JointIndices )
+            stride+= BASE_JOINTS_PER_VERTEX;
+        if ( mesh->GetVertexComponent() & GRAPHIC_SHADER_BIND_SkinWeight )
+            stride+= BASE_JOINTS_PER_VERTEX;
         
-        const int base_stride = stride * sizeof(float);
-        const int final_stride = base_stride + BASE_JOINTS_PER_VERTEX * sizeof( float ) + BASE_JOINTS_PER_VERTEX * sizeof( unsigned int );
+        const int final_stride = stride * sizeof(float);
         
         assert ( new_buffer_size > buffer->GetSize() );
         
@@ -881,16 +887,36 @@
                     mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] = 0.0f;
                     mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] = 0.0f;
                     mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
+                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[3] = 0.0f;
                     
                     for( int joint_per_vertex_index = 0; joint_per_vertex_index < jointsPerVertex; joint_per_vertex_index++ ) {
                         
-                        if ( joint_per_vertex_index > 2 ) {
+                        if ( joint_per_vertex_index > 3 ) {
                             continue;
                         }
                         
                         mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] = *(skinControllerData->getJointIndices().getData() +( joint_index_offset + joint_per_vertex_index ));
                         
+                        assert( (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] == 0.0f || (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] >= 1.0f );
+                        
                         mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[joint_per_vertex_index] = *(skinControllerData->getWeights().getFloatValues()->getData() + joint_index_offset + joint_per_vertex_index );
+                        
+                        /*printf( "first index %d %d %d, next index, %d %d %d\n", (int) mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[0], (int) mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[1], (int) mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[2],
+                               (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0], (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1],
+                               (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[2]);
+                        
+                        if (  joint_per_vertex_index > 0 && joint_per_vertex_index == jointsPerVertex - 1 ) {
+                            if ( abs(mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[0] - mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0] ) > 5 ||
+                                ( mesh->CurrenGeometrytTable[ new_geometry_index -1 ].joint_weights[1] > 0.0f && mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1] > 0.0f && (
+                                abs(mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[1] - mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1] ) > 5 )) ||
+                                ((mesh->CurrenGeometrytTable[ new_geometry_index -1 ].joint_weights[2] > 0.0f && mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] > 0.0f && (
+                                abs(mesh->CurrenGeometrytTable[ new_geometry_index - joint_per_vertex_index ].joint_index[2] - mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[2] ) > 5) ) ) ) {
+                                
+                                printf( "I sense a great disturbance in the force\n");
+                            }
+                        }*/
+                        
+                        assert( (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0] > 0 );
                         
                         if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 0.0f ) {
                             
@@ -916,7 +942,7 @@
             joint_index_offset += jointsPerVertex;
         }
         
-        int off_stride = final_stride/ sizeof( int );
+        int off_stride = final_stride / sizeof( int );
         
         for (int v_index = 0; v_index < mesh->CurrenGeometrytTableSize; v_index++ ) {
             
@@ -941,13 +967,30 @@
             SERVICE_LOGGER_Error( "%f %f %f\n", mesh->CurrenGeometrytTable[v_index].binormal[0], mesh->CurrenGeometrytTable[v_index].binormal[1], mesh->CurrenGeometrytTable[v_index].binormal[2] );*/
         }
         
-        mesh->ActivateBufferComponent( GRAPHIC_SHADER_BIND_SkinWeight );
-        mesh->ActivateBufferComponent( GRAPHIC_SHADER_BIND_JointIndices );
-        
         buffer->Finalize();
         
         //buffer.InitializeWithMemory( new_buffer_size, 1, new_buffer );
         buffer->InitializeWithMemory( mesh->CurrenGeometrytTableSize * final_stride, 1, alternate_new_buffer );
+        
+        /*for (int vi =0; vi < mesh->CurrenGeometrytTableSize; vi++) {
+            
+            for (int vj =vi; vj < mesh->CurrenGeometrytTableSize; vj++) {
+                
+                if ( vi  != vj) {
+                    bool equal = mesh->CurrenGeometrytTable[vi].binormal[0] == mesh->CurrenGeometrytTable[vj].binormal[0] && mesh->CurrenGeometrytTable[vi].binormal[1] == mesh->CurrenGeometrytTable[vj].binormal[1] && mesh->CurrenGeometrytTable[vi].binormal[2] == mesh->CurrenGeometrytTable[vj].binormal[2] &&
+                        mesh->CurrenGeometrytTable[vi].joint_index[0] == mesh->CurrenGeometrytTable[vj].joint_index[0] && mesh->CurrenGeometrytTable[vi].joint_index[1] == mesh->CurrenGeometrytTable[vj].joint_index[1] && mesh->CurrenGeometrytTable[vi].joint_index[2] == mesh->CurrenGeometrytTable[vj].joint_index[2] &&
+                    mesh->CurrenGeometrytTable[vi].joint_weights[0] == mesh->CurrenGeometrytTable[vj].joint_weights[0] && mesh->CurrenGeometrytTable[vi].joint_weights[1] == mesh->CurrenGeometrytTable[vj].joint_weights[1] && mesh->CurrenGeometrytTable[vi].joint_weights[2] == mesh->CurrenGeometrytTable[vj].joint_weights[2] &&
+                    mesh->CurrenGeometrytTable[vi].Normals[0] == mesh->CurrenGeometrytTable[vj].Normals[0] && mesh->CurrenGeometrytTable[vi].Normals[1] == mesh->CurrenGeometrytTable[vj].Normals[1] && mesh->CurrenGeometrytTable[vi].Normals[2] == mesh->CurrenGeometrytTable[vj].Normals[2] &&
+                    mesh->CurrenGeometrytTable[vi].position[0] == mesh->CurrenGeometrytTable[vj].position[0] && mesh->CurrenGeometrytTable[vi].position[1] == mesh->CurrenGeometrytTable[vj].position[1] && mesh->CurrenGeometrytTable[vi].position[2] == mesh->CurrenGeometrytTable[vj].position[2] &&
+                    mesh->CurrenGeometrytTable[vi].tangents[0] == mesh->CurrenGeometrytTable[vj].tangents[0] && mesh->CurrenGeometrytTable[vi].tangents[1] == mesh->CurrenGeometrytTable[vj].tangents[1] && mesh->CurrenGeometrytTable[vi].tangents[2] == mesh->CurrenGeometrytTable[vj].tangents[2] &&
+                    mesh->CurrenGeometrytTable[vi].UV0[0] == mesh->CurrenGeometrytTable[vi].UV0[0] && mesh->CurrenGeometrytTable[vi].UV0[1] == mesh->CurrenGeometrytTable[vi].UV0[1];
+                    
+                    if (equal) {
+                        printf( "Dupplicated vertex at index : %d %d \n", vi, vj);
+                    }
+                }
+            }
+        }*/
         
         return true;
     }
