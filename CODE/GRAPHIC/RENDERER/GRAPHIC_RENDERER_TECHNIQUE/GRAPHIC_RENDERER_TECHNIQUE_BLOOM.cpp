@@ -97,6 +97,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
         BloomEffect->SetMaterial( &Material );
         
         BloomRenderTarget->BindForWriting();
+        BloomRenderTarget->Apply( renderer );
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, BloomEffect );
         BloomRenderTarget->Discard();
         
@@ -130,6 +131,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
             HorizontalBlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeValue.Value.FloatArray2[1] = (blur_pass_index + 1) * (blur_pass_index + 1 );
             
             GaussianRenderTarget1Table[blur_pass_index]->BindForWriting();
+            GaussianRenderTarget1Table[blur_pass_index]->Apply( renderer );
             PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, HorizontalBlurEffect );
             
             /*{
@@ -161,6 +163,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
             VerticalBlurEffect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::FrameResolution ).AttributeValue.Value.FloatArray2[1] = (blur_pass_index + 1) * (blur_pass_index + 1 );
             
             GaussianRenderTarget2Table[0]->BindForWriting();
+            GaussianRenderTarget2Table[0]->Apply( renderer );
             PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, VerticalBlurEffect );
             
             /*{
@@ -194,8 +197,11 @@ void GRAPHIC_RENDERER_TECHNIQUE_BLOOM::ApplyFirstPass( GRAPHIC_RENDERER & render
         mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture1, TextureBlock2 );
         CombineBloomEffect->SetMaterial( mat );
         
-        if ( FinalRenderTarget != NULL )
+        if ( FinalRenderTarget != NULL ) {
             FinalRenderTarget->BindForWriting();
+            FinalRenderTarget->Apply( renderer );
+        }
+            
         PlanObject->Render( GRAPHIC_RENDERER::GetInstance(), option, CombineBloomEffect );
         
         if ( FinalRenderTarget != NULL )

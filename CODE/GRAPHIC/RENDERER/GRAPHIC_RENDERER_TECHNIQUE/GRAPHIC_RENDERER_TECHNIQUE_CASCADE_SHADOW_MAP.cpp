@@ -101,8 +101,8 @@ void GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP::ApplySecondPass( GRAPHIC_REN
         
         for ( int i = 0; i < CascadeCount; i++) {
             
-            GRAPHIC_RENDERER::GetInstance().SetShadowMapCamera( i, LightShadowCamera[ i ] );
-            GRAPHIC_RENDERER::GetInstance().SetDepthTexture( i, ShadowMapRenderTarget[ i ]->GetTargetTexture( 0 ) );
+            renderer.SetShadowMapCamera( i, LightShadowCamera[ i ] );
+            renderer.SetDepthTexture( i, ShadowMapRenderTarget[ i ]->GetDepthTexture() );
         }
         
         /*{

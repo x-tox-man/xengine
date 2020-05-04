@@ -60,13 +60,13 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, const char 
 #endif
     float v4[4];
     
+    float TanHalfFOV = tanf( DEG_TO_RAD * (Camera->GetFov() / 2.0f));
+    
+    
     v4[0] = SampleRad;
     v4[1] = Camera->GetAspectRatio();;
-    v4[2] = Camera->GetFov();
-    v4[3] = 1.0f;
-    
-    float TanHalfFOV = tanf( DEG_TO_RAD * (Camera->GetFov() / 2.0f));
     v4[2] = TanHalfFOV;
+    v4[3] = 1.0f;
     
     GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( renderer, SSAOKernel, SSAO_MAX_KERNEL * 16, ssao_kernel );
     GRAPHIC_SYSTEM::ApplyShaderAttributeVector(renderer, v4, ssao_sample_rad);
@@ -91,7 +91,7 @@ void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {
 
         SSAOKernel[ i * 4 + 0 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
         SSAOKernel[ i * 4 + 1 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
-        SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %200) * 0.01f ) ) * scale* 0.03f;
+        SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %100) * 0.01f ) ) * scale* 0.03f;
         SSAOKernel[ i * 4 + 3 ] = 1.0f;
     }
     float * noise = (float*) malloc( sizeof(float) * SSAO_MAX_ROTATIONS);

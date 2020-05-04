@@ -50,6 +50,8 @@ void GAMEPLAY_COMPONENT_ENTITY::Resize( const CORE_MATH_VECTOR & size ) {
     
     float scale = ( (render_component->GetAABBNode().GetBox().GetHalfDiagonal() *2).ComputeSquareLength() / size.ComputeSquareLength() );
     
+    assert( scale > 0 );
+    
     render_component->SetScaleFactor( scale );
     
     if ( render_component ) {

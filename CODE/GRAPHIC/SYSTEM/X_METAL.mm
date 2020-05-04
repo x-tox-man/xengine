@@ -73,7 +73,8 @@ void * GRAPHIC_SYSTEM::MtlGetCachedStencilStateFromRenderer( GRAPHIC_RENDERER & 
     
     int size = MetalDepthStateDescriptCache.size();
     
-    if ( state == NULL && renderer.GetDescriptor().ItDoesStencilTest ) {
+    //TODO: Buggy code
+    if ( state == NULL ) {
         
         MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
         depthStateDesc.depthCompareFunction = renderer.GetDescriptor().ItDoesDepthTest ? MTLCompareFunctionLess : MTLCompareFunctionAlways;
@@ -245,6 +246,21 @@ void * GRAPHIC_SYSTEM::CreateMetalPipelineState( void * descriptor, GRAPHIC_SHAD
             attribute.AttributeOffset = arg.index;
             attribute.AttributeName = identifier;
             
+        }
+    }
+    
+    for (MTLArgument *arg in reflectionObj.fragmentArguments)
+    {
+        //NSLog(@"Found arg: %@\n", arg.name);
+        
+        if ( arg.type == MTLArgumentTypeTexture ) {
+            
+            CORE_HELPERS_IDENTIFIER
+                identifier( [arg.name cStringUsingEncoding:NSASCIIStringEncoding] );
+            GRAPHIC_SHADER_ATTRIBUTE & attribute = program.GetShaderAttributeTable()[ identifier ];
+
+            attribute.AttributeIndex = arg.index;
+            attribute.AttributeName = identifier;
         }
     }
     

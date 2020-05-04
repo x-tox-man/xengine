@@ -47,7 +47,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
     void Discard( GRAPHIC_RENDERER & renderer );
 
     inline GRAPHIC_TEXTURE_BLOCK * GetTexture(const CORE_HELPERS_IDENTIFIER & identifier) {return TextureTable[identifier];  }
-    inline void SetTexture( const CORE_HELPERS_IDENTIFIER & identifier, GRAPHIC_TEXTURE_BLOCK * texture ) { TextureTable[identifier] = texture; }
+    inline void SetTexture( const CORE_HELPERS_IDENTIFIER & identifier, GRAPHIC_TEXTURE_BLOCK * texture ) { TextureTable[identifier] = texture; assert( texture != NULL && texture->GetTexture() != NULL ); }
 
     inline const CORE_HELPERS_COLOR & GetDiffuse() const { return InnerMaterial.Diffuse; }
     inline CORE_HELPERS_COLOR & GetDiffuse() { return InnerMaterial.Diffuse; }

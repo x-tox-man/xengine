@@ -173,7 +173,6 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     GRAPHIC_SYSTEM::Clear();
 
     PlanObject->Render( renderer, option, AmbientDirectionalDefferedEffect );
-    renderer.EnableDepthTest();
     renderer.EnableDepthTest();//GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, false );
     
     renderer.SetDeferredLightingIsEnabled( true );
@@ -211,12 +210,13 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyStencilPassForPoint( GRAP
     renderer.EnableDepthTest();
     
     FinalRenderTarget->Discard();
+    FinalRenderTarget->BindForReading();
     FinalRenderTarget->ClearStencil();
     FinalRenderTarget->Apply( renderer );
-    //GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
     
-    renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
-    renderer.DisableBlend();
+    //renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+    ///renderer.DisableBlend();
+    
     GRAPHIC_SYSTEM::DisableFaceCulling();
     
     renderer.EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Always, 0, 0 );
@@ -265,6 +265,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyStencilPassForSpot( GRAPH
     renderer.EnableDepthTest();
     
     FinalRenderTarget->Discard();
+    FinalRenderTarget->BindForReading();
     FinalRenderTarget->ClearStencil();
     FinalRenderTarget->Apply( renderer );
     //GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );

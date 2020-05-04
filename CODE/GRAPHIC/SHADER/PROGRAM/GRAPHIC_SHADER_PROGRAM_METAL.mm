@@ -246,7 +246,7 @@ void * GRAPHIC_SHADER_PROGRAM::GetMtlCachedPipelineState( const GRAPHIC_RENDERER
             
             p.colorAttachments[i].pixelFormat = pixel_format;
             
-            p.colorAttachments[i].blendingEnabled = pixel_format != MTLPixelFormatInvalid;
+            p.colorAttachments[i].blendingEnabled = pixel_format != MTLPixelFormatInvalid && desc.ItDoesBlending;
 
             p.colorAttachments[i].rgbBlendOperation = GetMTLBlendOperationFromDescriptor( desc.BlendFunction );
             p.colorAttachments[i].alphaBlendOperation = GetMTLBlendOperationFromDescriptor( desc.BlendFunction );

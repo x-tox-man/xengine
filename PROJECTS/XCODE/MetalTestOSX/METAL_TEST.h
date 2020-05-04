@@ -35,6 +35,7 @@
 #include "GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP.h"
 #include "GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING.h"
 #include "GRAPHIC_RENDER_TECHNIQUE_SSAO.h"
+#include "GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.h"
 
 #define METAL_TEST_MAX_SHAWOW_CASCADE 3
 
@@ -55,6 +56,10 @@ private:
 
     GRAPHIC_OBJECT * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path );
     void CreateStaticObject( GRAPHIC_OBJECT * object, GRAPHIC_SHADER_EFFECT::PTR effect, GRAPHIC_MATERIAL * mat );
+    void CreateGround();
+    void CreateWater();
+    GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR Set3DHeighFieldObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
+    void SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
 
     GRAPHIC_CAMERA::PTR
         Camera;
@@ -68,7 +73,9 @@ private:
         AnimatedEffectDeferred,
         EffectDeferred,
         ShadowMapEffect,
-        AnimatedShadowMapEffect;
+        AnimatedShadowMapEffect,
+        TerrainEffectDeferred,
+        WaterEffect;
     GRAPHIC_OBJECT::PTR
         StaticObject,
         ConeObject;
@@ -81,7 +88,8 @@ private:
         ShadowMapRenderTarget[ METAL_TEST_MAX_SHAWOW_CASCADE ];
     GRAPHIC_RENDERER_TECHNIQUE
         DefaultTechnique,
-        FinalTechnique;
+        FinalTechnique,
+        TransparentTechnique;
     GRAPHIC_RENDERER_TECHNIQUE_CASCADE_SHADOW_MAP
         CascadeShadowMapTechnique;
     GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING

@@ -487,16 +487,6 @@ void GRAPHIC_RENDER_TARGET::AddAttachment( int width, int height, GRAPHIC_TEXTUR
 
 void GRAPHIC_RENDER_TARGET::BindForWriting() {
     
-    /*MTLRenderPassDescriptor * descriptor = (__bridge MTLRenderPassDescriptor*) _descriptor;
-    
-    if ( GRAPHIC_RENDERER::GetInstance().GetDescriptor().ItDoesDepthTest ) {
-        descriptor.depthAttachment.loadAction = MTLLoadActionClear;
-        descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
-    }
-    
-    for ( int i = 0; i < Attachments; i++ ) {
-        descriptor.colorAttachments[i].loadAction = MTLLoadActionClear;
-    }*/
 }
 
 void GRAPHIC_RENDER_TARGET::BindForReading() {

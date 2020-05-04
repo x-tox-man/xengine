@@ -53,9 +53,11 @@ void GRAPHIC_RENDER_TECHNIQUE_SSAO::ApplyFirstPass( GRAPHIC_RENDERER & renderer 
     SourceRenderTarget->SetReadBuffer( 0 );
     
     renderer.SetLightingIsEnabled( false );
+    renderer.DisableBlend();
     renderer.DisableDepthTest();
     renderer.DisableStencilTest();
     
+    RenderTarget->ClearDepth();
     RenderTarget->BindForWriting();
     RenderTarget->Apply( renderer );
     

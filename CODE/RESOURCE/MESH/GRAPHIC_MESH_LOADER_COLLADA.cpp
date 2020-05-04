@@ -491,6 +491,8 @@
                         
                         for (int face = 0; face < prim->getFaceCount(); face++ ) {
                             
+                            assert( prim->getGroupedVerticesVertexCount( face ) == 3 );
+                            
                             for ( int v_index = 0; v_index < prim->getGroupedVerticesVertexCount( face ); v_index++ ) {
                                 const COLLADAFW::UIntValuesArray & arr = prim->getPositionIndices();
                                 
@@ -540,6 +542,10 @@
                                 CORE_MATH_VECTOR v0(  mesh->CurrenGeometrytTable[ accumulated_index - 3 ].position );
                                 CORE_MATH_VECTOR v1( mesh->CurrenGeometrytTable[ accumulated_index - 2 ].position );
                                 CORE_MATH_VECTOR v2( mesh->CurrenGeometrytTable[ accumulated_index - 1 ].position );
+                                
+                                if( accumulated_index > 70000 )  {
+                                    printf("");
+                                }
                                 
                                 // Shortcuts for UVs
                                 CORE_MATH_VECTOR uv0( mesh->CurrenGeometrytTable[ accumulated_index - 3 ].UV0[0], mesh->CurrenGeometrytTable[ accumulated_index - 3 ].UV0[1] );
@@ -596,10 +602,6 @@
                                 
                                 memcpy( (void *)(vertex_buffer->getpointerAtIndex( i * vertex_size + offset)), (void *) ( &mesh->CurrenGeometrytTable[ i ].UV0[0]), 8 );
                                 offset+= 2;
-                            }
-                            
-                            if ( hasColors ) {
-                                
                             }
                             
                             if( hasUV && hasNormals ) {
@@ -880,7 +882,11 @@
             
             int jointsPerVertex = *((unsigned int *) skinControllerData->getJointsPerVertex().getData() + i);
             
+            bool is_first = false;
+            int prev_index = -1;
+            
             for (int new_geometry_index = 0; new_geometry_index < mesh->CurrenGeometrytTableSize; new_geometry_index++ ) {
+                
                 
                 if ( mesh->CurrenGeometrytTable[ new_geometry_index ].vertex_index == i ) {
                     
@@ -907,9 +913,30 @@
                         assert( (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] == 0.0f || (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[joint_per_vertex_index] >= 1.0f );
                         assert( (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0] > 0 );
                         
-                        if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] <= 0.0f ) {
+                        /*if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1]+ mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[3] > 1.0 ) {
                             
-                            mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
+                            printf( "too high" );
+                        }
+                        else */
+                        float ttl = mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[1]+ mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] + mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[3];
+                        if (ttl < 1.0f ) {
+                            
+                            float diff = 1.0f - ttl;
+                            int idiffttl = 0;
+                            
+                            for (int idiff = 0; idiff < jointsPerVertex; idiff++ ) {
+                                if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[idiff] > 0.0f ) {
+                                    idiffttl++;
+                                }
+                            }
+                            
+                            float percentage_to_add = (diff /idiffttl);
+                            
+                            for (int idiff = 0; idiff < jointsPerVertex; idiff++ ) {
+                                if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[idiff] > 0.0f ) {
+                                    mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[idiff] = mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[idiff] + percentage_to_add;
+                                }
+                            }
                         }
                         
                         if (mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[0] +
@@ -918,9 +945,8 @@
                             mesh->CurrenGeometrytTable[ new_geometry_index ].joint_weights[2] = 0.0f;
                         }
                         
-                        if (  (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[0] == 31 && (int) mesh->CurrenGeometrytTable[ new_geometry_index ].joint_index[1] == 61) {
-                            printf( "gotcha" );
-                        }
+                        is_first = true;
+                        prev_index = new_geometry_index;
                     }
                 }
             }

@@ -79,7 +79,29 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
     
     for ( size_t i = 0; i < MeshTable.size() ; i++ ) {
         
-        effect->Apply( renderer, GetMaterialName( (int) i, effect) );
+        const char * material_name = GetMaterialName( (int) i, effect);
+        
+        if (  renderer.GetNumCascade()  > 0 && renderer.GetDepthTexture( 0 ) != NULL) {
+            
+            auto mat = effect->GetMaterialCollection()->GetMaterialForName( material_name );
+            
+            if ( mat->GetTexture(GRAPHIC_SHADER_PROGRAM::ShadowDepthTexture1) == NULL ) {
+                
+                GRAPHIC_TEXTURE_BLOCK * block = new GRAPHIC_TEXTURE_BLOCK;
+                block->SetTexture( renderer.GetDepthTexture( 0 ) );
+                mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ShadowDepthTexture1, block ) ;
+                
+                block = new GRAPHIC_TEXTURE_BLOCK;
+                block->SetTexture( renderer.GetDepthTexture( 1 ) );
+                mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ShadowDepthTexture2, block ) ;
+                
+                block = new GRAPHIC_TEXTURE_BLOCK;
+                block->SetTexture( renderer.GetDepthTexture( 2 ) );
+                mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ShadowDepthTexture3, block ) ;
+            }
+        }
+        
+        effect->Apply( renderer, material_name );
         
         GRAPHIC_SHADER_ATTRIBUTE & mvp_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::MVPMatrix );
         GRAPHIC_SHADER_ATTRIBUTE & model_matrix = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::ModelMatrix );
@@ -102,7 +124,6 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             const int max_size = 4 * 16 *128;
             float float_matrix_array_copy[ max_size ];
             
-            //abort();
             size_t size = (int) AnimationController->GetAnimation( (int) i)->GetJointTable().size() * 16 * sizeof( float );
             
             memcpy( float_matrix_array_copy, AnimationController->GetCurrentSkinningForAnimation( (int) i ), size );
@@ -134,11 +155,11 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             effect->UpdateMatrix(renderer, attrBindShapeMatrix, AnimationController->GetAnimation( (int) i )->GetBindShapeMatrix().Value.FloatMatrix4x4);
         }
 
-        GRAPHIC_SHADER_ATTRIBUTE * depth[3];
+        /*GRAPHIC_SHADER_ATTRIBUTE * depth[3];
 
         depth[0] = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture );
         depth[1] = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture1 );
-        depth[2] = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture2 );
+        depth[2] = &effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::DepthTexture2 );*/
         
         for ( int cascade_index = 0; cascade_index < renderer.GetNumCascade(); cascade_index++ ) {
             
@@ -150,7 +171,9 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             GRAPHIC_SHADER_ATTRIBUTE & end_clip_space = effect->GetProgram().GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::CascadeEndClipSpace );
             
             //Depth Textures are always last
-            renderer.GetDepthTexture( cascade_index )->ApplyDepth(effect->GetMaterial()->GetTextureCount() + cascade_index , depth[cascade_index]->AttributeIndex );
+            //renderer.GetDepthTexture( cascade_index )->ApplyDepth(effect->GetMaterial()->GetTextureCount() + cascade_index , depth[cascade_index]->AttributeIndex );
+            
+            //TextureBlock5.SetTexture( RenderTarget->GetDepthTexture() );
             
             static const CORE_MATH_MATRIX
                 biasMatrix(
@@ -175,7 +198,7 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
             }
             
             effect->UpdateMatrix( renderer, shadowmap_mvp, &depthBias[0] );
-            effect->UpdateFloatArray( renderer, end_clip_space, renderer.GetNumCascade(), cascade_end );
+            //GRAPHIC_SYSTEM_ApplyFloatArray( end_clip_space.AttributeIndex, renderer.GetNumCascade(), cascade_end );
         }
         
         MeshTable[ i ]->ApplyBuffers( renderer );

@@ -105,6 +105,31 @@ typedef struct {
 // functions
 // ------------------------------------------------------
 
+float CalcShadowFactor(float3 normal, float3 directional_light, float4 LightSpacePos[4], texture2d<float> depth_texture[4], sampler texture_sampler, const float cascadeEndClipSpace[4], float ClipSpacePosZ)
+{
+    float Depth = 1.0;
+    
+    if ( dot( normal, directional_light ) > 0.0 ) {
+        
+        for (int i = 0 ; i < 4 ; i++) {
+
+            if ( ClipSpacePosZ <= cascadeEndClipSpace[i] ) {
+                
+                float3 ProjCoords = LightSpacePos[i].xyz / LightSpacePos[i].w;
+
+                Depth = depth_texture[ i ].sample(texture_sampler, ProjCoords.xy).x;
+
+                if (Depth > ProjCoords.z + 0.001 )
+                    return 0.01;
+                else
+                    return 1.0;
+            }
+        }
+    }
+
+    return 1.0;
+}
+
 float3 ComputeNormalMapping( float3x3 TBNMatrix_p, float3 base_normal ) {
     
     base_normal = 2.0 * base_normal - float3( 1.0, 1.0, 1.0 );
@@ -253,6 +278,10 @@ typedef struct
     float3 T,B,N;
     float3 LightDirection_tangentspace;
     float3 EyeDirection_tangentspace;
+    float4 ShadowCoord1;
+    float4 ShadowCoord2;
+    float4 ShadowCoord3;
+    float ClipSpacePosZ;
 } BasicShaderDeferred_InOut;
 
 vertex BasicShaderDeferred_InOut BasicGeometryShaderDeferred_vs(VertexPosNormalTexTanBi in [[stage_in]],
@@ -264,9 +293,15 @@ vertex BasicShaderDeferred_InOut BasicGeometryShaderDeferred_vs(VertexPosNormalT
     out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
     out.N = (uniforms.ModelMatrix * normalize( in.normal )).xyz;
     
+    out.ShadowCoord1 = uniforms.ShadowMapMVP1 * in.position;
+    out.ShadowCoord2 = uniforms.ShadowMapMVP2 * in.position;
+    out.ShadowCoord3 = uniforms.ShadowMapMVP3 * in.position;
+    
     out.position = uniforms.MVPMatrix * in.position;
     out.wposition = uniforms.ModelMatrix * in.position;
     out.texcoords = in.texcoords;
+    
+    out.ClipSpacePosZ = out.position.z;
 
     return out;
 }
@@ -276,8 +311,11 @@ fragment GBufferDataFragmentOut BasicGeometryShaderDeferred_fs(BasicShaderDeferr
                                  constant DirectionalLight & dir_light [[ buffer( BufferIndexDirectionalLightsConstants ) ]],
                                  constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
                                  constant Material & material [[ buffer( MaterialUniforms ) ]],
-                                 texture2d<half> colorMap     [[ texture( TextureIndex1Color ) ]],
-                                 texture2d<half> normalMap     [[ texture( TextureIndex2Color ) ]] )
+                                 texture2d<float> colorMap     [[ texture( TextureIndex1Color ) ]],
+                                 texture2d<float> normalMap     [[ texture( TextureIndex2Color ) ]],
+                                 texture2d<float> cascade1Map     [[ texture( TextureIndex3Color ) ]],
+                                 texture2d<float> cascade2Map     [[ texture( TextureIndex4Color ) ]],
+                                 texture2d<float> cascade3Map     [[ texture( TextureIndex5Color ) ]] )
 {
     GBufferDataFragmentOut out;
     
@@ -285,16 +323,22 @@ fragment GBufferDataFragmentOut BasicGeometryShaderDeferred_fs(BasicShaderDeferr
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    half4 colorSample = colorMap.sample(colorSampler, in.texcoords.xy);
-    half4 base_normal = normalMap.sample(colorSampler, in.texcoords.xy);
+    texture2d<float> shadow_texture_array[4] =  {cascade1Map, cascade2Map, cascade3Map, cascade3Map};
+    float4 shadow_coord_table[4] = {in.ShadowCoord1, in.ShadowCoord2, in.ShadowCoord3, in.ShadowCoord3 };
+    //float end_clip_space_table[4] = {uniforms.cascadeEndClipSpace[0], uniforms.cascadeEndClipSpace[1], uniforms.cascadeEndClipSpace[2], uniforms.cascadeEndClipSpace[3] };
+    float end_clip_space_table[4] = {10.0, 100.0, 1000.0, 10000.0};
+    
+    float4 colorSample = colorMap.sample(colorSampler, in.texcoords.xy);
+    float4 base_normal = normalMap.sample(colorSampler, in.texcoords.xy);
     
     float3x3 TBN = float3x3( in.T, in.B, in.N );
     
     out.Position = in.wposition;
-    out.Diffuse = float4( colorSample );
+    out.Diffuse = colorSample;
     out.Normal = float4( ComputeNormalMapping( TBN, float3( base_normal.xyz ) ), 1.0 );
-    out.Specular = 1.0;
-    //out.Shadow = 0.0;
+    out.Specular = 0.0;
+    out.Specular.w = 1.0;
+    out.Specular.r = CalcShadowFactor(out.Normal.xyz, dir_light.Direction.xyz, shadow_coord_table, shadow_texture_array, colorSampler, end_clip_space_table, in.ClipSpacePosZ );//shadow
     
     return out;
 }
@@ -716,35 +760,158 @@ fragment float4 BasicTerrain_fs(BasicTerrain_InOut in [[stage_in]],
 typedef struct
 {
     float4 position [[position]];
+    float4 wposition;
     float2 texcoords;
     float4 colorVarying;
     float4 normal;
     float3 T,B,N;
+    float4 ShadowCoord1;
+    float4 ShadowCoord2;
+    float4 ShadowCoord3;
+    float ClipSpacePosZ;
 } BasicTerrainDeferred_InOut;
 
 vertex BasicTerrainDeferred_InOut BasicTerrainDeferred_vs(VertexPosNormalTexTanBi in [[stage_in]],
                                             constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
     BasicTerrainDeferred_InOut out;
-
-    out.position = uniforms.MVPMatrix * in.position;
+    
+    //position_p = ModelMatrix * position;
+    //normal_p = ModelMatrix * normal;
+    //tangent_p = tangent;
+    
+    //out.LightDirection_tangentspace = /*TBNMatrix * */- dir_light.Direction.xyz;
+    //out.EyeDirection_tangentspace =  TBNMatrix * CameraWorldPosition.xyz;
+    
+    out.wposition = in.position;
+    out.position =  uniforms.MVPMatrix * out.wposition;
+    out.wposition = uniforms.ModelMatrix * out.wposition;
     out.texcoords = in.texcoords;
+    out.ClipSpacePosZ = out.position.z;
+    
+    out.ShadowCoord1 = uniforms.ShadowMapMVP1 * in.position;
+    out.ShadowCoord2 = uniforms.ShadowMapMVP2 * in.position;
+    out.ShadowCoord3 = uniforms.ShadowMapMVP3 * in.position;
     
     return out;
 }
 
-fragment float4 BasicTerrainDeferred_fs(BasicTerrainDeferred_InOut in [[stage_in]],
+fragment GBufferDataFragmentOut BasicTerrainDeferred_fs(BasicTerrainDeferred_InOut in [[stage_in]],
                                  constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
                                  constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
-                                 texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]],
-                                 texture2d<half> normalMap     [[ texture(TextureIndex2Color) ]])
+                                 constant DirectionalLight & dir_light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
+                                 texture2d<float> colorMap1     [[ texture( TextureIndex1Color ) ]],
+                                 texture2d<float> colorMap2     [[ texture( TextureIndex2Color ) ]],
+                                 texture2d<float> colorMap3     [[ texture( TextureIndex3Color ) ]],
+                                 texture2d<float> colorMap4      [[ texture( TextureIndex4Color ) ]],
+                                 texture2d<float> cascade1Map     [[ texture( TextureIndex5Color ) ]],
+                                 texture2d<float> cascade2Map     [[ texture( TextureIndex6Color ) ]],
+                                 texture2d<float> cascade3Map     [[ texture( TextureIndex7Color ) ]])
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
-                                   min_filter::linear);
+                                   min_filter::linear,
+                                   address::mirrored_repeat);
     
-    return float4( 1.0 );
+    GBufferDataFragmentOut out;
+    
+    
+    //vec4 normalTimesLModel = ModelMatrix * o_normal;
+
+    //-------- NORMAL MAPPING BEGIN
+    ///vec3 BumpMapNormal = texture(n_texture, texCoord).xyz;
+    //BumpMapNormal = 2.0 * BumpMapNormal - vec3(1.0, 1.0, 1.0);
+
+    //vec3 NewNormal;
+
+    //NewNormal = TBNMatrix_p * BumpMapNormal;
+    //NewNormal = normalize(NewNormal);
+    //-------- NORMAL MAPPING END
+
+    float4 decalsWeights = colorMap1.sample(colorSampler, in.texcoords);
+
+    out.Diffuse = colorMap2.sample(colorSampler, in.texcoords * 512.0) * decalsWeights.x
+    + colorMap3.sample(colorSampler, in.texcoords * 128.0) * decalsWeights.y
+    + colorMap4.sample(colorSampler, in.texcoords * 128.0) * decalsWeights.z;
+    //+ texture( c_texture_2, texCoord * 128.0) * decalsWeights.y + texture( c_texture_3, texCoord * 128.0) * decalsWeights.z );
+
+    //DiffuseOut = decalsWeights;//texture( c_texture_1, texCoord);
+    out.Position = in.wposition;
+    out.Normal = in.normal;//vec4( NewNormal, 1.0 );
+    out.Normal.a = 1.0;
+    //out.Position = vec4( WorldPos0, 1.0);
+    //SpecularPower =
+
+    texture2d<float> shadow_texture_array[4] =  {cascade1Map, cascade2Map, cascade3Map, cascade3Map};
+    float4 shadow_coord_table[4] = {in.ShadowCoord1, in.ShadowCoord2, in.ShadowCoord3, in.ShadowCoord3 };
+    //float end_clip_space_table[4] = {uniforms.cascadeEndClipSpace[0], uniforms.cascadeEndClipSpace[1], uniforms.cascadeEndClipSpace[2], uniforms.cascadeEndClipSpace[3] };
+    float end_clip_space_table[4] = {10.0, 100.0, 1000.0, 10000.0};
+    
+    out.Specular = 0.0;
+    out.Specular.w = 1.0;
+    out.Specular.r = CalcShadowFactor(out.Normal.xyz, dir_light.Direction.xyz, shadow_coord_table, shadow_texture_array, colorSampler, end_clip_space_table, in.ClipSpacePosZ );
+    
+    return out;
+}
+
+// ------------------------------------------------------
+// Water Animated Shader
+// ------------------------------------------------------
+
+typedef struct
+{
+    float4 position [[position]];
+    float2 texcoords1;
+    float2 texcoords2;
+    float4 colorVarying;
+    float4 normal;
+    float3 T,B,N;
+    float4 wposition;
+} WaterAnimated_InOut;
+
+vertex WaterAnimated_InOut WaterAnimated_vs(VertexPosNormalTexTanBi in [[stage_in]],
+                                            constant TimedObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+{
+    WaterAnimated_InOut out;
+    
+    out.T = (uniforms.ModelMatrix * normalize( float4(in.tangent, 1.0 ))).xyz;
+    out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
+    out.N = (uniforms.ModelMatrix * normalize( in.normal )).xyz;
+
+    out.position = uniforms.MVPMatrix * in.position;
+    out.texcoords1 = in.texcoords + (uniforms.TimeModulator * 0.001);
+    out.texcoords2 = in.texcoords - (uniforms.TimeModulator * 0.0001 );// + (cos(uniforms.TimeModulator * M_PI_2_F) * 0.1) * 0.01;
+    out.wposition = uniforms.ModelMatrix * in.position;
+    
+    return out;
+}
+
+fragment float4 WaterAnimated_fs(WaterAnimated_InOut in [[stage_in]],
+                                 constant TimedObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                 constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
+                                 constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
+                                 texture2d<float> colorMap     [[ texture(TextureIndex1Color) ]],
+                                 texture2d<float> normalMap     [[ texture(TextureIndex2Color) ]])
+{
+    constexpr sampler colorSamplerRepeat(mip_filter::linear,
+                                   mag_filter::linear,
+                                   min_filter::linear,
+                                   address::mirrored_repeat);
+    
+    float4 diffuse = float4(80.0/256.0, 103.0/256.0, 131.0/256.0, 1.0);//colorMap.sample(colorSamplerRepeat, in.texcoords1* 64 ); //
+    float4 base_normal = normalMap.sample(colorSamplerRepeat, in.texcoords1* 64 ) * normalMap.sample(colorSamplerRepeat, in.texcoords2* 64 ) ;
+    
+    float3x3 TBN = float3x3( in.T, in.B, in.N );
+    
+    float3 normal = ComputeNormalMapping( TBN, float3( base_normal.xyz ) );
+    
+    float3 eye_world_position = uniforms.ViewMatrix.columns[3].xyz;
+    
+    diffuse = diffuse * CalcDirectionalLight(light.Color, light.Direction.xyz, normal.xyz, in.wposition.xyz, eye_world_position, 100.0, 1.0 ) + diffuse * ambient_light.Color * ambient_light.AmbientIntensity * 0.3;
+    
+    //diffuse = CalcDirectionalLight(light.Color, light.Direction.xyz, normal.xyz, in.wposition.xyz, eye_world_position, 100.0, 1.0 );
+
+    return diffuse;
 }
 
 // ------------------------------------------------------
@@ -837,14 +1004,12 @@ fragment float4 DeferredAmbiantAndDirectionnal_fs(DeferredAmbiantAndDirectionnal
     float4 Color = float4( diffuseMap.sample(colorSampler, in.texcoords ) );
     float4 Normal = float4( normalMap.sample(colorSampler, in.texcoords ) );
     
-    float shadow = 1.0;//texture( o_texture_3, texCoord ).r;
     float ssao = ssaoMap.sample(colorSampler, in.texcoords ).x;
-    float4 ssao4 = float4(float3(ssao), 1.0);
 
-    float specular_intensity = specularMap.sample(colorSampler, in.texcoords ).x;
+    float shadow = specularMap.sample(colorSampler, in.texcoords ).x;
+    float specular_intensity = specularMap.sample(colorSampler, in.texcoords ).y;
 
-    //float4 colorOut = Color * CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, wposition, eye_world_position, specular_intensity, light.DiffuseIntensity ) * shadow + Color * ambient_light.Color.rgba * ambient_light.AmbientIntensity * ssao4 ;
-    float4 colorOut = Color * CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, world_pos.xyz, eye_world_position, specular_intensity, light.DiffuseIntensity );
+    float4 colorOut = (Color * CalcDirectionalLight( light.Color, light.Direction.xyz, Normal.xyz, world_pos.xyz, eye_world_position, specular_intensity, light.DiffuseIntensity ) * ssao * shadow) + Color * (ambient_light.Color * ambient_light.DiffuseIntensity * ssao);
     colorOut.a = 1.0;
     
     return colorOut;
@@ -1008,17 +1173,17 @@ fragment float4 FullscreenBloomPostProcess_fs(Fullscreenbloompostprocess_InOut i
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    constexpr float BloomThreshold = 0.9;
+    constexpr float BloomThreshold = 0.75;
     
     // Look up the original image color.
-    float4 colorSample = float4(colorMap.sample(colorSampler, in.texcoords.xy)*2);
+    float4 colorSample = float4(colorMap.sample(colorSampler, in.texcoords.xy));
     
     float4 tresh = float4(BloomThreshold);
 
     // Adjust it to keep only values brighter than the specified threshold.
     float4 colorOut = clamp( (colorSample - tresh) / (1.0 - tresh), float4(0.0), float4(1.0) );
     
-    return float4(1.0);
+    return colorOut;
 }
 
 // ------------------------------------------------------
@@ -1405,6 +1570,10 @@ typedef struct
     float3 T,B,N;
     float3 LightDirection_tangentspace;
     float3 EyeDirection_tangentspace;
+    float4 ShadowCoord1;
+    float4 ShadowCoord2;
+    float4 ShadowCoord3;
+    float ClipSpacePosZ;
 } AnimationShaderDeferred_InOut;
 
 vertex AnimationShaderDeferred_InOut AnimationShaderDeferred_vs(VertexPosNormalTexTanBiWeJoIn in [[stage_in]],
@@ -1419,6 +1588,10 @@ vertex AnimationShaderDeferred_InOut AnimationShaderDeferred_vs(VertexPosNormalT
     out.B = (uniforms.ModelMatrix * normalize( float4(in.bitangent, 1.0 ))).xyz;
     out.N = (uniforms.ModelMatrix * normalize( in.normal )).xyz;
     
+    out.ShadowCoord1 = uniforms.ShadowMapMVP1 * in.position;
+    out.ShadowCoord2 = uniforms.ShadowMapMVP2 * in.position;
+    out.ShadowCoord3 = uniforms.ShadowMapMVP3 * in.position;
+    
     //position_p = ModelMatrix * position;
     //normal_p = ModelMatrix * normal;
     //tangent_p = tangent;
@@ -1430,6 +1603,7 @@ vertex AnimationShaderDeferred_InOut AnimationShaderDeferred_vs(VertexPosNormalT
     out.position =  uniforms.MVPMatrix * out.wposition;
     out.wposition = uniforms.ModelMatrix * out.wposition;
     out.texcoords = in.texcoords;
+    out.ClipSpacePosZ = out.position.z;
     
     return out;
 }
@@ -1439,8 +1613,11 @@ fragment GBufferDataFragmentOut AnimationShaderDeferred_fs(AnimationShaderDeferr
                                  constant DirectionalLight & dir_light [[ buffer( BufferIndexDirectionalLightsConstants ) ]],
                                  constant AmbientLight & ambient_light [[ buffer( BufferIndexAmbientLightConstants ) ]],
                                  constant Material & material [[ buffer( MaterialUniforms ) ]],
-                                 texture2d<half> colorMap     [[ texture( TextureIndex1Color ) ]],
-                                 texture2d<half> normalMap     [[ texture( TextureIndex2Color ) ]] )
+                                 texture2d<float> colorMap     [[ texture( TextureIndex1Color ) ]],
+                                 texture2d<float> normalMap     [[ texture( TextureIndex2Color ) ]],
+                                 texture2d<float> cascade1Map     [[ texture( TextureIndex3Color ) ]],
+                                 texture2d<float> cascade2Map     [[ texture( TextureIndex4Color ) ]],
+                                 texture2d<float> cascade3Map     [[ texture( TextureIndex5Color ) ]])
 {
     GBufferDataFragmentOut out;
     
@@ -1448,16 +1625,22 @@ fragment GBufferDataFragmentOut AnimationShaderDeferred_fs(AnimationShaderDeferr
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    half4 colorSample = colorMap.sample(colorSampler, in.texcoords.xy);
-    half4 base_normal = normalMap.sample(colorSampler, in.texcoords.xy);
+    float4 colorSample = colorMap.sample(colorSampler, in.texcoords.xy);
+    float4 base_normal = normalMap.sample(colorSampler, in.texcoords.xy);
+    
+    texture2d<float> shadow_texture_array[4] =  {cascade1Map, cascade2Map, cascade3Map, cascade3Map};
+    float4 shadow_coord_table[4] = {in.ShadowCoord1, in.ShadowCoord2, in.ShadowCoord3, in.ShadowCoord3 };
+    //float end_clip_space_table[4] = {uniforms.cascadeEndClipSpace[0], uniforms.cascadeEndClipSpace[1], uniforms.cascadeEndClipSpace[2], uniforms.cascadeEndClipSpace[3] };
+    float end_clip_space_table[4] = {10.0, 100.0, 1000.0, 10000.0};
     
     float3x3 TBN = float3x3( in.T, in.B, in.N );
     
     out.Position = in.wposition;
-    out.Diffuse = float4( colorSample );
+    out.Diffuse = colorSample;
     out.Normal = float4( ComputeNormalMapping( TBN, float3( base_normal.xyz ) ), 1.0 );
-    out.Specular = 1.0;
-    //out.Shadow = 0.0;
+    out.Specular = 0.0;
+    out.Specular.w = 1.0;
+    out.Specular.r = CalcShadowFactor(out.Normal.xyz, dir_light.Direction.xyz, shadow_coord_table, shadow_texture_array, colorSampler, end_clip_space_table, in.ClipSpacePosZ );
     
     return out;
 }
@@ -1625,7 +1808,7 @@ vertex SSAOEffect_InOut SSAOEffectDeferred_vs(VertexPosNormalTexTanBi in [[stage
     out.texcoords = in.texcoords;
     
     out.ViewRay.x = in.position.x * uniforms.SSAOSampleRadFOVRatio.z * uniforms.SSAOSampleRadFOVRatio.y;
-    out.ViewRay.y = in.position .y * uniforms.SSAOSampleRadFOVRatio.y;
+    out.ViewRay.y = in.position.y * uniforms.SSAOSampleRadFOVRatio.y;
     
     return out;
 }
@@ -1645,42 +1828,42 @@ fragment float4 SSAOEffectDeferred_fs(SSAOEffect_InOut in [[stage_in]],
     
     const int MAX_KERNEL_SIZE = 64;
     const float SSAO_FACTOR = 1.0 / MAX_KERNEL_SIZE;
-    const float SSAOSampleRad = 1.5;
+    const float SSAOSampleRad = 1.1;
     
-    const float2 noiseScale = float2(1024.0/4.0, 768.0/4.0); // screen = 1024*768
+    const float2 noiseScale = float2(normalMap.get_width()/4.0, normalMap.get_height()/4.0); // screen = 1024*768
     
     float Depth = depthMap.sample( colorSampler, in.texcoords);
-    float ViewZ = uniforms.SSAOProjectionMatrix[3][2] / (2 * Depth -1 - uniforms.SSAOProjectionMatrix[2][2]);
+    float ViewZ = uniforms.ProjectionMatrix[3][2] / (2 * Depth -1 - uniforms.ProjectionMatrix[2][2]);
     
     float ViewX = in.ViewRay.x * ViewZ;
     float ViewY = in.ViewRay.y * ViewZ;
     
     float3 Pos = float3( ViewX, ViewY, ViewZ );
 
-    float3 Normal = (uniforms.ViewMatrix * float4( float3( normalMap.sample(colorSampler, in.texcoords ).xyz), 0.0 )).xyz;
     float3 randomVec = float3( randomMap.sample(colorSampler, in.texcoords * noiseScale ).xyz);
-
+    
+    float3 Normal = normalMap.sample(colorSampler, in.texcoords ).xyz;
     float3 tangent   = normalize(randomVec - Normal * dot(randomVec, Normal));
     float3 bitangent = cross(Normal, tangent);
     float3x3 TBN       = float3x3(tangent, bitangent, Normal);
-
+    
     float4 SSAO = float4(0.0);
 
     for (int i = 0 ; i < MAX_KERNEL_SIZE ; i++) {
         
-        float3 rnd = TBN * SSAOKernel[i].xyz  * SSAOSampleRad;
-        float3 samplePos = Pos + rnd;//;( TBN * SSAOKernel[i].xyz ) * SSAOSampleRad;
+        //float3 rnd = (Normal * SSAOKernel[i].xyz);//  * SSAOSampleRad;
+        float3 samplePos = Pos.xyz + ( TBN * SSAOKernel[i].xyz ) * SSAOSampleRad;
         float4 offset = float4(samplePos, 1.0); // make it a 4-vector
 
-        offset = uniforms.SSAOViewProjectionMatrix * offset; // project on the near clipping plane
-        offset.xy /= offset.w; // perform perspective divide
-        offset.xy = (offset.xy * 0.5) + float2(0.5); // transform to (0,1) range
+        offset = uniforms.ProjectionMatrix * offset; // project on the near clipping plane
+        offset /= offset.w; // perform perspective divide
+        offset.xyz = offset.xyz * 0.5 + 0.5; // transform to (0,1) range
 
         float dDepth = depthMap.sample( colorSampler, offset.xy);
-        float dViewZ = uniforms.SSAOProjectionMatrix[3][2] / (2 * dDepth -1 - uniforms.SSAOProjectionMatrix[2][2]);
+        float dViewZ = uniforms.ProjectionMatrix[3][2] / (2 * dDepth -1 - uniforms.ProjectionMatrix[2][2]);
         
         if (abs(Pos.z - dViewZ) < SSAOSampleRad) {
-            SSAO += step(abs(samplePos.z), abs(dViewZ) );
+            SSAO += step(samplePos.z, dViewZ );
         }
     }
 

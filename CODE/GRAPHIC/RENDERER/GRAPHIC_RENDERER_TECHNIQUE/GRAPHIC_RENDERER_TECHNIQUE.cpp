@@ -31,6 +31,7 @@ void GRAPHIC_RENDERER_TECHNIQUE::ApplyFirstPass( GRAPHIC_RENDERER & renderer ) {
     if ( RenderTarget != NULL ) {
         
         RenderTarget->BindForWriting();
+        RenderTarget->Apply( renderer );
     }
     else {
         renderer.GetDescriptor().DisableColor();
@@ -40,7 +41,7 @@ void GRAPHIC_RENDERER_TECHNIQUE::ApplyFirstPass( GRAPHIC_RENDERER & renderer ) {
         GRAPHIC_SYSTEM::EnableDefaultFrameBuffer();
     }
     
-    RendererCallback( renderer, GAMEPLAY_COMPONENT_SYSTEM_MASK_Opaque );
+    RendererCallback( renderer, GetTransparentMask() );
     
     if ( RenderTarget != NULL ) {
         

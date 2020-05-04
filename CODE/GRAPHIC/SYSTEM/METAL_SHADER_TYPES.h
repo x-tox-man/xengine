@@ -35,7 +35,8 @@ typedef NS_ENUM(NSInteger, BufferIndex)
     SkinningMatrixBuffer = 9,
     MaterialUniforms = 10,
     CameraWorldPositionUniform = 11,
-    SSAOKernelConstants = 12
+    SSAOKernelConstants = 12,
+    ShadowMapMVPTableBuffer = 13
 };
 
 typedef NS_ENUM(NSInteger, VertexAttribute)
@@ -64,7 +65,12 @@ typedef NS_ENUM(NSInteger, TextureIndex)
     TextureIndex1Normal     = 8,
     TextureIndex1Depth      = 9,
     TextureIndex2Depth      = 10,
-    TextureIndex3Depth      = 11
+    TextureIndex3Depth      = 11,
+    TextureIndex4Depth      = 12,
+    TextureIndex1ShadowMap      = 13,
+    TextureIndex2ShadowMap      = 14,
+    TextureIndex3ShadowMap      = 15,
+    TextureIndex4ShadowMap      = 16,
 };
 
 typedef struct
@@ -73,7 +79,27 @@ typedef struct
         ModelMatrix,
         ViewMatrix,
         MVPMatrix;
+    matrix_float4x4
+        ShadowMapMVP1,
+        ShadowMapMVP2,
+        ShadowMapMVP3,
+        ShadowMapMVP4;
 } ObjectUniforms;
+
+typedef struct
+{
+    matrix_float4x4
+        ModelMatrix,
+        ViewMatrix,
+        MVPMatrix;
+    matrix_float4x4
+        ShadowMapMVP1,
+        ShadowMapMVP2,
+        ShadowMapMVP3,
+        ShadowMapMVP4;
+    float
+        TimeModulator;
+} TimedObjectUniforms;
 
 typedef struct
 {
@@ -109,6 +135,13 @@ typedef struct {
         ViewMatrix,
         MVPMatrix,
         attrBindShapeMatrix;
+    matrix_float4x4
+        ShadowMapMVP1,
+        ShadowMapMVP2,
+        ShadowMapMVP3,
+        ShadowMapMVP4;
+    float
+        cascadeEndClipSpace[4];
 } AnimatedObjectUniforms;
 
 typedef struct {
