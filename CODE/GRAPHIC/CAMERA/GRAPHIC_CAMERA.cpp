@@ -160,7 +160,7 @@ void GRAPHIC_CAMERA::CalculateModelMatrix( const CORE_MATH_VECTOR & position, co
     
     CORE_MATH_MATRIX tmp, translation,rotation;
     
-    translation.Translate( position );
+    translation.Translate( -position );
     
     CORE_MATH_VECTOR N, U, V;
     
@@ -175,6 +175,6 @@ void GRAPHIC_CAMERA::CalculateModelMatrix( const CORE_MATH_VECTOR & position, co
     rotation[8] = U.Z(); rotation[9] = V.Z(); rotation[10] = N.Z(); rotation[11] = 0.0f;
     rotation[12] = 0.0f; rotation[13] = 0.0f; rotation[14] = 0.0f; rotation[15] = 1.0f;
     
-    ViewMatrix = translation * rotation;
+    ViewMatrix = rotation * translation;
     ProjectionViewMatrix = ProjectionMatrix * ViewMatrix;
 }

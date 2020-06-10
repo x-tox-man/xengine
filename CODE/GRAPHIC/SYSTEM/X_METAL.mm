@@ -80,23 +80,25 @@ void * GRAPHIC_SYSTEM::MtlGetCachedStencilStateFromRenderer( GRAPHIC_RENDERER & 
         depthStateDesc.depthCompareFunction = renderer.GetDescriptor().ItDoesDepthTest ? MTLCompareFunctionLess : MTLCompareFunctionAlways;
         depthStateDesc.depthWriteEnabled = renderer.GetDescriptor().ItDoesDepthTest ? YES : NO;
         
-        MTLStencilDescriptor *backfaceStencilDescriptor = [[MTLStencilDescriptor alloc]
-         init];
-        backfaceStencilDescriptor.stencilCompareFunction = MTLCompareFunctionAlways;
-        backfaceStencilDescriptor.stencilFailureOperation = MTLStencilOperationKeep;
-        backfaceStencilDescriptor.depthStencilPassOperation = MTLStencilOperationIncrementWrap;
-        backfaceStencilDescriptor.writeMask = renderer.GetDescriptor().StencilMask;
-        
-        MTLStencilDescriptor *frontfaceStencilDescriptor = [[MTLStencilDescriptor alloc]
-         init];
-        frontfaceStencilDescriptor.stencilCompareFunction = MTLCompareFunctionAlways;
-        frontfaceStencilDescriptor.stencilFailureOperation = MTLStencilOperationKeep;
-        frontfaceStencilDescriptor.depthStencilPassOperation = MTLStencilOperationDecrementWrap;
-        frontfaceStencilDescriptor.writeMask = renderer.GetDescriptor().StencilMask;
-        
-        //Need to check they are the same!
-        depthStateDesc.backFaceStencil = backfaceStencilDescriptor;
-        depthStateDesc.frontFaceStencil = frontfaceStencilDescriptor;
+        if ( renderer.GetDescriptor().ItDoesStencilTest ) {
+            MTLStencilDescriptor *backfaceStencilDescriptor = [[MTLStencilDescriptor alloc]
+             init];
+            backfaceStencilDescriptor.stencilCompareFunction = MTLCompareFunctionAlways;
+            backfaceStencilDescriptor.stencilFailureOperation = MTLStencilOperationKeep;
+            backfaceStencilDescriptor.depthStencilPassOperation = MTLStencilOperationIncrementWrap;
+            backfaceStencilDescriptor.writeMask = renderer.GetDescriptor().StencilMask;
+            
+            MTLStencilDescriptor *frontfaceStencilDescriptor = [[MTLStencilDescriptor alloc]
+             init];
+            frontfaceStencilDescriptor.stencilCompareFunction = MTLCompareFunctionAlways;
+            frontfaceStencilDescriptor.stencilFailureOperation = MTLStencilOperationKeep;
+            frontfaceStencilDescriptor.depthStencilPassOperation = MTLStencilOperationDecrementWrap;
+            frontfaceStencilDescriptor.writeMask = renderer.GetDescriptor().StencilMask;
+            
+            //Need to check they are the same!
+            depthStateDesc.backFaceStencil = backfaceStencilDescriptor;
+            depthStateDesc.frontFaceStencil = frontfaceStencilDescriptor;
+        }
         
         id <MTLDepthStencilState> tempState = [_device newDepthStencilStateWithDescriptor:depthStateDesc];
         state = ( void *) CFBridgingRetain( tempState );
@@ -241,7 +243,7 @@ void * GRAPHIC_SYSTEM::CreateMetalPipelineState( void * descriptor, GRAPHIC_SHAD
                 identifier( [arg.name cStringUsingEncoding:NSASCIIStringEncoding] );
             GRAPHIC_SHADER_ATTRIBUTE & attribute = program.GetShaderAttributeTable()[ identifier ];
 
-            attribute.GPUBuffer = CreateMetalDynamicUniformBuffer( (unsigned long)128*16 * sizeof(float) * 3);
+            //attribute.GPUBuffer = CreateMetalDynamicUniformBuffer( (unsigned long)128*16 * sizeof(float) * 3);
             attribute.AttributeIndex = 0;
             attribute.AttributeOffset = arg.index;
             attribute.AttributeName = identifier;
@@ -702,15 +704,15 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & rendere
     
     if ( attribute.AttributeOffset > 0 ) {
         
-        void *addr = GetMtlBufferPointer( attribute.GPUBuffer );
+        //void *addr = GetMtlBufferPointer( attribute.GPUBuffer );
         
-        memcpy( (void*)((float*)addr + (size/4 * renderer.BufferPassIndex)), (void*) vector, size );
+        //memcpy( (void*)((float*)addr + (size/4 * renderer.BufferPassIndex)), (void*) vector, size );
         
-        [_renderEncoder setVertexBuffer:(__bridge id <MTLBuffer>) attribute.GPUBuffer
+        [_renderEncoder setVertexBuffer:(__bridge id <MTLBuffer>) attribute.GPUBuffer.GetGPUBufferPointer()
              offset:(size * renderer.BufferPassIndex)
             atIndex:attribute.AttributeOffset];
         
-        [_renderEncoder setFragmentBuffer:(__bridge id <MTLBuffer>) attribute.GPUBuffer
+        [_renderEncoder setFragmentBuffer:(__bridge id <MTLBuffer>) attribute.GPUBuffer.GetGPUBufferPointer()
          offset:(size * renderer.BufferPassIndex)
         atIndex:attribute.AttributeOffset];
     }

@@ -139,7 +139,8 @@ void GRAPHIC_SHADER_EFFECT::UpdateMatrix( GRAPHIC_RENDERER & renderer, GRAPHIC_S
     }
 }
 
-void GRAPHIC_SHADER_EFFECT::UpdateFloatArray( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_ATTRIBUTE & attribute, unsigned int count, float * array) {
+void GRAPHIC_SHADER_EFFECT::
+UpdateFloatArray( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_ATTRIBUTE & attribute, unsigned int count, float * array) {
     
     if ( attribute.AttributeIndex >= 0 ) {
         

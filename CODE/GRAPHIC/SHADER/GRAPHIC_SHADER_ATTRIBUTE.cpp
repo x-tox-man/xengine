@@ -13,7 +13,7 @@ GRAPHIC_SHADER_ATTRIBUTE::GRAPHIC_SHADER_ATTRIBUTE() :
     AttributeValue(),
     AttributeIndex( -1 ),
     AttributeOffset( -1 ),
-    GPUBuffer( NULL ) {
+    GPUBuffer() {
     
 }
 

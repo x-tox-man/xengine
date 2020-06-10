@@ -53,6 +53,14 @@ void GRAPHIC_WINDOW_IOS::Initialize()
     #endif
 }
 
+void GRAPHIC_WINDOW_IOS::Resize( int width, int height ) {
+    
+    SetWidth( width );
+    SetHeight( height );
+    
+    GRAPHIC_RENDERER::GetInstance().Resize(width, height);
+}
+
 void GRAPHIC_WINDOW_IOS::EnableBackgroundContext(bool enable) {
     
     #if OPENGL2PLUS

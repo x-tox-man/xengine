@@ -127,9 +127,7 @@
     }
     else {
         
-        CORE_RUNTIME_Abort();
-        
-        return -1;
+        return 0;
     }
 }
 
@@ -219,7 +217,8 @@
     
     int r = [self.ComponentsTableView rowForView:row];
     
-    if( r == (int) GAMEPLAY_COMPONENT_TYPE_Position ) {
+    abort(); //TODO: add component proper management
+    /*if( r == (int) GAMEPLAY_COMPONENT_TYPE_Position ) {
         
         GAMEPLAY_COMPONENT_HANDLE handle;
         
@@ -261,7 +260,7 @@
     }
     else {
         CORE_RUNTIME_Abort();
-    }
+    }*/
     
     [self.ComponentsTableView reloadData];
 }
@@ -312,20 +311,21 @@
         
         auto cmp = (GAMEPLAY_COMPONENT_SCRIPT *) [self.custom3dTableViewDelegate.Entity Entity]->GetComponent( GAMEPLAY_COMPONENT_TYPE_Script );
         
-        if ( cmp == NULL ) {
+        abort(); //TODO: add component proper management
+        /*if ( cmp == NULL ) {
             
             GAMEPLAY_COMPONENT_HANDLE handle;
             
             handle.Create< GAMEPLAY_COMPONENT_SCRIPT >( GAMEPLAY_COMPONENT_TYPE_Script );
             
             [self.custom3dTableViewDelegate.Entity Entity]->SetCompononent(handle, GAMEPLAY_COMPONENT_TYPE_Script );
-        }
+        }*/
         
         auto app = (ASSET_EDITOR *) (&CORE_APPLICATION::GetApplicationInstance());
         
         cmp->SetScript( program );
         
-        ( ( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT * ) app->Get3dViewer()->GetScene()->GetUpdatableSystemTable()[3] )->AddEntity( [self.custom3dTableViewDelegate.Entity Entity]->GetHandle(), [self.custom3dTableViewDelegate.Entity Entity] );
+        ( ( GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT * ) app->Get3dViewer()->GetScene()->GetUpdatableSystemTable()[3] )->AddEntity( [self.custom3dTableViewDelegate.Entity Entity] );
     }
     
     // TODO:

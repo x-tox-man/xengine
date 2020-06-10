@@ -33,6 +33,10 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT )
 
     CORE_HELPERS_FACTORY_Define(GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE )
 
+    virtual void Reset() {
+        
+    }
+
 protected :
 
     GAMEPLAY_COMPONENT( unsigned int size );

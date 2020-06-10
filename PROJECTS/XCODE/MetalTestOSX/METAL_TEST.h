@@ -36,6 +36,7 @@
 #include "GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING.h"
 #include "GRAPHIC_RENDER_TECHNIQUE_SSAO.h"
 #include "GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP.h"
+#include "GRAPHIC_UI_FRAME.h"
 
 #define METAL_TEST_MAX_SHAWOW_CASCADE 3
 
@@ -61,6 +62,8 @@ private:
     GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR Set3DHeighFieldObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     void SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
 
+    GRAPHIC_UI_FRAME::PTR CreateFrame();
+
     GRAPHIC_CAMERA::PTR
         Camera;
     GRAPHIC_OBJECT_SHAPE_SPHERE::PTR
@@ -70,6 +73,7 @@ private:
     GRAPHIC_SHADER_EFFECT::PTR
         Effect,
         UIEffect,
+        UIEffectColored,
         AnimatedEffectDeferred,
         EffectDeferred,
         ShadowMapEffect,
@@ -104,11 +108,7 @@ private:
         m1,m2;
     GRAPHIC_SHADER_LIGHT
         * AmbientLight,
-        * DirectionalLight,
-        * PointLightOne,
-        * PointLightTwo,
-        * SpotLightOne,
-        * SpotLightTwo;
+        * DirectionalLight;
 
 XS_CLASS_END
 

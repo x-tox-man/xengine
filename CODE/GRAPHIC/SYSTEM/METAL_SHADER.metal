@@ -187,7 +187,7 @@ float4 CalcPointLight( float4 color, float3 normal, float3 world_pos, float3 eye
 float4 CalcSpotLight(float3 world_pos, float3 eye_world_position, SpotLight light, float3 normal, float specular_power)
 {
     float3 light_to_pixel = normalize( world_pos - light.Position.xyz);
-    float spot_factor = dot( light_to_pixel, light.Direction.xyz );
+    float spot_factor = dot( light_to_pixel, -light.Direction.xyz );
 
     if ( spot_factor > light.Cutoff) {
         
@@ -1027,9 +1027,6 @@ float2 CalcTexCoords( float2 pos ) {
 typedef struct
 {
     float4 position [[position]];
-    float2 texcoords;
-    float4 LightPosition;
-    float2 ViewRay;
 } DeferredPointLight_InOut;
 
 vertex DeferredPointLight_InOut DeferredPointLight_vs(VertexPosNormal in [[stage_in]],
@@ -1039,13 +1036,6 @@ vertex DeferredPointLight_InOut DeferredPointLight_vs(VertexPosNormal in [[stage
     DeferredPointLight_InOut out;
 
     out.position = uniforms.MVPMatrix * in.position;
-    out.texcoords = ((out.position.xy / out.position.w) + 1.0) * 0.5;
-    out.texcoords.y = 1.0 -out.texcoords.y;
-    
-    out.LightPosition = point_light.Position; // in world position
-    
-    out.ViewRay.x = in.position.x * uniforms.FOVRatio.z * uniforms.FOVRatio.y;
-    out.ViewRay.y = in.position .y * uniforms.FOVRatio.y;
     
     return out;
 }
@@ -1064,21 +1054,22 @@ fragment float4 DeferredPointLight_fs(
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    float Depth = depthMap.sample( colorSampler, in.texcoords);
+    float2 tx = (in.position.xy - float2( 0.5, 0.5)) / float2( positionMap.get_width(), positionMap.get_height() );
+    float Depth = depthMap.sample( colorSampler, tx);
     
-    float4 world_pos = uniforms.PreviousProjection * float4( in.texcoords.x * 2.0 - 1.0, -(in.texcoords.y * 2.0 - 1.0), Depth, 1.0 ); //
+    float4 world_pos = uniforms.PreviousProjection * float4( tx.x * 2.0 - 1.0, -(tx.y * 2.0 - 1.0), Depth, 1.0 ); //TODO:
     world_pos /= world_pos.w;
     
-    float4 diffuse = float4( diffuseffMap.sample(colorSampler, in.texcoords ) ); //texture( o_texture_1, in.texcoords ).xyz;
-    float3 normal = float4( normalMap.sample(colorSampler, in.texcoords ) ).xyz; //texture( o_texture_2, in.texcoords ).xyz;
+    float4 diffuse = float4( diffuseffMap.sample(colorSampler, tx ) ); //texture( o_texture_1, in.texcoords ).xyz;
+    float3 normal = float4( normalMap.sample(colorSampler, tx ) ).xyz; //texture( o_texture_2, in.texcoords ).xyz;
     //float shadow = texture( o_texture_3, tx ).r;
     //float3 ssao = texture( o_texture_4, tx ).xyz;
     float specular_intensity = 1.0; //float4( specularMap.sample(colorSampler, in.texcoords ) ).x;
     
-    float3 eye_world_position = uniforms.PreviousCameraWorldPosition.xyz;
+    float3 eye_world_position = uniforms.ViewMatrix.columns[3].xyz;
     
     //TODO: Fetch and use material
-    float4 colorOut = diffuse * CalcPointLight( point_light.Color, normalize(normal), world_pos.xyz, eye_world_position, in.LightPosition.xyz, specular_intensity, point_light.DiffuseIntensity, point_light.Constant, point_light.Linear, point_light.Exp );
+    float4 colorOut = diffuse * CalcPointLight( point_light.Color, normalize(normal), world_pos.xyz, eye_world_position, point_light.Position.xyz, specular_intensity, point_light.DiffuseIntensity, point_light.Constant, point_light.Linear, point_light.Exp );
     
     return colorOut;
 }
@@ -1094,23 +1085,19 @@ typedef struct
     float4 LightPosition;
 } DeferredSpotLight_InOut;
 
-vertex DeferredSpotLight_InOut DeferredSpotLight_vs(VertexPosNormal in [[stage_in]],
+vertex DeferredSpotLight_InOut DeferredSpotLight_vs(VertexPosNormalTexTanBi in [[stage_in]],
                                             constant DeferredLightObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
                                             constant SpotLight & spot_light [[ buffer(BufferIndexSpotLightsConstants) ]] )
 {
     DeferredSpotLight_InOut out;
 
     out.position = uniforms.MVPMatrix * in.position;
-    out.texcoords = CalcTexCoords( in.position.xy );
-    out.LightPosition = spot_light.Position; // in world position
     
     return out;
 }
 
 fragment float4 DeferredSpotLight_fs(DeferredSpotLight_InOut in [[stage_in]],
                                  constant DeferredLightObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                                 //constant AmbientLight & ambient_light [[ buffer(BufferIndexAmbientLightConstants) ]],
-                                 //constant DirectionalLight & light [[ buffer(BufferIndexDirectionalLightsConstants) ]],
                                  constant SpotLight & spot_light [[ buffer(BufferIndexSpotLightsConstants) ]],
                                  texture2d<float> positionMap     [[ texture(TextureIndex1Color) ]],
                                  texture2d<float> diffuseffMap     [[ texture(TextureIndex2Color) ]],
@@ -1122,7 +1109,26 @@ fragment float4 DeferredSpotLight_fs(DeferredSpotLight_InOut in [[stage_in]],
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    float Depth = depthMap.sample( colorSampler, in.texcoords);
+    float2 tx = (in.position.xy - float2( 0.5, 0.5)) / float2( positionMap.get_width(), positionMap.get_height() );
+    float Depth = depthMap.sample( colorSampler, tx);
+    
+    float4 world_pos = uniforms.PreviousProjection * float4( tx.x * 2.0 - 1.0, -(tx.y * 2.0 - 1.0), Depth, 1.0 ); //TODO:
+    world_pos /= world_pos.w;
+    
+    float4 diffuse = float4( diffuseffMap.sample(colorSampler, tx ) ); //texture( o_texture_1, in.texcoords ).xyz;
+    float3 normal = float4( normalMap.sample(colorSampler, tx ) ).xyz; //texture( o_texture_2, in.texcoords ).xyz;
+    //float shadow = texture( o_texture_3, tx ).r;
+    //float3 ssao = texture( o_texture_4, tx ).xyz;
+    float specular_intensity = 1.0; //float4( specularMap.sample(colorSampler, in.texcoords ) ).x;
+    
+    float3 eye_world_position = uniforms.ViewMatrix.columns[3].xyz;
+    
+    //TODO: Fetch and use material
+    float4 colorOut = diffuse * CalcSpotLight( world_pos.xyz, eye_world_position, spot_light, normal, specular_intensity );
+    
+    return colorOut;
+    
+    /*float Depth = depthMap.sample( colorSampler, in.texcoords);
     
     float4 world_pos = uniforms.PreviousProjection * float4( in.texcoords.x * 2.0 - 1.0, -(in.texcoords.y * 2.0 - 1.0), Depth, 1.0 ); //
     world_pos /= world_pos.w;
@@ -1138,7 +1144,7 @@ fragment float4 DeferredSpotLight_fs(DeferredSpotLight_InOut in [[stage_in]],
     //TODO: Fetch and use material
     float3 colorOut = diffuse * CalcSpotLight( world_pos.xyz, eye_world_position, spot_light, normal, specular_intensity ).xyz;
     
-    return float4( colorOut, 1.0);
+    return float4( colorOut, 1.0);*/
 }
 
 // ------------------------------------------------------
@@ -1167,21 +1173,19 @@ vertex Fullscreenbloompostprocess_InOut FullscreenBloomPostProcess_vs(VertexPosN
 fragment float4 FullscreenBloomPostProcess_fs(Fullscreenbloompostprocess_InOut in [[stage_in]],
     constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
     //constant float & BloomThreshold [[ buffer(BufferIndexBloomThresholdConstants) ]],
-    texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]] )
+    texture2d<float> colorMap     [[ texture(TextureIndex1Color) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    constexpr float BloomThreshold = 0.75;
+    constexpr float4 BloomThreshold = 0.75;
     
     // Look up the original image color.
-    float4 colorSample = float4(colorMap.sample(colorSampler, in.texcoords.xy));
-    
-    float4 tresh = float4(BloomThreshold);
+    float4 colorSample = colorMap.sample(colorSampler, in.texcoords.xy);
 
     // Adjust it to keep only values brighter than the specified threshold.
-    float4 colorOut = clamp( (colorSample - tresh) / (1.0 - tresh), float4(0.0), float4(1.0) );
+    float4 colorOut = clamp( (colorSample - BloomThreshold) / (1.0 - BloomThreshold), float4(0.0), float4(1.0) );
     
     return colorOut;
 }
@@ -1924,7 +1928,7 @@ typedef struct
 } UIShaderTextured_InOut;
 
 vertex UIShaderTextured_InOut UIShaderTextured_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                            constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+                                            constant UIObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
     UIShaderTextured_InOut out;
 
@@ -1935,7 +1939,7 @@ vertex UIShaderTextured_InOut UIShaderTextured_vs(VertexPosNormalTexTanBi in [[s
 }
 
 fragment float4 UIShaderTextured_fs(UIShaderTextured_InOut in [[stage_in]],
-                                 constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                 constant UIObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
                                  texture2d<half> colorMap     [[ texture(TextureIndex1Color) ]] )
 {
     constexpr sampler colorSampler(mip_filter::linear,
@@ -1956,7 +1960,7 @@ typedef struct
 } UIShaderColored_InOut;
 
 vertex UIShaderColored_InOut UIShaderColored_vs(VertexPosNormalTexTanBi in [[stage_in]],
-                                    constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+                                    constant UIObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
     UIShaderColored_InOut out;
 
@@ -1966,7 +1970,7 @@ vertex UIShaderColored_InOut UIShaderColored_vs(VertexPosNormalTexTanBi in [[sta
 }
 
 fragment float4 UIShaderColored_fs(UIShaderColored_InOut in [[stage_in]],
-                             constant ObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
+                             constant UIObjectUniforms & uniforms [[ buffer(BufferIndexUniforms) ]])
 {
-    return float4( in.colorVarying );
+    return uniforms.geometryColor;
 }

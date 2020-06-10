@@ -12,6 +12,8 @@
 
 #include "CORE_HELPERS_CLASS.h"
 #include "GRAPHIC_MESH_ANIMATION.h"
+#include "GRAPHIC_SHADER_GPU_BUFFER.h"
+#include "GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX.h"
 
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_CONTROLLER )
 
@@ -34,18 +36,20 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_CONTROLLER )
     void Reset();
 
     inline float GetCurrentTimeFrame() { return CurrentTimeFrame; }
-    inline unsigned int GetFrameIndex();
+    GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX GetFrameIndex();
     GRAPHIC_MESH_ANIMATION * GetAnimation( int index ) { return MeshAnimationTable[ index ]; }
     const GRAPHIC_MESH_ANIMATION * GetAnimation( int index ) const { return MeshAnimationTable[ index ]; }
 
-    inline float * GetCurrentSkinningForAnimation( int index ) { return ThisFrameAnimationMatrixArrayTable[ index ]; }
+    inline float * GetCurrentSkinningForAnimation( int index ) { return (float *) (*ThisFrameAnimationMatrixArrayTable)[ index ].GetGPUBufferDataPointer(); }
+
+    inline GRAPHIC_SHADER_GPU_BUFFER & GetCurrentGPUBuffer( int i ) { return (*ThisFrameAnimationMatrixArrayTable)[i]; }
 
 private :
 
     std::vector< GRAPHIC_MESH_ANIMATION * >
         MeshAnimationTable;
-    std::vector< float * >
-        ThisFrameAnimationMatrixArrayTable;
+    std::vector< GRAPHIC_SHADER_GPU_BUFFER >
+        * ThisFrameAnimationMatrixArrayTable;
     float
         CurrentTimeFrame;
     int

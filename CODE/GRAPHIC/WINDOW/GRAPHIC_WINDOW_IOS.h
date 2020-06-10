@@ -41,6 +41,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GRAPHIC_WINDOW_IOS, GRAPHIC_WINDOW )
 
     virtual void Initialize() override;
     virtual void EnableBackgroundContext(bool enable) override;
+    virtual void Resize( int width, int height );
 
 private :
 

@@ -19,6 +19,7 @@ XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION )
     XS_DEFINE_ClassMember( "InverseBindMatrixes", CORE_DATA_BUFFER, InverseBindMatrixes )
     XS_DEFINE_ClassMember( "TimeTableBuffer", CORE_DATA_BUFFER, TimeTableBuffer )
     XS_DEFINE_ClassMember( "JointTable", std::vector<GRAPHIC_MESH_ANIMATION_JOINT::PTR>, JointTable )
+    XS_DEFINE_ClassMember( "Skeleton", GRAPHIC_MESH_SKELETON_JOINT, Skeleton )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GRAPHIC_MESH_ANIMATION )
@@ -51,7 +52,7 @@ GRAPHIC_MESH_ANIMATION::GRAPHIC_MESH_ANIMATION( const GRAPHIC_MESH_ANIMATION & o
     
 }
 
-void GRAPHIC_MESH_ANIMATION::SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * skeletton, const int animation_step_index, float ** ptr_index, CORE_MATH_MATRIX & world_matrix ) {
+void GRAPHIC_MESH_ANIMATION::SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float ** ptr_index, CORE_MATH_MATRIX & world_matrix ) {
 
     CORE_MATH_MATRIX
         mat,
@@ -60,7 +61,7 @@ void GRAPHIC_MESH_ANIMATION::SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * ske
     if ( JointTable[ skeletton->Index ] != NULL ) {
         
         assert( strcmp( skeletton->GetName(), JointTable[ skeletton->Index ]->GetName() )  == 0 );
-        mat = CORE_MATH_MATRIX( JointTable[ skeletton->Index ]->YieldFloatMatrixBufferForIndex( animation_step_index ) );
+        JointTable[ skeletton->Index ]->YieldFloatMatrixBufferForIndex( animation_step_index, mat );
     }
     
     final_world_mat = mat * world_matrix;
@@ -73,7 +74,7 @@ void GRAPHIC_MESH_ANIMATION::SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * ske
     }
 }
 
-void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_MESH_SKELETON_JOINT * skeletton, const int animation_step_index, float * matrix_buffer ) {
+void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float * matrix_buffer ) {
     
     float * matrix_ptr = NULL;
     CORE_MATH_MATRIX mat, identity;
@@ -81,8 +82,8 @@ void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_ME
     if ( JointTable[ skeletton->Index ] != NULL ) {
         
         assert( strcmp( skeletton->GetName(), JointTable[ skeletton->Index ]->GetName() )  == 0 );
-        matrix_ptr = JointTable[ skeletton->Index ]->YieldFloatMatrixBufferForIndex( animation_step_index );
-        mat= CORE_MATH_MATRIX( matrix_ptr );
+        JointTable[ skeletton->Index ]->YieldFloatMatrixBufferForIndex( animation_step_index, mat );
+        matrix_ptr = mat.GetRow(0);
     }
     
     //Init

@@ -24,7 +24,6 @@
 
 XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GRAPHIC_OBJECT )
     XS_DEFINE_ClassMember( "MeshTable", std::vector< GRAPHIC_MESH * > , MeshTable )
-    XS_DEFINE_ClassMember( "Skeleton", GRAPHIC_MESH_SKELETON_JOINT, Skeleton )
 XS_END_INTERNAL_MEMORY_LAYOUT
 
 GRAPHIC_OBJECT::GRAPHIC_OBJECT() :
@@ -121,22 +120,8 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
         
         if ( attrSkinningMatrixTable.AttributeIndex > -1 )
         {
-            const int max_size = 4 * 16 *128;
-            float float_matrix_array_copy[ max_size ];
-            
             size_t size = (int) AnimationController->GetAnimation( (int) i)->GetJointTable().size() * 16 * sizeof( float );
-            
-            memcpy( float_matrix_array_copy, AnimationController->GetCurrentSkinningForAnimation( (int) i ), size );
-            
-            float * ptr = (float*) AnimationController->GetAnimation( (int)i )->GetInverseBindMatrixes().getpointerAtIndex(0, 0);
-
-            int offset = 0;
-
-            for ( size_t mi = 0; mi < AnimationController->GetAnimation( (int)i )->GetJointTable().size(); mi++ ) {
-                
-                GLOBAL_MULTIPLY_MATRIX(float_matrix_array_copy + offset, ptr + offset );
-                offset += 16;
-            }
+            float * float_matrix_array_copy = AnimationController->GetCurrentSkinningForAnimation( (int) i );
             
             int num_joints = (int)(size / 64);
                     
@@ -148,6 +133,8 @@ void GRAPHIC_OBJECT::Render( GRAPHIC_RENDERER & renderer, const GRAPHIC_OBJECT_R
                     attrSkinningMatrixTable.AttributeOffset = 9;
                     
                     renderer.BufferPassIndex = (unsigned int) i;
+            
+                    attrSkinningMatrixTable.GPUBuffer = AnimationController->GetCurrentGPUBuffer( (int ) i);
                     
                     effect->UpdateFloatArray(renderer, attrSkinningMatrixTable, num_joints*16, float_matrix_array_copy );
             #endif

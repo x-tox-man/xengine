@@ -85,14 +85,19 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::Initialize( GRAPHIC_RENDERER &
     AmbientDirectionalDefferedEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
     //AmbientDirectionalDefferedEffect->BindAttributes();
     
-    PointDefferedEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
+    PointDefferedEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     //PointDefferedEffect->BindAttributes();
     
-    SpotDeferredEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTexture );
+    SpotDeferredEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
     //SpotDeferredEffect->BindAttributes();
     
-    NullTechniqueEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormal );
-    NullTechniqueEffect->SetMaterial( new GRAPHIC_MATERIAL() );
+    auto collection = new GRAPHIC_MATERIAL_COLLECTION;
+    auto mat = new GRAPHIC_MATERIAL();
+    collection->SetMaterialForName(mat, ConeObject->GetMeshTable()[0]->GetName() );
+    collection->SetMaterialForName(mat, GRAPHIC_SHADER_EFFECT::DefaultMaterialName );
+    
+    NullTechniqueEffect->Initialize( GRAPHIC_SHADER_BIND_PositionNormalTextureTangentBitangent );
+    NullTechniqueEffect->SetMaterialCollection( collection );
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyFirstPass( GRAPHIC_RENDERER & renderer ) {
@@ -123,7 +128,7 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     RenderTarget->BindForReading();
     
     if ( FinalRenderTarget != NULL ) {
-        FinalRenderTarget->ClearDepth();
+        FinalRenderTarget->Clear();
         FinalRenderTarget->Apply( renderer );
     }
     else {
@@ -165,17 +170,15 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySecondPass( GRAPHIC_RENDE
     
     AmbientDirectionalDefferedEffect->SetMaterial( &Material );
     PointDefferedEffect->SetMaterial( &Material );
-    SpotDeferredEffect->SetMaterial( &Material );
+    SpotDeferredEffect->SetMaterial( &Material, ConeObject->GetMeshTable()[0]->GetName()  );
     
     renderer.SetLightingIsEnabled( true );
-    
     renderer.DisableDepthTest();
-    GRAPHIC_SYSTEM::Clear();
 
     PlanObject->Render( renderer, option, AmbientDirectionalDefferedEffect );
     renderer.EnableDepthTest();//GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, false );
-    
     renderer.SetDeferredLightingIsEnabled( true );
+    
     GRAPHIC_CAMERA::PTR backup_camera = renderer.GetCamera();
     renderer.SetCamera( PreviousCamera );
     
@@ -214,8 +217,8 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyStencilPassForPoint( GRAP
     FinalRenderTarget->ClearStencil();
     FinalRenderTarget->Apply( renderer );
     
-    //renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
-    ///renderer.DisableBlend();
+    renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+    //renderer.DisableBlend();
     
     GRAPHIC_SYSTEM::DisableFaceCulling();
     
@@ -268,14 +271,17 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplyStencilPassForSpot( GRAPH
     FinalRenderTarget->BindForReading();
     FinalRenderTarget->ClearStencil();
     FinalRenderTarget->Apply( renderer );
-    //GRAPHIC_SYSTEM::EnableDepthTest(GRAPHIC_SYSTEM_COMPARE_OPERATION_Less, true );
+    
+    renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
+    //renderer.DisableBlend();
+    
     GRAPHIC_SYSTEM::DisableFaceCulling();
     
     renderer.EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Always, 0, 0 );
     renderer.SetStencilOperation( GRAPHIC_POLYGON_FACE_Back, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_IncrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
     renderer.SetStencilOperation( GRAPHIC_POLYGON_FACE_Front, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_DecrementWrap, GRAPHIC_SYSTEM_STENCIL_FAIL_ACTION_Keep );
     
-    SphereObject->Render( renderer, option, NullTechniqueEffect );
+    ConeObject->Render( renderer, option, NullTechniqueEffect );
 }
 
 void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySpotLightPass( GRAPHIC_RENDERER & renderer ) {
@@ -283,21 +289,19 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySpotLightPass( GRAPHIC_RE
     GRAPHIC_OBJECT_RENDER_OPTIONS
         option;
     
-    return;
-    
     for (unsigned int i = 0 ; i < renderer.GetSpotLightTable().size(); i++) {
         
-        CORE_MATH_VECTOR
+        /*CORE_MATH_VECTOR
             vector, rs;
         CORE_MATH_QUATERNION
             orientation;
         CORE_MATH_MATRIX
-            rot;
+            rot;*/
         
         auto light = renderer.GetSpotLightTable()[ i ];
         renderer.SetDeferredSpotIndex( i );
         
-        vector.Set(1.0f, 0.0, 0.0, 0.0f );
+        /*vector.Set(1.0f, 0.0, 0.0, 0.0f );
         
         orientation.X( light->InternalLight.Spot.Orientation[0] );
         orientation.Y( light->InternalLight.Spot.Orientation[1] );
@@ -309,25 +313,24 @@ void GRAPHIC_RENDERER_TECHNIQUE_DEFERRED_SHADING::ApplySpotLightPass( GRAPHIC_RE
         
         light->InternalLight.Spot.Direction[0] = rs.X();
         light->InternalLight.Spot.Direction[1] = rs.Y();
-        light->InternalLight.Spot.Direction[2] = rs.Z();
+        light->InternalLight.Spot.Direction[2] = rs.Z();*/
         
         float scale = CalculateSpotLightSphereAndExtent( *light );
         
         option.SetScaleFactor(CORE_MATH_VECTOR( scale, scale, scale, 1.0f ) );
         option.SetPosition( light->InternalLight.Spot.Position );
-        option.SetOrientation( orientation );
+        option.SetOrientation( CORE_MATH_QUATERNION( light->InternalLight.Spot.Orientation[0], light->InternalLight.Spot.Orientation[1], light->InternalLight.Spot.Orientation[2], light->InternalLight.Spot.Orientation[3] ) );
         
         ApplyStencilPassForSpot( renderer, option, light );
         
-        GRAPHIC_SYSTEM::EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_NotEqual, 0, 0xFF );
-        GRAPHIC_SYSTEM::DisableDepthTest();
-        renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_One );
+        renderer.EnableStencilTest( GRAPHIC_SYSTEM_COMPARE_OPERATION_Always, 0, 0xFF );
+        renderer.DisableDepthTest();
+        renderer.EnableBlend( GRAPHIC_SYSTEM_BLEND_OPERATION_One, GRAPHIC_SYSTEM_BLEND_OPERATION_OneMinusSourceAlpha );
         renderer.SetBlendFunction( GRAPHIC_SYSTEM_BLEND_EQUATION_Add );
-
+    
         GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Front );
         
-        SphereObject->Render( renderer, option, SpotDeferredEffect );
-        //TODO: ConeObject
+        ConeObject->Render( renderer, option, SpotDeferredEffect );
         
         GRAPHIC_SYSTEM::EnableBackfaceCulling( GRAPHIC_POLYGON_FACE_Back );
         renderer.DisableBlend();

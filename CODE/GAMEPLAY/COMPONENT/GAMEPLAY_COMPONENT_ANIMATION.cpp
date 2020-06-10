@@ -11,7 +11,8 @@
 
 GAMEPLAY_COMPONENT_ANIMATION::GAMEPLAY_COMPONENT_ANIMATION() :
     GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_ANIMATION ) ),
-    Animation() {
+    Animation(),
+    Speed( 1.0f ) {
     
 }
 
@@ -32,9 +33,10 @@ void GAMEPLAY_COMPONENT_ANIMATION::operator =( const GAMEPLAY_COMPONENT_ANIMATIO
 
 void GAMEPLAY_COMPONENT_ANIMATION::Update( float time_step, GRAPHIC_MESH_SKELETON_JOINT * skeleton ) {
     
-    if ( time_step + Animation.GetCurrentTimeFrame() < Animation.GetAnimation( 0 )->GetDuration() ) {
+    float correct_step = time_step* Speed;
+    if ( correct_step + Animation.GetCurrentTimeFrame() < Animation.GetAnimation( 0 )->GetDuration() ) {
         
-        Animation.Update( time_step, skeleton );
+        Animation.Update( correct_step, skeleton );
     }
     else {
         

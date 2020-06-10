@@ -30,12 +30,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_LIGHT, GAMEPLAY_COMPO
     static void SaveToStream( CORE_DATA_STREAM & stream );
     static void LoadFromStream( CORE_DATA_STREAM & stream );
 
-    inline GRAPHIC_SHADER_LIGHT * GetLight() { return Light; }
-    inline void SetLight( GRAPHIC_SHADER_LIGHT::PTR light ) { Light = light; }
+    inline GRAPHIC_SHADER_LIGHT & GetLight() { return Light; }
+    inline void SetLight( GRAPHIC_SHADER_LIGHT & light ) { Light = light; }
 
 private :
 
-    GRAPHIC_SHADER_LIGHT::PTR
+    GRAPHIC_SHADER_LIGHT
         Light;
 
 XS_CLASS_END

@@ -92,6 +92,16 @@ typedef struct
         ModelMatrix,
         ViewMatrix,
         MVPMatrix;
+    vector_float4
+        geometryColor;
+} UIObjectUniforms;
+
+typedef struct
+{
+    matrix_float4x4
+        ModelMatrix,
+        ViewMatrix,
+        MVPMatrix;
     matrix_float4x4
         ShadowMapMVP1,
         ShadowMapMVP2,

@@ -35,7 +35,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Update( void * ecs_base_pointer, float
         
         assert( animation != NULL || render != NULL );
         
-        animation->Update( time_step, & render->GetObject().GetResource< GRAPHIC_OBJECT>()->GetSkeleton() );
+        animation->Update( time_step, & render->GetObject().GetResource< GRAPHIC_OBJECT>()->GetAnimationController()->GetAnimation(0)->GetSkeleton() );
         it++;
     }
 }

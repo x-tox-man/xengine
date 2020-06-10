@@ -46,7 +46,7 @@ void GRAPHIC_MESH_ANIMATION_JOINT::Initialize( int matrix_size, int count ) {
     PoseBuffer.Initialize( count * sizeof( CORE_MATH_POSE ) );
 }
 
-float * GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForIndex( int matrix_index ) {
+void GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForIndex( GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX matrix_index, CORE_MATH_MATRIX & matrix ) {
     
     /*int matrix_index = 0;
     
@@ -73,7 +73,17 @@ float * GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForIndex( int matrix
     
     assert(matrix_index == TimeTableBuffer.GetSize() -1 );*/
     
-    return (float *) FloatMatrixBuffer.getpointerAtIndex( matrix_index * sizeof(float) * 16, 0);
+    float * ptr1 = (float *) FloatMatrixBuffer.getpointerAtIndex( matrix_index.FrameIndex * sizeof(float) * 16, 0);
+    float * ptr2 = (float *) FloatMatrixBuffer.getpointerAtIndex( (matrix_index.NextFrameIndex ) * sizeof(float) * 16, 0);
+    
+    for (int i = 0; i < 16; i++ ) {
+        
+        matrix[i] = *ptr1 * matrix_index.Percentage + *ptr2 * (1.0f - matrix_index.Percentage);
+        ++ptr1;
+        ++ptr2;
+    }
+    
+    //matrix = CORE_MATH_MATRIX( (float *) FloatMatrixBuffer.getpointerAtIndex( matrix_index.FrameIndex * sizeof(float) * 16, 0) );
 }
 
 void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( const int pose_index, CORE_MATH_POSE & pose ) {

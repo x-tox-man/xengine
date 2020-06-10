@@ -7,6 +7,7 @@
 //
 
 #include "VIEWER3D.h"
+#include "CORE_APPLICATION.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION.h"
 #include "GAMEPLAY_COMPONENT_SYSTEM_PICKING.h"
@@ -248,9 +249,9 @@ void VIEWER3D::Screenshot() {
     GRAPHIC_RENDER_TARGET
         RenderTarget;
     
-    RenderTarget.Initialize( CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, 0, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
+    RenderTarget.Initialize( CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetWidth(), CORE_APPLICATION::GetApplicationInstance().GetApplicationWindow().GetHeight(), GRAPHIC_TEXTURE_IMAGE_TYPE_RGBA, false, false, false, 0, GRAPHIC_RENDER_TARGET_FRAMEBUFFER_MODE_All );
     
-    RenderTarget.Apply();
+    RenderTarget.Apply( GRAPHIC_RENDERER::GetInstance() );
     
     Scene->Render( GRAPHIC_RENDERER::GetInstance(), GAMEPLAY_COMPONENT_SYSTEM_MASK_All );
     
@@ -298,6 +299,12 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     
     effect->SetMaterial( material );
     
+    GRAPHIC_MATERIAL_COLLECTION *
+        collection = new GRAPHIC_MATERIAL_COLLECTION;
+    
+    //TODO: better
+    collection->SetMaterialForName( material, mesh->GetMeshTable()[0]->GetName() );
+    
     
     GAMEPLAY_COMPONENT_ENTITY * entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT_PHYSICS >();
     
@@ -308,16 +315,16 @@ void VIEWER3D::CreateMesh( GRAPHIC_OBJECT * mesh, GRAPHIC_SHADER_EFFECT * effect
     
     if ( mat != NULL ) {
         RESOURCE_PROXY
-            proxy( mat );
+            proxy( collection );
         
-        entity->GetComponentRender()->SetMaterial( proxy );
+        entity->GetComponentRender()->SetMaterialCollection( proxy );
         SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetTexture create mat\n" );
     }
     entity->GetComponentRender()->SetEffect( *proxy_effect );
     
     GAMEPLAY_COMPONENT_SYSTEM_RENDERER * render_system = ( GAMEPLAY_COMPONENT_SYSTEM_RENDERER * ) Scene->GetRenderableSystemTable()[0];
     
-    render_system->AddEntity( entity->GetHandle() );
+    render_system->AddEntity( entity );
     render_system->SetRenderer( &GRAPHIC_RENDERER::GetInstance() );
     
     GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * bullet_system = ( GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION * ) Scene->GetUpdatableSystemTable()[4];

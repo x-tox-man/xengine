@@ -21,7 +21,7 @@ GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER() :
     CurrentTimeFrame( 0.0f ),
     CurrentTimeFrameIndex( 0 ),
     MeshAnimationTable(),
-    ThisFrameAnimationMatrixArrayTable() {
+    ThisFrameAnimationMatrixArrayTable( NULL ) {
     
 }
 
@@ -29,7 +29,7 @@ GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER( const GRAP
     CurrentTimeFrame( other.CurrentTimeFrame ),
     CurrentTimeFrameIndex( other.CurrentTimeFrameIndex ),
     MeshAnimationTable( other.MeshAnimationTable ),
-    ThisFrameAnimationMatrixArrayTable() {
+    ThisFrameAnimationMatrixArrayTable( NULL ) {
     
     Initialize();
 }
@@ -37,7 +37,6 @@ GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER( const GRAP
 GRAPHIC_MESH_ANIMATION_CONTROLLER::~GRAPHIC_MESH_ANIMATION_CONTROLLER() {
     
     std::vector< GRAPHIC_MESH_ANIMATION * >::iterator it = MeshAnimationTable.begin();
-    std::vector< float * >::iterator it2 = ThisFrameAnimationMatrixArrayTable.begin();
     
     while ( it != MeshAnimationTable.end() ) {
         
@@ -47,23 +46,18 @@ GRAPHIC_MESH_ANIMATION_CONTROLLER::~GRAPHIC_MESH_ANIMATION_CONTROLLER() {
     
     MeshAnimationTable.clear();
     
-    while ( it2 != ThisFrameAnimationMatrixArrayTable.end() ) {
-        
-        CORE_MEMORY_ObjectSafeDeallocation( *it2 );
-        
-        it2++;
-    }
-    
-    ThisFrameAnimationMatrixArrayTable.clear();
+    ThisFrameAnimationMatrixArrayTable->clear();
 }
 
 void GRAPHIC_MESH_ANIMATION_CONTROLLER::Initialize() {
     
-    ThisFrameAnimationMatrixArrayTable.resize( MeshAnimationTable.size() );
+    ThisFrameAnimationMatrixArrayTable = new std::vector< GRAPHIC_SHADER_GPU_BUFFER >();
+    ThisFrameAnimationMatrixArrayTable->resize( MeshAnimationTable.size() );
     
     for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
         
-        ThisFrameAnimationMatrixArrayTable[ i ] = (float *) CORE_MEMORY_ALLOCATOR::Allocate( MeshAnimationTable[i]->GetJointTable().size() * sizeof(float) * 16 );
+        (*ThisFrameAnimationMatrixArrayTable)[ i ] = GRAPHIC_SHADER_GPU_BUFFER();
+        (*ThisFrameAnimationMatrixArrayTable)[ i ].Initialize( (unsigned int) MeshAnimationTable[i]->GetJointTable().size() * sizeof(float) * 16 );
     }
 }
 
@@ -81,11 +75,17 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Update( const float time, GRAPHIC_MESH_S
     
     for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
         
-        float * frame_reference = ThisFrameAnimationMatrixArrayTable[ i ];
+        float * frame_reference = (float *) (*ThisFrameAnimationMatrixArrayTable)[ i ].GetGPUBufferDataPointer();
         MeshAnimationTable[i]->ComputeSkinningMatrixTableForFrameIndex( skeleton, GetFrameIndex(), frame_reference );
+        
+        int offset = 0;
+        float * ptr = (float*) GetAnimation( (int)i )->GetInverseBindMatrixes().getpointerAtIndex(0, 0);
+        for ( size_t mi = 0; mi < GetAnimation( (int) i )->GetJointTable().size(); mi++ ) {
+            
+            GLOBAL_MULTIPLY_MATRIX(frame_reference + offset, ptr + offset );
+            offset += 16;
+        }
     }
-    
-    //skeleton->print(0);
     
     //TODO: Average animations?
     for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
@@ -93,11 +93,14 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Update( const float time, GRAPHIC_MESH_S
     }
 }
 
-inline unsigned int GRAPHIC_MESH_ANIMATION_CONTROLLER::GetFrameIndex() {
-    
+GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX GRAPHIC_MESH_ANIMATION_CONTROLLER::GetFrameIndex() {
+     
     float * ptr = (float*) MeshAnimationTable[0]->GetTimeTableBuffer().getpointerAtIndex(0, 0) + CurrentTimeFrameIndex;
+    GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX
+        frame_index;
+    int size = MeshAnimationTable[0]->GetTimeTableBuffer().GetSize() / 4;
     
-    for (int i = 0; i < MeshAnimationTable[0]->GetTimeTableBuffer().GetSize() / 4; i++ ) {
+    for (int i = 0; i < size; i++ ) {
         
         if ( CurrentTimeFrame > *ptr  ) {
             
@@ -105,10 +108,16 @@ inline unsigned int GRAPHIC_MESH_ANIMATION_CONTROLLER::GetFrameIndex() {
             ptr++;
             continue;
         }
+        
+        frame_index.FrameIndex = CurrentTimeFrameIndex;
+        
+        frame_index.NextFrameIndex = (frame_index.FrameIndex == (size -1)) ? 0 : (frame_index.FrameIndex +1);
+        frame_index.Percentage = (*(ptr) - CurrentTimeFrame)/ (*(ptr) - *(ptr - 1));
+        
         break;
     }
     
-    return CurrentTimeFrameIndex;
+    return frame_index;
 }
 
 void GRAPHIC_MESH_ANIMATION_CONTROLLER::Reset() {

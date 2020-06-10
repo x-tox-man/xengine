@@ -98,10 +98,18 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY )
         entity->SetParent( this );
     }
 
-    virtual GAMEPLAY_COMPONENT_ENTITY * Clone() const {
-     
-        CORE_RUNTIME_Abort();
-        return new GAMEPLAY_COMPONENT_ENTITY( 0 );
+    void Reset() {
+        
+        GAMEPLAY_COMPONENT * cmp = NULL;
+        
+        cmp = ((GAMEPLAY_COMPONENT*)( this + 1 ));
+        
+        for ( int i = 1; i <= ComponentCount; i++ ) {
+            
+            cmp->Reset();
+            
+            cmp = (GAMEPLAY_COMPONENT*)(((uint8_t *)cmp) + cmp->GetSize());
+        }
     }
 
 public:
@@ -142,6 +150,8 @@ public:
     friend class GAMEPLAY_COMPONENT_SYSTEM_CHUNK;
 
     inline GAMEPLAY_COMPONENT_ENTITY_HANDLE & GetHandle() { return Handle; }
+    inline void SetComponentCount( uint8_t component_count ) { ComponentCount = component_count; }
+    inline uint8_t GetComponentCount() const { return ComponentCount; }
 
 private:
 

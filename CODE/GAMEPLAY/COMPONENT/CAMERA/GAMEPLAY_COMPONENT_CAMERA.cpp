@@ -33,7 +33,7 @@ void GAMEPLAY_COMPONENT_CAMERA::Initialize(float near_plane, float far_plane, fl
     
     Camera.Reset( near_plane, far_plane, width, height, position, direction, up );
     
-    CORE_RUNTIME_Abort();
+    //TODO: 
     /*handle.Create<GAMEPLAY_COMPONENT_POSITION>( GAMEPLAY_COMPONENT_TYPE_Position );
     
     SetCompononent( handle, GAMEPLAY_COMPONENT_TYPE_Position );

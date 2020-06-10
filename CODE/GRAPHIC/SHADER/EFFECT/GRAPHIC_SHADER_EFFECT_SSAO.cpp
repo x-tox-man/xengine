@@ -14,11 +14,11 @@
 
 GRAPHIC_SHADER_EFFECT_SSAO::GRAPHIC_SHADER_EFFECT_SSAO( GRAPHIC_SHADER_EFFECT::PTR effect ) :
     GRAPHIC_SHADER_EFFECT(),
-    SSAOKernel(),
     SampleRad( 0.1f ),
     Camera(),
     TextureBlock( NULL ),
-    Texture( NULL ) {
+    Texture( NULL ),
+    GPUBuffer() {
     
     Program.SetProgram( effect->GetProgram().GetProgram() );
     Program.CopyAttributes();
@@ -43,7 +43,6 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, const char 
         mv,
         inv,
         id;
-    
 
     GetMaterial()->SetTexture(GRAPHIC_SHADER_PROGRAM::ColorTexture4, TextureBlock );
     
@@ -68,7 +67,8 @@ void GRAPHIC_SHADER_EFFECT_SSAO::Apply( GRAPHIC_RENDERER & renderer, const char 
     v4[2] = TanHalfFOV;
     v4[3] = 1.0f;
     
-    GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( renderer, SSAOKernel, SSAO_MAX_KERNEL * 16, ssao_kernel );
+    ssao_kernel.GPUBuffer = GPUBuffer;
+    GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( renderer, (float *) GPUBuffer.GetGPUBufferDataPointer(), SSAO_MAX_KERNEL * 16, ssao_kernel );
     GRAPHIC_SYSTEM::ApplyShaderAttributeVector(renderer, v4, ssao_sample_rad);
     
     mv = Camera->GetProjectionMatrix() * Camera->GetViewMatrix();// * inv;
@@ -84,15 +84,18 @@ void GRAPHIC_SHADER_EFFECT_SSAO::GenerateSSAOKernel() {
     
     srand( (unsigned int) clock() );
     
+    GPUBuffer.Initialize( SSAO_MAX_KERNEL * 4 * sizeof( float ) );
+    float * kernel = (float * ) GPUBuffer.GetGPUBufferDataPointer();
+    
     for (int i = 0; i < SSAO_MAX_KERNEL; i++ ) {
         
         float scale = 1.0f - ((float)i / (float)(SSAO_MAX_KERNEL));
         scale = (0.1f + 0.9f * scale * scale);
 
-        SSAOKernel[ i * 4 + 0 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
-        SSAOKernel[ i * 4 + 1 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
-        SSAOKernel[ i * 4 + 2 ] = ( ( ( rand() %100) * 0.01f ) ) * scale* 0.03f;
-        SSAOKernel[ i * 4 + 3 ] = 1.0f;
+        kernel[ i * 4 + 0 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
+        kernel[ i * 4 + 1 ] = ( ( ( rand() %200) * 0.01f ) -1.0f ) * scale* 0.03f;
+        kernel[ i * 4 + 2 ] = ( ( ( rand() %100) * 0.01f ) ) * scale* 0.03f;
+        kernel[ i * 4 + 3 ] = 1.0f;
     }
     float * noise = (float*) malloc( sizeof(float) * SSAO_MAX_ROTATIONS);
     

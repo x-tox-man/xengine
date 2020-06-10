@@ -17,6 +17,7 @@
 #include "CORE_MEMORY.h"
 #include "CORE_DATA_TYPES.h"
 #include "GRAPHIC_MESH_SKELETON_JOINT.h"
+#include "GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX.h"
 
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_JOINT )
 
@@ -44,7 +45,7 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_JOINT )
     void SetWorldPose( CORE_MATH_POSE & pose ) { WorldPose.CopyFrom( pose ); }
     void SetSkinningPose( CORE_MATH_POSE & skinning_pose ) { InterpolatedPose.CopyFrom( skinning_pose ); }
 
-    float * YieldFloatMatrixBufferForIndex( const int matrix_index );
+    void YieldFloatMatrixBufferForIndex( GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX matrix_index, CORE_MATH_MATRIX & matrix);
     void YieldPoseForTime( const int pose_index, CORE_MATH_POSE & pose );
 
     inline void SetSkeletonJoint( GRAPHIC_MESH_SKELETON_JOINT::PTR joint ) { SkeletonJoint =  joint; }

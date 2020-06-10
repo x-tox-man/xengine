@@ -24,6 +24,9 @@ GRAPHIC_OBJECT_SHAPE_SPHERE::GRAPHIC_OBJECT_SHAPE_SPHERE( int sphere_rings ) :
     
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Position );
     ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Normal );
+    ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Texcoord0 );
+    ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Tangents );
+    ShaderBindParameter = ( GRAPHIC_SHADER_BIND ) ( ShaderBindParameter | GRAPHIC_SHADER_BIND_Bitangents );
 }
 
 GRAPHIC_OBJECT_SHAPE_SPHERE::GRAPHIC_OBJECT_SHAPE_SPHERE() :
@@ -42,7 +45,7 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape() {
     
     //algo : 1 vertex => 4 => 16
     
-    float * vertex_data = ( float * ) CORE_MEMORY_ALLOCATOR::Allocate ( 8 * sizeof( float ) * ring_c * ring_c * 4 );
+    float * vertex_data = ( float * ) CORE_MEMORY_ALLOCATOR::Allocate ( 16 * sizeof( float ) * ring_c * ring_c * 4 );
 
     float ratio = 1.0f / ring_c;
     
@@ -78,12 +81,15 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::InitializeShape() {
     
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Position);
     mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Normal);
+    mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Texcoord0);
+    mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Tangents);
+    mesh->ActivateBufferComponent(GRAPHIC_SHADER_BIND_Bitangents);
     
     CORE_DATA_BUFFER * index_buffer = new CORE_DATA_BUFFER;
     CORE_DATA_BUFFER * vertex_buffer = new CORE_DATA_BUFFER;
     
     index_buffer->InitializeWithMemory( ring_c * ring_c * 6 * sizeof(unsigned int), 0, (void*) index_data );
-    vertex_buffer->InitializeWithMemory( ring_c * ring_c * 4 * 8 * sizeof(float), 0, (void*) vertex_data );
+    vertex_buffer->InitializeWithMemory( ring_c * ring_c * 4 * 16 * sizeof(float), 0, (void*) vertex_data );
     
     mesh->SetIndexCoreBuffer( index_buffer );
     mesh->SetVertexCoreBuffer( vertex_buffer );
@@ -108,13 +114,24 @@ void GRAPHIC_OBJECT_SHAPE_SPHERE::computePoint( float * data_pointer, float long
     
     vector = rotation_matrix * base_vector;
     
-    data_pointer[ point_index * 8 + 0 ] = vector.X();
-    data_pointer[ point_index * 8 + 1 ] = vector.Y();
-    data_pointer[ point_index * 8 + 2 ] = vector.Z();
-    data_pointer[ point_index * 8 + 3 ] = 1.0f;
+    data_pointer[ point_index * 16 + 0 ] = vector.X();
+    data_pointer[ point_index * 16 + 1 ] = vector.Y();
+    data_pointer[ point_index * 16 + 2 ] = vector.Z();
+    data_pointer[ point_index * 16 + 3 ] = 1.0f;
     
-    data_pointer[ point_index * 8 + 4 ] = vector.X();
-    data_pointer[ point_index * 8 + 5 ] = vector.Y();
-    data_pointer[ point_index * 8 + 6 ] = vector.Z();
-    data_pointer[ point_index * 8 + 7 ] = 1.0f;
+    data_pointer[ point_index * 16 + 4 ] = vector.X();
+    data_pointer[ point_index * 16 + 5 ] = vector.Y();
+    data_pointer[ point_index * 16 + 6 ] = vector.Z();
+    data_pointer[ point_index * 16 + 7 ] = 1.0f;
+    
+    data_pointer[ point_index * 16 + 8 ] = 0.0f;
+    data_pointer[ point_index * 16 + 9 ] = 1.0f;
+    
+    data_pointer[ point_index * 16 + 10 ] = 1.0f;
+    data_pointer[ point_index * 16 + 11 ] = 1.0f;
+    data_pointer[ point_index * 16 + 12 ] = 1.0f;
+    
+    data_pointer[ point_index * 16 + 13 ] = 1.0f;
+    data_pointer[ point_index * 16 + 14 ] = 1.0f;
+    data_pointer[ point_index * 16 + 15 ] = 1.0f;
 }

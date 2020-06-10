@@ -23,12 +23,18 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_C
 
     inline void SetAnimation( const GRAPHIC_MESH_ANIMATION_CONTROLLER & animation ) { Animation = animation; }
     inline GRAPHIC_MESH_ANIMATION_CONTROLLER & GetAnimation() { return Animation; }
+    inline void SetSpeed( float speed ) { Speed = speed; }
+
+    virtual void Reset() override {
+        Animation.Initialize();
+    }
 
 private :
 
-
     GRAPHIC_MESH_ANIMATION_CONTROLLER
         Animation;
+    float
+        Speed;
 
 XS_CLASS_END
 

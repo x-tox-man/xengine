@@ -31,6 +31,7 @@ XS_CLASS_BEGIN( CORE_DATA_STREAM )
     inline void SetOffset( int offset ) { Offset = offset; }
 
     inline X_VERY_LONG GetSize() const { return Size; }
+    inline X_VERY_LONG & GetSize() { return Size; }
     inline X_VERY_LONG GetAllocatedBytes() const { return AllocatedBytes; }
 
     template <typename __TYPE__ >

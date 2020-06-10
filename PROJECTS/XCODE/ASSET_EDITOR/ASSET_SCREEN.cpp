@@ -7,6 +7,7 @@
 //
 
 #include "ASSET_SCREEN.h"
+#include "CORE_APPLICATION.h"
 #include "RESOURCE_IMAGE.h"
 #include "GRAPHIC_TEXTURE_ATLAS.h"
 #include "CORE_PARALLEL_TASK.h"

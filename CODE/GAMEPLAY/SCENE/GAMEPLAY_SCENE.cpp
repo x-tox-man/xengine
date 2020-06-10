@@ -17,6 +17,7 @@
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_PHYSICS.h"
 #include "GAMEPLAY_COMPONENT_MANAGER.h"
+#include "CORE_DATA_JSON.h"
 
 #if GRAPHIC_RENDERER_OPENGL
     #define GRAPHIC_RENDER_PLATFORM OPENGL
@@ -39,6 +40,13 @@
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GAMEPLAY_SCENE )
     // TODO:
 CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GAMEPLAY_SCENE )
+
+//XS_IMPLEMENT_INTERNAL_STL_VECTOR_MEMORY_LAYOUT( GAMEPLAY_COMPONENT_SYSTEM )
+
+//XS_IMPLEMENT_INTERNAL_MEMORY_LAYOUT( GAMEPLAY_SCENE )
+//    XS_DEFINE_ClassMember( "UpdatableSystemTable", unsigned int, UpdatableSystemTable )
+//    XS_DEFINE_ClassMember( "RenderableSystemTable", unsigned int, RenderableSystemTable )
+//XS_END_INTERNAL_MEMORY_LAYOUT
 
 
 GAMEPLAY_SCENE::GAMEPLAY_SCENE() :
@@ -107,10 +115,8 @@ void GAMEPLAY_SCENE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
     
     stream.Open();
     
-    CORE_RUNTIME_Abort();
-    
     //Serialize Entities
-    /*GAMEPLAY_COMPONENT_MANAGER::GetInstance().SaveToStream( stream );
+    GAMEPLAY_COMPONENT_MANAGER::GetInstance().SaveToStream( stream );
     
     //Serialize Systems
     while (update_table_iterator != UpdatableSystemTable.end() ) {
@@ -129,7 +135,7 @@ void GAMEPLAY_SCENE::SaveTo( const CORE_FILESYSTEM_PATH & path ) {
     
     file.OpenInput();
     file.InputBytes( stream.GetMemoryBuffer(), stream.GetOffset() );
-    file.Close();*/
+    file.Close();
 }
 
 void GAMEPLAY_SCENE::LoadFrom( const CORE_FILESYSTEM_PATH & path ) {
@@ -159,8 +165,6 @@ void GAMEPLAY_SCENE::LoadFrom( const CORE_FILESYSTEM_PATH & path ) {
     file.Close();
     
     stream.Open();
-    
-    CORE_RUNTIME_Abort();
     
     //Serialize Entities
     GAMEPLAY_COMPONENT_MANAGER::GetInstance().LoadFromStream( stream );

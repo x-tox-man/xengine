@@ -40,9 +40,9 @@ GRAPHIC_TEXTURE_IMAGE_TYPE GetImageTypeFromMTLPixelFormat( MTLPixelFormat format
             
         case MTLPixelFormatStencil8:
             return GRAPHIC_TEXTURE_IMAGE_TYPE_STENCIL8;
-            
-        case MTLPixelFormatDepth24Unorm_Stencil8:
-            return GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH24;
+        
+        //case MTLPixelFormatDepth24Unorm_Stencil8:
+            //return GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH24;
             
         case MTLPixelFormatDepth32Float_Stencil8 :
             return GRAPHIC_TEXTURE_IMAGE_TYPE_DEPTH32;

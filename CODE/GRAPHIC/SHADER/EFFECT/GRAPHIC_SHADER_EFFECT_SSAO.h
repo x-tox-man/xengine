@@ -15,6 +15,7 @@
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
 #include "CORE_HELPERS_IDENTIFIER.h"
 #include "GRAPHIC_CAMERA.h"
+#include "GRAPHIC_SHADER_GPU_BUFFER.h"
 
 #define SSAO_MAX_KERNEL     128
 #define SSAO_MAX_ROTATIONS  16
@@ -35,7 +36,6 @@ private:
     void GenerateSSAOKernel();
 
     float
-        SSAOKernel[ SSAO_MAX_KERNEL * 4 ],
         SampleRad;
     GRAPHIC_CAMERA::PTR
         Camera;
@@ -43,6 +43,8 @@ private:
         TextureBlock;
     GRAPHIC_TEXTURE::PTR
         Texture;
+    GRAPHIC_SHADER_GPU_BUFFER
+        GPUBuffer;
 
 XS_CLASS_END
 

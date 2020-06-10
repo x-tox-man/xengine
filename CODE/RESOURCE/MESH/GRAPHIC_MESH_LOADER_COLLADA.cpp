@@ -168,7 +168,7 @@
                     std::vector< GRAPHIC_MESH_ANIMATION_JOINT::PTR > tempTable;
                     tempTable.resize( graphicObject->GetAnimationTable()[0]->GetJointTable().size() );
                     
-                    FillSkeleton( graphicObject->GetSkeleton(), *visualScene->getRootNodes()[i], tempTable );
+                    FillSkeleton( graphicObject->GetAnimationTable()[an_ind]->GetSkeleton(), *visualScene->getRootNodes()[i], tempTable );
                     
                     for ( int ai = 0; ai < graphicObject->GetAnimationTable()[0]->GetJointTable().size(); ai ++ ) {
                         

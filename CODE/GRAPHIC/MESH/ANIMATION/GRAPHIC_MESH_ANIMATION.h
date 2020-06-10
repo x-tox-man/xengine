@@ -15,7 +15,7 @@
 #include "CORE_DATA_BUFFER.h"
 #include "GRAPHIC_MESH_ANIMATION_JOINT.h"
 #include "GRAPHIC_MESH_ANIMATION_MODE.h"
-
+#include "GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX.h"
 #include "assert.h"
 
 XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION )
@@ -27,7 +27,7 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION )
 
     std::vector<GRAPHIC_MESH_ANIMATION_JOINT *> & GetJointTable() { return JointTable; }
 
-    void ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_MESH_SKELETON_JOINT * skeletton, const int animation_step_index, float * matrix_buffer );
+    void ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float * matrix_buffer );
 
     CORE_DATA_BUFFER & GetInverseBindMatrixes() { return InverseBindMatrixes; }
     CORE_SCALAR & GetBindShapeMatrix() { return BindShapeMatrix; }
@@ -46,12 +46,16 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION )
         memcpy( (void*)BindShapeMatrix.Value.FloatMatrix4x4, (void*)shape_matrix_data, 16 * sizeof(float) );
     }
 
+    inline GRAPHIC_MESH_SKELETON_JOINT & GetSkeleton() { return Skeleton; }
+
 private :
 
-    void SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * skeletton, const int animation_step_index, float ** ptr_index, CORE_MATH_MATRIX & world_matrix );
+    void SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float ** ptr_index, CORE_MATH_MATRIX & world_matrix );
 
     std::vector<GRAPHIC_MESH_ANIMATION_JOINT::PTR>
         JointTable;
+    GRAPHIC_MESH_SKELETON_JOINT
+        Skeleton;
     GRAPHIC_MESH_ANIMATION_MODE
         Mode;
     std::string

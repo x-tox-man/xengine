@@ -44,19 +44,47 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_MANAGER )
         return ( GAMEPLAY_COMPONENT_ENTITY * ) ( ( ( uint8_t * ) ECSData.GetMemoryBuffer() ) + handle.GetOffset() );
     }
 
-    template< typename ... T >
+    template< typename ... COMPONENT_TYPES >
     GAMEPLAY_COMPONENT_ENTITY::PTR CreateEntityWithComponents() {
         
         // using placement new
-        auto entity = new (((uint8_t *) ECSData.GetMemoryBuffer() + Offset)) GAMEPLAY_COMPONENT_ENTITY( sizeof...( T ) );
+        auto entity = new (((uint8_t *) ECSData.GetMemoryBuffer() + Offset)) GAMEPLAY_COMPONENT_ENTITY( sizeof...( COMPONENT_TYPES ) );
+        
+        int base_offset = Offset;
         
         entity->GetHandle().SetOffset( Offset );
         Offset += sizeof( GAMEPLAY_COMPONENT_ENTITY );
         
-        (CreateComponents< T >(), ...);
+        (CreateComponents< COMPONENT_TYPES >(), ...);
+        
+        entity->GetHandle().SetSize( Offset - base_offset);
         
         return entity;
     }
+
+    GAMEPLAY_COMPONENT_ENTITY::PTR Clone( GAMEPLAY_COMPONENT_ENTITY::PTR entity ) {
+        
+        auto clone = new (((uint8_t *) ECSData.GetMemoryBuffer() + Offset)) GAMEPLAY_COMPONENT_ENTITY( entity->GetHandle().GetSize() );
+        
+        memcpy( (((uint8_t *) ECSData.GetMemoryBuffer() + Offset)), (((uint8_t *) ECSData.GetMemoryBuffer() + entity->GetHandle().GetOffset())),entity->GetHandle().GetSize());
+        
+        clone->SetComponentCount( entity->GetComponentCount() );
+        clone->GetHandle().SetOffset( Offset );
+        clone->GetHandle().SetSize( entity->GetHandle().GetSize() );
+        clone->Reset();
+        Offset += entity->GetHandle().GetSize();
+        
+        return clone;
+    }
+
+    /*template< typename COMPONENT_TYPE >
+    GAMEPLAY_COMPONENT_ENTITY::PTR AddComponentToEntity() {
+        
+        // using placement new
+        auto entity =
+        
+        return entity;
+    }*/
 
     void Clear();
 

@@ -54,13 +54,12 @@ void GAMEPLAY_COMPONENT_MANAGER::Clear() {
 
 void GAMEPLAY_COMPONENT_MANAGER::SaveToStream( CORE_DATA_STREAM & stream ) {
     
-    CORE_RUNTIME_Abort();
-    //stream.InputBytes( ECSData.GetMemoryBuffer(), ECSData.GetSize() );
+    //CORE_RUNTIME_Abort();
+    stream.InputBytes( (u_int8_t*) ECSData.GetMemoryBuffer(), ECSData.GetSize() );
 }
 
 void GAMEPLAY_COMPONENT_MANAGER::LoadFromStream( CORE_DATA_STREAM & stream ) {
-    
-    CORE_RUNTIME_Abort();
-    //stream.OutputBytes(ECSData.GetMemoryBuffer(), ECSData.GetSize() );
+
+    stream.OutputBytes( (u_int8_t*) ECSData.GetMemoryBuffer(), ECSData.GetSize() );
 }
 

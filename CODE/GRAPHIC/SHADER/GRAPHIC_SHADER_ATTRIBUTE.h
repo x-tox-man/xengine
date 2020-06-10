@@ -12,6 +12,7 @@
 #include "CORE_HELPERS_CLASS.h"
 #include "CORE_HELPERS_IDENTIFIER.h"
 #include "CORE_HELPERS_SCALAR.h"
+#include "GRAPHIC_SHADER_GPU_BUFFER.h"
 
 XS_CLASS_BEGIN( GRAPHIC_SHADER_ATTRIBUTE )
 
@@ -25,8 +26,8 @@ XS_CLASS_BEGIN( GRAPHIC_SHADER_ATTRIBUTE )
     int
         AttributeIndex,
         AttributeOffset;
-    void
-        * GPUBuffer;
+    GRAPHIC_SHADER_GPU_BUFFER
+        GPUBuffer;
 
 XS_CLASS_END
 

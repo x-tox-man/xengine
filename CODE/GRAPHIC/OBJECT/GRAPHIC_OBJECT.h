@@ -59,14 +59,12 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_OBJECT, GR_O_ANCESTOR_TYPE )
             AnimationTable;
     #endif
 
-    void ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTIONS & options, const CORE_MATH_MATRIX & transform, GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp, CORE_MATH_MATRIX & object_matrix );
+    static void ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPTIONS & options, const CORE_MATH_MATRIX & transform, GRAPHIC_RENDERER & renderer, CORE_MATH_MATRIX & mvp, CORE_MATH_MATRIX & object_matrix );
 
     void ComputeAABBox( CORE_MATH_SHAPE & box );
 
     inline GRAPHIC_MESH_ANIMATION_CONTROLLER * GetAnimationController() { return AnimationController; };
     inline void SetAnimationController( GRAPHIC_MESH_ANIMATION_CONTROLLER * animation ) { AnimationController = animation; };
-
-    inline GRAPHIC_MESH_SKELETON_JOINT & GetSkeleton() { return Skeleton; }
 
 protected:
 
@@ -74,8 +72,6 @@ protected:
 
     std::vector< GRAPHIC_MESH *>
         MeshTable;
-    GRAPHIC_MESH_SKELETON_JOINT
-        Skeleton;
     GRAPHIC_SHADER_BIND
         ShaderBindParameter;
     GRAPHIC_MESH_ANIMATION_CONTROLLER

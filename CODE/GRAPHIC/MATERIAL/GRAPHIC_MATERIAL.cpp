@@ -104,7 +104,7 @@ void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRA
     
     if ( renderer.IsColorEnabled() && color_attribute.AttributeIndex != 0 ) {
         
-        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 1,  &InnerMaterial.Diffuse[0] )
+        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 4,  &InnerMaterial.Diffuse[0] )
     }
     
     if ( renderer.IsTexturingEnabled() ) {
