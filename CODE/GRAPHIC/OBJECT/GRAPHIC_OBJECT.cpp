@@ -205,7 +205,7 @@ void GRAPHIC_OBJECT::ComputeModelViewProjection( const GRAPHIC_OBJECT_RENDER_OPT
     if ( options.GetParent() ) {
         
         CORE_MATH_VECTOR cp = options.GetPosition() * orientation_mat;
-        abort(); //TODO: object_matrix = scaling_matrix * orientation_mat * translation_matrix;
+        //abort(); //TODO: object_matrix = scaling_matrix * orientation_mat * translation_matrix;
         options.GetParent()->GetOrientation().ToMatrix( &orientation_mat[0] );
         object_matrix.Translate( options.GetParent()->GetPosition() );
         object_matrix = object_matrix * orientation_mat;

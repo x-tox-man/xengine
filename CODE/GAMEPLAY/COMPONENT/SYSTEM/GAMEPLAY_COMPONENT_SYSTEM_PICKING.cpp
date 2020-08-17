@@ -37,17 +37,17 @@ void GAMEPLAY_COMPONENT_SYSTEM_PICKING::Update( void * ecs_base_pointer, float t
     
     while (it != EntitiesTable.end() ) {
         
-        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((int*) ecs_base_pointer) + it->GetOffset());
         
-        GAMEPLAY_COMPONENT_POSITION * position = entity->GetComponentPosition();
-        GAMEPLAY_COMPONENT_PHYSICS * physics = entity->GetComponentPhysics();
+        GAMEPLAY_COMPONENT_POSITION * position = entity->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
+        GAMEPLAY_COMPONENT_PHYSICS * physics = entity->GetComponent<GAMEPLAY_COMPONENT_PHYSICS>();
         
         physics->GetShape().SetHalfDiagonal( CORE_MATH_VECTOR(0.5f,0.5f,0.5f,1.0f) );
         physics->GetShape().SetPosition( position->GetPosition() );
         
         if ( physics->GetShape().GetIntersection( Ray ) && PERIPHERIC_INTERACTION_SYSTEM::GetInstance().GetMouse().GetLeftButtonClicked() ) {
             
-            GAMEPLAY_COMPONENT_ACTION * action = (( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset()))->GetComponentAction();
+            GAMEPLAY_COMPONENT_ACTION * action = (( GAMEPLAY_COMPONENT_ENTITY *) (((int*) ecs_base_pointer) + it->GetOffset()))->GetComponent<GAMEPLAY_COMPONENT_ACTION>();
             
             action->operator()( entity );
         }

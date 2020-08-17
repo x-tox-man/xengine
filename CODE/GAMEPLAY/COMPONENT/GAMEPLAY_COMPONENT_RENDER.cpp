@@ -14,7 +14,6 @@
 #include "GRAPHIC_OBJECT.h"
 
 GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
-    GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_RENDER ) ),
     ObjectProxy(),
     EffectProxy(),
     ShadowMapEffectProxy(),
@@ -25,7 +24,6 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
 }
 
 GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER( const GAMEPLAY_COMPONENT_RENDER & other ) :
-    GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_RENDER ) ),
     ObjectProxy( other.ObjectProxy ),
     EffectProxy( other.EffectProxy ),
     ShadowMapEffectProxy( other.ShadowMapEffectProxy ),
@@ -98,3 +96,5 @@ void GAMEPLAY_COMPONENT_RENDER::ComputeSize( CORE_MATH_SHAPE & shape ) {
     
     object->ComputeAABBox( shape );
 }
+
+int GAMEPLAY_COMPONENT_RENDER::ComponentType = GAMEPLAY_COMPONENT_TYPE_Render;

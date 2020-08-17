@@ -28,6 +28,7 @@ XS_END_INTERNAL_MEMORY_LAYOUT*/
 GAMEPLAY_COMPONENT_MANAGER::GAMEPLAY_COMPONENT_MANAGER() :
     ECSData(),
     NamedEntitiesTable(),
+    EntitiesChildsTable(),
     Offset( 0 ) {
     
     Initialize();
@@ -54,7 +55,6 @@ void GAMEPLAY_COMPONENT_MANAGER::Clear() {
 
 void GAMEPLAY_COMPONENT_MANAGER::SaveToStream( CORE_DATA_STREAM & stream ) {
     
-    //CORE_RUNTIME_Abort();
     stream.InputBytes( (u_int8_t*) ECSData.GetMemoryBuffer(), ECSData.GetSize() );
 }
 

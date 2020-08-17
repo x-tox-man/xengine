@@ -62,7 +62,7 @@ XS_CLASS_BEGIN( GAMEPLAY_ACTION_SYSTEM )
         
         stream.Open();
         XS_CLASS_SERIALIZER< CORE_TIMELINE_EVENT, CORE_DATA_STREAM >::Serialize< std::true_type >( "event", event, stream );
-        stream << command.GetFactoryType();
+        stream << command.FactoryGetType();
         XS_CLASS_SERIALIZER< __COMMAND_TYPE__, CORE_DATA_STREAM >::template Serialize< std::true_type >( "command", command, stream );
         stream.Close();
         
@@ -89,7 +89,7 @@ XS_CLASS_BEGIN( GAMEPLAY_ACTION_SYSTEM )
         
         stream.Open();
         XS_CLASS_SERIALIZER< CORE_TIMELINE_EVENT, CORE_DATA_STREAM >::Serialize< std::true_type >( "event", event, stream );
-        stream << command.GetFactoryType();
+        stream << command.FactoryGetType();
         XS_CLASS_SERIALIZER< __COMMAND_TYPE__, CORE_DATA_STREAM >::template Serialize< std::true_type >( "command", command, stream );
         stream.Close();
         

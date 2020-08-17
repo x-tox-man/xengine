@@ -22,14 +22,16 @@
 #include "RESOURCE_PROXY.h"
 #include "GAMEPLAY_COMPONENT_AABB_NODE.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
+class GAMEPLAY_COMPONENT_ENTITY;
+
+XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_RENDER )
 
     GAMEPLAY_COMPONENT_RENDER();
-    virtual ~GAMEPLAY_COMPONENT_RENDER();
+    ~GAMEPLAY_COMPONENT_RENDER();
 
     XS_DEFINE_SERIALIZABLE
 
-    CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Render)
+    //CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Render)
 
     void Render( GRAPHIC_RENDERER &renderer, GAMEPLAY_COMPONENT_POSITION * component );
     void Render( GRAPHIC_RENDERER &renderer, GAMEPLAY_COMPONENT_POSITION * component, GAMEPLAY_COMPONENT_POSITION * parent );
@@ -49,6 +51,22 @@ XS_CLASS_BEGIN_WITH_ANCESTOR( GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT )
 
     inline void SetScaleFactor( float scale_factor ) { ScaleFactor = scale_factor; }
     inline float GetScaleFactor() const { return ScaleFactor; }
+
+    void Reset( GAMEPLAY_COMPONENT_ENTITY * entity ) {
+        
+        ObjectProxy.SetResource( NULL );
+        EffectProxy.SetResource( NULL );
+        ShadowMapEffectProxy.SetResource( NULL );
+        MaterialProxy.SetResource( NULL );
+        AABBNode.Left = NULL;
+        AABBNode.Right = NULL;
+        AABBNode.ZOrderLeft = NULL;
+        AABBNode.ZOrderRight = NULL;
+        AABBNode.SetEntity( entity );
+    }
+
+    static int
+        ComponentType;
 
 private :
 

@@ -7,6 +7,7 @@
 //
 
 #include "GAMEPLAY_COMPONENT_SYSTEM_RENDERER.h"
+#include "GAMEPLAY_COMPONENT_MANAGER.h"
 #include "GAMEPLAY_COMPONENT_ENTITY.h"
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_POSITION.h"
@@ -35,19 +36,20 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Update( void * ecs_base_pointer, float 
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::RenderFrontToBack( GAMEPLAY_COMPONENT_AABB_NODE * node ) {
     
-    GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) node->GetEntity()->GetComponent( CustomRenderComponentIndex );
-    GAMEPLAY_COMPONENT_POSITION * located = (GAMEPLAY_COMPONENT_POSITION * ) node->GetEntity()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-    GAMEPLAY_COMPONENT_ANIMATION * animation = (GAMEPLAY_COMPONENT_ANIMATION * ) node->GetEntity()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Animation );
+    GAMEPLAY_COMPONENT_RENDER * renderable = node->GetEntity()->GetComponent< GAMEPLAY_COMPONENT_RENDER >( CustomRenderComponentIndex );
+    GAMEPLAY_COMPONENT_POSITION * located = node->GetEntity()->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
+    GAMEPLAY_COMPONENT_ANIMATION * animation = node->GetEntity()->GetComponent<GAMEPLAY_COMPONENT_ANIMATION>();
     
-    auto parent = node->GetEntity()->GetParent();
+    GAMEPLAY_COMPONENT_ENTITY_HANDLE handle = node->GetEntity()->GetParentHandle();
     
     if ( animation != NULL ) {
         renderable->GetObject().GetResource<GRAPHIC_OBJECT>()->SetAnimationController( &animation->GetAnimation() );
     }
     
-    if ( parent ) {
+        if ( handle.IsValid() ) {
         
-        renderable->Render( *Renderer, located, (GAMEPLAY_COMPONENT_POSITION * ) parent->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position ) );
+            GAMEPLAY_COMPONENT_POSITION * parent_located = GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity( handle )->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
+            renderable->Render( *Renderer, located, parent_located );
     }
     else {
         

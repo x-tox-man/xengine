@@ -20,6 +20,19 @@
 
 #define GAMEPLAY_COMPONENT_BASE_COUNT 2048
 
+class GAMEPLAY_COMPONENT_HOLDER {
+public:
+    GAMEPLAY_COMPONENT_HOLDER( int type, int offset ) :
+        Type( type ),
+        Offset( offset ) {
+        
+    }
+    
+    int
+        Type,
+        Offset;
+};
+
 XS_CLASS_BEGIN( GAMEPLAY_COMPONENT )
 
     GAMEPLAY_COMPONENT();
@@ -31,7 +44,8 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT )
 
     CORE_ABSTRACT_PROGRAM_DECLARE_CLASS( GAMEPLAY_COMPONENT );
 
-    CORE_HELPERS_FACTORY_Define(GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE )
+    //TODO: this needs to be replaced by meta GAMEPLAY_COMPONENT description system
+    //CORE_HELPERS_FACTORY_Define(GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE )
 
     virtual void Reset() {
         

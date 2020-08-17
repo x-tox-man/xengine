@@ -7,6 +7,7 @@
 //
 
 #include "GAMEPLAY_COMPONENT_SYSTEM_LIGHTING.h"
+#include "GAMEPLAY_COMPONENT_MANAGER.h"
 
 GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::GAMEPLAY_COMPONENT_SYSTEM_LIGHTING() :
     GAMEPLAY_COMPONENT_SYSTEM() {
@@ -34,10 +35,10 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Update( void * ecs_base_pointer, float 
     
     while (it != EntitiesTable.end() ) {
     
-        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((int*) ecs_base_pointer) + it->GetOffset());
         
-        GAMEPLAY_COMPONENT_POSITION * located = entity->GetComponentPosition();
-        GAMEPLAY_COMPONENT_LIGHT * light = entity->GetComponentLight();
+        GAMEPLAY_COMPONENT_POSITION * located = entity->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
+        GAMEPLAY_COMPONENT_LIGHT * light = entity->GetComponent<GAMEPLAY_COMPONENT_LIGHT>();
         
         //float d = renderable->GetObject().GetResource<GRAPHIC_OBJECT>()->GetMeshTable()[0]->GetBoundingShape().GetHalfDiagonal().X();
         
@@ -60,9 +61,9 @@ void GAMEPLAY_COMPONENT_SYSTEM_LIGHTING::Update( void * ecs_base_pointer, float 
             options.SetOrientation(located->GetOrientation() );
             options.SetScaleFactor( CORE_MATH_VECTOR(1.0f, 1.0f,1.0f, 1.0f) );
         
-            if ( entity->GetParent() != NULL ) {
+            if ( entity->GetParentHandle().IsValid() ) {
                 
-                GAMEPLAY_COMPONENT_POSITION * parent_located = (GAMEPLAY_COMPONENT_POSITION * ) entity->GetParent()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+                GAMEPLAY_COMPONENT_POSITION * parent_located = (GAMEPLAY_COMPONENT_POSITION * ) GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity( entity->GetParentHandle() )->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
                 
                 parent_options.SetPosition( parent_located->GetPosition() + parent_located->GetPositionOffset() );
                 parent_options.SetOrientation( parent_located->GetOrientation() );

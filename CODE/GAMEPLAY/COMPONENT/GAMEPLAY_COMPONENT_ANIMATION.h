@@ -11,26 +11,36 @@
 
 #include "GAMEPLAY_COMPONENT.h"
 #include "GRAPHIC_MESH_ANIMATION_CONTROLLER.h"
+#include "RESOURCE_PROXY.h"
+#include "GRAPHIC_MESH_ANIMATION_COLLECTION_RESOURCE_LOADER.h"
 
-XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT )
+XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_ANIMATION )
 
     GAMEPLAY_COMPONENT_ANIMATION();
-    virtual ~GAMEPLAY_COMPONENT_ANIMATION();
+    ~GAMEPLAY_COMPONENT_ANIMATION();
 
-    CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Animation)
+    //CORE_HELPERS_FACTORY_Element(GAMEPLAY_COMPONENT_ANIMATION, GAMEPLAY_COMPONENT, GAMEPLAY_COMPONENT_TYPE, GAMEPLAY_COMPONENT_TYPE_Animation)
 
     void Update( float time_step, GRAPHIC_MESH_SKELETON_JOINT * skeleton );
 
+    inline void SetAnimationResource( const RESOURCE_PROXY & resource ) { AnimationCollectionProxy = resource; }
     inline void SetAnimation( const GRAPHIC_MESH_ANIMATION_CONTROLLER & animation ) { Animation = animation; }
     inline GRAPHIC_MESH_ANIMATION_CONTROLLER & GetAnimation() { return Animation; }
     inline void SetSpeed( float speed ) { Speed = speed; }
 
-    virtual void Reset() override {
+    void Reset() {
+        AnimationCollectionProxy.SetResource( NULL );
+        Animation.SetMeshAnimationTable( AnimationCollectionProxy.GetResource< GRAPHIC_MESH_ANIMATION_COLLECTION >() );
         Animation.Initialize();
     }
 
+    static int
+        ComponentType;
+
 private :
 
+    RESOURCE_PROXY
+        AnimationCollectionProxy;
     GRAPHIC_MESH_ANIMATION_CONTROLLER
         Animation;
     float

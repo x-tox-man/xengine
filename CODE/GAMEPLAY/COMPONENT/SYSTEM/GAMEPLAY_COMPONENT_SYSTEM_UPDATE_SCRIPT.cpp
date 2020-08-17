@@ -26,7 +26,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_SCRIPT::Update( void * ecs_base_pointer, f
     
     while (it != EntitiesTable.end() ) {
         
-        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((int*) ecs_base_pointer) + it->GetOffset());
         
         /*GAMEPLAY_COMPONENT_SCRIPT * script = entity->GetComponentScript();
         

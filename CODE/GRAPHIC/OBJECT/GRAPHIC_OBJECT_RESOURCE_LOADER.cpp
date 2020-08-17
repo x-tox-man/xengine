@@ -14,6 +14,7 @@
 #include "GRAPHIC_TEXTURE_BLOCK.h"
 #include "GRAPHIC_SHADER_EFFECT.h"
 #include "GRAPHIC_SHADER_EFFECT_LOADER.h"
+#include "GRAPHIC_MESH_ANIMATION_COLLECTION.h"
 
 GRAPHIC_OBJECT_RESOURCE_LOADER::GRAPHIC_OBJECT_RESOURCE_LOADER() :
     RESOURCE_LOADER() {
@@ -121,7 +122,7 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
     }
         
     // HACK : this will allow iphone to find object on correct path
-    if ( object->GetAnimationTable().size() ) {
+    /*if ( object->GetAnimationTable().size() ) {
         
         GRAPHIC_MESH_ANIMATION * animation = object->GetAnimationTable()[ 0 ];
         
@@ -146,9 +147,58 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
         
         file.Close();
         
+    }*/
+    
+    {
+        GRAPHIC_MESH_ANIMATION_COLLECTION
+            collection;
+        
+        collection.GetAnimationTable().resize( object->GetAnimationTable().size() );
+        
+        for (int i = 0; i < object->GetAnimationTable().size(); i++ ) {
+            
+            collection.GetAnimationTable()[ i ] = object->GetAnimationTable()[ i ];
+        }
+        
+        char * new_path = (char *) CORE_MEMORY_ALLOCATOR::Allocate( strlen(destination_path.GetPath()) + strlen( destination_path.GetPath()) +1 );
+        
+        strcpy(new_path, destination_path.GetPath() );
+        
+        char * last_dot = strrchr ( new_path, '.' );
+        ++last_dot;
+        *last_dot = '\0';
+        
+        strcat(new_path, "acbx" );
+        
+        CORE_DATA_STREAM
+            animation_stream;
+        CORE_FILESYSTEM_PATH
+            animation_destination_path( new_path );
+        CORE_FILESYSTEM_FILE
+            file( animation_destination_path );
+        
+        animation_stream.Open();
+        
+        XS_CLASS_SERIALIZER< GRAPHIC_MESH_ANIMATION_COLLECTION, CORE_DATA_STREAM >::Serialize< std::true_type >( "asset", collection, animation_stream );
+        
+        animation_stream.Close();
+        
+        if ( !file.OpenInput() ) {
+            
+            CORE_RUNTIME_Abort();
+        }
+        
+        int bytes_written = file.InputBytes( animation_stream.GetMemoryBuffer(), animation_stream.GetOffset() );
+        
+        file.Close();
+        
+        if ( bytes_written != animation_stream.GetOffset() ) {
+            
+            CORE_RUNTIME_Abort();
+        }
     }
     
-    for (int i = 0; i < object->GetAnimationTable().size(); i++ ) {
+    /*for (int i = 0; i < object->GetAnimationTable().size(); i++ ) {
         
         GRAPHIC_MESH_ANIMATION * animation = object->GetAnimationTable()[ i ];
         
@@ -195,7 +245,7 @@ void GRAPHIC_OBJECT_RESOURCE_LOADER::CompileResource( const CORE_FILESYSTEM_PATH
             
             CORE_RUNTIME_Abort();
         }
-    }
+    }*/
 }
 #endif
 

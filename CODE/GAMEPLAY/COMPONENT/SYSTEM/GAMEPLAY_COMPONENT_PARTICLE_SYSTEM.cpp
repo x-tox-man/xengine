@@ -28,7 +28,7 @@ void GAMEPLAY_COMPONENT_PARTICLE_SYSTEM::Update( void * ecs_base_pointer, float 
     
     while (it != EntitiesTable.end() ) {
         
-        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((int*) ecs_base_pointer) + it->GetOffset());
         
         
         
@@ -49,10 +49,10 @@ void GAMEPLAY_COMPONENT_PARTICLE_SYSTEM::Render( void * ecs_base_pointer, GRAPHI
     
     while (it != EntitiesTable.end() ) {
         
-        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((int*) ecs_base_pointer) + it->GetOffset());
         
-        GAMEPLAY_COMPONENT_RENDER * renderable = entity->GetComponentRender();
-        GAMEPLAY_COMPONENT_POSITION * located = entity->GetComponentPosition();
+        GAMEPLAY_COMPONENT_RENDER * renderable = entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
+        GAMEPLAY_COMPONENT_POSITION * located = entity->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
         
         renderable->Render( renderer, located, NULL );
         

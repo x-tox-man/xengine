@@ -46,7 +46,7 @@ void GAMEPLAY_COMPONENT_AABB_TREE::Update() {
 
 void GAMEPLAY_COMPONENT_AABB_TREE::Remove( GAMEPLAY_COMPONENT_ENTITY * entity ) {
     
-    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) entity-> GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    GAMEPLAY_COMPONENT_RENDER * render_component = entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
     
     if ( render_component ) {
         
@@ -90,8 +90,8 @@ void GAMEPLAY_COMPONENT_AABB_TREE::Insert( GAMEPLAY_COMPONENT_ENTITY * entity ) 
 
 void GAMEPLAY_COMPONENT_AABB_TREE::Insert( GAMEPLAY_COMPONENT_ENTITY * entity, float margin ) {
     
-    GAMEPLAY_COMPONENT_RENDER * rend = (GAMEPLAY_COMPONENT_RENDER *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
-    GAMEPLAY_COMPONENT_POSITION * pos = (GAMEPLAY_COMPONENT_POSITION *) entity->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    GAMEPLAY_COMPONENT_RENDER * rend = entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
+    GAMEPLAY_COMPONENT_POSITION * pos = entity->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
     
     auto node = &rend->GetAABBNode();
     node->Left = NULL;

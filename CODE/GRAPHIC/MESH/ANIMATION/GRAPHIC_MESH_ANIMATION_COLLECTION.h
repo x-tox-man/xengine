@@ -1,0 +1,50 @@
+//
+//  GRAPHIC_MESH_ANIMATION_COLLECTION.hpp
+//  GAME-ENGINE
+//
+//  Created by Christophe Bernard on 14/08/2020.
+//  Copyright © 2020 Christophe Bernard. All rights reserved.
+//
+
+#ifndef GRAPHIC_MESH_ANIMATION_COLLECTION_hpp
+#define GRAPHIC_MESH_ANIMATION_COLLECTION_hpp
+
+#include "CORE_HELPERS_CLASS.h"
+#include "CORE_HELPERS_IDENTIFIER.h"
+#include "CORE_HELPERS_SCALAR.h"
+#include "CORE_DATA_BUFFER.h"
+#include "GRAPHIC_MESH_ANIMATION.h"
+#include "RESOURCE.h"
+
+class GRAPHIC_MESH_ANIMATION_COLLECTION_RESOURCE_LOADER;
+class GRAPHIC_MESH_ANIMATION_COLLECTION;
+
+typedef RESOURCE< GRAPHIC_MESH_ANIMATION_COLLECTION, GRAPHIC_MESH_ANIMATION_COLLECTION_RESOURCE_LOADER > GR_A_GRAPHIC_MESH_ANIMATION_COLLECTION_ANCESTOR_TYPE;
+
+XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MESH_ANIMATION_COLLECTION, GR_A_GRAPHIC_MESH_ANIMATION_COLLECTION_ANCESTOR_TYPE )
+
+    GRAPHIC_MESH_ANIMATION_COLLECTION();
+    ~GRAPHIC_MESH_ANIMATION_COLLECTION();
+
+    XS_DEFINE_SERIALIZABLE
+
+    CORE_HELPERS_FACTORY_Element( GRAPHIC_MESH_ANIMATION_COLLECTION, BASE_RESOURCE, RESOURCE_TYPE, RESOURCE_TYPE_ModelAnimationColllection )
+
+    inline GRAPHIC_MESH_ANIMATION::PTR operator[] (const int index ) {
+        return AnimationTable[ index ];
+    }
+
+    inline GRAPHIC_MESH_ANIMATION::PTR operator[] (const int index ) const {
+        return AnimationTable[ index ];
+    }
+
+    inline std::vector< GRAPHIC_MESH_ANIMATION::PTR > & GetAnimationTable() { return AnimationTable; }          
+
+private :
+
+    std::vector< GRAPHIC_MESH_ANIMATION::PTR >
+        AnimationTable;
+
+XS_CLASS_END
+
+#endif /* GRAPHIC_MESH_ANIMATION_COLLECTION_hpp */

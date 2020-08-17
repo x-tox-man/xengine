@@ -113,6 +113,16 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_SHADER_LIGHT )
 
     void Apply( GRAPHIC_SHADER_PROGRAM & program );
 
+    GRAPHIC_SHADER_LIGHT & operator=( const GRAPHIC_SHADER_LIGHT & other ) {
+        
+        Type = other.Type;
+        InternalLight = other.InternalLight;
+        LightIndex = other.LightIndex;
+        
+        return *this;
+    }
+
+
     GRAPHIC_SHADER_LIGHT_TYPE
         Type;
     GRAPHIC_SHADER_LIGHT_INTERNAL

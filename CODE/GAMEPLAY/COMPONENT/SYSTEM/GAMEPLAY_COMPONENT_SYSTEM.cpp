@@ -79,4 +79,13 @@ void GAMEPLAY_COMPONENT_SYSTEM::SaveToStream( CORE_DATA_STREAM & stream ) {
 void GAMEPLAY_COMPONENT_SYSTEM::LoadFromStream( CORE_DATA_STREAM & stream ) {
     
     XS_CLASS_SERIALIZER< GAMEPLAY_COMPONENT_SYSTEM, CORE_DATA_STREAM >::Serialize< std::false_type >( "system", *this, stream );
+    
+    std::vector< GAMEPLAY_COMPONENT_ENTITY_HANDLE >::iterator it = EntitiesTable.begin();
+    
+    while ( it != EntitiesTable.end() ) {
+        
+        GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity(*it)->Reset();
+        
+        it++;
+    }
 }

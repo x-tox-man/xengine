@@ -10,14 +10,13 @@
 #include "CORE_MEMORY.h"
 
 GAMEPLAY_COMPONENT_ANIMATION::GAMEPLAY_COMPONENT_ANIMATION() :
-    GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_ANIMATION ) ),
+    AnimationCollectionProxy(),
     Animation(),
     Speed( 1.0f ) {
     
 }
 
 GAMEPLAY_COMPONENT_ANIMATION::GAMEPLAY_COMPONENT_ANIMATION( const GAMEPLAY_COMPONENT_ANIMATION & other ) :
-    GAMEPLAY_COMPONENT( sizeof( GAMEPLAY_COMPONENT_ANIMATION ) ),
     Animation( other.Animation ) {
     
 }
@@ -43,3 +42,5 @@ void GAMEPLAY_COMPONENT_ANIMATION::Update( float time_step, GRAPHIC_MESH_SKELETO
         Animation.Reset();
     }
 }
+
+int GAMEPLAY_COMPONENT_ANIMATION::ComponentType = GAMEPLAY_COMPONENT_TYPE_Animation;

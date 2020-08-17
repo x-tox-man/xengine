@@ -28,7 +28,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION::Update( void * ecs_base_pointer,
     
     while (it != EntitiesTable.end() ) {
         
-        GAMEPLAY_COMPONENT_POSITION * position = (( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset()))->GetComponentPosition();
+        GAMEPLAY_COMPONENT_POSITION * position = (( GAMEPLAY_COMPONENT_ENTITY *) (((int*) ecs_base_pointer) + it->GetOffset()))->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
         
         position->SetPosition( position->GetPosition() + position->GetVelocity() * time_step );
         

@@ -11,7 +11,7 @@
 
 
 #include "CORE_HELPERS_CLASS.h"
-#include "GRAPHIC_MESH_ANIMATION.h"
+#include "GRAPHIC_MESH_ANIMATION_COLLECTION.h"
 #include "GRAPHIC_SHADER_GPU_BUFFER.h"
 #include "GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX.h"
 
@@ -44,9 +44,18 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_CONTROLLER )
 
     inline GRAPHIC_SHADER_GPU_BUFFER & GetCurrentGPUBuffer( int i ) { return (*ThisFrameAnimationMatrixArrayTable)[i]; }
 
+    void SetMeshAnimationTable( GRAPHIC_MESH_ANIMATION_COLLECTION * collection ) {
+        
+        MeshAnimationTable.GetAnimationTable().resize( collection->GetAnimationTable().size() );
+        
+        for (int i = 0; i < collection->GetAnimationTable().size(); i++ ) {
+            MeshAnimationTable.GetAnimationTable()[i] = collection->GetAnimationTable()[i];
+        }
+    }
+
 private :
 
-    std::vector< GRAPHIC_MESH_ANIMATION * >
+    GRAPHIC_MESH_ANIMATION_COLLECTION
         MeshAnimationTable;
     std::vector< GRAPHIC_SHADER_GPU_BUFFER >
         * ThisFrameAnimationMatrixArrayTable;

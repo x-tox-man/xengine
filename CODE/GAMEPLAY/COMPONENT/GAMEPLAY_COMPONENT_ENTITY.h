@@ -36,8 +36,8 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY )
 
     GAMEPLAY_COMPONENT_ENTITY() :
         Handle(),
-        Parent( NULL ),
-        Childs(),
+        ParentHandle(),
+        //Childs(),
         ComponentCount( 0 ) {
         
     }
@@ -46,44 +46,18 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY )
         
     }
 
-    inline GAMEPLAY_COMPONENT_POSITION * GetComponentPosition() {
+    template<typename COMPONENT_TYPE>
+    COMPONENT_TYPE * GetComponent() {
         
-        return ( GAMEPLAY_COMPONENT_POSITION * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-    }
-    
-    inline GAMEPLAY_COMPONENT_RENDER * GetComponentRender() {
-        
-        return ( GAMEPLAY_COMPONENT_RENDER * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
-    }
-    
-    inline GAMEPLAY_COMPONENT_PHYSICS * GetComponentPhysics() {
-        
-        return ( GAMEPLAY_COMPONENT_PHYSICS * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
-    }
-    
-    inline GAMEPLAY_COMPONENT_ANIMATION * GetComponentAnimation() {
-        
-        return ( GAMEPLAY_COMPONENT_ANIMATION * )GetComponent( GAMEPLAY_COMPONENT_TYPE_Animation );
+        int offset = GetComponentOffset( COMPONENT_TYPE::ComponentType );
+        return offset == -1 ? NULL : (COMPONENT_TYPE *) ( ( ( int * ) this ) + offset);
     }
 
-    inline GAMEPLAY_COMPONENT_ACTION * GetComponentAction() {
+    template<typename COMPONENT_TYPE>
+    COMPONENT_TYPE * GetComponent( int component_index_type ) {
         
-        return ( GAMEPLAY_COMPONENT_ACTION * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Action );
-    }
-
-    inline GAMEPLAY_COMPONENT_LIGHT * GetComponentLight() {
-        
-        return ( GAMEPLAY_COMPONENT_LIGHT * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Light );
-    }
-
-    inline GAMEPLAY_COMPONENT_CAMERA * GetComponentCamera() {
-        
-        return ( GAMEPLAY_COMPONENT_CAMERA * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Camera );
-    }
-
-    inline GAMEPLAY_COMPONENT_SCRIPT * GetComponentScript() {
-        
-        return ( GAMEPLAY_COMPONENT_SCRIPT * ) GetComponent( GAMEPLAY_COMPONENT_TYPE_Script );
+        int offset = GetComponentOffset( component_index_type );
+        return offset == -1 ? NULL : (COMPONENT_TYPE *) ( ( ( int * ) this ) + offset);
     }
 
     void SetCompononent( GAMEPLAY_COMPONENT * component, int component_type ) {
@@ -94,46 +68,55 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY )
 
     inline void SetChild( GAMEPLAY_COMPONENT_ENTITY * entity, GAMEPLAY_COMPONENT_ENTITY_HANDLE handle ) {
         
-        Childs[ handle ] = entity;
-        entity->SetParent( this );
+        /*Childs[ handle ] = entity;
+        entity->SetParent( this );*/
+        
+        CORE_RUNTIME_Abort(); // TODO in parentchild system
     }
 
-    void Reset() {
-        
-        GAMEPLAY_COMPONENT * cmp = NULL;
-        
-        cmp = ((GAMEPLAY_COMPONENT*)( this + 1 ));
-        
-        for ( int i = 1; i <= ComponentCount; i++ ) {
-            
-            cmp->Reset();
-            
-            cmp = (GAMEPLAY_COMPONENT*)(((uint8_t *)cmp) + cmp->GetSize());
-        }
-    }
+    void Reset();
 
 public:
 
-    inline GAMEPLAY_COMPONENT * GetComponent( int component_type ) {
+    inline int GetComponentOffset( int component_type ) {
         
-        GAMEPLAY_COMPONENT * cmp = NULL;
+        GAMEPLAY_COMPONENT_HOLDER * cmp = NULL;
         
-        cmp = ((GAMEPLAY_COMPONENT*)( this + 1 ));
+        cmp = ((GAMEPLAY_COMPONENT_HOLDER*)( this + 1 ));
         
         for ( int i = 1; i <= ComponentCount; i++ ) {
             
-            if ( cmp->FactoryGetType() == component_type ) {
-                return cmp;
+            if ( cmp->Type == component_type ) {
+                
+                return cmp->Offset;
             }
             
-            cmp = (GAMEPLAY_COMPONENT*)(((uint8_t *)cmp) + cmp->GetSize());
+            ++cmp;
         }
         
-        return NULL;
+        return -1;
     }
 
-    inline GAMEPLAY_COMPONENT_ENTITY * GetChild( GAMEPLAY_COMPONENT_ENTITY_HANDLE & child ) { return Childs[ child ]; }
-    inline std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY::PTR > & GetChilds() { return Childs; }
+    void SetComponentHolderOffset( int component_type, int offset ) {
+        
+        GAMEPLAY_COMPONENT_HOLDER * cmp = NULL;
+        
+        cmp = ((GAMEPLAY_COMPONENT_HOLDER*)( this + 1 ));
+        
+        for ( int i = 1; i <= ComponentCount; i++ ) {
+            
+            if ( cmp->Type == component_type ) {
+                
+                cmp->Offset = offset;
+                break;
+            }
+            
+            ++cmp;
+        }
+    }
+
+    //inline GAMEPLAY_COMPONENT_ENTITY * GetChild( GAMEPLAY_COMPONENT_ENTITY_HANDLE & child ) { return Childs[ child ]; }
+    //inline std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY::PTR > & GetChilds() { return Childs; }
 
     void SetPosition( const CORE_MATH_VECTOR & position );
     void SetPositionOffset( const CORE_MATH_VECTOR & offset );
@@ -141,8 +124,8 @@ public:
     void Scale( float scale );
     void Resize( const CORE_MATH_VECTOR & size );
 
-    inline GAMEPLAY_COMPONENT_ENTITY * GetParent() const { return Parent; }
-    inline void SetParent( GAMEPLAY_COMPONENT_ENTITY * parent ) { Parent = parent; }
+    inline GAMEPLAY_COMPONENT_ENTITY_HANDLE GetParentHandle() const { return ParentHandle; }
+    inline void SetParentHandle( const GAMEPLAY_COMPONENT_ENTITY_HANDLE & parent ) { ParentHandle = parent; }
 
     virtual void CollidesWith( GAMEPLAY_COMPONENT_ENTITY * other );
 
@@ -157,18 +140,18 @@ private:
 
     GAMEPLAY_COMPONENT_ENTITY( uint8_t component_count ) :
         Handle(),
-        Parent( NULL ),
-        Childs(),
+        ParentHandle(),
+        //Childs(),
         ComponentCount( component_count ) {
         
     }
 
     GAMEPLAY_COMPONENT_ENTITY_HANDLE
-        Handle;
-    GAMEPLAY_COMPONENT_ENTITY
-        * Parent;
-    std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY::PTR >
-        Childs;
+        Handle,
+        ParentHandle;
+    //TODO: Fixed Child array || create a childs system maybe see with Parent.
+    //std::map< GAMEPLAY_COMPONENT_ENTITY_HANDLE, GAMEPLAY_COMPONENT_ENTITY::PTR >
+        //Childs;
     uint8_t
         ComponentCount;
 

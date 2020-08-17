@@ -20,6 +20,8 @@ enum RESOURCE_TYPE {
     RESOURCE_TYPE_Effect,
     RESOURCE_TYPE_Material,
     RESOURCE_TYPE_MaterialCollection,
+    RESOURCE_TYPE_ModelAnimation,
+    RESOURCE_TYPE_ModelAnimationColllection,
     RESOURCE_TYPE_Count,
     RESOURCE_TYPE_None
 };

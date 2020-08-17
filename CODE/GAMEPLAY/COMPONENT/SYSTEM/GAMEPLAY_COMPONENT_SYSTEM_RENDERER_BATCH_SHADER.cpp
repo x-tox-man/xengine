@@ -12,6 +12,7 @@
 #include "GAMEPLAY_COMPONENT_RENDER.h"
 #include "GAMEPLAY_COMPONENT_POSITION.h"
 #include "GAMEPLAY_COMPONENT_TYPE.h"
+#include "GAMEPLAY_COMPONENT_MANAGER.h"
 
 GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER() :
     GAMEPLAY_COMPONENT_SYSTEM(),
@@ -41,8 +42,9 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::Update( void * ecs_base_po
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::RenderFrontToBack( GAMEPLAY_COMPONENT_AABB_NODE * node ) {
     
-    GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) node->GetEntity()->GetComponent( CustomRenderComponentIndex );
-    GAMEPLAY_COMPONENT_POSITION * located = (GAMEPLAY_COMPONENT_POSITION * ) node->GetEntity()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    abort();//TODO:
+    /*GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) node->GetEntity()->GetComponent( CustomRenderComponentIndex );
+    GAMEPLAY_COMPONENT_POSITION * located =  node->GetEntity()->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
     
     GRAPHIC_OBJECT::PTR graphic_object = renderable->GetObject().GetResource< GRAPHIC_OBJECT >();
     
@@ -53,11 +55,11 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::RenderFrontToBack( GAMEPLA
     Options.SetScaleFactor( CORE_MATH_VECTOR( scale, scale, scale, 1.0f) );
     Options.SetParent( NULL );
     
-    auto parent = node->GetEntity()->GetParent();
+     GAMEPLAY_COMPONENT_ENTITY_HANDLE handle = node->GetEntity()->GetParentHandle();
     
-    if ( parent != NULL ) {
+    if ( handle.IsValid() ) {
         
-        GAMEPLAY_COMPONENT_POSITION * located = (GAMEPLAY_COMPONENT_POSITION * ) parent->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+        GAMEPLAY_COMPONENT_POSITION * located = GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity( handle )->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
         GAMEPLAY_COMPONENT_RENDER * renderable = (GAMEPLAY_COMPONENT_RENDER * ) node->GetEntity()->GetComponent( CustomRenderComponentIndex );
         
         ParentOptions.SetPosition( located->GetPosition() + located->GetPositionOffset() );
@@ -144,7 +146,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::RenderFrontToBack( GAMEPLA
         }
         
         graphic_object->GetMeshTable()[ i ]->ApplyBuffers( renderer );
-    }
+    }*/
     
     /*if ( node->GetEntity()->GetParent()) {
         renderable->Render( *Renderer, located, (GAMEPLAY_COMPONENT_POSITION * ) node->GetEntity()->GetParent()->GetComponent( GAMEPLAY_COMPONENT_TYPE_Position ) );
@@ -156,6 +158,8 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::RenderFrontToBack( GAMEPLA
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::Render( void * ecs_base_pointer, GRAPHIC_RENDERER & renderer ) {
     
+    abort();
+    /*
     GAMEPLAY_COMPONENT_AABB_NODE_FRONT_TO_BACK_FRUSTUM_COLLIDER
     collider;
     CORE_HELPERS_CALLBACK_1< GAMEPLAY_COMPONENT_AABB_NODE * > callback( Wrapper1<GAMEPLAY_COMPONENT_AABB_NODE_FRONT_TO_BACK_FRUSTUM_COLLIDER, GAMEPLAY_COMPONENT_AABB_NODE *, &GAMEPLAY_COMPONENT_AABB_NODE_FRONT_TO_BACK_FRUSTUM_COLLIDER::Collide>, &collider );
@@ -183,7 +187,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::Render( void * ecs_base_po
     abort(); // Cannot work for objects with multiple textures
     //Effect->Apply(renderer, false, true );
     collider.RenderFrontToBack( callback_render );
-    Effect->Discard();
+    Effect->Discard();*/
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER::Finalize() {

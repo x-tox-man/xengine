@@ -87,9 +87,9 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::Update( void * ecs_base_poin
     
         while (it != EntitiesTable.end() ) {
             
-            auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
+            auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((int*) ecs_base_pointer) + it->GetOffset());
             
-            GAMEPLAY_COMPONENT_PHYSICS * physics = entity->GetComponentPhysics();
+            GAMEPLAY_COMPONENT_PHYSICS * physics = entity->GetComponent<GAMEPLAY_COMPONENT_PHYSICS>();
             
             auto wt = &physics->GetBulletRigidBody()->getWorldTransform();
             
@@ -119,7 +119,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddEntity( GAMEPLAY_COMPONEN
     
     GAMEPLAY_COMPONENT_SYSTEM::AddEntity( entity );
     
-    GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics);
+    GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent<GAMEPLAY_COMPONENT_PHYSICS>();
     
     #ifdef __BULLET_PHYSICS__
         physics->GetBulletRigidBody()->setUserPointer( (void*) entity );
@@ -129,7 +129,7 @@ void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddEntity( GAMEPLAY_COMPONEN
 
 void GAMEPLAY_COMPONENT_SYSTEM_COLLISION_DETECTION::AddStaticEntity( GAMEPLAY_COMPONENT_ENTITY::PTR entity, int group, int mask ) {
     
-    GAMEPLAY_COMPONENT_PHYSICS * physics = (GAMEPLAY_COMPONENT_PHYSICS *) entity->GetComponent(GAMEPLAY_COMPONENT_TYPE_Physics);
+    GAMEPLAY_COMPONENT_PHYSICS * physics = entity->GetComponent<GAMEPLAY_COMPONENT_PHYSICS>();
     
 #ifdef __BULLET_PHYSICS__
     physics->GetBulletRigidBody()->setUserPointer( (void*) entity );

@@ -80,11 +80,12 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
         FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalRegisterFactoryClass(classType, creatable); \
     } \
 \
-    virtual int FactoryGetType() { return -1; } \
+    int FactoryGetType() { return __InnerFactoryType; } \
 \
     static __FACTORY_TYPE__ * FactoryCreate( const __FACTORY_TYPE_ENUM__ factoryType) { \
         return FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalCreateObject( factoryType ); \
     }\
+\
     static __FACTORY_TYPE__ * FactoryCopy( const __FACTORY_TYPE_ENUM__ factoryType, const __FACTORY_TYPE__ & object_to_copy ) { \
         return FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalCopyObject( factoryType, object_to_copy ); \
     }\
@@ -97,15 +98,19 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
         return FACTORY< __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__ >::__InternalGetIndex( element ); \
     }\
 \
+    void __SetInnerFactoryType( unsigned int type ) { __InnerFactoryType = type; }\
     private : \
     virtual __FACTORY_TYPE__ * __InnerCreate() const { \
         CORE_RUNTIME_Abort();\
         return NULL; \
     };\
+\
     virtual __FACTORY_TYPE__ * __InnerCopy( const __FACTORY_TYPE__ & object ) const { \
         CORE_RUNTIME_Abort();\
         return NULL; \
     };\
+\
+    unsigned int __InnerFactoryType;\
     public : \
 
 #define CORE_HELPERS_FACTORY_Element( __CLASS_TYPE__, __FACTORY_TYPE__, __FACTORY_TYPE_ENUM__, __FACTORY_TYPE_ENUMERATED__ ) \
@@ -113,24 +118,26 @@ template < typename __FACTORY_ELEMENT_CLASS__ >
     friend class FACTORY_ELEMENT< __CLASS_TYPE__ >;\
     \
     virtual __FACTORY_TYPE__ * __InnerCreate() const override { \
-        return new __CLASS_TYPE__();\
+        auto c = new __CLASS_TYPE__();\
+        c->__SetInnerFactoryType( (int) __FACTORY_TYPE_ENUMERATED__ );\
+        return c;\
     }\
+\
     virtual __FACTORY_TYPE__ * __InnerCopy( const __FACTORY_TYPE__ & object ) const override { \
-        return new __CLASS_TYPE__( *((__CLASS_TYPE__*) &object) );\
+        auto c = new __CLASS_TYPE__( *((__CLASS_TYPE__*) &object) );\
+        c->__SetInnerFactoryType( (int) __FACTORY_TYPE_ENUMERATED__ );\
+        return c;\
     };\
-    \
-    static int GetFactoryType() { \
-        return __FACTORY_TYPE_ENUMERATED__; \
-    }\
+\
     static __CLASS_TYPE__ * GetFactoryElement() { \
         return FACTORY_ELEMENT<__CLASS_TYPE__>::__InnerElement; \
     }\
+\
     static __CLASS_TYPE__ * __InnerCreateElement() { \
         FACTORY_ELEMENT<__CLASS_TYPE__>::__InnerElement = new __CLASS_TYPE__(); \
         __FACTORY_TYPE__::RegisterFactoryClass(__FACTORY_TYPE_ENUMERATED__, FACTORY_ELEMENT<__CLASS_TYPE__>::__InnerElement); \
-    \
+\
         return FACTORY_ELEMENT<__CLASS_TYPE__>::__InnerElement; \
-    } \
-    virtual int FactoryGetType() override { return (int) __FACTORY_TYPE_ENUMERATED__; }
+    }
 
 #endif /* defined(__GAME_ENGINE_REBORN__CORE_HELPERS_FACTORY__) */

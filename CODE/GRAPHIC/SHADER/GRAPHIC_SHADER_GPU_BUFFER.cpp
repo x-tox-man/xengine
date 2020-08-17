@@ -22,10 +22,17 @@ GRAPHIC_SHADER_GPU_BUFFER::GRAPHIC_SHADER_GPU_BUFFER( const GRAPHIC_SHADER_GPU_B
 
 void GRAPHIC_SHADER_GPU_BUFFER::Initialize( unsigned int size ) {
     
+#if X_METAL
     Buffer = GRAPHIC_SYSTEM::CreateMetalDynamicUniformBuffer( size );
+#endif
 }
 
 void * GRAPHIC_SHADER_GPU_BUFFER::GetGPUBufferDataPointer() {
-    
+
+#if X_METAL
     return GRAPHIC_SYSTEM::GetMtlBufferPointer( Buffer );
+#else
+    abort();
+    return NULL;
+#endif
 }

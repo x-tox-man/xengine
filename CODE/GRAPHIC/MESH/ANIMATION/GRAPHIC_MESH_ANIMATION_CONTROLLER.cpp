@@ -36,25 +36,25 @@ GRAPHIC_MESH_ANIMATION_CONTROLLER::GRAPHIC_MESH_ANIMATION_CONTROLLER( const GRAP
 
 GRAPHIC_MESH_ANIMATION_CONTROLLER::~GRAPHIC_MESH_ANIMATION_CONTROLLER() {
     
-    std::vector< GRAPHIC_MESH_ANIMATION * >::iterator it = MeshAnimationTable.begin();
+    std::vector< GRAPHIC_MESH_ANIMATION * >::iterator it = MeshAnimationTable.GetAnimationTable().begin();
     
-    while ( it != MeshAnimationTable.end() ) {
+    while ( it != MeshAnimationTable.GetAnimationTable().end() ) {
         
         CORE_MEMORY_ObjectSafeDeallocation( *it );
         it++;
     }
     
-    MeshAnimationTable.clear();
+    MeshAnimationTable.GetAnimationTable().clear();
     
     ThisFrameAnimationMatrixArrayTable->clear();
 }
 
 void GRAPHIC_MESH_ANIMATION_CONTROLLER::Initialize() {
-    
+
     ThisFrameAnimationMatrixArrayTable = new std::vector< GRAPHIC_SHADER_GPU_BUFFER >();
-    ThisFrameAnimationMatrixArrayTable->resize( MeshAnimationTable.size() );
+    ThisFrameAnimationMatrixArrayTable->resize( MeshAnimationTable.GetAnimationTable().size() );
     
-    for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshAnimationTable.GetAnimationTable().size(); i++ ) {
         
         (*ThisFrameAnimationMatrixArrayTable)[ i ] = GRAPHIC_SHADER_GPU_BUFFER();
         (*ThisFrameAnimationMatrixArrayTable)[ i ].Initialize( (unsigned int) MeshAnimationTable[i]->GetJointTable().size() * sizeof(float) * 16 );
@@ -63,17 +63,18 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Initialize() {
 
 void GRAPHIC_MESH_ANIMATION_CONTROLLER::Load( const CORE_FILESYSTEM_PATH & path ) {
     
-    MeshAnimationTable.resize( MeshAnimationTable.size() + 1 );
-    MeshAnimationTable[ MeshAnimationTable.size() -1 ] = new GRAPHIC_MESH_ANIMATION();
+    abort();
+    /*MeshAnimationTable.GetAnimationTable().resize( MeshAnimationTable.GetAnimationTable().size() + 1 );
+    MeshAnimationTable.GetAnimationTable()[ MeshAnimationTable.GetAnimationTable().size() -1 ] = new GRAPHIC_MESH_ANIMATION();
     
-    CORE_DATA_LOADER< GRAPHIC_MESH_ANIMATION >::Load( MeshAnimationTable[ MeshAnimationTable.size() -1 ], path );
+    CORE_DATA_LOADER< GRAPHIC_MESH_ANIMATION >::Load( MeshAnimationTable[ MeshAnimationTable.GetAnimationTable().size() -1 ], path );*/
 }
 
 void GRAPHIC_MESH_ANIMATION_CONTROLLER::Update( const float time, GRAPHIC_MESH_SKELETON_JOINT * skeleton ) {
     
     CurrentTimeFrame += time;
     
-    for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshAnimationTable.GetAnimationTable().size(); i++ ) {
         
         float * frame_reference = (float *) (*ThisFrameAnimationMatrixArrayTable)[ i ].GetGPUBufferDataPointer();
         MeshAnimationTable[i]->ComputeSkinningMatrixTableForFrameIndex( skeleton, GetFrameIndex(), frame_reference );
@@ -88,7 +89,7 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Update( const float time, GRAPHIC_MESH_S
     }
     
     //TODO: Average animations?
-    for ( size_t i = 0; i < MeshAnimationTable.size(); i++ ) {
+    for ( size_t i = 0; i < MeshAnimationTable.GetAnimationTable().size(); i++ ) {
         
     }
 }

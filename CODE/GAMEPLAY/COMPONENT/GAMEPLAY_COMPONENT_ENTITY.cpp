@@ -15,9 +15,9 @@
 #include "CORE_DATA_JSON.h"
 
 CORE_ABSTRACT_PROGRAM_BINDER_DECLARE_CLASS( GAMEPLAY_COMPONENT_ENTITY )
-    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_POSITION::PTR, GAMEPLAY_COMPONENT_ENTITY , GetComponentPosition )
-    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_RENDER::PTR, GAMEPLAY_COMPONENT_ENTITY , GetComponentRender)
-    CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_PHYSICS::PTR, GAMEPLAY_COMPONENT_ENTITY , GetComponentPhysics)
+    //CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_POSITION::PTR, GAMEPLAY_COMPONENT_ENTITY , GetComponentPosition )
+    //CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_RENDER::PTR, GAMEPLAY_COMPONENT_ENTITY , GetComponentRender)
+    //CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_YIELD_METHOD( GAMEPLAY_COMPONENT_PHYSICS::PTR, GAMEPLAY_COMPONENT_ENTITY , GetComponentPhysics)
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1(GAMEPLAY_COMPONENT_ENTITY, SetPosition, const CORE_MATH_VECTOR & )
     CORE_ABSTRACT_PROGRAM_BINDER_DEFINE_VOID_METHOD_1(GAMEPLAY_COMPONENT_ENTITY, SetOrientation, const CORE_MATH_QUATERNION & )
 CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GAMEPLAY_COMPONENT_ENTITY )
@@ -27,14 +27,14 @@ CORE_ABSTRACT_PROGRAM_BINDER_END_CLASS( GAMEPLAY_COMPONENT_ENTITY )
 
 GAMEPLAY_COMPONENT_ENTITY::GAMEPLAY_COMPONENT_ENTITY( const GAMEPLAY_COMPONENT_ENTITY & other ) :
     Handle(),
-    Parent( other.GetParent() ),
-    Childs(),
+    ParentHandle(),
+    //Childs(),
     ComponentCount( 0 ) {
 }
 
 void GAMEPLAY_COMPONENT_ENTITY::Scale( float scale ) {
     
-    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    GAMEPLAY_COMPONENT_RENDER * render_component = GetComponent<GAMEPLAY_COMPONENT_RENDER>();
     
     render_component->SetScaleFactor( scale );
     
@@ -46,7 +46,7 @@ void GAMEPLAY_COMPONENT_ENTITY::Scale( float scale ) {
 
 void GAMEPLAY_COMPONENT_ENTITY::Resize( const CORE_MATH_VECTOR & size ) {
     
-    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent<GAMEPLAY_COMPONENT_RENDER>();
     
     float scale = ( (render_component->GetAABBNode().GetBox().GetHalfDiagonal() *2).ComputeSquareLength() / size.ComputeSquareLength() );
     
@@ -62,9 +62,9 @@ void GAMEPLAY_COMPONENT_ENTITY::Resize( const CORE_MATH_VECTOR & size ) {
 
 void GAMEPLAY_COMPONENT_ENTITY::SetPosition( const CORE_MATH_VECTOR & position ) {
     
-    GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-    GAMEPLAY_COMPONENT_PHYSICS * physics_component = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
-    GAMEPLAY_COMPONENT_RENDER * render_component = (GAMEPLAY_COMPONENT_RENDER *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Render );
+    GAMEPLAY_COMPONENT_POSITION * position_component = GetComponent<GAMEPLAY_COMPONENT_POSITION>();
+    GAMEPLAY_COMPONENT_PHYSICS * physics_component = GetComponent<GAMEPLAY_COMPONENT_PHYSICS>();
+    GAMEPLAY_COMPONENT_RENDER * render_component = GetComponent<GAMEPLAY_COMPONENT_RENDER>();
     
     position_component->SetPosition( position );
     
@@ -89,7 +89,7 @@ void GAMEPLAY_COMPONENT_ENTITY::SetPosition( const CORE_MATH_VECTOR & position )
 
 void GAMEPLAY_COMPONENT_ENTITY::SetPositionOffset( const CORE_MATH_VECTOR & offset ) {
     
-    GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
+    GAMEPLAY_COMPONENT_POSITION * position_component = GetComponent<GAMEPLAY_COMPONENT_POSITION>( GAMEPLAY_COMPONENT_TYPE_Position );
     
     position_component->SetPositionOffset( offset );
     
@@ -98,8 +98,8 @@ void GAMEPLAY_COMPONENT_ENTITY::SetPositionOffset( const CORE_MATH_VECTOR & offs
 
 void GAMEPLAY_COMPONENT_ENTITY::SetOrientation( const CORE_MATH_QUATERNION & orientation ) {
     
-    GAMEPLAY_COMPONENT_POSITION * position_component = (GAMEPLAY_COMPONENT_POSITION *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Position );
-    GAMEPLAY_COMPONENT_PHYSICS * physics_component = (GAMEPLAY_COMPONENT_PHYSICS *) GetComponent( GAMEPLAY_COMPONENT_TYPE_Physics );
+    GAMEPLAY_COMPONENT_POSITION * position_component = GetComponent<GAMEPLAY_COMPONENT_POSITION>();
+    GAMEPLAY_COMPONENT_PHYSICS * physics_component = GetComponent<GAMEPLAY_COMPONENT_PHYSICS>();
     
     position_component->SetOrientation( orientation );
     
@@ -119,4 +119,26 @@ void GAMEPLAY_COMPONENT_ENTITY::SetOrientation( const CORE_MATH_QUATERNION & ori
 
 void GAMEPLAY_COMPONENT_ENTITY::CollidesWith( GAMEPLAY_COMPONENT_ENTITY * other ) {
     
+}
+
+void GAMEPLAY_COMPONENT_ENTITY::Reset() {
+    
+    GAMEPLAY_COMPONENT_PHYSICS * physics_component = GetComponent<GAMEPLAY_COMPONENT_PHYSICS>();
+    GAMEPLAY_COMPONENT_RENDER * render_component = GetComponent<GAMEPLAY_COMPONENT_RENDER>();
+    GAMEPLAY_COMPONENT_ANIMATION * animation_component = GetComponent<GAMEPLAY_COMPONENT_ANIMATION>();
+    
+    if ( physics_component) {
+        
+        physics_component->Reset();
+    }
+    
+    if ( render_component ) {
+        
+        render_component->Reset( this );
+    }
+    
+    if ( animation_component ) {
+        
+        animation_component->Reset();
+    }
 }

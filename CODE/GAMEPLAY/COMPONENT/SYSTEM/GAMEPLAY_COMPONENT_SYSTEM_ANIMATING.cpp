@@ -29,13 +29,13 @@ void GAMEPLAY_COMPONENT_SYSTEM_ANIMATING::Update( void * ecs_base_pointer, float
     
     while (it != EntitiesTable.end() ) {
         
-        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((uint8_t*) ecs_base_pointer) + it->GetOffset());
-        GAMEPLAY_COMPONENT_ANIMATION * animation = entity->GetComponentAnimation();
-        GAMEPLAY_COMPONENT_RENDER * render = entity->GetComponentRender();
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((int*) ecs_base_pointer) + it->GetOffset());
+        GAMEPLAY_COMPONENT_ANIMATION * animation = entity->GetComponent<GAMEPLAY_COMPONENT_ANIMATION>();
+        GAMEPLAY_COMPONENT_RENDER * render = entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
         
         assert( animation != NULL || render != NULL );
         
-        animation->Update( time_step, & render->GetObject().GetResource< GRAPHIC_OBJECT>()->GetAnimationController()->GetAnimation(0)->GetSkeleton() );
+        animation->Update( time_step, & animation->GetAnimation().GetAnimation(0)->GetSkeleton() );
         it++;
     }
 }
