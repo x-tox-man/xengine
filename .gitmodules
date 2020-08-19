@@ -25,3 +25,9 @@
 [submodule "LIBRARY/COMMON/CURL"]
 	path = LIBRARY/COMMON/CURL
 	url = git@github.com:curl/curl.git
+[submodule "LIBRARY/COMMON/OGG"]
+	path = LIBRARY/COMMON/OGG
+	url = https://github.com/xiph/ogg.git
+[submodule "LIBRARY/COMMON/VORBIS"]
+	path = LIBRARY/COMMON/VORBIS
+	url = https://github.com/xiph/vorbis.git
