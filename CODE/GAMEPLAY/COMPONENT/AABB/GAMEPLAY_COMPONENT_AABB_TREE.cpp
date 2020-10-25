@@ -93,6 +93,10 @@ void GAMEPLAY_COMPONENT_AABB_TREE::Insert( GAMEPLAY_COMPONENT_ENTITY * entity, f
     GAMEPLAY_COMPONENT_RENDER * rend = entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
     GAMEPLAY_COMPONENT_POSITION * pos = entity->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
     
+    #if DEBUG
+        assert( rend != NULL && pos != NULL );
+    #endif
+    
     auto node = &rend->GetAABBNode();
     node->Left = NULL;
     node->Right = NULL;

@@ -129,7 +129,7 @@ XS_CLASS_BEGIN( GRAPHIC_SYSTEM )
     static void * CreateMetalPipelineState( void * descriptor, GRAPHIC_SHADER_PROGRAM & program );
     static void EnableMtlPipelineState( void * pipeline_state );
     static void * CreateMetalDynamicUniformBuffer( unsigned long size );
-    static void EnableMtlUniforms( void * buffer, uint32_t offset, uint8_t index );
+    static void EnableMtlUniforms( void * buffer, uint32_t offset, uint32_t size );
     static void * GetMtlBufferPointer( void * buffer );
     static void * CreateMtlTextureFromDescriptor( void * descriptor );
     static void * CreateMtlRenderEncoder( void * descriptor );

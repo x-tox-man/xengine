@@ -46,6 +46,10 @@ XS_CLASS_BEGIN_WITH_COPY( RESOURCE_PROXY )
         return static_cast<__RESOURCE_TYPE_ *>(Resource);
     }
 
+    BASE_RESOURCE * GetTypelessResource() {
+        return Resource;
+    }
+
 private:
 
     CORE_HELPERS_UNIQUE_IDENTIFIER

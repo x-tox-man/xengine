@@ -38,6 +38,7 @@ XS_CLASS_BEGIN_WITH_COPY( GAMEPLAY_COMPONENT_ENTITY_HANDLE )
     inline void operator = ( const GAMEPLAY_COMPONENT_ENTITY_HANDLE & other ) {
         
         Offset = other.Offset;
+        Size = other.Size;
     }
 
 private:

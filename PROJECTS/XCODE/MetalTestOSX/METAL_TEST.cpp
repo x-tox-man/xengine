@@ -46,6 +46,12 @@ METAL_TEST::~METAL_TEST() {
 
 void METAL_TEST::Initialize() {
     
+    bool create_object = false;
+    
+    if ( !create_object ) {
+        Container.Load( CORE_FILESYSTEM_PATH::FindFilePath( "containertest2" , "rs", "" ) );
+    }
+    
     GetGame().GetScene().InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_UPDATE_POSITION );
     GetGame().GetScene().InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_ANIMATING );
     GetGame().GetScene().InsertUpdatableSystem( new GAMEPLAY_COMPONENT_SYSTEM_LIGHTING );
@@ -98,14 +104,14 @@ void METAL_TEST::Initialize() {
         
         Effect->SetMaterial( mat );
         
-        CreateStaticObject(StaticObject, EffectDeferred, mat );
+        CreateStaticObject( create_object, StaticObject, EffectDeferred, mat );
     }
     
     {
         AnimatedEffectDeferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::AnimatedObject"), CORE_FILESYSTEM_PATH::FindFilePath( "AnimationShaderDeferred" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
         AnimatedShadowMapEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::AnimatedShadowMapObject"), CORE_FILESYSTEM_PATH::FindFilePath( "AnimationShadowMapShader" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
         
-        NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "Dying" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "Running" , "acbx", "MODELS" ));
+        NakedGirlObject = CreateAnimatedObject( create_object, CORE_FILESYSTEM_PATH::FindFilePath( "Dying" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "Running" , "acbx", "MODELS" ));
         //NakedGirlObject = CreateAnimatedObject( CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00" , "smx", "MODELS" ), CORE_FILESYSTEM_PATH::FindFilePath( "DefenderLingerie00.DE_Lingerie00_Skeleto" , "abx", "MODELS" ));
         
         AnimatedShadowMapEffect->Initialize( NakedGirlObject->GetShaderBindParameter() );
@@ -285,24 +291,33 @@ void METAL_TEST::Initialize() {
     auto proxy = new RESOURCE_PROXY;
     proxy->SetResource( StaticObject );
     proxy->SetType( RESOURCE_TYPE_ModelResource );
+    
     container.AddResource( proxy, StaticObject->GetIdentifier() );
     container.Save( CORE_FILESYSTEM_PATH::FindFilePath( "containertest" , "rs", "" ) );
     
-    RESOURCE_CONTAINER
+    /*RESOURCE_CONTAINER
         container2;
     
-    container2.Load( CORE_FILESYSTEM_PATH::FindFilePath( "containertest" , "rs", "" ) );
+    container2.Load( CORE_FILESYSTEM_PATH::FindFilePath( "containertest" , "rs", "" ) );*/
     
     GRAPHIC_RENDERER::GetInstance().SetCascadeEnd( 0, -5.0f );
     GRAPHIC_RENDERER::GetInstance().SetCascadeEnd( 1, 10.0f );
     GRAPHIC_RENDERER::GetInstance().SetCascadeEnd( 2, 100.0f );
     GRAPHIC_RENDERER::GetInstance().SetCascadeEnd( 3, 1000.0f );
     
-    CreateGround();
-    //CreateWater();
+    CreateGround( create_object );
+    //CreateWater( create_object );
     
-    //GetGame().GetScene().SaveTo(CORE_FILESYSTEM_PATH::FindFilePath("test", "rs", "") );
-    GetGame().GetScene().LoadFrom(CORE_FILESYSTEM_PATH::FindFilePath("test", "rs", "") );
+    if ( create_object ) {
+        
+        GetGame().GetScene().SaveTo(CORE_FILESYSTEM_PATH::FindFilePath("test", "rs", "") );
+        
+        Container.Save( CORE_FILESYSTEM_PATH::FindFilePath( "containertest2" , "rs", "" ) );
+    }
+    else {
+        GetGame().GetScene().LoadFrom(CORE_FILESYSTEM_PATH::FindFilePath("test", "rs", "") );
+    }
+    
     
     GRAPHIC_UI_SYSTEM::GetInstance().Initialize();
     GRAPHIC_UI_SYSTEM::GetInstance().SetScreenSize(CORE_MATH_VECTOR( GetApplicationWindow().GetWidth(), GetApplicationWindow().GetHeight() ) );
@@ -439,23 +454,21 @@ void METAL_TEST::RenderTechnique( GRAPHIC_RENDERER & renderer ) {
     //StaticObject->Render( renderer, options, Effect );
 }
 
-GRAPHIC_OBJECT * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path ) {
+GRAPHIC_OBJECT * METAL_TEST::CreateAnimatedObject( bool create_object, const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path ) {
     
     GRAPHIC_OBJECT * animated_object = RESOURCE<GRAPHIC_OBJECT, GRAPHIC_OBJECT_RESOURCE_LOADER>::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "NakedGirlObject" ), object_path );
     auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER, GAMEPLAY_COMPONENT_ANIMATION >();
     
     //animated_object->SetAnimationController( new GRAPHIC_MESH_ANIMATION_CONTROLLER );
     
-    
     auto animation_collection = GRAPHIC_MESH_ANIMATION_COLLECTION::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "NakedGirlObjectAnimation" ), animation_path );
     
-    RESOURCE_PROXY anim_proxy;
-    
-    anim_proxy.SetResource( animation_collection );
-    
-    entity->GetComponent<GAMEPLAY_COMPONENT_ANIMATION>()->SetAnimationResource( anim_proxy );
+    entity->GetComponent<GAMEPLAY_COMPONENT_ANIMATION>()->SetAnimationResource( *Container.AddResource( animation_collection ) );
     
     auto collection = new GRAPHIC_MATERIAL_COLLECTION;
+    collection->SetIdentifier( "AnimatedModelMaterialCollection" );
+    
+    GRAPHIC_MATERIAL_COLLECTION::GetResourceCache()->SetResourceForIdentifier(collection,  CORE_HELPERS_UNIQUE_IDENTIFIER( "AnimatedModelMaterialCollection" ) );
     
     for (int i = 0; i < animated_object->GetMeshTable().size(); i++ ) {
         
@@ -511,98 +524,73 @@ GRAPHIC_OBJECT * METAL_TEST::CreateAnimatedObject( const CORE_FILESYSTEM_PATH & 
     
     //q1.RotateX(45.0f);
     
-    entity->SetPosition( CORE_MATH_VECTOR( 0.0f,0.0f,-10.0f,0.0f) );
-    entity->SetOrientation( q1 );
+    if ( create_object ) {
     
-    auto proxy = new RESOURCE_PROXY;
-    
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( animated_object );
-
-    entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetObject( *proxy );
-
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( AnimatedEffectDeferred );
-    entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetEffect( *proxy );
-    
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( AnimatedShadowMapEffect );
-    entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetShadowMapEffectProxy( *proxy );
-    
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( collection );
-    entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetMaterialCollection( *proxy );
-    
-    //TODO: fix this index bullshit
-    GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( entity );
-    GetGame().GetScene().GetUpdatableSystemTable()[1]->AddEntity( entity );
-    GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
-    
-    entity->Scale( 1.6f);
-    
-    for( int i = 0; i < 10; i++ ) {
+        entity->SetPosition( CORE_MATH_VECTOR( 0.0f,0.0f,-10.0f,0.0f) );
+        entity->SetOrientation( q1 );
+        entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetObject( *Container.AddResource( animated_object ) );
+        entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetEffect( *Container.AddResource( AnimatedEffectDeferred ) );
+        entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetShadowMapEffectProxy( *Container.AddResource( AnimatedShadowMapEffect ) );
+        entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetMaterialCollection( *Container.AddResource( collection ) );
         
-        auto clone = GAMEPLAY_COMPONENT_MANAGER::GetInstance().Clone( entity );
-        clone->SetPosition( CORE_MATH_VECTOR( -150.0f + i *30.0,0.0f,-10.0f,0.0f) );
+        //TODO: fix this index bullshit
+        GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( entity );
+        GetGame().GetScene().GetUpdatableSystemTable()[1]->AddEntity( entity );
+        GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
         
-        clone->GetComponent<GAMEPLAY_COMPONENT_ANIMATION>()->SetSpeed( 0.1f *i );
-        GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( clone );
-        GetGame().GetScene().GetUpdatableSystemTable()[1]->AddEntity( clone );
-        GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( clone );
+        entity->Scale( 1.6f);
+        
+        for( int i = 0; i < 100; i++ ) {
+            
+            auto clone = GAMEPLAY_COMPONENT_MANAGER::GetInstance().Clone( entity );
+            clone->Reset();
+            clone->SetPosition( CORE_MATH_VECTOR( -150.0f + i *30.0,0.0f,-10.0f,0.0f) );
+            
+            clone->GetComponent<GAMEPLAY_COMPONENT_ANIMATION>()->SetSpeed( 0.1f *i );
+            GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( clone );
+            GetGame().GetScene().GetUpdatableSystemTable()[1]->AddEntity( clone );
+            GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( clone );
+        }
     }
     
     return animated_object;
 }
 
-void METAL_TEST::CreateStaticObject( GRAPHIC_OBJECT * object, GRAPHIC_SHADER_EFFECT::PTR effect, GRAPHIC_MATERIAL * mat ) {
-    
-    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
-    
-    CORE_MATH_QUATERNION
-        q1;
-    
-    q1.RotateX( 90.0f );
-    
-    entity->SetPosition( CORE_MATH_VECTOR( 0.0f,0.0f,-50.0f,0.0f) );
-    entity->Scale( 10.0f);
-    entity->SetOrientation( q1 );
-    
-    auto proxy = new RESOURCE_PROXY;
-    
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( object );
-
-    entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetObject( *proxy );
-
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( effect );
-    entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetEffect( *proxy );
-    
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( ShadowMapEffect );
-    entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetShadowMapEffectProxy( *proxy );
+void METAL_TEST::CreateStaticObject( bool create_object, GRAPHIC_OBJECT * object, GRAPHIC_SHADER_EFFECT::PTR effect, GRAPHIC_MATERIAL * mat ) {
     
     auto collection = new GRAPHIC_MATERIAL_COLLECTION;
+    collection->SetIdentifier( "StaticObjectMaterialCollection" );
     collection->SetMaterialForName(mat, object->GetMeshTable()[0]->GetName() );
+    GRAPHIC_MATERIAL_COLLECTION::GetResourceCache()->SetResourceForIdentifier(collection,  CORE_HELPERS_UNIQUE_IDENTIFIER( "StaticObjectMaterialCollection" ) );
     
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( collection );
-    
-    entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetMaterialCollection( *proxy );
-    
-    auto testtest = entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
-    
-    //TODO: fix this index bullshit
-    GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( entity );
-    GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
-    
-    auto render = entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
-    auto clone = GAMEPLAY_COMPONENT_MANAGER::GetInstance().Clone( entity );
-    
-    auto render2 = clone->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
-    clone->SetPosition( CORE_MATH_VECTOR( -5.0f,0.0f,-50.0f,0.0f) );
-    GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( clone );
-    GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( clone );
+    if (create_object ) {
+        
+        auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
+        
+        CORE_MATH_QUATERNION
+            q1;
+        
+        q1.RotateX( 90.0f );
+        
+        entity->SetPosition( CORE_MATH_VECTOR( 0.0f,0.0f,-50.0f,0.0f) );
+        entity->Scale( 10.0f);
+        entity->SetOrientation( q1 );
+        entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetObject( *Container.AddResource( object ) );
+        entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetEffect( *Container.AddResource( effect ) );
+        entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetShadowMapEffectProxy( *Container.AddResource( ShadowMapEffect ) );
+        
+        entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetMaterialCollection( *Container.AddResource( collection ) );
+        
+        //TODO: fix this index bullshit
+        GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( entity );
+        GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
+        
+        auto clone = GAMEPLAY_COMPONENT_MANAGER::GetInstance().Clone( entity );
+        
+        clone->SetPosition( CORE_MATH_VECTOR( -5.0f,0.0f,-50.0f,0.0f) );
+        GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( clone );
+        GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( clone );
+    }
 }
 
 GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR METAL_TEST::Set3DHeighFieldObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) {
@@ -623,27 +611,12 @@ GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR METAL_TEST::Set3DHeighFieldObject( GAMEPLAY
 }
 
 
-void METAL_TEST::CreateGround() {
-    auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
-    
-    GAMEPLAY_COMPONENT_RENDER::PTR render = entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
+void METAL_TEST::CreateGround( bool create_object ) {
     
     TerrainEffectDeferred = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::BasicTerrainDeferred"), CORE_FILESYSTEM_PATH::FindFilePath( "BasicTerrainDeferred" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
-    
     auto text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "map-color" ), CORE_FILESYSTEM_PATH::FindFilePath("map_color_0", "png", "MAP" ) );
-    SERVICE_LOGGER_Error( "GAMEPLAY_HELPER::SetTexture : create %p\n", text );
-    auto height_map_object = Set3DHeighFieldObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "heightmap" ) );
-    
-    TerrainEffectDeferred->Initialize( height_map_object->GetShaderBindParameter() );
-    
-    auto proxy = new RESOURCE_PROXY;
-    proxy->SetResource( TerrainEffectDeferred );
-    render->SetEffect( *proxy );
     
     auto mat = new GRAPHIC_MATERIAL;
-    
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( TerrainEffectDeferred );
 
     text = GRAPHIC_TEXTURE::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "map_color_0" ), CORE_FILESYSTEM_PATH::FindFilePath("map_color_0", "png", "MAP" ) );
     mat->SetTexture( GRAPHIC_SHADER_PROGRAM::ColorTexture1, new GRAPHIC_TEXTURE_BLOCK( text ) );
@@ -662,29 +635,53 @@ void METAL_TEST::CreateGround() {
     
     auto collection = new GRAPHIC_MATERIAL_COLLECTION;
     collection->SetMaterialForName( mat, GRAPHIC_SHADER_EFFECT::DefaultMaterialName );
+    collection->SetIdentifier( "GroundMeshMaterialCollection" );
+    GRAPHIC_MATERIAL_COLLECTION::GetResourceCache()->SetResourceForIdentifier(collection,  CORE_HELPERS_UNIQUE_IDENTIFIER( "GroundMeshMaterialCollection" ) );
     
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( collection );
-    render->SetMaterialCollection( *proxy );
+    RESOURCE_IMAGE_PNG_LOADER loader;
+    RESOURCE_IMAGE * height_map = (RESOURCE_IMAGE*) loader.Load( CORE_FILESYSTEM_PATH::FindFilePath( CORE_HELPERS_UNIQUE_IDENTIFIER( "heightmap" ).GetIdentifier(), "png", "MAP" ) );
     
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( ShadowMapEffect );
-    entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetShadowMapEffectProxy( *proxy );
+    float * heights = (float * ) height_map->GetImageRawData();
     
-    CORE_MATH_VECTOR p( -((height_map_object->GetXWidth() - 1) * height_map_object->GetLength())*0.5f, -30.0f, -((height_map_object->GetYWidth()- 1) * height_map_object->GetLength())*0.5f, 1.0f );
+    GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR h_object = new GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP( heights, height_map->GetImageInfo().Width, height_map->GetImageInfo().Height, 2.0f );
+    h_object->SetHeightScale( 0.05f );
+    h_object->InitializeShape();
+    h_object->SetIdentifier( CORE_HELPERS_UNIQUE_IDENTIFIER( "HeightMapObject" ) );
+    GRAPHIC_OBJECT::GetResourceCache()->SetResourceForIdentifier( h_object,  CORE_HELPERS_UNIQUE_IDENTIFIER( "HeightMapObject" ) );
     
-    entity->SetPosition( p );
-    entity->Scale( 100.0f );
+    TerrainEffectDeferred->Initialize( h_object->GetShaderBindParameter() );
     
-    //GAMEPLAY_HELPER::AddStaticToPhysics( entity, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_WEAPONSHIP );
-    //GAMEPLAY_HELPER::AddToWorld( entity );
-    
-    //TODO: fix this index bullshit
-    GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( entity );
-    GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
+    if ( create_object ) {
+        
+        auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
+        
+        GAMEPLAY_COMPONENT_RENDER::PTR render = entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
+
+        //auto height_map_object = Set3DHeighFieldObject( entity, CORE_HELPERS_UNIQUE_IDENTIFIER( "heightmap" ) );
+        
+        GAMEPLAY_COMPONENT_RENDER::PTR render_c = (GAMEPLAY_COMPONENT_RENDER::PTR) entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>();
+        render_c->GetObject().SetResource( h_object );
+        
+        render->SetEffect( *Container.AddResource( TerrainEffectDeferred ) );
+        render->SetMaterialCollection( *Container.AddResource( collection ) );
+        
+        entity->GetComponent<GAMEPLAY_COMPONENT_RENDER>()->SetShadowMapEffectProxy( *Container.AddResource( ShadowMapEffect ) );
+        
+        CORE_MATH_VECTOR p( -((h_object->GetXWidth() - 1) * h_object->GetLength())*0.5f, -30.0f, -((h_object->GetYWidth()- 1) * h_object->GetLength())*0.5f, 1.0f );
+        
+        entity->SetPosition( p );
+        entity->Scale( 100.0f );
+        
+        //GAMEPLAY_HELPER::AddStaticToPhysics( entity, PHYSICS_COLLISION_TYPE_WALL, PHYSICS_COLLISION_TYPE_WEAPONSHIP );
+        //GAMEPLAY_HELPER::AddToWorld( entity );
+        
+        //TODO: fix this index bullshit
+        GetGame().GetScene().GetUpdatableSystemTable()[0]->AddEntity( entity );
+        GetGame().GetScene().GetRenderableSystemTable()[0]->AddEntity( entity );
+    }
 }
 
-void METAL_TEST::CreateWater() {
+void METAL_TEST::CreateWater( bool create_object ) {
     
     auto entity = GAMEPLAY_COMPONENT_MANAGER::GetInstance().CreateEntityWithComponents< GAMEPLAY_COMPONENT_POSITION, GAMEPLAY_COMPONENT_RENDER >();
     
@@ -694,16 +691,12 @@ void METAL_TEST::CreateWater() {
     
     WaterEffect = GRAPHIC_SHADER_EFFECT::LoadResourceForPath(CORE_HELPERS_UNIQUE_IDENTIFIER( "SHADER::WaterAnimated"), CORE_FILESYSTEM_PATH::FindFilePath( "WaterAnimated" , "vsh", GRAPHIC_SYSTEM::GetShaderDirectoryPath() ) );
     
-    auto proxy = new RESOURCE_PROXY;
-    proxy->SetResource( WaterEffect );
-    render->SetEffect( *proxy );
+    render->SetEffect( *Container.AddResource( WaterEffect ) );
     
     
     auto obj = RESOURCE<GRAPHIC_OBJECT, GRAPHIC_OBJECT_RESOURCE_LOADER>::LoadResourceForPath( CORE_HELPERS_UNIQUE_IDENTIFIER( "flat_base" ),  CORE_FILESYSTEM_PATH::FindFilePath("flat_base", "smx", "MODELS" ) );
     
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( obj );
-    render->SetObject( *proxy );
+    render->SetObject( *Container.AddResource( obj ) );
     
     WaterEffect->Initialize( obj->GetShaderBindParameter() );
     
@@ -718,13 +711,9 @@ void METAL_TEST::CreateWater() {
     auto collection = new GRAPHIC_MATERIAL_COLLECTION;
     collection->SetMaterialForName( mat, "Plane" );
     
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( collection );
-    render->SetMaterialCollection( *proxy );
+    render->SetMaterialCollection( *Container.AddResource( collection ) );
     
-    proxy = new RESOURCE_PROXY;
-    proxy->SetResource( ShadowMapEffect );
-    render->SetShadowMapEffectProxy(*proxy );
+    render->SetShadowMapEffectProxy( *Container.AddResource( ShadowMapEffect ) );
     
     CORE_MATH_QUATERNION orientation;
     orientation.RotateX( M_PI_2 );

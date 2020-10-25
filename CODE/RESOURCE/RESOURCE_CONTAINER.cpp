@@ -42,9 +42,9 @@ void RESOURCE_CONTAINER::Save( const CORE_FILESYSTEM_PATH & path ) {
     
     while (it != ResourceMap.end() ) {
         
-        auto resource = BASE_RESOURCE::FactoryCreate( it->second->GetType() );
+        //auto resource = BASE_RESOURCE::FactoryCreate( it->second->GetType() );
         
-        resource->Save( it->first, stream );
+        it->second->GetTypelessResource()->Save( it->first, stream );
         
         it++;
     }

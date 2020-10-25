@@ -86,7 +86,12 @@ void GRAPHIC_MESH_ANIMATION_JOINT::YieldFloatMatrixBufferForIndex( GRAPHIC_MESH_
     //matrix = CORE_MATH_MATRIX( (float *) FloatMatrixBuffer.getpointerAtIndex( matrix_index.FrameIndex * sizeof(float) * 16, 0) );
 }
 
-void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( const int pose_index, CORE_MATH_POSE & pose ) {
+void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX matrix_index, CORE_MATH_POSE & pose ) {
+    
+    CORE_MATH_POSE * ptr1 = (CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( matrix_index.FrameIndex * sizeof( CORE_MATH_POSE ) * 4, 0);
+    CORE_MATH_POSE * ptr2 = (CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( (matrix_index.NextFrameIndex ) * sizeof( CORE_MATH_POSE ) * 4, 0);
+    
+    ptr1->Lerp( *ptr2, pose, matrix_index.Percentage );
     
     /*int pose_index = 0;
     
@@ -122,5 +127,5 @@ void GRAPHIC_MESH_ANIMATION_JOINT::YieldPoseForTime( const int pose_index, CORE_
     
     assert(pose_index == TimeTableBuffer.GetSize() -1 );*/
     
-    pose.CopyFrom(  *(( CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( pose_index * sizeof( CORE_MATH_POSE ), 0) ));
+    //pose.CopyFrom(  *(( CORE_MATH_POSE *) PoseBuffer.getpointerAtIndex( pose_index * sizeof( CORE_MATH_POSE ), 0) ));
 }

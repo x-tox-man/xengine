@@ -2812,6 +2812,19 @@
 		671D7B5E23AEDD25005D4E22 /* SERVICE_NETWORK_SYSTEM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F5811E90E80400838C62 /* SERVICE_NETWORK_SYSTEM.cpp */; };
 		671D7B5F23AEDD25005D4E22 /* PHYSICS_UTILS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FAFD0521F75592300113D6E /* PHYSICS_UTILS.cpp */; };
 		674CD43D24798BC300569A33 /* GRAPHIC_SHADER_GPU_BUFFER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674CD43B24798BC300569A33 /* GRAPHIC_SHADER_GPU_BUFFER.cpp */; };
+		674F86CB252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86CC252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86CD252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86CE252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86CF252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86D0252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86D1252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86D2252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86D3252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86D4252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86D5252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */; };
+		674F86D6252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.h in Headers */ = {isa = PBXBuildFile; fileRef = 674F86CA252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.h */; };
+		674F86D7252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.h in Headers */ = {isa = PBXBuildFile; fileRef = 674F86CA252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.h */; };
 		6750F8A524D4236D00470E32 /* GAME_ENGINE_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB5125B1FBD67E40025AAAF /* GAME_ENGINE_Tests.m */; };
 		6750F8A624D424E800470E32 /* GRAPHIC_MESH_LOADER_COLLADA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3238F55C1E90E80400838C62 /* GRAPHIC_MESH_LOADER_COLLADA.cpp */; };
 		67544DFF234DC3FE0049A21E /* libftoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67544D7C234DC3FE0049A21E /* libftoa.a */; };
@@ -3340,6 +3353,176 @@
 		67D9875723F96C380011D696 /* GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D9874C23F96C380011D696 /* GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.cpp */; };
 		67D9875823F96C380011D696 /* GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D9874C23F96C380011D696 /* GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.cpp */; };
 		67D9875923F96C380011D696 /* GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D9874C23F96C380011D696 /* GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.cpp */; };
+		67E0C32D24ED7AD100EE10D9 /* BitsUV2048-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20924ED7ACF00EE10D9 /* BitsUV2048-normal.png */; };
+		67E0C32E24ED7AD100EE10D9 /* BitsUV2048-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20924ED7ACF00EE10D9 /* BitsUV2048-normal.png */; };
+		67E0C32F24ED7AD100EE10D9 /* EmptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20A24ED7ACF00EE10D9 /* EmptyStar.png */; };
+		67E0C33024ED7AD100EE10D9 /* EmptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20A24ED7ACF00EE10D9 /* EmptyStar.png */; };
+		67E0C33124ED7AD100EE10D9 /* frame_gauge.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20B24ED7ACF00EE10D9 /* frame_gauge.png */; };
+		67E0C33224ED7AD100EE10D9 /* frame_gauge.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20B24ED7ACF00EE10D9 /* frame_gauge.png */; };
+		67E0C33324ED7AD100EE10D9 /* Level1_picto.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20C24ED7ACF00EE10D9 /* Level1_picto.png */; };
+		67E0C33424ED7AD100EE10D9 /* Level1_picto.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20C24ED7ACF00EE10D9 /* Level1_picto.png */; };
+		67E0C33524ED7AD100EE10D9 /* map-color-sand.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20D24ED7ACF00EE10D9 /* map-color-sand.png */; };
+		67E0C33624ED7AD100EE10D9 /* map-color-sand.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20D24ED7ACF00EE10D9 /* map-color-sand.png */; };
+		67E0C33724ED7AD100EE10D9 /* map-color-grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20E24ED7ACF00EE10D9 /* map-color-grass.png */; };
+		67E0C33824ED7AD100EE10D9 /* map-color-grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20E24ED7ACF00EE10D9 /* map-color-grass.png */; };
+		67E0C33924ED7AD100EE10D9 /* map-color-grass-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20F24ED7ACF00EE10D9 /* map-color-grass-normal.png */; };
+		67E0C33A24ED7AD100EE10D9 /* map-color-grass-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C20F24ED7ACF00EE10D9 /* map-color-grass-normal.png */; };
+		67E0C33B24ED7AD100EE10D9 /* map-color-rock-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21024ED7ACF00EE10D9 /* map-color-rock-normal.png */; };
+		67E0C33C24ED7AD100EE10D9 /* map-color-rock-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21024ED7ACF00EE10D9 /* map-color-rock-normal.png */; };
+		67E0C33D24ED7AD100EE10D9 /* BitsUV2048-displacement.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21124ED7ACF00EE10D9 /* BitsUV2048-displacement.png */; };
+		67E0C33E24ED7AD100EE10D9 /* BitsUV2048-displacement.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21124ED7ACF00EE10D9 /* BitsUV2048-displacement.png */; };
+		67E0C33F24ED7AD100EE10D9 /* water-0339-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21224ED7ACF00EE10D9 /* water-0339-normal.png */; };
+		67E0C34024ED7AD100EE10D9 /* water-0339-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21224ED7ACF00EE10D9 /* water-0339-normal.png */; };
+		67E0C34124ED7AD100EE10D9 /* frameBorder3.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21324ED7ACF00EE10D9 /* frameBorder3.png */; };
+		67E0C34224ED7AD100EE10D9 /* frameBorder3.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21324ED7ACF00EE10D9 /* frameBorder3.png */; };
+		67E0C34324ED7AD100EE10D9 /* moon.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21424ED7ACF00EE10D9 /* moon.png */; };
+		67E0C34424ED7AD100EE10D9 /* moon.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21424ED7ACF00EE10D9 /* moon.png */; };
+		67E0C34524ED7AD100EE10D9 /* VoidPirateMesh.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21524ED7ACF00EE10D9 /* VoidPirateMesh.png */; };
+		67E0C34624ED7AD100EE10D9 /* VoidPirateMesh.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21524ED7ACF00EE10D9 /* VoidPirateMesh.png */; };
+		67E0C34724ED7AD100EE10D9 /* map-color-rock.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21624ED7ACF00EE10D9 /* map-color-rock.png */; };
+		67E0C34824ED7AD100EE10D9 /* map-color-rock.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21624ED7ACF00EE10D9 /* map-color-rock.png */; };
+		67E0C34924ED7AD100EE10D9 /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21724ED7ACF00EE10D9 /* smoke.png */; };
+		67E0C34A24ED7AD100EE10D9 /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21724ED7ACF00EE10D9 /* smoke.png */; };
+		67E0C34B24ED7AD100EE10D9 /* waves.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21824ED7ACF00EE10D9 /* waves.png */; };
+		67E0C34C24ED7AD100EE10D9 /* waves.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21824ED7ACF00EE10D9 /* waves.png */; };
+		67E0C34D24ED7AD100EE10D9 /* VoidPirateMesh-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21924ED7ACF00EE10D9 /* VoidPirateMesh-normal.png */; };
+		67E0C34E24ED7AD100EE10D9 /* VoidPirateMesh-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21924ED7ACF00EE10D9 /* VoidPirateMesh-normal.png */; };
+		67E0C34F24ED7AD100EE10D9 /* moon-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21A24ED7ACF00EE10D9 /* moon-normal.png */; };
+		67E0C35024ED7AD100EE10D9 /* moon-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21A24ED7ACF00EE10D9 /* moon-normal.png */; };
+		67E0C35124ED7AD100EE10D9 /* high-resolution-space-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21B24ED7ACF00EE10D9 /* high-resolution-space-1.png */; };
+		67E0C35224ED7AD100EE10D9 /* high-resolution-space-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21B24ED7ACF00EE10D9 /* high-resolution-space-1.png */; };
+		67E0C35324ED7AD100EE10D9 /* BitsUV2048.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21C24ED7ACF00EE10D9 /* BitsUV2048.png */; };
+		67E0C35424ED7AD100EE10D9 /* BitsUV2048.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21C24ED7ACF00EE10D9 /* BitsUV2048.png */; };
+		67E0C35524ED7AD100EE10D9 /* water-0339.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21D24ED7ACF00EE10D9 /* water-0339.png */; };
+		67E0C35624ED7AD100EE10D9 /* water-0339.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21D24ED7ACF00EE10D9 /* water-0339.png */; };
+		67E0C35724ED7AD100EE10D9 /* map-color-sand-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21E24ED7ACF00EE10D9 /* map-color-sand-normal.png */; };
+		67E0C35824ED7AD100EE10D9 /* map-color-sand-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C21E24ED7ACF00EE10D9 /* map-color-sand-normal.png */; };
+		67E0C43324ED7AD100EE10D9 /* Running.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C28F24ED7AD000EE10D9 /* Running.smx */; };
+		67E0C43424ED7AD100EE10D9 /* Running.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C28F24ED7AD000EE10D9 /* Running.smx */; };
+		67E0C43524ED7AD100EE10D9 /* Running.acbx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29024ED7AD000EE10D9 /* Running.acbx */; };
+		67E0C43624ED7AD100EE10D9 /* Running.acbx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29024ED7AD000EE10D9 /* Running.acbx */; };
+		67E0C43724ED7AD100EE10D9 /* untitled.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29124ED7AD000EE10D9 /* untitled.smx */; };
+		67E0C43824ED7AD100EE10D9 /* untitled.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29124ED7AD000EE10D9 /* untitled.smx */; };
+		67E0C43924ED7AD100EE10D9 /* turn.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29224ED7AD000EE10D9 /* turn.smx */; };
+		67E0C43A24ED7AD100EE10D9 /* turn.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29224ED7AD000EE10D9 /* turn.smx */; };
+		67E0C43B24ED7AD100EE10D9 /* Ironman.acbx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29324ED7AD000EE10D9 /* Ironman.acbx */; };
+		67E0C43C24ED7AD100EE10D9 /* Ironman.acbx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29324ED7AD000EE10D9 /* Ironman.acbx */; };
+		67E0C43D24ED7AD100EE10D9 /* flat_ground.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29424ED7AD000EE10D9 /* flat_ground.smx */; };
+		67E0C43E24ED7AD100EE10D9 /* flat_ground.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29424ED7AD000EE10D9 /* flat_ground.smx */; };
+		67E0C43F24ED7AD100EE10D9 /* moon.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29524ED7AD000EE10D9 /* moon.smx */; };
+		67E0C44024ED7AD100EE10D9 /* moon.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29524ED7AD000EE10D9 /* moon.smx */; };
+		67E0C44124ED7AD100EE10D9 /* thor.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29624ED7AD000EE10D9 /* thor.smx */; };
+		67E0C44224ED7AD100EE10D9 /* thor.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29624ED7AD000EE10D9 /* thor.smx */; };
+		67E0C44324ED7AD100EE10D9 /* thruster.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29724ED7AD000EE10D9 /* thruster.smx */; };
+		67E0C44424ED7AD100EE10D9 /* thruster.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29724ED7AD000EE10D9 /* thruster.smx */; };
+		67E0C44524ED7AD100EE10D9 /* T_34_85.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29824ED7AD000EE10D9 /* T_34_85.smx */; };
+		67E0C44624ED7AD100EE10D9 /* T_34_85.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29824ED7AD000EE10D9 /* T_34_85.smx */; };
+		67E0C44724ED7AD100EE10D9 /* skydome.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29924ED7AD000EE10D9 /* skydome.smx */; };
+		67E0C44824ED7AD100EE10D9 /* skydome.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29924ED7AD000EE10D9 /* skydome.smx */; };
+		67E0C44924ED7AD100EE10D9 /* cyl.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29A24ED7AD000EE10D9 /* cyl.smx */; };
+		67E0C44A24ED7AD100EE10D9 /* cyl.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29A24ED7AD000EE10D9 /* cyl.smx */; };
+		67E0C44B24ED7AD100EE10D9 /* flat_base.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29B24ED7AD000EE10D9 /* flat_base.smx */; };
+		67E0C44C24ED7AD100EE10D9 /* flat_base.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29B24ED7AD000EE10D9 /* flat_base.smx */; };
+		67E0C44D24ED7AD100EE10D9 /* Chris.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29C24ED7AD000EE10D9 /* Chris.smx */; };
+		67E0C44E24ED7AD100EE10D9 /* Chris.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29C24ED7AD000EE10D9 /* Chris.smx */; };
+		67E0C44F24ED7AD100EE10D9 /* cone.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29D24ED7AD000EE10D9 /* cone.smx */; };
+		67E0C45024ED7AD100EE10D9 /* cone.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29D24ED7AD000EE10D9 /* cone.smx */; };
+		67E0C45124ED7AD100EE10D9 /* Dying.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29E24ED7AD000EE10D9 /* Dying.smx */; };
+		67E0C45224ED7AD100EE10D9 /* Dying.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29E24ED7AD000EE10D9 /* Dying.smx */; };
+		67E0C45324ED7AD100EE10D9 /* Ironman.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29F24ED7AD000EE10D9 /* Ironman.smx */; };
+		67E0C45424ED7AD100EE10D9 /* Ironman.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C29F24ED7AD000EE10D9 /* Ironman.smx */; };
+		67E0C45524ED7AD100EE10D9 /* capsule.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A024ED7AD000EE10D9 /* capsule.smx */; };
+		67E0C45624ED7AD100EE10D9 /* capsule.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A024ED7AD000EE10D9 /* capsule.smx */; };
+		67E0C45724ED7AD100EE10D9 /* Dying.acbx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A124ED7AD000EE10D9 /* Dying.acbx */; };
+		67E0C45824ED7AD100EE10D9 /* Dying.acbx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A124ED7AD000EE10D9 /* Dying.acbx */; };
+		67E0C45924ED7AD100EE10D9 /* sphere.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A224ED7AD000EE10D9 /* sphere.smx */; };
+		67E0C45A24ED7AD100EE10D9 /* sphere.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A224ED7AD000EE10D9 /* sphere.smx */; };
+		67E0C45B24ED7AD100EE10D9 /* jump.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A324ED7AD000EE10D9 /* jump.smx */; };
+		67E0C45C24ED7AD100EE10D9 /* jump.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A324ED7AD000EE10D9 /* jump.smx */; };
+		67E0C45D24ED7AD100EE10D9 /* fighter.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A424ED7AD000EE10D9 /* fighter.smx */; };
+		67E0C45E24ED7AD100EE10D9 /* fighter.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A424ED7AD000EE10D9 /* fighter.smx */; };
+		67E0C45F24ED7AD100EE10D9 /* straight_track.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A524ED7AD000EE10D9 /* straight_track.smx */; };
+		67E0C46024ED7AD100EE10D9 /* straight_track.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A524ED7AD000EE10D9 /* straight_track.smx */; };
+		67E0C46124ED7AD100EE10D9 /* weapon1.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A624ED7AD000EE10D9 /* weapon1.smx */; };
+		67E0C46224ED7AD100EE10D9 /* weapon1.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A624ED7AD000EE10D9 /* weapon1.smx */; };
+		67E0C46324ED7AD100EE10D9 /* straight_track_scaled.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A724ED7AD000EE10D9 /* straight_track_scaled.smx */; };
+		67E0C46424ED7AD100EE10D9 /* straight_track_scaled.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A724ED7AD000EE10D9 /* straight_track_scaled.smx */; };
+		67E0C46524ED7AD100EE10D9 /* Chris.acbx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A824ED7AD000EE10D9 /* Chris.acbx */; };
+		67E0C46624ED7AD100EE10D9 /* Chris.acbx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A824ED7AD000EE10D9 /* Chris.acbx */; };
+		67E0C46724ED7AD100EE10D9 /* spaceship.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A924ED7AD000EE10D9 /* spaceship.smx */; };
+		67E0C46824ED7AD100EE10D9 /* spaceship.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2A924ED7AD000EE10D9 /* spaceship.smx */; };
+		67E0C46924ED7AD100EE10D9 /* flat.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AA24ED7AD000EE10D9 /* flat.smx */; };
+		67E0C46A24ED7AD100EE10D9 /* flat.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AA24ED7AD000EE10D9 /* flat.smx */; };
+		67E0C46B24ED7AD100EE10D9 /* checkpoint.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AB24ED7AD000EE10D9 /* checkpoint.smx */; };
+		67E0C46C24ED7AD100EE10D9 /* checkpoint.smx in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AB24ED7AD000EE10D9 /* checkpoint.smx */; };
+		67E0C46D24ED7AD100EE10D9 /* sound_engine.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AD24ED7AD000EE10D9 /* sound_engine.wav */; };
+		67E0C46E24ED7AD100EE10D9 /* sound_engine.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AD24ED7AD000EE10D9 /* sound_engine.wav */; };
+		67E0C46F24ED7AD100EE10D9 /* music-pulse.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AE24ED7AD000EE10D9 /* music-pulse.mp3 */; };
+		67E0C47024ED7AD100EE10D9 /* music-pulse.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AE24ED7AD000EE10D9 /* music-pulse.mp3 */; };
+		67E0C47124ED7AD100EE10D9 /* sound_bubbles.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AF24ED7AD000EE10D9 /* sound_bubbles.wav */; };
+		67E0C47224ED7AD100EE10D9 /* sound_bubbles.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2AF24ED7AD000EE10D9 /* sound_bubbles.wav */; };
+		67E0C47324ED7AD100EE10D9 /* sound_electric.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B024ED7AD000EE10D9 /* sound_electric.wav */; };
+		67E0C47424ED7AD100EE10D9 /* sound_electric.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B024ED7AD000EE10D9 /* sound_electric.wav */; };
+		67E0C47524ED7AD100EE10D9 /* a-tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B124ED7AD000EE10D9 /* a-tone.mp3 */; };
+		67E0C47624ED7AD100EE10D9 /* a-tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B124ED7AD000EE10D9 /* a-tone.mp3 */; };
+		67E0C47724ED7AD100EE10D9 /* Rammstein-Du-Hast.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B224ED7AD000EE10D9 /* Rammstein-Du-Hast.ogg */; };
+		67E0C47824ED7AD100EE10D9 /* Rammstein-Du-Hast.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B224ED7AD000EE10D9 /* Rammstein-Du-Hast.ogg */; };
+		67E0C47924ED7AD100EE10D9 /* bell-ringing-05.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B324ED7AD000EE10D9 /* bell-ringing-05.mp3 */; };
+		67E0C47A24ED7AD100EE10D9 /* bell-ringing-05.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B324ED7AD000EE10D9 /* bell-ringing-05.mp3 */; };
+		67E0C47B24ED7AD100EE10D9 /* Rammstein-Du-Hast.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B424ED7AD000EE10D9 /* Rammstein-Du-Hast.mp3 */; };
+		67E0C47C24ED7AD100EE10D9 /* Rammstein-Du-Hast.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B424ED7AD000EE10D9 /* Rammstein-Du-Hast.mp3 */; };
+		67E0C47D24ED7AD100EE10D9 /* sound_monkey.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B524ED7AD000EE10D9 /* sound_monkey.wav */; };
+		67E0C47E24ED7AD100EE10D9 /* sound_monkey.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B524ED7AD000EE10D9 /* sound_monkey.wav */; };
+		67E0C47F24ED7AD100EE10D9 /* sound_voices.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B624ED7AD000EE10D9 /* sound_voices.wav */; };
+		67E0C48024ED7AD100EE10D9 /* sound_voices.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B624ED7AD000EE10D9 /* sound_voices.wav */; };
+		67E0C48124ED7AD100EE10D9 /* a-tone.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B724ED7AD000EE10D9 /* a-tone.ogg */; };
+		67E0C48224ED7AD100EE10D9 /* a-tone.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B724ED7AD000EE10D9 /* a-tone.ogg */; };
+		67E0C48324ED7AD100EE10D9 /* map-color.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B924ED7AD000EE10D9 /* map-color.png */; };
+		67E0C48424ED7AD100EE10D9 /* map-color.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2B924ED7AD000EE10D9 /* map-color.png */; };
+		67E0C48524ED7AD100EE10D9 /* heightmap-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BA24ED7AD000EE10D9 /* heightmap-small.png */; };
+		67E0C48624ED7AD100EE10D9 /* heightmap-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BA24ED7AD000EE10D9 /* heightmap-small.png */; };
+		67E0C48724ED7AD100EE10D9 /* heightmap.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BB24ED7AD000EE10D9 /* heightmap.png */; };
+		67E0C48824ED7AD100EE10D9 /* heightmap.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BB24ED7AD000EE10D9 /* heightmap.png */; };
+		67E0C48924ED7AD100EE10D9 /* map_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BC24ED7AD000EE10D9 /* map_test.png */; };
+		67E0C48A24ED7AD100EE10D9 /* map_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BC24ED7AD000EE10D9 /* map_test.png */; };
+		67E0C48B24ED7AD100EE10D9 /* map_color_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BD24ED7AD000EE10D9 /* map_color_0.png */; };
+		67E0C48C24ED7AD100EE10D9 /* map_color_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BD24ED7AD000EE10D9 /* map_color_0.png */; };
+		67E0C48D24ED7AD100EE10D9 /* heightmap - copie.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BE24ED7AD000EE10D9 /* heightmap - copie.png */; };
+		67E0C48E24ED7AD100EE10D9 /* heightmap - copie.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BE24ED7AD000EE10D9 /* heightmap - copie.png */; };
+		67E0C48F24ED7AD100EE10D9 /* heightmap-small-bk.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BF24ED7AD000EE10D9 /* heightmap-small-bk.png */; };
+		67E0C49024ED7AD100EE10D9 /* heightmap-small-bk.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2BF24ED7AD000EE10D9 /* heightmap-small-bk.png */; };
+		67E0C49124ED7AD100EE10D9 /* level2.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C124ED7AD000EE10D9 /* level2.lua */; };
+		67E0C49224ED7AD100EE10D9 /* level2.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C124ED7AD000EE10D9 /* level2.lua */; };
+		67E0C49324ED7AD100EE10D9 /* level1.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C224ED7AD000EE10D9 /* level1.lua */; };
+		67E0C49424ED7AD100EE10D9 /* level1.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C224ED7AD000EE10D9 /* level1.lua */; };
+		67E0C49524ED7AD100EE10D9 /* game.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C324ED7AD000EE10D9 /* game.lua */; };
+		67E0C49624ED7AD100EE10D9 /* game.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C324ED7AD000EE10D9 /* game.lua */; };
+		67E0C49724ED7AD100EE10D9 /* unittest.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C424ED7AD000EE10D9 /* unittest.lua */; };
+		67E0C49824ED7AD100EE10D9 /* unittest.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C424ED7AD000EE10D9 /* unittest.lua */; };
+		67E0C49924ED7AD100EE10D9 /* spaceship.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C524ED7AD000EE10D9 /* spaceship.lua */; };
+		67E0C49A24ED7AD100EE10D9 /* spaceship.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C524ED7AD000EE10D9 /* spaceship.lua */; };
+		67E0C49B24ED7AD100EE10D9 /* main_window.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C624ED7AD000EE10D9 /* main_window.lua */; };
+		67E0C49C24ED7AD100EE10D9 /* main_window.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C624ED7AD000EE10D9 /* main_window.lua */; };
+		67E0C49D24ED7AD100EE10D9 /* moon.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C724ED7AD000EE10D9 /* moon.lua */; };
+		67E0C49E24ED7AD100EE10D9 /* moon.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C724ED7AD000EE10D9 /* moon.lua */; };
+		67E0C49F24ED7AD100EE10D9 /* test.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C824ED7AD000EE10D9 /* test.lua */; };
+		67E0C4A024ED7AD100EE10D9 /* test.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C824ED7AD000EE10D9 /* test.lua */; };
+		67E0C4A124ED7AD100EE10D9 /* APPLICATION_OPTION_WINDOW.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C924ED7AD000EE10D9 /* APPLICATION_OPTION_WINDOW.lua */; };
+		67E0C4A224ED7AD100EE10D9 /* APPLICATION_OPTION_WINDOW.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2C924ED7AD000EE10D9 /* APPLICATION_OPTION_WINDOW.lua */; };
+		67E0C4A324ED7AD100EE10D9 /* spaceship-touch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2CA24ED7AD000EE10D9 /* spaceship-touch.lua */; };
+		67E0C4A424ED7AD100EE10D9 /* spaceship-touch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2CA24ED7AD000EE10D9 /* spaceship-touch.lua */; };
+		67E0C4AF24ED7AD100EE10D9 /* stellar-light_32.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D224ED7AD000EE10D9 /* stellar-light_32.png */; };
+		67E0C4B024ED7AD100EE10D9 /* stellar-light_32.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D224ED7AD000EE10D9 /* stellar-light_32.png */; };
+		67E0C4B124ED7AD100EE10D9 /* Comic Sans MS Bold_12.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D324ED7AD000EE10D9 /* Comic Sans MS Bold_12.fxb */; };
+		67E0C4B224ED7AD100EE10D9 /* Comic Sans MS Bold_12.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D324ED7AD000EE10D9 /* Comic Sans MS Bold_12.fxb */; };
+		67E0C4B324ED7AD100EE10D9 /* arial_black_20.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D424ED7AD000EE10D9 /* arial_black_20.fxb */; };
+		67E0C4B424ED7AD100EE10D9 /* arial_black_20.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D424ED7AD000EE10D9 /* arial_black_20.fxb */; };
+		67E0C4B524ED7AD100EE10D9 /* Comic Sans MS Bold_1.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D524ED7AD000EE10D9 /* Comic Sans MS Bold_1.fxb */; };
+		67E0C4B624ED7AD100EE10D9 /* Comic Sans MS Bold_1.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D524ED7AD000EE10D9 /* Comic Sans MS Bold_1.fxb */; };
+		67E0C4B724ED7AD100EE10D9 /* arial_black_12.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D624ED7AD000EE10D9 /* arial_black_12.fxb */; };
+		67E0C4B824ED7AD100EE10D9 /* arial_black_12.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D624ED7AD000EE10D9 /* arial_black_12.fxb */; };
+		67E0C4B924ED7AD100EE10D9 /* stellar-light_32.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D724ED7AD000EE10D9 /* stellar-light_32.fxb */; };
+		67E0C4BA24ED7AD100EE10D9 /* stellar-light_32.fxb in Resources */ = {isa = PBXBuildFile; fileRef = 67E0C2D724ED7AD000EE10D9 /* stellar-light_32.fxb */; };
 		67E4BF5822DE717A00B77E29 /* METAL_SHADER_TYPES.h in Headers */ = {isa = PBXBuildFile; fileRef = 67E4BF5622DE717900B77E29 /* METAL_SHADER_TYPES.h */; };
 		67E7B4DD22E597CF00761CFB /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E7B4DB22E597CF00761CFB /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER.cpp */; };
 		67E7B4DE22E597CF00761CFB /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E7B4DB22E597CF00761CFB /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER.cpp */; };
@@ -4617,6 +4800,8 @@
 		67444EB52300134A006EAAD9 /* GRAPHIC_SHADER_METAL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GRAPHIC_SHADER_METAL.hpp; sourceTree = "<group>"; };
 		674CD43B24798BC300569A33 /* GRAPHIC_SHADER_GPU_BUFFER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_SHADER_GPU_BUFFER.cpp; sourceTree = "<group>"; };
 		674CD43C24798BC300569A33 /* GRAPHIC_SHADER_GPU_BUFFER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_SHADER_GPU_BUFFER.h; sourceTree = "<group>"; };
+		674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp; sourceTree = "<group>"; };
+		674F86CA252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAMEPLAY_COMPONENT_RENDER_MATERIAL.h; sourceTree = "<group>"; };
 		67544D7C234DC3FE0049A21E /* libftoa.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libftoa.a; sourceTree = "<group>"; };
 		67544D7D234DC3FE0049A21E /* libOpenCOLLADAFramework.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenCOLLADAFramework.a; sourceTree = "<group>"; };
 		67544D7E234DC3FE0049A21E /* libogg copy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libogg copy.a"; sourceTree = "<group>"; };
@@ -4670,6 +4855,91 @@
 		67D9873F23F1B8B80011D696 /* GRAPHIC_RENDERER_STATE_DESCRIPTOR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_RENDERER_STATE_DESCRIPTOR.h; sourceTree = "<group>"; };
 		67D9874B23F96C380011D696 /* GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.h; sourceTree = "<group>"; };
 		67D9874C23F96C380011D696 /* GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRAPHIC_MATERIAL_COLLECTION_RESOURCE_LOADER.cpp; sourceTree = "<group>"; };
+		67E0C20924ED7ACF00EE10D9 /* BitsUV2048-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BitsUV2048-normal.png"; sourceTree = "<group>"; };
+		67E0C20A24ED7ACF00EE10D9 /* EmptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EmptyStar.png; sourceTree = "<group>"; };
+		67E0C20B24ED7ACF00EE10D9 /* frame_gauge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame_gauge.png; sourceTree = "<group>"; };
+		67E0C20C24ED7ACF00EE10D9 /* Level1_picto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Level1_picto.png; sourceTree = "<group>"; };
+		67E0C20D24ED7ACF00EE10D9 /* map-color-sand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-color-sand.png"; sourceTree = "<group>"; };
+		67E0C20E24ED7ACF00EE10D9 /* map-color-grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-color-grass.png"; sourceTree = "<group>"; };
+		67E0C20F24ED7ACF00EE10D9 /* map-color-grass-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-color-grass-normal.png"; sourceTree = "<group>"; };
+		67E0C21024ED7ACF00EE10D9 /* map-color-rock-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-color-rock-normal.png"; sourceTree = "<group>"; };
+		67E0C21124ED7ACF00EE10D9 /* BitsUV2048-displacement.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BitsUV2048-displacement.png"; sourceTree = "<group>"; };
+		67E0C21224ED7ACF00EE10D9 /* water-0339-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "water-0339-normal.png"; sourceTree = "<group>"; };
+		67E0C21324ED7ACF00EE10D9 /* frameBorder3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frameBorder3.png; sourceTree = "<group>"; };
+		67E0C21424ED7ACF00EE10D9 /* moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moon.png; sourceTree = "<group>"; };
+		67E0C21524ED7ACF00EE10D9 /* VoidPirateMesh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VoidPirateMesh.png; sourceTree = "<group>"; };
+		67E0C21624ED7ACF00EE10D9 /* map-color-rock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-color-rock.png"; sourceTree = "<group>"; };
+		67E0C21724ED7ACF00EE10D9 /* smoke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke.png; sourceTree = "<group>"; };
+		67E0C21824ED7ACF00EE10D9 /* waves.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waves.png; sourceTree = "<group>"; };
+		67E0C21924ED7ACF00EE10D9 /* VoidPirateMesh-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VoidPirateMesh-normal.png"; sourceTree = "<group>"; };
+		67E0C21A24ED7ACF00EE10D9 /* moon-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon-normal.png"; sourceTree = "<group>"; };
+		67E0C21B24ED7ACF00EE10D9 /* high-resolution-space-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "high-resolution-space-1.png"; sourceTree = "<group>"; };
+		67E0C21C24ED7ACF00EE10D9 /* BitsUV2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BitsUV2048.png; sourceTree = "<group>"; };
+		67E0C21D24ED7ACF00EE10D9 /* water-0339.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "water-0339.png"; sourceTree = "<group>"; };
+		67E0C21E24ED7ACF00EE10D9 /* map-color-sand-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-color-sand-normal.png"; sourceTree = "<group>"; };
+		67E0C28F24ED7AD000EE10D9 /* Running.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Running.smx; sourceTree = "<group>"; };
+		67E0C29024ED7AD000EE10D9 /* Running.acbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Running.acbx; sourceTree = "<group>"; };
+		67E0C29124ED7AD000EE10D9 /* untitled.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = untitled.smx; sourceTree = "<group>"; };
+		67E0C29224ED7AD000EE10D9 /* turn.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = turn.smx; sourceTree = "<group>"; };
+		67E0C29324ED7AD000EE10D9 /* Ironman.acbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ironman.acbx; sourceTree = "<group>"; };
+		67E0C29424ED7AD000EE10D9 /* flat_ground.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = flat_ground.smx; sourceTree = "<group>"; };
+		67E0C29524ED7AD000EE10D9 /* moon.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = moon.smx; sourceTree = "<group>"; };
+		67E0C29624ED7AD000EE10D9 /* thor.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = thor.smx; sourceTree = "<group>"; };
+		67E0C29724ED7AD000EE10D9 /* thruster.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = thruster.smx; sourceTree = "<group>"; };
+		67E0C29824ED7AD000EE10D9 /* T_34_85.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = T_34_85.smx; sourceTree = "<group>"; };
+		67E0C29924ED7AD000EE10D9 /* skydome.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = skydome.smx; sourceTree = "<group>"; };
+		67E0C29A24ED7AD000EE10D9 /* cyl.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = cyl.smx; sourceTree = "<group>"; };
+		67E0C29B24ED7AD000EE10D9 /* flat_base.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = flat_base.smx; sourceTree = "<group>"; };
+		67E0C29C24ED7AD000EE10D9 /* Chris.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chris.smx; sourceTree = "<group>"; };
+		67E0C29D24ED7AD000EE10D9 /* cone.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = cone.smx; sourceTree = "<group>"; };
+		67E0C29E24ED7AD000EE10D9 /* Dying.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dying.smx; sourceTree = "<group>"; };
+		67E0C29F24ED7AD000EE10D9 /* Ironman.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ironman.smx; sourceTree = "<group>"; };
+		67E0C2A024ED7AD000EE10D9 /* capsule.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = capsule.smx; sourceTree = "<group>"; };
+		67E0C2A124ED7AD000EE10D9 /* Dying.acbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dying.acbx; sourceTree = "<group>"; };
+		67E0C2A224ED7AD000EE10D9 /* sphere.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = sphere.smx; sourceTree = "<group>"; };
+		67E0C2A324ED7AD000EE10D9 /* jump.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = jump.smx; sourceTree = "<group>"; };
+		67E0C2A424ED7AD000EE10D9 /* fighter.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = fighter.smx; sourceTree = "<group>"; };
+		67E0C2A524ED7AD000EE10D9 /* straight_track.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = straight_track.smx; sourceTree = "<group>"; };
+		67E0C2A624ED7AD000EE10D9 /* weapon1.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = weapon1.smx; sourceTree = "<group>"; };
+		67E0C2A724ED7AD000EE10D9 /* straight_track_scaled.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = straight_track_scaled.smx; sourceTree = "<group>"; };
+		67E0C2A824ED7AD000EE10D9 /* Chris.acbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chris.acbx; sourceTree = "<group>"; };
+		67E0C2A924ED7AD000EE10D9 /* spaceship.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = spaceship.smx; sourceTree = "<group>"; };
+		67E0C2AA24ED7AD000EE10D9 /* flat.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = flat.smx; sourceTree = "<group>"; };
+		67E0C2AB24ED7AD000EE10D9 /* checkpoint.smx */ = {isa = PBXFileReference; lastKnownFileType = file; path = checkpoint.smx; sourceTree = "<group>"; };
+		67E0C2AD24ED7AD000EE10D9 /* sound_engine.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_engine.wav; sourceTree = "<group>"; };
+		67E0C2AE24ED7AD000EE10D9 /* music-pulse.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "music-pulse.mp3"; sourceTree = "<group>"; };
+		67E0C2AF24ED7AD000EE10D9 /* sound_bubbles.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_bubbles.wav; sourceTree = "<group>"; };
+		67E0C2B024ED7AD000EE10D9 /* sound_electric.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_electric.wav; sourceTree = "<group>"; };
+		67E0C2B124ED7AD000EE10D9 /* a-tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "a-tone.mp3"; sourceTree = "<group>"; };
+		67E0C2B224ED7AD000EE10D9 /* Rammstein-Du-Hast.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rammstein-Du-Hast.ogg"; sourceTree = "<group>"; };
+		67E0C2B324ED7AD000EE10D9 /* bell-ringing-05.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bell-ringing-05.mp3"; sourceTree = "<group>"; };
+		67E0C2B424ED7AD000EE10D9 /* Rammstein-Du-Hast.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Rammstein-Du-Hast.mp3"; sourceTree = "<group>"; };
+		67E0C2B524ED7AD000EE10D9 /* sound_monkey.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_monkey.wav; sourceTree = "<group>"; };
+		67E0C2B624ED7AD000EE10D9 /* sound_voices.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_voices.wav; sourceTree = "<group>"; };
+		67E0C2B724ED7AD000EE10D9 /* a-tone.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a-tone.ogg"; sourceTree = "<group>"; };
+		67E0C2B924ED7AD000EE10D9 /* map-color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-color.png"; sourceTree = "<group>"; };
+		67E0C2BA24ED7AD000EE10D9 /* heightmap-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heightmap-small.png"; sourceTree = "<group>"; };
+		67E0C2BB24ED7AD000EE10D9 /* heightmap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heightmap.png; sourceTree = "<group>"; };
+		67E0C2BC24ED7AD000EE10D9 /* map_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_test.png; sourceTree = "<group>"; };
+		67E0C2BD24ED7AD000EE10D9 /* map_color_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_color_0.png; sourceTree = "<group>"; };
+		67E0C2BE24ED7AD000EE10D9 /* heightmap - copie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heightmap - copie.png"; sourceTree = "<group>"; };
+		67E0C2BF24ED7AD000EE10D9 /* heightmap-small-bk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heightmap-small-bk.png"; sourceTree = "<group>"; };
+		67E0C2C124ED7AD000EE10D9 /* level2.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.lua; sourceTree = "<group>"; };
+		67E0C2C224ED7AD000EE10D9 /* level1.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.lua; sourceTree = "<group>"; };
+		67E0C2C324ED7AD000EE10D9 /* game.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = game.lua; sourceTree = "<group>"; };
+		67E0C2C424ED7AD000EE10D9 /* unittest.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unittest.lua; sourceTree = "<group>"; };
+		67E0C2C524ED7AD000EE10D9 /* spaceship.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spaceship.lua; sourceTree = "<group>"; };
+		67E0C2C624ED7AD000EE10D9 /* main_window.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main_window.lua; sourceTree = "<group>"; };
+		67E0C2C724ED7AD000EE10D9 /* moon.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moon.lua; sourceTree = "<group>"; };
+		67E0C2C824ED7AD000EE10D9 /* test.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.lua; sourceTree = "<group>"; };
+		67E0C2C924ED7AD000EE10D9 /* APPLICATION_OPTION_WINDOW.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = APPLICATION_OPTION_WINDOW.lua; sourceTree = "<group>"; };
+		67E0C2CA24ED7AD000EE10D9 /* spaceship-touch.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "spaceship-touch.lua"; sourceTree = "<group>"; };
+		67E0C2D224ED7AD000EE10D9 /* stellar-light_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stellar-light_32.png"; sourceTree = "<group>"; };
+		67E0C2D324ED7AD000EE10D9 /* Comic Sans MS Bold_12.fxb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comic Sans MS Bold_12.fxb"; sourceTree = "<group>"; };
+		67E0C2D424ED7AD000EE10D9 /* arial_black_20.fxb */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial_black_20.fxb; sourceTree = "<group>"; };
+		67E0C2D524ED7AD000EE10D9 /* Comic Sans MS Bold_1.fxb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comic Sans MS Bold_1.fxb"; sourceTree = "<group>"; };
+		67E0C2D624ED7AD000EE10D9 /* arial_black_12.fxb */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial_black_12.fxb; sourceTree = "<group>"; };
+		67E0C2D724ED7AD000EE10D9 /* stellar-light_32.fxb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "stellar-light_32.fxb"; sourceTree = "<group>"; };
 		67E4BF5622DE717900B77E29 /* METAL_SHADER_TYPES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = METAL_SHADER_TYPES.h; sourceTree = "<group>"; };
 		67E4BF5722DE717A00B77E29 /* METAL_SHADER.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = METAL_SHADER.metal; sourceTree = "<group>"; };
 		67E7B4DB22E597CF00761CFB /* GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GAMEPLAY_COMPONENT_SYSTEM_RENDERER_BATCH_SHADER.cpp; sourceTree = "<group>"; };
@@ -5909,6 +6179,8 @@
 				3238F4451E90E80400838C62 /* GAMEPLAY_COMPONENT_RENDER.cpp */,
 				3238F4461E90E80400838C62 /* GAMEPLAY_COMPONENT_RENDER.h */,
 				3238F4471E90E80400838C62 /* GAMEPLAY_COMPONENT_TYPE.h */,
+				674F86C9252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp */,
+				674F86CA252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.h */,
 			);
 			path = COMPONENT;
 			sourceTree = "<group>";
@@ -6821,6 +7093,7 @@
 		32899BEA180D3DC8002AA472 = {
 			isa = PBXGroup;
 			children = (
+				67E0C20724ED7ACF00EE10D9 /* RESOURCES */,
 				5FD958F51FAE376C00FB9376 /* COMPILED_LIBS_IOS */,
 				67544D78234DC3FE0049A21E /* COMPILED_LIBS_OSX */,
 				5FB512631FBD67E50025AAAF /* GAME-ENGINE */,
@@ -7563,6 +7836,147 @@
 			path = STATE;
 			sourceTree = "<group>";
 		};
+		67E0C20724ED7ACF00EE10D9 /* RESOURCES */ = {
+			isa = PBXGroup;
+			children = (
+				67E0C20824ED7ACF00EE10D9 /* TEXTURES */,
+				67E0C28E24ED7ACF00EE10D9 /* MODELS */,
+				67E0C2AC24ED7AD000EE10D9 /* AUDIO */,
+				67E0C2B824ED7AD000EE10D9 /* MAP */,
+				67E0C2C024ED7AD000EE10D9 /* SCRIPTS */,
+				67E0C2D124ED7AD000EE10D9 /* FONTS */,
+			);
+			name = RESOURCES;
+			path = ../../RESOURCES;
+			sourceTree = "<group>";
+		};
+		67E0C20824ED7ACF00EE10D9 /* TEXTURES */ = {
+			isa = PBXGroup;
+			children = (
+				67E0C20924ED7ACF00EE10D9 /* BitsUV2048-normal.png */,
+				67E0C20A24ED7ACF00EE10D9 /* EmptyStar.png */,
+				67E0C20B24ED7ACF00EE10D9 /* frame_gauge.png */,
+				67E0C20C24ED7ACF00EE10D9 /* Level1_picto.png */,
+				67E0C20D24ED7ACF00EE10D9 /* map-color-sand.png */,
+				67E0C20E24ED7ACF00EE10D9 /* map-color-grass.png */,
+				67E0C20F24ED7ACF00EE10D9 /* map-color-grass-normal.png */,
+				67E0C21024ED7ACF00EE10D9 /* map-color-rock-normal.png */,
+				67E0C21124ED7ACF00EE10D9 /* BitsUV2048-displacement.png */,
+				67E0C21224ED7ACF00EE10D9 /* water-0339-normal.png */,
+				67E0C21324ED7ACF00EE10D9 /* frameBorder3.png */,
+				67E0C21424ED7ACF00EE10D9 /* moon.png */,
+				67E0C21524ED7ACF00EE10D9 /* VoidPirateMesh.png */,
+				67E0C21624ED7ACF00EE10D9 /* map-color-rock.png */,
+				67E0C21724ED7ACF00EE10D9 /* smoke.png */,
+				67E0C21824ED7ACF00EE10D9 /* waves.png */,
+				67E0C21924ED7ACF00EE10D9 /* VoidPirateMesh-normal.png */,
+				67E0C21A24ED7ACF00EE10D9 /* moon-normal.png */,
+				67E0C21B24ED7ACF00EE10D9 /* high-resolution-space-1.png */,
+				67E0C21C24ED7ACF00EE10D9 /* BitsUV2048.png */,
+				67E0C21D24ED7ACF00EE10D9 /* water-0339.png */,
+				67E0C21E24ED7ACF00EE10D9 /* map-color-sand-normal.png */,
+			);
+			path = TEXTURES;
+			sourceTree = "<group>";
+		};
+		67E0C28E24ED7ACF00EE10D9 /* MODELS */ = {
+			isa = PBXGroup;
+			children = (
+				67E0C28F24ED7AD000EE10D9 /* Running.smx */,
+				67E0C29024ED7AD000EE10D9 /* Running.acbx */,
+				67E0C29124ED7AD000EE10D9 /* untitled.smx */,
+				67E0C29224ED7AD000EE10D9 /* turn.smx */,
+				67E0C29324ED7AD000EE10D9 /* Ironman.acbx */,
+				67E0C29424ED7AD000EE10D9 /* flat_ground.smx */,
+				67E0C29524ED7AD000EE10D9 /* moon.smx */,
+				67E0C29624ED7AD000EE10D9 /* thor.smx */,
+				67E0C29724ED7AD000EE10D9 /* thruster.smx */,
+				67E0C29824ED7AD000EE10D9 /* T_34_85.smx */,
+				67E0C29924ED7AD000EE10D9 /* skydome.smx */,
+				67E0C29A24ED7AD000EE10D9 /* cyl.smx */,
+				67E0C29B24ED7AD000EE10D9 /* flat_base.smx */,
+				67E0C29C24ED7AD000EE10D9 /* Chris.smx */,
+				67E0C29D24ED7AD000EE10D9 /* cone.smx */,
+				67E0C29E24ED7AD000EE10D9 /* Dying.smx */,
+				67E0C29F24ED7AD000EE10D9 /* Ironman.smx */,
+				67E0C2A024ED7AD000EE10D9 /* capsule.smx */,
+				67E0C2A124ED7AD000EE10D9 /* Dying.acbx */,
+				67E0C2A224ED7AD000EE10D9 /* sphere.smx */,
+				67E0C2A324ED7AD000EE10D9 /* jump.smx */,
+				67E0C2A424ED7AD000EE10D9 /* fighter.smx */,
+				67E0C2A524ED7AD000EE10D9 /* straight_track.smx */,
+				67E0C2A624ED7AD000EE10D9 /* weapon1.smx */,
+				67E0C2A724ED7AD000EE10D9 /* straight_track_scaled.smx */,
+				67E0C2A824ED7AD000EE10D9 /* Chris.acbx */,
+				67E0C2A924ED7AD000EE10D9 /* spaceship.smx */,
+				67E0C2AA24ED7AD000EE10D9 /* flat.smx */,
+				67E0C2AB24ED7AD000EE10D9 /* checkpoint.smx */,
+			);
+			path = MODELS;
+			sourceTree = "<group>";
+		};
+		67E0C2AC24ED7AD000EE10D9 /* AUDIO */ = {
+			isa = PBXGroup;
+			children = (
+				67E0C2AD24ED7AD000EE10D9 /* sound_engine.wav */,
+				67E0C2AE24ED7AD000EE10D9 /* music-pulse.mp3 */,
+				67E0C2AF24ED7AD000EE10D9 /* sound_bubbles.wav */,
+				67E0C2B024ED7AD000EE10D9 /* sound_electric.wav */,
+				67E0C2B124ED7AD000EE10D9 /* a-tone.mp3 */,
+				67E0C2B224ED7AD000EE10D9 /* Rammstein-Du-Hast.ogg */,
+				67E0C2B324ED7AD000EE10D9 /* bell-ringing-05.mp3 */,
+				67E0C2B424ED7AD000EE10D9 /* Rammstein-Du-Hast.mp3 */,
+				67E0C2B524ED7AD000EE10D9 /* sound_monkey.wav */,
+				67E0C2B624ED7AD000EE10D9 /* sound_voices.wav */,
+				67E0C2B724ED7AD000EE10D9 /* a-tone.ogg */,
+			);
+			path = AUDIO;
+			sourceTree = "<group>";
+		};
+		67E0C2B824ED7AD000EE10D9 /* MAP */ = {
+			isa = PBXGroup;
+			children = (
+				67E0C2B924ED7AD000EE10D9 /* map-color.png */,
+				67E0C2BA24ED7AD000EE10D9 /* heightmap-small.png */,
+				67E0C2BB24ED7AD000EE10D9 /* heightmap.png */,
+				67E0C2BC24ED7AD000EE10D9 /* map_test.png */,
+				67E0C2BD24ED7AD000EE10D9 /* map_color_0.png */,
+				67E0C2BE24ED7AD000EE10D9 /* heightmap - copie.png */,
+				67E0C2BF24ED7AD000EE10D9 /* heightmap-small-bk.png */,
+			);
+			path = MAP;
+			sourceTree = "<group>";
+		};
+		67E0C2C024ED7AD000EE10D9 /* SCRIPTS */ = {
+			isa = PBXGroup;
+			children = (
+				67E0C2C124ED7AD000EE10D9 /* level2.lua */,
+				67E0C2C224ED7AD000EE10D9 /* level1.lua */,
+				67E0C2C324ED7AD000EE10D9 /* game.lua */,
+				67E0C2C424ED7AD000EE10D9 /* unittest.lua */,
+				67E0C2C524ED7AD000EE10D9 /* spaceship.lua */,
+				67E0C2C624ED7AD000EE10D9 /* main_window.lua */,
+				67E0C2C724ED7AD000EE10D9 /* moon.lua */,
+				67E0C2C824ED7AD000EE10D9 /* test.lua */,
+				67E0C2C924ED7AD000EE10D9 /* APPLICATION_OPTION_WINDOW.lua */,
+				67E0C2CA24ED7AD000EE10D9 /* spaceship-touch.lua */,
+			);
+			path = SCRIPTS;
+			sourceTree = "<group>";
+		};
+		67E0C2D124ED7AD000EE10D9 /* FONTS */ = {
+			isa = PBXGroup;
+			children = (
+				67E0C2D224ED7AD000EE10D9 /* stellar-light_32.png */,
+				67E0C2D324ED7AD000EE10D9 /* Comic Sans MS Bold_12.fxb */,
+				67E0C2D424ED7AD000EE10D9 /* arial_black_20.fxb */,
+				67E0C2D524ED7AD000EE10D9 /* Comic Sans MS Bold_1.fxb */,
+				67E0C2D624ED7AD000EE10D9 /* arial_black_12.fxb */,
+				67E0C2D724ED7AD000EE10D9 /* stellar-light_32.fxb */,
+			);
+			path = FONTS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -7572,6 +7986,7 @@
 			files = (
 				5FD5703220C6ED3D00B3ACCE /* GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR.h in Headers */,
 				5FF8B5961FC569410010A6BB /* GAMEPLAY_CHECKPOINT.h in Headers */,
+				674F86D6252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.h in Headers */,
 				67E4BF5822DE717A00B77E29 /* METAL_SHADER_TYPES.h in Headers */,
 				5FD9B7E01F52EBED00708B8D /* TOOL_BULLET_GL_DEBUGGER.h in Headers */,
 				5F177171208E6F8400720C7F /* AUDIO_LOADER_OSX.h in Headers */,
@@ -7609,6 +8024,7 @@
 			files = (
 				67FFA6C222EB253A00A2B7D9 /* GRAPHIC_RENDERER_TECHNIQUE_SPEEDBLUR.h in Headers */,
 				67FFA6C322EB253A00A2B7D9 /* GAMEPLAY_CHECKPOINT.h in Headers */,
+				674F86D7252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.h in Headers */,
 				67FFA6C422EB253A00A2B7D9 /* METAL_SHADER_TYPES.h in Headers */,
 				67FFA6C522EB253A00A2B7D9 /* TOOL_BULLET_GL_DEBUGGER.h in Headers */,
 				67FFA6C622EB253A00A2B7D9 /* AUDIO_LOADER_OSX.h in Headers */,
@@ -7842,7 +8258,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "Christophe Bernard";
 				TargetAttributes = {
 					321911DE1E5331B200CF29A2 = {
@@ -7947,7 +8363,92 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67E0C34F24ED7AD100EE10D9 /* moon-normal.png in Resources */,
+				67E0C45D24ED7AD100EE10D9 /* fighter.smx in Resources */,
+				67E0C34324ED7AD100EE10D9 /* moon.png in Resources */,
+				67E0C46B24ED7AD100EE10D9 /* checkpoint.smx in Resources */,
+				67E0C46D24ED7AD100EE10D9 /* sound_engine.wav in Resources */,
+				67E0C48924ED7AD100EE10D9 /* map_test.png in Resources */,
+				67E0C33F24ED7AD100EE10D9 /* water-0339-normal.png in Resources */,
+				67E0C44D24ED7AD100EE10D9 /* Chris.smx in Resources */,
+				67E0C44324ED7AD100EE10D9 /* thruster.smx in Resources */,
 				5FB512FC1FBD67E50025AAAF /* Images.xcassets in Resources */,
+				67E0C48B24ED7AD100EE10D9 /* map_color_0.png in Resources */,
+				67E0C44924ED7AD100EE10D9 /* cyl.smx in Resources */,
+				67E0C44524ED7AD100EE10D9 /* T_34_85.smx in Resources */,
+				67E0C4B724ED7AD100EE10D9 /* arial_black_12.fxb in Resources */,
+				67E0C47F24ED7AD100EE10D9 /* sound_voices.wav in Resources */,
+				67E0C47524ED7AD100EE10D9 /* a-tone.mp3 in Resources */,
+				67E0C44B24ED7AD100EE10D9 /* flat_base.smx in Resources */,
+				67E0C4B124ED7AD100EE10D9 /* Comic Sans MS Bold_12.fxb in Resources */,
+				67E0C4B524ED7AD100EE10D9 /* Comic Sans MS Bold_1.fxb in Resources */,
+				67E0C47324ED7AD100EE10D9 /* sound_electric.wav in Resources */,
+				67E0C33124ED7AD100EE10D9 /* frame_gauge.png in Resources */,
+				67E0C48524ED7AD100EE10D9 /* heightmap-small.png in Resources */,
+				67E0C47124ED7AD100EE10D9 /* sound_bubbles.wav in Resources */,
+				67E0C4A124ED7AD100EE10D9 /* APPLICATION_OPTION_WINDOW.lua in Resources */,
+				67E0C43924ED7AD100EE10D9 /* turn.smx in Resources */,
+				67E0C4B324ED7AD100EE10D9 /* arial_black_20.fxb in Resources */,
+				67E0C47724ED7AD100EE10D9 /* Rammstein-Du-Hast.ogg in Resources */,
+				67E0C43724ED7AD100EE10D9 /* untitled.smx in Resources */,
+				67E0C43F24ED7AD100EE10D9 /* moon.smx in Resources */,
+				67E0C4A324ED7AD100EE10D9 /* spaceship-touch.lua in Resources */,
+				67E0C34124ED7AD100EE10D9 /* frameBorder3.png in Resources */,
+				67E0C35124ED7AD100EE10D9 /* high-resolution-space-1.png in Resources */,
+				67E0C44724ED7AD100EE10D9 /* skydome.smx in Resources */,
+				67E0C48324ED7AD100EE10D9 /* map-color.png in Resources */,
+				67E0C47D24ED7AD100EE10D9 /* sound_monkey.wav in Resources */,
+				67E0C48F24ED7AD100EE10D9 /* heightmap-small-bk.png in Resources */,
+				67E0C46324ED7AD100EE10D9 /* straight_track_scaled.smx in Resources */,
+				67E0C33924ED7AD100EE10D9 /* map-color-grass-normal.png in Resources */,
+				67E0C35724ED7AD100EE10D9 /* map-color-sand-normal.png in Resources */,
+				67E0C49124ED7AD100EE10D9 /* level2.lua in Resources */,
+				67E0C35524ED7AD100EE10D9 /* water-0339.png in Resources */,
+				67E0C43D24ED7AD100EE10D9 /* flat_ground.smx in Resources */,
+				67E0C45B24ED7AD100EE10D9 /* jump.smx in Resources */,
+				67E0C49D24ED7AD100EE10D9 /* moon.lua in Resources */,
+				67E0C44124ED7AD100EE10D9 /* thor.smx in Resources */,
+				67E0C46924ED7AD100EE10D9 /* flat.smx in Resources */,
+				67E0C33D24ED7AD100EE10D9 /* BitsUV2048-displacement.png in Resources */,
+				67E0C49924ED7AD100EE10D9 /* spaceship.lua in Resources */,
+				67E0C35324ED7AD100EE10D9 /* BitsUV2048.png in Resources */,
+				67E0C34524ED7AD100EE10D9 /* VoidPirateMesh.png in Resources */,
+				67E0C46724ED7AD100EE10D9 /* spaceship.smx in Resources */,
+				67E0C46524ED7AD100EE10D9 /* Chris.acbx in Resources */,
+				67E0C45724ED7AD100EE10D9 /* Dying.acbx in Resources */,
+				67E0C45524ED7AD100EE10D9 /* capsule.smx in Resources */,
+				67E0C4AF24ED7AD100EE10D9 /* stellar-light_32.png in Resources */,
+				67E0C46F24ED7AD100EE10D9 /* music-pulse.mp3 in Resources */,
+				67E0C49F24ED7AD100EE10D9 /* test.lua in Resources */,
+				67E0C44F24ED7AD100EE10D9 /* cone.smx in Resources */,
+				67E0C49524ED7AD100EE10D9 /* game.lua in Resources */,
+				67E0C43524ED7AD100EE10D9 /* Running.acbx in Resources */,
+				67E0C33524ED7AD100EE10D9 /* map-color-sand.png in Resources */,
+				67E0C48724ED7AD100EE10D9 /* heightmap.png in Resources */,
+				67E0C48D24ED7AD100EE10D9 /* heightmap - copie.png in Resources */,
+				67E0C48124ED7AD100EE10D9 /* a-tone.ogg in Resources */,
+				67E0C43324ED7AD100EE10D9 /* Running.smx in Resources */,
+				67E0C49324ED7AD100EE10D9 /* level1.lua in Resources */,
+				67E0C45924ED7AD100EE10D9 /* sphere.smx in Resources */,
+				67E0C34724ED7AD100EE10D9 /* map-color-rock.png in Resources */,
+				67E0C4B924ED7AD100EE10D9 /* stellar-light_32.fxb in Resources */,
+				67E0C43B24ED7AD100EE10D9 /* Ironman.acbx in Resources */,
+				67E0C45F24ED7AD100EE10D9 /* straight_track.smx in Resources */,
+				67E0C49724ED7AD100EE10D9 /* unittest.lua in Resources */,
+				67E0C45324ED7AD100EE10D9 /* Ironman.smx in Resources */,
+				67E0C47924ED7AD100EE10D9 /* bell-ringing-05.mp3 in Resources */,
+				67E0C33724ED7AD100EE10D9 /* map-color-grass.png in Resources */,
+				67E0C47B24ED7AD100EE10D9 /* Rammstein-Du-Hast.mp3 in Resources */,
+				67E0C45124ED7AD100EE10D9 /* Dying.smx in Resources */,
+				67E0C34924ED7AD100EE10D9 /* smoke.png in Resources */,
+				67E0C34D24ED7AD100EE10D9 /* VoidPirateMesh-normal.png in Resources */,
+				67E0C33B24ED7AD100EE10D9 /* map-color-rock-normal.png in Resources */,
+				67E0C32D24ED7AD100EE10D9 /* BitsUV2048-normal.png in Resources */,
+				67E0C33324ED7AD100EE10D9 /* Level1_picto.png in Resources */,
+				67E0C32F24ED7AD100EE10D9 /* EmptyStar.png in Resources */,
+				67E0C34B24ED7AD100EE10D9 /* waves.png in Resources */,
+				67E0C46124ED7AD100EE10D9 /* weapon1.smx in Resources */,
+				67E0C49B24ED7AD100EE10D9 /* main_window.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7981,8 +8482,93 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67E0C4B424ED7AD100EE10D9 /* arial_black_20.fxb in Resources */,
+				67E0C33224ED7AD100EE10D9 /* frame_gauge.png in Resources */,
+				67E0C44C24ED7AD100EE10D9 /* flat_base.smx in Resources */,
+				67E0C4A424ED7AD100EE10D9 /* spaceship-touch.lua in Resources */,
+				67E0C33624ED7AD100EE10D9 /* map-color-sand.png in Resources */,
+				67E0C44E24ED7AD100EE10D9 /* Chris.smx in Resources */,
+				67E0C48C24ED7AD100EE10D9 /* map_color_0.png in Resources */,
+				67E0C45E24ED7AD100EE10D9 /* fighter.smx in Resources */,
+				67E0C43424ED7AD100EE10D9 /* Running.smx in Resources */,
+				67E0C49424ED7AD100EE10D9 /* level1.lua in Resources */,
+				67E0C34C24ED7AD100EE10D9 /* waves.png in Resources */,
+				67E0C44424ED7AD100EE10D9 /* thruster.smx in Resources */,
+				67E0C4A224ED7AD100EE10D9 /* APPLICATION_OPTION_WINDOW.lua in Resources */,
+				67E0C4B224ED7AD100EE10D9 /* Comic Sans MS Bold_12.fxb in Resources */,
+				67E0C45024ED7AD100EE10D9 /* cone.smx in Resources */,
+				67E0C34424ED7AD100EE10D9 /* moon.png in Resources */,
+				67E0C47624ED7AD100EE10D9 /* a-tone.mp3 in Resources */,
+				67E0C44624ED7AD100EE10D9 /* T_34_85.smx in Resources */,
+				67E0C4B024ED7AD100EE10D9 /* stellar-light_32.png in Resources */,
+				67E0C46E24ED7AD100EE10D9 /* sound_engine.wav in Resources */,
+				67E0C48A24ED7AD100EE10D9 /* map_test.png in Resources */,
+				67E0C46224ED7AD100EE10D9 /* weapon1.smx in Resources */,
+				67E0C46424ED7AD100EE10D9 /* straight_track_scaled.smx in Resources */,
+				67E0C48E24ED7AD100EE10D9 /* heightmap - copie.png in Resources */,
+				67E0C34224ED7AD100EE10D9 /* frameBorder3.png in Resources */,
+				67E0C44224ED7AD100EE10D9 /* thor.smx in Resources */,
+				67E0C48224ED7AD100EE10D9 /* a-tone.ogg in Resources */,
+				67E0C47224ED7AD100EE10D9 /* sound_bubbles.wav in Resources */,
+				67E0C33C24ED7AD100EE10D9 /* map-color-rock-normal.png in Resources */,
+				67E0C34E24ED7AD100EE10D9 /* VoidPirateMesh-normal.png in Resources */,
+				67E0C43C24ED7AD100EE10D9 /* Ironman.acbx in Resources */,
+				67E0C49C24ED7AD100EE10D9 /* main_window.lua in Resources */,
+				67E0C47424ED7AD100EE10D9 /* sound_electric.wav in Resources */,
+				67E0C48024ED7AD100EE10D9 /* sound_voices.wav in Resources */,
+				67E0C47E24ED7AD100EE10D9 /* sound_monkey.wav in Resources */,
+				67E0C49224ED7AD100EE10D9 /* level2.lua in Resources */,
 				67999EE2232BC09F00F977D0 /* Assets.xcassets in Resources */,
+				67E0C43624ED7AD100EE10D9 /* Running.acbx in Resources */,
+				67E0C48824ED7AD100EE10D9 /* heightmap.png in Resources */,
+				67E0C46824ED7AD100EE10D9 /* spaceship.smx in Resources */,
+				67E0C4BA24ED7AD100EE10D9 /* stellar-light_32.fxb in Resources */,
+				67E0C45824ED7AD100EE10D9 /* Dying.acbx in Resources */,
+				67E0C47824ED7AD100EE10D9 /* Rammstein-Du-Hast.ogg in Resources */,
+				67E0C35624ED7AD100EE10D9 /* water-0339.png in Resources */,
+				67E0C46024ED7AD100EE10D9 /* straight_track.smx in Resources */,
+				67E0C34624ED7AD100EE10D9 /* VoidPirateMesh.png in Resources */,
+				67E0C35024ED7AD100EE10D9 /* moon-normal.png in Resources */,
+				67E0C49824ED7AD100EE10D9 /* unittest.lua in Resources */,
+				67E0C33424ED7AD100EE10D9 /* Level1_picto.png in Resources */,
+				67E0C4B824ED7AD100EE10D9 /* arial_black_12.fxb in Resources */,
+				67E0C47A24ED7AD100EE10D9 /* bell-ringing-05.mp3 in Resources */,
+				67E0C33024ED7AD100EE10D9 /* EmptyStar.png in Resources */,
+				67E0C33E24ED7AD100EE10D9 /* BitsUV2048-displacement.png in Resources */,
+				67E0C45624ED7AD100EE10D9 /* capsule.smx in Resources */,
+				67E0C45A24ED7AD100EE10D9 /* sphere.smx in Resources */,
+				67E0C45424ED7AD100EE10D9 /* Ironman.smx in Resources */,
+				67E0C46A24ED7AD100EE10D9 /* flat.smx in Resources */,
+				67E0C44824ED7AD100EE10D9 /* skydome.smx in Resources */,
+				67E0C49A24ED7AD100EE10D9 /* spaceship.lua in Resources */,
+				67E0C49024ED7AD100EE10D9 /* heightmap-small-bk.png in Resources */,
+				67E0C33824ED7AD100EE10D9 /* map-color-grass.png in Resources */,
+				67E0C35824ED7AD100EE10D9 /* map-color-sand-normal.png in Resources */,
+				67E0C34A24ED7AD100EE10D9 /* smoke.png in Resources */,
+				67E0C34824ED7AD100EE10D9 /* map-color-rock.png in Resources */,
+				67E0C35424ED7AD100EE10D9 /* BitsUV2048.png in Resources */,
+				67E0C43A24ED7AD100EE10D9 /* turn.smx in Resources */,
+				67E0C47024ED7AD100EE10D9 /* music-pulse.mp3 in Resources */,
+				67E0C46624ED7AD100EE10D9 /* Chris.acbx in Resources */,
+				67E0C48624ED7AD100EE10D9 /* heightmap-small.png in Resources */,
+				67E0C43E24ED7AD100EE10D9 /* flat_ground.smx in Resources */,
+				67E0C49624ED7AD100EE10D9 /* game.lua in Resources */,
 				67999EE5232BC09F00F977D0 /* Main.storyboard in Resources */,
+				67E0C44024ED7AD100EE10D9 /* moon.smx in Resources */,
+				67E0C4B624ED7AD100EE10D9 /* Comic Sans MS Bold_1.fxb in Resources */,
+				67E0C45224ED7AD100EE10D9 /* Dying.smx in Resources */,
+				67E0C44A24ED7AD100EE10D9 /* cyl.smx in Resources */,
+				67E0C34024ED7AD100EE10D9 /* water-0339-normal.png in Resources */,
+				67E0C49E24ED7AD100EE10D9 /* moon.lua in Resources */,
+				67E0C43824ED7AD100EE10D9 /* untitled.smx in Resources */,
+				67E0C32E24ED7AD100EE10D9 /* BitsUV2048-normal.png in Resources */,
+				67E0C45C24ED7AD100EE10D9 /* jump.smx in Resources */,
+				67E0C48424ED7AD100EE10D9 /* map-color.png in Resources */,
+				67E0C33A24ED7AD100EE10D9 /* map-color-grass-normal.png in Resources */,
+				67E0C35224ED7AD100EE10D9 /* high-resolution-space-1.png in Resources */,
+				67E0C47C24ED7AD100EE10D9 /* Rammstein-Du-Hast.mp3 in Resources */,
+				67E0C4A024ED7AD100EE10D9 /* test.lua in Resources */,
+				67E0C46C24ED7AD100EE10D9 /* checkpoint.smx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8021,7 +8607,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncp -R /Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES /Users/c.bernard/Library/Containers/cbe.MetalTestOSX/Data/RESOURCES/ \n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#cp -R /Users/c.bernard/DEVELOP/PROJECTS/game-engine/RESOURCES /Users/c.bernard/Library/Containers/cbe.MetalTestOSX/Data/RESOURCES/ \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -8179,6 +8765,7 @@
 				3238F6D71E90E80500838C62 /* CORE_PARALLEL_LOCK_POSIX.cpp in Sources */,
 				675DA94424E6B921008CB34E /* GRAPHIC_MESH_ANIMATION_COLLECTION_RESOURCE_LOADER.cpp in Sources */,
 				3238F7F91E90E80600838C62 /* GRAPHIC_OBJECT_RESOURCE_LOADER.cpp in Sources */,
+				674F86CF252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				3289D31E1E912A9000354443 /* main.m in Sources */,
 				3238F90C1E90E80600838C62 /* GRAPHIC_UI_FRAME.cpp in Sources */,
 				5FD5702520C6ECFE00B3ACCE /* GRAPHIC_RENDERER_TECHNIQUE_BLOOM.cpp in Sources */,
@@ -8413,6 +9000,7 @@
 				3238F9151E90E80600838C62 /* GRAPHIC_UI_PLACEMENT.cpp in Sources */,
 				3238F84D1E90E80600838C62 /* GRAPHIC_PARTICLE_RENDERER_OPENGL.cpp in Sources */,
 				5F0AB9FD222D17EB001D0D06 /* SERVICE_HTTP_REQUEST.cpp in Sources */,
+				674F86CD252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				3238F6BD1E90E80500838C62 /* CORE_MEMORY.cpp in Sources */,
 				324E6DDB1EC4B8DC00751F52 /* GAMEPLAY_COMPONENT_LIGHT.cpp in Sources */,
 				5F037A1B2219C27E004C80E5 /* GteTetrahedronKey.cpp in Sources */,
@@ -8854,6 +9442,7 @@
 				3238FA131E90E80700838C62 /* GteLogToFile.cpp in Sources */,
 				5F5EC1721EF9DA3B00F4939D /* GAMEPLAY_COMPONENT_ENTITY_PROXY.cpp in Sources */,
 				3238F7E81E90E80500838C62 /* GRAPHIC_MESH_SURFACE_RENDER_MODE.cpp in Sources */,
+				674F86CC252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				3238F7C51E90E80500838C62 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
 				3238F91E1E90E80600838C62 /* GRAPHIC_UI_SYSTEM.cpp in Sources */,
 				324E6DDA1EC4B8DC00751F52 /* GAMEPLAY_COMPONENT_LIGHT.cpp in Sources */,
@@ -9085,6 +9674,7 @@
 				5FB513191FBD67E50025AAAF /* TestClass.cpp in Sources */,
 				3238F8E01E90E80600838C62 /* GRAPHIC_TEXTURE_INFO.cpp in Sources */,
 				5FAE70E31ECF45050065A844 /* GRAPHIC_MATERIAL_RESOURCE_LOADER.cpp in Sources */,
+				674F86CB252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				5F7987C11FA8C0CD0062EB1F /* TOOLS_DEBUG_DRAW.cpp in Sources */,
 				5FB5130E1FBD67E50025AAAF /* APPLICATION_HUD_PRESENTER.cpp in Sources */,
 				3238F9BC1E90E80700838C62 /* SERVICE_NETWORK_LOBBY.cpp in Sources */,
@@ -9251,6 +9841,7 @@
 				3238F6C51E90E80500838C62 /* CORE_HELPERS_OBSERVABLE.cpp in Sources */,
 				3238F6571E90E80500838C62 /* CORE_DATA_LOADER.cpp in Sources */,
 				3238F81E1E90E80600838C62 /* GRAPHIC_OBJECT_SHAPE_PLAN.cpp in Sources */,
+				674F86CE252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				3238F6841E90E80500838C62 /* CORE_HELPERS_UNIQUE.cpp in Sources */,
 				5F848DCA20EB50C80000BB5B /* GRAPHIC_RENDER_TECHNIQUE_SSAO.cpp in Sources */,
 				3238F88C1E90E80600838C62 /* GRAPHIC_SHADER_BIND.cpp in Sources */,
@@ -9581,6 +10172,7 @@
 				5F2FB8352030E42100289949 /* GAMEPLAY_ACTION_COMMAND_LOAD_GAME.cpp in Sources */,
 				5F92DAFC1F16415E00292A99 /* GAMEPLAY_COMPONENT_ENTITY.cpp in Sources */,
 				5F92DAFD1F16415E00292A99 /* GAMEPLAY_COMPONENT_MANAGER.cpp in Sources */,
+				674F86D0252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				5F92DAFE1F16415E00292A99 /* GAMEPLAY_COMPONENT_PHYSICS.cpp in Sources */,
 				5F92DAFF1F16415E00292A99 /* GAMEPLAY_COMPONENT_POSITION.cpp in Sources */,
 				5F92DB001F16415E00292A99 /* GAMEPLAY_COMPONENT_SCRIPT.cpp in Sources */,
@@ -9932,6 +10524,7 @@
 				5FD958871FAE370300FB9376 /* GRAPHIC_SHADER.cpp in Sources */,
 				5FA7FB612013586100C7A829 /* GRAPHIC_UI_GRID_ADAPTER.cpp in Sources */,
 				675DA93924E6B515008CB34E /* GRAPHIC_MESH_ANIMATION_COLLECTION.cpp in Sources */,
+				674F86D1252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				5FD958881FAE370300FB9376 /* GRAPHIC_SHADER_ATTRIBUTE.cpp in Sources */,
 				5F17714A208E6F8400720C7F /* AUDIO_BANK_SOUND_LOAD_OPTION.cpp in Sources */,
 				5FD958891FAE370300FB9376 /* GRAPHIC_SHADER_BIND.cpp in Sources */,
@@ -10163,6 +10756,7 @@
 				670475B6237B469400CBB498 /* GRAPHIC_MATERIAL_COLLECTION.cpp in Sources */,
 				670475B7237B469400CBB498 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
 				67D073252479A38F00F840CF /* GRAPHIC_SHADER_GPU_BUFFER.cpp in Sources */,
+				674F86D4252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				670475B8237B469400CBB498 /* GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp in Sources */,
 				670475B9237B469400CBB498 /* GRAPHIC_MESH_ANIMATION_JOINT.cpp in Sources */,
 				670475BA237B469400CBB498 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
@@ -10443,6 +11037,7 @@
 				671D7AE323AEDD24005D4E22 /* GRAPHIC_MESH_ANIMATION.cpp in Sources */,
 				671D7AE423AEDD24005D4E22 /* GRAPHIC_MESH_ANIMATION_CONTROLLER.cpp in Sources */,
 				67D073262479A39000F840CF /* GRAPHIC_SHADER_GPU_BUFFER.cpp in Sources */,
+				674F86D5252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				67D9236023AEE35200CDD5C8 /* GRAPHIC_WINDOW_OSX.mm in Sources */,
 				671D7AE523AEDD24005D4E22 /* GRAPHIC_MESH_ANIMATION_JOINT.cpp in Sources */,
 				671D7AE623AEDD24005D4E22 /* GRAPHIC_MESH_ANIMATION_MODE.cpp in Sources */,
@@ -10844,6 +11439,7 @@
 				67999FDA232BC27800F977D0 /* SERVICE_NETWORK_SYSTEM.cpp in Sources */,
 				67999FDB232BC27800F977D0 /* PHYSICS_UTILS.cpp in Sources */,
 				67999FDC232BC27800F977D0 /* TOOLS_LOCALE_SYSTEM.cpp in Sources */,
+				674F86D3252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				67999FDD232BC27800F977D0 /* TOOLS_DEBUG_DRAW.cpp in Sources */,
 				67999FDE232BC27800F977D0 /* TOOL_BULLET_GL_DEBUGGER.cpp in Sources */,
 				67999FDF232BC27800F977D0 /* ASSET.cpp in Sources */,
@@ -10902,6 +11498,7 @@
 				67FFA5A722EB253A00A2B7D9 /* CORE_HELPERS_SCALAR.cpp in Sources */,
 				67FFA5A822EB253A00A2B7D9 /* CORE_HELPERS_STATIC.cpp in Sources */,
 				67FFA5A922EB253A00A2B7D9 /* CORE_HELPERS_UNIQUE.cpp in Sources */,
+				674F86D2252252980073BD48 /* GAMEPLAY_COMPONENT_RENDER_MATERIAL.cpp in Sources */,
 				67FFA5AA22EB253A00A2B7D9 /* CORE_MATH_MATRIX.cpp in Sources */,
 				67FFA5AC22EB253A00A2B7D9 /* CORE_MATH_POSE.cpp in Sources */,
 				67FFA5AD22EB253A00A2B7D9 /* CORE_MATH_QUATERNION.cpp in Sources */,
@@ -11188,7 +11785,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -11206,32 +11803,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/lib\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = ASSET_EDITOR/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -11243,7 +11815,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cbe.ASSET-EDITOR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = "/Users/c.bernard/DEVELOP/STATIC/bullet3/src/**";
 			};
 			name = Debug;
 		};
@@ -11253,7 +11824,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -11271,32 +11842,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/lib\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = ASSET_EDITOR/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -11308,7 +11854,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cbe.ASSET-EDITOR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = "/Users/c.bernard/DEVELOP/STATIC/bullet3/src/**";
 			};
 			name = Release;
 		};
@@ -11318,6 +11863,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -11339,32 +11885,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/lib\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -11382,6 +11903,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -11402,32 +11924,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/lib\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -11464,18 +11961,7 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/STATIC/lua-5.2.2/src",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/lib\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = gamePOC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -11510,18 +11996,7 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/STATIC/lua-5.2.2/src",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/lib\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = gamePOC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -11696,6 +12171,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = /Users/c.bernard/DEVELOP/STATIC/COMPILED_LIBS_OSX/lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -11714,18 +12190,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/lib\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE/GAME-ENGINE-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -11744,6 +12209,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = /Users/c.bernard/DEVELOP/STATIC/COMPILED_LIBS_OSX/lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -11762,18 +12228,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/lib\"",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE/GAME-ENGINE-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -11811,32 +12266,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-Tests/GAME-ENGINE-Tests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -11847,7 +12277,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "afelio.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				USER_HEADER_SEARCH_PATHS = "/Users/c.bernard/DEVELOP/STATIC/bullet3/src/**";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -11874,32 +12304,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = "GAME-ENGINE-Tests/GAME-ENGINE-Tests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -11910,7 +12315,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "afelio.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				USER_HEADER_SEARCH_PATHS = "/Users/c.bernard/DEVELOP/STATIC/bullet3/src/**";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -11943,32 +12348,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12009,32 +12389,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12164,6 +12519,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -12173,6 +12530,8 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 3Y2A34ZM8Z;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					__PLATFORM_IOS__,
@@ -12229,6 +12588,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -12238,6 +12599,8 @@
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 3Y2A34ZM8Z;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12290,6 +12653,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = Opengl4TestOSX/Opengl4TestOSX.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -12369,6 +12733,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = Opengl4TestOSX/Opengl4TestOSX.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -12436,7 +12801,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = MetalTestOSX/MetalTestOSX.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -12462,32 +12827,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = MetalTestOSX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -12518,7 +12858,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = MetalTestOSX/MetalTestOSX.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -12544,32 +12884,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				INFOPLIST_FILE = MetalTestOSX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -12617,32 +12932,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12683,32 +12973,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/,
-					"/Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS",
-					/Users/c.bernard/DEVELOP/STATIC/libpng/made,
-					/Users/c.bernard/DEVELOP/STATIC/libpng,
-					"/Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8",
-					"/Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include",
-					/Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include,
-					"/Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\"",
-					"\"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/**",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\"",
-					"\"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
+					"\"$(PROJECTS_DIRECTORY)/game-engine/CODE/** /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include /Users/c.bernard/DEVELOP/STATIC/boost_1_54_0/ /Users/c.bernard/DEVELOP/PROJECTS/game-engine/LIBRARY/BUILDERS/LUA/HEADERS /Users/c.bernard/DEVELOP/STATIC/libpng/made /Users/c.bernard/DEVELOP/STATIC/libpng /Users/c.bernard/DEVELOP/STATIC/zlib-1.2.8 /Users/c.bernard/DEVELOP/STATIC/libuv-1.10.1/include /Users/c.bernard/DEVELOP/STATIC/GeometricTools/GTEngine/Include /Users/c.bernard/DEVELOP/STATIC/freetype-2.6.2/include \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADABaseUtils/include\" \"$(PROJECTS_DIRECTORY)/game-engine/LIBRARY/BUILDERS/OPENCOLLADA/HEADERS/COLLADAFramework\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADABaseUtils/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADASaxFrameworkLoader/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/OPENCOLLADA/COLLADAFramework/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Collision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Common\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Geometry\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/Bullet3Dynamics\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletDynamics\"/** \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletSoftBody\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision\" \"$(SRCROOT)/../../LIBRARY/COMMON/BULLET/src/BulletCollision/CollisionShapes\" \"$(SRCROOT)/../../LIBRARY/COMMON/OGG/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/VORBIS/include\" \"$(SRCROOT)/../../LIBRARY/COMMON/CURL/include\"/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

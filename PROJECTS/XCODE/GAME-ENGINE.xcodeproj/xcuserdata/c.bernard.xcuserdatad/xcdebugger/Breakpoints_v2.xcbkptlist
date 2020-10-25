@@ -3,4 +3,117 @@
    uuid = "89AF4F25-7BAA-4FDF-B3A8-6CC5097D35AE"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74CCA3D2-C44B-4FE2-94DB-9C500F62B5F5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MetalTestOSX/METAL_TEST.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "METAL_TEST::Initialize()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "185E1227-1E8F-4D26-AC86-A255050DA2CD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../CODE/RESOURCE/RESOURCE_CONTAINER.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "RESOURCE_CONTAINER::Load(path)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BD0B3FBF-7939-4F23-9C3D-1099A0D8C7EB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../CODE/RESOURCE/RESOURCE_CONTAINER.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "RESOURCE_CONTAINER::Load(path)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F463C0B-0EE9-415E-898E-D89F5F9E4166"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../CODE/CORE/FACTORY/CORE_HELPERS_FACTORY.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "__InternalRegisterFactoryClass(classType, creatable)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6F463C0B-0EE9-415E-898E-D89F5F9E4166 - bba7a16c17f88eea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FACTORY&lt;CORE_ABSTRACT_PROGRAM_FACTORY, CORE_ABSTRACT_PROGRAM_RUNTIME_TYPE&gt;::__InternalRegisterFactoryClass(CORE_ABSTRACT_PROGRAM_RUNTIME_TYPE, CORE_ABSTRACT_PROGRAM_FACTORY const*)"
+                  moduleName = "MetalTestOSX"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c.bernard/DEVELOP/PROJECTS/game-engine/CODE/CORE/FACTORY/CORE_HELPERS_FACTORY.h"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "22">
+               </Location>
+               <Location
+                  uuid = "6F463C0B-0EE9-415E-898E-D89F5F9E4166 - 1a8358fe62637cb8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FACTORY&lt;BASE_RESOURCE, RESOURCE_TYPE&gt;::__InternalRegisterFactoryClass(RESOURCE_TYPE, BASE_RESOURCE const*)"
+                  moduleName = "MetalTestOSX"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c.bernard/DEVELOP/PROJECTS/game-engine/CODE/CORE/FACTORY/CORE_HELPERS_FACTORY.h"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "22">
+               </Location>
+               <Location
+                  uuid = "6F463C0B-0EE9-415E-898E-D89F5F9E4166 - 42f1ea9303f159e6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FACTORY&lt;GAMEPLAY_ACTION, GAMEPLAY_ACTION_TYPE&gt;::__InternalRegisterFactoryClass(GAMEPLAY_ACTION_TYPE, GAMEPLAY_ACTION const*)"
+                  moduleName = "MetalTestOSX"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/c.bernard/DEVELOP/PROJECTS/game-engine/CODE/CORE/FACTORY/CORE_HELPERS_FACTORY.h"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

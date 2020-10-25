@@ -59,10 +59,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(METAL_TEST, CORE_APPLICATION)
 
 private:
 
-    GRAPHIC_OBJECT * CreateAnimatedObject( const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path );
-    void CreateStaticObject( GRAPHIC_OBJECT * object, GRAPHIC_SHADER_EFFECT::PTR effect, GRAPHIC_MATERIAL * mat );
-    void CreateGround();
-    void CreateWater();
+    GRAPHIC_OBJECT * CreateAnimatedObject( bool create_object, const CORE_FILESYSTEM_PATH & object_path, const CORE_FILESYSTEM_PATH & animation_path );
+    void CreateStaticObject( bool create_object, GRAPHIC_OBJECT * object, GRAPHIC_SHADER_EFFECT::PTR effect, GRAPHIC_MATERIAL * mat );
+    void CreateGround( bool create_object);
+    void CreateWater( bool create_object );
     GRAPHIC_OBJECT_SHAPE_HEIGHT_MAP::PTR Set3DHeighFieldObject( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
     void SetEffect( GAMEPLAY_COMPONENT_ENTITY::PTR entity, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier );
 
@@ -113,6 +113,8 @@ private:
     GRAPHIC_SHADER_LIGHT
         * AmbientLight,
         * DirectionalLight;
+    RESOURCE_CONTAINER
+        Container;
 
 XS_CLASS_END
 

@@ -30,7 +30,7 @@ typedef struct {
     float
         SpecularIntensity,
         Shininess;
-} InnerMaterial;
+} GRAPHIC_MATERIAL_POCO;
 
 XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
 
@@ -56,8 +56,10 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MATERIAL, GR_M_ANCESTOR_TYPE )
     inline int GetTextureCount() const { return TextureTable.size(); }
     int GetFirstDepthTextureIndex() const;
 
-    InnerMaterial
+    GRAPHIC_MATERIAL_POCO
         InnerMaterial;
+    GRAPHIC_MATERIAL_POCO *
+        OverrideMaterialPtr;
 
 private:
 

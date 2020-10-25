@@ -24,6 +24,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(RESOURCE_CONTAINER, RESOURCE_PROXY)
     XS_DEFINE_SERIALIZABLE
 
     void AddResource(RESOURCE_PROXY * resource, const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier);
+
     void RemoveResource(const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier);
 
     void Save( const CORE_FILESYSTEM_PATH & path );
@@ -31,6 +32,19 @@ XS_CLASS_BEGIN_WITH_ANCESTOR(RESOURCE_CONTAINER, RESOURCE_PROXY)
 
     void Reload();
     void Unload();
+
+    RESOURCE_PROXY * AddResource( BASE_RESOURCE * resource ) {
+        
+        assert( resource->GetIdentifier() != CORE_HELPERS_UNIQUE_IDENTIFIER() );
+        
+        RESOURCE_PROXY * proxy = new RESOURCE_PROXY;
+        proxy->SetResource( resource );
+        proxy->SetType( (RESOURCE_TYPE) resource->FactoryGetType() );
+        
+        ResourceMap[resource->GetIdentifier()] = proxy;
+        
+        return proxy;
+    }
 
     std::map< CORE_HELPERS_UNIQUE_IDENTIFIER, RESOURCE_PROXY * > & GetResourceMap() { return ResourceMap; }
 

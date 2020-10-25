@@ -28,6 +28,23 @@ GAMEPLAY_COMPONENT_SYSTEM_RENDERER::~GAMEPLAY_COMPONENT_SYSTEM_RENDERER() {
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Initialize() {
     
+    /*std::vector< GAMEPLAY_COMPONENT_ENTITY_HANDLE >::iterator it = EntitiesTable.begin();
+    
+    while (it != EntitiesTable.end() ) {
+    
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((int*) GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEcsBasePointer() ) + it->GetOffset());
+        AddEntity( entity );
+        it++;
+    }*/
+    
+    std::for_each(
+                  EntitiesTable.begin(),
+                  EntitiesTable.end(),
+                  [this](GAMEPLAY_COMPONENT_ENTITY_HANDLE & item)
+    {
+        auto entity = ( GAMEPLAY_COMPONENT_ENTITY *) (((int*) GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEcsBasePointer() ) + item.GetOffset());
+        Tree.Insert( entity );
+    });
 }
 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Update( void * ecs_base_pointer, float time_step ) {
@@ -37,8 +54,8 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::Update( void * ecs_base_pointer, float 
 void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::RenderFrontToBack( GAMEPLAY_COMPONENT_AABB_NODE * node ) {
     
     GAMEPLAY_COMPONENT_RENDER * renderable = node->GetEntity()->GetComponent< GAMEPLAY_COMPONENT_RENDER >( CustomRenderComponentIndex );
-    GAMEPLAY_COMPONENT_POSITION * located = node->GetEntity()->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
-    GAMEPLAY_COMPONENT_ANIMATION * animation = node->GetEntity()->GetComponent<GAMEPLAY_COMPONENT_ANIMATION>();
+    GAMEPLAY_COMPONENT_POSITION * located = node->GetEntity()->GetComponent< GAMEPLAY_COMPONENT_POSITION >();
+    GAMEPLAY_COMPONENT_ANIMATION * animation = node->GetEntity()->GetComponent< GAMEPLAY_COMPONENT_ANIMATION >();
     
     GAMEPLAY_COMPONENT_ENTITY_HANDLE handle = node->GetEntity()->GetParentHandle();
     
@@ -46,10 +63,11 @@ void GAMEPLAY_COMPONENT_SYSTEM_RENDERER::RenderFrontToBack( GAMEPLAY_COMPONENT_A
         renderable->GetObject().GetResource<GRAPHIC_OBJECT>()->SetAnimationController( &animation->GetAnimation() );
     }
     
-        if ( handle.IsValid() ) {
+    if ( handle.IsValid() ) {
+    
+        GAMEPLAY_COMPONENT_POSITION * parent_located = GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity( handle )->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
         
-            GAMEPLAY_COMPONENT_POSITION * parent_located = GAMEPLAY_COMPONENT_MANAGER::GetInstance().GetEntity( handle )->GetComponent<GAMEPLAY_COMPONENT_POSITION>();
-            renderable->Render( *Renderer, located, parent_located );
+        renderable->Render( *Renderer, located, parent_located );
     }
     else {
         

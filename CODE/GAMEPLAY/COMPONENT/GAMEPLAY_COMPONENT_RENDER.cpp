@@ -19,7 +19,8 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER() :
     ShadowMapEffectProxy(),
     MaterialProxy(),
     AABBNode( 0.1f ),
-    ScaleFactor( 1.0f ) {
+    ScaleFactor( 1.0f ),
+    DiffuseOverride( CORE_COLOR_White ) {
     
 }
 
@@ -29,7 +30,8 @@ GAMEPLAY_COMPONENT_RENDER::GAMEPLAY_COMPONENT_RENDER( const GAMEPLAY_COMPONENT_R
     ShadowMapEffectProxy( other.ShadowMapEffectProxy ),
     MaterialProxy( other.MaterialProxy ),
     AABBNode( other.AABBNode ),
-    ScaleFactor( other.ScaleFactor ) {
+    ScaleFactor( other.ScaleFactor ),
+    DiffuseOverride( other.DiffuseOverride ) {
     
 }
 

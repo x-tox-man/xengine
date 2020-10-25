@@ -46,7 +46,7 @@ XS_CLASS_BEGIN_WITH_COPY( GRAPHIC_MESH_ANIMATION_JOINT )
     void SetSkinningPose( CORE_MATH_POSE & skinning_pose ) { InterpolatedPose.CopyFrom( skinning_pose ); }
 
     void YieldFloatMatrixBufferForIndex( GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX matrix_index, CORE_MATH_MATRIX & matrix);
-    void YieldPoseForTime( const int pose_index, CORE_MATH_POSE & pose );
+    void YieldPoseForTime( GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX matrix_index, CORE_MATH_POSE & pose );
 
     inline void SetSkeletonJoint( GRAPHIC_MESH_SKELETON_JOINT::PTR joint ) { SkeletonJoint =  joint; }
     inline GRAPHIC_MESH_SKELETON_JOINT::PTR GetSkeletonJoint() { return SkeletonJoint; }

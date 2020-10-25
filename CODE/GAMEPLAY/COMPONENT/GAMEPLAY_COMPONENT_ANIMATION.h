@@ -23,7 +23,12 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_ANIMATION )
 
     void Update( float time_step, GRAPHIC_MESH_SKELETON_JOINT * skeleton );
 
-    inline void SetAnimationResource( const RESOURCE_PROXY & resource ) { AnimationCollectionProxy = resource; }
+    inline void SetAnimationResource( const RESOURCE_PROXY & resource ) {
+        AnimationCollectionProxy = resource;
+        Animation.SetMeshAnimationTable( AnimationCollectionProxy.GetResource< GRAPHIC_MESH_ANIMATION_COLLECTION >() );
+        Animation.Initialize();
+    }
+
     inline void SetAnimation( const GRAPHIC_MESH_ANIMATION_CONTROLLER & animation ) { Animation = animation; }
     inline GRAPHIC_MESH_ANIMATION_CONTROLLER & GetAnimation() { return Animation; }
     inline void SetSpeed( float speed ) { Speed = speed; }

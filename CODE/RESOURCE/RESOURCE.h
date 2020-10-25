@@ -30,8 +30,8 @@ public:
         
     }
     
-    virtual BASE_RESOURCE * Load( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) { abort; return NULL; }
-    virtual void Save( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) {}
+    virtual BASE_RESOURCE * Load( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) { abort(); return NULL; }
+    virtual void Save( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier, CORE_DATA_STREAM & stream ) { abort(); }
     
     inline const CORE_HELPERS_UNIQUE_IDENTIFIER & GetIdentifier() const { return Identifier; }
     inline void SetIdentifier( const CORE_HELPERS_UNIQUE_IDENTIFIER & identifier ) { Identifier = identifier; }

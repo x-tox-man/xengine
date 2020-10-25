@@ -34,7 +34,8 @@ CORE_HELPERS_FACTORY_Element( GRAPHIC_MATERIAL_COLLECTION, BASE_RESOURCE, RESOUR
 
     void SetMaterialForName( GRAPHIC_MATERIAL::PTR material, const char * name );
     GRAPHIC_MATERIAL::PTR GetMaterialForName( const char * name );
-    GRAPHIC_MATERIAL::PTR GetDefaultMaterial() { return MaterialTable.begin()->second; }
+    inline GRAPHIC_MATERIAL::PTR GetDefaultMaterial() { return MaterialTable.begin()->second; }
+    inline std::map< std::string, GRAPHIC_MATERIAL::PTR > & GetMaterialTable() { return MaterialTable; }
 
     void Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, const char * material_name );
 

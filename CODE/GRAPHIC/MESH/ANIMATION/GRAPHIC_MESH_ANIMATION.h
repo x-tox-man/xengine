@@ -59,6 +59,7 @@ XS_CLASS_BEGIN_WITH_ANCESTOR_WITH_COPY( GRAPHIC_MESH_ANIMATION, GR_A_GRAPHIC_ANI
 
 private :
 
+    void SetupWorldPose( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float ** ptr_index, CORE_MATH_POSE & pose );
     void SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float ** ptr_index, CORE_MATH_MATRIX & world_matrix );
 
     std::vector<GRAPHIC_MESH_ANIMATION_JOINT::PTR>

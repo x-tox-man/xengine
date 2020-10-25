@@ -284,17 +284,27 @@ void GRAPHIC_SYSTEM::EnableMtlPipelineState( void * pipeline_state ) {
     [_renderEncoder setRenderPipelineState:pps];
 }
 
-void GRAPHIC_SYSTEM::EnableMtlUniforms( void * buffer, uint32_t offset, uint8_t index ) {
+void GRAPHIC_SYSTEM::EnableMtlUniforms( void * buffer, uint32_t offset, uint32_t size ) {
     
-    id<MTLBuffer> uniform_buffer = (__bridge id<MTLBuffer>) buffer;
+    //id<MTLBuffer> uniform_buffer = (__bridge id<MTLBuffer>) buffer;
     
-    [_renderEncoder setVertexBuffer:uniform_buffer
+    void* ptr =(((uint8_t*)  buffer) + offset);
+    
+#if DEBUG
+    assert( size > 0 && size <= 4096);
+#endif
+    [_renderEncoder setVertexBytes:buffer length:size atIndex:1];
+    [_renderEncoder setFragmentBytes:buffer length:size atIndex:1];
+    
+    /*[_renderEncoder setVertexBuffer:uniform_buffer
                             offset:offset
-                           atIndex:1];
+                           atIndex:1];*/
+    
+    
 
-    [_renderEncoder setFragmentBuffer:uniform_buffer
+    /*[_renderEncoder setFragmentBuffer:uniform_buffer
                               offset:offset
-                             atIndex:1];
+                             atIndex:1];*/
 }
 
 void * GRAPHIC_SYSTEM::GetMtlBufferPointer( void * buffer ) {
@@ -686,7 +696,7 @@ void GRAPHIC_SYSTEM::ApplyLightSpot( const GRAPHIC_SHADER_LIGHT & light, GRAPHIC
 
 void GRAPHIC_SYSTEM::ApplyMaterial( const GRAPHIC_MATERIAL & material ) {
     
-    [_renderEncoder setFragmentBytes:( void* ) &material.InnerMaterial length:( 2* sizeof( InnerMaterial ) ) atIndex:MaterialUniforms];
+    [_renderEncoder setFragmentBytes:( void* ) &material.InnerMaterial length:( 2* sizeof( GRAPHIC_MATERIAL_POCO ) ) atIndex:MaterialUniforms];
 }
 
 void GRAPHIC_SYSTEM::ApplyShaderAttributeVector( GRAPHIC_RENDERER & renderer, const float * vector, GRAPHIC_SHADER_ATTRIBUTE & attribute ) {
@@ -704,17 +714,13 @@ void GRAPHIC_SYSTEM::ApplyShaderAttributeVectorTable( GRAPHIC_RENDERER & rendere
     
     if ( attribute.AttributeOffset > 0 ) {
         
-        //void *addr = GetMtlBufferPointer( attribute.GPUBuffer );
-        
-        //memcpy( (void*)((float*)addr + (size/4 * renderer.BufferPassIndex)), (void*) vector, size );
-        
         [_renderEncoder setVertexBuffer:(__bridge id <MTLBuffer>) attribute.GPUBuffer.GetGPUBufferPointer()
-             offset:(size * renderer.BufferPassIndex)
-            atIndex:attribute.AttributeOffset];
+                                 offset:(size * 0)//TODO: renderer.BufferPassIndex)
+                                atIndex:attribute.AttributeOffset];
         
         [_renderEncoder setFragmentBuffer:(__bridge id <MTLBuffer>) attribute.GPUBuffer.GetGPUBufferPointer()
-         offset:(size * renderer.BufferPassIndex)
-        atIndex:attribute.AttributeOffset];
+                                   offset:(size * 0)//TODO: renderer.BufferPassIndex)
+                                  atIndex:attribute.AttributeOffset];
     }
 }
 
@@ -754,6 +760,8 @@ void GRAPHIC_SYSTEM::ApplyBuffers( GRAPHIC_RENDERER & renderer, GRAPHIC_MESH & m
     
     {
         unsigned int count = (unsigned int) (mesh.GetIndexCoreBuffer()->GetSize() / sizeof( unsigned int ) );
+        
+        EnableMtlUniforms( renderer.GetOffsetPointer( 0 ), 0, 544 );//renderer.CurrentOffset );
         
         [_renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
                                   indexCount:count

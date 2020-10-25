@@ -55,9 +55,13 @@ XS_CLASS_BEGIN( GAMEPLAY_COMPONENT_RENDER )
     void Reset( GAMEPLAY_COMPONENT_ENTITY * entity ) {
         
         ObjectProxy.SetResource( NULL );
+        ObjectProxy.GetResource< GRAPHIC_OBJECT >();
         EffectProxy.SetResource( NULL );
+        EffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
         ShadowMapEffectProxy.SetResource( NULL );
+        ShadowMapEffectProxy.GetResource< GRAPHIC_SHADER_EFFECT >();
         MaterialProxy.SetResource( NULL );
+        MaterialProxy.GetResource< GRAPHIC_MATERIAL_COLLECTION >();
         AABBNode.Left = NULL;
         AABBNode.Right = NULL;
         AABBNode.ZOrderLeft = NULL;
@@ -75,10 +79,16 @@ private :
         EffectProxy,    // The Effect
         ShadowMapEffectProxy,
         MaterialProxy;  // The material used by Effect
+
+    //TODO: Local Data For material and shader should be preserved?
+        //structure here is faulty, must refine
+
     GAMEPLAY_COMPONENT_AABB_NODE
         AABBNode;
     float
         ScaleFactor;
+    CORE_HELPERS_COLOR
+        DiffuseOverride;
 
 XS_CLASS_END
 

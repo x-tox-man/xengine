@@ -36,6 +36,7 @@ GRAPHIC_MATERIAL::GRAPHIC_MATERIAL() :
     GR_M_ANCESTOR_TYPE(),
     Name(),
     InnerMaterial(),
+    OverrideMaterialPtr( &InnerMaterial ),
     TextureTable(),
     DepthIsEnabled( false ),
     CubeMapIsEnabled( false ) {
@@ -100,11 +101,14 @@ GRAPHIC_MATERIAL::~GRAPHIC_MATERIAL() {
 
 void GRAPHIC_MATERIAL::Apply( GRAPHIC_RENDERER & renderer, GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader ) {
     
-    GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
-    
-    if ( renderer.IsColorEnabled() && color_attribute.AttributeIndex != 0 ) {
+    {
+        //TODO: refactor
+        GRAPHIC_SHADER_ATTRIBUTE & color_attribute = shader->GetShaderAttribute( GRAPHIC_SHADER_PROGRAM::GeometryColor );
         
-        GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 4,  &InnerMaterial.Diffuse[0] )
+        if ( renderer.IsColorEnabled() && color_attribute.AttributeIndex != 0 ) {
+            
+            GRAPHIC_SYSTEM_ApplyVector( color_attribute.AttributeIndex, 4,  &InnerMaterial.Diffuse[0] )
+        }
     }
     
     if ( renderer.IsTexturingEnabled() ) {
@@ -212,6 +216,7 @@ void GRAPHIC_MATERIAL::ApplyLights( GRAPHIC_SHADER_PROGRAM_DATA_PROXY * shader, 
 
 void GRAPHIC_MATERIAL::Discard( GRAPHIC_RENDERER & renderer ) {
     
+    OverrideMaterialPtr = &InnerMaterial;
 }
 
 void GRAPHIC_MATERIAL::TryAndFillFor( const char * file_path, const char * extension, const CORE_HELPERS_IDENTIFIER & identifier ) {

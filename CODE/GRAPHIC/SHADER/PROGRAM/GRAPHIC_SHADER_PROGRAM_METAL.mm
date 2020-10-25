@@ -289,7 +289,7 @@ void GRAPHIC_SHADER_PROGRAM::Enable( GRAPHIC_RENDERER & renderer ) {
     
     GRAPHIC_SYSTEM::EnableMtlPipelineState( GetMtlCachedPipelineState( renderer ) );
     
-    GRAPHIC_SYSTEM::EnableMtlUniforms( renderer.MetalUniformBuffer, renderer.UniformOffset, -1 );
+    //GRAPHIC_SYSTEM::EnableMtlUniforms( renderer.GetOffsetPointer( 0 ), renderer.CurrentOffset, -1 );
 }
 
 void GRAPHIC_SHADER_PROGRAM::Disable() {

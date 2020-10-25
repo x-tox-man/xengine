@@ -55,6 +55,76 @@ GRAPHIC_MESH_ANIMATION::GRAPHIC_MESH_ANIMATION( const GRAPHIC_MESH_ANIMATION & o
     abort();
 }
 
+void GRAPHIC_MESH_ANIMATION::SetupWorldPose( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float ** ptr_index, CORE_MATH_POSE & pose ) {
+
+    CORE_MATH_MATRIX
+        final_world_mat;
+    CORE_MATH_POSE
+        current_pose,
+        final_world_pose;
+    
+    if ( JointTable[ skeletton->Index ] != NULL ) {
+        
+        assert( strcmp( skeletton->GetName(), JointTable[ skeletton->Index ]->GetName() )  == 0 );
+        JointTable[ skeletton->Index ]->YieldPoseForTime( animation_step_index, pose );
+    }
+    
+    final_world_pose = pose * current_pose;
+    final_world_pose.ToMatrix( final_world_mat );
+    
+    memcpy( (void*) ((float *) (*ptr_index) + skeletton->Index * 16), final_world_mat.GetRow(0), 64);
+
+    for ( int i = 0; i < skeletton->ChildCount; i++ ) {
+        
+        SetupWorldPose( &skeletton->ChildJointTable[i], animation_step_index, ptr_index, final_world_pose );
+    }
+}
+
+void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float * matrix_buffer ) {
+    
+    float * matrix_ptr = NULL;
+    CORE_MATH_MATRIX mat, identity;
+    CORE_MATH_POSE pose;
+    
+    if ( JointTable[ skeletton->Index ] != NULL ) {
+        
+#if DEBUG
+        assert( strcmp( skeletton->GetName(), JointTable[ skeletton->Index ]->GetName() )  == 0 );
+#endif
+        
+        //JointTable[ skeletton->Index ]->YieldFloatMatrixBufferForIndex( animation_step_index, mat );
+        JointTable[ skeletton->Index ]->YieldPoseForTime( animation_step_index, pose );
+        pose.ToMatrix( mat );
+        matrix_ptr = mat.GetRow(0);
+    }
+    
+    //Init
+    for ( int i = 0; i < JointTable.size(); i++ ) {
+        
+        memcpy( (void*) (matrix_buffer + i *16), (void*) identity.GetRow( 0 ), 64 );
+    }
+    
+    if ( matrix_ptr != NULL ) {
+        memcpy( (void*) ((float*) matrix_buffer + skeletton->Index * 16), (void*) matrix_ptr, 64 );
+    }
+    
+    //Compute the skeletton World matrices to temp buffer
+    for ( int i = 0; i < skeletton->ChildCount; i++ ) {
+        
+        SetupWorldMatrix( &skeletton->ChildJointTable[i], animation_step_index, &matrix_buffer, mat );
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+
+
 void GRAPHIC_MESH_ANIMATION::SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float ** ptr_index, CORE_MATH_MATRIX & world_matrix ) {
 
     CORE_MATH_MATRIX
@@ -74,34 +144,5 @@ void GRAPHIC_MESH_ANIMATION::SetupWorldMatrix( GRAPHIC_MESH_SKELETON_JOINT * ske
     for ( int i = 0; i < skeletton->ChildCount; i++ ) {
         
         SetupWorldMatrix( &skeletton->ChildJointTable[i], animation_step_index, ptr_index, final_world_mat );
-    }
-}
-
-void GRAPHIC_MESH_ANIMATION::ComputeSkinningMatrixTableForFrameIndex( GRAPHIC_MESH_SKELETON_JOINT * skeletton, GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX animation_step_index, float * matrix_buffer ) {
-    
-    float * matrix_ptr = NULL;
-    CORE_MATH_MATRIX mat, identity;
-    
-    if ( JointTable[ skeletton->Index ] != NULL ) {
-        
-        assert( strcmp( skeletton->GetName(), JointTable[ skeletton->Index ]->GetName() )  == 0 );
-        JointTable[ skeletton->Index ]->YieldFloatMatrixBufferForIndex( animation_step_index, mat );
-        matrix_ptr = mat.GetRow(0);
-    }
-    
-    //Init
-    for ( int i = 0; i < JointTable.size(); i++ ) {
-        
-        memcpy( (void*) (matrix_buffer + i *16), (void*) identity.GetRow( 0 ), 64 );
-    }
-    
-    if ( matrix_ptr != NULL ) {
-        memcpy( (void*) ((float*) matrix_buffer + skeletton->Index * 16), (void*) matrix_ptr, 64 );
-    }
-    
-    //Compute the skeletton World matrices to temp buffer
-    for ( int i = 0; i < skeletton->ChildCount; i++ ) {
-        
-        SetupWorldMatrix( &skeletton->ChildJointTable[i], animation_step_index, &matrix_buffer, mat );
     }
 }

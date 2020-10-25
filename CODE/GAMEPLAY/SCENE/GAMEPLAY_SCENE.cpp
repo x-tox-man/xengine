@@ -173,6 +173,7 @@ void GAMEPLAY_SCENE::LoadFrom( const CORE_FILESYSTEM_PATH & path ) {
     while (update_table_iterator != UpdatableSystemTable.end() ) {
         
         (*update_table_iterator)->LoadFromStream( stream );
+        (*update_table_iterator)->Initialize();
         
         update_table_iterator++;
     }
@@ -180,6 +181,7 @@ void GAMEPLAY_SCENE::LoadFrom( const CORE_FILESYSTEM_PATH & path ) {
     while (render_table_iterator != RenderableSystemTable.end() ) {
         
         (*render_table_iterator)->LoadFromStream( stream );
+        (*render_table_iterator)->Initialize();
         
         render_table_iterator++;
     }

@@ -89,9 +89,9 @@ void GRAPHIC_MESH_ANIMATION_CONTROLLER::Update( const float time, GRAPHIC_MESH_S
     }
     
     //TODO: Average animations?
-    for ( size_t i = 0; i < MeshAnimationTable.GetAnimationTable().size(); i++ ) {
+    /*for ( size_t i = 0; i < MeshAnimationTable.GetAnimationTable().size(); i++ ) {
         
-    }
+    }*/
 }
 
 GRAPHIC_MESH_ANIMATION_CONTROLLER_FRAME_INDEX GRAPHIC_MESH_ANIMATION_CONTROLLER::GetFrameIndex() {
